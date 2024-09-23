@@ -1,0 +1,244 @@
+.main-content {
+    padding: 20px;
+    position: relative;
+    height: 140vh;
+    margin-left: 270px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.saperate{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.icon {
+    color: #0288d1;
+    font-size: 18px;
+    cursor: pointer;
+}
+.checked {
+    color: #0288d1;
+}
+
+.report-container {
+    background-color: #b3e5fc;
+    border: 5px solid #00D0FF;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 650px;
+    width: 90%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.report-container:hover {
+    transform: translateY(-10px);
+}
+
+.report-container h1 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 20px;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.report-container .table-container {
+    max-height: 300px;
+    overflow: hidden; /* Hide the scrollbar initially */
+    position: relative;
+}
+
+.report-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+.report-container thead {
+    background-color: #0288d1;
+    color: #ffffff;
+}
+
+.report-container th, .report-container td {
+    padding: 15px;
+    text-align: center;
+    font-size: 15px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.report-container th {
+    background-color: #0288d1;
+    color: #ffffff;
+    font-weight: 800;
+    white-space: nowrap;
+    padding: 10px;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.report-container tbody {
+    display: block;
+    max-height: 300px;
+    overflow-y: hidden; /* Initially hidden */
+    overflow-x: hidden;
+}
+
+.report-container tbody:hover {
+    overflow-y: auto; /* Enable scrolling on hover */
+}
+
+.report-container tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.report-container td {
+    color: #333;
+    background-color: #f7f9fc;
+}
+
+.report-container tr:nth-child(even) td {
+    background-color: #eaf3fa;
+}
+
+.report-container tr:hover td {
+    background-color: #d1ecf5;
+}
+
+/* Custom scrollbar for Webkit browsers */
+.report-container tbody::-webkit-scrollbar {
+    width: 8px;
+    background: transparent; /* Initially hidden */
+}
+
+.report-container tbody:hover::-webkit-scrollbar {
+    background: transparent;
+}
+
+.report-container tbody::-webkit-scrollbar-thumb {
+    background-color: #60a6ec;
+    border-radius: 8px;
+}
+
+.report-container tbody::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.custom-checkbox input {
+    display: none; /* Hide the default checkbox */
+}
+
+.checkmark {
+    width: 20px; /* Increase the size as needed */
+    height: 20px; /* Increase the size as needed */
+    background-color: #eee; /* Background color when unchecked */
+    border: 2px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    display: inline-block;
+    position: relative;
+}
+
+.custom-checkbox input:checked + .checkmark {
+    background-color: #0288d1; /* Background color when checked */
+    border-color: #0288d1; /* Border color when checked */
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked + .checkmark::after {
+    display: block;
+}
+
+.checkmark::after {
+    left: 8px; /* Adjust as needed */
+    top: 4px; /* Adjust as needed */
+    width: 6px; /* Width of the checkmark */
+    height: 12px; /* Height of the checkmark */
+    border: solid white; /* Color of the checkmark */
+    border-width: 0 2px 2px 0; /* Create a checkmark shape */
+    transform: rotate(45deg); /* Rotate to form a checkmark */
+}
+
+.pickup-container {
+    background-color: rgba(127, 127, 127, 0.09);
+    border: 5px solid #4a90e2;
+    border-radius: 10px;
+    padding: 20px;
+    width: 350px;
+    height: 420px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+    margin-top: 18px;
+}
+.pickup-container:hover {
+    transform: translateY(-10px);
+}
+.pickup-container::before {
+    content: '';
+    background-size: cover;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    z-index: -1;
+}
+.pickup-container h1 {
+    font-size: 40px;
+    margin-top: 50px !important;
+    color: #000;
+    margin: 0;
+    white-space: nowrap;
+    margin-bottom: 40px;
+}
+
+.pickup-container p {
+    font-size: 20px;
+    color: #007bff;
+    margin: 10px 10px;
+}
+
+.pickup-container .button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px 0;
+    border: 2px solid #004099;
+}
+.pickup-container .button:hover {
+    transform: scale(1.1);
+}
+.details p{
+    font-size: 20px;
+    color: black;
+    text-align: left;
+}

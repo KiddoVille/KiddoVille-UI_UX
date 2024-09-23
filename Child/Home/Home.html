@@ -1,0 +1,375 @@
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Home.css">
+    <link rel="stylesheet" href="../Main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2 style="margin-top: 10px;">Dashboard</h2>
+            <ul>
+                <li class="selected">
+                    <a href="./Home.html">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Attendance/Attendance.html">
+                        <i class="fas fa-user-check"></i> Attendance
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../History/history.html">
+                        <i class="fas fa-history"></i> History
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Report/report.html">
+                        <i class="fa fa-user-shield" aria-hidden="true"></i> Child Reports
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Reservation/reservation.html">
+                        <i class="fas fa-calendar-check"></i> Reservation
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Meal/meal.html">
+                        <i class="fas fa-utensils"></i> Meal plan
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Events/event.html">
+                        <i class="fas fa-calendar-alt"></i> Event
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Package/package.html">
+                        <i class="fas fa-box"></i> Package
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../funzone/Home/home.html">
+                        <i class="fas fa-gamepad"></i> Fun Zone
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Payment/payment.html">
+                        <i class="fas fa-credit-card"></i> Payments
+                    </a>
+                </li>
+            </ul>
+            <hr style="margin-top: 40px;">
+            <div class="help">
+                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> Help</a>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <div class="name">
+                    <h1>Hey Thilina</h1>
+                    <p style="color: white">Let’s do some productive activities today</p>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class="fas fa-search"></i>
+                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
+                </div>
+                <div class="bell-con" style="cursor: pointer;">
+                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
+                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                        <ul>
+                            <li><p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="message-numbers"><p> 2</p></div>
+                <div class="profile">
+                    <button class="profilebtn">
+                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                    </button>                    
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <h3><img src="../../Assets/attendance.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;"> Attendance</h3>
+                    <p style="margin-bottom: 3px; color: #D3D3D3;">12/30</p>
+                    <span style="color: #00FFFF;font-weight: 50;">40%</span>
+                </div>
+                <div class="stat">
+                    <h3><img src="../../Assets/tasks.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Tasks</h3>
+                    <p style="margin-bottom: 3px; color: #D3D3D3;" >6/10</p>
+                    <span style="color: #00FFFF;font-weight: 50;">60%</span>
+                </div>
+                <div class="stat">
+                    <h3><img src="../../Assets/subject.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Subjects</h3>
+                    <p style="margin-bottom: 3px; color: #D3D3D3;" >12/30</p>
+                    <span style="color: #00FFFF;font-weight: 50;">40%</span>
+                </div>
+            </div>
+            <div class="activity-schedule">
+                <h2 style="color: #233E8D;">Activity Schedule</h2>
+                <div class="filters">
+                    <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                    <select  style="margin-right: 325px; width: 200px">
+                        <option value="">Select age group</option>
+                        <option value="2 - 5">2 - 5</option>
+                        <option value="5 - 7">5 - 7</option>
+                        <option value="7 - 9">7 - 9</option>
+                        <option value="9 - 11">9 - 11</option>
+                    </select>
+                    <div>
+                        <img src="../../Assets/ABC.png" alt="yunus" style="width:auto;height:100px;margin-top:-70px;margin-left:-200px">
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="color: #233E8D;background-color:transparent">Activity</th>
+                            <th style="color: #233E8D;background-color:transparent">Start Time</th>
+                            <th style="color: #233E8D;background-color:transparent">End Time</th>
+                            <!-- <th style="color: #233E8D;background-color:transparent">Actions</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Breakfast</td>
+                            <td>8.00 AM</td>
+                            <td>9.00 AM</td>
+                            <!-- <td>
+                                <a href="#"> <i class="fas fa-edit"></i></a>
+                                <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                             </td> -->
+                        </tr>
+                        <tr>
+                            <td>Creative Play</td>
+                            <td>9.00 AM</td>
+                            <td>10.00 AM</td>
+                            <!-- <td>
+                                <a href="#"> <i class="fas fa-edit"></i></a>
+                                <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                             </td> -->
+                        </tr>
+                        <tr>
+                            <td>Creative Play</td>
+                            <td>10.00 AM</td>
+                            <td>11.00 AM</td>
+                            <!-- <td>
+                                <a href="#"> <i class="fas fa-edit"></i></a>
+                                <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                             </td> -->
+                        </tr>
+                        <tr>
+                            <td>Story Time</td>
+                            <td>11.00 AM</td>
+                            <td>12.00 PM</td>
+                            <!-- <td>
+                                <a href="#"> <i class="fas fa-edit"></i></a>
+                                <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                             </td> -->
+                        </tr>
+                        <tr>
+                            <td>Lunch</td>
+                            <td>12.00 PM</td>
+                            <td>1.00 PM</td>
+                            <!-- <td>
+                                <a href="#"> <i class="fas fa-edit"></i></a>
+                                <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                             </td> -->
+                        </tr>
+                        <tr>
+                            <td>Bed Time</td>
+                            <td>1.00 PM</td>
+                            <td>2.00 PM</td>
+                            <!-- <td>
+                                <a href="#"> <i class="fas fa-edit"></i></a>
+                                <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                             </td> -->
+                        </tr>
+                        <tr>
+                            <td>Basic Learning Activities</td>
+                            <td>2.00 PM</td>
+                            <td>3.00 PM</td>
+                            <!-- <td>
+                                <a href="#"> <i class="fas fa-edit"></i></a>
+                                <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                             </td> -->
+                        </tr>
+                        <tr>
+                            <td>Tea Time</td>
+                            <td>3.00 PM</td>
+                            <td>4.00 PM</td>
+                            <!-- <td>
+                               <a href="#"> <i class="fas fa-edit"></i></a>
+                               <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td>Outdoor Play</td>
+                            <td>4.00 PM</td>
+                            <td>5.00 PM</td>
+                            <!-- <td>
+                                <a href="#"> <i class="fas fa-edit"></i></a>
+                                <a href="#"> <i class="fas fa-trash" style="margin-left: 10px; color: red;"></i></a>
+                             </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="right-sidebar">
+            <div class="box">
+                <h3>Purchased packages</h3>
+                <p>Package: Basic care plan</p>
+                <p>Price: Rs. 12000</p>
+                <a href="#" class="button">Package</a>
+                <a href="../Package/package.html" class="button">View all</a>
+            </div>
+            <div class="box">
+                <h3>Schedule child pickup</h3>
+                <a href="#" class="button">Schedule</a>
+            </div>
+            <div class="box">
+                <h3>Schedule visits</h3>
+                <a href="#" class="button">Schedule</a>
+            </div>
+            <div class="box">
+                <h3>Schedule meeting</h3>
+                <a href="#" class="button">Schedule</a>
+            </div>
+            <div class="chatbox">
+                <a href="../Messager/Message.html">
+                    <img src="../../Assets/message.svg" class="fas fa-comment-dots" style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
+                </a> 
+                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;"><p> 2</p></div>               
+            </div>
+        </div>
+         <!-- onclick function -->
+         <div class="profile-card" id="profileCard">
+            <img src="../../Assets/back-arrow-2.svg" alt="back-arrow" style="width: 24px; height: 24px; fill:#233E8D !important; cursor: pointer" class="back";>
+            <img alt="Profile picture of Thilina Perera" height="100" src="../../Assets/profilePic.png" width="100" class="profile"/>
+            <h2>
+             Thilina Perera
+            </h2>
+            <p>
+             Student    RS0110657
+            </p>
+            <button class="profile-button">
+             Profile
+            </button>
+            <button class="secondary-button">
+             Parent profile
+            </button>
+            <button class="secondary-button">
+             Guardian profile
+            </button>
+            <button class="secondary-button">
+             Medications
+            </button>
+            <button class="logout-button">
+                LogOut
+            </button>
+           </div>
+    </div>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const profileCard = document.querySelector('.profile-card');
+    const profileButton = document.querySelector('.profilebtn');
+    const backButton = document.querySelector('.profile-card .back');
+    const chatbox = document.querySelector('.chatbox');
+    const messageDropdown = document.getElementById('messageDropdown');
+    const bellIcon = document.querySelector('.bell-icon');
+
+    let profileCardTimeout;
+    let messageDropdownTimeout;
+
+    function toggleMessageDropdown() {
+        if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+            messageDropdown.style.display = "block";
+        } else {
+            messageDropdown.style.display = "none";
+        }
+    }
+
+    function toggleBellDropdown() {
+        if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+            messageDropdown.style.display = "block";
+        } else {
+            messageDropdown.style.display = "none";
+        }
+    }
+
+    bellIcon.addEventListener('click', function(event) {
+        event.stopPropagation();
+        toggleBellDropdown();
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!messageDropdown.contains(event.target) && !bellIcon.contains(event.target)) {
+            messageDropdown.style.display = "none";
+        }
+    });
+
+    function showProfileCard() {
+        profileCard.classList.add('show');
+        profileButton.classList.add('active');
+    }
+
+    function hideProfileCard() {
+        profileCard.classList.remove('show');
+        profileButton.classList.remove('active');
+    }
+
+    profileButton.addEventListener('click', function() {
+        showProfileCard();
+    });
+
+    backButton.addEventListener('click', function() {
+        hideProfileCard();
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!profileCard.contains(event.target) && !profileButton.contains(event.target)) {
+            hideProfileCard();
+        }
+    });
+
+    // Show profile card when hovering
+    profileCard.addEventListener('mouseenter', function() {
+        clearTimeout(profileCardTimeout);
+    });
+
+    // Hide profile card when mouse leaves
+    profileCard.addEventListener('mouseleave', function() {
+        profileCardTimeout = setTimeout(function() {
+            hideProfileCard();
+        }, 300); // Adjust delay as needed
+    });
+
+    // Show message dropdown when hovering
+    messageDropdown.addEventListener('mouseenter', function() {
+        clearTimeout(messageDropdownTimeout);
+    });
+
+    // Hide message dropdown when mouse leaves
+    messageDropdown.addEventListener('mouseleave', function() {
+        messageDropdownTimeout = setTimeout(function() {
+            messageDropdown.style.display = 'none';
+        }, 300); // Adjust delay as needed
+    });
+    
+});
+</script>
+</html>

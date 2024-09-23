@@ -1,0 +1,312 @@
+<html></html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./history.css">
+    <link rel="stylesheet" href="../Main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2 style="margin-top: 10px;">Dashboard</h2>
+            <ul>
+                <li class="hover-effect unselected">
+                    <a href="../Home/Home.html">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Attendance/Attendance.html">
+                        <i class="fas fa-user-check"></i> Attendance
+                    </a>
+                </li>
+                <li class="selected" style="margin-top: 40px;">
+                    <a href="../History/history.html">
+                        <i class="fas fa-history"></i> History
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Report/report.html">
+                        <i class="fa fa-user-shield" aria-hidden="true"></i> Child Reports
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Reservation/reservation.html">
+                        <i class="fas fa-calendar-check"></i> Reservation
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Meal/meal.html">
+                        <i class="fas fa-utensils"></i> Meal plan
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Events/event.html">
+                        <i class="fas fa-calendar-alt"></i> Event
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Package/package.html">
+                        <i class="fas fa-box"></i> Package
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../funzone/Home/home.html">
+                        <i class="fas fa-gamepad"></i> Fun Zone
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="../Package/package.html">
+                        <i class="fas fa-credit-card"></i> Payments
+                    </a>
+                </li>
+            </ul>
+            <hr style="margin-top: 40px;">
+            <div class="help">
+                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> Help</a>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <div class="name">
+                    <h1>Hey Thilina</h1>
+                    <p>Let’s do some productive activities today</p>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class="fas fa-search"></i>
+                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
+                </div>
+                <div class="bell-con" style="cursor: pointer;">
+                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
+                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                        <ul>
+                            <li><p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                            <li><p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p><p class="content"> content like a message</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="message-numbers"><p> 2</p></div>
+                <div class="profile">
+                    <button class="profilebtn">
+                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                    </button>                    
+                </div>
+            </div>
+                <div class="stats">
+                    <div class="stat">
+                        <h3><img src="../../Assets/attendance.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Days not attended</h3>
+                        <p style="margin-bottom: 3px; color: #D3D3D3;">03/04 Days</p>
+                        <span style="color: #00FFFF;font-weight: 50;">Unattended days</span>
+                    </div>
+                    <div class="stat">
+                        <h3><img src="../../Assets/sick.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Sick days</h3>
+                        <p style="margin-bottom: 3px;color: #D3D3D3;" >1 Day</p>
+                        <span style="color: #00FFFF;font-weight: 50;">light fever</span>
+                    </div>
+                    <div class="stat">
+                        <h3 style="margin-top: -16px;"><img src="../../Assets/mountain.svg" alt="Attendance" style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Late departure</h3>
+                        <p style="margin-bottom: 3px;color: #D3D3D3;" >Departure time 8:00 am</p>
+                        <span style="color: #00FFFF;font-weight: 50;">Date: 20/09/2024</span>
+                    </div>
+                </div>
+            <div class="saperate">
+                <div class="child-history">
+                    <h1>Child History</h1>
+                    <table>
+                    <thead>
+                        <tr>
+                            <th style="padding: 10px -5px;">Date</th>
+                            <th>Arrival time</th>
+                            <th>Departure time</th>
+                            <th>Pickup person</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td>25/03/2025</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>02/01/2025</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>20/12/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Guardian</td>
+                        </tr>
+                        <tr>
+                            <td>10/11/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>13/08/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>13/08/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>13/08/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="pickup-container">
+                    <h1>Schedule pickups</h1>
+                    <p>Review and finalize children pickup from the daycare</p>
+                    <button class="button">Schedule pickups</button>
+                    <div class="details">
+                        <p>Date: 12-16, 2025</p>
+                        <p>Pickup person: Guardian</p>
+                        <p>Departure time: 8:00pm</p>
+                    </div>
+                    <button class="button" style="width: 189px">Edit</button>
+                </div>
+            </div>
+            <div class="chatbox">
+                <a href="../Messager/Message.html">
+                    <img src="../../Assets/message.svg" class="fas fa-comment-dots" style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
+                </a> 
+                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;"><p>2</p></div>               
+            </div>
+        </div>
+         <!-- onclick function -->
+         <div class="profile-card" id="profileCard">
+            <img src="../../Assets/back-arrow-2.svg" alt="back-arrow" style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img alt="Profile picture of Thilina Perera" height="100" src="../../Assets/profilePic.png" width="100" class="profile"/>
+            <h2>
+             Thilina Perera
+            </h2>
+            <p>
+             Student    RS0110657
+            </p>
+            <button class="profile-button">
+             Profile
+            </button>
+            <button class="secondary-button">
+             Parent profile
+            </button>
+            <button class="secondary-button">
+             Guardian profile
+            </button>
+            <button class="secondary-button">
+             Medications
+            </button>
+            <button class="logout-button">
+                LogOut
+            </button>
+           </div>
+    </div>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const profileCard = document.querySelector('.profile-card');
+    const profileButton = document.querySelector('.profilebtn');
+    const backButton = document.querySelector('.profile-card .back');
+    const chatbox = document.querySelector('.chatbox');
+    const messageDropdown = document.getElementById('messageDropdown');
+    const bellIcon = document.querySelector('.bell-icon');
+
+    let profileCardTimeout;
+    let messageDropdownTimeout;
+
+    function toggleMessageDropdown() {
+        if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+            messageDropdown.style.display = "block";
+        } else {
+            messageDropdown.style.display = "none";
+        }
+    }
+
+    function toggleBellDropdown() {
+        if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+            messageDropdown.style.display = "block";
+        } else {
+            messageDropdown.style.display = "none";
+        }
+    }
+
+    bellIcon.addEventListener('click', function(event) {
+        event.stopPropagation();
+        toggleBellDropdown();
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!messageDropdown.contains(event.target) && !bellIcon.contains(event.target)) {
+            messageDropdown.style.display = "none";
+        }
+    });
+
+    function showProfileCard() {
+        profileCard.classList.add('show');
+        profileButton.classList.add('active');
+    }
+
+    function hideProfileCard() {
+        profileCard.classList.remove('show');
+        profileButton.classList.remove('active');
+    }
+
+    profileButton.addEventListener('click', function() {
+        showProfileCard();
+    });
+
+    backButton.addEventListener('click', function() {
+        hideProfileCard();
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!profileCard.contains(event.target) && !profileButton.contains(event.target)) {
+            hideProfileCard();
+        }
+    });
+
+    // Show profile card when hovering
+    profileCard.addEventListener('mouseenter', function() {
+        clearTimeout(profileCardTimeout);
+    });
+
+    // Hide profile card when mouse leaves
+    profileCard.addEventListener('mouseleave', function() {
+        profileCardTimeout = setTimeout(function() {
+            hideProfileCard();
+        }, 300); // Adjust delay as needed
+    });
+
+    // Show message dropdown when hovering
+    messageDropdown.addEventListener('mouseenter', function() {
+        clearTimeout(messageDropdownTimeout);
+    });
+
+    // Hide message dropdown when mouse leaves
+    messageDropdown.addEventListener('mouseleave', function() {
+        messageDropdownTimeout = setTimeout(function() {
+            messageDropdown.style.display = 'none';
+        }, 300); // Adjust delay as needed
+    });
+});
+</script>
+</html>

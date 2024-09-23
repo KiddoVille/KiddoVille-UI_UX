@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>
+   Kiddo Ville
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="./youtube.css">
+  <link rel="stylesheet" href="../Main.css">
+  <link rel="stylesheet" href="./Main.css">
+ </head>
+ <body>
+  <div class="sidebar">
+    <a href="../../Home/Home.html"> <!-- Add href here -->
+        <img alt="Kiddo Ville Logo" height="50" src="../../../Assets/logo_light-remove.png" width="50"/>
+    </a>
+   <h1>Kiddo Ville</h1>
+   <input placeholder="Search" type="text"/><i class="fas fa-search"></i>
+   <button onclick="location.href='../Home/home.html';">Home</button>
+    <div class="custom-select-container" tabindex="0">
+        <div class="custom-select-trigger">
+            Type <i class="fa fa-chevron-down"></i>
+        </div>
+        <div class="custom-options-container">
+            <div class="custom-option"> Recent </div>
+            <div class="custom-option"> Rhymes </div>
+            <div class="custom-option"> book </div>
+            <div class="custom-option"> Games </div>
+            <div class="custom-option"> Cartoon </div>
+            <div class="custom-option"> Crafts </div>
+            <div class="custom-option"> Lessons </div>
+        </div>
+    </div>
+    <button onclick="location.href='../Whishlist/whishlist.html';">Wishlist</button>
+    <button onclick="location.href='../Tasks/Tasks.html';">Tasks</button>
+    <button onclick="location.href='../History/History.html';">History</button>
+   <div class="bottom-text">
+    <a href="../../Home/Home.html" class="nav-link">
+        <i class="fas fa-home"></i>
+        <p class="Welcome">Welcome to Funzone</p>
+    </a>
+   </div>
+  </div>
+  <div class="main-content">
+   <div class="header">
+    <div class="nav-buttons">
+        <div class="circle">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+    </div>
+    <h2>video Title</h2>
+    <i class="fas fa-cog settings"></i>
+    <div class="profile-card" id="profileCard">
+        <img src="../../../Assets/back-arrow-2.svg" alt="back-arrow" style="width: 24px; height: 24px; fill:#233E8D !important;" class="back" id="closeProfileCard">
+        <img alt="Profile picture of Thilina Perera" height="100" src="../../../Assets/profilePic.png" width="100" class="profile"/>
+        <h2 class="child-name">Thilina Perera</h2>
+        <p>Student    RS0110657</p>
+        <div class="custom-child-select-container">
+            <div class="custom-child-select-trigger">
+                Select child <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="custom-child-options-container" style="background-color: #1d61c4">
+                <div class="custom-option" data-value="1">
+                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
+                    <span>Abdulla</span>
+                </div>
+                <div class="custom-option" data-value="2">
+                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
+                    <span>Abdulla</span>
+                </div>
+                <div class="custom-option" data-value="3">
+                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
+                    <span>Abdulla</span>
+                </div>
+                <div class="custom-option" data-value="4">
+                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
+                    <span>Abdulla</span>
+                </div>
+                <div class="custom-option" data-value="5">
+                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
+                    <span>Abdulla</span>
+                </div>
+            </div>
+        </div>
+        <button class="logout-button">Logout</button>
+        <div class="lock">
+        <p class="lock-p"> Parental lock</p>
+        <div class="switch">
+            <input type="checkbox" id="toggle">
+            <label for="toggle">
+                <div class="toggle-icon">
+                    <i class="fa fa-unlock"></i>
+                </div>
+            </label>
+        </div>
+        </div>
+    </div>
+    
+   </div>
+   <div class="grid">
+    <div class="video-container">
+        <div class="video-content">
+            <div class="video-player">
+                <iframe id="video" width="100%" height="100%" src="https://www.youtube.com/embed/sHO6KMtBJkg?si=0T1Sr1Lay5aDVRNf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="video-actions">
+                <div class="action-text">
+                    <i class="fas fa-thumbs-up" id="thumbsUpButton"></i><span>1.4k likes</span>
+                </div>
+                <div class="action-text">
+                    <i class="fas fa-heart" id="heartButton"></i><span>Add to Wishlist</span>
+                </div>
+                <div class="action-text">
+                    <i class="fas fa-comment-dots" id="commentButton"></i><span>Add Comment</span>
+                </div>
+            </div>
+            
+            <div id="commentSection" style="display: none;">
+                <textarea id="commentInput" rows="3" placeholder="Add a comment..."></textarea>
+                <button id="submitCommentButton">Submit</button>
+                <button id="cancelCommentButton">Cancel</button>
+            </div>
+
+            <div class="video-details">
+                <div class="title">Video Title</div>
+                <div class="description">Video description goes here...</div>
+            </div>
+
+            <div class="comments">
+                <div class="comment">
+                    <img src="../../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                    <div class="text">Comment text goes here...</div>
+                    <p class="Date-comment"> Date:18/09/2024</p>
+                    <p class="Date-comment"> Time:10:00 pm</p>
+                </div>
+                <div class="comment">
+                    <img src="../../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                    <div class="text">Comment text goes here...</div>
+                </div>
+                <div class="comment">
+                    <img src="../../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                    <div class="text">Comment text goes here...</div>
+                </div>
+                <div class="comment">
+                    <img src="../../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                    <div class="text">Comment text goes here...</div>
+                </div>
+                <div class="comment">
+                    <img src="../../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                    <div class="text">Comment text goes here...</div>
+                </div>
+                <div class="comment">
+                    <img src="../../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                    <div class="text">Comment text goes here...</div>
+                </div>
+                <div class="comment">
+                    <img src="../../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                    <div class="text">Comment text goes here...</div>
+                </div>
+                <div class="comment">
+                    <img src="../../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                    <div class="text">Comment text goes here...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar for Related Videos -->
+        <div class="related-sidebar">
+            <div class="related-video">
+                <div class="thumbnail">
+                    <i class="fas fa-play play-button"></i>
+                </div>
+                <div class="details">
+                    <div class="title">Related Video Title</div>
+                    <div class="description">Description...</div>
+                </div>
+            </div>
+
+            <div class="related-video">
+                <div class="thumbnail">
+                    <i class="fas fa-play play-button"></i>
+                </div>
+                <div class="details">
+                    <div class="title">Related Video Title</div>
+                    <div class="description">Description...</div>
+                </div>
+            </div>
+
+            <div class="related-video">
+                <div class="thumbnail">
+                    <i class="fas fa-play play-button"></i>
+                </div>
+                <div class="details">
+                    <div class="title">Related Video Title</div>
+                    <div class="description">Description...</div>
+                </div>
+            </div>
+
+            <div class="related-video">
+                <div class="thumbnail">
+                    <i class="fas fa-play play-button"></i>
+                </div>
+                <div class="details">
+                    <div class="title">Related Video Title</div>
+                    <div class="description">Description...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+   <div class="chatbox">
+    <a href="../../Home/Home.html">
+        <i class="fa fa-home" style="margin-top: 1px;"></i>
+    </a>               
+</div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const customSelectTrigger = document.querySelector('.custom-select-trigger');
+      const customSelectContainer = document.querySelector('.custom-select-container');
+      const settingsIcon = document.querySelector('.settings');
+      const profileCard = document.getElementById('profileCard');
+      const closeProfileCard = document.getElementById('closeProfileCard');
+      const customChildSelectTrigger = document.querySelector('.custom-child-select-trigger');
+      const customChildSelectContainer = document.querySelector('.custom-child-select-container');
+      const video = document.getElementById('video');
+      const thumbsUpButton = document.getElementById('thumbsUpButton');
+      const heartButton = document.getElementById('heartButton');
+      const commentButton = document.getElementById('commentButton');
+      const commentSection = document.getElementById('commentSection');
+      const submitCommentButton = document.getElementById('submitCommentButton');
+      const cancelCommentButton = document.getElementById('cancelCommentButton');
+      const commentInput = document.getElementById('commentInput');
+  
+      // Show comment input section when comment button is clicked
+      commentButton.addEventListener('click', () => {
+          commentSection.style.display = 'block';
+      });
+  
+      // Submit comment
+      submitCommentButton.addEventListener('click', () => {
+          const commentText = commentInput.value.trim();
+          if (commentText) {
+              // Create a new comment element
+              const commentDiv = document.createElement('div');
+              commentDiv.className = 'comment';
+              commentDiv.innerHTML = `
+                  <img src="../../Assets/face.jpeg" alt="face icon" style="width: 40px; height: 40px; border-radius: 100%; border: 2px solid #1d61c4;">
+                  <div class="text">${commentText}</div>
+              `;
+              // Add the new comment to the comments section
+              document.querySelector('.comments').appendChild(commentDiv);
+              // Clear the input and hide the comment section
+              commentInput.value = '';
+              commentSection.style.display = 'none';
+          }
+      });
+  
+      // Cancel comment input
+      cancelCommentButton.addEventListener('click', () => {
+          commentInput.value = '';
+          commentSection.style.display = 'none';
+      });
+  
+      // Function to toggle the 'liked' state of the thumbs up button
+      thumbsUpButton.addEventListener('click', () => {
+          thumbsUpButton.classList.toggle('liked');
+      });
+  
+      // Function to toggle the 'added' state of the heart button
+      heartButton.addEventListener('click', () => {
+          heartButton.classList.toggle('added');
+      });
+  
+      // Custom select functionality
+      customSelectTrigger.addEventListener('click', (event) => {
+          event.stopPropagation();
+          customSelectContainer.classList.toggle('active');
+      });
+  
+      settingsIcon.addEventListener('click', () => {
+          profileCard.classList.toggle('show');
+      });
+  
+      closeProfileCard.addEventListener('click', () => {
+          profileCard.classList.remove('show');
+      });
+  
+      const customOptions = document.querySelectorAll('.custom-option');
+      customOptions.forEach(option => {
+          option.addEventListener('click', function() {
+              customSelectTrigger.innerHTML = `${this.innerText} <i class="fa fa-chevron-down"></i>`;
+              customSelectContainer.classList.remove('active');
+          });
+      });
+  
+      customChildSelectTrigger.addEventListener('click', (event) => {
+          event.stopPropagation();
+          customChildSelectContainer.classList.toggle('active');
+      });
+  
+      // Handle mouse enter and leave events for custom select container
+      customSelectContainer.addEventListener('mouseenter', () => {
+          clearTimeout(dropdownTimeout);
+      });
+  
+      customSelectContainer.addEventListener('mouseleave', () => {
+          dropdownTimeout = setTimeout(() => {
+              customSelectContainer.classList.remove('active');
+          }, 300);
+      });
+  
+      // Handle mouse enter and leave events for custom child select container
+      customChildSelectContainer.addEventListener('mouseenter', () => {
+          clearTimeout(dropdownTimeout);
+      });
+  
+      customChildSelectContainer.addEventListener('mouseleave', () => {
+          dropdownTimeout = setTimeout(() => {
+              customChildSelectContainer.classList.remove('active');
+          }, 300);
+      });
+  
+      // Handle mouse enter and leave events for profile card
+      profileCard.addEventListener('mouseenter', () => {
+          clearTimeout(profileCardTimeout);
+      });
+  
+      profileCard.addEventListener('mouseleave', () => {
+          profileCardTimeout = setTimeout(() => {
+              profileCard.classList.remove('show');
+          }, 300);
+      });
+  
+      // Close dropdowns and profile card when clicking outside
+      document.addEventListener('click', (event) => {
+          if (!customSelectContainer.contains(event.target) && !customSelectTrigger.contains(event.target)) {
+              customSelectContainer.classList.remove('active');
+          }
+  
+          if (!customChildSelectContainer.contains(event.target) && !customChildSelectTrigger.contains(event.target)) {
+              customChildSelectContainer.classList.remove('active');
+          }
+  
+          if (!profileCard.contains(event.target) && !settingsIcon.contains(event.target)) {
+              profileCard.classList.remove('show');
+          }
+  
+          if (!commentSection.contains(event.target) && !commentButton.contains(event.target)) {
+              commentSection.style.display = 'none';
+          }
+      });
+  
+      // Function to update mute/unmute buttons
+      function updateMuteButtons() {
+          const muteButton = document.getElementById('mute');
+          const unmuteButton = document.getElementById('unmute');
+          if (video.muted) {
+              muteButton.style.display = 'none';
+              unmuteButton.style.display = 'block';
+          } else {
+              muteButton.style.display = 'block';
+              unmuteButton.style.display = 'none';
+          }
+      }
+  
+      // Click event for mute button
+      muteButton.addEventListener('click', () => {
+          video.muted = true;
+          updateMuteButtons();
+      });
+  
+      // Click event for unmute button
+      unmuteButton.addEventListener('click', () => {
+          video.muted = false;
+          updateMuteButtons();
+      });
+  
+      // Ensure the mute/unmute buttons are updated based on video state
+      video.addEventListener('volumechange', updateMuteButtons);
+  
+      // Initial updates
+      updateMuteButtons();
+    });
+  </script>
+  
