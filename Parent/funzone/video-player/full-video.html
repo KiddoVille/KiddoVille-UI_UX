@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kiddo Ville</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./full-video.css">
+</head>
+
+<body>
+    <div class="video-container">
+        <div class="video-player">
+            <video id="video" src="../../../Assets/video.mp4" type="video/mp4"></video>
+        </div>
+        <div class="video-controls">
+            <div class="left-controls">
+                <i class="fas fa-play" id="playPause"></i>
+                <i class="fas fa-pause" id="pause" style="display: none;"></i>
+                <i class="fas fa-volume-up" id="mute" style="display: block;"></i>
+                <i class="fas fa-volume-mute" id="unmute" style="display: none;"></i>
+                <span id="currentTime">0:00</span>
+            </div>
+            <div class="progress-container">
+                <input type="range" id="progressBar" min="0" max="100" value="0">
+            </div>
+            <div class="right-controls">
+                <i class="fas fa-cog" id="settings"></i>
+                <i class="fas fa-expand" id="fullscreen"></i>
+                <i class="fas fa-compress" id="exitFullscreen" style="display: none;"></i>
+                <a href="./video.html" id="fullscreen" style="display: block;">
+                    <i class="fas fa-compress"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('video');
+            const playPauseButton = document.getElementById('playPause');
+            const pauseButton = document.getElementById('pause');
+            const currentTimeElement = document.getElementById('currentTime');
+            const progressBar = document.getElementById('progressBar');
+            const muteButton = document.getElementById('mute');
+            const unmuteButton = document.getElementById('unmute');
+            const fullscreenButton = document.getElementById('fullscreen');
+            const exitFullscreenButton = document.getElementById('exitFullscreen');
+
+            function updateMuteButtons() {
+                if (video.muted) {
+                    muteButton.style.display = 'none';
+                    unmuteButton.style.display = 'block';
+                } else {
+                    muteButton.style.display = 'block';
+                    unmuteButton.style.display = 'none';
+                }
+            }
+
+            muteButton.addEventListener('click', () => {
+                video.muted = true;
+                updateMuteButtons();
+            });
+
+            unmuteButton.addEventListener('click', () => {
+                video.muted = false;
+                updateMuteButtons();
+            });
+
+            video.addEventListener('volumechange', updateMuteButtons);
+
+            function updatePlayPauseButtons() {
+                if (video.paused) {
+                    playPauseButton.style.display = 'block';
+                    pauseButton.style.display = 'none';
+                } else {
+                    playPauseButton.style.display = 'none';
+                    pauseButton.style.display = 'block';
+                }
+            }
+
+            function updateProgressBar() {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressBar.value = progress;
+                const minutes = Math.floor(video.currentTime / 60);
+                const seconds = Math.floor(video.currentTime % 60).toString().padStart(2, '0');
+                currentTimeElement.textContent = `${minutes}:${seconds}`;
+            }
+
+            function setVideoTime() {
+                video.currentTime = (progressBar.value / 100) * video.duration;
+            }
+
+            function toggleFullscreen() {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    video.requestFullscreen();
+                }
+            }
+
+            function updateFullscreenButtons() {
+                if (document.fullscreenElement) {
+                    fullscreenButton.style.display = 'none';
+                    exitFullscreenButton.style.display = 'block';
+                } else {
+                    fullscreenButton.style.display = 'block';
+                    exitFullscreenButton.style.display = 'none';
+                }
+            }
+
+            updatePlayPauseButtons();
+            updateProgressBar();
+            updateMuteButtons();
+            updateFullscreenButtons();
+
+            playPauseButton.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+                updatePlayPauseButtons();
+            });
+
+            pauseButton.addEventListener('click', () => {
+                video.pause();
+                updatePlayPauseButtons();
+            });
+
+            video.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+                updatePlayPauseButtons();
+            });
+
+            video.addEventListener('timeupdate', updateProgressBar);
+            progressBar.addEventListener('input', setVideoTime);
+
+            video.addEventListener('play', updatePlayPauseButtons);
+            video.addEventListener('pause', updatePlayPauseButtons);
+
+            fullscreenButton.addEventListener('click', () => {
+                toggleFullscreen();
+            });
+
+            exitFullscreenButton.addEventListener('click', () => {
+                toggleFullscreen();
+            });
+
+            document.addEventListener('fullscreenchange', updateFullscreenButtons);
+        });
+    </script>
+</body>
+
+</html>
