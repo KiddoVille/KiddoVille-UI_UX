@@ -3,6 +3,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
 }
+
 .main-content {
     margin-left: 250px;
     background-color: #e0e0e0;
@@ -28,29 +29,38 @@ body {
     box-sizing: border-box;
     max-height: 80%;
 }
+
 .main-content .grid .item {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex; /* Use flexbox to align items horizontally */
-    align-items: center; /* Center items vertically */
-    padding: 20px; /* Add padding inside the item */
+    display: flex;
+    /* Use flexbox to align items horizontally */
+    align-items: center;
+    /* Center items vertically */
+    padding: 20px;
+    /* Add padding inside the item */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
-    max-width: 550px; /* Limit max-width to ensure responsiveness */
-    margin: auto; /* Center the item horizontally */
+    max-width: 550px;
+    /* Limit max-width to ensure responsiveness */
+    margin: auto;
+    /* Center the item horizontally */
 }
 
 
 .main-content .grid .item .content {
-    flex: 1; /* Make content take the remaining space */
+    flex: 1;
+    /* Make content take the remaining space */
     padding-left: 20px
 }
 
 .main-content .grid .item:hover {
-    transform: translateY(-10px); /* Move the item up */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    transform: translateY(-10px);
+    /* Move the item up */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Increase shadow on hover */
 }
 
 .icon-container {
@@ -83,8 +93,10 @@ body {
 
 .icon-btn:hover {
     background-color: #e0e0e0;
-    transform: scale(1.2); /* Enlarge the button */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    transform: scale(1.2);
+    /* Enlarge the button */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Increase shadow on hover */
 }
 
 .watch-btn {
@@ -95,11 +107,11 @@ body {
     color: #e74c3c;
 }
 
-.fa-clock{
+.fa-clock {
     font-size: 20px;
 }
 
-.fa-trash{
+.fa-trash {
     font-size: 20px;
 }
 
@@ -108,9 +120,7 @@ body {
     color: #888;
 }
 
-.time
-
-.format{
+.time .format {
     margin-top: 7px !important;
     text-align: left;
     color: #888;
@@ -132,23 +142,30 @@ body {
     border-radius: 7px;
     margin: -10px -10px !important;
 }
+
 .main-content .grid .item h3 {
-    font-size: 18px; /* Font size for the title */
+    font-size: 18px;
+    /* Font size for the title */
     color: #333;
-    margin: 0 0 10px; /* Remove margin from top, add margin to bottom */
+    margin: 0 0 10px;
+    /* Remove margin from top, add margin to bottom */
 }
 
 .main-content .grid .item p {
-    font-size: 14px; /* Font size for the description */
+    font-size: 14px;
+    /* Font size for the description */
     color: #666;
-    margin: 0 0 10px; /* Remove margin from top, add margin to bottom */
+    margin: 0 0 10px;
+    /* Remove margin from top, add margin to bottom */
 }
-.fa-search{
+
+.fa-search {
     margin-top: -63px;
     margin-bottom: 23px;
     margin-left: 182px;
     color: #333;
 }
+
 /* Container for the custom dropdown */
 .custom-select-container {
     position: relative;
@@ -195,43 +212,51 @@ body {
     transition: all 0.3s ease;
     height: 200px;
     overflow-y: scroll;
-    overflow-x:none ;
+    overflow-x: none;
 }
 
 .custom-options-container::-webkit-scrollbar {
-    width: 7px; /* Width of the scrollbar */
+    width: 7px;
+    /* Width of the scrollbar */
 }
 
 .custom-options-container::-webkit-scrollbar-track {
-    background: #8db4f3; /* Color of the scrollbar track */
+    background: #8db4f3;
+    /* Color of the scrollbar track */
     border-radius: 10px;
 }
 
 .custom-options-container::-webkit-scrollbar-thumb {
-    background: #3b82f6; /* Color of the scrollbar handle */
+    background: #3b82f6;
+    /* Color of the scrollbar handle */
     border-radius: 10px;
 }
 
 .custom-options-container::-webkit-scrollbar-thumb:hover {
-    background: #196df5; /* Color of the scrollbar handle on hover */
+    background: #196df5;
+    /* Color of the scrollbar handle on hover */
 }
 
 .grid::-webkit-scrollbar {
-    width: 20px; /* Width of the scrollbar */
+    width: 20px;
+    /* Width of the scrollbar */
 }
 
 .grid::-webkit-scrollbar-track {
-    background: #8db4f3; /* Color of the scrollbar track */
+    background: #8db4f3;
+    /* Color of the scrollbar track */
     border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb {
-    background: #3b82f6; /* Color of the scrollbar handle */
+    background: #3b82f6;
+    /* Color of the scrollbar handle */
     border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb:hover {
-    background: #196df5; /* Color of the scrollbar handle on hover */
+    background: #196df5;
+    /* Color of the scrollbar handle on hover */
 }
 
 /* Individual options */
@@ -246,7 +271,8 @@ body {
 }
 
 .custom-option:last-child {
-    border-bottom: none; /* Remove border for the last option */
+    border-bottom: none;
+    /* Remove border for the last option */
 }
 
 /* Hover effect for options */
@@ -256,30 +282,37 @@ body {
 
 /* Show the custom dropdown options when the dropdown is active */
 .custom-select-container.active .custom-options-container {
-    display: block; /* Show options when dropdown is active */
+    display: block;
+    /* Show options when dropdown is active */
 }
 
 .custom-select-container:focus {
-    transform: scale(1.1); /* Grow 10% */
+    transform: scale(1.1);
+    /* Grow 10% */
 }
+
 .fa-home {
-    font-size: 32px; /* Set the size of the icon */
+    font-size: 32px;
+    /* Set the size of the icon */
     color: white;
-    transition: transform 0.3s ease; /* Smooth transition for transform changes */
+    transition: transform 0.3s ease;
+    /* Smooth transition for transform changes */
     margin-top: -5px;
 }
 
 .fa-home:hover {
-    transform: scale(1.2); /* Scale the icon to 120% of its original size */
+    transform: scale(1.2);
+    /* Scale the icon to 120% of its original size */
 }
 
-.nav-link{
+.nav-link {
     color: white;
     display: flex;
     flex-direction: row;
     text-decoration: none;
 }
-.nav-link p{
+
+.nav-link p {
     font-size: 20px;
     margin-top: -10px;
 }
@@ -288,52 +321,124 @@ body {
     display: flex;
     align-items: center;
 }
-  
-  /* Hide the default checkbox */
-  .switch-reminder input {
-    display: none;
-  }
-  
-  /* When checkbox is checked, move the slider */
-  input:checked + .slider {
-    background-color: #4CAF50;
-  }
-  
-  /* Move the knob to the right when checked */
-  input:checked + .slider:before {
-    transform: translateX(18px);
-  }
-  
-  /* Add focus shadow */
-  input:focus + .slider {
-    box-shadow: 0 0 1px #4CAF50;
-  }
 
-  .reminder-details {
+/* Hide the default checkbox */
+.switch-reminder input {
+    display: none;
+}
+
+/* When checkbox is checked, move the slider */
+input:checked+.slider {
+    background-color: #4CAF50;
+}
+
+/* Move the knob to the right when checked */
+input:checked+.slider:before {
+    transform: translateX(18px);
+}
+
+/* Add focus shadow */
+input:focus+.slider {
+    box-shadow: 0 0 1px #4CAF50;
+}
+
+.reminder-details {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-  }
-  
-  /* Date and Time styling */
-  .reminder-date{
+    z-index: 10000;
+}
+
+/* Date and Time styling */
+.reminder-date {
     display: flex;
     align-items: center;
     font-size: 14px;
     color: #555;
-  }
-  
-  /* Add spacing between icon and text */
-  .reminder-date i, .reminder-time i {
+}
+
+/* Add spacing between icon and text */
+.reminder-date i,
+.reminder-time i {
     margin-right: 6px;
     color: #333;
-  }
-  /* Optional: style the icons */
-  .reminder-date i {
-    color: #4CAF50; /* Date icon color */
-  }
+}
 
-  .reminder-date{
+/* Optional: style the icons */
+.reminder-date i {
+    color: #4CAF50;
+    /* Date icon color */
+}
+
+.reminder-date {
     margin-right: 40px;
-  }
+}
+
+.reminder-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.reminder-text {
+    margin-left: 0px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    font-style: italic;
+}
+
+/* Toggle switch container */
+.switch-reminder {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-left: 30px;
+}
+
+/* Hide the default checkbox */
+.switch-reminder input {
+    display: none;
+}
+
+/* Slider styling */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+/* Slider circle (toggle knob) */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+/* When checkbox is checked, move the slider */
+input:checked+.slider {
+    background-color: #4CAF50;
+}
+
+/* Move the knob to the right when checked */
+input:checked+.slider:before {
+    transform: translateX(18px);
+}
+
+/* Add focus shadow */
+input:focus+.slider {
+    box-shadow: 0 0 1px #4CAF50;
+}

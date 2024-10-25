@@ -3,6 +3,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
 }
+
 .main-content {
     margin-left: 250px;
     background-color: #e0e0e0;
@@ -26,6 +27,7 @@ body {
     box-sizing: border-box;
     max-height: 80%;
 }
+
 .main-content .grid .item {
     background-color: white;
     border-radius: 10px;
@@ -35,9 +37,12 @@ body {
     padding: 8px 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .main-content .grid .item:hover {
-    transform: translateY(-10px); /* Move the item up */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    transform: translateY(-10px);
+    /* Move the item up */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Increase shadow on hover */
 }
 
 .main-content .grid .item img {
@@ -45,23 +50,27 @@ body {
     height: 200px;
     border-radius: 7px;
 }
+
 .main-content .grid .item h3 {
     margin: 10px 0;
     font-size: 14px;
     color: #333;
 }
+
 .main-content .grid .item p {
     margin: 0px 0;
     font-size: 14px;
     color: #333;
     margin-top: -8px;
 }
-.fa-search{
+
+.fa-search {
     margin-top: -63px;
     margin-bottom: 23px;
     margin-left: 182px;
     color: #333;
 }
+
 /* Container for the custom dropdown */
 .custom-select-container {
     position: relative;
@@ -108,43 +117,51 @@ body {
     transition: all 0.3s ease;
     height: 200px;
     overflow-y: scroll;
-    overflow-x:none ;
+    overflow-x: none;
 }
 
 .custom-options-container::-webkit-scrollbar {
-    width: 7px; /* Width of the scrollbar */
+    width: 7px;
+    /* Width of the scrollbar */
 }
 
 .custom-options-container::-webkit-scrollbar-track {
-    background: #8db4f3; /* Color of the scrollbar track */
+    background: #8db4f3;
+    /* Color of the scrollbar track */
     border-radius: 10px;
 }
 
 .custom-options-container::-webkit-scrollbar-thumb {
-    background: #3b82f6; /* Color of the scrollbar handle */
+    background: #3b82f6;
+    /* Color of the scrollbar handle */
     border-radius: 10px;
 }
 
 .custom-options-container::-webkit-scrollbar-thumb:hover {
-    background: #196df5; /* Color of the scrollbar handle on hover */
+    background: #196df5;
+    /* Color of the scrollbar handle on hover */
 }
 
 .grid::-webkit-scrollbar {
-    width: 20px; /* Width of the scrollbar */
+    width: 20px;
+    /* Width of the scrollbar */
 }
 
 .grid::-webkit-scrollbar-track {
-    background: #8db4f3; /* Color of the scrollbar track */
+    background: #8db4f3;
+    /* Color of the scrollbar track */
     border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb {
-    background: #3b82f6; /* Color of the scrollbar handle */
+    background: #3b82f6;
+    /* Color of the scrollbar handle */
     border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb:hover {
-    background: #196df5; /* Color of the scrollbar handle on hover */
+    background: #196df5;
+    /* Color of the scrollbar handle on hover */
 }
 
 /* Individual options */
@@ -159,7 +176,8 @@ body {
 }
 
 .custom-option:last-child {
-    border-bottom: none; /* Remove border for the last option */
+    border-bottom: none;
+    /* Remove border for the last option */
 }
 
 /* Hover effect for options */
@@ -169,27 +187,34 @@ body {
 
 /* Show the custom dropdown options when the dropdown is active */
 .custom-select-container.active .custom-options-container {
-    display: block; /* Show options when dropdown is active */
+    display: block;
+    /* Show options when dropdown is active */
 }
 
 .custom-select-container:focus {
-    transform: scale(1.1); /* Grow 10% */
-}
-.fa-home {
-    font-size: 32px; /* Set the size of the icon */
-    color: white;
-    transition: transform 0.3s ease; /* Smooth transition for transform changes */
-    margin-top: -5px;
+    transform: scale(1.1);
+    /* Grow 10% */
 }
 
-.nav-link{
+.fa-home {
+    font-size: 32px;
+    /* Set the size of the icon */
+    color: white;
+    transition: transform 0.3s ease;
+    /* Smooth transition for transform changes */
+    margin-top: -5px;
+    text-decoration: none !important;
+}
+
+.nav-link {
     color: white;
     display: flex;
     flex-direction: row;
     text-decoration: none;
     margin-left: 20px;
 }
-.nav-link p{
+
+.nav-link p {
     font-size: 20px;
     margin-top: -10px;
 }

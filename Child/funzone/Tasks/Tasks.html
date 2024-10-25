@@ -1,428 +1,377 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <title>
-   Kiddo Ville
-  </title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="./Tasks.css">
-  <link rel="stylesheet" href="../Main.css">
- </head>
- <body>
-  <div class="sidebar">
-    <a href="../Dashboard.html"> <!-- Add href here -->
-        <img alt="Kiddo Ville Logo" height="50" src="../../../Assets/logo_light-remove.png" width="50"/>
-    </a>
-   <h1>Kiddo Ville</h1>
-   <input placeholder="Search" type="text"/><i class="fas fa-search"></i>
-   <button onclick="location.href='../Home/home.html';">Home</button>
-    <div class="custom-select-container" tabindex="0">
-        <div class="custom-select-trigger">
-            Type <i class="fa fa-chevron-down"></i>
-        </div>
-        <div class="custom-options-container">
-            <div class="custom-option"> Recent </div>
-            <div class="custom-option"> Rhymes </div>
-            <div class="custom-option"> book </div>
-            <div class="custom-option"> Games </div>
-            <div class="custom-option"> Cartoon </div>
-            <div class="custom-option"> Crafts </div>
-            <div class="custom-option"> Lessons </div>
-        </div>
-    </div>
-    <button onclick="location.href='../Whishlist/whishlist.html';">Wishlist</button>
-    <button onclick="location.href='../Tasks/Tasks.html';">Tasks</button>
-    <button onclick="location.href='../History/History.html';">History</button>
-   <div class="bottom-text">
-    <a href="../../Home/Home.html" class="nav-link">
-        <i class="fas fa-home"></i>
-        <p class="Welcome">Welcome to Funzone</p>
-    </a>
-   </div>
-  </div>
-  <div class="main-content">
-   <div class="header">
-    <div class="nav-buttons">
-        <div class="circle">
-            <i class="fas fa-chevron-left"></i>
-        </div>
-        <div class="circle">
-            <i class="fas fa-chevron-right"></i>
-        </div>
-    </div>
-    <h2>
-     Tasks
-    </h2>
-    <i class="fas fa-cog settings"></i>
-    <div class="profile-card" id="profileCard">
-        <img src="../../../Assets/back-arrow-2.svg" alt="back-arrow" style="width: 24px; height: 24px; fill:#233E8D !important;" class="back" id="closeProfileCard">
-        <img alt="Profile picture of Thilina Perera" height="100" src="../../../Assets/profilePic.png" width="100" class="profile"/>
-        <h2 class="child-name">Thilina Perera</h2>
-        <p>Student    RS0110657</p>
-        <div class="custom-child-select-container">
-            <div class="custom-child-select-trigger">
-                Select child <i class="fa fa-chevron-down"></i>
+
+<head>
+    <title>
+        Kiddo Ville
+    </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./Tasks.css">
+    <link rel="stylesheet" href="../Main.css">
+    <script src="../JS/Setting.js"></script>
+    <script src="../JS/Parental-lock.js"></script>
+    <script src="../JS/Select-child.js"></script>
+    <script src="../JS/Select-type.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="../Dashboard.html"> <!-- Add href here -->
+            <img alt="Kiddo Ville Logo" height="50" src="../../../Assets/logo_light-remove.png" width="50" />
+        </a>
+        <h1>Kiddo Ville</h1>
+        <input placeholder="Search" type="text" /><i class="fas fa-search"></i>
+        <button onclick="location.href='../Home/home.html';">Home</button>
+        <div class="custom-select-container" tabindex="0">
+            <div class="custom-select-trigger">
+                Type <i class="fa fa-chevron-down"></i>
             </div>
-            <div class="custom-child-options-container" style="background-color: #1d61c4">
-                <div class="custom-option" data-value="1">
-                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
-                    <span>Abdulla</span>
-                </div>
-                <div class="custom-option" data-value="2">
-                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
-                    <span>Abdulla</span>
-                </div>
-                <div class="custom-option" data-value="3">
-                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
-                    <span>Abdulla</span>
-                </div>
-                <div class="custom-option" data-value="4">
-                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
-                    <span>Abdulla</span>
-                </div>
-                <div class="custom-option" data-value="5">
-                    <img src="../../../Assets/face.jpeg" alt="Abdulla">
-                    <span>Abdulla</span>
-                </div>
+            <div class="custom-options-container">
+                <div class="custom-option"> Recent </div>
+                <div class="custom-option"> Rhymes </div>
+                <div class="custom-option"> book </div>
+                <div class="custom-option"> Games </div>
+                <div class="custom-option"> Cartoon </div>
+                <div class="custom-option"> Crafts </div>
+                <div class="custom-option"> Lessons </div>
             </div>
         </div>
-        <button class="logout-button">Logout</button>
-        <div class="lock">
-        <p class="lock-p"> Parental lock</p>
-        <div class="switch">
-            <input type="checkbox" id="toggle">
-            <label for="toggle">
-                <div class="toggle-icon">
-                    <i class="fa fa-unlock"></i>
+        <button onclick="location.href='../Whishlist/whishlist.html';">Wishlist</button>
+        <button onclick="location.href='../Tasks/Tasks.html';">Tasks</button>
+        <button onclick="location.href='../History/History.html';">History</button>
+        <div class="bottom-text">
+            <a href="../../Home/Home.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <p class="Welcome">Welcome to Funzone</p>
+            </a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="nav-buttons">
+                <div class="circle">
+                    <i class="fas fa-chevron-left"></i>
                 </div>
-            </label>
+                <div class="circle">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            <h2>
+                Tasks
+            </h2>
+            <i class="fas fa-cog settings"></i>
+            <div class="profile-card" id="profileCard">
+                <img src="../../../Assets/back-arrow-2.svg" alt="back-arrow"
+                    style="width: 24px; height: 24px; fill:#233E8D !important;" class="back" id="closeProfileCard">
+                <img alt="Profile picture of Thilina Perera" height="100" src="../../../Assets/profilePic.png"
+                    width="100" class="profile" />
+                <h2 class="child-name">Thilina Perera</h2>
+                <p>Student    RS0110657</p>
+                <button class="logout-button">Logout</button>
+                <div class="lock">
+                    <p class="lock-p"> Parental lock</p>
+                    <div class="switch">
+                        <input type="checkbox" id="toggle">
+                        <label for="toggle">
+                            <div class="toggle-icon">
+                                <i class="fa fa-unlock"></i>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
         </div>
+        <div class="grid">
+            <div class="item">
+                <div class="icon-container">
+                    <button class="icon-btn watch-btn"><i class="fas fa-play"
+                            style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
+                </div>
+                <img src="../../../Assets/funzone-1.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-2.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-3.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-4.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-1.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-2.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-3.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-4.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-1.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-2.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-3.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="../../../Assets/funzone-4.png" alt="Item Image">
+                <div class="content">
+                    <h3>Item Title</h3>
+                    <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.
+                    </p>
+                    <div class="date-time">
+                        <span class="reminder-date">Deadline<i class="fa fa-calendar"
+                                style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user"
+                                style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
+                        <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video"
+                                style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
+                    </div>
+                    <div class="reminder-toggle">
+                        <p> Hi </p>
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
-   </div>
-   <div class="grid">
-    <div class="item">
-        <div class="icon-container">
-            <button class="icon-btn watch-btn"><i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
-        </div>
-        <img src="../../../Assets/funzone-1.png" alt="Item Image">
-        <div class="content">
-            <h3>Item Title</h3>
-            <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-            <div class="date-time">
-                <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-                <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-                <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-            </div>    
-        <div class="reminder-toggle">
-            <span class="reminder-text">Set Reminder</span>
-            <label class="switch-reminder">
-              <input type="checkbox" id="reminder">
-              <span class="slider"></span>
-            </label>
-        </div>
+    <a href="../../Home/Home.html" class="chatbox">
+        <i class="fa fa-home" style="margin-top: 1px; text-decoration: none;"></i>
+    </a>
     </div>
-   </div>    <div class="item">
-    <img src="../../../Assets/funzone-2.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-    <div class="item">
-        <img src="../../../Assets/funzone-3.png" alt="Item Image">
-        <div class="content">
-            <h3>Item Title</h3>
-            <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-            <div class="date-time">
-                <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-                <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-                <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-            </div>    
-        <div class="reminder-toggle">
-            <span class="reminder-text">Set Reminder</span>
-            <label class="switch-reminder">
-              <input type="checkbox" id="reminder">
-              <span class="slider"></span>
-            </label>
-        </div>
-    </div>
-   </div>
-   <div class="item">
-    <img src="../../../Assets/funzone-4.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-<div class="item">
-    <img src="../../../Assets/funzone-1.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-<div class="item">
-    <img src="../../../Assets/funzone-2.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-<div class="item">
-    <img src="../../../Assets/funzone-3.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-<div class="item">
-    <img src="../../../Assets/funzone-4.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-<div class="item">
-    <img src="../../../Assets/funzone-1.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-<div class="item">
-    <img src="../../../Assets/funzone-2.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-<div class="item">
-    <img src="../../../Assets/funzone-3.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-<div class="item"> 
-    <img src="../../../Assets/funzone-4.png" alt="Item Image">
-    <div class="content">
-        <h3>Item Title</h3>
-        <p>Item description goes here. It can be a bit longer and will be aligned to the left of the image.</p>
-        <div class="date-time">
-            <span class="reminder-date">Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i>Sep 18, 2024</span>
-            <span class="reminder-date" style="margin-top: 3px;">Assigned By<i class="fa fa-user" style="margin-left: 20px !important;;"></i>Abdulla Aurad</span>
-            <span class="reminder-date" style="margin-top: 3px;">Type<i class="fa fa-video" style="margin-left: 68px !important;;"></i>Abdulla Aurad</span>
-        </div>    
-    <div class="reminder-toggle">
-        <span class="reminder-text">Set Reminder</span>
-        <label class="switch-reminder">
-          <input type="checkbox" id="reminder">
-          <span class="slider"></span>
-        </label>
-    </div>
-</div>
-</div>
-  </div>
-  <div class="chatbox">
-    <a href="../../Home/Home.html">
-        <i class="fa fa-home" style="margin-top: 1px;"></i>
-    </a>               
-</div>
-  </div>
-  <script>
-        document.getElementById('toggle').addEventListener('change', function() {
-            const icon = document.querySelector('.toggle-icon i');
-            if (this.checked) {
-                icon.classList.remove('fa-unlock');
-                icon.classList.add('fa-lock');
-            } else {
-                icon.classList.remove('fa-lock');
-                icon.classList.add('fa-unlock');
-            }
-        });
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const customSelectTrigger = document.querySelector('.custom-select-trigger');
-            const customSelectContainer = document.querySelector('.custom-select-container');
-            const settingsIcon = document.querySelector('.settings');
-            const profileCard = document.getElementById('profileCard');
-            const closeProfileCard = document.getElementById('closeProfileCard');
-            const customChildSelectTrigger = document.querySelector('.custom-child-select-trigger');
-            const customChildSelectContainer = document.querySelector('.custom-child-select-container');
-
-            let dropdownTimeout;
-            let profileCardTimeout;
-
-            customSelectTrigger.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent event from bubbling up
-                customSelectContainer.classList.toggle('active'); // Toggle active class to show/hide options
-            });
-
-            settingsIcon.addEventListener('click', () => {
-                profileCard.classList.toggle('show');
-            });
-
-            closeProfileCard.addEventListener('click', () => {
-                profileCard.classList.remove('show');
-            });
-
-            const customOptions = document.querySelectorAll('.custom-option');
-
-            customOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    customSelectTrigger.innerHTML = `${this.innerText} <i class="fa fa-chevron-down"></i>`; // Update trigger text
-                    customSelectContainer.classList.remove('active'); // Close dropdown
-                });
-            });
-
-            customChildSelectTrigger.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent event from bubbling up
-                customChildSelectContainer.classList.toggle('active');
-            });
-
-            // Handle mouse enter and leave events for custom select container
-            customSelectContainer.addEventListener('mouseenter', () => {
-                clearTimeout(dropdownTimeout); // Prevent closing when hovering
-            });
-
-            customSelectContainer.addEventListener('mouseleave', () => {
-                dropdownTimeout = setTimeout(() => {
-                    customSelectContainer.classList.remove('active');
-                }, 300); // Delay before closing to allow for user interaction
-            });
-
-            // Handle mouse enter and leave events for custom child select container
-            customChildSelectContainer.addEventListener('mouseenter', () => {
-                clearTimeout(dropdownTimeout); // Prevent closing when hovering
-            });
-
-            customChildSelectContainer.addEventListener('mouseleave', () => {
-                dropdownTimeout = setTimeout(() => {
-                    customChildSelectContainer.classList.remove('active');
-                }, 300); // Delay before closing to allow for user interaction
-            });
-
-            // Handle mouse enter and leave events for profile card
-            profileCard.addEventListener('mouseenter', () => {
-                clearTimeout(profileCardTimeout); // Prevent closing when hovering
-            });
-
-            profileCard.addEventListener('mouseleave', () => {
-                profileCardTimeout = setTimeout(() => {
-                    profileCard.classList.remove('show');
-                }, 300); // Delay before closing to allow for user interaction
-            });
-
-            // Close dropdowns and profile card when clicking outside
             document.addEventListener('click', (event) => {
                 if (!customSelectContainer.contains(event.target) && !customSelectTrigger.contains(event.target)) {
                     customSelectContainer.classList.remove('active');
@@ -437,7 +386,7 @@
                 }
             });
         });
+    </script>
+</body>
 
-  </script>
- </body>
 </html>

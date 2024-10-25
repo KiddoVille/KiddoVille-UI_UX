@@ -95,13 +95,8 @@ body {
     padding: 15px 10px;
 }
 .main-content {
-    background-color: #f5f5f5;
     padding: 20px;
     position: relative;
-    background-image: url('../../Assets/dashboard-background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     height: 186vh !important;
     margin-left: 270px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -214,7 +209,6 @@ body {
     width: 300px;
     padding: 20px;
     background-color: white;
-    background-image: url('../Assets/dashboard-background.png');
     background-size: cover;
     background-position: center;
     margin-top: 80px;
@@ -682,7 +676,7 @@ table td {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
 }
@@ -724,15 +718,13 @@ table td {
 
 .snack-modal {
     display: none;
-    position: inherit;
-    background-color: white;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 10000;
-    margin-top: -370px;
     width: 343px;
-    margin-left: 55px;
+    margin-left: 55px !important;
+    margin-bottom: 0px !important;
 }
 
 .snack-modal-content {
@@ -740,6 +732,8 @@ table td {
     border: 2px solid #0056b3;
     padding: 10px 10px;
     height: 110px;
+    margin-top: -360px;
+    margin-left: 55px;
 }
 
 .fa-xmark{
@@ -863,7 +857,7 @@ button:hover {
 }
 
 .show {
-    display: block; /* Show the modal */
+    display: block;
 }
 
 .snack-modal-content {
@@ -919,4 +913,12 @@ button:hover {
 
 .navigation {
     margin-bottom: 20px;
+}
+
+.sidebar ul{
+    margin-top: -8px !important;
+}
+
+.sidebar.minimized ul {
+    margin-top: -23px !important;
 }

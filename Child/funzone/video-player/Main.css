@@ -2,11 +2,13 @@
     white-space: nowrap;
     margin-right: 20px;
 }
+
 .Time-comment {
     white-space: nowrap;
     margin-right: 20px;
 }
-.action-text{
+
+.action-text {
     white-space: nowrap;
     margin-right: 20px;
 }
@@ -16,6 +18,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
 }
+
 .main-content {
     margin-left: 250px;
     background-color: #e0e0e0;
@@ -29,12 +32,13 @@ body {
     position: relative;
 }
 
-.fa-search{
+.fa-search {
     margin-top: -63px;
     margin-bottom: 23px;
     margin-left: 182px;
     color: #333;
 }
+
 /* Container for the custom dropdown */
 .custom-select-container {
     position: relative;
@@ -81,43 +85,51 @@ body {
     transition: all 0.3s ease;
     height: 200px;
     overflow-y: scroll;
-    overflow-x:none ;
+    overflow-x: none;
 }
 
 .custom-options-container::-webkit-scrollbar {
-    width: 7px; /* Width of the scrollbar */
+    width: 7px;
+    /* Width of the scrollbar */
 }
 
 .custom-options-container::-webkit-scrollbar-track {
-    background: #8db4f3; /* Color of the scrollbar track */
+    background: #8db4f3;
+    /* Color of the scrollbar track */
     border-radius: 10px;
 }
 
 .custom-options-container::-webkit-scrollbar-thumb {
-    background: #3b82f6; /* Color of the scrollbar handle */
+    background: #3b82f6;
+    /* Color of the scrollbar handle */
     border-radius: 10px;
 }
 
 .custom-options-container::-webkit-scrollbar-thumb:hover {
-    background: #196df5; /* Color of the scrollbar handle on hover */
+    background: #196df5;
+    /* Color of the scrollbar handle on hover */
 }
 
 .grid::-webkit-scrollbar {
-    width: 20px; /* Width of the scrollbar */
+    width: 20px;
+    /* Width of the scrollbar */
 }
 
 .grid::-webkit-scrollbar-track {
-    background: #8db4f3; /* Color of the scrollbar track */
+    background: #8db4f3;
+    /* Color of the scrollbar track */
     border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb {
-    background: #3b82f6; /* Color of the scrollbar handle */
+    background: #3b82f6;
+    /* Color of the scrollbar handle */
     border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb:hover {
-    background: #196df5; /* Color of the scrollbar handle on hover */
+    background: #196df5;
+    /* Color of the scrollbar handle on hover */
 }
 
 /* Individual options */
@@ -132,7 +144,8 @@ body {
 }
 
 .custom-option:last-child {
-    border-bottom: none; /* Remove border for the last option */
+    border-bottom: none;
+    /* Remove border for the last option */
 }
 
 /* Hover effect for options */
@@ -142,30 +155,37 @@ body {
 
 /* Show the custom dropdown options when the dropdown is active */
 .custom-select-container.active .custom-options-container {
-    display: block; /* Show options when dropdown is active */
+    display: block;
+    /* Show options when dropdown is active */
 }
 
 .custom-select-container:focus {
-    transform: scale(1.1); /* Grow 10% */
+    transform: scale(1.1);
+    /* Grow 10% */
 }
+
 .fa-home {
-    font-size: 32px; /* Set the size of the icon */
+    font-size: 32px;
+    /* Set the size of the icon */
     color: white;
-    transition: transform 0.3s ease; /* Smooth transition for transform changes */
+    transition: transform 0.3s ease;
+    /* Smooth transition for transform changes */
     margin-top: -5px;
 }
 
 .fa-home:hover {
-    transform: scale(1.2); /* Scale the icon to 120% of its original size */
+    transform: scale(1.2);
+    /* Scale the icon to 120% of its original size */
 }
 
-.nav-link{
+.nav-link {
     color: white;
     display: flex;
     flex-direction: row;
     text-decoration: none;
 }
-.nav-link p{
+
+.nav-link p {
     font-size: 20px;
     margin-top: -10px;
 }
@@ -331,146 +351,174 @@ body {
     font-size: 14px;
     color: #666;
 }
+
 .video-player {
-width: 100%;
-height: 400px;
-background-color: #000;
-position: relative;
-border-radius: 10px;
-overflow: hidden;
-max-width: 100%;
+    width: 100%;
+    height: 400px;
+    background-color: #000;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 100%;
 }
 
 .video-player .play-button {
-display: none; /* Remove or hide the play button from here */
+    display: none;
+    /* Remove or hide the play button from here */
 }
 
 .video-player .pause-button {
-display: none; /* Remove or hide the pause button from here */
+    display: none;
+    /* Remove or hide the pause button from here */
 }
 
 .video-player:hover .play-button {
-display: none; /* Ensure it's hidden on hover */
+    display: none;
+    /* Ensure it's hidden on hover */
 }
 
 .video-player:hover .pause-button {
-display: none; /* Ensure it's hidden on hover */
+    display: none;
+    /* Ensure it's hidden on hover */
 }
+
 .progress-container {
-flex: 1;
-padding: 0 10px;
+    flex: 1;
+    padding: 0 10px;
 }
 
 #progressBar {
-width: 100%;
-height: 5px;
--webkit-appearance: none;
-background: #ddd;
-outline: none;
-cursor: pointer;
+    width: 100%;
+    height: 5px;
+    -webkit-appearance: none;
+    background: #ddd;
+    outline: none;
+    cursor: pointer;
 }
 
 #progressBar::-webkit-slider-thumb {
--webkit-appearance: none;
-background: #333;
-height: 15px;
-width: 15px;
-border-radius: 50%;
+    -webkit-appearance: none;
+    background: #333;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
 }
 
 #progressBar::-moz-range-thumb {
-background: #333;
-height: 15px;
-width: 15px;
-border-radius: 50%;
+    background: #333;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
 }
 
 .video-actions {
-display: flex;
-justify-content: space-around;
-margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 
 .action-button:hover {
-background-color: #155a9e;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #155a9e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .action-button:focus {
-outline: none;
-box-shadow: 0 0 0 3px rgba(1, 87, 155, 0.5);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(1, 87, 155, 0.5);
 }
 
 .video-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px; /* Adjust spacing as needed */
-        padding: 10px; /* Add padding if needed */
-        background-color: #f9f9f9; /* Optional: background color */
-        border-radius: 8px; /* Optional: rounded corners */
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: shadow */
-        background-color: #94a4b4;
-        padding: 10px 10px;
-        border-radius: 5px;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    /* Adjust spacing as needed */
+    padding: 10px;
+    /* Add padding if needed */
+    background-color: #f9f9f9;
+    /* Optional: background color */
+    border-radius: 8px;
+    /* Optional: rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    /* Optional: shadow */
+    background-color: #94a4b4;
+    padding: 10px 10px;
+    border-radius: 5px;
+}
 
-    .video-actions i {
-        font-size: 24px; /* Adjust icon size as needed */
-        color: #333; /* Default icon color */
-        margin-right: 8px; /* Space between icon and text */
-        transition: color 0.3s, transform 0.3s; /* Smooth transition */
-    }
+.video-actions i {
+    font-size: 24px;
+    /* Adjust icon size as needed */
+    color: #333;
+    /* Default icon color */
+    margin-right: 8px;
+    /* Space between icon and text */
+    transition: color 0.3s, transform 0.3s;
+    /* Smooth transition */
+}
 
-    .video-actions .action-text {
-        display: flex;
-        align-items: center;
-    }
+.video-actions .action-text {
+    display: flex;
+    align-items: center;
+}
 
-    .video-actions .action-text span {
-        margin-left: 8px; /* Space between icon and text */
-        font-size: 16px; /* Adjust text size as needed */
-    }
-    .video-actions i {
-        font-size: 24px; /* Adjust icon size as needed */
-        color: #333; /* Default icon color */
-        margin-right: 8px; /* Space between icon and text */
-        transition: color 0.3s, transform 0.3s; /* Smooth transition */
-    }
+.video-actions .action-text span {
+    margin-left: 8px;
+    /* Space between icon and text */
+    font-size: 16px;
+    /* Adjust text size as needed */
+}
 
-    .video-actions i.liked, 
-    .video-actions i.added {
-        color: #1d61c4; /* Color when liked or added */
-    }
+.video-actions i {
+    font-size: 24px;
+    /* Adjust icon size as needed */
+    color: #333;
+    /* Default icon color */
+    margin-right: 8px;
+    /* Space between icon and text */
+    transition: color 0.3s, transform 0.3s;
+    /* Smooth transition */
+}
 
-    .video-actions i:hover {
-        transform: scale(1.2); /* Slight scale effect on hover */
-    }
-    #commentSection {
-        margin-top: 20px;
-        padding: 10px;
-        background: #fff; /* White background for comment section */
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
+.video-actions i.liked,
+.video-actions i.added {
+    color: #1d61c4;
+    /* Color when liked or added */
+}
 
-    #commentInput {
-        width: 97%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-    }
+.video-actions i:hover {
+    transform: scale(1.2);
+    /* Slight scale effect on hover */
+}
 
-    #submitCommentButton, #cancelCommentButton {
-        margin-top: 10px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #1d61c4;
-        color: #fff;
-        cursor: pointer;
-    }
+#commentSection {
+    margin-top: 20px;
+    padding: 10px;
+    background: #fff;
+    /* White background for comment section */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 
-    #submitCommentButton:hover, #cancelCommentButton:hover {
-        background-color: #155a9e;
-    }
+#commentInput {
+    width: 97%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#submitCommentButton,
+#cancelCommentButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1d61c4;
+    color: #fff;
+    cursor: pointer;
+}
+
+#submitCommentButton:hover,
+#cancelCommentButton:hover {
+    background-color: #155a9e;
+}
