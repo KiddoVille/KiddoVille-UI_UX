@@ -12,16 +12,21 @@
     flex-direction: column;
     align-items: center;
 }
+
 .sidebar img {
     width: 50px;
     height: 50px;
 }
+
 .sidebar h1 {
     color: #3b82f6;
     font-size: 24px;
     margin: 10px 0;
 }
-.sidebar input[type="text"], .sidebar select, .sidebar button {
+
+.sidebar input[type="text"],
+.sidebar select,
+.sidebar button {
     width: 100%;
     padding: 10px;
     margin: 10px 10px;
@@ -34,30 +39,35 @@
     transition: transform 0.3s ease;
 }
 
-.sidebar button:hover{
+.sidebar button:hover {
     transform: scale(1.1);
 }
 
-.sidebar input[type="text"]:focus{
+.sidebar input[type="text"]:focus {
     transform: scale(1.1);
 }
 
-.sidebar input[type="text"]{
+.sidebar input[type="text"] {
     width: 90%;
     margin-bottom: 35px;
 }
+
 .sidebar input[type="text"]::placeholder {
-    color: #333; /* Example color for the placeholder */
+    color: #333;
+    /* Example color for the placeholder */
 }
+
 .sidebar button {
     background-color: rgba(255, 255, 255, 0.5);
     color: #333;
 }
+
 .sidebar .bottom-text {
     margin-top: auto;
     color: white;
     font-size: 14px;
 }
+
 .sidebar .bottom-text i {
     margin-right: 5px;
 }
@@ -77,19 +87,23 @@
     z-index: 1000;
     height: 80px
 }
+
 .main-content .header h2 {
     margin: 0;
     font-size: 40px;
     margin-right: 750px;
 }
+
 .main-content .header .nav-buttons {
     display: flex;
     align-items: center;
 }
+
 .main-content .header .nav-buttons i {
     margin: 0 10px;
     cursor: pointer;
 }
+
 .main-content .header .settings {
     cursor: pointer;
     font-size: 32px !important;
@@ -125,7 +139,7 @@
     border-radius: 50%;
     width: 80px;
     height: 80px;
-    border: 5px solid  #3a8dde;
+    border: 5px solid #3a8dde;
     margin-top: -1px !important;
 }
 
@@ -136,11 +150,11 @@
     margin-top: 10px;
 }
 
-.profile-card h2{
+.profile-card h2 {
     font-size: 16px;
 }
 
-.profile-card .profile-button, 
+.profile-card .profile-button,
 .profile-card .secondary-button {
     display: block;
     width: 100%;
@@ -155,7 +169,7 @@
     cursor: pointer;
 }
 
-.profile-card .profile-button:hover, 
+.profile-card .profile-button:hover,
 .profile-card .secondary-button:hover {
     background-color: #3a8dde;
     color: white;
@@ -180,11 +194,12 @@
     font-size: 16px;
     cursor: pointer;
 }
+
 .logout-button:hover {
     background-color: red;
 }
 
-.child-name{
+.child-name {
     margin-right: 0px !important;
     color: black;
     font-size: 20px !important;
@@ -253,7 +268,8 @@
     border: 2px solid #3a8dde;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: none; /* Ensure it's hidden by default */
+    display: none;
+    /* Ensure it's hidden by default */
     z-index: 100;
     transition: all 0.3s ease;
     max-height: 200px;
@@ -305,10 +321,11 @@
 }
 
 .custom-child-select-container.active .custom-child-options-container {
-    display: block; /* Show dropdown options when active */
+    display: block;
+    /* Show dropdown options when active */
 }
 
-.custom-child-options-container{
+.custom-child-options-container {
     height: 163px !important;
 }
 
@@ -320,14 +337,14 @@
     gap: 30px;
 }
 
-.lock{
+.lock {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
 }
 
-.lock-p{
+.lock-p {
     margin-right: 30px !important;
     font-size: 20px !important;
 }
@@ -363,12 +380,13 @@
     left: 5px;
 }
 
-.switch input:checked + label .toggle-icon {
-    transform: translateX(50px); /* Move the circle to the right */
+.switch input:checked+label .toggle-icon {
+    transform: translateX(50px);
+    /* Move the circle to the right */
     background: #196df5;
 }
 
-.switch input:checked + label {
+.switch input:checked+label {
     background: rgba(25, 109, 245, 0.35);
 }
 
@@ -378,17 +396,20 @@
     transition: color 0.3s ease;
 }
 
-.switch input:checked + label .toggle-icon i {
-    color: white; /* Change icon color on checked */
+.switch input:checked+label .toggle-icon i {
+    color: white;
+    /* Change icon color on checked */
 }
 
 /* Font Awesome icons */
 .fa-lock::before {
-    content: '\f09c'; /* Lock icon */
+    content: '\f09c';
+    /* Lock icon */
 }
 
 .fa-unlock::before {
-    content: '\f023'; /* Unlock icon */
+    content: '\f023';
+    /* Unlock icon */
 }
 
 .chatbox {
@@ -405,10 +426,12 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
-.chatbox:hover{
+
+.chatbox:hover {
     transform: scale(1.2);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
+
 .chatbox i {
     font-size: 24px;
     color: white;
@@ -418,37 +441,124 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px; /* Adjust size as needed */
-    height: 50px; /* Adjust size as needed */
+    width: 50px;
+    /* Adjust size as needed */
+    height: 50px;
+    /* Adjust size as needed */
     background-color: white;
-    border-radius: 50%; /* Creates the circular shape */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow */
-    margin: 0 10px; /* Spacing between icons */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and box-shadow */
+    border-radius: 50%;
+    /* Creates the circular shape */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Optional: adds a shadow */
+    margin: 0 10px;
+    /* Spacing between icons */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transition for transform and box-shadow */
 }
 
 .circle:hover {
-    transform: translateY(-10px) scale(1.1); /* Move up and scale the circle */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: increase shadow on hover for a floating effect */
+    transform: translateY(-10px) scale(1.1);
+    /* Move up and scale the circle */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Optional: increase shadow on hover for a floating effect */
 }
 
 .circle i {
-    font-size: 24px; /* Adjust size of the icons */
-    color: black; /* Default icon color */
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for color and scale */
+    font-size: 24px;
+    /* Adjust size of the icons */
+    color: black;
+    /* Default icon color */
+    transition: color 0.3s ease, transform 0.3s ease;
+    /* Smooth transition for color and scale */
 }
 
 .circle:hover i {
-    color: blue; /* Color of the icon on hover */
-    transform: scale(1.2); /* Scale the icon to 120% on hover */
+    color: blue;
+    /* Color of the icon on hover */
+    transform: scale(1.2);
+    /* Scale the icon to 120% on hover */
 }
 
-.circle .fa-chevron-left{
+.circle .fa-chevron-left {
     margin-left: 6px !important;
-    color:#2e7af5 ;
+    color: #2e7af5;
 }
 
-.circle .fa-chevron-right{
+.circle .fa-chevron-right {
     margin-left: 14px !important;
-    color: #2e7af5 ;
+    color: #2e7af5;
+}
+
+.chatbox {
+    text-decoration: none;
+}
+
+.loading-area {
+    display: none;
+    /* Keep it hidden initially */
+    place-items: center;
+}
+
+.contents {
+    text-align: center;
+}
+
+.loader div {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: animate 1.5s ease-in-out infinite;
+    display: inline-block;
+    margin: 10px;
+    background-color: lightblue;
+    filter: drop-shadow(0 0 5px blue) drop-shadow(0 0 23px blue);
+}
+
+.loader div:nth-child(0) {
+    animation-delay: 0s;
+}
+
+.loader div:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.loader div:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.loader div:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.loader div:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+.loader div:nth-child(5) {
+    animation-delay: 1s;
+}
+
+.loader div:nth-child(6) {
+    animation-delay: 1.2s;
+}
+
+.loader div:nth-child(7) {
+    animation-delay: 1.4s;
+}
+
+@keyframes animate {
+
+    0%,
+    100% {
+        transform: scale(0.1);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1);
+    }
 }

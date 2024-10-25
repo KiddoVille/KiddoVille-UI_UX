@@ -3,6 +3,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
 }
+
 .main-content {
     margin-left: 250px;
     background-color: #e0e0e0;
@@ -26,6 +27,7 @@ body {
     box-sizing: border-box;
     max-height: 80%;
 }
+
 .main-content .grid .item {
     background-color: white;
     border-radius: 10px;
@@ -38,8 +40,10 @@ body {
 }
 
 .main-content .grid .item:hover {
-    transform: translateY(-10px); /* Move the item up */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    transform: translateY(-10px);
+    /* Move the item up */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Increase shadow on hover */
 }
 
 .icon-container {
@@ -69,8 +73,10 @@ body {
 
 .icon-btn:hover {
     background-color: #e0e0e0;
-    transform: scale(1.2); /* Enlarge the button */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    transform: scale(1.2);
+    /* Enlarge the button */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Increase shadow on hover */
 }
 
 .watch-btn {
@@ -81,22 +87,22 @@ body {
     color: #e74c3c;
 }
 
-.fa-clock{
+.fa-clock {
     font-size: 20px;
 }
 
-.fa-trash{
+.fa-trash {
     font-size: 20px;
 }
 
-.date-time{
+.date-time {
     margin-top: 7px !important;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.format{
+.format {
     margin-top: 7px !important;
     text-align: left;
     color: #888;
@@ -117,6 +123,7 @@ body {
     height: 200px;
     border-radius: 7px;
 }
+
 .main-content .grid .item h3 {
     margin: 10px 0;
     font-size: 14px;
@@ -129,12 +136,14 @@ body {
     color: #333;
     margin-top: -8px;
 }
-.fa-search{
+
+.fa-search {
     margin-top: -63px;
     margin-bottom: 23px;
     margin-left: 182px;
     color: #333;
 }
+
 /* Container for the custom dropdown */
 .custom-select-container {
     position: relative;
@@ -181,43 +190,51 @@ body {
     transition: all 0.3s ease;
     height: 200px;
     overflow-y: scroll;
-    overflow-x:none ;
+    overflow-x: none;
 }
 
 .custom-options-container::-webkit-scrollbar {
-    width: 7px; /* Width of the scrollbar */
+    width: 7px;
+    /* Width of the scrollbar */
 }
 
 .custom-options-container::-webkit-scrollbar-track {
-    background: #8db4f3; /* Color of the scrollbar track */
+    background: #8db4f3;
+    /* Color of the scrollbar track */
     border-radius: 10px;
 }
 
 .custom-options-container::-webkit-scrollbar-thumb {
-    background: #3b82f6; /* Color of the scrollbar handle */
+    background: #3b82f6;
+    /* Color of the scrollbar handle */
     border-radius: 10px;
 }
 
 .custom-options-container::-webkit-scrollbar-thumb:hover {
-    background: #196df5; /* Color of the scrollbar handle on hover */
+    background: #196df5;
+    /* Color of the scrollbar handle on hover */
 }
 
 .grid::-webkit-scrollbar {
-    width: 20px; /* Width of the scrollbar */
+    width: 20px;
+    /* Width of the scrollbar */
 }
 
 .grid::-webkit-scrollbar-track {
-    background: #8db4f3; /* Color of the scrollbar track */
+    background: #8db4f3;
+    /* Color of the scrollbar track */
     border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb {
-    background: #3b82f6; /* Color of the scrollbar handle */
+    background: #3b82f6;
+    /* Color of the scrollbar handle */
     border-radius: 10px;
 }
 
 .grid::-webkit-scrollbar-thumb:hover {
-    background: #196df5; /* Color of the scrollbar handle on hover */
+    background: #196df5;
+    /* Color of the scrollbar handle on hover */
 }
 
 /* Individual options */
@@ -232,7 +249,8 @@ body {
 }
 
 .custom-option:last-child {
-    border-bottom: none; /* Remove border for the last option */
+    border-bottom: none;
+    /* Remove border for the last option */
 }
 
 /* Hover effect for options */
@@ -242,30 +260,37 @@ body {
 
 /* Show the custom dropdown options when the dropdown is active */
 .custom-select-container.active .custom-options-container {
-    display: block; /* Show options when dropdown is active */
+    display: block;
+    /* Show options when dropdown is active */
 }
 
 .custom-select-container:focus {
-    transform: scale(1.1); /* Grow 10% */
+    transform: scale(1.1);
+    /* Grow 10% */
 }
+
 .fa-home {
-    font-size: 32px; /* Set the size of the icon */
+    font-size: 32px;
+    /* Set the size of the icon */
     color: white;
-    transition: transform 0.3s ease; /* Smooth transition for transform changes */
+    transition: transform 0.3s ease;
+    /* Smooth transition for transform changes */
     margin-top: -5px;
 }
 
 .fa-home:hover {
-    transform: scale(1.2); /* Scale the icon to 120% of its original size */
+    transform: scale(1.2);
+    /* Scale the icon to 120% of its original size */
 }
 
-.nav-link{
+.nav-link {
     color: white;
     display: flex;
     flex-direction: row;
     text-decoration: none;
 }
-.nav-link p{
+
+.nav-link p {
     font-size: 20px;
     margin-top: -10px;
 }
@@ -278,32 +303,32 @@ body {
 .reminder-toggle {
     display: flex;
     align-items: center;
-  }
-  
-  .reminder-text {
+}
+
+.reminder-text {
     margin-left: 0px;
     font-size: 14px;
     font-weight: 500;
     color: #333;
     font-style: italic;
-  }
-  
-  /* Toggle switch container */
-  .switch-reminder {
+}
+
+/* Toggle switch container */
+.switch-reminder {
     position: relative;
     display: inline-block;
     width: 40px;
     height: 20px;
     margin-left: 30px;
-  }
-  
-  /* Hide the default checkbox */
-  .switch-reminder input {
+}
+
+/* Hide the default checkbox */
+.switch-reminder input {
     display: none;
-  }
-  
-  /* Slider styling */
-  .slider {
+}
+
+/* Slider styling */
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -313,10 +338,10 @@ body {
     background-color: #ccc;
     transition: 0.4s;
     border-radius: 34px;
-  }
-  
-  /* Slider circle (toggle knob) */
-  .slider:before {
+}
+
+/* Slider circle (toggle knob) */
+.slider:before {
     position: absolute;
     content: "";
     height: 14px;
@@ -326,55 +351,61 @@ body {
     background-color: white;
     transition: 0.4s;
     border-radius: 50%;
-  }
-  
-  /* When checkbox is checked, move the slider */
-  input:checked + .slider {
-    background-color: #4CAF50;
-  }
-  
-  /* Move the knob to the right when checked */
-  input:checked + .slider:before {
-    transform: translateX(18px);
-  }
-  
-  /* Add focus shadow */
-  input:focus + .slider {
-    box-shadow: 0 0 1px #4CAF50;
-  }
+}
 
-  .reminder-details {
+/* When checkbox is checked, move the slider */
+input:checked+.slider {
+    background-color: #4CAF50;
+}
+
+/* Move the knob to the right when checked */
+input:checked+.slider:before {
+    transform: translateX(18px);
+}
+
+/* Add focus shadow */
+input:focus+.slider {
+    box-shadow: 0 0 1px #4CAF50;
+}
+
+.reminder-details {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-  }
-  
-  /* Date and Time styling */
-  .reminder-date, .reminder-time {
+}
+
+/* Date and Time styling */
+.reminder-date,
+.reminder-time {
     display: flex;
     align-items: center;
     font-size: 14px;
     color: #555;
-  }
-  
-  /* Add spacing between icon and text */
-  .reminder-date i, .reminder-time i {
+}
+
+/* Add spacing between icon and text */
+.reminder-date i,
+.reminder-time i {
     margin-right: 6px;
     color: #333;
-  }
-  /* Optional: style the icons */
-  .reminder-date i {
-    color: #4CAF50; /* Date icon color */
-  }
-  .reminder-time i {
-    color: #FF9800; /* Time icon color */
-  }
+}
 
-  .reminder-date{
+/* Optional: style the icons */
+.reminder-date i {
+    color: #4CAF50;
+    /* Date icon color */
+}
+
+.reminder-time i {
+    color: #FF9800;
+    /* Time icon color */
+}
+
+.reminder-date {
     margin-right: 40px;
-  }
+}
 
-  .reminder-time{
+.reminder-time {
     margin-left: 40px;
-  }
+}

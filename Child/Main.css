@@ -20,12 +20,26 @@ body {
     height: 100vh;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0px;
     margin-bottom: 0;
     overflow-y: auto;
     border-right: 5px solid #007bff;
     box-sizing: border-box;
     width: 270px;
+    transform: translateX(0px);
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    z-index: 10000;
+}
+.sidebar.minimized {
+    width: 50px;
+    padding: 0px;
+    border: none;
+    overflow: hidden;
+    transform: translateX(0px);
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+.sidebar.visible {
+    left: 0;
 }
 .sidebar h2 {
     font-size: 40px;
@@ -33,12 +47,39 @@ body {
     margin-left: 25px;
     color:#2353A7 ;
 }
+.sidebar.minimized h2 {
+    opacity: 0;
+    visibility: hidden;
+}
+.star {
+    display: none;
+    transition: all 0.4s ease;
+    padding: 0px;
+    margin: 0px;
+    width:40px;
+}
+.show {
+    display: inline;
+    width: 40px;
+    opacity: 1;
+    margin-left: 4px;
+    margin-top: 15px;
+    margin-bottom: -37px;
+}
 .sidebar ul {
     font-weight: bold;
     list-style: none;
     padding: 0;
     margin-left: 45px;
     margin-top: 30px;
+    transition: margin-left 0.5s ease-in-out;
+}
+.sidebar.minimized ul {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 3px;
+    margin-top: 0px;
 }
 .sidebar ul li {
     margin-bottom: -30px;
@@ -52,10 +93,17 @@ body {
     align-items: center;
     margin-top: 40px;
     padding: 10px;
-    transition: color 0.3s, border-color 0.3s; 
+    transition: color 0.5s, border-color 0.3s; 
 }
 .sidebar ul li a i {
     margin-right: 10px;
+    margin-top: 2px;
+}
+.sidebar.minimized ul li a span {
+    display: none;
+}
+.sidebar.minimized a span {
+    display: none;
 }
 .sidebar ul li a:hover {
     color: #007bff;
@@ -114,6 +162,19 @@ body {
     max-height: 40px;
     width: calc(100% - 300px);
     z-index: 1000;
+}
+.header .fa-bars {
+    transition: transform 0.3s ease;
+}
+.header .fa-bars:hover{
+    transform: scale(1.1);
+}
+.header .name{
+    margin-left: -150px;
+    margin-right: -30px;
+}
+.header .name p{
+    color: white;
 }
 .header h1 {
     font-size: 24px;
@@ -213,7 +274,7 @@ body {
 }
 .stats .stat {
     background-color: rgba(0, 74, 153, 0.8);
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     text-align: center;
     flex-grow: 1;
@@ -247,14 +308,14 @@ body {
     color: white;
 }
 .stats .stat i {
-    font-size: 25px; /* Adjust icon size */
-    margin-bottom: -20px; /* Add spacing between icon and h3 */
+    font-size: 20px;
+    margin-bottom: -20px;
     margin-right: 10px;
 }
 
 .chatbox {
     position: fixed;
-    bottom: 75px;
+    bottom: 85px;
     right: 40px;
     width: 50px;
     height: 50px;
@@ -265,6 +326,8 @@ body {
     justify-content: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 4px solid #C0C0C0;
+    cursor: pointer;
 }
 .chatbox:hover{
     transform: scale(1.2);
@@ -299,7 +362,7 @@ body {
     position: fixed;
     right: -400px;
     width: 280px;
-    padding: 20px;
+    padding: 30px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: right 0.6s ease;
@@ -313,6 +376,7 @@ body {
     border: 5px solid #3a8dde;
     display: none;
     z-index: 1000;
+    margin-top: 0px;
 }
 .profile-card.show {
     display: flex;
@@ -331,9 +395,9 @@ body {
 }
 
 .profilebtn:hover {
-    background-color: white; /* Ensure background color remains the same */
-    border: 5px solid #3a8dde; /* Ensure border color remains the same */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ensure box-shadow remains the same */
+    background-color: white;
+    border: 5px solid #3a8dde;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .profile-card p {
@@ -345,6 +409,7 @@ body {
     margin-left: -270px;
     margin-top: -15px;
     margin-bottom: -10px;
+    cursor: pointer;
 }
 .profile-card.show {
     right: 0;
@@ -412,7 +477,7 @@ body {
     top: 85px;
     margin-right: 342px;
     border: 3px solid #0056b3;
-    transform: translateY(-20px); /* Slide up initially */
+    transform: translateY(-20px); 
     transition: opacity 0.3s ease, transform 0.3s ease;
     overflow:scroll;
     overflow-x: hidden;
@@ -420,20 +485,20 @@ body {
 }
 
 #messageDropdown::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 8px; 
 }
 
 #messageDropdown::-webkit-scrollbar-thumb {
-    background-color: #3a8dde; /* Color of the scrollbar */
-    border-radius: 8px; /* Rounded scrollbar thumb */
+    background-color: #3a8dde;
+    border-radius: 8px;
 }
 
 #messageDropdown::-webkit-scrollbar-thumb:hover {
-    background-color: #004099; /* Darker color on hover */
+    background-color: #004099; 
 }
 
 #messageDropdown::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Color of the track */
+    background-color: #f1f1f1;
     border-radius: 8px;
 }
 
@@ -441,12 +506,13 @@ body {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    cursor:default;
 }
 
 .message-dropdown ul li {
-    padding: 0; /* Remove padding from the li element */
+    padding: 0;
     border-bottom: 2px solid #bdbcbc;
-    transition: background-color 0.3s ease; /* Add transition for hover effect */
+    transition: background-color 0.3s ease;
 }
 
 .message-dropdown ul li:last-child {
@@ -454,7 +520,7 @@ body {
 }
 
 .message-dropdown ul li:hover {
-    background-color: #60a6ec; /* Full background color change on hover */
+    background-color: #60a6ec;
     border-radius: 5px;
 }
 
@@ -465,9 +531,9 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     display: block;
-    padding: 18px 20px; /* Inner padding for the a tag */
-    transition: color 0.3s ease; /* Smooth color transition for text */
-    border-radius: 0; /* Ensure no rounding on the a tag */
+    padding: 18px 20px;
+    transition: color 0.3s ease;
+    border-radius: 0;
     padding-bottom: 5px;
     margin-top: 0px;
 }
@@ -477,19 +543,20 @@ body {
 }
 
 .message-dropdown ul li:hover .fa-paper-plane {
-    color: #ffffff; /* White for a clean contrast */
-    background-color: #1A73E8; /* Match hover color with the text */
+    color: #ffffff;
+    background-color: #1A73E8;
 }
 
 .fa-paper-plane {
     margin-left: 110px;
-    border: 2px solid #0056b3; /* Darker blue for consistency */
-    background-color: #f0f4fb; /* Light blue-gray for subtle contrast */
+    border: 2px solid #0056b3;
+    background-color: #f0f4fb;
     border-radius: 10px;
     padding: 6px;
-    color: #1A73E8; /* A vibrant blue to match hover colors */
+    color: #1A73E8;
     transition: background-color 0.3s ease, color 0.3s ease;
     justify-content: center;
+    cursor: pointer;
 }
 
 .content{
@@ -501,20 +568,16 @@ body {
     color: black !important;
 }
 
-
-
-
-
 .fill {
-    border: 5px solid #007bff; /* Change border color to match the theme */
-    margin: 50px auto; /* Center the container and maintain spacing */
-    padding: 20px; /* Increase padding for better spacing inside the container */
-    border-radius: 20px; /* Smooth rounded corners */
-    background-color: #f5f5f5; /* Light background for a softer look */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
-    max-width: 90%; /* Restrict width for better layout on large screens */
-    overflow: hidden; /* Hide any overflow content */
-    position: relative; /* Allows for positioning child elements */
+    border: 5px solid #007bff;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 90%; 
+    overflow: hidden;
+    position: relative;
     margin-top: 80px;
     background-color: #e0f7fa;
     display: flex;
@@ -536,25 +599,25 @@ body {
 }
 
 .fill h1 {
-    font-size: 30px; /* Increase font size for headings */
-    color: #333; /* Dark text color for readability */
-    margin-bottom: 0px; /* Add spacing below the heading */
+    font-size: 30px;
+    color: #333;
+    margin-bottom: 0px;
     color: #0056b3 !important;
     margin-top: -10px;
 }
 
 .fill p {
-    font-size: 16px; /* Adjust font size for better readability */
-    color: #666; /* Slightly lighter text color */
-    margin-bottom: 20px; /* Add spacing below paragraphs */
+    font-size: 16px;
+    color: #666; 
+    margin-bottom: 20px;
 }
 
 .fill .button-container {
-    text-align: center; /* Center-align buttons inside the container */
+    text-align: center;
 }
 
 .fill .button-container button {
-    background-color: #007bff; /* Button color matching theme */
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 12px 24px;
@@ -565,54 +628,53 @@ body {
 }
 
 .fill .button-container button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-    transform: translateY(-2px); /* Slightly raise the button on hover */
+    background-color: #0056b3;
+    transform: translateY(-2px); 
 }
 
 .fill .button-container .secondary-button {
-    background-color: #e0e0e0; /* Light background for secondary button */
+    background-color: #e0e0e0;
     color: #333;
-    margin-left: 10px; /* Spacing between buttons */
+    margin-left: 10px;
 }
 
 .fill .button-container .secondary-button:hover {
-    background-color: #ccc; /* Darker shade on hover */
+    background-color: #ccc;
 }
 
 .fill img {
-    max-width: 100%; /* Ensure images fit within the container */
-    border-radius: 10px; /* Rounded corners for images */
+    max-width: 100%;
+    border-radius: 10px;
 }
 
 .packages {
     display: flex;
     flex-direction: row;
-    gap: 15px; /* Space between cards */
-    justify-content: center; /* Center align items */
-    margin: 0px 30px; /* Adjust overall margin if needed */
-    padding: 0px; /* Remove padding */
+    gap: 15px;
+    justify-content: center;
+    margin: 0px 30px;
+    padding: 0px;
 }
 .package-card {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    width: calc(25% - 30px); /* Four cards per row with a gap of 20px */
+    width: calc(25% - 30px);
     text-align: center;
-    margin: 10px; /* Reset margin to avoid extra space */
+    margin: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid black;
-    box-sizing: border-box; /* Ensure padding and border are included in width calculation */
-    height: 220px; /* Adjust height if needed */
+    box-sizing: border-box;
+    height: 220px;
     margin-top: 20px;
     width: 188px
 }
 .package-card:hover {
-    transform: scale(1.05); /* Scale up the card */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Larger shadow */
-    z-index: 10; /* Bring the card forward */
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    z-index: 10;
 }
 
-/* Animated top border on hover */
 .package-card:hover::before {
     content: '';
     position: absolute;
@@ -622,7 +684,7 @@ body {
     height: 10px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    background-color: #0056b3; /* Accent color on hover */
+    background-color: #0056b3;
 }
 .package-card img {
     border-radius: 8px;
@@ -695,4 +757,158 @@ body {
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
+}
+
+.sidebar-2 {
+    width: 220px;
+    background-color: #233E8D;
+    padding: 5px 10px;
+    position: relative;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    margin-bottom: 0;
+    position: fixed;
+    height: 100%;
+    background-image: url('../Assets/insight_zone.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 50px;
+}
+
+.sidebar-2 h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+    margin-top: 15px;    
+    margin-left: 0px;
+    margin-left: 5%;
+}
+
+.carousel {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.carousel img {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    transition: transform 1s ease;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.carousel img.active {
+    opacity: 1;
+}
+
+.message,
+.weather,
+.poll {
+    margin: 10px 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #e7f1ff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message h3,
+.poll h3 {
+    margin: 0;
+    color: #233E8D;
+}
+
+.message p{
+    margin-bottom: 0px;
+}
+
+.poll form{
+    margin-bottom: 0px;
+}
+
+.poll {
+    background-color: #f0f8ff;
+}
+
+.weather {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px;
+    height: 75px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    color: #333;
+    margin-top: 0px !important;
+    margin-bottom: 20px;
+}
+
+.weather h3{
+    margin-bottom: -20px !important;
+
+}
+
+.weather-info i {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #f39c12;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+input[type="submit"] {
+    background-color: #233E8D;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #1f2f6a; /* Darker shade on hover */
+}
+
+.help a{
+    color: purple
+}
+
+.button{
+    cursor: pointer;
+}
+
+#poll-results h4{
+    font-size: 15px;
+}
+
+.red-star {
+    color: red;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.hidden{
+    display: none;
 }
