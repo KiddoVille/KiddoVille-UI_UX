@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile</title>
+    <link rel="icon" href="../../Assets/logo_light-remove.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./Onbording.css">
+    <link rel="stylesheet" href="./package.css">
+    <script src="./package.js"></script>
+</head>
+
+<body>
+    <!-- card to view the sutiable package for the child -->
+    <div class="Profilecard">
+        <div
+            style="background-color: #2524E8; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
+            <img src="../../Assets/logo_light-remove.png" style="width:70px">
+            <div class="heading">
+                <h1>Let's Create Your</h1>
+                <h1>Personalized</h1>
+                <h1>Profile for a</h1>
+                <h1>Tailored</h1>
+                <h1>Experienece!</h1>
+            </div>
+            <div class="text">
+                <p>Choose your desired usage days</p>
+                <p>for a custom daycare experience</p>
+            </div>
+            <div class="circles">
+                <div class="circle"></div>
+                <div class="circle select"></div>
+                <div class="circle"></div>
+            </div>
+        </div>
+        <div class="ProfileContainer" style="display: flex; flex-direction: column;">
+            <div class="Save-con">
+                <button class="Save" type="button" id="spe" style="transform: translateY(-10px);"> Specific Dates </button>
+                <button class="Save" type="button" id="fle"> Flexible Days </button>
+            </div>
+            <!-- If person can choose days and get the specified packages -->
+            <div id="spe-Modal">
+                <div class="datacon" style="margin-top: 10px;">
+                    <div class="data">
+                        <label>Attending Days</label>
+                        <div class="days">
+                            <div class="day" style="margin-left:0px">Sun</div>
+                            <div class="day">Mon</div>
+                            <div class="day">Tue</div>
+                            <div class="day">Wed</div>
+                            <div class="day">Thur</div>
+                            <div class="day">Fri</div>
+                            <div class="day">Sat</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="datacon" style="margin-top: 10px; font-weight: bold;color: #2524E8 !important;">
+                    <label> if the day count stay the same the payment amoutn will not change </label>
+                </div>
+                <div class="datacon" style="margin-top: -5px;font-weight: bold; color: #2524E8 !important;">
+                    <label> For additional days of visit a extra payment will be added</label>
+                </div>
+                <div class="package"
+                    style="display: flex; flex-direction: column; margin-top: 20px; width: 350px; margin-left: auto; margin-right: auto; text-align: left;">
+                    <div style="display: flex; justify-content: space-between; width: 100%; padding: 5px 0;">
+                        <label>Package Name</label>
+                        <span> : something</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; width: 100%; padding: 5px 0;">
+                        <label>Number of Days Included</label>
+                        <span> : 3</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; width: 100%; padding: 5px 0;">
+                        <label>Amount</label>
+                        <span> : 14000</span>
+                    </div>
+                </div>
+
+                <div class="payment-option">
+                    <input type="checkbox" id="payment-now">
+                    <label for="payment-now" style="color: #2524E8; font-weight: bold;">
+                        Payment can be made now or 2 weeks later.<br>
+                        Check this box to pay now.
+                    </label>
+                </div>
+                <div class="datacon" style="flex-direction: row; justify-content:space-between; margin-left: 450px;">
+                    <div class="data" onclick="window.location.href='./ChildOnbording.html '">
+                        <button type="button" id="add-btn"
+                            style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px;     background-color:rgb(67, 99, 154) !important; color: white !important;">
+                            Continue<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- If person wants to change days dynamically packages -->
+            <div id="fle-Modal" style="display: none; justify-content: center; align-items: center; margin-top: 90px;">
+                <div class="datacon" style="margin-top: 40px !important; font-weight: bold;color: #2524E8 !important;">
+                    <label> After a daycare attendance the payment for the day will be added to the account </label>
+                </div>
+                <div class="datacon" style="margin-top: 10px !important; font-weight: bold;color: #2524E8 !important;">
+                    <label> Based on the attendance every 2 week the payment has to be made</label>
+                </div>
+                <div class="package" style="display: flex; flex-direction: column; margin-top: 20px; width: 350px; margin-left: auto; margin-right: auto; text-align: left;">
+                    <div style="display: flex; justify-content: space-between; width: 100%; padding: 5px 0;">
+                        <label>Weekday Price</label>
+                        <span> : 6000</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; width: 100%; padding: 5px 0;">
+                        <label>Weekend Price</label>
+                        <span> : 7000</span>
+                    </div>
+                </div>
+                <div class="datacon" style="flex-direction: row; justify-content:space-between; margin-left: 450px;">
+                    <div class="data" onclick="window.location.href='./ChildOnbording.html '">
+                        <button type="button" id="add-btn" style="margin-top: 100px; font-weight: 600; width: 200px; font-size: 20px; padding: 7px;     background-color:rgb(67, 99, 154) !important; color: white !important;"> Continue<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
