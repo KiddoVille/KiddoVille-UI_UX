@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile</title>
+    <link rel="icon" href="../../Assets/logo_light-remove.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./Onbording.css">
+    <script src="../JS/Number.js"></script>
+    <script src="./parent.js"></script>
+</head>
+
+<body>
+    <!-- input form to parents details -->
+    <div class="Profilecard">
+        <div
+            style="background-color: #2524E8; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
+            <img src="../Assets/logo_light-remove.png" style="width:70px">
+            <div class="heading">
+                <h1>Let's Create Your</h1>
+                <h1>Personalized</h1>
+                <h1>Profile for a</h1>
+                <h1>Tailored</h1>
+                <h1>Experienece!</h1>
+            </div>
+            <div class="text">
+                <p> Share your details for a smooth</p>
+                <p>and safe Daycare Experienece</p>
+            </div>
+            <div class="circles">
+                <div class="circle select"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+        </div>
+
+        <!-- To get inputs from the parent -->
+        <div class="ProfileContainer" style="flex-direction: column !important;">
+            <h2> Let's Get Started</h2>
+            <div class="hori">
+                <div class="datacon">
+                    <div class="data">
+                        <label>First Name <span id="red-star" class="red-star"> *</span></label>
+                        <input style="width: 200px;" placeholder="Abdulla" type="text" id="firstname">
+                    </div>
+                    <div class="data">
+                        <label>User Name <span id="red-star2" class="red-star"> *</span> </label>
+                        <input style="width: 200px;" placeholder="Aurad" type="text" id="username">
+                    </div>
+                </div>
+                <div class="datacon">
+                    <div class="data">
+                        <label>Last Name <span id="red-star3" class="red-star"> *</span> </label>
+                        <input style="width: 200px;" placeholder="Aurad" type="text" id="lastname">
+                    </div>
+                    <div class="data">
+                        <label>Phone Number <span id="red-star4" class="red-star"> *</span></label>
+                        <input style="width: 200px;" class="number" placeholder="071-4810928" type="text" id="number" maxlength="12">
+                    </div>
+                </div>
+                <span id="red-star5" class="red-star" style="margin-right: -40px;"> *</span>
+                <div class="datacon imagecon" id="image-bg">
+                    <input type="file" style="display: none" id="image" accept="image/*">
+                    <i class="fa fa-add" style="font-size:30px;cursor: pointer; border-radius: 30px; padding: 10px 12px; border: 2px solid black; background-color: white;" id="image-icon"></i>
+                </div>
+            </div>
+            <div class="datacon">
+                <div class="data">
+                    <label>Address <span id="red-star6" class="red-star"> *</span></label>
+                    <input style="width: 650px;" placeholder="Abdulla" type="text" id="address">
+                </div>
+            </div>
+            <div class="datacon" style="flex-direction: row !important;">
+                <div class="data">
+                    <label>NID <span id="red-star7" class="red-star"> *</span></label>
+                    <input style="width: 308px;" placeholder="200232901776" type="text" maxlength="12" id="nid">
+                </div>
+                <div class="data">
+                    <label>Email <span id="red-star8" class="red-star"> *</span></label>
+                    <input style="width: 308px;" placeholder="abdullaaurad@gmail.com" type="text" maxlength="12" id="email">
+                </div>
+            </div>
+            <div class="datacon" style="flex-direction: row !important;">
+                <div class="data">
+                    <label>Gender <span id="red-star9" class="red-star"> *</span></label>
+                    <select style="width: 323px;">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+                <div class="data">
+                    <label>Language Preference <span id="red-star10" class="red-star"> *</span> </label>
+                    <select style="width: 323px;">
+                        <option>English</option>
+                        <option>Tamil</option>
+                        <option>Sinhala</option>
+                    </select>
+                </div>
+            </div>
+            <div class="datacon"  style="flex-direction: row; justify-content:flex-end; margin-right: 20px;">
+                <div class="data">
+                    <button id="add-btn" onclick="window.location.href='./ChildOnbording.html'" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px;     background-color:rgb(67, 99, 154) !important; color: white !important;">Add Children<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

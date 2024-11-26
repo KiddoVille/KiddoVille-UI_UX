@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile</title>
+    <link rel="icon" href="../../Assets/logo_light-remove.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./Onbording.css">
+    <script src="./child.js"></script>
+</head>
+
+<body>
+    <!--  To input doctor prescriptions to the system -->
+    <div id="prescriptionModal" class="prescription-view">
+        <div class="top-con" style="margin-bottom: 570px;">
+            <div class="back-con" id="back-arrow">
+                <i class="fas fa-chevron-left" id="backforprescription"></i>
+            </div>
+        </div>
+        <i class="fa fa-chevron-left move" id="left" style="margin-left: -20px !important;"></i>
+        <img src="../../Assets/prescription1.jpeg" alt="prescriptions" class="prescription-img" id="prescription-img">
+        <i class="fa fa-chevron-right move" id="right"></i>
+    </div>
+    <!-- to input documents on childs conditions -->
+    <div id="documentModal">
+        <div class="top-con">
+            <div class="back-con" id="back-arrow">
+                <i class="fas fa-chevron-left" id="backfordocument"></i>
+            </div>
+        </div>
+        <div id="fileListContainer">
+        </div>
+        <div>
+            <input type="file" style="display: none; position: absolute;" id="file-input">
+            <button class="add-files" style="cursor: pointer !important;" for="file-input" id="img-btn"> Add Files </button>
+        </div>
+    </div>
+    <!-- container to get details -->
+    <div class="Profilecard">
+        <div
+            style="background-color: #2524E8; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
+            <img src="../../Assets/logo_light-remove.png" style="width:70px">
+            <div class="heading">
+                <h1>Let's Create Your</h1>
+                <h1>Personalized</h1>
+                <h1>Profile for a</h1>
+                <h1>Tailored</h1>
+                <h1>Experienece!</h1>
+            </div>
+            <div class="text">
+                <p> Share your details for a smooth</p>
+                <p>and safe Daycare Experienece</p>
+            </div>
+            <div class="circles">
+                <div class="circle select"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+        </div>
+        <div class="ProfileContainer" style="flex-direction: column !important;">
+            <h2> Let's Get Started</h2>
+            <div class="hori">
+                <div class="datacon">
+                    <div class="data">
+                        <label>First Name <span id="red-star" class="red-star"> *</span></label>
+                        <input style="width: 200px;" placeholder="Yunus" type="text" id="firstname">
+                    </div>
+                    <div class="data">
+                        <label>Gender</label>
+                        <select style="width: 215px;">
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="datacon">
+                    <div class="data">
+                        <label>Last Name <span id="red-star2" class="red-star"> *</span></label>
+                        <input style="width: 200px;" placeholder="Mohamad" type="text" id="lastname">
+                    </div>
+                    <div class="data">
+                        <label>Date Of Birth</label>
+                        <input style="width: 200px;" type="date" id="dob">
+                    </div>
+                </div>
+                <span id="red-star5" class="red-star" style="margin-right: -40px;"> *</span>
+                <div class="datacon imagecon" id="image-bg">
+                    <input type="file" style="display: none" id="image" accept="image/*">
+                    <i class="fa fa-add" style="font-size:30px;cursor: pointer; border-radius: 30px; padding: 10px 12px; border: 2px solid black; background-color: white;" id="image-icon"></i>
+                </div>
+            </div>
+            <div class="datacon" style="flex-direction: row;">
+                <div class="data">
+                    <label>Nickname <span id="red-star3" class="red-star" style="margin-right: -40px;"> *</span></label>
+                    <input style="width: 190px;" type="text" placeholder="yunu" id="nickname">
+                </div>
+                <div class="data">
+                    <label>Relationship to user <span id="red-star4" class="red-star"> *</span></label>
+                    <input style="width: 190px;" placeholder="Father" type="text" id="relation" maxlength="12">
+                </div>
+                <div class="data">
+                    <label>Religion</label>
+                    <select style="width: 200px;">
+                        <option>Budhisum</option>
+                        <option>Islam</option>
+                        <option>Christianity</option>
+                        <option>Tamil</option>
+                    </select>
+                </div>
+            </div>
+            <div class="datacon" style="flex-direction: row !important;">
+                <div class="data">
+                    <label>Language Preference</label>
+                    <select style="width: 323px;">
+                        <option>English</option>
+                        <option>Tamil</option>
+                        <option>Sinhala</option>
+                    </select>
+                </div>
+                <div class="data">
+                    <label>Allergies</label>
+                    <input style="width: 308px;" placeholder="shrimp" type="text" maxlength="12">
+                </div>
+            </div>
+            <div class="datacon" style="flex-direction: row !important;">
+                <div class="data">
+                    <label>Medications</label>
+                    <p class="edit" style="margin-left: 100px;" id="prescriptions">+ Add Files </p>
+                    <input type="text" style="width: 308px;">
+                </div>
+                <div class="data">
+                    <label>Medical conditions</label>
+                    <input type="text" style="width: 308px;">
+                    <p class="edit" style="margin-left: 100px;" id="documents">+ Add Files </p>
+                </div>
+            </div>
+            <div class="datacon" style="flex-direction: row; justify-content:space-between; margin-right: 20px;">
+                <div class="data" onclick="window.location.href='./ChildOnbording.html '">
+                    <button type="button" id="add-btn" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px;     background-color:rgb(67, 99, 154) !important; color: white !important;">Add Children<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
+                </div>
+                <div class="data" onclick="window.location.href='./GuardianOnbording.html'">
+                    <button id="add-btn" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px;     background-color:rgb(67, 99, 154) !important; color: white !important;">Add Guardian<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>
