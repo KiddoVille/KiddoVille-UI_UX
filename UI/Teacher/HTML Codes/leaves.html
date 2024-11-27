@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaves</title>
+    <link rel="stylesheet" href="../Styles/styles.css">
+    <link rel="stylesheet" href="../Styles/variables.css">
+    <link rel="stylesheet" href="../Styles/leaves.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <!--Poppins-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <img src="../Images/profilePic.png" alt="profile-pic">
+                    <div class="sidebar-header-content">
+                        <h3>Sara Britney</h3>
+                        <h4>Teacher</h4>
+                    </div>
+                </div>
+                <div class="sidebar-list">
+                    <a href="index.html" class="sidebar-list-item" id="dashboard-link"> 
+                        <i class='bx bxs-dashboard'></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                    <a href="#" class="sidebar-list-item" id="home-link">
+                        <i class='bx bxs-home'></i>
+                        <span class="text">Home</span>
+                    </a>
+                    <a href="reports.html" class="sidebar-list-item" id="report-link">
+                        <i class='bx bxs-report' ></i>
+                        <span class="text"> Report </span>
+                    </a>
+                    <a href="students.html" class="sidebar-list-item" id="students-link">
+                        <i class='bx bxs-group' ></i>
+                        <span class="text">Students</span>
+                    </a>
+                    <a href="#" class="sidebar-list-item" id="leaves-link">
+                        <i class='bx bx-calendar' ></i>
+                        <span class="text">Leaves</span>
+                    </a>
+                    <a href="message.html" class="sidebar-list-item" id="chat-link" >
+                        <i class='bx bx-message-square-detail'></i>
+                        <span class="text">Messages</span>
+                    </a>
+                    <hr>
+                    <a href="#" class="sidebar-bottom" id="help-link">
+                            <i class='bx bxs-help-circle' ></i>
+                            <span class="text">Help</span>
+                    </a>
+                    
+        
+                </div>
+            </div>
+        </div>
+
+
+
+        
+        <div class="wrapper-1">
+
+            <div class="navabr">
+                <div class="navbar-left">
+                    <a href="#"><h2>Dashboard</h2></a>
+                    <h4>12/08/2025</h3>
+                </div>
+                <div class="navbar-right">
+                <div class="alter-icon"></div>
+                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
+                   
+                    <i class='bx bxs-bell' ></i>
+                </a>
+                <a href="#" class="profile">
+                    <img src="../Images/profilePic.png"  onclick="toggleMenu()" id="profileIcon">
+                </a>
+                </div>
+    
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img src="../Images/profilePic.png" alt="">
+                            <h3>Sara Bretney</h3>
+                        </div>
+                        <hr>
+    
+                        <a href="teacherViewprofile.html" class="sub-menu-link">
+                            <i class='bx bx-edit'></i>
+                            <p>View Profile</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub-menu-link">
+                            <i class='bx bx-help-circle' ></i>
+                            <p>Help & Support</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub-menu-link">
+                            <i class='bx bx-log-out'></i>
+                            <p>Logout</p>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="notify-menu" id="notify">
+                    <div class="notify">
+                        <a href="#" class="notify-info">
+                            <i class='bx bx-message-square-detail'></i>
+                            <div class="msg-info">
+                                <h4>New Notification</h4>
+                                <h5>Leave request approved</h5>
+                                <p >05.33 22 Jul</p>
+                            </div>
+                           
+                        </a>
+                        <hr>
+                        <a href="#" class="notify-info">
+                            <i class='bx bx-message-square-detail'></i>
+                            <div class="msg-info">
+                                <h4>New Notification</h4>
+                                <h5>Parents meeting</h5>
+                                <p >05.33 22 Jul</p>
+                            </div>
+                        </a>
+                        <hr>
+                        <a href="#" class="notify-info">
+                            <i class='bx bx-message-square-detail'></i>
+                            <div class="msg-info">
+                                <h4>New Notification</h4>
+                                <h5>Reports have been updated</h5>
+                                <p>05.33 22 Jul</p>
+                            </div>
+                        </a>
+                        
+                    </div>
+                </div> 
+    
+            </div>
+        <div class="content">
+            <div class="backgorund-overlay"></div>
+            <div class="leave-page">
+                <div class="leave-page-header">
+                    <div class="leave-page-header-group">
+                        <i class="fa-regular fa-calendar"></i>
+                        <h3>Leave History</h3>
+                    </div>
+                    
+                    <hr>
+                </div>
+                <div class="leave-table">
+                    <div class="leave-table-title">
+                        <h4>Leave Type</h4>
+                        <h4>Start Date</h4>
+                        <h4>End Date</h4>
+                        <h4>Duration</h4>
+                        <h4>Status</h4>
+                    </div>
+                    <div class="leave-row">
+                        <p>Annual Leave</p>
+                        <p>25/03/2025</p>
+                        <p>25/03/2025</p>
+                        <p>2</p>
+                        <div class="approve">Approved</div>                        
+                    </div>
+                    <div class="leave-row">
+                        <p>Annual Leave</p>
+                        <p>25/03/2025</p>
+                        <p>25/03/2025</p>
+                        <p>2</p>
+                        <div class="approve">Approved</div>    
+                        
+                    </div>
+                    <div class="leave-row">
+                        <p>Annual Leave</p>
+                        <p>25/03/2025</p>
+                        <p>25/03/2025</p>
+                        <p>2</p>
+                        <div class="rejected">Rejected</div>    
+                    </div>
+                    <div class="leave-row">
+                        <p>Annual Leave</p>
+                        <p>25/03/2025</p>
+                        <p>25/03/2025</p>
+                        <p>2</p>
+                        <div class="approve">Approved</div>    
+                    </div>
+                    <div class="leave-row">
+                        <p>Annual Leave</p>
+                        <p>25/03/2025</p>
+                        <p>25/03/2025</p>
+                        <p>2</p>
+                        <div class="approve">Approved</div>    
+                    </div>
+                </div>
+            </div>
+         
+       
+            
+        </div>
+    </div>
+    </div>
+
+    <script src="../Scripts/script.js"></script>
+    <script></script>
+    <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
+    
+    
+</body>
+</html>
