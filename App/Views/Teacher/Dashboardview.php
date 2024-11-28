@@ -32,28 +32,28 @@
                         <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="#" class="sidebar-list-item" id="home-link">
+                    <a href="<?=ROOT?>/Main/Home" class="sidebar-list-item" id="home-link">
                         <i class='bx bxs-home'></i>
                         <span class="text">Home</span>
                     </a>
-                    <a href="reports.html" class="sidebar-list-item" id="report-link">
+                    <a href="<?=ROOT?>/Teacher/Reports" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
                         <span class="text"> Report </span>
                     </a>
-                    <a href="students.html" class="sidebar-list-item" id="students-link">
+                    <a href="<?=ROOT?>/Teacher/Students" class="sidebar-list-item" id="students-link">
                         <i class='bx bxs-group' ></i>
                         <span class="text">Students</span>
                     </a>
-                    <a href="#" class="sidebar-list-item" id="leaves-link" >
+                    <a href="<?=ROOT?>/Teacher/Leaves" class="sidebar-list-item" id="leaves-link" >
                         <i class='bx bx-calendar' ></i>
                         <span class="text">Leaves</span>
                     </a>
-                    <a href="message.html" class="sidebar-list-item" id="chat-link" >
+                    <a href="<?=ROOT?>/Teacher/Message" class="sidebar-list-item" id="chat-link" >
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
                     </a>
                     <hr>
-                    <a href="#" class="sidebar-bottom" id="help-link">
+                    <a href="<?=ROOT?>/Main/Help" class="sidebar-bottom" id="help-link">
                             <i class='bx bxs-help-circle' ></i>
                             <span class="text">Help</span>
                     </a>
@@ -223,7 +223,7 @@
         <div class="navabr">
             <div class="navbar-left">
                 <a href="#"><h2>Hey Sara Britney</h2></a>
-                <h4>Empowering Excellence in Every Lesson!</h3>
+                <h4>Empowering Excellence in Every Lesson!</h4>
             </div>
             <div class="navbar-right">
             <div class="alter-icon"></div>
@@ -244,7 +244,7 @@
                     </div>
                     <hr>
 
-                    <a href="teacherViewprofile.html" class="sub-menu-link">
+                    <a href="<?=ROOT?>/Teacher/Profile" class="sub-menu-link">
                         <i class='bx bx-edit'></i>
                         <p>View Profile</p>
                         <span>></span>
@@ -290,13 +290,13 @@
                             <p>05.33 22 Jul</p>
                         </div>
                     </a>
-                    
+                    <a href="<?=ROOT?>/Teacher/Notifications" onclick="toggleNotify()" class="all-btn">See all</a>
                 </div>
             </div> 
 
         </div>
         <div class="content">
-            <div class="backgorund-overlay" style="background: url(<?=IMAGE?>/background.png"></div>
+           
         <div class="card-row">
             <div class="card" id="open-kiddo" onclick="showKiddo()">
                 <div class="card-header">
@@ -353,26 +353,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="header-img">
-                        <img src="<?=ROOT?>/assets/images/4.png">
-                    </div>
+                    
                 </div>
                 <div class="activity-table">
                     <div class="table-title">
                         <h3 class="wider">Activity</h3>
                         <h3>Start Time</h3>
                         <h3>End Time</h3>
-                        <h3>Actions</h3>
+                        <h3>Status</h3>
                     </div>
-                    <div class="activity-row">
-                        <p>Breackfast</p>
-                        <p>8.00 A.M</p>
-                        <p>9.00 A.M</p>
-                        <div class="actions">
-                            <i class="fa-solid fa-pen"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </div>
-                    </div>
+                    
                     <div class="activity-row">
                         <p>Creative Play</p>
                         <p>9.00 A.M</p>
@@ -382,15 +372,7 @@
                             <i class="fa-regular fa-trash-can"></i>
                         </div>
                     </div>
-                    <div class="activity-row">
-                        <p>Creative Play</p>
-                        <p>10.00 A.M</p>
-                        <p>11.00 A.M</p>
-                        <div class="actions">
-                            <i class="fa-solid fa-pen"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </div>
-                    </div>
+                    
                     <div class="activity-row">
                         <p>Story Time</p>
                         <p>11.00 A.M</p>
@@ -400,24 +382,8 @@
                             <i class="fa-regular fa-trash-can"></i>
                         </div>
                     </div>
-                    <div class="activity-row">
-                        <p>Lunch</p>
-                        <p>12.00 A.M</p>
-                        <p>1.00 A.M</p>
-                        <div class="actions">
-                            <i class="fa-solid fa-pen"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </div>
-                    </div>
-                    <div class="activity-row">
-                        <p>Bed Time</p>
-                        <p>1.00 A.M</p>
-                        <p>2.00 A.M</p>
-                        <div class="actions">
-                            <i class="fa-solid fa-pen"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </div>
-                    </div>
+                   
+                    
                     <div class="activity-row">
                         <p class="assign" id="day-task" >Basic Learning Activities</p>
                         <p>2.00 A.M</p>
@@ -427,24 +393,8 @@
                             <i class="fa-regular fa-trash-can enable"></i>
                         </div>
                     </div>
-                    <div class="activity-row">
-                        <p>Tea Time</p>
-                        <p>3.00 A.M</p>
-                        <p>4.00 A.M</p>
-                        <div class="actions">
-                            <i class="fa-solid fa-pen"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </div>
-                    </div>
-                    <div class="activity-row">
-                        <p>Outdoor Play</p>
-                        <p>4.00 A.M</p>
-                        <p>5.00 A.M</p>
-                        <div class="actions">
-                            <i class="fa-solid fa-pen"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </div>
-                    </div>
+                    
+                    
                     
                 </div>
             </div>
