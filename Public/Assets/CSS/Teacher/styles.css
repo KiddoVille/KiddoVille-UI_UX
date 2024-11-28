@@ -3,17 +3,26 @@
     margin: 0px;
     box-sizing: border-box;
     font-family: 'Inter','Poppins','sans-serif';
+    
 }
 
 
 body::-webkit-scrollbar{
-    background-color: #EFF3F4;
+    /*background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);*/
+    
     overflow-x: hidden;
     display: none;
+    height: 100%;
+
+}
+body{
+    background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);
 }
 
 .wrapper{
     display: flex;
+    height: auto;
+    overflow: hidden;
 }
 
 /*SIDEBAR*/
@@ -131,6 +140,9 @@ body::-webkit-scrollbar{
 .navbar-left{
     color:#fff
 }
+.navbar-left h4{
+    font-weight: 500;
+}
 .navbar-left a{
     color:#fff;
 }
@@ -154,8 +166,8 @@ body::-webkit-scrollbar{
 }
 .navbar-right .alter-icon{
     position: absolute;
-    top: 5px;
-    left: 500px;
+    top: 3px;
+    left: 505px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -249,14 +261,15 @@ body::-webkit-scrollbar{
     border-radius: 25px;
     padding: 20px;
     height: 150px;
-    background-color: var(--secondary-color);
+    background-color: #fff;
     backdrop-filter: blur(3px);
     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
-    transition: 0.3s ease-in;
-    color: #fff;
+    transition: 0.2s ease-in;
+    color: var(--secondary-color);
 }
 .card-row .card:hover{
-    background-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 .card-header{
     display: flex;
@@ -419,7 +432,7 @@ body::-webkit-scrollbar{
     flex:2;
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 25px;
+    border-radius: 15px;
     padding: 20px;
 }
 /*.................*/
@@ -508,8 +521,8 @@ body::-webkit-scrollbar{
     cursor: pointer;
 }
 .activity-row p.assign{
-    color: var(--primary-color);
-    cursor: pointer;
+   
+   
 }
 
 /*pending reports*/
@@ -601,9 +614,9 @@ body::-webkit-scrollbar{
     display: flex;
     flex-direction: column;
     flex:1;
-    background-color: rgba(255, 255, 255, 0.178);
+    background-color: rgba(182, 200, 224, 0.178);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 25px;
+    border-radius: 15px;
     padding: 20px 20px;
     justify-content: center;
     backdrop-filter: blur(5px);
@@ -698,6 +711,26 @@ body::-webkit-scrollbar{
     align-items: center;
     
 }
+.panel .title .content{
+    padding: 0;
+}
+.panel .title button{
+    padding: 5px 16px;
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: var(--button-blue);
+    outline: none;
+    border: none;
+}
+.panel .title button .fa-trash-can, button .fa-pen-to-square{
+    color: #fff;;
+}
+.panel .title button:hover{
+    
+    background-color: var(--button-blue-hover);
+ 
+}
+
 .panel .description{
     flex-direction: column;
 
@@ -785,6 +818,28 @@ body::-webkit-scrollbar{
     justify-content: right;
     gap: 10px;
 }
+.task-edit-footer button{
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin-top: 20px;
+    outline: none;
+    cursor: pointer;
+    border:none
+}
+.task-edit-footer .done{
+    background-color: var(--button-blue);
+    color: #fff;
+}
+.task-edit-footer .done:hover{
+    background-color: var(--button-blue-hover);
+   
+}
+
+.task-edit-footer .cancel:hover{
+    background-color: var(--background-white);
+    
+}
+
 .show-task-edit{
     visibility: visible;
     opacity: 1;
@@ -815,7 +870,7 @@ body::-webkit-scrollbar{
     justify-content: left;
     font-size: 0.8rem;
     margin: 10px 0px;
-    color: var(--light-color);
+    color: var(--popup-background)
 
 }
 
@@ -1106,12 +1161,17 @@ body::-webkit-scrollbar{
         margin: 0px 0px;
 
 }
-
+.notify .all-btn{
+    color: var(--secondary-color);
+}
+.notify .all-btn:hover{
+    text-decoration: underline;
+}
 .notify-info{
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: var(--light-black);
+    color: var(--light-black); 
     margin: 6px 0px;
     transition:transform 0.3s;
 }
