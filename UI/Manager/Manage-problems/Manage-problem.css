@@ -1,0 +1,169 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+.navbar{
+    width: 100%;
+    height: 10%;
+    background-color: #3974BA;
+}
+
+.container {
+    padding: 20px;
+}
+.title-image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+
+}
+.title {
+    font-size: 72px;
+    color: #2B2A9F;
+}
+.image-container {
+    text-align: center;
+    padding: 0px;
+    margin: -30px;
+    margin-top: -30px;
+    height: 450px;
+}
+.image-container img {
+    width: 800px;
+    height: 400px;
+}
+.filter-container {
+    display: flex;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-top: 50px;
+    gap:20px
+}
+.filter-container select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.problem-list {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 40px 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.problem-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 3px solid #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+.problem-item:last-child {
+    border-bottom: none;
+}
+.problem-item .details {
+    flex: 1;
+    margin:10px 30px;
+    padding: 15px; 
+    width: 90%;
+    max-width: 900px;  
+}
+.problem-item .details h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #2B2A9F;
+}
+.problem-item .details p {
+    margin: 5px 0;
+    color: #555;
+}
+.problem-item .details .date {
+    color: #999;
+    font-size: 14px;
+}
+.problem-item .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 150px; 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.problem-item .actions img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    border: 3px solid  #2b3a67;
+}
+.problem-item .actions .user-name {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 5px;
+}
+.problem-item .actions .add-solution {
+    color: #8136F3;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+.pagination a {
+    color: #8136F3 !important;
+    text-decoration: none;
+    margin: 0 5px;
+    font-weight: bold;
+    font-size: 30px;
+}
+.pagination a.active {
+    text-decoration: underline;
+}
+.back-button {
+    display: block;
+    width: 100px;
+    margin: 20px 0;
+    padding: 10px;
+    text-align: center;
+    background-color: #2b3a67;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.profile{
+    background-color: #2b3a67;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.fill{
+    border: 5px solid black;
+    margin: 50px;
+    margin-top: 80px;
+    padding-bottom: 30px;
+    border-radius: 30px;
+    background-color: rgba(144, 224, 239, 0.2);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}

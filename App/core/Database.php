@@ -1,10 +1,13 @@
 <?php
+    namespace Modal;
+
+    defined('ROOTPATH') or exit('Access denied');
 
     Trait Database {
 
         private function connect(){
             $string = "mysql:hostname=".DBHOST.";dbname=".DBNAME;
-            $con =new PDO($string,DBUSER,DBPASS);
+            $con =new \PDO($string,DBUSER,DBPASS);
             return $con;
         }
 
@@ -14,7 +17,7 @@
 
             $check = $stm->execute($data);
             if($check){
-                $result = $stm->fetchAll(PDO::FETCH_OBJ);
+                $result = $stm->fetchAll(\PDO::FETCH_OBJ);
                 if(is_array($result) && count($result)){
                     return $result;
                 }
@@ -29,7 +32,7 @@
 
             $check = $stm->execute($data);
             if($check){
-                $result = $stm->fetchAll(PDO::FETCH_OBJ);
+                $result = $stm->fetchAll(\PDO::FETCH_OBJ);
                 if(is_array($result) && count($result)){
                     return $result[0];
                 }
