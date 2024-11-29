@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="meeting.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="meeting-form">
+        <div class="meeting-title">
+            <h3>Meeting with Manager</h3>
+        </div>
+        <form method="post">
+            <div class="meeting-body">
+                <div class="data-row">
+                    <h3>Assignee</h3>
+                    <p>Mr. Prabath Weerasooriya</p>
+                </div>
+                <div class="data-row">
+                    <h3>Atendee's Name</h3>
+                    <input type="text">
+                </div>
+                <div class="data-row">
+                    <h3>Atendee's NIC</h3>
+                    <input type="text">
+                </div>
+                <div class="data-row">
+                    <h3>Atendee's email</h3>
+                    <input type="text">
+                </div>
+                <div class="data-row">
+                    <h3>Atendee's Contact Number</h3>
+                    <input type="text">
+                </div>
+                <div class="data-row">
+                    <h3>Meeting Type</h3>
+                    <select>
+                        <option>Interview</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <hr>
+                
+                    <h3 class="des">Description</h3>
+                    <textarea row="4" placeholder="Meeting Description"></textarea>
+                
+                <div class="meeting-footer">
+                    <button class="cancel-btn">Cancel</button>
+                    <button type="button" onclick="window.location.href='../Login/Login.html'; " class="sub-btn">Request</button>
+                </div>
+                
+            </div>
+    </form>
+    </div>
+</body>
+</html>
