@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vacancies</title>
+    <link rel="icon" href="..\Assets\KIDDOVILLE_LOGO.jpg">
+    <link rel="stylesheet" href="Hiring.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <form action="server" method="post">
+            <div class="header">
+                <img alt="We are hiring banner" height="200" src="../Assets/we are hiring.jpg" width="600" />
+                <div class="details">
+                    <div class="form-group">
+                        <label for="position">Position</label>
+                        <input id="position" type="text" value="Teacher" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="employment-type">Employment Type</label>
+                        <input id="employment-type" type="text" value="Full time" required />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="job-description">Job description</label>
+                <textarea id="job-description" required
+                    >We are seeking a dedicated and passionate Maths Teacher to join our team at KiddoVille. The ideal candidate will have a strong background in [subject], a commitment to student success, and the ability to create an engaging and inclusive classroom environment.</textarea>
+            </div>
+            <div class="form-group form-row">
+                <div class="half-width">
+                    <label for="salary-range">Salary range</label>
+                    <input id="salary-range" type="text" value="50 000 - 70 000" required />
+                </div>
+                <div class="half-width">
+                    <label for="qualifications">Required Qualifications</label>
+                    <input id="qualifications" type="text"
+                        value="Bachelor’s degree in Math or a related field." required />
+                </div>
+            </div>
+            <div style="margin-top: -10px;"> 
+                <a href="View-vacancy.html"><button class="publish-btn">Publish</button></a>
+            </div>
+        </form>
+        <div  style="margin-top: -30px;">
+            <a href="View-vacancy.html"><button class="cancel-btn">Cancel</button></a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('C:\Users\Lenovo\Desktop\Daycare front end\Assets\ event.png');
+
+}
+
+.popup {
+    width: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transform: scale(1);
+    animation: popupAnimation 0.3s ease-in-out;
+}
+
+@keyframes popupAnimation {
+    from {
+        transform: scale(0.7);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.header {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    width: 340px;
+    height: 80px;
+}
+
+.form-group .required {
+    color: red;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 20px 20px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.buttons .cancel {
+    background-color: #e0e0e0;
+}
+
+.buttons .publish{
+    background-color: #007bff;
+}
+
+.buttons .publish a{
+    text-decoration: none;
+    color: white;
+}
+
+.background {
+    background-image: url('C:\Users\Lenovo\Desktop\Daycare front end\Assets\ event.png');
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+
+.tr1 {
+    background-color: #f2f2f2;
+}
+.tr1 .a {
+    color: #0066cc;
+}
+
+.tr2 {
+    background-color: #e6f7ff;
+}
+.tr2 .a {
+    color: #0099cc;
+}
+
+.tr3 {
+    background-color: #e6ffe6;
+}
+.tr3 .a {
+    color: #00cc66;
+}
+
+.tr1:hover, .tr2:hover, .tr3:hover {
+    background-color: #d9d9d9;
+}
+.tr1:hover .a, .tr2:hover .a, .tr3:hover .a {
+    color: #000;
+}

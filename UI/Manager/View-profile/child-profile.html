@@ -1,0 +1,210 @@
+<html>
+
+<head>
+    <title>
+        View Child Profiles
+    </title>
+    <link rel="icon" href="../Assets/KIDDOVILLE_LOGO.jpg">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../Header/Header.css" />
+    <link rel="stylesheet" href="./child-profile.css" />
+</head>
+
+<body>
+    <!-- <div class="navbar" style="justify-content: space-between;">
+        <div class="navbar-logo">
+            <img src="../Assets/Header logo.png" alt="Logo" style="height:80px; width:100px" />
+        </div>
+    </div> -->
+    <div class="sidebar">
+        <h2 style="margin-top: 10px;">Dashboard</h2>
+        <ul>
+            <li class="selected">
+                <a href="Dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <ul>
+                <li class="hover-effect unselected">
+                    <a href="#">
+                        <i class="fas fa-user-check"></i>Accounts
+                    </a>
+                    <ul class="dropdown">
+                        <li><a href="#"><i class="fas fa-user"></i> User</a></li>
+                        <li><a href="../View-profile/child-profile.html"><i class="fas fa-child"></i> Child</a></li>
+                        <li><a href="../suspand/suspend.html"><i class="fas fa-ban"></i> Suspend</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class="hover-effect unselected">
+                    <a href="#">
+                        <i class="fas fa-calendar"></i>Scheduling
+                    </a>
+                    <ul class="dropdown">
+                        <li><a href="../Food-table/Food-table.html"><i class="fas fa-utensils"></i> Meal Plane</a></li>
+                        <li><a href="../allocation-table/allocation.html"><i class="fas fa-users"></i> Staff
+                                Allocation</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class="hover-effect unselected">
+                    <a href="#">
+                        <<i class="fas fa-cogs"></i>Operations
+                    </a>
+                    <ul class="dropdown">
+                        <li><a href="../Manage-problems/Manage-problem.html"><i class="fas fa-exclamation-triangle"></i>
+                                Problems</a></li>
+                        <!-- <li><a href="#"><i class="fas fa-sun"></i>Leaves</a></li> -->
+                        <li><a href="../Vacancies/View-vacancy.html"><i class="fas fa-user-plus"></i>Hiring</a></li>
+                        <!-- <li><a href="#"><i class="fas fa-smile"></i>FunZone</a></li> -->
+                        <li><a href="../Packages/View-package.html"><i class="fas fa-box"></i>Packages</a></li>
+                        <li><a href="../Events/View-events.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="hover-effect unselected">
+                    <a href="#">
+                        <i class="fas fa-envelope"></i>Evenets
+
+                        <ul class="dropdown">
+                            <li><a href="../Events/ChooseEvent.html"><i class="fas fa-calendar"></i>Create Events</a>
+                            </li>
+                            <li><a href="../PublishLeaves/PublishLeaves.html"><i class="fas fa-sun"></i>Publish
+                                    leaves</a></li>
+                        </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class="hover-effect unselected">
+                    <a href="#">
+                        <i class="fas fa-info-circle"></i>Info & profile
+                    </a>
+                    <ul class="dropdown">
+                        <li><a href="../Blog/EditBlog.html"><i class="fas fa-blog"></i>Blog</a></li>
+                        <li><a href="../AboutUs/Editaboutus.html"><i class="fas fa-info-circle"></i>About Us</a></li>
+                        <li><a href="../Contactus/EditContactUs.html"><i class="fas fa-envelope"></i>Contact Us</a></li>
+                        <li><a href="../Profile/Editprofilepage.html"><i class="fas fa-user-circle"></i>Profile</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+
+        </ul>
+
+    </div>
+    <div class="header">
+        <h1 style="color: rgb(54, 74, 184); margin-left:20%;background-color:#eee;">
+            View Child profiles
+        </h1>
+    </div>
+    <div class="illustration">
+        <img alt="Illustration of people using mobile devices to view profiles" height="300"
+            src="../Assets/child profile.jpg" width="600" style="border-radius: 10px;margin-left:20%" />
+    </div>
+    <div class="fill">
+        <div class="search-container">
+            <input placeholder="Search user Id" type="text" style="padding: 10px 30px;" />
+            <select id="role">
+                <option value="" disabled selected>Select role</option>
+                <option value="user">User</option>
+                <option value="teacher">Teacher</option>
+                <option value="maid">Maid</option>
+                <option value="receptionist">Receptionist</option>
+                <option value="doctor">Doctor</option>
+            </select>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <img alt="Profile picture of Mohamad Shimhan" height="100" src="../Assets/face.jpeg" width="100" />
+                <h2>
+                    Mohamad Shimhan
+                </h2>
+                <div class="card-buttons">
+                    <button>View</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+            <div class="card">
+                <img alt="Profile picture of Mohamad Shimhan" height="100" src="../Assets/face.jpeg" width="100" />
+                <h2>
+                    Mohamad Shimhan
+                </h2>
+                <div class="card-buttons">
+                    <button>View</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+            <div class="card">
+                <img alt="Profile picture of Mohamad Shimhan" height="100" src="../Assets/face.jpeg" width="100" />
+                <h2>
+                    Mohamad Shimhan
+                </h2>
+                <div class="card-buttons">
+                    <button>View</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+            <div class="card">
+                <img alt="Profile picture of Mohamad Shimhan" height="100" src="../Assets/face.jpeg" width="100" />
+                <h2>
+                    Mohamad Shimhan
+                </h2>
+                <div class="card-buttons">
+                    <button>View</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+            <div class="card">
+                <img alt="Profile picture of Mohamad Shimhan" height="100" src="../Assets/face.jpeg" width="100" />
+                <h2>
+                    Mohamad Shimhan
+                </h2>
+                <div class="card-buttons">
+                    <button>View</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+            <div class="card">
+                <img alt="Profile picture of Mohamad Shimhan" height="100" src="../Assets/face.jpeg" width="100" />
+                <h2>
+                    Mohamad Shimhan
+                </h2>
+                <div class="card-buttons">
+                    <button>View</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+        </div>
+        <a href="" style="margin-left:85%;text-decoration:none;font-size:20px;color:blue">+Add Child</a>
+    </div>
+    <div class="pagination" style="margin-left: 15%;">
+        <a href="#">
+            &lt;
+        </a>
+        <a class="active" href="#">
+            1
+        </a>
+        <a href="#">
+            2
+        </a>
+        <a href="#">
+            3
+        </a>
+        <a href="#">
+            ...
+        </a>
+        <a href="#">
+            &gt;
+        </a>
+    </div>
+    </div>
+    <a class="back-button" href="../Dashboard/Dashboard.html">
+        Back
+    </a>
+</body>
+
+</html>

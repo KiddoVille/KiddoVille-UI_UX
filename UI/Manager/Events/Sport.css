@@ -1,0 +1,152 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ccc;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+.container {
+    display: flex;
+    padding: 20px;
+    width: 70%;
+    margin: auto;
+    gap: 0;
+    margin-top: 40px;
+}
+
+.form-section,
+.upload-section {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    width: 50%;
+    margin: 0;
+}
+
+.form-section h2,
+.upload-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    height: 150px;
+}
+
+.add-content {
+    color: #007bff;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+}
+
+.upload-section {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.upload-box {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    height: 300px;
+    margin: 30px 0px;
+    padding: 60px 0px;
+}
+
+.upload-box i {
+    font-size: 50px;
+    color: #ccc;
+}
+
+.upload-box p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.upload-box button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.import-url {
+    margin-bottom: 20px;
+}
+
+.import-url input {
+    width: calc(100%);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttons button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.buttons .cancel {
+    background: #ccc;
+    margin-top: -40px;
+    margin-right: 400px;
+}
+.custom-file-input {
+    display: none;
+}
+
+
+.custom-file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:#007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.custom-file-label:hover {
+    background-color: #007bff;
+}
+

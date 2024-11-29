@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    margin: 0;
+    padding:0px;
+}
+.navbar{
+    width: 100%;
+    height: 11%;
+    background-color: #3974BA;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 100px;
+    justify-content: center;
+}
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: calc(100% / 2 - 40px); /* ensures two cards per row with some margin */
+    box-sizing: border-box;
+    overflow: hidden; /* prevent content overflow */
+}
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    height: auto;
+}
+.card h2 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+.card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+.card .details {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.card .details div {
+    width: 45%;
+}
+.card .details div p {
+    margin: 5px 0;
+}
+.card .details div p i {
+    color: red;
+    margin-right: 5px;
+}
+.card .edit-btn {
+    background: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.add-new-btn {
+    background: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.fill {
+    border: 5px solid black;
+    margin: 50px;
+    margin-top: 80px;
+    padding-bottom: 30px;
+    border-radius: 30px;
+    background-color: rgba(144, 224, 239, 0.2);
+    display: flex;
+    padding: 20px 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.navbar-profile {
+    display: flex;
+    align-items: center;
+}
+.profile-name {
+    margin-left: 10px;
+    font-size: 18px;
+}
+.pagination {
+text-align: center;
+margin-top: 20px;
+}
+.pagination a {
+    color: #8136F3 !important;
+    text-decoration: none;
+    margin: 0 5px;
+    font-weight: bold;
+    font-size: 30px;
+}
+.pagination a.active {
+    text-decoration: underline;
+}
+.add-packages {
+    text-align: right;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.add-packages a {
+    color: #1a237e;
+    text-decoration: none;
+    font-size: 18px;
+    margin-right: 40px;
+}
+.back-button {
+    display: block;
+    width: 100px;
+    margin: 20px 0;
+    padding: 10px;
+    text-align: center;
+    background-color: #2b3a67;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}

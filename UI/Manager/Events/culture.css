@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #e0f7fa;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .profile-name {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .fill {
+    border: 5px solid black;
+    margin: 50px auto;
+    margin-top: 30px;
+    padding: 30px 20px 50px 20px;
+    border-radius: 30px;
+    background-color: rgba(144, 224, 239, 0.2);
+    width: 60%;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  .form-section {
+    width: 40%;
+    height: 300px;
+  }
+
+  .form-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .form-section input, .form-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-section textarea {
+    height: 150px;
+  }
+
+  .image-section {
+    width: 55%;
+  }
+
+  .image-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .image-carousel {
+    position: relative;
+  }
+
+  .image-carousel img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .carousel-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+  }
+
+  .carousel-controls span {
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .carousel-controls span.active {
+    background: #3b5998;
+  }
+
+  /* Button Styles */
+  .edit-button, .back-button {
+    display: block;
+    width: 150px;
+    padding: 10px;
+    background: #3b5998;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+
+  .edit-button:hover, .back-button:hover {
+    background: #2d4373;
+  }
+
+  .edit-button {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .back-button {
+    position: absolute;
+    left: 20px;
+    bottom: 0px;
+  }
+
+  /* Add distance between container and buttons */
+  .fill {
+    padding-bottom: 80px; /* Increased bottom padding for more space */
+  }
