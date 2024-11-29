@@ -27,19 +27,21 @@
            
     
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-               // show($_POST);
                 $taskId = $_POST['id'];
                 $task = new \Modal\Task;
-            
+        
                 if ($task->deleteTask($taskId)) {
-                    
-                    $message = "Task deleted successfully!";
+                    redirect('Teacher/Dashboard'); // Redirect to dashboard
                 } else {
-                    $message = "Failed to delete task.";
+                    // Optionally, set a message for failure and redirect
+                    redirect('Teacher/Dashboard');
+                }
+            } else {
+                // Redirect if accessed via GET or without proper data
+                redirect('Teacher/Dashboard');
             }
-        }
             // Pass message to the view
-            $this->view('Teacher/Dashboard');
+            
         }
     
     
@@ -61,12 +63,13 @@
     
         if ($task->update_withid($id, $data, 'id')) {
             echo "<script>alert('Task updated successfully.');</script>";
+            redirect('Teacher/Dashboard');
         } else {
             echo "<script>alert('Failed to update the task.');</script>";
             redirect('Teacher/Dashboard');
         }
     
-        redirect('Teacher/Dashboard');
+        
     }
 
     }

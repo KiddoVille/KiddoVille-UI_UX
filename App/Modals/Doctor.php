@@ -4,16 +4,16 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Teacher{
+    class Doctor{
         use Modal;
 
-        protected $table = 'teacher';
+        protected $table = 'doctor';
         protected $allowedColumns = [
             'Username',
             'First_Name',
             'Last_Name',
             'Phone_Number',
-            'Address',
+            'SLMC',
             'NID',
             'Email',
             'Gender',
