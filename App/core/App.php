@@ -1,4 +1,6 @@
 <?php
+    defined('ROOTPATH') or exit('Access denied');
+
     class App{
         private $controller = 'Home';
         private $method = 'index';
@@ -12,59 +14,36 @@
     
             return $URL;
         }
-    
+
         public function loadController() {
             $URL = $this->splitURL();
-            $filename = "../App/Controllers/" . ucfirst($URL[0]) . ".php";
             
-            // Check for main controller file
+            // Adjust path construction to prevent Public folder issue
+            $controllerFolder = "../App/Controllers/"; // Make sure this points to the correct location
+            $filename = $controllerFolder . ucfirst($URL[0]) . "/" . ucfirst($URL[1]) . ".php";
+        
             if (file_exists($filename)) {
                 require $filename;
-                $this->controller = ucfirst($URL[0]);
+                $this->controller = ucfirst($URL[1]);
                 unset($URL[0]);
-            } else {
-                // Check if subfolder structure is specified
-                if (isset($URL[0]) && isset($URL[1])) {
-                    $filename = "../App/Controllers/" . ucfirst($URL[0]) . "/" . ucfirst($URL[1]) . ".php";
-                    if (file_exists($filename)) {
-                        require $filename;
-                        $this->controller = ucfirst($URL[1]);
-                        unset($URL[1]);
-                    } elseif (isset($URL[2])) {
-                        // Check for nested subfolder structure
-                        $filename = "../App/Controllers/" . ucfirst($URL[0]) . "/" . ucfirst($URL[1]) . "/" . ucfirst($URL[2]) . ".php";
-                        if (file_exists($filename)) {
-                            require $filename;
-                            $this->controller = ucfirst($URL[2]);
-                            unset($URL[2]);
-                        } else {
-                            // Fallback to 404 if no controller is found
-                            $this->load404Controller();
-                        }
-                    } else {
-                        // Fallback to 404 if no controller is found
-                        $this->load404Controller();
-                    }
-                } else {
-                    // Fallback to 404 if no controller is found
-                    $this->load404Controller();
+                unset($URL[1]);
+            }
+        
+            $mycontroller = '\\Controller\\' . $this->controller;
+            $controller = new $mycontroller;
+        
+            // Set method
+            if (!empty($URL[2])) {
+                if (method_exists($controller, $URL[2])) {
+                    $this->method = $URL[2];
+                    unset($URL[2]);
                 }
             }
-
-            $controller = new ($this->controller);
-            // now we can call a funtion that we need depending on the file location and it's name that is given by the url can use it as a general code for every controller
-            // no need to call one by one
-
-
-            // select method
-            if(!empty($URL[1])){
-                if(method_exists($controller, $URL[1])){
-                    $this->method = $URL[1];
-                    $unset($URL[1]);
-                }
-            }
-            call_user_func_array([$controller,$this->method], $URL);
+        
+            call_user_func_array([$controller, $this->method], $URL);
         }
+        
+        
 
         private function load404Controller() {
             $filename = "../App/Controllers/_404.php";
