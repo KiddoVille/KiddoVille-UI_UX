@@ -98,7 +98,9 @@ body{
 .sidebar-list-item .bx{
     transform: scale(1.2);
 }
-
+.sidebar-list-item .fa-solid{
+    transform: scale(1.2);
+}
 
 
 /*HR*/
@@ -207,6 +209,34 @@ body{
     border-radius: 0px 20px 20px 0px;
     font-size: 18px;
 }
+.navbar-right .search-bar {
+    align-items: center;
+    position: relative;
+    display: inline-block;
+}
+.navbar-right .search-bar .search-btn {
+    position: absolute;
+    right: 200px;
+    top:10px
+ 
+}
+.navbar-right .search-bar input {
+    padding: 10px 16px; /* Adjusted padding for a clean look */
+    border: 1px solid #a1a1a199; /* Subtle border for definition */
+    border-radius: 25px; /* Modern rounded corners */
+    background-color: rgba(255, 255, 255, 0.3); /* Transparent white to blend with blue background */
+    width: 400px; /* Adjusted width for a balanced layout */
+    font-size: 14px; /* Comfortable font size */
+    color: #fff; /* Text color for visibility on blue */
+    margin-left: -160px; /* Retained margin positioning */
+    outline: none; /* Remove default outline */
+    transition: background-color 0.2s ease, border-color 0.2s ease; /* Smooth interaction effects */
+}
+.navbar-right .search-bar input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 16px;
+}
+
 .navbar-right .notification{
     scale: 1.5;
     padding:6px 8px;
@@ -252,7 +282,7 @@ body{
     width: 100%;
     color: #fff;
     gap: 30px;
-    margin: 10px 0px;
+    margin: 10px 0px 0px 0px;
     padding:10px 50px 10px 50px;
     align-items: center;
 }
@@ -433,7 +463,7 @@ body{
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
 }
 /*.................*/
 .remove-act{
@@ -446,25 +476,34 @@ body{
 }
 .activity-header .header-content{
     display: flex;
-    flex:1;    
+    flex:1;  
     flex-direction: column;
     gap: 10px;
-    margin-top: 20px;
+    margin: 20px 0px;
     color: var(--secondary-color);
 }
-.activity-header .header-img img{
-    width: 200px;
-    margin: 0px 0px;
-}
-.activity-header hr{
-    border: 1px solid #ccc;
-    margin: 8px 5px;
+
+.activity-header .header-content h3{
+    margin-bottom: 20px;
 }
 .filters{
     color: var(--font-color-black);
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    
+}
+.filters .age-filter{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     gap: 10px;
+
+}
+.filters .date-filter{
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 .filters input,select{
     padding: 8px 16px;
@@ -493,6 +532,7 @@ body{
 }
 .table-title h3{
     flex: 1;
+    font-weight: 600;
 }
 .wider{
     flex: 2;
@@ -530,7 +570,7 @@ body{
 .pending-reports{
     display: none;
     flex:2;
-    background-color: #edeeef7d;
+    background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 25px;
     padding: 20px;
@@ -614,7 +654,7 @@ body{
     display: flex;
     flex-direction: column;
     flex:1;
-    background-color: rgba(182, 200, 224, 0.178);
+    background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     padding: 20px 20px;
@@ -626,7 +666,7 @@ body{
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
-    gap:70px ;
+    gap:50px ;
     padding: 8px;
     background-color: var(--secondary-color);
     border-radius: 20px;
@@ -646,14 +686,14 @@ body{
     align-items: center;
 }
 .glass-box p.text{
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 40px 0px 20px 0px;
     text-align: center;
-    color: var(--primary-color);
+    color: #4b5d82;
 }
 .glass-box p.number{
     color:#5a5959;
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 700;
     text-align: center;
     padding: 0px 0px 20px 0px;
@@ -852,18 +892,19 @@ body{
 .report-body button{
     padding: 8px 20px;
     border-radius: 25px;
-    background-color: var(--primary-color);
-    color: #fff;
-    border: 1px solid var(--primary-color);
+    background-color: #fff;
+    color:var(--primary-color);
+    border: 2px solid var(--primary-color);
     outline: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 10px;
-    transition: 0.1s ease-in;
+    transition: 0.4s ease-in;
     cursor: pointer;
 }
 .report-body button:hover{
     background-color: #135ab0;
-    transform: scale(1.05);
+ 
+    color: #fff;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 .report-footer{

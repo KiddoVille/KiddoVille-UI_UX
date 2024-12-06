@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reports</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/reports.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
@@ -168,76 +168,126 @@
                     
 
                 </div>
-                <div class="report-section" style="background-image: url(<?=IMAGE?>/report.png)">
+                <div class="report-section" >
                     <div class="report-row">
                         <div class="report-card">
-                            <div class="profile-img">
-                                <img src="<?=IMAGE?>/rtr.png" class="face">
-                            </div>
-                            <img src="<?=IMAGE?>/898.png" class="report">
-                            <div class="card-footer">
-                                <h3>Thilina Perera</h3>
-                                <button><a href="<?=ROOT?>/Teacher/AcademicReport">View Report</a></button>
-                            </div>
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>Reg No: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button ><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
 
+                            </div>
                         </div>
+
                         <div class="report-card">
-                            <div class="profile-img">
-                                <img src="<?=IMAGE?>/rtr.png" class="face">
-                            </div>
-                            <img src="<?=IMAGE?>/898.png" class="report">
-                            <div class="card-footer">
-                                <h3>Kavindu Jayawardena</h3>
-                                <button><a href="<?=ROOT?>/Teacher/AcademicReport">View Report</a></button>
-                            </div>
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>REG NO: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
 
+                            </div>
                         </div>
+
                         <div class="report-card">
-                            <div class="profile-img">
-                                <img src="<?=IMAGE?>/rtr.png" class="face">
-                            </div>
-                            <img src="<?=IMAGE?>/898.png" class="report">
-                            <div class="card-footer">
-                                <h3>Dinushi Wijeratne</h3>
-                                <button><a href="<?=ROOT?>/Teacher/AcademicReport">View Report</a></button>
-                            </div>
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>REG NO: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
 
+                            </div>
                         </div>
+                        
+
+
+                    
+                       
                     </div>
                     <div class="report-row">
                         <div class="report-card">
-                            <div class="profile-img">
-                                <img src="<?=IMAGE?>/rtr.png" class="face">
-                            </div>
-                            <img src="<?=IMAGE?>/898.png" class="report">
-                            <div class="card-footer">
-                                <h3>Dimuthu Fernando</h3>
-                                <button><a href="<?=ROOT?>/Teacher/AcademicReport">View Report</a></button>
-                            </div>
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>Reg No: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
 
+                            </div>
                         </div>
+
                         <div class="report-card">
-                            <div class="profile-img">
-                                <img src="<?=IMAGE?>/rtr.png" class="face">
-                            </div>
-                            <img src="<?=IMAGE?>/898.png" class="report">
-                            <div class="card-footer">
-                                <h3>Nethmi Perera</h3>
-                                <button><a href="<?=ROOT?>/Teacher/AcademicReport">View Report</a></button>
-                            </div>
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>REG NO: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
 
+                            </div>
                         </div>
+
                         <div class="report-card">
-                            <div class="profile-img">
-                                <img src="<?=IMAGE?>/rtr.png" class="face">
-                            </div>
-                            <img src="<?=IMAGE?>/898.png" class="report">
-                            <div class="card-footer">
-                                <h3>Rinesh Silva</h3>
-                                <button><a href="<?=ROOT?>/Teacher/AcademicReport">View Report</a></button>
-                            </div>
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>REG NO: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
 
+                            </div>
                         </div>
+                        
+
+
+                    
+                       
                     </div>
                 </div>
            
