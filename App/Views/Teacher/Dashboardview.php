@@ -41,8 +41,8 @@
                         <span class="text"> Report </span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Students" class="sidebar-list-item" id="students-link">
-                        <i class='bx bxs-group' ></i>
-                        <span class="text">Students</span>
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                        <span class="text">Fun Zone</span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Leaves" class="sidebar-list-item" id="leaves-link" >
                         <i class='bx bx-calendar' ></i>
@@ -226,6 +226,12 @@
                 <h4>Empowering Excellence in Every Lesson!</h4>
             </div>
             <div class="navbar-right">
+            <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class="fas fa-search search-btn"></i>
+                    
+                </div>
+
             <div class="alter-icon"></div>
             <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
                
@@ -340,17 +346,21 @@
             <div class="activity-list" id="act-list">
                 <div class="activity-header">
                     <div class="header-content">
-                        <h2 >Activity Schedule</h2>
-                        <hr>
+                        <h3 >Activity Schedule</h3>
+                        
                         <div class="filters">
+                            <div class="date-filter">
                             <label for="date">Date</label>
                             <input type="date" name="date" id="date">
+                            </div>
+                            <div class="age-filter">
                             <label for="age">Age Group</label>
                             <select name="agegroup">
                                 <option value="lower">3-5</option>
                                 <option value="middle">6-9</option>
                                 <option value="upper">9-13</option>
                             </select>
+                            </div>
                         </div>
                     </div>
                     
@@ -466,7 +476,7 @@
                 </div>
                 <div class="report-body">
                     <p class="text">Review and finalize weekly reports for all the students</p>
-                <p class="number"><span>6 </span>Reporsts Pending</p>
+                <p class="number"><span>6 </span>Reports Pending</p>
                 <button class="manage" id="manage" onclick="openPending()">Manage Reports</button>
                 </div>
                 <div class="report-footer">

@@ -164,7 +164,7 @@
             </div>
             
             <div class="report-page">
-                <H3>Academic Report</H3>
+                <H3>Report Card</H3>
                 <div class="report-header">
                     <div class="profile">
                         <div class="first-row">
@@ -183,9 +183,19 @@
                     </div>
                     <div class="attendence-bar">
                             <h3>My Attendence </h3>
-                            <hr>
+                          
                             <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="data">
+                                <div class="data-line">
+                                    <div class="dot1"></div>
+                                    <p><span>22 </span>Present</p>
+                                </div>
+                                <div class="data-line">
+                                    <div class="dot2"></div>
+                                    <p><span>73 </span>Absent</p>
+                                </div>
                             </div>
                         </div>
                 </div>
@@ -197,25 +207,25 @@
                         <h4>No</h4>
                         <h4>Subject</h4>
                         <h4>Marks</h4>
-                        <h4>Level</h4>
+                        <h4>Regulation</h4>
                     </div>
                     <div class="subject-grades-data">
-                        <p>1</p>
+                        <p>001</p>
                         <p>English</p>
-                        <p>87</p>
-                        <p>df</p>
+                        <p>70</p>
+                        <div class="regulation">Good</div>
                     </div>
                     <div class="subject-grades-data">
-                        <p>1</p>
-                        <p>English</p>
+                        <p>002</p>
+                        <p>Arts & Crafts</p>
                         <p>87</p>
-                        <p>df</p>
+                        <div class="regulation">Excellent</div>
                     </div>
                     <div class="subject-grades-data">
-                        <p>1</p>
-                        <p>English</p>
-                        <p>87</p>
-                        <p>df</p>
+                        <p>003</p>
+                        <p>Dancing</p>
+                        <p>90</p>
+                        <div class="regulation">Excellent</div>
                     </div>
                 </div>
                 <div class="social-behaviour">
