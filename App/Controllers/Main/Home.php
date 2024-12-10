@@ -6,8 +6,10 @@
 
     class Home{
         use MainController;
+
         public function index(){
-            $this->view('main/home');
+            
+            $this->view('Teacher/home');
         }
     }
 ?>
