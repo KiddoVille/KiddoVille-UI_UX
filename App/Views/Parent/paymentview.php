@@ -75,46 +75,32 @@
         <!-- navigation -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
+                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first select-child">
-                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first select-child"
+                            onclick="window.location.href = '<?=ROOT?>/Parent/Home'">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                                style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReParent/payment'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReParent/payment'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReParent/payment'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReParent/payment'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReParent/payment'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
+                    <ul class="children-list">
+                        <?php foreach ($data['children'] as $child): ?>
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                    alt="Child Profile Image"
+                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
+                            </li>
+                            <hr>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -203,7 +189,7 @@
             <div class="saperate">
                 <!-- payment table -->
                 <div class="reservation-container">
-                    <h1>Payment History</h1>
+                    <h1 style="font-size: 30px;">Payment History</h1>
                     <div class="filters">
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                         <select style="margin-right: 325px; width: 200px">
@@ -322,7 +308,7 @@
                 </div>
             </div>
             <!-- messager navigation -->
-            <a href="<?=ROOT?>/ReParent/Message" class="chatbox">
+            <a href="<?=ROOT?>/Parent/Message" class="chatbox">
                 <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
                     style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
@@ -342,10 +328,10 @@
             <p>
                 Student    RS0110657
             </p>
-            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/ReParent/ParentProfile'">
+            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/Parent/ParentProfile'">
                 Profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReParent/GuardianProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
             <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Main/Home'">
@@ -353,6 +339,28 @@
             </button>
         </div>
     </div>
+    <script>
+        function setChildSession(childName) {
+            console.log(childName);
+            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ childName: childName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name set in session.");
+                    window.location.href = '<?= ROOT ?>/Child/Home';
+                } else {
+                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:",error));
+        }
+    </script>
 </body>
 
 </html>

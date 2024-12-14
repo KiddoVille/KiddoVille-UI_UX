@@ -75,46 +75,32 @@
         <!-- navigation -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
+                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first select-child">
-                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first select-child"
+                            onclick="window.location.href = '<?=ROOT?>/Parent/Home'">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                                style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReChild/history'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReChild/history'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReChild/history'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReChild/history'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" onclick="window.location.href = '<?=ROOT?>/ReChild/history'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
+                    <ul class="children-list">
+                        <?php foreach ($data['children'] as $child): ?>
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                    alt="Child Profile Image"
+                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
+                            </li>
+                            <hr>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -176,28 +162,28 @@
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/attendance.svg" alt="Attendance"
+                    <h3><img src="<?=IMAGE?>/attendance.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Holidays</h3>
-                    <p style="margin-bottom: 3px; color: #D3D3D3;">01/07 Days</p>
+                    <p style="margin-bottom: 3px;">01/07 Days</p>
                     <span style="font-weight: 50;">holiday to the daycare</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/sick.svg" alt="Attendance"
+                    <h3><img src="<?=IMAGE?>/sick.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Average attendance</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;">18 Day</p>
+                    <p style="margin-bottom: 3px;">18 Day</p>
                     <span style="font-weight: 50;">Average of attendance in a month</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/mountain.svg" alt="Attendance"
+                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/mountain.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Total late arrivals</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;">5 Days</p>
+                    <p style="margin-bottom: 3px;">5 Days</p>
                     <span style="font-weight: 50;">Laet arrivals of all child</span>
                 </div>
             </div>
-            <div class="saperate">
+            <div class="saperate" style="height: 520px;">
                 <!-- child history table -->
-                <div class="child-history">
-                    <h1>Child History</h1>
+                <div class="child-history" style="width: 760px !important; height: 420px; margin-top: 0px;">
+                    <h1 style="font-size: 30px;">Child History</h1>
                     <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                     <table>
                         <thead>
@@ -260,7 +246,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="pickup-container">
+                <!-- <div class="pickup-container">
                     <h1>Schedule pickups</h1>
                     <p>Review and finalize children pickup from the daycare</p>
                     <button class="button" id="openModalBtn">Schedule pickups</button>
@@ -270,7 +256,22 @@
                         <p>Departure time: 8:00pm</p>
                     </div>
                     <button class="button" style="width: 189px" id="editModalBtn">Edit</button>
+                </div> -->
+                <div class="glass-box" style="width: 200px !important; height: 400px !important;">
+                <div class="report-header">
+                    <i class="fa-regular fa-clipboard"></i>
+                    <h1>Schedule pickups</h1>
                 </div>
+                <div class="report-body">
+                    <p class="text">Review and finalize children pickup from the daycare</p>
+                    <button class="button" id="editModalBtn">Schedule Pickups</button>
+                </div>
+                <div class="report-footer">
+                    <p class="footer">Date: <span>Feb 12-16, 2025</span></p>
+                    <p class="footer">Pickup person: <span>Guardian</span></p>
+                    <p class="footer">Pickup Time:<span>8:00 PM</span></p>
+                </div>
+            </div>
             </div>
             <!-- pickupModal -->
             <div class="modal" id="pickupModal">
@@ -390,7 +391,7 @@
                 </div>
             </div>
             <!-- messager page -->
-            <a href="../Messager/Message.html" class="chatbox">
+            <a href="<?=ROOT?>/Parent/Message" class="chatbox">
                 <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
                     style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
@@ -410,10 +411,10 @@
             <p>
                 Student    RS0110657
             </p>
-            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/ReParent/ParentProfile'">
+            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/Parent/ParentProfile'">
                 Profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReParent/GuardianProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
             <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Main/Home'">
@@ -421,6 +422,28 @@
             </button>
         </div>
     </div>
+    <script>
+        function setChildSession(childName) {
+            console.log(childName);
+            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ childName: childName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name set in session.");
+                    window.location.href = '<?= ROOT ?>/Child/Home';
+                } else {
+                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:",error));
+        }
+    </script>
 </body>
 
 </html>

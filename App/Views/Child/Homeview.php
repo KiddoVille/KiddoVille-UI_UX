@@ -20,18 +20,13 @@
 <body>
     <div class="container">
         <!-- minimized sidebar -->
-        <div class="sidebar minimized" id="sidebar1">
+        <div class="sidebar" id="sidebar1">
             <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
             <h2 style="margin-top: 10px;">Dashboard</h2>
             <ul>
                 <li class="selected first">
                     <a href="<?=ROOT?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/Attendance">
-                        <i class="fas fa-user-check"></i> <span>Attendance</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -85,7 +80,7 @@
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
                 <h2 style="margin-top: 25px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
@@ -181,7 +176,7 @@
                 <div class="report-header">
                     <div class="profile" style="height: 340px;">
                         <div class="first-row">
-                            <img src="<?= isset($data['selectedchildren']['image']) ? $data['selectedchildren']['image'].'?v=' . time() : 'No name set'; ?>" alt="profile pic" style="border: 4px solid #233E8D;">
+                            <img src="<?= isset($data['selectedchildren']['image']) ? $data['selectedchildren']['image'].'?v=' . time() : 'No name set'; ?>" alt="profile pic">
                             <h3 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h3>
                         </div>
                         <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
@@ -283,7 +278,7 @@
                     </div>
                 </div>
                 <div class="report-header" style="justify-content: space-between; text-align: center; margin-top: -5px;">
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;">
+                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
                         Schedule pickups
                         <button id="openModalBtn" class="button" style="width: 240px;">Schedule</button>
                         <div class="pickupresults" id="pickupresults">
@@ -294,7 +289,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;">
+                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
                         Schedule Meeting
                         <button id="meetingbtn" class="button" style="width: 240px;">Schedule</button>
                 <div class="pickup-section" id="meetingresults"
@@ -304,7 +299,7 @@
                 </div>
                 <button id="editmeetingbtn" class="button" style="width: 240px; display: none;">Edit</button>
                     </div>
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;">
+                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
                         Schedule Visit
                         <button id="openvisitModal" class="button" style="width: 240px;">Schedule</button>
                         <div class="pickup-section" id="visitresults" style="display: none; width: 220px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
@@ -696,7 +691,7 @@
         </div>
     </div>
     <!-- navigation to message page -->
-    <a href="<?=ROOT?>/ReChild/Message" class="chatbox">
+    <a href="<?=ROOT?>/Child/Message" class="chatbox">
         <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
             style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
         <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
@@ -713,10 +708,9 @@
         <p>Student    RS0110657</p>
         <button class="profile-button"
             onclick="window.location.href ='<?=ROOT?>/Child/ChildProfile'">Profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/ParentProfile'">Parent
-            profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/GuardianProfile'">Guardian
-            profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/ParentProfile'">Parent profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/GuardianProfile'">Guardian profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/ChildPackage'">Package</button>
         <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Child/Home'">LogOut</button>
     </div>
     <div class="tasks" id="taskbtn" style="position: fixed;">

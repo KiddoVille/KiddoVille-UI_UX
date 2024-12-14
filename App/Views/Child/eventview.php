@@ -2,75 +2,70 @@
 
 <head>
     <title>Events</title>
-    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Child/event.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/Main.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Profile.js"></script>
-    <script src="<?=JS?>/Child/Navbar.js"></script>
-    <script src="<?=JS?>/Child/MessageDropdown.js"></script>
-    <script src="<?=JS?>/Child/Taskbar.js"></script>
-    <script src="<?=JS?>/Child/event.js"></script>
+    <link rel="stylesheet" href="<?= CSS ?>/Child/event.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Child/Profile.js"></script>
+    <script src="<?= JS ?>/Child/Navbar.js"></script>
+    <script src="<?= JS ?>/Child/MessageDropdown.js"></script>
+    <script src="<?= JS ?>/Child/Taskbar.js"></script>
+    <script src="<?= JS ?>/Child/event.js"></script>
 </head>
 
-<body style="overflow-y:hidden;">
+<body style="overflow:hidden;">
     <div class="container">
         <!-- sidebar to navigate to pages -->
         <div class="sidebar minimized" id="sidebar1">
-            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
+            <img src="<?= IMAGE ?>/navbar-star.png" class="star show" id="starImage">
             <h2 style="margin-top: 10px;">Dashboard</h2>
             <ul>
                 <li class="hover-effect unselected first">
-                    <a href="<?=ROOT?>/Child/Home">
+                    <a href="<?= ROOT ?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/Attendance">
-                        <i class="fas fa-user-check"></i> <span>Attendance</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/history">
+                    <a href="<?= ROOT ?>/Child/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/report">
+                    <a href="<?= ROOT ?>/Child/report">
                         <i class="fa fa-user-shield"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/reservation">
+                    <a href="<?= ROOT ?>/Child/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/meal">
+                    <a href="<?= ROOT ?>/Child/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="selected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Child/event">
+                    <a href="<?= ROOT ?>/Child/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/package">
+                    <a href="<?= ROOT ?>/Child/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/funzonehome">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/payment">
+                    <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -83,52 +78,41 @@
         <!-- To navigate through childrens -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
+                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
                     <ul>
-                        <li class="hover-effect first" onclick="window.location.href = '../../Registered-Parent/Attendance/event.html'">
-                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first"
+                            onclick="removechildsession();">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                                style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
+                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul>
-                        <li class="hover-effect first select-child">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
+                    <ul class="children-list">
+                        <?php foreach ($data['children'] as $child): ?>
+                            <li class="first
+                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
+                            " 
+                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                    alt="Child Profile Image"
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
+                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
+                            </li>
+                            <hr>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="main-content" id="main-content" style="overflow-y:hidden;">
-        <!-- Header of the page -->
+        <div class="main-content" id="main-content" style="overflow:hidden;">
+            <!-- Header of the page -->
             <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"
                     style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
@@ -189,47 +173,35 @@
             <!-- stats on events -->
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/event.svg" alt="Attendance"
+                    <h3><img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Upcoming events</h3>
-                    <p style="margin-bottom: 3px; color: #D3D3D3;">19/09/2024</p>
+                    <p style="margin-bottom: 3px;">19/09/2024</p>
                     <span style="font-weight: 50;">Unattended days</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/event-2.svg" alt="Attendance"
+                    <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Enroll to events</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;"> 2 events left</p>
+                    <p style="margin-bottom: 3px;"> 2 events left</p>
                     <span style="font-weight: 50;">2 enrolled events upcoming this month</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/feedback.svg" alt="Attendance"
-                            style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Event feedback</h3>
-                    <p style="margin-top: 20px;color: #D3D3D3;">
-                        <img src="<?=IMAGE?>/star2.svg" class="star" alt="star">
-                        <img src="<?=IMAGE?>/star2.svg" class="star" alt="star">
-                        <img src="<?=IMAGE?>/star2.svg" class="star" alt="star">
-                        <img src="<?=IMAGE?>/star.svg" class="star" alt="star">
-                        <img src="<?=IMAGE?>/star.svg" class="star" alt="star">
-                    </p>
-                    <span style="font-weight: 50;">drawing event feedback</span>
-                </div>
-                <div class="stat">
-                    <h3><img src="<?=IMAGE?>/event-2.svg" alt="Attendance"
+                    <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">View all events</h3>
-                    <div class="lol" style="cursor: pointer; margin-bottom: -100px; margin-top: 10px;"
-                        onclick="window.location.href='<?=ROOT?>/ReChild/allevent';">
+                    <div class="lol" style="cursor: pointer; margin-bottom: -100px; margin-top: 10px; margin-left: 70px;"
+                        onclick="window.location.href='<?= ROOT ?>/Child/allevent';">
                         <p>View</p>
                     </div>
                 </div>
             </div>
-            <div class="saperate">
-            <!-- Modal to view event -->
+            <div class="saperate" style="margin-top: 40px;">
+                <!-- Modal to view event -->
                 <div class="modal" id="EventModal">
                     <div class="View-Package">
-                                            <div class="top-con">
-                        <div class="back-con" id="back-arrow">
-                            <i class="fas fa-chevron-left" id="backformeeting"></i>
+                        <div class="top-con">
+                            <div class="back-con" id="back-arrow">
+                                <i class="fas fa-chevron-left" id="backformeeting"></i>
+                            </div>
                         </div>
-                    </div>
                         <div class="back-arrow" id="back-arrow">
                             <i class="fas fa-chevron-left" style="color: white !important; margin-left: 0px;"></i>
                         </div>
@@ -285,8 +257,8 @@
                     </div>
                 </div>
                 <!-- table on events -->
-                <div class="event-container">
-                    <h1>Events</h1>
+                <div class="event-container" style="width: 750px;">
+                    <h1 style="font-size: 30px;">Events</h1>
                     <div class="filters">
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                         <select style="width: 200px">
@@ -357,28 +329,24 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="pickup-container">
-                    <h1>New Event</h1>
-                    <div class="details">
-                        <p> Event Name: Drawing</p>
-                        <p>Date: 12-16, 2025</p>
+                <div class="glass-box" style="width: 200px !important; height: 360px !important;">
+                    <div class="report-header">
+                        <i class="fa-regular fa-clipboard"></i>
+                        <h1>Feedback</h1>
                     </div>
-                    <p>Don’t Miss the Annual Halloween Party! Enroll your child by Oct 20.</p>
-                    <button class="button eventbtn">View event</button>
-                </div>
-                <div class="pickup-container">
-                    <h1>feedback</h1>
-                    <div class="details">
-                        <p> Event Name: Drawing</p>
-                        <p>Date: 12-16, 2025</p>
+                    <div class="report-footer">
+                        <p class="footer">Event Name: <span>Drawing</span></p>
+                        <p class="footer">Date: <span>12/12/2024</span></p>
                     </div>
-                    <p>Give us feedback for the events that your child participated</p>
-                    <button id="feedbackbtn" class="button">Give Feedback</button>
+                    <div class="report-body">
+                        <p class="text">Give us feedback for the events that your child participated</p>
+                        <button style="margin-top: 21px;" class="button" id="feedbackbtn">Give feedback</button>
+                    </div>
                 </div>
             </div>
             <!-- To navigate to message page -->
-            <a href="<?=ROOT?>/ReChild/Message" class="chatbox">
-                <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
+            <a href="<?= ROOT ?>/Child/Message" class="chatbox">
+                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
                     style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
                     <p> 2</p>
@@ -387,9 +355,9 @@
         </div>
         <!-- Profile card -->
         <div class="profile-card" id="profileCard">
-            <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
                 Thilina Perera
@@ -397,16 +365,16 @@
             <p>
                 Student    RS0110657
             </p>
-            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/ReChild/ChildProfile'">
+            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
                 Profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/ParentProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">
                 Parent profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/GuardianProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Main/Home'">
+            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
                 LogOut
             </button>
         </div>
@@ -518,6 +486,48 @@
             </div>
         </div>
     </div>
+    <script>
+        function setChildSession(childName) {
+            fetch('<?= ROOT ?>/Child/Home/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        childName: childName
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child name set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Event';
+                    } else {
+                        console.error("Failed to set child name in session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function removechildsession() {
+            fetch('<?= ROOT ?>/Child/Home/removechildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child name removed from session.");
+                        window.location.href = '<?= ROOT ?>/Parent/Event';
+                    } else {
+                        console.error("Failed to remove child name from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
 </body>
 
 </html>

@@ -20,14 +20,9 @@
             <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
             <h2 style="margin-top: 10px;">Dashboard</h2>
             <ul>
-                <li class="selected first">
+                <li class="hover-effect unselected first">
                     <a href="<?=ROOT?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/Attendance">
-                        <i class="fas fa-user-check"></i> <span>Attendance</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -50,7 +45,7 @@
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
-                <li class="selected">
+                <li class="selected" style="margin-top: 40px;">
                     <a href="<?=ROOT?>/Child/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
@@ -78,46 +73,35 @@
         </div>
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
+                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
                     <ul>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first"
+                            onclick="removechildsession();">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                                style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
+                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul>
-                        <li class="hover-effect first select-child">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
+                    <ul class="children-list">
+                        <?php foreach ($data['children'] as $child): ?>
+                            <li class="first
+                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
+                            " 
+                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                    alt="Child Profile Image"
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
+                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
+                            </li>
+                            <hr>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -202,7 +186,7 @@
             <div class="fill">
                 <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
                     style="width: 24px; height: 24px; fill: #233E8D !important; margin-left: -1080px; cursor: pointer;"
-                    class="back" onclick="window.location.href='./event.html'">
+                    class="back" onclick="window.location.href='<?=ROOT?>/Child/event'">
                 <h1 style="color: black"> Events</h1>
                 <div class="filters">
                     <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
@@ -448,6 +432,27 @@
         </div>
     </div>
     <script>
+        function setChildSession(childName) {
+            console.log(childName);
+            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ childName: childName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name set in session.");
+                    window.location.href = '<?= ROOT ?>/Child/Home';
+                } else {
+                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:",error));
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const EventModal = document.getElementById('EventModal');
             const eventbtns = document.querySelectorAll('.eventbtn');

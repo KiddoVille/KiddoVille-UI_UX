@@ -245,9 +245,9 @@
         </div>
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
+                <h2 style="margin-top: 25px; margin-left: 25px !important;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
-                    <ul>
+                    <ul style="margin-left: 20px;">
                         <li class="hover-effect first select-child" style="width:140px;"
                             onclick="window.location.href = '<?=ROOT?>/Parent/Home'">
                             <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
@@ -257,8 +257,8 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <h2 style="margin-top: 25px; margin-left: 30px;">Little Explorers</h2>
+                    <p style="margin-bottom: 20px; color: white; margin-left: 30px !important;">
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -331,26 +331,26 @@
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/reservation.svg" alt="Attendance"
+                    <h3><img src="<?=IMAGE?>/reservation.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Accepted reservation</h3>
-                    <p style="margin-bottom: 3px; color: #D3D3D3;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
+                    <p style="margin-bottom: 3px;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">Reservations been scheduled</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/pending.svg" alt="Attendance"
+                    <h3><img src="<?=IMAGE?>/pending.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Pending reservation</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;"><?= isset($data['Pending']) ? $data['Pending'] : '0'; ?> reservation</p>
+                    <p style="margin-bottom: 3px;"><?= isset($data['Pending']) ? $data['Pending'] : '0'; ?> reservation</p>
                     <span style="font-weight: 50;">The reservation has not been accepted by maid
                         yet</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/cancel.svg" alt="Attendance"
+                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/cancel.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Canceled reservation</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
+                    <p style="margin-bottom: 3px;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">The reservation has not been canceled</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/calendar-plus-solid.svg" alt="Attendance"
+                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/calendar-plus-solid.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Make reservation</h3>
                     <div class="lol" id="newreservationbtn" style="cursor: pointer; margin-bottom: -100px; margin-top: 20px;">
                         <p>Create</p>
@@ -734,6 +734,27 @@
         </div>
     </div>
     <script>
+        function setChildSession(childName) {
+            console.log(childName);
+            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ childName: childName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name set in session.");
+                    window.location.href = '<?= ROOT ?>/Child/Home';
+                } else {
+                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:",error));
+        }
+
         <?php if (isset($_SESSION['success']) && $_SESSION['success'] === true): ?>
             document.getElementById('alert').classList.add('showl');
             setTimeout(function() {
@@ -782,27 +803,6 @@
                 })
                 .catch(error => console.error('Error:', error));
             }
-        }
-
-        function setChildSession(childName, childId) {
-            fetch('<?=ROOT?>/Parent/Reservation/setchildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ childName: childName, childId: childId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(childName);
-                    console.log("Child name set in session.");
-                    window.location.href = '<?= ROOT ?>/Child/Reservation';
-                } else {
-                    console.error("Failed to set child name in session.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:",error));
         }
 
         document.addEventListener('DOMContentLoaded', function () {

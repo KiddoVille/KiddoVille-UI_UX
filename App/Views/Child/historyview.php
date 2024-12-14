@@ -2,73 +2,68 @@
 
 <head>
     <title>History</title>
-    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Child/history.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/Main.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/history.js"></script>
-    <script src="<?=JS?>/Child/Navbar.js"></script>
-    <script src="<?=JS?>/Child/Pickup.js"></script>
-    <script src="<?=JS?>/Child/OTP.js"></script>
-    <script src="<?=JS?>/Child/Taskbar.js"></script>
+    <link rel="stylesheet" href="<?= CSS ?>/Child/history.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Child/history.js"></script>
+    <script src="<?= JS ?>/Child/Navbar.js"></script>
+    <script src="<?= JS ?>/Child/Pickup.js"></script>
+    <script src="<?= JS ?>/Child/OTP.js"></script>
+    <script src="<?= JS ?>/Child/Taskbar.js"></script>
 </head>
 
 <body style="overflow: hidden;">
     <div class="container">
         <!-- mimnized sidebar -->
         <div class="sidebar minimized" id="sidebar1">
-            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
+            <img src="<?= IMAGE ?>/navbar-star.png" class="star show" id="starImage">
             <h2 style="margin-top: 10px;">Dashboard</h2>
             <ul>
                 <li class="hover-effect unselected first">
-                    <a href="<?=ROOT?>/Child/Home">
+                    <a href="<?= ROOT ?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/Attendance">
-                        <i class="fas fa-user-check"></i> <span>Attendance</span>
-                    </a>
-                </li>
                 <li class="selected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Child/history">
+                    <a href="<?= ROOT ?>/Child/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/report">
+                    <a href="<?= ROOT ?>/Child/report">
                         <i class="fa fa-user-shield"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/reservation">
+                    <a href="<?= ROOT ?>/Child/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/meal">
+                    <a href="<?= ROOT ?>/Child/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/event">
+                    <a href="<?= ROOT ?>/Child/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/package">
+                    <a href="<?= ROOT ?>/Child/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/funzonehome">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/payment">
+                    <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -81,46 +76,35 @@
         <!-- navigation to choose child -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
+                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
                     <ul>
-                        <li class="hover-effect first" onclick="window.location.href = '../../Registered-Parent/history/history.html'">
-                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first"
+                            onclick="removechildsession();">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                                style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
+                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul>
-                        <li class="hover-effect first select-child">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
+                    <ul class="children-list">
+                        <?php foreach ($data['children'] as $child): ?>
+                            <li class="first
+                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
+                            " 
+                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                    alt="Child Profile Image"
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
+                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
+                            </li>
+                            <hr>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -181,30 +165,30 @@
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/attendance.svg" alt="Attendance"
+                    <h3><img src="<?= IMAGE ?>/attendance.svg?v=<?= time() ?> " alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Days not attended</h3>
-                    <p style="margin-bottom: 3px; color: #D3D3D3;">03/04 Days</p>
+                    <p style="margin-bottom: 3px;">03/04 Days</p>
                     <span style="font-weight: 50;">Unattended days</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/sick.svg" alt="Attendance"
+                    <h3><img src="<?= IMAGE ?>/sick.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Sick days</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;">1 Day</p>
+                    <p style="margin-bottom: 3px;">1 Day</p>
                     <span style="font-weight: 50;">light fever</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/mountain.svg" alt="Attendance"
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Late departure</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;">Departure time 8:00 am</p>
+                    <p style="margin-bottom: 3px;">Departure time 8:00 am</p>
                     <span style="font-weight: 50;">Date: 20/09/2024</span>
                 </div>
             </div>
-            <div class="saperate">
+            <div class="saperate" style="height: 540px;">
                 <!-- Child history table -->
-                <div class="child-history">
+                <div class="child-history" style="width: 760px !important; height: 430px !important; margin-top: 0px;">
                     <h1>Child History</h1>
                     <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                    <table>
+                    <table style="margin-bottom: 20px;">
                         <thead>
                             <tr>
                                 <th style="padding: 10px -5px;">Date</th>
@@ -257,7 +241,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="pickup-container">
+                <!-- <div class="pickup-container">
                     <h1>Schedule pickups</h1>
                     <p>Review and finalize children pickup from the daycare</p>
                     <button class="button" id="openModalBtn">Schedule pickups</button>
@@ -267,136 +251,70 @@
                         <p>Departure time: 8:00pm</p>
                     </div>
                     <button class="button" style="width: 189px" id="editModalBtn">Edit</button>
-                </div>
-            </div>
-            <!-- Modal to shedule pickup -->
-            <div class="modal" id="pickupModal">
-                <div class="pickup-popup">
-                    <div class="top-con">
-                        <div class="back-con">
-                            <i class="fas fa-chevron-left" id="backforpickup"></i>
-                        </div>
-                        <div class="refresh-con">
-                            <i class="fas fa-refresh" id="pickuprefresh"
-                                style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
-                        </div>
-                    </div>
-                    <h1>Schedule pickup</h1>
-                    <form id="pickupForm">
-                        <div class="pickup-section">
-                            <label for="time">Select Time <span id="red-star" class="red-star"> *</span> </label>
-                            <input id="pickuptime" type="time"/>
-                        </div>
-                        <div class="pickup-section">
-                            <label>Select person for pickup</label>
-                            <div class="person-section">
-                                <img alt="Person's photo" height="50" src="<?=IMAGE?>/face.jpeg" width="50" />
-                                <div class="person-info">
-                                    <span>Abdulla</span>
+                </div> -->          
+                <div class="attendance">
+                    <div class="attendance-component">
+                        <h1>Attendance</h1>
+                        <div class="contain">
+                            <div class="attendance-grid">
+                                <div class="attendance-item present">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Present</p>
                                 </div>
-                                <div class="add-person"
-                                    style="margin-left: 30px; margin-right: 2px; width: 55px; height: 50px">+</div>
-                                <div class="person-info">
-                                    <span>Add new person</span>
+                                <div class="attendance-item half-day">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Half day</p>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="pickup-section">
-                            <label for="otp">Confirmation OTP <span id="red-star2" class="red-star"> *</span> </label>
-                            <input class="otp" id="pickupotp" type="text" maxlength="6"
-                                placeholder="000000" />
-                            <small>Enter a number and inform the pickup person</small>
-                        </div>
-                        <div class="pickup-section checkbox-section">
-                            <label>
-                                <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> For all
-                                children
-                            </label>
-                            <label>
-                                <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> Inform on
-                                pickup
-                            </label>
-                        </div>
-                        <div class="terms">
-                            <input required type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" />
-                            <label>
-                                I agree to the
-                                <a href="#">Terms of Service</a>
-                            </label>
-                        </div>
-                        <div class="button-popup">
-                            <button style="margin-right: 230px;" id="closeModalBtn">Cancel</button>
-                            <button>Done</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- Edit scheduled pickup modal -->
-            <div class="modal" id="editPickupModal">
-                <div class="pickup-popup">
-                    <div class="top-con">
-                        <div class="back-con">
-                            <i class="fas fa-chevron-left" id="backforpickupedit"></i>
-                        </div>
-                        <div class="refresh-con">
-                            <i class="fas fa-refresh" id="pickupeditrefresh"
-                                style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
-                        </div>
-                    </div>
-                    <h1>Edit Scheduled Pickup</h1>
-                    <form id="editpickupForm">
-                        <div class="pickup-section">
-                            <label for="edit-time">Select Time <span id="red-star3" class="red-star hidden"> *</span> </label>
-                            <input id="edit-time" type="time" value="20:00" />
-                        </div>
-                        <div class="pickup-section">
-                            <label>Select person for pickup</label>
-                            <div class="person-section">
-                                <img alt="Person's photo" height="50" src="<?=IMAGE?>/face.jpeg" width="50" />
-                                <div class="person-info">
-                                    <span>Guardian</span>
-                                    <p style="margin-top: 60px; margin-left: -70px; color: #233E8D;">Selected</p>
+                                <div class="attendance-item present">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Present</p>
                                 </div>
-                                <div class="add-person"
-                                    style="margin-left: 30px; margin-right: 2px; width: 55px; height: 50px">+</div>
-                                <div class="person-info">
-                                    <span>Add new person</span>
+                                <div class="attendance-item present">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Present</p>
+                                </div>
+                                <div class="attendance-item absent">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Absent</p>
+                                </div>
+                                <div class="attendance-item present">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Present</p>
+                                </div>
+                                <div class="attendance-item half-day">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Half day</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="pickup-section">
-                            <label for="edit-otp">Confirmation OTP <span id="red-star4" class="red-star hidden"> *</span> </label>
-                            <input class="otp" id="edit-otp" type="text" maxlength="6"
-                                value="000000" />
-                            <small>Enter a number and inform the pickup person</small>
+                        <div class="summary-container">
+                            <div class="summary">
+                                <div class="bar1">
+                                    <p>Total</p>
+                                    <p style="color: #00bcd4">Full day hours for week: 21 hrs</p>
+                                </div>
+                                <div class="bar2">
+                                    <p style="margin-top: 15px;">Total</p>
+                                    <p style="color: #9c27b0">Half day hours for week: 4 hrs</p>
+                                </div>
+                            </div>
+                            <div class="image-container">
+                                <img alt="Cartoon of a student sitting at a desk with books" height="100"
+                                    src="<?=IMAGE?>/child_attendance.png" width="100" />
+                            </div>
                         </div>
-                        <div class="pickup-section checkbox-section">
-                            <label>
-                                <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" checked /> For
-                                all children
-                            </label>
-                            <label>
-                                <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> Inform on
-                                pickup
-                            </label>
-                        </div>
-                        <div class="terms">
-                            <input required type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" checked />
-                            <label>
-                                I agree to the
-                                <a href="../../Home/Terms of Service/Terms.html">Terms of Service</a>
-                            </label>
-                        </div>
-                        <div class="button-popup">
-                            <button style="margin-right: 220px;" id="closeEditModalBtn">Cancel</button>
-                            <button style="margin-left: -60px;">Save Changes</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
             <!-- navigation to message page -->
-            <a href="../Messager/Message.html" class="chatbox">
-                <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
+            <a href="<?=ROOT?>/Child/Message" class="chatbox">
+                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
                     style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
                     <p> 2</p>
@@ -409,9 +327,9 @@
         </div>
         <!-- Profile card -->
         <div class="profile-card" id="profileCard" tyle="margin-top: -710px;">
-            <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
                 Thilina Perera
@@ -419,16 +337,16 @@
             <p>
                 Student    RS0110657
             </p>
-            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/ReChild/ChildProfile'">
+            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
                 Profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/ParentProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">
                 Parent profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/GuardianProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Main/Home'">
+            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
                 LogOut
             </button>
         </div>
@@ -541,6 +459,48 @@
             </div>
         </div>
     </div>
+    <script>
+        function setChildSession(childName) {
+            fetch('<?= ROOT ?>/Child/Home/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        childName: childName
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child name set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/History';
+                    } else {
+                        console.error("Failed to set child name in session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function removechildsession() {
+            fetch('<?= ROOT ?>/Child/Home/removechildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child name removed from session.");
+                        window.location.href = '<?= ROOT ?>/Parent/History';
+                    } else {
+                        console.error("Failed to remove child name from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
 </body>
 
 </html>

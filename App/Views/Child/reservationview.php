@@ -30,11 +30,6 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/Attendance">
-                        <i class="fas fa-user-check"></i> <span>Attendance</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
                     <a href="<?=ROOT?>/Child/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
@@ -82,35 +77,31 @@
         </div>
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2 style="margin-top: 25px; margin-left: 35px !important;">Familty Ties</h2>
+                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
                     <ul>
                         <li class="hover-effect first"
-                            onclick="removechildsession()">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time() : '' ?>"
+                            onclick="removechildsession();">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
-                            <h2>Abdulla</h2>
+                            <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <h2 style="margin-top: 25px; margin-left: 35px !important;">Little Explorers</h2>
+                    <p style="margin-bottom: 20px; color: white; margin-left: 35px !important;">
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first
-                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
-                                    echo "select-child";
-                                } ?>"
-                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['id']) ? $child['id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            <li class="first
+                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
+                            " 
+                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; 
-                                    <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                        echo "margin-left: -20px !important";
-                                    } ?>">
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -174,26 +165,26 @@
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/reservation.svg" alt="Attendance"
-                            style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Accepted reservation</h3>
-                    <p style="margin-bottom: 3px; color: #D3D3D3;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
+                    <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance"
+                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Accepted reservation</h3>
+                    <p style="margin-bottom: 3px;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">Reservations been scheduled</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/pending.svg" alt="Attendance"
+                    <h3><img src="<?= IMAGE ?>/pending.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Pending reservation</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;"><?= isset($data['Pending']) ? $data['Pending'] : '0'; ?> reservation</p>
+                    <p style="margin-bottom: 3px;"><?= isset($data['Pending']) ? $data['Pending'] : '0'; ?> reservation</p>
                     <span style="font-weight: 50;">The reservation has not been accepted by maid
                         yet</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg" alt="Attendance"
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Canceled reservation</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
+                    <p style="margin-bottom: 3px;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">The reservation has not been canceled</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/calendar-plus-solid.svg" alt="Attendance"
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/calendar-plus-solid.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Make reservation</h3>
                     <div class="lol" id="newreservationbtn" style="cursor: pointer; margin-bottom: -100px; margin-top: 20px;">
                         <p>Create</p>
@@ -233,8 +224,6 @@
                                         <?php endforeach ?>
                                         <input type="hidden" name="Date" id="date-inputforpost" required />
                                     </div>
-                                    <i class="fa fa-chevron-right"
-                                        style="font-size: 30px; margin-top: -65px; margin-left: 350px; color: #233E8D;"></i>
                                     <p class="error"> <?= isset($data['errors']['Date']) ? $data['errors']['Date'] : '' ?> </p>
                                 </div>
                                 <div class="pickup-section" style="margin-bottom:10px; display: flex; flex-direction: column; justify-content:space-between; text-align:center;">
@@ -414,7 +403,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="reservation-container">
+                <div class="reservation-container" style="width: 1170px;">
                     <div style="display: flex; flex-direction: row; justify-content: flex-start;">
                         <div class="toggle">
                             <label class="background" for="toggle"></label>
@@ -423,7 +412,7 @@
                                 <label class="hi-btn" id="hi-btn">History</label>
                             </div>
                         </div>
-                        <h1 id="heading-res" style="font-size: 35px; margin-left: 130px;">Reservations</h1>
+                        <h1 id="heading-res" style="font-size: 30px; margin-left: 130px;">Reservations</h1>
                     </div>
                     <div class="filters">
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
@@ -1064,10 +1053,8 @@
         const headingres = document.getElementById('heading-res');
 
         upbtn.addEventListener('click', function(){
-            upbtn.style.color = 'white';
-            hibtn.style.color = 'black';
-            upbtn.style.backgroundColor = '#099690';
-            hibtn.style.backgroundColor = '#BADBD0';
+            upbtn.style.backgroundColor = '#10639a';
+            hibtn.style.backgroundColor = '#60a6ec';
             upcoming.style.display = 'block';
             history.style.display = 'none';
             headingres.style.marginLeft = '180px';
@@ -1075,10 +1062,8 @@
         });
 
         hibtn.addEventListener('click', function(){
-            hibtn.style.color = 'white';
-            upbtn.style.color = 'black';
-            hibtn.style.backgroundColor = '#099690';
-            upbtn.style.backgroundColor = '#BADBD0';
+            hibtn.style.backgroundColor = '#10639a';
+            upbtn.style.backgroundColor = '#60a6ec';
             upcoming.style.display = 'none';
             history.style.display = 'block';
             headingres.style.marginLeft = '140px';
