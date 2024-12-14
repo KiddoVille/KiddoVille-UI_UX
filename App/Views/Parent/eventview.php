@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/package">
+                    <a href="<?=ROOT?>/Parent/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -76,46 +76,32 @@
         <!-- navigation -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
+                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first select-child">
-                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first select-child"
+                            onclick="window.location.href = '<?=ROOT?>/ReParent/Home'">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                                style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;"">
                         Explore your children's activities and progress!
                     </p>
-                    <ul>
-                        <li class="hover-effect first" onclick="window.location.href = '../../Registered-Child/Events/event.html'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" nclick="window.location.href = '../../Registered-Child/Events/event.html'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" nclick="window.location.href = '../../Registered-Child/Events/event.html'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" nclick="window.location.href = '../../Registered-Child/Events/event.html'">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first" nclick="window.location.href = '../../Registered-Child/Events/event.html'"> 
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
+                    <ul class="children-list">
+                        <?php foreach ($data['children'] as $child): ?>
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                    alt="Child Profile Image"
+                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
+                            </li>
+                            <hr>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -176,34 +162,22 @@
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/event.svg" alt="Attendance"
+                    <h3><img src="<?=IMAGE?>/event.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Upcoming events</h3>
-                    <p style="margin-bottom: 3px; color: #D3D3D3;">19/09/2024</p>
+                    <p style="margin-bottom: 3px;">19/09/2024</p>
                     <span style="font-weight: 50;">Unattended days</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/event-2.svg" alt="Attendance"
+                    <h3><img src="<?=IMAGE?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Enroll to events</h3>
-                    <p style="margin-bottom: 3px;color: #D3D3D3;"> 2 events left</p>
+                    <p style="margin-bottom: 3px;"> 2 events left</p>
                     <span style="font-weight: 50;">2 enrolled events upcoming this month</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/feedback.svg" alt="Attendance"
-                            style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Event feedback</h3>
-                    <p style="margin-top: 20px;color: #D3D3D3;">
-                        <img src="<?=IMAGE?>/star2.svg" class="star" alt="star">
-                        <img src="<?=IMAGE?>/star2.svg" class="star" alt="star">
-                        <img src="<?=IMAGE?>/star2.svg" class="star" alt="star">
-                        <img src="<?=IMAGE?>/star.svg" class="star" alt="star">
-                        <img src="<?=IMAGE?>/star.svg" class="star" alt="star">
-                    </p>
-                    <span style="font-weight: 50;">drawing event feedback</span>
-                </div>
-                <div class="stat">
-                    <h3><img src="<?=IMAGE?>/event-2.svg" alt="Attendance"
+                    <h3><img src="<?=IMAGE?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">View all events</h3>
                     <div class="lol" style="cursor: pointer; margin-bottom: -100px; margin-top: 10px;"
-                        onclick="window.location.href='<?=ROOT?>/ReParent/allevent';">
+                        onclick="window.location.href='<?=ROOT?>/Parent/allevent';">
                         <p>View</p>
                     </div>
                 </div>
@@ -272,8 +246,8 @@
                     </div>
                 </div>
                 <!-- Event conatiner -->
-                <div class="event-container">
-                    <h1>Events</h1>
+                <div class="event-container" style="width:750px; ">
+                    <h1 style="font-size: 30px;">Events</h1>
                     <div class="filters">
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                         <select style="width: 200px">
@@ -344,27 +318,23 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="pickup-container">
-                    <h1>New Event</h1>
-                    <div class="details">
-                        <p> Event Name: Drawing</p>
-                        <p>Date: 12-16, 2025</p>
+                <div class="glass-box" style="width: 200px !important; height: 360px !important;">
+                    <div class="report-header">
+                        <i class="fa-regular fa-clipboard"></i>
+                        <h1>Feedback</h1>
                     </div>
-                    <p>Don’t Miss the Annual Halloween Party! Enroll your child by Oct 20.</p>
-                    <button class="button eventbtn">View event</button>
-                </div>
-                <div class="pickup-container">
-                    <h1>feedback</h1>
-                    <div class="details">
-                        <p> Event Name: Drawing</p>
-                        <p>Date: 12-16, 2025</p>
+                    <div class="report-footer">
+                        <p class="footer">Event Name: <span>Drawing</span></p>
+                        <p class="footer">Date: <span>12/12/2024</span></p>
                     </div>
-                    <p>Give us feedback for the events that your child participated</p>
-                    <button id="feedbackbtn" class="button">Give Feedback</button>
+                    <div class="report-body">
+                        <p class="text">Give us feedback for the events that your child participated</p>
+                        <button style="margin-bottom: 21px;" class="button" id="feedbackbtn">Give feedback</button>
+                    </div>
                 </div>
             </div>
             <!-- navigation to messager -->
-            <a href="<?=ROOT?>/ReParent/Message" class="chatbox">
+            <a href="<?=ROOT?>/Parent/Message" class="chatbox">
                 <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
                     style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
@@ -398,6 +368,28 @@
             </button>
         </div>
     </div>
+    <script>
+        function setChildSession(childName) {
+            console.log(childName);
+            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ childName: childName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name set in session.");
+                    window.location.href = '<?= ROOT ?>/Child/Home';
+                } else {
+                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:",error));
+        }
+    </script>
 </body>
 
 </html>

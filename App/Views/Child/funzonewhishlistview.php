@@ -27,11 +27,6 @@
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/Attendance">
-                    <i class="fas fa-user-check"></i> <span>Attendance</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
                 <a href="<?=ROOT?>/Child/history">
                     <i class="fas fa-history"></i> <span>History</span>
                 </a>
