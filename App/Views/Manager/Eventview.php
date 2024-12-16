@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Manager</title>
-    <link rel="icon" href="<?= IMAGE ?>/KIDDOVILLE_LOGO.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>
+        KIDDO VILLE Schedule
+    </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="icon" href="<?= CSS ?>/Manager/KIDDOVILLE_LOGO.jpg">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/Dashboard.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/leave.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Manager/foodtable.js"></script>
     <script src="<?= JS ?>/Manager/profileview.js"></script>
-    <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
 </head>
 
-<body>
-    <div class="container">
+<body id="body">
+    <div style="display: flex;">
         <div class="sidebar">
             <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
             <ul>
-                <li class="selected">
-                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
@@ -44,7 +44,7 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a  href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                        <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
                     </li>
                 </ul>
 
@@ -55,15 +55,15 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="hover-effect unselected">
+                    <li class="selected">
                         <a href="<?= ROOT ?>/Manager/Event" style="font-size: 18px;">
-                        <i class="fa fa-calendar-plus"></i>Event</a>
+                            <i class="fa fa-calendar-plus"></i>Event</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Foodtable" style="font-size: 18px;">
-                        <i class="fa fa-pizza-slice"></i>Food Plane</a>
+                            <i class="fa fa-pizza-slice"></i>Food Plane</a>
                     </li>
                 </ul>
                 <ul>
@@ -80,64 +80,20 @@
                         </ul>
                     </li>
                 </ul>
-
             </ul>
         </div>
-
-        <div class="main-content">
-            <div class="header">
+        <div style="display: block;">
+            <div class="header" style="margin-top:1">
                 <div class="name">
                     <h1>Hey Namal</h1>
                     <p style="color: white;">Let’s do some productive activities today</p>
-                </div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
-                </div>
-                <div class="bell-icon" style="cursor: pointer;">
-                    <button class="bellbtn" onclick="handlenotify()">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <div class="message-dropdown" id="notification">
-                        <ul>
-                            <li>
-                                <p>New Message 1 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="message-numbers">
-                    <p> 2</p>
                 </div>
                 <div class="profile">
                     <button class="profilebtn" onclick="handleClick()">
                         <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
                     </button>
                 </div>
-                <div class="profile-card" id="profileCard">
+                <div class="profile-card" id="profileCard" style="margin-top: 21%;">
                     <button class="back" onclick="handleHide()"><i class="fas fa-chevron-left"></i></button>
                     <img alt="Profile picture of Thilina Perera" height="100" src="../Assets/shimhan.jpg" width="100" class="profile" />
                     <h2>
@@ -158,22 +114,32 @@
                 </div>
             </div>
 
-            <div class="stats">
-                <div class="stat">
-                    <h3 style="color: #233E8D;">Total Attendance</h3>
-                    <h2 style="margin-bottom: 3px;color: #233E8D;">89/120</h2>
-                    <p style="color: #233E8D;">Out of 120 Children today attended to Daycare</p>
-                </div>
-                <div class="stat">
-                    <h3 style="color: #233E8D;">Total Employees Attendance</h3>
-                    <h2 style="margin-bottom: 3px;color: #233E8D;">20 Employees</h2>
-                    <p style="color: #233E8D;">Out of 24 employees today attended to Daycare</p>
-                </div>
-
-
+            <div class="leave-form-container" style="margin-left: 260%;margin-top:57.5%">
+                <h1 style="color: #233E8D;">Publish Event</h1>
+                <form action="<?= ROOT ?>/Manager/Home" method="post" class="leave-form">
+                    <div class="form-group">
+                        <label for="leave-type">Event Type <span class="required">*</span></label>
+                        <select name="" id="leavetype" class="form-control">
+                            <option value="">Select Leave Type</option>
+                            <option>Annual Event</option>
+                            <option>Independent Day</option>
+                            <option>Cultural Leave</option>
+                            <option>Religion Leave</option>
+                            <option>Other</option>
+                        </select>
+                        <label for="dates">Dates <span class="required">*</span></label>
+                        <input type="date" id="dates" value="08/14/2025" class="form-control">
+                        <label for="about">About</label>
+                        <textarea id="about" placeholder="Include comments for your approver" class="form-control"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" onclick="history.back();" class="btn btn-primary">Publish</button>
+                    </div>
+                </form>
             </div>
 
         </div>
+    </div>
 </body>
 
 </html>

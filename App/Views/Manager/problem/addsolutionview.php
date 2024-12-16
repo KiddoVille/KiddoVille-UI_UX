@@ -1,24 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Manager</title>
-    <link rel="icon" href="<?= IMAGE ?>/KIDDOVILLE_LOGO.jpg">
+    <title>Solution</title>
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/meeting.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="C:\Users\Lenovo\Desktop\Daycare front end\Assets\KIDDOVILLE_LOGO.jpg">
     <script src="<?= JS ?>/Manager/profileview.js"></script>
-    <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
 </head>
+<style>
+    .solution-container {
+        margin: 20px;
+        font-family: Arial, sans-serif;
+    }
 
-<body>
-    <div class="container">
+    label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+        margin-top: 5%;
+    }
+
+    .solution-textarea {
+        width: 90%;
+        height: 150px;
+        padding: 15px;
+        font-size: 1rem;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        resize: vertical;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        outline: none;
+        margin-top: 10%;
+    }
+
+    .solution-textarea:focus {
+        border-color: #5b9bd5;
+        background-color: #ffffff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .but{
+        margin-top: -3%;
+    }
+
+    .but button {
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        height: 35px;
+        width: 20%;
+        color: white;
+        cursor: pointer;
+    }
+
+
+    .but button:hover {
+        background-color: #eee;
+        color: black;
+    }
+
+    .but {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .publish {
+        margin-left: 5%;
+    }
+
+    .cancel {
+        margin-right: 5%;
+    }
+
+    .popup {
+        margin-top: 10%;
+        margin-left: 35%;
+        height: 50%;
+    }
+</style>
+
+<body style="background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);">
+    <div>
         <div class="sidebar">
             <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
             <ul>
                 <li class="selected">
-                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
+                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
@@ -44,26 +115,26 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a  href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                        <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
                     </li>
                 </ul>
 
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;">
-                            <i class="fas fa-share"></i>Publish</a>
+                            <i class="fas fa-share"></i>Publish
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Event" style="font-size: 18px;">
-                        <i class="fa fa-calendar-plus"></i>Event</a>
+                            <i class="fa fa-calendar-plus"></i>Event
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Foodtable" style="font-size: 18px;">
-                        <i class="fa fa-pizza-slice"></i>Food Plane</a>
+                            <i class="fa fa-pizza-slice"></i>Food Plane
                     </li>
                 </ul>
                 <ul>
@@ -76,68 +147,23 @@
                             <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Aboutus"><i class="fas fa-info-circle"></i>About Us</a></li>
                             <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Contactus"><i class="fas fa-envelope"></i>Contact Us</a></li>
                             <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Profile"><i class="fas fa-user-circle"></i>Home</a></li>
-
                         </ul>
                     </li>
                 </ul>
 
             </ul>
         </div>
-
-        <div class="main-content">
-            <div class="header">
+        <div class="header" style="margin-top:-8.5%">
                 <div class="name">
-                    <h1>Hey Namal</h1>
+                    <h1 style="margin-left: -65%;">Hey Namal</h1>
                     <p style="color: white;">Let’s do some productive activities today</p>
-                </div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
-                </div>
-                <div class="bell-icon" style="cursor: pointer;">
-                    <button class="bellbtn" onclick="handlenotify()">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <div class="message-dropdown" id="notification">
-                        <ul>
-                            <li>
-                                <p>New Message 1 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="message-numbers">
-                    <p> 2</p>
                 </div>
                 <div class="profile">
                     <button class="profilebtn" onclick="handleClick()">
                         <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
                     </button>
                 </div>
-                <div class="profile-card" id="profileCard">
+                <div class="profile-card" id="profileCard" style="margin-top: 21%;">
                     <button class="back" onclick="handleHide()"><i class="fas fa-chevron-left"></i></button>
                     <img alt="Profile picture of Thilina Perera" height="100" src="../Assets/shimhan.jpg" width="100" class="profile" />
                     <h2>
@@ -157,23 +183,20 @@
                     </button>
                 </div>
             </div>
-
-            <div class="stats">
-                <div class="stat">
-                    <h3 style="color: #233E8D;">Total Attendance</h3>
-                    <h2 style="margin-bottom: 3px;color: #233E8D;">89/120</h2>
-                    <p style="color: #233E8D;">Out of 120 Children today attended to Daycare</p>
+        <div class="popup">
+            <form action="Manage-problem.html" style="height:300px;" method="post">
+                <div class="solution-container">
+                    <label for="solution">Solution</label>
+                    <textarea id="solution" class="solution-textarea" placeholder="Write your solution here..." required></textarea>
                 </div>
-                <div class="stat">
-                    <h3 style="color: #233E8D;">Total Employees Attendance</h3>
-                    <h2 style="margin-bottom: 3px;color: #233E8D;">20 Employees</h2>
-                    <p style="color: #233E8D;">Out of 24 employees today attended to Daycare</p>
+                <div style="display: flex;" class="but">
+                    <button type="submit" class="publish">Send</button>
+                    <button type="button" class="cancel" onclick="location.href='<?= ROOT ?>/Manager/Problem'">Cancel</button>
                 </div>
 
-
-            </div>
-
+            </form>
         </div>
+    </div>
 </body>
 
 </html>

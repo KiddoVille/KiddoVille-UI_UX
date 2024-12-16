@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../Header/Header.css" />
     <link rel="stylesheet" href="<?= CSS ?>/Manager/View-package.css?v=<?= time() ?>" />
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Dashboard.css?v=<?= time() ?>" />
+    <script src="<?= JS ?>/Manager/profileview.js"></script>
 
 </head>
 <style>
@@ -74,81 +75,69 @@
 </style>
 
 <body>
-    <!-- <div class="navbar" style="justify-content: space-between;">
-        <div class="navbar-logo">
-            <img src="../Assets/Header logo.png" alt="Logo" style="height:80px; width:100px" />
-        </div>
-    </div> -->
-
     <div class="container">
-        <div class="sidebar">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
+    <div class="sidebar">
+            <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
             <ul>
-                <li class="selected">
-                    <a href="<?= ROOT ?>/Manager/Home">
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="#">
+                        <a href="<?= ROOT ?>/Manager/Viewprofile" style="font-size: 18px;">
                             <i class="fas fa-user-check"></i>Accounts
                         </a>
-                        <ul class="dropdown">
-                            <li><a href="#"><i class="fas fa-user"></i> User</a></li>
-                            <li><a href="../View-profile/child-profile.html"><i class="fas fa-child"></i> Child</a></li>
-                            <li><a href="../suspand/suspend.html"><i class="fas fa-ban"></i> Suspend & Deactive</a></li>
-                        </ul>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="#">
+                        <a href="<?= ROOT ?>/Manager/Schedule" style="font-size: 18px;">
                             <i class="fas fa-calendar"></i>Scheduling
                         </a>
-                        <ul class="dropdown">
-                            <li><a href="../Food-table/Food-table.html"><i class="fas fa-utensils"></i> Meal Plane</a></li>
-                            <li><a href="../allocation-table/allocation.html"><i class="fas fa-users"></i> Staff Allocation</a></li>
-                        </ul>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li class="selected">
+                        <a href="<?= ROOT ?>/Manager/Packages"><i class="fas fa-box"></i> Packages</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="#">
-                            <<i class="fas fa-cogs"></i>Operations & Services
-                        </a>
-                        <ul class="dropdown">
-                            <li><a href="../Manage-problems/Manage-problem.html"><i class="fas fa-exclamation-triangle"></i> Problems</a></li>
-                            <!-- <li><a href="#"><i class="fas fa-sun"></i>Leaves</a></li> -->
-                            <li><a href="../Vacancies/View-vacancy.html"><i class="fas fa-user-plus"></i>Hiring</a></li>
-                            <!-- <li><a href="#"><i class="fas fa-smile"></i>FunZone</a></li> -->
-                            <li><a href="<?= ROOT ?>/Manager/Packages"><i class="fas fa-box"></i> Packages</a></li>
-                            <li><a href="../Events/View-events.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
-                        </ul>
+                        <a  href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
                     </li>
                 </ul>
 
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="#">
-                            <i class="fas fa-envelope"></i>Evenets & Communication
-
-                            <ul class="dropdown">
-                                <li><a href="../Events/ChooseEvent.html"><i class="fas fa-calendar"></i>Create Events</a></li>
-                                <li><a href="../PublishLeaves/PublishLeaves.html"><i class="fas fa-sun"></i>Publish leaves</a></li>
-                            </ul>
+                        <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;">
+                            <i class="fas fa-share"></i>Publish</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="#">
-                            <i class="fas fa-info-circle"></i>Info & profile
+                        <a href="<?= ROOT ?>/Manager/Event" style="font-size: 18px;">
+                        <i class="fa fa-calendar-plus"></i>Event</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="hover-effect unselected">
+                        <a href="<?= ROOT ?>/Manager/Foodtable" style="font-size: 18px;">
+                        <i class="fa fa-pizza-slice"></i>Food Plane</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="hover-effect unselected">
+                        <a href="#" style="font-size: 18px;">
+                            <i class="fas fa-info-circle"></i>Info
                         </a>
                         <ul class="dropdown">
-                            <li><a href="../Blog/EditBlog.html"><i class="fas fa-blog"></i>Blog</a></li>
-                            <li><a href="../AboutUs/Editaboutus.html"><i class="fas fa-info-circle"></i>About Us</a></li>
-                            <li><a href="../Contactus/EditContactUs.html"><i class="fas fa-envelope"></i>Contact Us</a></li>
-                            <li><a href="../Profile/Editprofilepage.html"><i class="fas fa-user-circle"></i>Profile</a></li>
+                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Blog"><i class="fas fa-blog"></i>Blog</a></li>
+                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Aboutus"><i class="fas fa-info-circle"></i>About Us</a></li>
+                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Contactus"><i class="fas fa-envelope"></i>Contact Us</a></li>
+                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Profile"><i class="fas fa-user-circle"></i>Home</a></li>
 
                         </ul>
                     </li>
@@ -156,79 +145,38 @@
 
             </ul>
         </div>
-        <div class="header">
-            <div class="name">
-                <h1>Hey Thilina</h1>
-                <p style="color: white;">Let’s do some productive activities today</p>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search">
-                <i class="fas fa-search"></i>
-                <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
-            </div>
-            <div class="bell-icon" style="cursor: pointer;">
-                <button class="bellbtn" onclick="handlenotify()">
-                    <i class="fas fa-bell"></i>
-                </button>
-                <div class="message-dropdown" id="notification">
-                    <ul>
-                        <li>
-                            <p>New Message 1 <i class="fas fa-paper-plane"></i></p>
-                            <p class="content">Content like a message</p>
-                        </li>
-                        <li>
-                            <p>New Message 2 <i class="fas fa-paper-plane"></i></p>
-                            <p class="content">Content like a message</p>
-                        </li>
-                        <li>
-                            <p>New Message 3 <i class="fas fa-paper-plane"></i></p>
-                            <p class="content">Content like a message</p>
-                        </li>
-                        <li>
-                            <p>New Message 4 <i class="fas fa-paper-plane"></i></p>
-                            <p class="content">Content like a message</p>
-                        </li>
-                        <li>
-                            <p>New Message 5 <i class="fas fa-paper-plane"></i></p>
-                            <p class="content">Content like a message</p>
-                        </li>
-                        <li>
-                            <p>New Message 6 <i class="fas fa-paper-plane"></i></p>
-                            <p class="content">Content like a message</p>
-                        </li>
-                    </ul>
+        <div class="header" style="margin-top:-1.5%">
+                <div class="name">
+                    <h1>Hey Namal</h1>
+                    <p style="color: white;">Let’s do some productive activities today</p>
+                </div>
+                <div class="profile">
+                    <button class="profilebtn" onclick="handleClick()">
+                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                    </button>
+                </div>
+                <div class="profile-card" id="profileCard" style="margin-top: 21%;">
+                    <button class="back" onclick="handleHide()"><i class="fas fa-chevron-left"></i></button>
+                    <img alt="Profile picture of Thilina Perera" height="100" src="../Assets/shimhan.jpg" width="100" class="profile" />
+                    <h2>
+                        Thilina Perera
+                    </h2>
+                    <p>
+                        ID    RS0110657
+                    </p>
+                    <button class="profile-button">
+                        Personal info
+                    </button>
+                    <button class="secondary-button">
+                        Change Password
+                    </button>
+                    <button class="logout-button">
+                        LogOut
+                    </button>
                 </div>
             </div>
-
-            <div class="message-numbers">
-                <p> 2</p>
-            </div>
-            <div class="profile">
-                <button class="profilebtn" onclick="handleClick()">
-                    <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
-                </button>
-            </div>
-        </div>
-        <!-- <div class="title-image-container">
-            <div class="title">
-                Packages Detail
-            </div>
-            <div class="image-container">
-                <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" width="500" />
-            </div>
-        </div> -->
-        <!-- <div class="fill" style="margin-left: 300px;">
-            <h1 style="color: black;margin-left:20px"> Packages</h1> -->
-        <!-- <div class="filters" style="text-align: left;">
-                    <label for="minPrice">Min Price:</label>
-                    <input type="text" id="minPrice" class="price" maxlength="7" placeholder="Min Price"
-                        style="width: 100px;">
-                    <label for="maxPrice">Max Price:</label>
-                    <input type="text" id="maxPrice" class="price" maxlength="7" placeholder="Max Price"
-                        style="width: 100px;">
-                </div> -->
         <div class="fill" style="margin-left: 300px;">
-            <h1 style=" margin-left: 20px;">Packages</h1>
+            <h1 style=" margin-left: 20px;color:#233E8D ;width:75%;margin-top:20px;">Packages</h1>
             <div class="packages">
                 <?php if (!empty($data['packageData'])) : ?>
                     <?php foreach ($data['packageData'] as $package) : ?>
@@ -293,20 +241,11 @@
 
 
 
-            // packageIdView = packageId;
-            // if(packageIdView){
-            //     fetch(`<?= ROOT ?>/Manager/View/${packageIdView}`,{
-            //     method: 'POST'
-            //     })
-            // }
-            // location.reload();
+           
 
         }
 
-        // viewbtn.onclick = function () {
-        //     console.log(packageIdView)
-
-        // }
+        
 
         confirmDeleteBtn.onclick = function() {
             if (packageIdToDelete) {
@@ -343,7 +282,7 @@
                 deleteModal.style.display = 'none';
                 packageIdToDelete = null;
             }
-        };
+        };  
     </script>
 
 </body>

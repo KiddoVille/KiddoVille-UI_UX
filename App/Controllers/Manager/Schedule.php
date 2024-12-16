@@ -4,9 +4,9 @@
 
     defined('ROOTPATH') or exit('Access denied');
 
-    class Viewprofile{
+    class Schedule{
         use MainController;
         public function index(){
-            $this->view('Manager/Viewprofile/Profile');
+            $this->view('Manager/schedule/Schedule');
         }
     }
