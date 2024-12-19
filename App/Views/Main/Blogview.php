@@ -1,142 +1,340 @@
 <html>
 
 <head>
-    <title> Blog </title>
-    <link rel="icon" href="<?IMAGE?>/logo_light-remove.png" type="image/x-icon">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="<?=CSS?>/Main/Header.css">
-    <link rel="stylesheet" href="<?=CSS?>/Main/Footer.css">
-    <link rel="stylesheet" href="<?=CSS?>/Main/Blog.css">
+    <title>Blog</title>
+    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        data-tag="font" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        data-tag="font" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
+        data-tag="font" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        data-tag="font" />
+    <link rel="stylesheet" href="<?=CSS?>/Teacher/home.css?v=<?= time() ?>" />
+    <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Footer.css?v=<?= time() ?>" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Blog.css?v=<?= time() ?>" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .ad-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 40vh;
+            background: linear-gradient(to bottom right, #60a6ec ,#60a6ec );
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .ad-container h1 {
+            font-size: 2rem;
+            color: white;
+            margin: 0;
+        }
+        .ad-container p {
+            font-size: 1rem;
+            margin: 15px 0;
+            color: white;
+        }
+        .ad-container .cta-button {
+            border: 2px solid white;
+            color: #fff !important;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        .join{
+            color: white !important;
+        }
+        .image-section {
+            margin-top: 20px;
+        }
+        .image-section img {
+            max-width: 15%;
+            padding: 5px 10px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
 </head>
 
-<body style="background: url('http://localhost/MVC/Public/Assets/Images/blog-background.png') no-repeat top center, url('http://localhost/MVC/Public/Assets/Images/blog-background 2.png') no-repeat bottom center; ">
-    <!-- Header structure -->
-    <div class="navbar">
-        <div class="navbar-logo">
-            <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
-        </div>
-        <div class="navbar-links">
-            <a href="<?=ROOT?>/Main/Home"><button class="navbar-link">Home</button></a>
-            <a href="<?=ROOT?>/Main/Profile"><button class="navbar-link">Profile</button></a>
-            <a href="<?=ROOT?>/Main/Blog"> <button class="navbar-link select">Blog</button></a>
-            <a href="<?=ROOT?>/Main/AboutUs"><button class="navbar-link">AboutUs</button></a>
-            <a href="<?=ROOT?>/Main/Help"><button class="navbar-link">ContactUs</button></a>
-            <a href="<?=ROOT?>/Main/Login"><button class="navbar-button login">Login</button></a>
-            <a href="<?=ROOT?>/Main/Signup"><button class="navbar-button signup">Sign Up</button></a>
-        </div>
-    </div>
-    <!-- Articles on we page -->
+<body style="background:url(<?=IMAGE?>/back-login.jpg); background-size:cover; ">
     <div class="container">
-        <div class="header">
-            <h1>
-                All Articles
-            </h1>
+    <div class="navbar">
+                <div class="navbar-logo">
+                    <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
+                </div>
+                <div class="navbar-links">
+                    <a style="color:#10639a !important;" href="<?=ROOT?>/Main/Landing"><div class="navbar-link select">Home</div></a>
+                    <a style="color:#10639a !important;" href="<?=ROOT?>/Main/Profile"><div class="navbar-link">Profile</div></a>
+                    <a style="color:#10639a !important;" href="<?=ROOT?>/Main/Blog"> <div class="navbar-link">Blog</div></a>
+                    <a style="color:#10639a !important;" href="<?=ROOT?>/Main/AboutUs"><div class="navbar-link">AboutUs</div></a>
+                    <a style="color:#10639a !important;" href="<?=ROOT?>/Main/Help"><div class="navbar-link">ContactUs</div></a>
+                </div>
+                <div class="sign-up-buttons">
+                    <a href="<?=ROOT?>/Main/Login"><div class="navbar-link-login">Login</div></a>
+                    <a href="<?=ROOT?>/Main/Signup"><div class="navbar-link-signup">Sign Up</div></a>
+                </div>
+            </div>
+        <div class="hero">
+            <img alt="Hero Image" height="600" src="https://storage.googleapis.com/a1aa/image/FEygmkUbZha4PJdY1zkB0nbElDNiVyW05pGrXZ3grefSmz6TA.jpg" width="1200" />
+            <div class="hero-text">
+                <h1>
+                    The Impact of Technology on the Workplace: How Technology is Changing
+                </h1>
+                <p>
+                    By John Doe - March 10, 2023
+                </p>
+            </div>
+        </div>
+        <div class="latest-posts">
             <h2>
-                2024 Early Learning Back to School Summit: ECE Best Practices
+                Latest Posts
             </h2>
-            <p class="date">
-                <i class="fas fa-calendar-alt"></i> August 31, 2024
-            </p>
-        </div>
-
-        <!-- Events of the daycare to enter images on the event -->
-        <div class="events">
-            <h3>
-                Our Events
-            </h3>
-            <div class="event-list">
-                <div class="event-item">
-                    <img alt="Children playing sports"
-                        src="https://storage.googleapis.com/a1aa/image/6xdsDjOa5y6sHtiKt5dbOfInhiouxfziq9yM4BETXbzanSmTA.jpg" />
-                    <p>Sports Programs</p>
+            <div class="posts-grid">
+                <div class="post-card">
+                    <img alt="Post Image 1" height="150" src="https://storage.googleapis.com/a1aa/image/3228wrKyS3oKFhXvmBeXEo2YPi6ExS1spg2tc0iMeLnNmz6TA.jpg" width="250" />
+                    <div class="post-content">
+                        <h3>
+                            The Impact of Technology on the Workplace: How Technology is Changing
+                        </h3>
+                        <p>
+                            By John Doe - March 10, 2023
+                        </p>
+                        <div class="post-meta">
+                            <span>
+                                <i class="fas fa-comments">
+                                </i>
+                                12
+                            </span>
+                            <div class="author">
+                                <img alt="Author Image" height="20" src="https://storage.googleapis.com/a1aa/image/gZen1LnQGzSpCyRfS3S5kQHGE8BUcI2m7d2yQoHDsVSQmz6TA.jpg" width="20" />
+                                <span>
+                                    John Doe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="event-item">
-                    <img alt="Children in an educational program"
-                        src="https://storage.googleapis.com/a1aa/image/PX0HgJDFGvKTIFvcR4Z9DhZK48mZosIwNQCWyfy8AjjvTJzJA.jpg" />
-                    <p>Educational Programs</p>
+                <div class="post-card">
+                    <img alt="Post Image 2" height="150" src="https://storage.googleapis.com/a1aa/image/zyLbj9DaNzL1OJT7IfpDaSVAuLWy2RcwEpSMVVLhmKhEzZ9JA.jpg" width="250" />
+                    <div class="post-content">
+                        <h3>
+                            The Impact of Technology on the Workplace: How Technology is Changing
+                        </h3>
+                        <p>
+                            By John Doe - March 10, 2023
+                        </p>
+                        <div class="post-meta">
+                            <span>
+                                <i class="fas fa-comments">
+                                </i>
+                                12
+                            </span>
+                            <div class="author">
+                                <img alt="Author Image" height="20" src="https://storage.googleapis.com/a1aa/image/gZen1LnQGzSpCyRfS3S5kQHGE8BUcI2m7d2yQoHDsVSQmz6TA.jpg" width="20" />
+                                <span>
+                                    John Doe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="event-item">
-                    <img alt="Cultural event with many people"
-                        src="https://storage.googleapis.com/a1aa/image/HV24dTKDcsrfcqGfxieP9aE2c5WSmbngJhvOdyPRfq7ydKZOB.jpg" />
-                    <p>Cultural Events</p>
+                <div class="post-card">
+                    <img alt="Post Image 3" height="150" src="https://storage.googleapis.com/a1aa/image/W4Z1CDTvcfygJCaNLUuwrBEpmm6CejIien8gOyOMgULeYOrPB.jpg" width="250" />
+                    <div class="post-content">
+                        <h3>
+                            The Impact of Technology on the Workplace: How Technology is Changing
+                        </h3>
+                        <p>
+                            By John Doe - March 10, 2023
+                        </p>
+                        <div class="post-meta">
+                            <span>
+                                <i class="fas fa-comments">
+                                </i>
+                                12
+                            </span>
+                            <div class="author">
+                                <img alt="Author Image" height="20" src="https://storage.googleapis.com/a1aa/image/gZen1LnQGzSpCyRfS3S5kQHGE8BUcI2m7d2yQoHDsVSQmz6TA.jpg" width="20" />
+                                <span>
+                                    John Doe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <img alt="Post Image 4" height="150" src="https://storage.googleapis.com/a1aa/image/pFVTrPfM3fgcUEQVqjRY1PDjICeYHhbhNKFxKNTUMNvXMn1nA.jpg" width="250" />
+                    <div class="post-content">
+                        <h3>
+                            The Impact of Technology on the Workplace: How Technology is Changing
+                        </h3>
+                        <p>
+                            By John Doe - March 10, 2023
+                        </p>
+                        <div class="post-meta">
+                            <span>
+                                <i class="fas fa-comments">
+                                </i>
+                                12
+                            </span>
+                            <div class="author">
+                                <img alt="Author Image" height="20" src="https://storage.googleapis.com/a1aa/image/gZen1LnQGzSpCyRfS3S5kQHGE8BUcI2m7d2yQoHDsVSQmz6TA.jpg" width="20" />
+                                <span>
+                                    John Doe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <img alt="Post Image 5" height="150" src="https://storage.googleapis.com/a1aa/image/A2lTK7MioApWBBsq9AZVfNBbCqioy38kGEgS3BIDo0XEzZ9JA.jpg" width="250" />
+                    <div class="post-content">
+                        <h3>
+                            The Impact of Technology on the Workplace: How Technology is Changing
+                        </h3>
+                        <p>
+                            By John Doe - March 10, 2023
+                        </p>
+                        <div class="post-meta">
+                            <span>
+                                <i class="fas fa-comments">
+                                </i>
+                                12
+                            </span>
+                            <div class="author">
+                                <img alt="Author Image" height="20" src="https://storage.googleapis.com/a1aa/image/gZen1LnQGzSpCyRfS3S5kQHGE8BUcI2m7d2yQoHDsVSQmz6TA.jpg" width="20" />
+                                <span>
+                                    John Doe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <img alt="Post Image 6" height="150" src="https://storage.googleapis.com/a1aa/image/YM9AmTFCl67GA5hdD5zBAKYLciTeEB5JhQpvXHb1itrCzZ9JA.jpg" width="250" />
+                    <div class="post-content">
+                        <h3>
+                            The Impact of Technology on the Workplace: How Technology is Changing
+                        </h3>
+                        <p>
+                            By John Doe - March 10, 2023
+                        </p>
+                        <div class="post-meta">
+                            <span>
+                                <i class="fas fa-comments">
+                                </i>
+                                12
+                            </span>
+                            <div class="author">
+                                <img alt="Author Image" height="20" src="https://storage.googleapis.com/a1aa/image/gZen1LnQGzSpCyRfS3S5kQHGE8BUcI2m7d2yQoHDsVSQmz6TA.jpg" width="20" />
+                                <span>
+                                    John Doe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <img alt="Post Image 7" height="150" src="https://storage.googleapis.com/a1aa/image/IySZJbPyEAqSHxYoHZPpM7pS6se14LndaCXhlq2jv5GGzZ9JA.jpg" width="250" />
+                    <div class="post-content">
+                        <h3>
+                            The Impact of Technology on the Workplace: How Technology is Changing
+                        </h3>
+                        <p>
+                            By John Doe - March 10, 2023
+                        </p>
+                        <div class="post-meta">
+                            <span>
+                                <i class="fas fa-comments">
+                                </i>
+                                12
+                            </span>
+                            <div class="author">
+                                <img alt="Author Image" height="20" src="https://storage.googleapis.com/a1aa/image/gZen1LnQGzSpCyRfS3S5kQHGE8BUcI2m7d2yQoHDsVSQmz6TA.jpg" width="20" />
+                                <span>
+                                    John Doe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <img alt="Post Image 8" height="150" src="https://storage.googleapis.com/a1aa/image/ObBHaUEenTTGJiBsDswtlVqPP19jqxmgDISM7e9jX6vTmz6TA.jpg" width="250" />
+                    <div class="post-content">
+                        <h3>
+                            The Impact of Technology on the Workplace: How Technology is Changing
+                        </h3>
+                        <p>
+                            By John Doe - March 10, 2023
+                        </p>
+                        <div class="post-meta">
+                            <span>
+                                <i class="fas fa-comments">
+                                </i>
+                                12
+                            </span>
+                            <div class="author">
+                                <img alt="Author Image" height="20" src="https://storage.googleapis.com/a1aa/image/gZen1LnQGzSpCyRfS3S5kQHGE8BUcI2m7d2yQoHDsVSQmz6TA.jpg" width="20" />
+                                <span>
+                                    John Doe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="pagination">
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#"><i class="fas fa-arrow-right"></i></a>
+            <div class="load-more">
+                <button>
+                    Load More
+                </button>
             </div>
-        </div>
-
-<!-- Articles on events  -->
-        <div class="articles">
-            <h3>
-                Articles
-            </h3>
-            <div class="article-list">
-                <div class="article-item">
-                    <img alt="Management tips"
-                        src="https://storage.googleapis.com/a1aa/image/uPXFsQ0xbiqZPx7GBNlKEKle7l34UtfJLEfR7fFuBcL1dKZOB.jpg" />
-                    <p>Management tips</p>
-                </div>
-                <div class="article-item">
-                    <img alt="Child development"
-                        src="https://storage.googleapis.com/a1aa/image/FNgene62jFq0CUFw7lHK1OgaV2Wr8gMfeOfb8SoOO8xB8UycC.jpg" />
-                    <p>Child development</p>
-                </div>
-                <div class="article-item">
-                    <img alt="Group activities"
-                        src="https://storage.googleapis.com/a1aa/image/BkOG01jx5SZkJVnTfKoFiTSu9TZTfLQRgUku7khVbokhnSmTA.jpg" />
-                    <p>Group activities</p>
+            <div class="ad-container">
+                <h1>Welcome to Kiddo Ville Daycare</h1>
+                <p>A safe and loving place where your child can learn and grow!</p>
+                <a href="#" class="cta-button">Join Us Today</a>
+                <div class="image-section">
+                    <img src="<?=IMAGE?>/logo_light-remove.png" alt="Happy Kids Daycare">
                 </div>
             </div>
-
-            <div class="pagination">
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-            </div>
-        </div>
-
-        <div class="new-articles">
-            <p>Every last week of the month we publish new articles</p>
-            <a href="#">Sign Up</a>
-        </div>
-
-        <div class="border-image">
-            <img src="<?=IMAGE?>/blog-border.png" alt="border">
-        </div>
-
-        <div class="footer=p">
-            <p>
-                Check out the KIDDO blog for your all-in-one source for everything you need to know about the building blocks of high-quality childcare! We cover the latest on early childhood education, childcare center management, family engagement, professional development, and more. Find the latest on trends, innovations, inspiration, and best practices in the early childhood education industry.
-            </p>
         </div>
     </div>
-
-    <!-- Footer -->
-    <div class="Footer">
+    <div class="Footer" style="margin-left: 0px; padding: 0px 0px; margin-top: 20px;">
         <img class="Footer-logo" src="<?=IMAGE?>/Footer-logo.png" alt="WhatsApp Icon" />
-        <div class="KiddoVille">Kiddo<br/>Ville</div>
-            <div class="Group4">
-                <div class="Home"><a href="<?=ROOT?>/Main/Home">Home</a></div>
-                <div class="AboutUs"><a href="<?=ROOT?>/Main/AboutUs">About Us</a></div>
-                <div class="ContactUs"><a href="<?=ROOT?>/Main/Help">Contact Us</a></div>
-                <div class="Features"><a href="<?=ROOT?>/Main/features">Features</a></div>
-            </div>
-            <div class="Group5">
-                <div class="Contact"><a href="<?=ROOT?>/Main/FAQ">FAQ</a></div>
-                <div style="white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Report">Report Problems</a></div>
-                <div style="margin-top: 20px;" class="Address"><a href="<?=ROOT?>/Main/Terms">Terms</a></div>
-            </div>
-            <div class="Group6">
-                <div class="Contact"><a href="<?=ROOT?>/Main/Blog">Blog</a></div>
-                <div class="Address"><a href="<?=ROOT?>/Main/Profile">Profile</a></div>
-                <div style="margin-top: 20px; white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Privacy">Privacy Policy</a></div>
-            </div>
+        <div class="KiddoVille">Kiddo<br />Ville</div>
+        <div class="Group4">
+            <div class="Home"><a href="Home">Home</a></div>
+            <div class="AboutUs"><a href="<?=ROOT?>/Main/AboutUs">About Us</a></div>
+            <div class="ContactUs"><a href="<?=ROOT?>/Main/Help">Contact Us</a></div>
+            <div class="Features"><a href="<?=ROOT?>/Main/features">Features</a></div>
+        </div>
+        <div class="Group5">
+            <div class="Contact"><a href="<?=ROOT?>/Main/FAQ">FAQ</a></div>
+            <div style="white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Report">Report Problems</a></div>
+            <div style="margin-top: 20px;" class="Address"><a href="<?=ROOT?>/Main/Terms">Terms</a></div>
+        </div>
+        <div class="Group6">
+            <div class="Contact"><a href="<?=ROOT?>/Main/Blog">Blog</a></div>
+            <div class="Address"><a href="<?=ROOT?>/Main/Profile">Profile</a></div>
+            <div style="margin-top: 20px; white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Privacy">Privacy Policy</a></div>
+        </div>
         <div class="Group7">
             <div class="Frame13">
                 <button class="Join">Join US Today</button>
@@ -144,11 +342,10 @@
             <div class="Enrol">Enrol now to kickstart the childhood journey</div>
         </div>
         <div class="Line6"></div>
-        
-        <!-- Social Icons -->
+        <!-- Social icons -->
         <div class="social-icons">
+            <!-- twiiter icon -->
             <div class="socialcontainer">
-                <!-- twiiter icon -->
                 <div class="icon social-icon-1-1">
                     <svg viewBox="0 0 512 512" height="1.7em" xmlns="http://www.w3.org/2000/svg" class="svgIcontwit"
                         fill="white">
@@ -167,8 +364,8 @@
                     </svg>
                 </div>
             </div>
+            <!-- instagram icon -->
             <div class="socialcontainer">
-                <!-- instagram icon -->
                 <div class="icon social-icon-2-2">
                     <svg fill="white" class="svgIcon" viewBox="0 0 448 512" height="1.5em"
                         xmlns="http://www.w3.org/2000/svg">
@@ -177,7 +374,7 @@
                         </path>
                     </svg>
                 </div>
-                <!-- instagram icon effect-->
+                <!-- Instagram icon effect-->
                 <div class="social-icon-2">
                     <svg fill="white" class="svgIcon" viewBox="0 0 448 512" height="1.5em"
                         xmlns="http://www.w3.org/2000/svg">
@@ -196,7 +393,7 @@
                         </path>
                     </svg>
                 </div>
-                <!-- facebook icon effect -->
+                <!-- facebook icon effect-->
                 <div class="social-icon-3">
                     <svg viewBox="0 0 384 512" fill="white" height="1.6em" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -211,16 +408,16 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 256 180">
                         <path fill="white" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"></path>
                         <path fill="#144A78" d="m102.421 128.06l66.328-38.418l-66.328-38.418z"></path>
-                    </svg>            
+                    </svg>
                 </div>
                 <!-- Youtube icon effect-->
                 <div class="social-icon-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 256 180">
                         <path fill="white" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"></path>
                         <path fill="red" d="m102.421 128.06l66.328-38.418l-66.328-38.418z"></path>
-                    </svg>            
+                    </svg>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
 </body>

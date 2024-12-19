@@ -61,6 +61,7 @@ CREATE TABLE Teacher (
     Last_Seen DATETIME NOT NULL,
     AgeGroup INT NOT NULL,
     Subject VARCHAR(30) NOT NULL, 
+    ProfileImage BLOB,
     PRIMARY KEY(TeacherID),
     FOREIGN KEY(UserID) REFERENCES User(UserID)
     ON UPDATE CASCADE
@@ -78,6 +79,7 @@ CREATE TABLE Maid (
     Language VARCHAR(30) NOT NULL,
     Last_Seen DATETIME NOT NULL,
     AgeGroup INT NOT NULL,
+    ProfileImage BLOB,
     PRIMARY KEY(MaidID),
     FOREIGN KEY(UserID) REFERENCES User(UserID)
     ON UPDATE CASCADE
@@ -96,6 +98,7 @@ CREATE TABLE Receptionist (
     Gender ENUM('M', 'F') NOT NULL,
     Language VARCHAR(30) NOT NULL,
     Last_Seen DATETIME NOT NULL,
+    ProfileImage BLOB,
     PRIMARY KEY(ReceptionistID),
     FOREIGN KEY(UserID) REFERENCES User(UserID)
     ON UPDATE CASCADE
@@ -113,6 +116,7 @@ CREATE TABLE Doctor (
     Specialization VARCHAR(100) NOT NULL,
     Doctor_Number VARCHAR(20) NOT NULL,
     Last_Seen DATETIME NOT NULL,
+    ProfileImage BLOB,
     PRIMARY KEY(DoctorID),
     FOREIGN KEY(UserID) REFERENCES User(UserID)
     ON UPDATE CASCADE
@@ -126,6 +130,7 @@ CREATE TABLE Manager (
     Email VARCHAR(100) NOT NULL,
     Phone INT(10) NOT NULL,
     PRIMARY KEY(ManagerID),
+    ProfileImage BLOB,
     FOREIGN KEY UserID REFERENCES User(UserID)
     ON UPDATE CASCADE
     ON DELETE CASCADE
@@ -167,7 +172,7 @@ CREATE TABLE Reservation (
 
 CREATE TABLE Package (
     PackageID INT NOT NULL AUTO_INCREMENT,
-    Name NOT NULL,
+    Name VARCHAR(100) NOT NULL,
     Price DECIMAL(10,2) NOT NULL,
     Service text NOT NULL,
     Monday BOOLEAN,
@@ -254,7 +259,7 @@ CREATE TABLE ScheduleVisits (
     Time TIME NOT NULL,
     NID VARCHAR(12) NOT NULL UNIQUE,
     ParentID INT,
-    PRIMARY KEY( ScheduleID),
+    PRIMARY KEY (ScheduleID)
     FOREIGN KEY (ParentID) REFERENCES Parent(ParentID),
     ON UPDATE CASCADE
     ON DELETE SET NULL
@@ -277,7 +282,7 @@ CREATE TABLE DoctorSchedule (
     DoctorID INT NOT NULL,
     Date DATE NOT NULL,
     Time TIME NOT NULL,
-    PRIMARY KEY ScheduleID,
+    PRIMARY KEY (ScheduleID),
     FOREIGN KEY DoctorID REFERENCES Doctor(DoctorID)
     ON UPDATE CASCADE
     ON DELETE CASCADE
@@ -397,7 +402,7 @@ CREATE TABLE Request (
     ItemID INT NOT NULL,
     WorkID INT NOT NULL,
     Quanttity INT NOT NULL,
-    PRIMARY KEY RequsetID,
+    PRIMARY KEY (RequestID),
     FOREIGN KEY ItemID REFERENCES Item(ItemID)
     ON UPDATE CASCADE
     ON DELETE CASCADE
@@ -533,6 +538,485 @@ CREATE TABLE Tasks (
     ON UPDATE CASCADE
     ON DELETE CASCADE
 )
+
+INSERT INTO `user` (`Username`, `Password`, `Role`, `Date`) VALUES
+    ('Abu', '$2y$10$hMuWrLMdxzIeVq5MDQpUVeTCMhdm6tFuAcM1ssacza4V0oP3QYnrG', 'Unregistered', '2024-11-20 14:02:39'),
+    ('Arunalu', '$2y$10$HjEx/uVSr2sPvTEgcUezyuKBsN2HJxJMfImNXb4Cyr4RYMEOxK0wa', 'Receptionist', '2024-11-29 08:14:33'),
+    ('Hansaja', '$2y$10$PYtrrkFU5D0TxpUK32seUe9FVXXpnmYdbtZrbcOWqEQtFhAZ.yPgK', 'Doctor', '2024-11-29 07:38:49'),
+    ('Registered', '$2y$10$mK/Y3WOzwfejvYXsaaChgONXLr5BLBL9DGtjvyLGKdt.Tu1q9xAMa', 'Registered', '2024-11-08 15:09:21'),
+    ('Shimhan', '$2y$10$1rTP5NjsoovPK8ChdopoeuH5lSwcjiBEo5J8/rRjuLKQZHGXYf4yS', 'Manager', '2024-11-18 09:21:16'),
+    ('Sineth', '$2y$10$vNpDWl1TZAPfcmzmVMrYM.9IB.AOdTqfYWasjKVC7rk98lAU3pfey', 'Teacher', '2024-11-29 07:27:55')
+;
+
+
+INSERT INTO `parent` (`UserID`, `Last_Name`, `First_Name`, `Phone_Number`, `Address`, `NID`, `Email`, `Gender`, `Language`, `Last_Seen`) VALUES
+    ('Abu', 'Abdulla', 'SA', '071-481 0928', '106/37', '200232901776', 'abdullaaurad@gmail.com', 'M', 'English', '2024-11-29 09:49:02'),
+    ('Shimhan', 'Abdulla', 'SA', '077-736 2229', '106/37', '196634610024', 'abdullaaurad@gmail.com', 'M', 'English', '2024-11-29 13:29:47'),
+    ('Sumaya', 'Abdulla', 'SA', '071-481 0928', '106/37', '200232901776', 'sumaya@gmail.com', 'F', 'English', '2024-11-18 19:50:57'),
+    ('Unregistered', 'Abdulla', 'SA', '071-481 0928', '106/37', '200232901776', 'abdullaaurad@gmail.com', 'M', 'English', '2024-11-19 18:31:44'),
+    ('lol', 'dfbd', 'begrd', '071-481 0928', '106/37', '200232901776', 'fadhiya@gmail.com', 'M', 'English', '2024-11-28 17:09:50')
+;
+
+
+INSERT INTO `child` (`Child_Id`, `Parent_Name`, `First_Name`, `Last_Name`, `DOB`, `Nickname`, `Relation`, `Religion`, `Language`, `Allergies`, `Gender`) VALUES
+    (1, 'Abu', 'Aahil', 'Slamath', '2015-12-14', 'Ammu', 'Sister', 'None', 'English', 'None', 'F'),
+    (2, 'Abu', 'Ayyub', 'Mahir', '2021-12-31', 'Ayy', 'Uncle', 'None', 'English', 'None', 'M'),
+    (3, 'Abu', 'Farha', 'Fazloon', '2021-04-05', 'pilaka', 'Cousin', 'None', 'English', 'None', 'M'),
+    (4, 'Abu', 'Manha', 'Mahir', '2021-05-08', 'Man', 'Uncle', 'Islam', 'English', 'None', 'F'),
+    (5, 'Abu', 'Yunus', 'Mahir', '2017-09-03', 'Yunu', 'Uncle', 'Islam', 'English', 'None', 'M'),
+    (6, 'Sumaya', 'SA', 'Abdulla', '2021-03-04', '', 'Father', 'None', 'English', 'None', 'M'),
+    (7, 'Sumaya', 'lol', 'Abdulla', '2021-02-20', 'ndb', 'ghjkl', 'None', 'English', 'fguyiui', 'M'),
+    (8, 'Sumaya', 'New', 'Nose', '2020-02-22', 'ndb', 'ghjkl', 'Buddhism', 'English', 'None', 'M'),
+    (9, 'Sumaya', 'Fadhiya', 'Fghj', '2022-04-29', 'Fghj', 'Uncle', 'None', 'English', 'No Allergies', 'M'),
+    (10, 'lol', 'SA', 'Abdulla', '2020-12-23', 'Yunus', 'ghjk', 'None', 'English', 'None', 'M'),
+    (11, 'lol', 'Abdulla', 'Cgfgh', '2021-12-21', '', 'dsfd', 'None', 'English', 'None', 'M')
+;
+
+
+INSERT INTO `guardian` (`Parent_Name`, `First_Name`, `Last_Name`, `Relation`, `Phone_Number`, `Address`, `NID`, `Email`, `Gender`, `Language`) VALUES
+    ('Abu', 'Fadhiya', 'Abdulla', 'Husband', '071-481 0928', '106/37', '200232901776', 'fadhiya@gmail.com', 'M', 'English'),
+    ('Shimhan', 'SA', 'Abdulla', 'Father', '071-481 0928', '106/37', '200232901776', 'fadhiya@gmail.com', 'M', 'English'),
+    ('Sumaya', 'SA', 'Cgfgh', 'Aunty', '071-481 0928', '106/37', '200232901776', 'fadhiya@gmail.com', 'F', 'English'),
+    ('lol', 'Hbjedejds', 'Evttr', 'Father', '071-481 0928', 'Sdfgh', '200232901776', 'abdullaaurad@gmail.com', 'M', 'English'),
+    ('Shrama', 'Fadhiya', 'Fazloon', 'Aunty', '071-481 0928', '106/37', '200232901776', 'fadhiya@gmail.com', 'M', 'English')
+;
+
+
+INSERT INTO `reservation` (`Child_Id`, `Date`, `Start_Time`, `End_Time`, `Status`, `Notes`) VALUES
+    (1, '2024-01-04', '08:00:00', '10:00:00', 'Approved', NULL),
+    (1, '2024-01-02', '09:00:00', '11:00:00', 'Pending', NULL),
+    (1, '2024-01-03', '08:30:00', '10:30:00', 'Canceled', NULL),
+    (1, '2024-01-04', '09:15:00', '11:15:00', 'Approved', NULL),
+    (1, '2024-01-05', '08:45:00', '10:45:00', 'Pending', NULL),
+    (1, '2024-01-06', '09:00:00', '11:00:00', 'Canceled', NULL),
+    (1, '2024-01-07', '08:00:00', '10:00:00', 'Approved', NULL),
+    (1, '2024-01-08', '09:30:00', '11:30:00', 'Pending', NULL)
+;
+
+INSERT INTO Teacher (UserID, Last_Name, First_Name, Phone_Number, Address, NID, Email, Gender, Language, Last_Seen, AgeGroup, Subject) VALUES
+    ('emma_teacher', 'Wilson', 'Emma', '123-555-0101', '789 Teacher St', 'NID111222', 'emma.teacher@email.com', 'F', 'English', CURRENT_TIMESTAMP, 3, 'Math'),
+    ('anna_teacher', 'Brown', 'Anna', '123-555-0102', '790 Teacher St', 'NID111223', 'anna.teacher@email.com', 'F', 'English', CURRENT_TIMESTAMP, 4, 'Science'),
+    ('teacher3', 'Davis', 'Robert', '123-555-0103', '791 Teacher St', 'NID111224', 'robert.teacher@email.com', 'M', 'English', CURRENT_TIMESTAMP, 2, 'Art'),
+    ('teacher4', 'Martinez', 'Maria', '123-555-0104', '792 Teacher St', 'NID111225', 'maria.teacher@email.com', 'F', 'Spanish', CURRENT_TIMESTAMP, 3, 'Music'),
+    ('teacher5', 'Johnson', 'James', '123-555-0105', '793 Teacher St', 'NID111226', 'james.teacher@email.com', 'M', 'English', CURRENT_TIMESTAMP, 4, 'PE'),
+    ('teacher6', 'Garcia', 'Sofia', '123-555-0106', '794 Teacher St', 'NID111227', 'sofia.teacher@email.com', 'F', 'Spanish', CURRENT_TIMESTAMP, 2, 'Reading'),
+    ('teacher7', 'Miller', 'David', '123-555-0107', '795 Teacher St', 'NID111228', 'david.teacher@email.com', 'M', 'English', CURRENT_TIMESTAMP, 3, 'Writing'),
+    ('teacher8', 'Anderson', 'Lisa', '123-555-0108', '796 Teacher St', 'NID111229', 'lisa.teacher@email.com', 'F', 'English', CURRENT_TIMESTAMP, 4, 'Math'),
+    ('teacher9', 'Taylor', 'Michael', '123-555-0109', '797 Teacher St', 'NID111230', 'michael.teacher@email.com', 'M', 'English', CURRENT_TIMESTAMP, 2, 'Science'),
+    ('teacher10', 'Thomas', 'Jennifer', '123-555-0110', '798 Teacher St', 'NID111231', 'jennifer.teacher@email.com', 'F', 'English', CURRENT_TIMESTAMP, 3, 'Art')
+;
+
+INSERT INTO Doctor (UserID, Last_Name, First_Name, Phone_Number, NID, Email, Specialization, Doctor_Number, Last_Seen) VALUES
+    ('sarah_nurse', 'Jones', 'Sarah', '123-555-0201', 'NID222111', 'sarah.doctor@email.com', 'Pediatrician', 'DOC001', CURRENT_TIMESTAMP),
+    ('david_doctor', 'Smith', 'David', '123-555-0202', 'NID222112', 'david.doctor@email.com', 'General', 'DOC002', CURRENT_TIMESTAMP),
+    ('doctor3', 'Williams', 'Emily', '123-555-0203', 'NID222113', 'emily.doctor@email.com', 'Pediatrician', 'DOC003', CURRENT_TIMESTAMP),
+    ('doctor4', 'Brown', 'James', '123-555-0204', 'NID222114', 'james.doctor@email.com', 'Emergency', 'DOC004', CURRENT_TIMESTAMP),
+    ('doctor5', 'Davis', 'Mary', '123-555-0205', 'NID222115', 'mary.doctor@email.com', 'Pediatrician', 'DOC005', CURRENT_TIMESTAMP),
+    ('doctor6', 'Miller', 'John', '123-555-0206', 'NID222116', 'john.doctor@email.com', 'General', 'DOC006', CURRENT_TIMESTAMP),
+    ('doctor7', 'Wilson', 'Lisa', '123-555-0207', 'NID222117', 'lisa.doctor@email.com', 'Pediatrician', 'DOC007', CURRENT_TIMESTAMP),
+    ('doctor8', 'Moore', 'Robert', '123-555-0208', 'NID222118', 'robert.doctor@email.com', 'Emergency', 'DOC008', CURRENT_TIMESTAMP),
+    ('doctor9', 'Taylor', 'Patricia', '123-555-0209', 'NID222119', 'patricia.doctor@email.com', 'General', 'DOC009', CURRENT_TIMESTAMP),
+    ('doctor10', 'Anderson', 'Michael', '123-555-0210', 'NID222120', 'michael.doctor@email.com', 'Pediatrician', 'DOC010', CURRENT_TIMESTAMP)
+;
+
+-- Maid table inserts
+INSERT INTO Maid (UserID, Last_Name, First_Name, Phone_Number, Address, NID, Language, Last_Seen, AgeGroup) VALUES
+    ('lisa_maid', 'Parker', 'Lisa', '123-555-0301', '123 Maid St', 'NID333111', 'English', CURRENT_TIMESTAMP, 2),
+    ('maid2', 'Harris', 'Maria', '123-555-0302', '124 Maid St', 'NID333112', 'Spanish', CURRENT_TIMESTAMP, 3),
+    ('maid3', 'Young', 'Susan', '123-555-0303', '125 Maid St', 'NID333113', 'English', CURRENT_TIMESTAMP, 4),
+    ('maid4', 'King', 'Anna', '123-555-0304', '126 Maid St', 'NID333114', 'French', CURRENT_TIMESTAMP, 2),
+    ('maid5', 'Wright', 'Emma', '123-555-0305', '127 Maid St', 'NID333115', 'English', CURRENT_TIMESTAMP, 3),
+    ('maid6', 'Lopez', 'Carmen', '123-555-0306', '128 Maid St', 'NID333116', 'Spanish', CURRENT_TIMESTAMP, 4),
+    ('maid7', 'Hill', 'Patricia', '123-555-0307', '129 Maid St', 'NID333117', 'English', CURRENT_TIMESTAMP, 2),
+    ('maid8', 'Scott', 'Linda', '123-555-0308', '130 Maid St', 'NID333118', 'English', CURRENT_TIMESTAMP, 3),
+    ('maid9', 'Green', 'Sarah', '123-555-0309', '131 Maid St', 'NID333119', 'English', CURRENT_TIMESTAMP, 4),
+    ('maid10', 'Adams', 'Nancy', '123-555-0310', '132 Maid St', 'NID333120', 'English', CURRENT_TIMESTAMP, 2)
+;
+
+INSERT INTO Package (Name, Price, Service, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday) VALUES
+    ('Basic Care', 150.00, 'Day Care Services', 1, 1, 1, 1, 1, 0, 0),
+    ('Full Care', 250.00, 'Day and Night Care Services', 1, 1, 1, 1, 1, 1, 1),
+    ('Half Day Care', 100.00, 'Morning Only Care Services', 1, 1, 1, 1, 1, 0, 0),
+    ('Weekend Care', 200.00, 'Weekend Care Services', 0, 0, 0, 0, 0, 1, 1),
+    ('After School Care', 120.00, 'After School Care Services', 0, 1, 1, 1, 1, 0, 0),
+    ('Part-Time Care', 180.00, 'Part-Time Day Care Services', 1, 1, 1, 1, 0, 0, 0),
+    ('Night Care', 220.00, 'Night Only Care Services', 0, 0, 0, 0, 1, 1, 0),
+    ('Full Week Care', 300.00, 'Full Week Care Services', 1, 1, 1, 1, 1, 0, 0),
+    ('Early Care', 110.00, 'Morning Start Services', 1, 1, 1, 1, 0, 0, 0),
+    ('Holiday Care', 250.00, 'Holiday Care Services', 1, 1, 1, 1, 1, 1, 1)
+;
+
+INSERT INTO Attendance (ChildID, Start_Date, Start_Time, End_Date, End_Time, Status) VALUES
+(1, '2024-12-18', '08:00:00', '2024-12-18', '12:00:00', 'Present'),
+(1, '2024-12-19', '09:00:00', '2024-12-19', '12:00:00', 'Present'),
+(1, '2024-12-20', '08:30:00', '2024-12-20', '11:30:00', 'Present'),
+(1, '2024-12-21', '08:00:00', '2024-12-21', '12:00:00', 'Absent'),
+(1, '2024-12-22', '09:00:00', '2024-12-22', '12:30:00', 'Present'),
+(1, '2024-12-23', '08:15:00', '2024-12-23', '12:15:00', 'Present'),
+(1, '2024-12-24', '09:00:00', '2024-12-24', '11:30:00', 'Absent'),
+(1, '2024-12-25', '08:45:00', '2024-12-25', '12:45:00', 'Present'),
+(1, '2024-12-26', '08:30:00', '2024-12-26', '12:00:00', 'Present'),
+(1, '2024-12-27', '09:00:00', '2024-12-27', '12:30:00', 'Absent');
+
+INSERT INTO Pickup (ChildID, Time, Person, OTP) VALUES
+(1, '16:00:00', 'John Doe', 123456),
+(2, '16:15:00', 'Jane Smith', 654321),
+(3, '16:30:00', 'Mark Adams', 234567),
+(4, '16:45:00', 'Lisa Brown', 765432),
+(5, '17:00:00', 'Paul White', 345678),
+(6, '17:15:00', 'Nina Black', 876543),
+(7, '17:30:00', 'Emma Green', 456789),
+(8, '17:45:00', 'Lucas Red', 987654),
+(9, '18:00:00', 'Sara Blue', 567890),
+(10, '18:15:00', 'Victor Pink', 135790);
+
+INSERT INTO PickupPerson (PickupID, Name, NID, ChildID, ImageURL) VALUES
+(1, 'Anna Brown', '987654321012', 1, 'https://example.com/images/anna.jpg'),
+(2, 'Sophie White', '123456789012', 2, 'https://example.com/images/sophie.jpg'),
+(3, 'Olivia Green', '234567890123', 3, 'https://example.com/images/olivia.jpg'),
+(4, 'Zara Black', '345678901234', 4, 'https://example.com/images/zara.jpg'),
+(5, 'Max Red', '456789012345', 5, 'https://example.com/images/max.jpg'),
+(6, 'Ella Blue', '567890123456', 6, 'https://example.com/images/ella.jpg'),
+(7, 'Leo Pink', '678901234567', 7, 'https://example.com/images/leo.jpg'),
+(8, 'Jack Doe', '789012345678', 8, 'https://example.com/images/jack.jpg'),
+(9, 'Mia Smith', '890123456789', 9, 'https://example.com/images/mia.jpg'),
+(10, 'Mason Brown', '901234567890', 10, 'https://example.com/images/mason.jpg');
+
+INSERT INTO Visitor (VisitorName, NID, Date, Start_Time, End_Time, Purpose, Phone_Number, ParentID) VALUES
+('Emma White', '123456789012', '2024-12-18', '08:30:00', '09:00:00', 'Pickup', '0771122334', 1),
+('John Adams', '234567890123', '2024-12-19', '10:00:00', '10:30:00', 'Meeting', '0772233445', 2),
+('Sara Green', '345678901234', '2024-12-20', '09:15:00', '09:45:00', 'Pickup', '0773344556', 3),
+('Victor Blue', '456789012345', '2024-12-21', '08:45:00', '09:15:00', 'Meeting', '0774455667', 4),
+('Nina Smith', '567890123456', '2024-12-22', '14:00:00', '14:30:00', 'Pickup', '0775566778', 5),
+('Paul Black', '678901234567', '2024-12-23', '12:00:00', '12:30:00', 'Pickup', '0776677889', 6),
+('Lucas Brown', '789012345678', '2024-12-24', '08:00:00', '08:30:00', 'Meeting', '0777788990', 7),
+('Max Green', '890123456789', '2024-12-25', '09:30:00', '10:00:00', 'Pickup', '0778899001', 8),
+('Olivia White', '901234567890', '2024-12-26', '11:00:00', '11:30:00', 'Meeting', '0779900112', 9),
+('Mia Black', '012345678901', '2024-12-27', '13:00:00', '13:30:00', 'Pickup', '0780011223', 10);
+
+INSERT INTO Food (Date, Time, Food, Snack) VALUES
+('2024-12-18', 'Breakfast', 'Pancakes with syrup', 'Fruit slices'),
+('2024-12-18', 'Lunch', 'Chicken nuggets with fries', 'Cookies'),
+('2024-12-18', 'Dinner', 'Spaghetti with tomato sauce', 'Cheese sticks'),
+('2024-12-19', 'Breakfast', 'Omelette with toast', 'Yogurt'),
+('2024-12-19', 'Lunch', 'Grilled cheese sandwich', 'Chips'),
+('2024-12-19', 'Dinner', 'Grilled salmon with vegetables', 'Brownies'),
+('2024-12-20', 'Breakfast', 'Cereal with milk', 'Granola bars'),
+('2024-12-20', 'Lunch', 'Veggie burger with salad', 'Fruit salad'),
+('2024-12-20', 'Dinner', 'Chicken stew with rice', 'Cookies'),
+('2024-12-21', 'Breakfast', 'French toast with syrup', 'Banana slices');
+
+
+INSERT INTO ScheduleVisits (Date, Time, NID, ParentID) VALUES
+('2024-12-18', '10:00:00', '987654321012', 1),
+('2024-12-19', '11:00:00', '123456789012', 2),
+('2024-12-20', '09:30:00', '234567890123', 3),
+('2024-12-21', '14:00:00', '345678901234', 4),
+('2024-12-22', '08:30:00', '456789012345', 5),
+('2024-12-23', '13:15:00', '567890123456', 6),
+('2024-12-24', '12:00:00', '678901234567', 7),
+('2024-12-25', '15:00:00', '789012345678', 8),
+('2024-12-26', '16:30:00', '890123456789', 9),
+('2024-12-27', '10:45:00', '901234567890', 10);
+
+
+INSERT INTO FoodAddOn (Date, Time, ChildID) VALUES
+('2024-12-18', 'Breakfast', 1),
+('2024-12-19', 'Lunch', 2),
+('2024-12-20', 'Dinner', 3),
+('2024-12-21', 'Breakfast', 4),
+('2024-12-22', 'Lunch', 5),
+('2024-12-23', 'Dinner', 6),
+('2024-12-24', 'Breakfast', 7),
+('2024-12-25', 'Lunch', 8),
+('2024-12-26', 'Dinner', 9),
+('2024-12-27', 'Breakfast', 10);
+
+
+INSERT INTO DoctorSchedule (DoctorID, Date, Time) VALUES
+(1, '2024-12-18', '08:30:00'),
+(2, '2024-12-19', '09:00:00'),
+(3, '2024-12-20', '10:00:00'),
+(4, '2024-12-21', '11:15:00'),
+(5, '2024-12-22', '12:00:00'),
+(6, '2024-12-23', '13:30:00'),
+(7, '2024-12-24', '14:00:00'),
+(8, '2024-12-25', '09:45:00'),
+(9, '2024-12-26', '10:30:00'),
+(10, '2024-12-27', '11:00:00');
+
+
+INSERT INTO ChildMedical (ChildID, DoctorID, Diagnosis, DateTime, Notes) VALUES
+(1, 1, 'Cold', '2024-12-18 08:30:00', 'Mild symptoms'),
+(2, 2, 'Fever', '2024-12-19 09:00:00', 'Temperature 101°F'),
+(3, 3, 'Cough', '2024-12-20 10:00:00', 'Persistent dry cough'),
+(4, 4, 'Rash', '2024-12-21 11:15:00', 'Possible allergic reaction'),
+(5, 5, 'Stomach Ache', '2024-12-22 12:00:00', 'Complaints after lunch'),
+(6, 6, 'Headache', '2024-12-23 13:30:00', 'Mild pain'),
+(7, 7, 'Vomiting', '2024-12-24 14:00:00', 'Associated with food'),
+(8, 8, 'Allergies', '2024-12-25 09:45:00', 'Seasonal allergies'),
+(9, 9, 'Bronchitis', '2024-12-26 10:30:00', 'Chronic cough and wheezing'),
+(10, 10, 'Sprained Ankle', '2024-12-27 11:00:00', 'Injury during play');
+
+
+INSERT INTO Emergency (ChildID, Description, DateTime, Informed, AssigneeID) VALUES
+(1, 'Choking incident', '2024-12-18 10:30:00', TRUE, 1),
+(2, 'Fall in playground', '2024-12-19 11:15:00', TRUE, 2),
+(3, 'Severe allergic reaction', '2024-12-20 12:00:00', TRUE, 3),
+(4, 'Asthma attack', '2024-12-21 14:00:00', TRUE, 4),
+(5, 'Injury from sharp object', '2024-12-22 15:00:00', FALSE, 5),
+(6, 'Heat stroke', '2024-12-23 16:00:00', TRUE, 6),
+(7, 'Head injury', '2024-12-24 17:00:00', TRUE, 7),
+(8, 'Broken arm', '2024-12-25 18:00:00', TRUE, 8),
+(9, 'Severe cuts', '2024-12-26 19:00:00', TRUE, 9),
+(10, 'Fainting', '2024-12-27 20:00:00', FALSE, 10);
+
+
+INSERT INTO AssignTeacher (TeacherID, Date, Start_Time, AgeGroup, Subject) VALUES
+(1, '2024-12-18', '08:00:00', 5, 'Math'),
+(2, '2024-12-19', '09:00:00', 6, 'Science'),
+(3, '2024-12-20', '10:00:00', 4, 'History'),
+(4, '2024-12-21', '11:00:00', 3, 'Geography'),
+(5, '2024-12-22', '12:00:00', 5, 'English'),
+(6, '2024-12-23', '13:00:00', 6, 'Art'),
+(7, '2024-12-24', '14:00:00', 4, 'Music'),
+(8, '2024-12-25', '15:00:00', 5, 'Physical Education'),
+(9, '2024-12-26', '16:00:00', 3, 'Biology'),
+(10, '2024-12-27', '17:00:00', 6, 'Literature');
+
+
+INSERT INTO Activity (WorkID, Description) VALUES
+(1, 'Math homework review'),
+(2, 'Science experiment setup'),
+(3, 'History discussion session'),
+(4, 'Geography map activity'),
+(5, 'English reading practice'),
+(6, 'Art class painting activity'),
+(7, 'Music lesson: learning notes'),
+(8, 'Physical exercises and games'),
+(9, 'Biology practicals in lab'),
+(10, 'Literature book review and discussion');
+
+
+INSERT INTO AssignMaid (MaidID, ChildID, AgeGroup, Date) VALUES
+(1, 1, 5, '2024-12-18'),
+(2, 2, 6, '2024-12-19'),
+(3, 3, 4, '2024-12-20'),
+(4, 4, 3, '2024-12-21'),
+(5, 5, 5, '2024-12-22'),
+(6, 6, 6, '2024-12-23'),
+(7, 7, 4, '2024-12-24'),
+(8, 8, 5, '2024-12-25'),
+(9, 9, 3, '2024-12-26'),
+(10, 10, 6, '2024-12-27');
+
+
+INSERT INTO TeacherLeave (TeacherID, Date, LeaveType, Emergency) VALUES
+(1, '2024-12-18', 'Sick', TRUE),
+(2, '2024-12-19', 'Casual', FALSE),
+(3, '2024-12-20', 'Paid', FALSE),
+(4, '2024-12-21', 'Emergency', TRUE),
+(5, '2024-12-22', 'Sick', TRUE),
+(6, '2024-12-23', 'Casual', FALSE),
+(7, '2024-12-24', 'Paid', FALSE),
+(8, '2024-12-25', 'Emergency', TRUE),
+(9, '2024-12-26', 'Sick', TRUE),
+(10, '2024-12-27', 'Casual', FALSE);
+
+
+INSERT INTO MaidLeave (MaidID, Date, Emergency, LeaveType) VALUES
+(1, '2024-12-18', TRUE, 'Sick'),
+(2, '2024-12-19', FALSE, 'Casual'),
+(3, '2024-12-20', TRUE, 'Paid'),
+(4, '2024-12-21', FALSE, 'Emergency'),
+(5, '2024-12-22', TRUE, 'Sick'),
+(6, '2024-12-23', FALSE, 'Casual'),
+(7, '2024-12-24', TRUE, 'Paid'),
+(8, '2024-12-25', FALSE, 'Emergency'),
+(9, '2024-12-26', TRUE, 'Sick'),
+(10, '2024-12-27', FALSE, 'Casual');
+
+
+INSERT INTO ReceptionistLeave (MaidID, Date, Emergency) VALUES
+(1, '2024-12-18', TRUE),
+(2, '2024-12-19', FALSE),
+(3, '2024-12-20', TRUE),
+(4, '2024-12-21', FALSE),
+(5, '2024-12-22', TRUE),
+(6, '2024-12-23', FALSE),
+(7, '2024-12-24', TRUE),
+(8, '2024-12-25', FALSE),
+(9, '2024-12-26', TRUE),
+(10, '2024-12-27', FALSE);
+
+
+INSERT INTO Item (Name) VALUES
+('Pencil'),
+('Notebook'),
+('Eraser'),
+('Crayon'),
+('Backpack'),
+('Lunchbox'),
+('Water Bottle'),
+('Marker'),
+('Glue Stick'),
+('Scissors');
+
+INSERT INTO Request (ItemID, WorkID, Quanttity) VALUES
+(1, 1, 10),
+(2, 2, 5),
+(3, 3, 8),
+(4, 4, 12),
+(5, 5, 6),
+(6, 6, 4),
+(7, 7, 15),
+(8, 8, 3),
+(9, 9, 9),
+(10, 10, 7);
+
+
+INSERT INTO CheckList (RequestID, ChildID, Provided) VALUES
+(1, 1, TRUE),
+(2, 2, FALSE),
+(3, 3, TRUE),
+(4, 4, TRUE),
+(5, 5, FALSE),
+(6, 6, TRUE),
+(7, 7, TRUE),
+(8, 8, FALSE),
+(9, 9, TRUE),
+(10, 10, FALSE);
+
+
+INSERT INTO Holiday (Date, Details) VALUES
+('2024-12-18', 'Christmas Celebration'),
+('2024-12-19', 'Winter Break'),
+('2024-12-20', 'Teacher Conference Day'),
+('2024-12-21', 'School Closed for Holiday'),
+('2024-12-22', 'Winter Festival'),
+('2024-12-23', 'Holiday Assembly'),
+('2024-12-24', 'Christmas Eve'),
+('2024-12-25', 'Christmas Day'),
+('2024-12-26', 'Boxing Day'),
+('2024-12-27', 'Holiday Recess');
+
+
+INSERT INTO MeetingTimes (Date, Time, Scheduled) VALUES
+('2024-12-18', '10:00:00', TRUE),
+('2024-12-19', '11:30:00', FALSE),
+('2024-12-20', '09:45:00', TRUE),
+('2024-12-21', '14:00:00', FALSE),
+('2024-12-22', '15:00:00', TRUE),
+('2024-12-23', '08:00:00', TRUE),
+('2024-12-24', '10:30:00', FALSE),
+('2024-12-25', '13:15:00', TRUE),
+('2024-12-26', '09:00:00', FALSE),
+('2024-12-27', '16:00:00', TRUE);
+
+
+INSERT INTO Chat (SenderID, RecieverID, Message, ImageURL, ChildID) VALUES
+(1, 2, 'Hello, how are you?', 'https://example.com/image1.jpg', 1),
+(2, 3, 'I will be late today.', 'https://example.com/image2.jpg', 2),
+(3, 4, 'Can you send the documents?', 'https://example.com/image3.jpg', 3),
+(4, 5, 'Meeting rescheduled for tomorrow.', 'https://example.com/image4.jpg', 4),
+(5, 6, 'Reminder for tomorrow’s exam.', 'https://example.com/image5.jpg', 5),
+(6, 7, 'Received your message, thanks!', 'https://example.com/image6.jpg', 6),
+(7, 8, 'Can we discuss after class?', 'https://example.com/image7.jpg', 7),
+(8, 9, 'I have completed the assignment.', 'https://example.com/image8.jpg', 8),
+(9, 10, 'Let me know if you need help.', 'https://example.com/image9.jpg', 9),
+(10, 1, 'Good job on the project.', 'https://example.com/image10.jpg', 10);
+
+
+INSERT INTO Payment (DateTime, Amount, PayerID, Mode) VALUES
+('2024-12-18 09:00:00', 100.00, 1, 'Cash'),
+('2024-12-19 10:30:00', 150.50, 2, 'Bank Transfer'),
+('2024-12-20 12:00:00', 200.00, 3, 'Credit Card'),
+('2024-12-21 13:15:00', 180.00, 4, 'Cash'),
+('2024-12-22 14:00:00', 250.75, 5, 'Bank Transfer'),
+('2024-12-23 15:30:00', 175.00, 6, 'Cash'),
+('2024-12-24 16:00:00', 220.00, 7, 'Credit Card'),
+('2024-12-25 17:00:00', 160.00, 8, 'Bank Transfer'),
+('2024-12-26 18:00:00', 190.00, 9, 'Cash'),
+('2024-12-27 19:30:00', 210.25, 10, 'Credit Card');
+
+
+INSERT INTO Refund (PaymentID, Reason, Mode) VALUES
+(1, 'Overpayment', 'Cash'),
+(2, 'Duplicate payment', 'Bank Transfer'),
+(3, 'Wrong amount charged', 'Credit Card'),
+(4, 'Refund request by parent', 'Cash'),
+(5, 'Event cancellation', 'Bank Transfer'),
+(6, 'Refund after course adjustment', 'Cash'),
+(7, 'Billing error', 'Credit Card'),
+(8, 'Extra charges not applicable', 'Bank Transfer'),
+(9, 'Unsuccessful transaction', 'Cash'),
+(10, 'Excess payment adjustment', 'Credit Card');
+
+
+INSERT INTO SalaryPayment (UserID, Date, Bonus, Deductions, Mode) VALUES
+(1, '2024-12-18', 100.00, 20.00, 'Cash'),
+(2, '2024-12-19', 150.00, 10.00, 'Bank Transfer'),
+(3, '2024-12-20', 200.00, 30.00, 'Credit Card'),
+(4, '2024-12-21', 180.00, 15.00, 'Cash'),
+(5, '2024-12-22', 250.00, 25.00, 'Bank Transfer'),
+(6, '2024-12-23', 175.00, 5.00, 'Cash'),
+(7, '2024-12-24', 220.00, 10.00, 'Credit Card'),
+(8, '2024-12-25', 160.00, 20.00, 'Bank Transfer'),
+(9, '2024-12-26', 190.00, 15.00, 'Cash'),
+(10, '2024-12-27', 210.00, 25.00, 'Credit Card');
+
+
+
+INSERT INTO Video (VideoURL, VideoImage) VALUES
+('https://example.com/video1.mp4', 'https://example.com/video1.jpg'),
+('https://example.com/video2.mp4', 'https://example.com/video2.jpg'),
+('https://example.com/video3.mp4', 'https://example.com/video3.jpg'),
+('https://example.com/video4.mp4', 'https://example.com/video4.jpg'),
+('https://example.com/video5.mp4', 'https://example.com/video5.jpg'),
+('https://example.com/video6.mp4', 'https://example.com/video6.jpg'),
+('https://example.com/video7.mp4', 'https://example.com/video7.jpg'),
+('https://example.com/video8.mp4', 'https://example.com/video8.jpg'),
+('https://example.com/video9.mp4', 'https://example.com/video9.jpg'),
+('https://example.com/video10.mp4', 'https://example.com/video10.jpg');
+
+
+INSERT INTO VideoWhishlist (VideoID, Date, Time, Reminder) VALUES
+(1, '2024-12-18', '09:00:00', TRUE),
+(2, '2024-12-19', '10:00:00', FALSE),
+(3, '2024-12-20', '11:00:00', TRUE),
+(4, '2024-12-21', '12:00:00', FALSE),
+(5, '2024-12-22', '13:00:00', TRUE),
+(6, '2024-12-23', '14:00:00', TRUE),
+(7, '2024-12-24', '15:00:00', FALSE),
+(8, '2024-12-25', '16:00:00', TRUE),
+(9, '2024-12-26', '17:00:00', FALSE),
+(10, '2024-12-27', '18:00:00', TRUE);
+
+
+INSERT INTO VideoHistory (VideoID, Date, Time, Progress) VALUES
+(1, '2024-12-18', '09:00:00', 50),
+(2, '2024-12-19', '10:00:00', 30),
+(3, '2024-12-20', '11:00:00', 70),
+(4, '2024-12-21', '12:00:00', 90),
+(5, '2024-12-22', '13:00:00', 60),
+(6, '2024-12-23', '14:00:00', 80),
+(7, '2024-12-24', '15:00:00', 40),
+(8, '2024-12-25', '16:00:00', 20),
+(9, '2024-12-26', '17:00:00', 10),
+(10, '2024-12-27', '18:00:00', 100);
+
+
+INSERT INTO Tasks (VideoID, TeacherID, Deadline) VALUES
+(1, 1, '2024-12-19'),
+(2, 2, '2024-12-20'),
+(3, 3, '2024-12-21'),
+(4, 4, '2024-12-22'),
+(5, 5, '2024-12-23'),
+(6, 6, '2024-12-24'),
+(7, 7, '2024-12-25'),
+(8, 8, '2024-12-26'),
+(9, 9, '2024-12-27'),
+(10, 10, '2024-12-28');
 
 -- Archive Tables to Store deleted rows in case of a emergency 
 
@@ -856,3 +1340,4 @@ CREATE EVENT ResetPickup
     DO
     CALL ArchivePickupPerson()
 ;
+
