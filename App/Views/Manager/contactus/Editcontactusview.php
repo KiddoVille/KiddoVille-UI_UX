@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Contact Us</title>
+  <link rel="stylesheet" href="<?=CSS?>/Manager/Contactus.css">
+  <link rel="stylesheet" href="<?=CSS?>/Manager/Footer.css">
+  <link rel="icon" href="C:\Users\Lenovo\Desktop\Daycare front end\Assets\KIDDOVILLE_LOGO.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="navbar">
+    <div class="navbar-logo">
+      <img src="C:\Users\Lenovo\Desktop\Daycare front end\Assets\Header logo.png" alt="Logo"
+        style="height:80px ; width:100px" />
+    </div>
+    <div class="navbar-links">
+      <a href="#home"><button class="navbar-link">Home</button></a>
+      <a href="Profilepage.html"><button class="navbar-link">Profile</button></a>
+      <a href="Blog.html"> <button class="navbar-link">Blog</button></a>
+      <a href="#aboutus"><button class="navbar-link">About Us</button></a>
+      <a href="ContacUs"><button class="navbar-link">Contact Us</button></a>
+      <a href="#login"><button class="navbar-button login">Login</button></a>
+      <a href="#signup"><button class="navbar-button signup">Sign Up</button></a>
+
+    </div>
+  </div>
+
+  <div class="contact-container">
+    <img class="background-image" src="C:\Users\Lenovo\Desktop\Daycare front end\Assets\contactusbg.png" />
+    <div class="header-section">
+      <div class="gradient-background"></div>
+      <div class="contact-title">Contact Us</div>
+    </div>
+    <div class="intro-text">We’d love to hear from you!</div>
+
+    <div class="contact-box support-box">
+      <img class="contact-icon"
+        src="https://images.ctfassets.net/x4nvfpejxuu4/30W2o46itLzGveGm4kxBmN/d33cb803efb7ca812c5d057ce84e3837/Group_1000006444.svg" />
+      <div class="contact-title-small">Customer Support</div>
+      <div class="contact-details">
+        Need support? We're here to help!<br>
+        011-1234567<br>
+        <a href="mailto:support@kiddoville.com">support@kiddoville.com</a><br>
+        Monday–Friday, 8am–6pm
+      </div>
+    </div>
+
+    <div class="contact-box education-box">
+      <img class="contact-icon"
+        src="https://images.ctfassets.net/x4nvfpejxuu4/2hXYUfGRhgJw08jsjxeDvY/1e75a2e0341c159035a115b0654d0b5f/Group_1000006454.svg" />
+      <div class="contact-title-small">Education</div>
+      <div class="contact-details">
+        Ready to learn more about our products and services?<br>
+        011-1234567<br>
+        <a href="mailto:education@kiddoville.com">education@kiddoville.com</a><br>
+        Monday–Friday, 8am–6pm
+      </div>
+    </div>
+
+    <div class="contact-box press-box">
+      <img class="contact-icon"
+        src="https://images.ctfassets.net/x4nvfpejxuu4/1w6hw6w2R9EsOl9zkjZWMi/31c085d8c155503c8e0376532f24e283/Group_1000006448.svg" />
+      <div class="contact-title-small">Press & Media</div>
+      <div class="contact-details">
+        Visit our Press page to get in touch, schedule an interview, or learn more about KIDDO VILLE.<br>
+        <a href="#">Press Page</a><br>
+        <a href="mailto:pr@kiddoville.com">pr@kiddoville.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="section">
+      <div class="icon">
+        <img alt="Research icon"
+          src="https://images.ctfassets.net/x4nvfpejxuu4/4BrDR6wg9xBUhE7JA1SaHm/6021d38fdc69bf6837324dee326c932f/research.svg" />
+        <div>
+          <h2>Research</h2>
+          <p>
+            We're always working to expand the knowledge base at the intersection of technology and early childhood
+            education to impact policy and practice.
+          </p>
+          <a href="mailto:research@himama.com">
+            research@himama.com
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="section bordered">
+      <div class="icon">
+        <img alt="Careers icon"
+          src="https://images.ctfassets.net/x4nvfpejxuu4/6IwwDFL4dR0ZXbBpqvmxpG/eb672bccd975196cc9c1aca3c6092518/careers.svg" />
+        <div>
+          <h2>
+            Careers
+          </h2>
+          <p>
+            Ready to make a difference? Explore career opportunities with us at KIDDO VILLE
+          </p>
+          <a href="mailto:career@himama.com">
+            career@himama.com
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="icon">
+        <img alt="Other inquiries icon"
+          src="https://images.ctfassets.net/x4nvfpejxuu4/3sYN0LF8rBHidLrAU8Lzvt/852470045f5dea6659cb4192d4b81b15/inquiries.svg" />
+        <div>
+          <h2>
+            Other inquiries
+          </h2>
+          <p>
+            Have other questions about KIDDO VILLE or want to share feedback? We'd love to hear from you!
+          </p>
+          <a href="mailto:support@kiddoville.com">
+            support@kiddoville.com
+          </a>
+          <br />
+          <a href="tel:011-1234567">
+            011-1234567
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-info">
+      <div class="info-box">
+        <i class="fas fa-home">
+        </i>
+        <h3>Office location</h3>
+        <img src="https://th.bing.com/th?id=OIF.D%2bGJIt0Kqo%2fjQzEklupzPw&w=209&h=209&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+          alt="" class="icon" style="width: 70px; height:70px">
+        <p>No:23/1, Bambalapitiya, Colombo 7.</p>
+      </div>
+      <div class="info-box">
+        <i class="fas fa-envelope">
+        </i>
+        <h3>Mail address</h3>
+        <img src="https://th.bing.com/th/id/OIP.j8N7dLYIpiJYj7qjYUhfMgHaHa?w=179&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+          alt="" class="icon" style="width: 70px; height:70px">
+        <p>
+          kiddoville@gmail.com
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <a href="<?=ROOT?>/Manager/Contactus/editcontactus" style="color: white;"><button class="editbtn">Edit page</button></a>
+  </div>
+  <div style="margin-top: -47px;">
+    <a href="<?=ROOT?>/Manager/Home" style="color: white; margin-left:-1250px;"><button class="editbtn"
+        style="margin-top: -20px;">Back</button></a>
+  </div>
+  </div>
+  <div class="Footer">
+    <div class="KiddoVille">Kiddo<br />Ville</div>
+    <div class="Group4">
+      <div class="Home"><a href="#home">Home</a></div>
+      <div class="AboutUs"><a href="#about-us">About Us</a></div>
+      <div class="ContactUs"><a href="#contact-us">Contact Us</a></div>
+      <div class="Features"><a href="#features">Features</a></div>
+    </div>
+    <div class="Group5">
+      <div class="Contact"><a href="#contact">Contact</a></div>
+      <div class="Address"><a href="#address">Address</a></div>
+    </div>
+    <div class="Group6">
+      <div class="Contact"><a href="#contact">Contact</a></div>
+      <div class="Address"><a href="#address">Address</a></div>
+    </div>
+    <div class="Group7">
+      <div class="Frame13">
+        <button class="Join">Join US Today</button>
+      </div>
+      <div class="Enrol">Enrol now to kickstart the childhood journey</div>
+    </div>
+    <div class="Line6"></div>
+    <div class="cuddlecorner-rights-reserved">©2024 KIDDOVILLE. All rights reserved.</div>
+    <div class="Group8">
+      <a href="https://www.facebook.com" class="SocialIcons" target="_blank" rel="noopener noreferrer"
+        style="text-decoration: none;">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.twitter.com" class="SocialIcons" target="_blank" rel="noopener noreferrer"
+        style="text-decoration: none;">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com" class="SocialIcons" target="_blank" rel="noopener noreferrer"
+        style="text-decoration: none;">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://www.youtube.com" class="SocialIcons" target="_blank" rel="noopener noreferrer"
+        style="text-decoration: none;">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+  </div>
+</body>

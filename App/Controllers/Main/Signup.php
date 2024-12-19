@@ -1,42 +1,54 @@
 <?php
 
-    namespace Controller;
+namespace Controller;
 
-    defined('ROOTPATH') or exit('Access denied');
+defined('ROOTPATH') or exit('Access denied');
 
-    class Signup{
-        use MainController;
+class Signup {
+    use MainController;
 
-        public function index(){
-            $Data = [];
-            $Data['errors'] = 'hi';
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Username']) && isset($_POST['Password']) && isset($_POST['confirm-password'])) {
-                if (isset($_POST['Username'])) {
-                    $user = new \Modal\User;
-                    $username = $_POST['Username'];
-                    $result = $user->first(['Username' => $username]);
-                    if(!$result){
-                        if($_POST['Password'] === $_POST['confirm-password']){
-                            $Encrypted_password = hashpassword($_POST['Password']);
-                            $date = date('Y-m-d H:i:s');
-                            $user->insert(['Username' => $username, 'Password'=> $Encrypted_password,'Date'=> $date ]);
-                            $Error['errors'] = '';
-                            sleep(1.65);
-                        }
-                        else{
-                            redirect('Main/Login');
-                        }
-                    }
-                    else{
-                        $user->errors['username'] = 'username already exists';
-                        $Data['errors'] = $user->errors;
+    public function index() {
+        $Data = [];
+        $Data['errors'] = null;  // Initialize the error array
 
-                        $user->values['uservalue'] = $username;
-                        $Data['value'] = $user->values;
-                    }
-                }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate the fields: NIC, Contact, and Email
+            $errors = [];
+
+            $existing = new \Modal\Meeting_Request;
+            $result =  $existing->where_norder(['NIC'=>$_POST['NIC']]);
+
+            if(!empty($result)){
+                $errors['request'] = 'Request already exists';
             }
-            $this->view('main/signup',$Data);
+
+            // Validate NIC: Only numbers, max 12 digits
+            if (!preg_match('/^\d{12}$/', $_POST['NIC'])) {
+                $errors['NIC'] = 'NIC must be exactly 12 digits and contain only numbers.';
+            }
+
+            // Validate Contact: Only numbers, max 10 digits
+            if (!preg_match('/^\d{10}$/', $_POST['Contact'])) {
+                $errors['Contact'] = 'Contact must be exactly 10 digits and contain only numbers.';
+            }
+
+            // Validate Email: Standard email validation
+            if (!filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)) {
+                $errors['Email'] = 'Please enter a valid email address.';
+            }
+
+            // If there are validation errors, send them to the view
+            if (!empty($errors)) {
+                $Data['errors'] = $errors;
+            } else {
+                // Proceed with the insertion if no errors
+                $meeting = new \Modal\Meeting_Request;
+                $meeting->insert($_POST);
+
+                redirect('Main/Home');
+            }
         }
+        $this->view('main/signup', $Data);
     }
+}
 ?>

@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('../../../Assets/profile-bg.png');
+    background-color: whitesmoke;
     background-repeat: no-repeat;
     background-size: cover;
     font-size: 20px;
@@ -156,7 +156,7 @@ label{
     border-radius: 10px;
     margin-right: 58px;
     margin-left: 10px;
-    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    background:  #10639a;
     color: white;
     font-weight: bold;
     border: none;
@@ -172,7 +172,7 @@ label{
     margin-top: 40px;
     margin-right: -200px;
     margin-left: 450px;
-    color: rgb(2, 77, 205);
+    color:  #10639a;
     font-weight: 600;
     cursor: pointer;
 }

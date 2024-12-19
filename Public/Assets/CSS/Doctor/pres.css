@@ -1,0 +1,100 @@
+.press-page{
+    border-radius: 15px;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f4;
+    padding: 25px;
+    margin:20px 100px;
+    justify-content: center;
+}
+
+.form-container {
+    display: flex;
+    width: 80%;
+    max-width: 900px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .prescription-form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .form-section {
+    flex: 1 1 50%;
+    padding: 2rem;
+  }
+  
+  .form-section h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-line);
+    display: inline-block;
+    padding-bottom: 0.2rem;
+    padding-right: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .form-buttons {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+  }
+  
+  button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-btn {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .reset-btn {
+    background-color: #f44336;
+    color: white;
+    margin-left: 1rem;
+  }
+  
+  .reset-btn:hover {
+    background-color: #d32f2f;
+  }

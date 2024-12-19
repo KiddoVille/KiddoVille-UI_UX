@@ -1,0 +1,56 @@
+.leave-page{
+    border-radius: 15px;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 25px;
+    margin:20px 20px;
+}
+
+.leave-table{
+    padding: 0px 20px;
+}
+.leave-page-header-group{
+    display: flex;
+    align-items: center;
+    color: var(--secondary-color );
+}
+.leave-page-header-group h3{
+    padding: 10px;
+}
+.leave-page-header hr{
+    border: 1px solid #ccc;
+}
+.leave-table-title{
+    color: var(--secondary-color);
+    margin:40px 5px 20px 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1.1fr 0.96fr;
+    padding: 10px 5px;
+    background-color: var(--input-field-backgorund);
+}
+.leave-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding:5px 0px;
+    border-bottom: 1px solid var(--border-line);
+    margin:5px 5px 10px 5px;
+}
+
+.leave-row .approve{
+    padding: 8px 20px;
+    background-color:rgba(0,128,0,0.15);
+    border-radius: 20px;
+    width: 50%;
+    color: #008000;
+    margin-bottom: 10px;
+}
+.leave-row .rejected{
+    padding: 8px 20px;
+    background-color:rgba(2355,0,0,0.15);
+    border-radius: 20px;
+    width: 50%;
+    color: #FF0000;
+    margin-bottom: 10px;
+}

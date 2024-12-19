@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suspend</title>
+    <link rel="stylesheet" href="suspend.css">
+    <link rel="icon" href="../Assets/KIDDOVILLE_LOGO.jpg">
+</head>
+<body>
+    <div class="cont">
+        <h1 style="color: rgb(67, 67, 147);margin-top:20px">Suspention Alert</h1>
+        
+            <table>
+                <tr>
+                    <td ><span class="labels">User Name</span></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="box" id="username" required></td>
+                </tr>
+                <tr>
+                    <td ><span class="labels">Suspension Duration</span></td>
+                </tr>
+                <tr>
+                    <td><input type="date" class="box" id="startdate" required></td>
+                </tr>
+                <tr>
+                    <td><input type="date" class="box" id="enddate" required></td>
+                </tr>
+                <tr>
+                    <td ><span class="labels">Suspension Reason</span></td>
+                </tr>
+                <tr>
+                    <td><textarea name="" id="reason" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><button type="button" onclick="send()">Send</button></td>
+                    <td><a href="../Dashboard/Dashboard.html"><button style="margin-left:-40px">Back</button></a>
+                    </td>
+                </tr>
+            </table>
+    </div>
+   
+
+    <script>
+        function send(){
+            const username = document.getElementById('username');
+            const startdate = document.getElementById('startdate');
+            const enddate = document.getElementById('enddate');
+            const reason = document.getElementById('reason');
+            if(username.value && startdate.value && enddate.value && reason.value){
+                showToast("Succesfully Send suspention Alert")
+            }
+            else{
+                showToast("Please fill full form")
+            }
+        }
+        
+        function remove(){
+           showToast("Sucessfully deleted")
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "toast show";
+            setTimeout(() => {
+                toast.className = toast.className.replace("show", "");
+            }, 3000); // Toast disappears after 3 seconds
+        }
+    </script>
+    <div class="toast" id="toast"></div>
+</body>
+</html>

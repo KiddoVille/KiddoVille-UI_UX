@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Persistent Table Form with Multiple Inputs</title>
+</head>
+<body>
+    <h2>Teacher Allocation Table</h2>
+    
+    <!-- Table 1 -->
+    <table id="table1" border="1">
+        <tr>
+            <th>Name</th>
+            <th>Age Group</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="nameInput" placeholder="Enter Name"></td>
+            <td>
+                <select id="ageGroupSelect">
+                    <option value="">Select Age Group</option>
+                    <option value="20-30">20-30</option>
+                    <option value="30-40">30-40</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Table 2 -->
+    <table id="table2" border="1">
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="productInput" placeholder="Enter Product"></td>
+            <td>
+                <select id="quantitySelect">
+                    <option value="">Select Quantity</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <button onclick="clearStorage()">Clear All</button>
+
+    <script>
+        // Save all input and select values to local storage
+        function saveValues() {
+            // Select all inputs and selects
+            const inputs = document.querySelectorAll("input, select");
+
+            // Iterate over each element and save its value in local storage
+            inputs.forEach((element) => {
+                localStorage.setItem(element.id, element.value);
+            });
+        }
+
+        // Load values from local storage for all inputs and selects
+        function loadValues() {
+            const inputs = document.querySelectorAll("input, select");
+
+            inputs.forEach((element) => {
+                if (localStorage.getItem(element.id)) {
+                    element.value = localStorage.getItem(element.id);
+                }
+            });
+        }
+
+        // Clear all stored values for inputs and selects
+        function clearStorage() {
+            const inputs = document.querySelectorAll("input, select");
+
+            inputs.forEach((element) => {
+                localStorage.removeItem(element.id);
+                element.value = ""; // Clear the field in the UI as well
+            });
+        }
+
+        // Event listener for each input and select to save values on change
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", saveValues);
+        });
+
+        // Load saved values when the page loads
+        window.onload = loadValues;
+    </script>
+</body>
+</html>

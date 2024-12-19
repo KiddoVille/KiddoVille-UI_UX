@@ -1,0 +1,29 @@
+Quill.js: 
+A lightweight and modular rich text editor.
+Website
+Features: Simple to use, customizable themes, and works well for web applications.
+
+Quill.js provides an easy way to export content as HTML, which is widely supported and can be directly rendered in web pages.
+
+Steps to Store HTML Content:
+Get the HTML content:
+Use quill.root.innerHTML to retrieve the editor content in HTML format.
+
+javascript
+Copy code
+const htmlContent = quill.root.innerHTML;
+console.log(htmlContent);  // Outputs the HTML string
+Store in SQL Database:
+Use a TEXT or LONGTEXT column to store the HTML string.
+
+Example SQL Table:
+
+sql
+Copy code
+CREATE TABLE blog_posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    content TEXT,  -- Store HTML content here
+    author VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

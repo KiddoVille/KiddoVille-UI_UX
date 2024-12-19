@@ -1,0 +1,161 @@
+/* General Form Styling */
+.time-slot-page {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f9;
+  height: 100vh;
+  margin: 0;
+}
+
+.time-slot-form {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  padding: 20px;
+}
+
+h3 {
+  text-align: center;
+  color: #333333;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Calendar Section */
+.calendar {
+  margin-bottom: 30px;
+}
+
+.month-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.month-switch button {
+  background-color: #6c63ff;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.month-switch button:hover {
+  background-color: #5146c6;
+}
+
+.month-switch span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.day {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  transition: all 0.3s ease;
+  border: 1px solid #ddd;
+}
+
+/* Reduce size of radio buttons */
+input[type="radio"] {
+  transform: scale(0.8); /* Adjust scale to make the radio button smaller */
+  width: 16px;          /* Set a smaller width */
+  height: 16px;         /* Set a smaller height */
+  margin: 0 5px;        /* Add some spacing around */
+}
+
+/* Optional: Keep the label aligned with smaller radio buttons */
+label.day, label.slot {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 14px; /* Adjust text size to match smaller buttons */
+  cursor: pointer;
+}
+.day:hover {
+  background-color: #e3e3ff;
+}
+
+/* Time Selection Section */
+.time-selection {
+  margin-bottom: 20px;
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.slot {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  transition: all 0.3s ease;
+  border: 1px solid #ddd;
+}
+
+input[type="radio"]:checked + .slot {
+  background-color: #6c63ff;
+  color: white;
+  border: 1px solid #6c63ff;
+}
+
+.slot:hover {
+  background-color: #e3e3ff;
+}
+
+/* Buttons */
+button.submit-btn,
+button.reset-btn {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button.submit-btn:hover,
+button.reset-btn:hover {
+  background-color: #5146c6;
+}
+
+button.reset-btn {
+  background-color: #f44336;
+}
+
+button.reset-btn:hover {
+  background-color: #d32f2f;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Package</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./component.css" />
+    <link rel="icon" href="../Assets/KIDDOVILLE_LOGO.jpg">
+</head>
+<body>
+    <div class="container">
+        <h1>Create Package</h1>
+        <form id="packageForm">
+            <label for="package-name">Package name <span class="required">*</span></label>
+            <select name="" id="" class="opt">
+                <option value="" disabled selected>Package Name</option>
+                <option value="">Basic Plan</option>
+                <option value="">Normal paln</option>
+                <option value="">Preimium plan</option>
+            </select>
+            
+            <label for="included-services">Included services <span class="required">*</span></label>
+            <div class="services">
+                <!-- <ul>
+                    <li>Standard hours of care</li>
+                    <li>Access to all basic activities and educational programs.</li>
+                    <li>Healthy snacks and meals provided during the day.</li>
+                </ul> -->
+                <select name="" id="" class="opt" style="width: 350px;height:30px">
+                    <option value="" disabled selected>Select</option>
+                    <option value="">adssdfsd</option>
+                    <option value="">csdsdfs</option>
+                    <option value=""dsd></option>
+                </select>
+                <select name="" id="" class="opt" style="width: 350px;height:30px">
+                    <option value="" disabled selected>Select</option>
+                    <option value="">adssdfsd</option>
+                    <option value="">csdsdfs</option>
+                    <option value=""dsd></option>
+                </select>
+                <select name="" id="" class="opt" style="width: 350px;height:30px">
+                    <option value="" disabled selected>Select</option>
+                    <option value="">adssdfsd</option>
+                    <option value="">csdsdfs</option>
+                    <option value=""dsd></option>
+                </select>
+            </div>
+            
+            <label for="price">Price <span class="required">*</span></label>
+            <input type="number" id="price" value="80000" required>
+            
+            <div class="buttons">
+                <button type="button" class="publish" onclick="validateAndRedirect()">Publish</button>
+            </div>
+        </form>
+        <div class="buttons" style="margin-left: 280px; margin-top: -35px;">
+            <a href="view-package.html"><button type="button" class="cancel">Cancel</button></a>
+        </div>
+    </div>
+
+    <script>
+        function validateAndRedirect() {
+            const form = document.getElementById("packageForm");
+
+            // Check if the form is valid
+            if (form.checkValidity()) {
+                // Redirect to the View-package.html page
+                window.location.href = "View-package.html";
+            } else {
+                // Show the validation errors
+                form.reportValidity();
+            }
+        }
+    </script>
+</body>
+</html>

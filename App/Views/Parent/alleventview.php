@@ -14,9 +14,12 @@
 
 <body style=" overflow: hidden;">
     <div class="container">
-        <div class="sidebar minimized" id="sidebar1">
-            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
+        <div class="sidebar "id="sidebar1">
+            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
+            <div class="logo-div">
+                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
+            </div>
             <ul>
                 <li class="hover-effect unselected">
                     <a href="<?=ROOT?>/Parent/Home">
@@ -188,7 +191,8 @@
                 </div>
             </div>
             <div class="fill">
-                <h1 style="color: black"> Events</h1>
+                <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
+                <hr>
                 <div class="filters">
                     <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                 </div>

@@ -1,0 +1,35 @@
+.content{
+    border:solid 2px  rgb(72, 155, 182);
+    padding:20px;
+    width: 400px;
+    border-radius: 20px;
+    color: rgb(61, 59, 207);
+    background-color:rgb(129, 202, 227);
+    margin-top:190px;
+}
+.btn{
+    display: flex;
+    margin-top: 20px;
+}
+.btn .conf{
+    margin-left: 250px;
+    
+}
+.btn  button{
+    border: none;
+    border-radius: 10px;
+    width: 80px;
+    height: 30px;
+    background-color:rgb(43, 43, 179);
+    color: aliceblue;
+}
+input{
+    border: none;
+    border-radius: 10px;
+    width: 300px;
+    height: 40px;
+    background-color: antiquewhite;
+}
+input::placeholder{
+    padding-left: 20px;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Package</title>
+    <link rel="icon" href="../Assets/KIDDOVILLE_LOGO.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./component.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Package  Details</h1>
+        <label for="package-name">Package name <span class="required">*</span></label>
+        <input type="text" id="package-name" value="Basic care plan" readonly>
+        
+        <label for="included-services">Included services <span class="required">*</span></label>
+        <div class="services">
+            <ul>
+                <li>Standard hours of care</li>
+                <li>Access to all basic activities and educational programs.</li>
+                <li>Healthy snacks and meals provided during the day.</li>
+            </ul>
+        </div>
+        
+        <label for="price">Price <span class="required">*</span></label>
+        <input type="number" id="price" value="80000" readonly>
+
+        <div class="buttons">
+            <a href="View-package.html"><button class="back">Back</button></a>
+        </div>
+        <div class="buttons" style="margin-top: -30px;">
+            <a href="View-package.html"><button class="delete" style="margin-top:-80px;margin-left:280px;
+                background-color:red;color:white">Delete</button></a>
+        </div>
+    </div>
+</body>
+</html>

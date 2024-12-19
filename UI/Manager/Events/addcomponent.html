@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <title>Add Event</title>
+  <link rel="icon" href="../Assets/KIDDOVILLE_LOGO.jpg">
+  <link rel="stylesheet" href="../Header/Header.css" />
+  <!-- <link rel="stylesheet" href="./component.css" /> -->
+  <link rel="stylesheet" href="Sport.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+   <!-- <div class="navbar" style="justify-content: space-between;">
+     <div class="navbar-logo">
+      <img src="../Assets/Header logo.png" alt="Logo" style="height:80px; width:100px" />
+    </div>
+  </div>  -->
+  <div class="container">
+    <div class="form-section" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+      <form action="View-events.html" method="post">
+        <h2>Event Name</h2> 
+        <div class="form-group">
+          <input type="text" value="Bak maha Ulele" required>
+        </div>
+        <h2>Event date</h2>
+        <div class="form-group">
+          <input type="text" value="12/12/2023" required>
+        </div>
+        <h2>Content</h2>
+        <div class="form-group">
+          <textarea placeholder="Add content" required></textarea>
+        </div>
+
+    </div>
+    <div class="upload-section" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+      <h2>Upload Images</h2>
+      <div class="upload-box">
+        <i class="fas fa-upload"></i>
+        <p>Drag and drop files to upload or</p>
+        <div class="file-upload">
+          <label for="fileInput" class="custom-file-label">Upload</label>
+          <input type="file" id="fileInput" class="custom-file-input" />
+        </div>
+        <p>Supported Files: JPEG, PNG, PDF, DOCX</p>
+      </div>
+      <div class="import-url">
+        <input type="text" placeholder="Add file URL">
+        <p>You will be notified once the import is successful</p>
+      </div>
+      <div class="buttons">
+        <button type="submit" class="done">Done</button>
+      </div>
+    </form>
+      <div class="buttons">
+        <a href="View-events.html"><button class="cancel">Cancel</button></a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
