@@ -17,9 +17,12 @@
 <body>
     <div class="container">
         <!-- minimized sidebar -->
-        <div class="sidebar minimized" id="sidebar1">
-            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
+        <div class="sidebar" id="sidebar1">            
+            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
+            <div class="logo-div">
+                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
+            </div>
             <ul>
                 <li class="hover-effect unselected">
                     <a href="<?=ROOT?>/Parent/Home">
@@ -189,7 +192,8 @@
             <div class="saperate">
                 <!-- payment table -->
                 <div class="reservation-container">
-                    <h1 style="font-size: 30px;">Payment History</h1>
+                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Payment History </h2>
+                    <hr>
                     <div class="filters">
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                         <select style="margin-right: 325px; width: 200px">
@@ -304,7 +308,7 @@
 
                         </tbody>
                     </table>
-                    <button class="pay"> Make payment </button>
+                    <button class="pay" > Make payment </button>
                 </div>
             </div>
             <!-- messager navigation -->

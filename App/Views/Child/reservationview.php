@@ -12,60 +12,61 @@
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Child/Taskbar.js?v=<?= time() ?>"></script>
-    <!-- <script src="<?= JS ?>/Child/reservation.js"></script> -->
     <style>
     </style>
 </head>
 
 <body style="overflow:hidden;" id="body">
     <div class="container">
-        <div class="sidebar minimized" id="sidebar1" style="z-index: 100;">
-            <img src="<?= IMAGE ?>/navbar-star.png" class="star show" id="starImage">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
+        <div class="sidebar" id="sidebar1" style="z-index: 100;">
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
+            <div class="logo-div">
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
+            </div>
             <ul>
                 <li class="hover-effect unselected first">
-                    <a href="<?=ROOT?>/Child/Home">
+                    <a href="<?= ROOT ?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/history">
+                    <a href="<?= ROOT ?>/Child/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/report">
+                    <a href="<?= ROOT ?>/Child/report">
                         <i class="fa fa-user-shield"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="selected" style="margin-top:40px;">
-                    <a href="<?=ROOT?>/Child/reservation">
+                    <a href="<?= ROOT ?>/Child/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/meal">
+                    <a href="<?= ROOT ?>/Child/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/event">
+                    <a href="<?= ROOT ?>/Child/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/package">
+                    <a href="<?= ROOT ?>/Child/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/funzonehome">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/payment">
+                    <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -82,7 +83,7 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -96,12 +97,16 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="first
-                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
-                            " 
+                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
+                                    echo "select-child";
+                                } ?>
+                            "
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
+                                                                                                echo "margin-left: -20px !important";
+                                                                                            } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -207,15 +212,15 @@
                                 </div>
                                 <h1>Make Reservation</h1>
                                 <div class="pickup-section" style="margin-bottom: 10px;">
-                                    <label for="time">Select Date <span id="red-star6" class="red-star <?= isset($data['values']['Date'])? 'hidden' : '' ?>)"> *</span>
+                                    <label for="time">Select Date <span id="red-star6" class="red-star <?= isset($data['values']['Date']) ? 'hidden' : '' ?>)"> *</span>
                                     </label>
                                     <p style="color: black; margin-top: -28px; margin-left: 100px;"> November 2024
                                     </p>
                                     <div class="dates">
                                         <?php foreach ($data['dates'] as $date): ?>
-                                            <?php 
-                                                // Extract the day from the full date in $data['editvalues']['Date']
-                                                $selectedDay = isset($data['editvalues']['Date']) ? (new DateTime($data['editvalues']['Date']))->format('j') : null;
+                                            <?php
+                                            // Extract the day from the full date in $data['editvalues']['Date']
+                                            $selectedDay = isset($data['editvalues']['Date']) ? (new DateTime($data['editvalues']['Date']))->format('j') : null;
                                             ?>
                                             <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
                                                 <p class="whichday"><?= $date['dayName'] ?></p>
@@ -229,13 +234,13 @@
                                 <div class="pickup-section" style="margin-bottom:10px; display: flex; flex-direction: column; justify-content:space-between; text-align:center;">
                                     <div style="display: flex; flex-direction: row; justify-content:space-between;">
                                         <div>
-                                            <label style="margin-top: 5px;">Start Time :<span id="red-star7" class="red-star <?= isset($data['values']['Start_Time'])? 'hidden' : '' ?>" > *</span></label>
+                                            <label style="margin-top: 5px;">Start Time :<span id="red-star7" class="red-star <?= isset($data['values']['Start_Time']) ? 'hidden' : '' ?>"> *</span></label>
                                             <input name="Start_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00"
                                                 value="<?= isset($data['values']['Start_Time']) ? $data['values']['Start_Time'] : '' ?>" id="customtime1">
                                             <p class="error"><?= isset($data['errors']['Start_Time']) ? $data['errors']['Start_Time'] : '' ?></p>
                                         </div>
                                         <div>
-                                            <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($data['values']['End_Time'])? 'hidden' : '' ?>"> *</span></label>
+                                            <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($data['values']['End_Time']) ? 'hidden' : '' ?>"> *</span></label>
                                             <input name="End_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00"
                                                 value="<?= isset($data['values']['End_Time']) ? $data['values']['End_Time'] : '' ?>" id="customtime2">
                                             <p class="error"><?= isset($data['errors']['End_Time']) ? $data['errors']['End_Time'] : '' ?></p>
@@ -278,9 +283,9 @@
                                         <div class="dates">
                                             <input type="date" id="modal-Date" style="display: none;">
                                             <?php foreach ($data['dates'] as $date): ?>
-                                                <?php 
-                                                    // Extract the day from the full date in $data['editvalues']['Date']
-                                                    $selectedDay = isset($data['editvalues']['Date']) ? (new DateTime($data['editvalues']['Date']))->format('j') : null;
+                                                <?php
+                                                // Extract the day from the full date in $data['editvalues']['Date']
+                                                $selectedDay = isset($data['editvalues']['Date']) ? (new DateTime($data['editvalues']['Date']))->format('j') : null;
                                                 ?>
                                                 <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
                                                     <p class="whichday"><?= $date['dayName'] ?></p>
@@ -292,21 +297,19 @@
                                             style="font-size: 30px; margin-top: -65px; margin-left: 350px; color: #233E8D;"></i>
                                         <p class="error"> <?= isset($data['editerrors']['Date']) ? $data['editerrors']['Date'] : '' ?> </p>
                                     </div>
-                                    <input name="Date" type="date" id="date-inputforpost2" required style="display: none;" value="<?= isset($data['editvalues']['Date']) ? $data['editvalues']['Date'] : '' ?>"/>
+                                    <input name="Date" type="date" id="date-inputforpost2" required style="display: none;" value="<?= isset($data['editvalues']['Date']) ? $data['editvalues']['Date'] : '' ?>" />
                                     <div class="pickup-section" style="margin-bottom:10px; display: flex; flex-direction: column; justify-content:space-between; text-align:center;">
                                         <div style="display: flex; flex-direction: row; justify-content:space-between;">
                                             <div>
                                                 <label style="margin-top: 5px;">Start Time :<span id="red-star7" class="red-star <?= isset($data['editvalues']['Start_Time']) ? 'hidden' : '' ?>"> *</span></label>
                                                 <input name="Start_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00" id="modal-Start_Time"
-                                                    value="<?= isset($data['editvalues']['Start_Time']) ? $data['editvalues']['Start_Time'] : '' ?>"
-                                                    >
+                                                    value="<?= isset($data['editvalues']['Start_Time']) ? $data['editvalues']['Start_Time'] : '' ?>">
                                                 <p class="error"><?= isset($data['editerrors']['Start_Time']) ? $data['editerrors']['Start_Time'] : '' ?></p>
                                             </div>
                                             <div>
                                                 <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($data['editvalues']['End_Time']) ? 'hidden' : '' ?>"> *</span></label>
                                                 <input name="End_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00" id="modal-End_Time"
-                                                    value="<?= isset($data['editvalues']['End_Time']) ? $data['editvalues']['End_Time'] : '' ?>"    
-                                                >
+                                                    value="<?= isset($data['editvalues']['End_Time']) ? $data['editvalues']['End_Time'] : '' ?>">
                                                 <p class="error"><?= isset($data['editerrors']['End_Time']) ? $data['editerrors']['End_Time'] : '' ?></p>
                                             </div>
                                         </div>
@@ -361,7 +364,7 @@
                                 <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
                                     <div>
                                         <label style="margin-top: 5px;">Special notes</label>
-                                        <textarea  readonly type="text" style="width:305px; height: 75px; resize: none;" id="viewnotes"></textarea>
+                                        <textarea readonly type="text" style="width:305px; height: 75px; resize: none;" id="viewnotes"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -404,7 +407,7 @@
                     </div>
                 </div>
                 <div class="reservation-container" style="width: 1170px;">
-                    <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+                    <div style="display: flex; flex-direction: column; justify-content: flex-start;">
                         <div class="toggle">
                             <label class="background" for="toggle"></label>
                             <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
@@ -412,7 +415,8 @@
                                 <label class="hi-btn" id="hi-btn">History</label>
                             </div>
                         </div>
-                        <h1 id="heading-res" style="font-size: 30px; margin-left: 130px;">Reservations</h1>
+                        <h2 style="margin-top: -10px !important; margin-bottom: 2px;"> Reservations </h2>
+                        <hr style="margin-bottom: 15px;">
                     </div>
                     <div class="filters">
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
@@ -447,11 +451,11 @@
                                         </div>
                                     </td>
                                     <td class="edit">
-                                        <?= (isset($res->Status) && $res->Status === 'Pending') 
-                                            ? "<i class='fas fa-pen reservation-edit' onclick='editReservation({$res->Res_Id})'></i>" 
-                                            : '' 
+                                        <?= (isset($res->Status) && $res->Status === 'Pending')
+                                            ? "<i class='fas fa-pen reservation-edit' onclick='editReservation({$res->Res_Id})'></i>"
+                                            : ''
                                         ?>
-                                        <i class='fas fa-trash' onclick='deleteReservation( <?=$res->Res_Id?>)'></i>
+                                        <i class='fas fa-trash' onclick='deleteReservation( <?= $res->Res_Id ?>)'></i>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -481,11 +485,11 @@
                                         </div>
                                     </td>
                                     <td class="edit">
-                                        <i class="fas fa-eye" onclick='viewReservation(<?= $res->Res_Id?>)'></i>
+                                        <i class="fas fa-eye" onclick='viewReservation(<?= $res->Res_Id ?>)'></i>
                                         <i class="fas fa-star" onclick="reviewform(<?= $res->Res_Id ?>)" style="display :
                                             <?php if ($res->Status === 'Canceled' || $res->reviewdone === true) {
                                                 echo "none";
-                                            };?>">
+                                            }; ?>">
                                         </i>
                                     </td>
                                 </tr>
@@ -511,7 +515,7 @@
         </div>
         <div class="verification-alert" id="alert">
             <div class="alert-icon">
-                <img src="<?=IMAGE?>/success.svg" style="width: 64px; height: 64px; filter: invert(43%) sepia(85%) saturate(542%) hue-rotate(83deg); align-items: center;" alt="success icon">
+                <img src="<?= IMAGE ?>/success.svg" style="width: 64px; height: 64px; filter: invert(43%) sepia(85%) saturate(542%) hue-rotate(83deg); align-items: center;" alt="success icon">
             </div>
             <div class="alert-message">
                 <h1>Success</h1>
@@ -542,115 +546,6 @@
                 LogOut
             </button>
         </div>
-        <div class="tasks" id="taskbtn" style="z-index: 100 !important;">
-            <i class="fas fa-chevron-left" id="taskicon"></i>
-        </div>
-        <div class="task-container" id="tasknavbar">
-            <h1 style="margin-top: 20px;"> Quick Tasks Hub </h1>
-            <div class="card">
-                <h2>Calendar</h2>
-                <div class="calendar-header">
-                    <a href="#">&lt; October</a>
-                    <h3>November 2024</h3>
-                    <a href="#">December &gt;</a>
-                </div>
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                            <th>Sun</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>1</td>
-                            <td><span class="today">2</span></td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>12</td>
-                            <td>13</td>
-                            <td>14</td>
-                            <td>15</td>
-                            <td>16</td>
-                            <td>17</td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td>19</td>
-                            <td>20</td>
-                            <td>21</td>
-                            <td>22</td>
-                            <td>23</td>
-                            <td>24</td>
-                        </tr>
-                        <tr>
-                            <td>25</td>
-                            <td>26</td>
-                            <td>27</td>
-                            <td>28</td>
-                            <td>29</td>
-                            <td>30</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card">
-                <h2>Upcoming Tasks</h2>
-                <div class="task-item">
-                    <div class="task-info">
-                        <p class="task-title">Math Homework</p>
-                        <span class="task-deadline">Due: Nov 5, 2024</span>
-                    </div>
-                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                </div>
-                <div class="task-item">
-                    <div class="task-info">
-                        <p class="task-title">History Essay</p>
-                        <span class="task-deadline">Due: Nov 10, 2024</span>
-                    </div>
-                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                </div>
-                <div class="task-item">
-                    <div class="task-info">
-                        <p class="task-title">Science Project</p>
-                        <span class="task-deadline">Due: Nov 15, 2024</span>
-                    </div>
-                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                </div>
-            </div>
-            <div class="card">
-                <h2>Main menu</h2>
-                <a href="#" class="main-menu-item">
-                    <i class="fas fa-bullhorn icon-announcements"></i>
-                    <span>Site announcements</span>
-                </a>
-                <a href="#" class="main-menu-item">
-                    <i class="fas fa-globe icon-library"></i>
-                    <span>KIDDOVILLE Funzone</span>
-                </a>
-            </div>
-        </div>
     </div>
 </body>
 <script>
@@ -675,7 +570,7 @@
         currentResId = null; // Clear the stored Res_Id
     }
 
-    function openeditModal(){
+    function openeditModal() {
         document.getElementById('ReservationModal').style.display = 'flex';
     }
 
@@ -684,103 +579,101 @@
         if (currentResId) {
             // Send AJAX request
             fetch('<?= ROOT ?>/Child/Reservation/RemoveReservation', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `Res_Id=${currentResId}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data.message);
-                    closeModal();
-                    document.getElementById('alert').classList.add('showl');
-                    setTimeout(function() {
-                        document.getElementById('alert').classList.remove('showl'); // Hide the alert after 6 seconds
-                        window.location.reload(); // Reload the page after hiding the alert
-                    }, 1000);
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `Res_Id=${currentResId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(data.message);
+                        closeModal();
+                        document.getElementById('alert').classList.add('showl');
+                        setTimeout(function() {
+                            document.getElementById('alert').classList.remove('showl'); // Hide the alert after 6 seconds
+                            window.location.reload(); // Reload the page after hiding the alert
+                        }, 1000);
                     } else {
                         alert(data.message);
                     }
                 })
-            .catch(error => console.error('Error:', error));
+                .catch(error => console.error('Error:', error));
         }
     }
 
-    function reviewform(Res_Id){
+    function reviewform(Res_Id) {
         document.getElementById('RatingModal').style.display = 'flex';
         document.getElementById('residforreview').value = Res_Id;
     }
 
     function editReservation(Res_Id) {
         console.log(Res_Id);
-        if(Res_Id){
+        if (Res_Id) {
             fetch('<?= ROOT ?>/Child/Reservation/GeteditReservation', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `Res_Id=${Res_Id}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success){
-                    openeditModal();
-                    document.getElementById('date-inputforpost').value = data.data.Date;
-                    document.getElementById('modal-Res_Id').value = data.data.Res_Id;
-                    document.getElementById('modal-Date').value = data.data.Date;
-                    document.getElementById('modal-Start_Time').value = data.data.Start_Time;
-                    document.getElementById('modal-End_Time').value = data.data.End_Time;
-                    if (data.data.Notes !== null) {
-                        document.getElementById('modal-Notes').value = data.data.Notes;
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `Res_Id=${Res_Id}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        openeditModal();
+                        document.getElementById('date-inputforpost').value = data.data.Date;
+                        document.getElementById('modal-Res_Id').value = data.data.Res_Id;
+                        document.getElementById('modal-Date').value = data.data.Date;
+                        document.getElementById('modal-Start_Time').value = data.data.Start_Time;
+                        document.getElementById('modal-End_Time').value = data.data.End_Time;
+                        if (data.data.Notes !== null) {
+                            document.getElementById('modal-Notes').value = data.data.Notes;
+                        } else {
+                            document.getElementById('modal-Notes').value = ''; // Clear the notes field if empty
+                        }
+                        highlightSelectedDate();
                     } else {
-                        document.getElementById('modal-Notes').value = ''; // Clear the notes field if empty
+                        alert(data.message);
                     }
-                    highlightSelectedDate();
-                }
-                else{
-                    alert(data.message);
-                }
-            })
+                })
         } else {
             alert('No Reservation ID provided');
         }
     }
 
-    function openviewModal(){
+    function openviewModal() {
         document.getElementById('ReservationViewModal').style.display = 'flex';
     }
 
     function viewReservation(Res_Id) {
         console.log(Res_Id);
-        if(Res_Id){
+        if (Res_Id) {
             fetch('<?= ROOT ?>/Child/Reservation/GetviewReservation', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `Res_Id=${Res_Id}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success){
-                    openviewModal();
-                    document.getElementById('viewstatusreservation').textContent = data.data.Status;
-                    document.getElementById('datedesign').classList.add(data.data.Status);
-                    document.getElementById('viewdate').value = data.data.Date;
-                    document.getElementById('viewstarttime').value = data.data.Start_Time;
-                    document.getElementById('viewendtime').value = data.data.End_Time;
-                    if (data.data.Notes !== null) {
-                        document.getElementById('viewnotes').value = data.data.Notes;
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `Res_Id=${Res_Id}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        openviewModal();
+                        document.getElementById('viewstatusreservation').textContent = data.data.Status;
+                        document.getElementById('datedesign').classList.add(data.data.Status);
+                        document.getElementById('viewdate').value = data.data.Date;
+                        document.getElementById('viewstarttime').value = data.data.Start_Time;
+                        document.getElementById('viewendtime').value = data.data.End_Time;
+                        if (data.data.Notes !== null) {
+                            document.getElementById('viewnotes').value = data.data.Notes;
+                        } else {
+                            document.getElementById('viewnotes').value = 'No notes available'; // Clear the notes field if empty
+                        }
                     } else {
-                        document.getElementById('viewnotes').value = 'No notes available'; // Clear the notes field if empty
+                        alert(data.message);
                     }
-                }
-                else{
-                    alert(data.message);
-                }
-            })
+                })
         } else {
             alert('No Reservation ID provided');
         }
@@ -853,40 +746,40 @@
         }
     }
 
-    function selectDate(date){
+    function selectDate(date) {
         var dateInput = document.getElementById('date-inputforpost2');
-        dateInput.value = '2024-11-'+date ;
+        dateInput.value = '2024-11-' + date;
     }
 
     function reviewformsubmit() {
         const form = document.getElementById('myform'); // Get the form element by ID
         const formData = new FormData(form); // Create a FormData object using the form element
-        
-        fetch('<?=ROOT?>/Child/Reservation/Review', {
-            method: 'POST', // e.g., 'POST'
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // Parse the JSON response
-            }
-            throw new Error('Network response was not ok');
-        })
-        .then(data => {
-            if (data.success) {
-                console.log('Success:', data.message);
-                document.getElementById('RatingModal').style.display = 'none';
-                // Optionally redirect or update UI
-            } else {
-                console.error(data.post_data)
-                console.error('Failure:', data.message);
-                // Optionally display error to the user
-            }   
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle error (e.g., show an error message)
-        });
+
+        fetch('<?= ROOT ?>/Child/Reservation/Review', {
+                method: 'POST', // e.g., 'POST'
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Parse the JSON response
+                }
+                throw new Error('Network response was not ok');
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log('Success:', data.message);
+                    document.getElementById('RatingModal').style.display = 'none';
+                    // Optionally redirect or update UI
+                } else {
+                    console.error(data.post_data)
+                    console.error('Failure:', data.message);
+                    // Optionally display error to the user
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error (e.g., show an error message)
+            });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -902,8 +795,7 @@
                     }
                     rating -= 1;
                     i -= 1;
-                }
-                else if (index === rating) {
+                } else if (index === rating) {
                     stars[index].classList.add('selectestar');
                     rating += 1;
                     i += 1;
@@ -924,7 +816,7 @@
         const endtime = document.getElementById('customtime2');
         const notes = document.getElementById('notes');
 
-        newreservationrefresh.addEventListener('click',function () {
+        newreservationrefresh.addEventListener('click', function() {
             clearSelectedDates();
             NewReservationForm.reset();
             starttime.value = ''; // Clear Start Time input
@@ -935,32 +827,30 @@
             });
         });
 
-        closenewReservation.addEventListener('click',function () {
+        closenewReservation.addEventListener('click', function() {
             window.location.href = '<?= ROOT ?>/Child/Reservation';
         });
 
-        newreservationbtn.addEventListener('click',function () {
-            toggleModal(NewReservationModal,'flex');
+        newreservationbtn.addEventListener('click', function() {
+            toggleModal(NewReservationModal, 'flex');
         });
 
-        backfornewreservation.addEventListener('click',function () {
+        backfornewreservation.addEventListener('click', function() {
             window.location.href = '<?= ROOT ?>/Child/Reservation';
         });
 
-        starttime.addEventListener('input',function(){
-            if(!starttime.value){
+        starttime.addEventListener('input', function() {
+            if (!starttime.value) {
                 redstar7.classList.remove('hidden');
-            }
-            else{
+            } else {
                 redstar7.classList.add('hidden');
             }
         })
-        
-        endtime.addEventListener('input',function(){
-            if(!endtime.value){
+
+        endtime.addEventListener('input', function() {
+            if (!endtime.value) {
                 redstar8.classList.remove('hidden');
-            }
-            else{
+            } else {
                 redstar8.classList.add('hidden');
             }
         })
@@ -975,7 +865,7 @@
         const settime = document.getElementById('settime');
         const ReservationEditModal = document.getElementById('ReservationModal');
 
-        reservationeditrefresh.addEventListener('click',function () {
+        reservationeditrefresh.addEventListener('click', function() {
             clearSelectedDates();
             ReservationEditForm.reset();
             document.querySelectorAll('.error').forEach(errorElement => {
@@ -984,31 +874,31 @@
         });
 
         reservationeditbtn.forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 toggleModal(ReservationEditModal, 'flex');
             });
         });
 
-        backforreservationedit.addEventListener('click', function () {
+        backforreservationedit.addEventListener('click', function() {
             window.location.href = '<?= ROOT ?>/Child/Reservation';
         });
 
-        closeReservationedit.addEventListener('click', function () {
+        closeReservationedit.addEventListener('click', function() {
             window.location.href = '<?= ROOT ?>/Child/Reservation';
         });
 
         let originalDate = null;
 
-            // reservationeditrefresh.addEventListener('click', function () {
-            //     clearSelectedDates();
-            //     ReservationEditForm.reset();
-            //     dateElements.forEach(date => {
-            //         if (date.textContent === originalDate) {
-            //             date.classList.add('select');
-            //         }
-            //     })
-            // })
-        
+        // reservationeditrefresh.addEventListener('click', function () {
+        //     clearSelectedDates();
+        //     ReservationEditForm.reset();
+        //     dateElements.forEach(date => {
+        //         if (date.textContent === originalDate) {
+        //             date.classList.add('select');
+        //         }
+        //     })
+        // })
+
         function toggleModal(modal, display) {
             modal.style.display = display;
             if (display === 'flex') {
@@ -1052,7 +942,7 @@
         const history = document.getElementById('history');
         const headingres = document.getElementById('heading-res');
 
-        upbtn.addEventListener('click', function(){
+        upbtn.addEventListener('click', function() {
             upbtn.style.backgroundColor = '#10639a';
             hibtn.style.backgroundColor = '#60a6ec';
             upcoming.style.display = 'block';
@@ -1061,7 +951,7 @@
             headingres.textContent = 'Resrvation';
         });
 
-        hibtn.addEventListener('click', function(){
+        hibtn.addEventListener('click', function() {
             hibtn.style.backgroundColor = '#10639a';
             upbtn.style.backgroundColor = '#60a6ec';
             upcoming.style.display = 'none';
@@ -1160,7 +1050,7 @@
             timeInput.value = `${formattedHours}:${formattedMinutes}`;
         })
 
-        window.addEventListener('click', function (e) {
+        window.addEventListener('click', function(e) {
             if (e.target === RatingModal) {
                 toggleModal(RatingModal, 'none');
             }
@@ -1180,15 +1070,15 @@
         const ReservationViewModal = document.getElementById('ReservationViewModal');
         const backvieweservation = document.getElementById('backvieweservation');
 
-        backvieweservation.addEventListener('click', function (){
-            toggleModal(ReservationViewModal,'none');
+        backvieweservation.addEventListener('click', function() {
+            toggleModal(ReservationViewModal, 'none');
         });
 
         const backforrating = document.getElementById('backforrating');
         const closeratingBtn = document.getElementById('closeratingBtn');
         const ratingrefresh = document.getElementById('ratingrefresh');
 
-        backforrating.addEventListener('click', function (){
+        backforrating.addEventListener('click', function() {
             document.getElementById('RatingModal').style.display = 'none';
             document.getElementById('myform').reset();
             stars.forEach((star) => {
@@ -1196,14 +1086,14 @@
             });
         });
 
-        ratingrefresh.addEventListener('click', function (){
+        ratingrefresh.addEventListener('click', function() {
             document.getElementById('myform').reset();
             stars.forEach((star) => {
                 star.classList.remove('selectestar')
             });
         });
 
-        closeratingBtn.addEventListener('click', function (){
+        closeratingBtn.addEventListener('click', function() {
             document.getElementById('myform').reset();
             stars.forEach((star) => {
                 star.classList.remove('selectestar')

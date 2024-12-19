@@ -2,238 +2,69 @@
 
 <head>
     <title>Reservation</title>
-    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/reservation.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/Main.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Parent/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/Navbar.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
-    <style>
-        .verification-alert {
-            margin-top: 20px;
-            position: fixed;
-            width: 400px;
-            top: -20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border: 4px solid #0056b3;
-            z-index: 1000000;
-            backdrop-filter: blur(5px) !important;
-        }
-
-        .verification-alert.show {
-            display: block;
-        }
-
-        .alert-icon {
-            margin-bottom: -10px;
-            text-align: center;
-        }
-
-        .alert-message {
-            text-align: center;
-        }
-
-        .close-button {
-            background-color: #34C759;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .close-button:hover {
-            background-color: #2ecc71;
-        }
-
-        .children-list li {
-            position: relative;
-            cursor: pointer;
-            display: flex;
-            flex-direction: row;
-            justify-content: left !important;
-            text-align: left;
-            align-items: center;
-            margin-left: 30px;
-        }
-
-        .sidebar-2 ul li::before {
-            content: '';
-            position: absolute;
-            left: -20px;
-            bottom: -2px;
-            height: 2px;
-            width: 100%;
-            background-color: white;
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .child-info .child-name {
-            margin-right: -10px !important;
-        }
-
-        .select-child {
-            margin-left: 0px !important;
-            padding-right: 50px !important;
-        }
-
-        .select-child img {
-
-            margin-left: -7px !important;
-        }
-
-        .select-child h2 {
-            margin-left: 15px !important;
-        }
-
-        .toggle {
-            z-index: 100;
-        }
-
-        .Canceled {
-            background-color: #F6DADA;
-            border-color: #FF8787;
-            border: 2px solid #FF8787;
-            border-radius: 20px;
-            height: 40px;
-        }
-
-        .Canceled p {
-            color: #FF8787;
-            margin-top: 10px;
-        }
-
-        .error {
-            color: red !important;
-            margin-left: 4px !important;
-            font-size: 15px;
-            margin-bottom: -5px;
-            margin-top: -3px;
-        }
-
-        /* Modal styling */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-
-        /* Modal content box */
-        .modal-content {
-            background-color: #b2ebf2;
-            /* Light blue background */
-            border: 3px solid #00FFFF !important;
-            /* Aqua border */
-            border-radius: 8px;
-            /* Rounded corners */
-            padding: 30px;
-            /* Padding inside the box */
-            text-align: center;
-            width: 300px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            /* Soft shadow for a lifted effect */
-        }
-
-        /* Button styling */
-        .modal button {
-            background-color: #007bff;
-            /* Darker blue background for buttons */
-            color: white;
-            /* White text color */
-            border: none;
-            /* Remove default border */
-            border-radius: 5px;
-            /* Rounded button corners */
-            padding: 10px 20px;
-            /* Button padding */
-            margin: 10px 5px;
-            /* Margin between buttons */
-            cursor: pointer;
-            font-size: 16px;
-            /* Slightly larger text */
-            transition: background-color 0.3s ease;
-            /* Smooth hover transition */
-        }
-
-        /* Button hover effect */
-        .modal button:hover {
-            background-color: #0056b3;
-            /* Darker blue on hover */
-        }
-        .showl{
-            display: block;
-            left: 40%;
-            transform: translate(-40px, 210px);
-        }
-    </style>
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/reservation.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
 </head>
 
-<body>
+<body style="overflow: hidden;"> 
     <div class="container">
-        <div class="sidebar minimized" id="sidebar1">
-            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
+        <div class="sidebar" id="sidebar1">
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
+            <div class="logo-div">
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
+            </div>
             <ul>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/Home">
+                    <a href="<?= ROOT ?>/Parent/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Parent/history">
+                    <a href="<?= ROOT ?>/Parent/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/report">
+                    <a href="<?= ROOT ?>/Parent/report">
                         <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="selected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Parent/reservation">
+                    <a href="<?= ROOT ?>/Parent/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/meal">
+                    <a href="<?= ROOT ?>/Parent/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/event">
+                    <a href="<?= ROOT ?>/Parent/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/package">
+                    <a href="<?= ROOT ?>/Parent/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/funzonehome">
+                    <a href="<?= ROOT ?>/Parent/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/package">
+                    <a href="<?= ROOT ?>/Parent/package">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -249,8 +80,8 @@
                 <div class="family-section" style="margin-top: 10px;">
                     <ul style="margin-left: 20px;">
                         <li class="hover-effect first select-child" style="width:140px;"
-                            onclick="window.location.href = '<?=ROOT?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                            onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -263,9 +94,9 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" 
+                            <li class="hover-effect first"
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['id']) ? $child['id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -331,26 +162,26 @@
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/reservation.svg?v=<?= time() ?>" alt="Attendance"
+                    <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Accepted reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">Reservations been scheduled</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?=IMAGE?>/pending.svg?v=<?= time() ?>" alt="Attendance"
+                    <h3><img src="<?= IMAGE ?>/pending.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Pending reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Pending']) ? $data['Pending'] : '0'; ?> reservation</p>
                     <span style="font-weight: 50;">The reservation has not been accepted by maid
                         yet</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/cancel.svg?v=<?= time() ?>" alt="Attendance"
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Canceled reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">The reservation has not been canceled</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?=IMAGE?>/calendar-plus-solid.svg?v=<?= time() ?>" alt="Attendance"
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/calendar-plus-solid.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Make reservation</h3>
                     <div class="lol" id="newreservationbtn" style="cursor: pointer; margin-bottom: -100px; margin-top: 20px;">
                         <p>Create</p>
@@ -514,53 +345,53 @@
                                     </div>
                                 </div>
                                 <h1>View Reservation</h1>
-                                    <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
-                                        <div>
-                                            <label style="margin-top: 5px;">Status :<span style="color: black">Approved</span></label>
-                                        </div>
-                                        <div>
-                                            <label style="margin-top: 5px;">Child :<span style="color: black">Abdulla</span></label>
-                                        </div>
+                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                    <div>
+                                        <label style="margin-top: 5px;">Status :<span style="color: black">Approved</span></label>
                                     </div>
-                                    <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
-                                        <div>
-                                            <label style="margin-top: 5px;">Date :</label>
-                                            <input readonly type="date" value="2024-08-18">
-                                        </div>
-                                        <div>
-                                            <label style="margin-top: 5px;">End Date :</label>
-                                            <input readonly type="date" value="2024-08-19">
-                                        </div>
+                                    <div>
+                                        <label style="margin-top: 5px;">Child :<span style="color: black">Abdulla</span></label>
                                     </div>
-                                    <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
-                                        <div>
-                                            <label style="margin-top: 5px;">Start Time :</label>
-                                            <input readonly type="time" value="08:00" style="width: 130px">
-                                        </div>
-                                        <div>
-                                            <label style="margin-top: 5px;">End Time :</label>
-                                            <input readonly type="time" value="20:00" style="width: 130px">
-                                        </div>
+                                </div>
+                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                    <div>
+                                        <label style="margin-top: 5px;">Date :</label>
+                                        <input readonly type="date" value="2024-08-18">
                                     </div>
-                                    <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
-                                        <div>
-                                            <label style="margin-top: 5px;">Maid</label>
-                                            <div class="person-section" style="width: 130px">
-                                                <img alt="Person's photo" height="50" src="<?=IMAGE?>/face.jpeg" width="50" />
-                                                <div class="person-info">
-                                                    <span>Abdulla</span>
-                                                </div>
+                                    <div>
+                                        <label style="margin-top: 5px;">End Date :</label>
+                                        <input readonly type="date" value="2024-08-19">
+                                    </div>
+                                </div>
+                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                    <div>
+                                        <label style="margin-top: 5px;">Start Time :</label>
+                                        <input readonly type="time" value="08:00" style="width: 130px">
+                                    </div>
+                                    <div>
+                                        <label style="margin-top: 5px;">End Time :</label>
+                                        <input readonly type="time" value="20:00" style="width: 130px">
+                                    </div>
+                                </div>
+                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                    <div>
+                                        <label style="margin-top: 5px;">Maid</label>
+                                        <div class="person-section" style="width: 130px">
+                                            <img alt="Person's photo" height="50" src="<?= IMAGE ?>/face.jpeg" width="50" />
+                                            <div class="person-info">
+                                                <span>Abdulla</span>
                                             </div>
                                         </div>
-                                        <div>
-                                            <label style="margin-top: 5px;">Special notes</label>
-                                            <textarea  readonly type="text" style="width:140px; height: 75px; resize: none;"> put to sleep at 8:00 PM</textarea>
-                                        </div>
                                     </div>
-                                    <div class="button-popup">
-                                        <button style="margin-right: 230px;" id="closeReservation">Cancel</button>
-                                        <button type="submit">Done</button>
+                                    <div>
+                                        <label style="margin-top: 5px;">Special notes</label>
+                                        <textarea readonly type="text" style="width:140px; height: 75px; resize: none;"> put to sleep at 8:00 PM</textarea>
                                     </div>
+                                </div>
+                                <div class="button-popup">
+                                    <button style="margin-right: 230px;" id="closeReservation">Cancel</button>
+                                    <button type="submit">Done</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -601,7 +432,7 @@
             </div>
             <div class="saperate">
                 <div class="reservation-container" style="margin-top: -30px;">
-                    <div style="display: flex; flex-direction: row; justify-content: flex-start; ">
+                    <div style="display: flex; flex-direction: column; justify-content: flex-start; ">
                         <div class="toggle">
                             <label class="background" for="toggle"></label>
                             <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
@@ -609,7 +440,8 @@
                                 <label class="hi-btn" id="hi-btn">History</label>
                             </div>
                         </div>
-                        <h1 style="font-size: 35px; margin-left: 130px;">Reservations</h1>
+                        <h2 style="margin-top: -10px !important; margin-bottom: 2px;"> Reservations </h2>
+                        <hr>
                     </div>
                     <div class="filters">
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
@@ -635,14 +467,14 @@
                         <tbody>
                             <?php foreach ($data['upcoming'] as $res): ?>
                                 <tr>
-                                    <td> <?= isset($res['reservation']->Res_Id)? $res['reservation']->Res_Id: "No res set" ?> </td>
-                                    <td> <?= isset($res['First_Name'])? $res['First_Name']: "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->Date)? $res['reservation']->Date: "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->Start_Time)? $res['reservation']->Start_Time: "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->End_Time)? $res['reservation']->End_Time: "No res set" ?> </td>
+                                    <td> <?= isset($res['reservation']->Res_Id) ? $res['reservation']->Res_Id : "No res set" ?> </td>
+                                    <td> <?= isset($res['First_Name']) ? $res['First_Name'] : "No res set" ?> </td>
+                                    <td> <?= isset($res['reservation']->Date) ? $res['reservation']->Date : "No res set" ?> </td>
+                                    <td> <?= isset($res['reservation']->Start_Time) ? $res['reservation']->Start_Time : "No res set" ?> </td>
+                                    <td> <?= isset($res['reservation']->End_Time) ? $res['reservation']->End_Time : "No res set" ?> </td>
                                     <td>
-                                        <div class="<?= isset($res['reservation']->Status)? $res['reservation']->Status: "cancel" ?>">
-                                            <p> <?= isset($res['reservation']->Status)? $res['reservation']->Status: "cancel" ?> </p>
+                                        <div class="<?= isset($res['reservation']->Status) ? $res['reservation']->Status : "cancel" ?>">
+                                            <p> <?= isset($res['reservation']->Status) ? $res['reservation']->Status : "cancel" ?> </p>
                                         </div>
                                     </td>
                                     <td class="edit">
@@ -665,21 +497,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($data['history'] as $res): ?>
+                            <?php foreach ($data['history'] as $res): ?>
                                 <tr>
-                                    <td> <?= isset($res['reservation']->Res_Id)? $res['reservation']->Res_Id: "No res set" ?> </td>
-                                    <td> <?= isset($res['First_Name'])? $res['First_Name']: "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->Date)? $res['reservation']->Date: "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->Start_Time)? $res['reservation']->Start_Time: "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->End_Time)? $res['reservation']->End_Time: "No res set" ?> </td>
+                                    <td> <?= isset($res['reservation']->Res_Id) ? $res['reservation']->Res_Id : "No res set" ?> </td>
+                                    <td> <?= isset($res['First_Name']) ? $res['First_Name'] : "No res set" ?> </td>
+                                    <td> <?= isset($res['reservation']->Date) ? $res['reservation']->Date : "No res set" ?> </td>
+                                    <td> <?= isset($res['reservation']->Start_Time) ? $res['reservation']->Start_Time : "No res set" ?> </td>
+                                    <td> <?= isset($res['reservation']->End_Time) ? $res['reservation']->End_Time : "No res set" ?> </td>
                                     <td>
-                                        <div class="<?= isset($res['reservation']->Status)? $res['reservation']->Status: "cancel" ?>">
-                                            <p> <?= isset($res['reservation']->Status)? $res['reservation']->Status: "cancel" ?> </p>
+                                        <div class="<?= isset($res['reservation']->Status) ? $res['reservation']->Status : "cancel" ?>">
+                                            <p> <?= isset($res['reservation']->Status) ? $res['reservation']->Status : "cancel" ?> </p>
                                         </div>
                                     </td>
                                     <td class="edit">
                                         <i class="fas fa-eye"></i>
-                                        <i class="fas fa-star feedbackbtn" style="display :<?php if($res['reservation']->Status === 'Canceled' ){echo "none";};  ?>"></i>
+                                        <i class="fas fa-star feedbackbtn" style="display :<?php if ($res['reservation']->Status === 'Canceled') {
+                                                                                                echo "none";
+                                                                                            };  ?>"></i>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -687,8 +521,8 @@
                     </table>
                 </div>
             </div>
-            <a href="<?=ROOT?>/Parent/Message" class="chatbox">
-                <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
+            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
+                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
                     style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
                     <p> 2</p>
@@ -704,7 +538,7 @@
         </div>
         <div class="verification-alert" id="alert">
             <div class="alert-icon">
-                <img src="<?=IMAGE?>/success.svg" style="width: 64px; height: 64px; filter: invert(43%) sepia(85%) saturate(542%) hue-rotate(83deg); align-items: center;" alt="success icon">
+                <img src="<?= IMAGE ?>/success.svg" style="width: 64px; height: 64px; filter: invert(43%) sepia(85%) saturate(542%) hue-rotate(83deg); align-items: center;" alt="success icon">
             </div>
             <div class="alert-message">
                 <h1>Success</h1>
@@ -712,9 +546,9 @@
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard">
-            <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
                 Thilina Perera
@@ -722,13 +556,13 @@
             <p>
                 Student    RS0110657
             </p>
-            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/Parent/ParentProfile'">
+            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">
                 Profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Parent/GuardianProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href='<?=ROOT?>/Main/Home'">
+            <button class="logout-button" onclick="window.location.href='<?= ROOT ?>/Main/Home'">
                 LogOut
             </button>
         </div>
@@ -736,23 +570,25 @@
     <script>
         function setChildSession(childName) {
             console.log(childName);
-            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ childName: childName })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Child name set in session.");
-                    window.location.href = '<?= ROOT ?>/Child/Home';
-                } else {
-                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:",error));
+            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        childName: childName
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child name set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Home';
+                    } else {
+                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
 
         <?php if (isset($_SESSION['success']) && $_SESSION['success'] === true): ?>
@@ -781,31 +617,31 @@
             if (currentResId) {
                 // Send AJAX request
                 fetch('<?= ROOT ?>/Parent/Reservation/RemoveReservation', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: `Res_Id=${currentResId}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log(data.message);
-                        closeModal();
-                        document.getElementById('alert').classList.add('showl');
-                        setTimeout(function() {
-                            document.getElementById('alert').classList.remove('showl'); // Hide the alert after 6 seconds
-                            window.location.reload(); // Reload the page after hiding the alert
-                        }, 1000);
-                    } else {
-                        alert(data.message);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `Res_Id=${currentResId}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log(data.message);
+                            closeModal();
+                            document.getElementById('alert').classList.add('showl');
+                            setTimeout(function() {
+                                document.getElementById('alert').classList.remove('showl'); // Hide the alert after 6 seconds
+                                window.location.reload(); // Reload the page after hiding the alert
+                            }, 1000);
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const dateElements = document.querySelectorAll('.date');
             const redstar3 = document.getElementById('red-star3');
@@ -868,51 +704,51 @@
             const history = document.getElementById('history');
             const headingres = document.getElementById('heading-res');
 
-            upbtn.addEventListener('click', function(){
+            upbtn.addEventListener('click', function() {
                 upbtn.style.color = 'white';
                 hibtn.style.color = 'black';
-                upbtn.style.backgroundColor = '#099690';
-                hibtn.style.backgroundColor = '#BADBD0';
+                upbtn.style.backgroundColor = '#10639a';
+                hibtn.style.backgroundColor = '#60a6ec';
                 upcoming.style.display = 'block';
                 history.style.display = 'none';
                 headingres.style.marginLeft = '180px';
                 headingres.textContent = 'Reervation';
             });
 
-            hibtn.addEventListener('click', function(){
+            hibtn.addEventListener('click', function() {
                 hibtn.style.color = 'white';
                 upbtn.style.color = 'black';
-                hibtn.style.backgroundColor = '#099690';
-                upbtn.style.backgroundColor = '#BADBD0';
+                hibtn.style.backgroundColor = '#10639a';
+                upbtn.style.backgroundColor = '#60a6ec';
                 upcoming.style.display = 'none';
                 history.style.display = 'block';
                 headingres.style.marginLeft = '140px';
                 headingres.textContent = 'Reervation history';
             });
 
-            backformeeting.addEventListener('click', function () {
+            backformeeting.addEventListener('click', function() {
                 toggleModal(RatingModal, 'none');
             })
 
-            meetingrefresh.addEventListener('click', function () {
+            meetingrefresh.addEventListener('click', function() {
                 meetingform.reset();
                 stars.forEach((star) => {
                     star.classList.remove('selectestar')
                 });
             })
 
-            closemeetingBtn.addEventListener('click', function () {
+            closemeetingBtn.addEventListener('click', function() {
                 toggleModal(meetingModal, 'none');
             })
 
             feedbackbtns.forEach(element => {
                 console.log("Hi");
-                element.addEventListener('click', function () {
+                element.addEventListener('click', function() {
                     toggleModal(RatingModal, 'flex');
                 })
             });
 
-            window.addEventListener('click', function (e) {
+            window.addEventListener('click', function(e) {
                 if (e.target === RatingModal) {
                     toggleModal(RatingModal, 'none');
                 }
@@ -949,8 +785,7 @@
                         }
                         rating -= 1;
                         i -= 1;
-                    }
-                    else if (index === rating) {
+                    } else if (index === rating) {
                         stars[index].classList.add('selectestar');
                         rating += 1;
                         i += 1;
@@ -967,33 +802,32 @@
             const redstar5 = document.getElementById('red-star5');
             const settime = document.getElementById('settime');
 
-            settime.addEventListener('input',function(){
-                if(!settime.value){
+            settime.addEventListener('input', function() {
+                if (!settime.value) {
                     redstar4.classList.remove('hidden');
-                }
-                else{
+                } else {
                     redstar4.classList.add('hidden');
                 }
             })
 
             reservationeditbtn.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     toggleModal(ReservationEditModal, 'flex');
                 });
             });
 
-            backforreservationedit.addEventListener('click', function () {
+            backforreservationedit.addEventListener('click', function() {
                 toggleModal(ReservationEditModal, 'none');
             });
 
-            closeReservationedit.addEventListener('click', function () {
+            closeReservationedit.addEventListener('click', function() {
                 toggleModal(ReservationEditModal, 'none');
             });
 
             let originalDate = null;
             let selectedDate = null;
 
-            reservationeditrefresh.addEventListener('click', function () {
+            reservationeditrefresh.addEventListener('click', function() {
                 clearSelectedDates();
                 ReservationEditForm.reset();
                 dateElements.forEach(date => {
@@ -1008,17 +842,17 @@
             const reservationrefresh = document.getElementById('reservationrefresh');
             const closeReservation = document.getElementById('closeReservation');
 
-            reservations.forEach( reservationbtn => {
-                reservationbtn.addEventListener('click',function () {
+            reservations.forEach(reservationbtn => {
+                reservationbtn.addEventListener('click', function() {
                     toggleModal(ReservationViewModal, 'flex');
                 })
             })
 
-            backforreservation.addEventListener('click', function () {
+            backforreservation.addEventListener('click', function() {
                 toggleModal(ReservationViewModal, 'none');
             });
 
-            closeReservation.addEventListener('click', function () {
+            closeReservation.addEventListener('click', function() {
                 toggleModal(ReservationViewModal, 'none');
             });
 
@@ -1028,33 +862,31 @@
             const newreservationrefresh = document.getElementById('newreservationrefresh');
             const closenewReservation = document.getElementById('closenewReservation');
 
-            newreservationbtn.addEventListener('click',function () {
-                toggleModal(NewReservationModal,'flex');
+            newreservationbtn.addEventListener('click', function() {
+                toggleModal(NewReservationModal, 'flex');
             });
-            backfornewreservation.addEventListener('click',function () {
-                toggleModal(NewReservationModal,'none');
+            backfornewreservation.addEventListener('click', function() {
+                toggleModal(NewReservationModal, 'none');
             });
-            closenewReservation.addEventListener('click',function () {
-                toggleModal(NewReservationModal,'none');
+            closenewReservation.addEventListener('click', function() {
+                toggleModal(NewReservationModal, 'none');
             });
-            newreservationrefresh.addEventListener('click',function () {
+            newreservationrefresh.addEventListener('click', function() {
                 NewReservationForm.reset();
             });
 
-            starttime.addEventListener('input',function(){
-                if(!starttime.value){
+            starttime.addEventListener('input', function() {
+                if (!starttime.value) {
                     redstar7.classList.remove('hidden');
-                }
-                else{
+                } else {
                     redstar7.classList.add('hidden');
                 }
             })
-            
-            endtime.addEventListener('input',function(){
-                if(!endtime.value){
+
+            endtime.addEventListener('input', function() {
+                if (!endtime.value) {
                     redstar8.classList.remove('hidden');
-                }
-                else{
+                } else {
                     redstar8.classList.add('hidden');
                 }
             })

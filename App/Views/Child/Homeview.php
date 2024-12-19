@@ -2,70 +2,73 @@
 
 <head>
     <title>Dashboard</title>
-    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Child/Main.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/Home.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Profile.js"></script>
-    <script src="<?=JS?>/Child/MessageDropdown.js"></script>
-    <script src="<?=JS?>/Child/OTP.js"></script>
-    <script src="<?=JS?>/Child/Number.js"></script>
-    <script src="<?=JS?>/Child/Navbar.js"></script>
-    <script src="<?=JS?>/Child/Home.js"></script>
-    <script src="<?=JS?>/Child/Taskbar.js"></script>
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"> </script>
+    <script src="<?= JS ?>/Child/OTP.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Number.js?v=<?= time() ?>"> </script>
+    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"> </script>
+    <script src="<?= JS ?>/Child/Home.js?v=<?= time() ?>"> </script>
+    <script src="<?= JS ?>/Child/Taskbar.js?v=<?= time() ?>"> </script>
 </head>
 
 <body>
     <div class="container">
-        <!-- minimized sidebar -->
+        // minimized sidebar
         <div class="sidebar" id="sidebar1">
-            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
+            <div class="logo-div">
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
+            </div>
             <ul>
                 <li class="selected first">
-                    <a href="<?=ROOT?>/Child/Home">
+                    <a href="<?= ROOT ?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/history">
+                    <a href="<?= ROOT ?>/Child/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/report">
+                    <a href="<?= ROOT ?>/Child/report">
                         <i class="fa fa-user-shield"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/reservation">
+                    <a href="<?= ROOT ?>/Child/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/meal">
+                    <a href="<?= ROOT ?>/Child/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/event">
+                    <a href="<?= ROOT ?>/Child/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/package">
+                    <a href="<?= ROOT ?>/Child/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/funzonehome">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/payment">
+                    <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -84,7 +87,7 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -98,12 +101,16 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="first
-                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
-                            " 
+                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
+                                    echo "select-child";
+                                } ?>
+                            "
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
+                                                                                                echo "margin-left: -20px !important";
+                                                                                            } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -112,7 +119,7 @@
                 </div>
             </div>
         </div>
-        <div class="main-content" style="height: 125vh;">
+        <div class="main-content" style="margin-left: 150px; height: 100%; width: 90%;">
             <!-- Header -->
             <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"
@@ -168,264 +175,299 @@
                     </button>
                 </div>
             </div>
-            <div class="report-page">
-                <h1 style="color: #233E8D; margin-left: 15px;">
-                <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
-                <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our
-                    family! </p>
-                <div class="report-header">
-                    <div class="profile" style="height: 340px;">
-                        <div class="first-row">
-                            <img src="<?= isset($data['selectedchildren']['image']) ? $data['selectedchildren']['image'].'?v=' . time() : 'No name set'; ?>" alt="profile pic">
-                            <h3 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h3>
+            <div style="display: flex; flex-direction: row;">
+                <div class="report-page">
+                    <h1 style="color: #233E8D; margin-left: 15px;">
+                        <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
+                    <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our family! </p>
+                    <div class="report-header">
+                        <div class="profile" id="profile" style="max-height: 350px; margin-right: 2%; width: 200px !important;">
+                            <h3 style="margin-top: 0px; margin-bottom: 2px;">Child Profile</h3>
+                            <hr>
+                            <div class="first-row">
+                                <img src="<?= isset($data['selectedchildren']['image']) ? $data['selectedchildren']['image'] . '?v=' . time() : 'No name set'; ?>" alt="profile pic">
+                                <h4 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h4>
+                            </div>
+                            <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
+                                <p style="margin-top: -30px;">Reg Num: <span>SRD110021</span></p>
+                                <p style="margin-top: -10px;">Age:
+                                    <span>
+                                        <?= isset($data['selectedchildren']['age']) ? $data['selectedchildren']['age'] : 'No name set'; ?>
+                                    </span>
+                                </p>
+                                <p style="margin-top: -10px;">Language:
+                                    <span>
+                                        <?= isset($data['selectedchildren']['language']) ? $data['selectedchildren']['language'] : 'No name set'; ?>
+                                    </span>
+                                </p>
+                                <p style="margin-top: -10px;">Religion:
+                                    <span>
+                                        <?= isset($data['selectedchildren']['religion']) ? $data['selectedchildren']['religion'] : 'No name set'; ?>
+                                    </span>
+                                </p>
+                            </div>
                         </div>
-                        <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
-                            <p style="margin-top: -30px;">Reg Number : <span>SRD110021</span></p>
-                            <p style="margin-top: -10px;">Age: 
-                                <span>
-                                <?= isset($data['selectedchildren']['age']) ? $data['selectedchildren']['age'] : 'No name set'; ?>
-                                </span>
-                            </p>
-                            <p style="margin-top: -10px;">Language: 
-                                <span>
-                                <?= isset($data['selectedchildren']['language']) ? $data['selectedchildren']['language'] : 'No name set'; ?>
-                                </span>
-                            </p>
-                            <p style="margin-top: -10px;">Religion: 
-                                <span>
-                                <?= isset($data['selectedchildren']['religion']) ? $data['selectedchildren']['religion'] : 'No name set'; ?>
-                                </span>
-                            </p>
+                        <div class="attendence-bar" style="margin-right: 2%;" id="attendance">
+                            <h3 style="margin-top: 0px;">Child Attendence </h3>
+                            <hr>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                            <p style="margin-top: 18px;"> Completed Tasks</p>
+                            <input style="margin-top: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
                         </div>
-                    </div>
-                    <div class="attendence-bar">
-                        <h3 style="margin-top: 0px;">Child Attendence </h3>
-                        <hr>
-                        <div class="progress" style="margin-left: 30px;">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                        </div>
-                        <p style="margin-top: 20px;"> Completed Tasks</p>
-                        <input style="margin-top: 0px; width: 300px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
-                    </div>
-                    <div class="timetable">
-                        <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
-                        <hr>
-                        <div class="filters">
-                            <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                        </div>
-                        <table style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;">Activity</th>
-                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;"> Start Time</th>
-                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;">End Time</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <!-- childs activity for the day -->
-                        <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <tbody>
+                        <div class="timetable" id="timetable">
+                            <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
+                            <hr>
+                            <div class="filters">
+                                <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                            </div>
+                            <table style="width: 100%;">
+                                <thead>
                                     <tr>
-                                        <td>Breakfast</td>
-                                        <td>8.00 AM</td>
-                                        <td>9.00 AM</td>
+                                        <th style="color: #233E8D; background-color:transparent;">Activity</th>
+                                        <th style="color: #233E8D; background-color:transparent; white-space: nowrap; padding-left: 18%;"> Start Time</th>
+                                        <th style="color: #233E8D; background-color:transparent; white-space: nowrap; padding-left: 7%;">End Time</th>
                                     </tr>
-                                    <tr>
-                                        <td>Creative Play</td>
-                                        <td>9.00 AM</td>
-                                        <td>10.00 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Creative Play</td>
-                                        <td>10.00 AM</td>
-                                        <td>11.00 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Story Time</td>
-                                        <td>11.00 AM</td>
-                                        <td>12.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lunch</td>
-                                        <td>12.00 PM</td>
-                                        <td>1.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bed Time</td>
-                                        <td>1.00 PM</td>
-                                        <td>2.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Basic Learning Activities</td>
-                                        <td>2.00 PM</td>
-                                        <td>3.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tea Time</td>
-                                        <td>3.00 PM</td>
-                                        <td>4.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Outdoor Play</td>
-                                        <td>4.00 PM</td>
-                                        <td>5.00 PM</td>
-                                    </tr>
-                                </tbody>
+                                </thead>
                             </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="report-header" style="justify-content: space-between; text-align: center; margin-top: -5px;">
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
-                        Schedule pickups
-                        <button id="openModalBtn" class="button" style="width: 240px;">Schedule</button>
-                        <div class="pickupresults" id="pickupresults">
-                            <div class="pickup-section"
-                                style="display: flex; flex-direction: row; width: 200px; justify-content: center; align-items: center;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); margin-top: 10px;">
-                                <i class="fas fa-check-circle" style="color:green"></i>
-                                <h4> Success</h4>
+                            <!-- childs activity for the day -->
+                            <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tbody>
+                                        <tr>
+                                            <td>Breakfast</td>
+                                            <td>8.00 AM</td>
+                                            <td>9.00 AM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Creative Play</td>
+                                            <td>9.00 AM</td>
+                                            <td>10.00 AM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Creative Play</td>
+                                            <td>10.00 AM</td>
+                                            <td>11.00 AM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Story Time</td>
+                                            <td>11.00 AM</td>
+                                            <td>12.00 PM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lunch</td>
+                                            <td>12.00 PM</td>
+                                            <td>1.00 PM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bed Time</td>
+                                            <td>1.00 PM</td>
+                                            <td>2.00 PM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Basic Learning Activities</td>
+                                            <td>2.00 PM</td>
+                                            <td>3.00 PM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tea Time</td>
+                                            <td>3.00 PM</td>
+                                            <td>4.00 PM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Outdoor Play</td>
+                                            <td>4.00 PM</td>
+                                            <td>5.00 PM</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
-                        Schedule Meeting
-                        <button id="meetingbtn" class="button" style="width: 240px;">Schedule</button>
-                <div class="pickup-section" id="meetingresults"
-                    style="display: none; width: 220px;margin-bottom: 0px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-                    <p id="meetingresultsdate" style="margin-top: 10px;"></p>
-                    <p id="meetingresultstime"></p>
-                </div>
-                <button id="editmeetingbtn" class="button" style="width: 240px; display: none;">Edit</button>
-                    </div>
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
-                        Schedule Visit
-                        <button id="openvisitModal" class="button" style="width: 240px;">Schedule</button>
-                        <div class="pickup-section" id="visitresults" style="display: none; width: 220px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-                            <p id="visitresultsdate" style="margin-top: 10px;">Nice</p>
-                            <p id="visitresultstime">Nice</p>
+                    <div class="report-header" style="display: flex; flex-direction: row;">
+                        <div class="timetable">
+                            <h3 style="margin-top: 0px; margin-bottom: 5px;">Subject Marks</h3>
+                            <hr>
+                            <div class="filters">
+                                <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                            </div>
+                            <table style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Subject</th>
+                                        <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Description</th>
+                                        <th style="color: #233E8D; background-color:transparent; padding-left:10%;">Marks</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tbody>
+                                        <tr>
+                                            <td>Math</td>
+                                            <td>Algebra and Geometry</td>
+                                            <td>85</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Science</td>
+                                            <td>Physics and Chemistry</td>
+                                            <td>85</td>
+                                        </tr>
+                                        <tr>
+                                            <td>English</td>
+                                            <td>Grammar and Writing</td>
+                                            <td>85</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <button id="editvisitbtn" class="button" style="width: 240px; display: none;">Edit</button>
-                    </div>
-                </div>
-                <div class="general-notes" style="margin-top: -20px; margin-left: 0px;">
-                    <div class="note-head">
-                        <h3>General Notes and Suggestions</h3>
-                    </div>
-                    <div class="text-area" style="margin-top: -10px;">
-                        <textarea rows="2" placeholder="Give suggestions and feedbacks" id="note"></textarea>
-                    </div>
-                    <div style=" display: flex; justify-content: right;">
-                        <button class="button" style="width: 130px; align-items: center;text-align:center;"> Submit </button>
-                    </div>
-                </div>
-            </div>
-            <!-- tasks right navbar -->
-            <div class="task-container" id="tasknavbar" style="position: fixed; margin-top: -882px; margin-left: 1310px;">
-                <h1 style="margin-top: 20px;"> Quick Tasks Hub </h1>
-                <div class="card">
-                    <h2>Calendar</h2>
-                    <div class="calendar-header">
-                        <a href="#">&lt; October</a>
-                        <h3>November 2024</h3>
-                        <a href="#">December &gt;</a>
-                    </div>
-                    <table class="calendar-table">
-                        <thead>
-                            <tr>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
-                                <th>Sun</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>1</td>
-                                <td><span class="today">2</span></td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                                <td>14</td>
-                                <td>15</td>
-                                <td>16</td>
-                                <td>17</td>
-                            </tr>
-                            <tr>
-                                <td>18</td>
-                                <td>19</td>
-                                <td>20</td>
-                                <td>21</td>
-                                <td>22</td>
-                                <td>23</td>
-                                <td>24</td>
-                            </tr>
-                            <tr>
-                                <td>25</td>
-                                <td>26</td>
-                                <td>27</td>
-                                <td>28</td>
-                                <td>29</td>
-                                <td>30</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card">
-                    <h2>Upcoming Tasks</h2>
-                    <div class="task-item">
-                        <div class="task-info">
-                            <p class="task-title">Math Homework</p>
-                            <span class="task-deadline">Due: Nov 5, 2024</span>
+                        <div class="social" style="margin-left: 0px; width: 50%;">
+                            <div class="social-head">
+                                <h3 style="display: inline;">Social Development</h3>
+                            </div>
+                            <div class="skills">
+                                <span style="display: inline;">Connecting with Peers</span>
+                                <input type="range" min="0" max="100" value="50" step="20" readonly>
+                            </div>
+                            <div class="skills">
+                                <span style="display: inline;">Connecting with Peers</span>
+                                <input type="range" min="0" max="100" value="50" step="20" readonly>
+                            </div>
+                            <div class="behaviour-skills" style="margin-top: 0px;">
+                                <div class="text-line">
+                                    <input type="checkbox" name="behaviour">Consistently calm and cooperative
+                                </div>
+
+                                <div class="text-line">
+                                    <input type="checkbox" name="behaviour">Expresses emotions freely
+                                </div>
+                            </div>
                         </div>
-                        <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-info">
-                            <p class="task-title">History Essay</p>
-                            <span class="task-deadline">Due: Nov 10, 2024</span>
+                        <div class="profile margin-right: 1%;">
+                            <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Departure </h3>
+                            <hr>
+                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
+                                <div style="display: flex; flex-direction: row;">
+                                    <h4 style="white-space: nowrap;"> Time : </h4>
+                                    <p style="white-space: nowrap; margin-top: 22px;  margin-left: 5px;"> 6:00 PM </p>
+                                </div>
+                                <div style="display: flex; flex-direction: row;">
+                                    <h4 style="white-space: nowrap; margin-top: -10px;"> Person : </h4>
+                                    <p style="white-space: nowrap; margin-top: -10px; margin-left: 5px;"> Parent </p>
+                                </div>
+                            </div>
+                            <button class="button" style="margin: 0px !important; padding: 15px 20px 15px 20px;"> Customize </button>
                         </div>
-                        <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-info">
-                            <p class="task-title">Science Project</p>
-                            <span class="task-deadline">Due: Nov 15, 2024</span>
-                        </div>
-                        <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
                     </div>
                 </div>
-                <div class="card">
-                    <h2>Main menu</h2>
-                    <a href="#" class="main-menu-item">
-                        <i class="fas fa-bullhorn icon-announcements"></i>
-                        <span>Site announcements</span>
-                    </a>
-                    <a href="#" class="main-menu-item">
-                        <i class="fas fa-globe icon-library"></i>
-                        <span>KIDDOVILLE Funzone</span>
-                    </a>
+                <!-- tasks right navbar -->
+                <div class="task-container" id="tasknavbar" style="top: 0; margin-bottom: -20px; margin-left: -50px; position: sticky; height: 770px; overflow-y: auto;">
+                    <h2 style="margin-top: 30px;"> Quick Tasks Hub </h2>
+                    <div class="card">
+                        <h2 style="margin-top: 15px;">November</h2>
+                        <div class="calendar-header">
+                            <a href="#">&lt;October</a>
+                            <a href="#">December&gt;</a>
+                        </div>
+                        <table class="calendar-table" style="margin-bottom: 15px;">
+                            <thead>
+                                <tr>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                    <th>Sun</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>1</td>
+                                    <td><span class="today">2</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                    <td>15</td>
+                                    <td>16</td>
+                                    <td>17</td>
+                                </tr>
+                                <tr>
+                                    <td>18</td>
+                                    <td>19</td>
+                                    <td>20</td>
+                                    <td>21</td>
+                                    <td>22</td>
+                                    <td>23</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>25</td>
+                                    <td>26</td>
+                                    <td>27</td>
+                                    <td>28</td>
+                                    <td>29</td>
+                                    <td>30</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card">
+                        <h2>Upcoming Tasks</h2>
+                        <div class="task-item">
+                            <div class="task-info">
+                                <p class="task-title">Math Homework</p>
+                                <span class="task-deadline">Due: Nov 5, 2024</span>
+                            </div>
+                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-info">
+                                <p class="task-title">History Essay</p>
+                                <span class="task-deadline">Due: Nov 10, 2024</span>
+                            </div>
+                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-info">
+                                <p class="task-title">Science Project</p>
+                                <span class="task-deadline">Due: Nov 15, 2024</span>
+                            </div>
+                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2>Main menu</h2>
+                        <a href="#" class="main-menu-item">
+                            <i class="fas fa-bullhorn icon-announcements"></i>
+                            <span>Site announcements</span>
+                        </a>
+                        <a href="#" class="main-menu-item">
+                            <i class="fas fa-globe icon-library"></i>
+                            <span>KIDDOVILLE Funzone</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -550,7 +592,7 @@
                     <div class="pickup-section">
                         <label>Select person for pickup</label>
                         <div class="person-section">
-                            <img alt="Person's photo" height="50" src="<?=IMAGE?>/face.jpeg" width="50" />
+                            <img alt="Person's photo" height="50" src="<?= IMAGE ?>/face.jpeg" width="50" />
                             <div class="person-info">
                                 <span>Abdulla</span>
                             </div>
@@ -691,8 +733,8 @@
         </div>
     </div>
     <!-- navigation to message page -->
-    <a href="<?=ROOT?>/Child/Message" class="chatbox">
-        <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
+    <a href="<?= ROOT ?>/Child/Message" class="chatbox">
+        <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
             style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
         <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
             <p> 2</p>
@@ -700,18 +742,18 @@
     </a>
     <!-- profile card -->
     <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
-        <img src="<?=IMAGE?>/back-arrow-2.svg" id="back-arrow-profile"
+        <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
             style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-        <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
+        <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
             class="profile" />
         <h2>Thilina Perera</h2>
         <p>Student    RS0110657</p>
         <button class="profile-button"
-            onclick="window.location.href ='<?=ROOT?>/Child/ChildProfile'">Profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/ParentProfile'">Parent profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/GuardianProfile'">Guardian profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/ChildPackage'">Package</button>
-        <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Child/Home'">LogOut</button>
+            onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">Profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">Parent profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">Guardian profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
+        <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Child/Home'">LogOut</button>
     </div>
     <div class="tasks" id="taskbtn" style="position: fixed;">
         <i class="fas fa-chevron-left" id="taskicon"></i>
@@ -721,48 +763,49 @@
     const fixedSlider = document.getElementById('fixedSlider');
     const initialValue = fixedSlider.value;
 
-    // Add an event listener to reset the slider if it changes
     fixedSlider.addEventListener('input', () => {
         fixedSlider.value = initialValue;
     });
 
     function setChildSession(childName) {
-        fetch('<?=ROOT?>/Child/Home/setchildsession', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ childName: childName })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Child name set in session.");
-                window.location.href = '<?= ROOT ?>/Child/Home';
-            } else {
-                console.error("Failed to set child name in session.", data.message);
-            }
-        })
-        .catch(error => console.error("Error:",error));
+        fetch('<?= ROOT ?>/Child/Home/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    childName: childName
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name set in session.");
+                    window.location.href = '<?= ROOT ?>/Child/Home';
+                } else {
+                    console.error("Failed to set child name in session.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
     }
 
-    function removechildsession(){
-        fetch('<?=ROOT?>/Child/Home/removechildsession', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Child name removed from session.");
-                window.location.href = '<?= ROOT ?>/Parent/Home';
-            } else {
-                console.error("Failed to remove child name from session.", data.message);
-            }
-        })
-        .catch(error => console.error("Error:",error));
+    function removechildsession() {
+        fetch('<?= ROOT ?>/Child/Home/removechildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name removed from session.");
+                    window.location.href = '<?= ROOT ?>/Parent/Home';
+                } else {
+                    console.error("Failed to remove child name from session.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
     }
 </script>
 
