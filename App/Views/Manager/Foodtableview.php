@@ -16,7 +16,10 @@
 
     <div class="container">
         <div class="sidebar">
-            <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            <div class="logo_stuf" style="display: flex;margin-top:6%">
+                <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
+                <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            </div>
             <ul>
                 <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%">

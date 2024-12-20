@@ -10,12 +10,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="<?= JS ?>/Manager/profileview.js"></script>
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="sidebar">
-            <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            <div class="logo_stuf" style="display: flex;margin-top:6%">
+                <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
+                <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            </div>
             <ul>
                 <li class="selected">
                     <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
@@ -44,7 +48,7 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a  href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                        <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
                     </li>
                 </ul>
 
@@ -57,13 +61,13 @@
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Event" style="font-size: 18px;">
-                        <i class="fa fa-calendar-plus"></i>Event</a>
+                            <i class="fa fa-calendar-plus"></i>Event</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Foodtable" style="font-size: 18px;">
-                        <i class="fa fa-pizza-slice"></i>Food Plane</a>
+                            <i class="fa fa-pizza-slice"></i>Food Plane</a>
                     </li>
                 </ul>
                 <ul>
@@ -169,11 +173,283 @@
                     <h2 style="margin-bottom: 3px;color: #233E8D;">20 Employees</h2>
                     <p style="color: #233E8D;">Out of 24 employees today attended to Daycare</p>
                 </div>
-
-
+                <div class="stat">
+                    <h3 style="color: #233E8D;">Total Enrollment</h3>
+                    <h2 style="margin-bottom: 3px;color: #233E8D;">13 Children</h2>
+                    <p style="color: #233E8D;">Dec-2024</p>
+                </div>
             </div>
 
+            <div class="two-divs">
+                <div class="graph">
+                    <h2 style="color: #233E8D;">Income of the month</h2>
+                    <div class="description_gr">
+                        <p style="color: #233E8D;font-weight:bold;color:red;font-size:18px;">Pending :LKR.56000</p>
+                        <p style="color: #233E8D;font-weight:bold;color:green;font-size:18px;">Paid : LKR.123000</p>
+                        <p style="color: #233E8D;font-weight:bold;font-size:18px;">Total:LKR. 156000</p>
+                    </div>
+                    <canvas id="inventoryChart" width="600" height="157"></canvas>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script src="inventoryGraph.js"></script>
+                </div>
+                <div class="leaverequest">
+                    <div id="leave-requests" class="scroll-container">
+                        <h1 style="margin-top: 1%; color:#233E8D; font-size:24px">Leave requests</h1>
+
+                        <!-- Leave Requests -->
+                        <div class="request" data-name="John Doe" data-role="Teacher" data-dates="2024-12-20 to 2024-12-22" data-reason="Flu">
+                            <img img src="<?= IMAGE ?>/profilePic.png"  class="resize" style="width: 50px; border-radius: 50%;">
+                            <p class="l_name"><strong>John Doe</strong><br>Teacher</p>
+                            <p style="margin-top: 10%;">From: 2024-12-20 To: 2024-12-22</p>
+                            <p>Reason: Flu</p>
+                            <button class="viewbtn">View</button>
+                        </div>
+
+                        <div class="request" data-name="Jane Smith" data-role="Maid" data-dates="2024-12-25 to 2024-12-30" data-reason="Family Trip">
+                            <img img src="<?= IMAGE ?>/profilePic.png"  class="resize" style="width: 50px; border-radius: 50%;">
+                            <p class="l_name"><strong>Jane Smith</strong><br>Maid</p>
+                            <p style="margin-top: 10%;">From: 2024-12-25 To: 2024-12-30</p>
+                            <p>Reason: Family Trip</p>
+                            <button class="viewbtn">View</button>
+                        </div>
+
+                        <!-- Overlay -->
+                        <div class="overlay" id="overlay"></div>
+
+                        <!-- Popup -->
+                        <div class="popup" id="popup">
+                            <h3>Personal Leave</h3>
+                            <div class="form-field">
+                                <label>Employee Name</label>
+                                <input type="text" id="popup-name" readonly>
+                            </div>
+                            <div class="form-field">
+                                <label>Application Type</label>
+                                <input type="text" value="Leave Request" readonly>
+                            </div>
+                            <div class="form-field">
+                                <label>Leave</label>
+                                <input type="text" id="popup-dates" readonly>
+                            </div>
+                            <div class="form-field">
+                                <label>Reason</label>
+                                <input type="text" id="popup-reason" readonly>
+                            </div>
+                            <div class="buttons">
+                                <button class="approve-btn">Approve</button>
+                                <button class="reject-btn">Reject</button>
+                            </div>
+                            <span class="close-btn" id="closePopup" style="text-decoration: none;">Close</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="today_visitors">
+    <div class="today_visitors_header">
+        <span><i class="fas fa-door-open"></i>Lastday Visitors Summary</span>
+    </div>
+    <div class="visitor-table-topics">
+        <div class="visitorname"><span>NAME</span></div>
+        <div class="visitorposition"><span>POSITION</span></div>
+        <div class="visitorpurpose"><span>PURPOSE</span></div>
+    </div>
+    <div class="today_visitors_content">
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Lisa Johnson</span></div>
+            <div class="visitorposition"><span>Delivery Personnel</span></div>
+            <div class="visitorpurpose"><span>Delivering office supplies</span></div>
         </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Dr. Emily Brown</span></div>
+            <div class="visitorposition"><span>Pediatrician</span></div>
+            <div class="visitorpurpose"><span>Conducting health check-ups</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Michael Smith</span></div>
+            <div class="visitorposition"><span>Maintenance Staff</span></div>
+            <div class="visitorpurpose"><span>Inspecting AC systems</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Sarah White</span></div>
+            <div class="visitorposition"><span>Parent</span></div>
+            <div class="visitorpurpose"><span>Meeting with teachers</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>David Green</span></div>
+            <div class="visitorposition"><span>IT Technician</span></div>
+            <div class="visitorpurpose"><span>Fixing internet issues</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Anna Roberts</span></div>
+            <div class="visitorposition"><span>Event Organizer</span></div>
+            <div class="visitorpurpose"><span>Planning holiday events</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>John Carter</span></div>
+            <div class="visitorposition"><span>Government Inspector</span></div>
+            <div class="visitorpurpose"><span>Checking safety protocols</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Karen Lee</span></div>
+            <div class="visitorposition"><span>Consultant</span></div>
+            <div class="visitorpurpose"><span>Discussing childcare strategy</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Daniel Williams</span></div>
+            <div class="visitorposition"><span>Courier</span></div>
+            <div class="visitorpurpose"><span>Package delivery</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Jessica Brown</span></div>
+            <div class="visitorposition"><span>Photographer</span></div>
+            <div class="visitorpurpose"><span>Taking promotional photos</span></div>
+        </div>
+        <div class="detailed-lines">
+            <div class="visitorname"><span>Chris Taylor</span></div>
+            <div class="visitorposition"><span>Electrician</span></div>
+            <div class="visitorpurpose"><span>Repairing power issues</span></div>
+        </div>
+    </div>
+</div>
+
+
+        </div>
+
+    </div>
+
+    <script>
+        // Get the canvas element
+        const ctx = document.getElementById('inventoryChart').getContext('2d');
+
+        // const productLabels = ['Jan', 'Feb', 'Mar', 'April', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const productLabels = ['1st', '2nd', '3rd', '4th'];
+        const inventoryData = [56, 32, 42, 65]; // Inventory levels for each product
+
+        // Create the bar chart
+        const inventoryChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: productLabels,
+                datasets: [{
+                    label: 'Income in LKR',
+                    data: inventoryData, // Inventory data
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1 // Border width for bars
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true, // Show the legend
+                    },
+                    tooltip: {
+                        enabled: true, // Show tooltips on hover
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true, // Start y-axis at zero
+                        title: {
+                            display: true,
+                            text: 'Income in LKR X 1000' // Y-axis title
+                        },
+                        ticks: {
+                            stepSize: 10
+                        },
+                        max: 100
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Weekly Income'
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+        const leaveRequests = [{
+                name: "Alice Brown",
+                type: "Teacher",
+                from: "2025-01-01",
+                to: "2025-03-01",
+                Reason: "Flud"
+            },
+            {
+                name: "Mark Lee",
+                type: "Reciptionist",
+                from: "2024-12-23",
+                to: "2024-12-25",
+                Reason: "Sick leave"
+            },
+        ];
+
+        const container = document.getElementById('leave-requests');
+
+        leaveRequests.forEach(request => {
+            const requestDiv = document.createElement('div');
+            requestDiv.className = 'request';
+            requestDiv.innerHTML = ` <img src="<?= IMAGE ?>/profilePic.png"  class="resize"><p class="l_name"><strong>${request.name}</strong><br>${request.type}</p>
+                                         <p style="margin-top: 10%;">From: ${request.from} To: ${request.to}</p>
+                                         <p>Reason: ${request.Reason}</p>  <button class="viewbtn">View</button>`;
+            container.appendChild(requestDiv);
+        });
+
+        const viewButtons = document.querySelectorAll('.viewbtn');
+        const overlay = document.getElementById('overlay');
+        const popup = document.getElementById('popup');
+        const closePopup = document.getElementById('closePopup');
+
+        const popupName = document.getElementById('popup-name');
+        const popupDates = document.getElementById('popup-dates');
+        const popupReason = document.getElementById('popup-reason');
+
+        viewButtons.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                const requestDiv = e.target.closest('.request');
+                const name = requestDiv.getAttribute('data-name');
+                const dates = requestDiv.getAttribute('data-dates');
+                const reason = requestDiv.getAttribute('data-reason');
+
+                // Set popup content dynamically
+                popupName.value = name;
+                popupDates.value = dates;
+                popupReason.value = reason;
+
+                // Show popup
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+        });
+
+        // Close Popup
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        overlay.addEventListener('click', () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    </script>
 </body>
 
 </html>

@@ -15,7 +15,10 @@
 <body>
   <div style="display: flex;">
     <div class="sidebar">
-      <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+      <div class="logo_stuf" style="display: flex;margin-top:6%">
+        <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
+        <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+      </div>
       <ul>
         <li class="hover-effect unselected">
           <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%">
@@ -117,7 +120,9 @@
       </div>
 
       <div class="fill">
-        <h1 style="color:#233E8D;font-size:24px;margin-left:2%;">Manage Problems</h1>
+        <h1 style="color:#233E8D;font-size:24px;margin-left:8%;"><i class="fas fa-exclamation-circle"></i>
+          Manage Problems</h1>
+        <hr>
         <div class="filter-container">
           <select id="problem-type">
             <option value="" disabled selected>Select problem type</option>
@@ -126,7 +131,6 @@
             <option value="Refund-Issue">Refund Issue</option>
             <option value="Medical-Issue">Medical Issue</option>
           </select>
-
         </div>
         <div class="problem-list">
           <div class="problem-item">
@@ -144,8 +148,8 @@
             </div>
             <div class="actions">
               <div class="profile">
-                <img alt="Profile picture of Muhammad Alshamman" height="50" src="<?= IMAGE ?>/profile-face.jpeg"
-                  width="50" />
+                <img alt="Profile picture of Muhammad Alshamman" height="50" src="<?= IMAGE ?>/profilePic.png"
+                  width="70" />
                 <span class="user-name">
                   Muhammad Alshamman
                 </span>
@@ -170,7 +174,7 @@
             </div>
             <div class="actions">
               <div class="profile">
-                <img alt="Profile picture of Abdullah Qureshi" height="50" src="<?= IMAGE ?>/profile-face.jpeg" width="50" />
+                <img alt="Profile picture of Abdullah Qureshi" height="50" src="<?= IMAGE ?>/profilePic.png" width="50" />
                 <span class="user-name">
                   Abdullah Qureshi
                 </span>
@@ -195,7 +199,7 @@
             </div>
             <div class="actions">
               <div class="profile">
-                <img alt="Profile picture of Hannah Jacob" height="50" src="<?= IMAGE ?>/profile-face.jpeg" width="50" />
+                <img alt="Profile picture of Hannah Jacob" height="50" src="<?= IMAGE ?>/profilePic.png" width="50" />
                 <span class="user-name">
                   Hannah Jacob
                 </span>
@@ -220,7 +224,7 @@
             </div>
             <div class="actions">
               <div class="profile">
-                <img alt="Profile picture of Muhammad Ewais" height="50" src="<?= IMAGE ?>/profile-face.jpeg" width="50" />
+                <img alt="Profile picture of Muhammad Ewais" height="50" src="<?= IMAGE ?>/profilePic.png" width="50" />
                 <span class="user-name">
                   Muhammad Ewais
                 </span>

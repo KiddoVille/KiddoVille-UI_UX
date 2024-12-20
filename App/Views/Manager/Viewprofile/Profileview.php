@@ -15,7 +15,10 @@
 
 <body>
     <div class="sidebar">
-        <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+        <div class="logo_stuf" style="display: flex;margin-top:6%">
+            <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
+            <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+        </div>
         <ul>
             <li class="hover-effect unselected">
                 <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:8%">
@@ -48,7 +51,7 @@
                 </li>
             </ul>
 
-            <ul  style="margin-left: -2.5%;">
+            <ul style="margin-left: -2.5%;">
                 <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;margin-left: -20%;">
                         <i class="fas fa-share"></i>Publish
@@ -114,14 +117,14 @@
             </button>
         </div>
     </div>
-    <div style="width: 85%;">
-        <div style="display: block;">
-            <h1 class="heading">
-                View profiles
-            </h1>
-        </div>
-
+    <div style="width: 85%; margin-top:-20%">
         <div class="fill">
+            <div style="display: block;">
+                <h3 class="heading">
+                    View profiles
+                </h3>
+            </div>
+            <hr>
             <div class="search-container">
                 <input placeholder="Search Id" type="text" style="padding: 10px 30px;" />
                 <select id="role">
@@ -134,64 +137,94 @@
                 </select>
             </div>
             <div class="cards">
-                <div class="card">
-                    <img alt="Profile picture of Mohamad Shimhan" height="100" src="<?= IMAGE ?>/face.jpeg" width="100" />
-                    <h2>
-                        Mohamad Shimhan
-                    </h2>
-                    <div class="card-buttons">
-                        <button>View</button>
-                        <button>Delete</button>
+                <div class="report-card">
+                    <div class="card-content">
+                        <div class="profile-img">
+                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
+                        </div>
+                        <div class="card-details">
+                            <h4>Kavindu Jayawardena</h4>
+                            <p>Reg No: SNT110923</p>
+                        </div>
+                        <div class="card-footer">
+                            <button>View</button>
+                            <button class="del">Delete</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <img alt="Profile picture of Mohamad Shimhan" height="100" src="<?= IMAGE ?>/face.jpeg" width="100" />
-                    <h2>
-                        Mohamad Shimhan
-                    </h2>
-                    <div class="card-buttons">
-                        <button>View</button>
-                        <button>Delete</button>
+                <div class="report-card">
+                    <div class="card-content">
+                        <div class="profile-img">
+                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
+                        </div>
+                        <div class="card-details">
+                            <h4>Kavindu Jayawardena</h4>
+                            <p>Reg No: SNT110923</p>
+                        </div>
+                        <div class="card-footer">
+                            <button>View</button>
+                            <button class="del">Delete</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <img alt="Profile picture of Mohamad Shimhan" height="100" src="<?= IMAGE ?>/face.jpeg" width="100" />
-                    <h2>
-                        Mohamad Shimhan
-                    </h2>
-                    <div class="card-buttons">
-                        <button>View</button>
-                        <button>Delete</button>
+                <div class="report-card">
+                    <div class="card-content">
+                        <div class="profile-img">
+                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
+                        </div>
+                        <div class="card-details">
+                            <h4>Kavindu Jayawardena</h4>
+                            <p>Reg No: SNT110923</p>
+                        </div>
+                        <div class="card-footer">
+                            <button>View</button>
+                            <button class="del">Delete</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <img alt="Profile picture of Mohamad Shimhan" height="100" src="<?= IMAGE ?>/face.jpeg" width="100" />
-                    <h2>
-                        Mohamad Shimhan
-                    </h2>
-                    <div class="card-buttons">
-                        <button>View</button>
-                        <button>Delete</button>
+                <div class="report-card">
+                    <div class="card-content">
+                        <div class="profile-img">
+                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
+                        </div>
+                        <div class="card-details">
+                            <h4>Kavindu Jayawardena</h4>
+                            <p>Reg No: SNT110923</p>
+                        </div>
+                        <div class="card-footer">
+                            <button>View</button>
+                            <button class="del">Delete</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <img alt="Profile picture of Mohamad Shimhan" height="100" src="<?= IMAGE ?>/face.jpeg" width="100" />
-                    <h2>
-                        Mohamad Shimhan
-                    </h2>
-                    <div class="card-buttons">
-                        <button>View</button>
-                        <button>Delete</button>
+                <div class="report-card">
+                    <div class="card-content">
+                        <div class="profile-img">
+                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
+                        </div>
+                        <div class="card-details">
+                            <h4>Kavindu Jayawardena</h4>
+                            <p>Reg No: SNT110923</p>
+                        </div>
+                        <div class="card-footer">
+                            <button>View</button>
+                            <button class="del">Delete</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <img alt="Profile picture of Mohamad Shimhan" height="100" src="<?= IMAGE ?>/face.jpeg" width="100" />
-                    <h2>
-                        Mohamad Shimhan
-                    </h2>
-                    <div class="card-buttons">
-                        <button>View</button>
-                        <button>Delete</button>
+                <div class="report-card">
+                    <div class="card-content">
+                        <div class="profile-img">
+                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
+                        </div>
+                        <div class="card-details">
+                            <h4>Kavindu Jayawardena</h4>
+                            <p>Reg No: SNT110923</p>
+                        </div>
+                        <div class="card-footer">
+                            <button>View</button>
+                            <button class="del">Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,14 +234,15 @@
 
     <script>
         function handleClick() {
-                var profileCard = document.getElementById('profileCard');
-                profileCard.classList.toggle('show');
-            }
+            var profileCard = document.getElementById('profileCard');
+            profileCard.classList.toggle('show');
+        }
 
-            function handleHide() {
-                var profileCard = document.getElementById('profileCard');
-                profileCard.classList.remove('show');
-            }
+        function handleHide() {
+            var profileCard = document.getElementById('profileCard');
+            profileCard.classList.remove('show');
+        }
     </script>
 </body>
+
 </html>

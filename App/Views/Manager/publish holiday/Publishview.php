@@ -14,7 +14,10 @@
 <body id="body">
     <div style="display: flex;">
         <div class="sidebar">
-            <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            <div class="logo_stuf" style="display: flex;margin-top:6%">
+                <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
+                <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            </div>
             <ul>
                 <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%">
@@ -114,7 +117,7 @@
             </div>
 
             <div class="leave-form-container">
-                <h1 style="color: #233E8D;">Publish Leaves</h1>
+                <h1 style="color: #233E8D;">Publish Holidays</h1>
                 <form action="<?= ROOT ?>/Manager/Home" method="post" class="leave-form">
                     <div class="form-group">
                         <label for="leave-type">Leave Type <span class="required">*</span></label>

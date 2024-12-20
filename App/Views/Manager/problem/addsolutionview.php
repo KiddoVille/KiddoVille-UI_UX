@@ -43,7 +43,8 @@
         background-color: #ffffff;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
-    .but{
+
+    .but {
         margin-top: -3%;
     }
 
@@ -86,7 +87,10 @@
 <body style="background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);">
     <div>
         <div class="sidebar">
-            <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            <div class="logo_stuf" style="display: flex;margin-top:6%">
+                <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
+                <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            </div>
             <ul>
                 <li class="selected">
                     <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;">
@@ -154,35 +158,35 @@
             </ul>
         </div>
         <div class="header" style="margin-top:-8.5%">
-                <div class="name">
-                    <h1 style="margin-left: -65%;">Hey Namal</h1>
-                    <p style="color: white;">Let’s do some productive activities today</p>
-                </div>
-                <div class="profile">
-                    <button class="profilebtn" onclick="handleClick()">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
-                    </button>
-                </div>
-                <div class="profile-card" id="profileCard" style="margin-top: 21%;">
-                    <button class="back" onclick="handleHide()"><i class="fas fa-chevron-left"></i></button>
-                    <img alt="Profile picture of Thilina Perera" height="100" src="../Assets/shimhan.jpg" width="100" class="profile" />
-                    <h2>
-                        Thilina Perera
-                    </h2>
-                    <p>
-                        ID    RS0110657
-                    </p>
-                    <button class="profile-button">
-                        Personal info
-                    </button>
-                    <button class="secondary-button">
-                        Change Password
-                    </button>
-                    <button class="logout-button">
-                        LogOut
-                    </button>
-                </div>
+            <div class="name">
+                <h1 style="margin-left: -65%;">Hey Namal</h1>
+                <p style="color: white;">Let’s do some productive activities today</p>
             </div>
+            <div class="profile">
+                <button class="profilebtn" onclick="handleClick()">
+                    <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                </button>
+            </div>
+            <div class="profile-card" id="profileCard" style="margin-top: 21%;">
+                <button class="back" onclick="handleHide()"><i class="fas fa-chevron-left"></i></button>
+                <img alt="Profile picture of Thilina Perera" height="100" src="../Assets/shimhan.jpg" width="100" class="profile" />
+                <h2>
+                    Thilina Perera
+                </h2>
+                <p>
+                    ID    RS0110657
+                </p>
+                <button class="profile-button">
+                    Personal info
+                </button>
+                <button class="secondary-button">
+                    Change Password
+                </button>
+                <button class="logout-button">
+                    LogOut
+                </button>
+            </div>
+        </div>
         <div class="popup">
             <form action="Manage-problem.html" style="height:300px;" method="post">
                 <div class="solution-container">

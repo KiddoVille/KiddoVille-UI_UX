@@ -10,74 +10,14 @@
     <script src="<?= JS ?>/Manager/profileview.js"></script>
 
 </head>
-<style>
-    /* Add styles for the modal */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-content {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        border-radius: 10px;
-        width: 400px;
-        text-align: center;
-    }
-
-    .modal-buttons {
-        display: flex;
-        justify-content: space-evenly;
-        margin-top: 20px;
-    }
-
-    .modal-buttons button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .delete-btn {
-        background-color: #e74c3c;
-        color: white;
-    }
-
-    .cancel-btn {
-        background-color: #95a5a6;
-        color: white;
-    }
-
-    .package-card button {
-        margin: 5px;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: #3498db;
-        color: white;
-    }
-
-    .delete-btn:hover {
-        background-color: red;
-    }
-
-    .view-btn:hover {
-        background-color: aqua;
-    }
-</style>
 
 <body>
     <div class="container">
-    <div class="sidebar">
-            <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+        <div class="sidebar">
+            <div class="logo_stuf" style="display: flex;margin-top:6%">
+                <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
+                <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
+            </div>
             <ul>
                 <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;">
@@ -106,7 +46,7 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a  href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                        <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
                     </li>
                 </ul>
 
@@ -119,13 +59,13 @@
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Event" style="font-size: 18px;">
-                        <i class="fa fa-calendar-plus"></i>Event</a>
+                            <i class="fa fa-calendar-plus"></i>Event</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Foodtable" style="font-size: 18px;">
-                        <i class="fa fa-pizza-slice"></i>Food Plane</a>
+                            <i class="fa fa-pizza-slice"></i>Food Plane</a>
                     </li>
                 </ul>
                 <ul>
@@ -146,37 +86,38 @@
             </ul>
         </div>
         <div class="header" style="margin-top:-1.5%">
-                <div class="name">
-                    <h1>Hey Namal</h1>
-                    <p style="color: white;">Let’s do some productive activities today</p>
-                </div>
-                <div class="profile">
-                    <button class="profilebtn" onclick="handleClick()">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
-                    </button>
-                </div>
-                <div class="profile-card" id="profileCard" style="margin-top: 21%;">
-                    <button class="back" onclick="handleHide()"><i class="fas fa-chevron-left"></i></button>
-                    <img alt="Profile picture of Thilina Perera" height="100" src="../Assets/shimhan.jpg" width="100" class="profile" />
-                    <h2>
-                        Thilina Perera
-                    </h2>
-                    <p>
-                        ID    RS0110657
-                    </p>
-                    <button class="profile-button">
-                        Personal info
-                    </button>
-                    <button class="secondary-button">
-                        Change Password
-                    </button>
-                    <button class="logout-button">
-                        LogOut
-                    </button>
-                </div>
+            <div class="name">
+                <h1>Hey Namal</h1>
+                <p style="color: white;">Let’s do some productive activities today</p>
             </div>
+            <div class="profile">
+                <button class="profilebtn" onclick="handleClick()">
+                    <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                </button>
+            </div>
+            <div class="profile-card" id="profileCard" style="margin-top: 21%;">
+                <button class="back" onclick="handleHide()"><i class="fas fa-chevron-left"></i></button>
+                <img alt="Profile picture of Thilina Perera" height="100" src="../Assets/shimhan.jpg" width="100" class="profile" />
+                <h2>
+                    Thilina Perera
+                </h2>
+                <p>
+                    ID    RS0110657
+                </p>
+                <button class="profile-button">
+                    Personal info
+                </button>
+                <button class="secondary-button">
+                    Change Password
+                </button>
+                <button class="logout-button">
+                    LogOut
+                </button>
+            </div>
+        </div>
         <div class="fill" style="margin-left: 300px;">
             <h1 style=" margin-left: 20px;color:#233E8D ;width:75%;margin-top:20px;">Packages</h1>
+            <hr>
             <div class="packages">
                 <?php if (!empty($data['packageData'])) : ?>
                     <?php foreach ($data['packageData'] as $package) : ?>
@@ -184,7 +125,7 @@
                             <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                             <p><?= $package->name; ?></p>
                             <p style="display: none;"><?= $package->services; ?></p>
-                            <p><?= $package->price; ?></p>
+                            <p>LKR.<?= $package->price; ?>.00</p>
                             <p style="display: none;"><?= $package->days; ?></p>
                             <p style="display: none;"><?= $package->id; ?></p>
                             <button id='confirmView' class="view-btn" onclick="viewPackage('<?= $package->id; ?>')">View</button>
@@ -241,11 +182,11 @@
 
 
 
-           
+
 
         }
 
-        
+
 
         confirmDeleteBtn.onclick = function() {
             if (packageIdToDelete) {
@@ -282,7 +223,7 @@
                 deleteModal.style.display = 'none';
                 packageIdToDelete = null;
             }
-        };  
+        };
     </script>
 
 </body>
