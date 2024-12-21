@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);;
+}
+
+/* .container_leave{
+    background-color: white;
+    margin-left: 40%;
+    margin-top: -30%;
+} */
+
+.main-content{
+    margin-top: 100%;
+}
+
+
+
+.popup {
+    width: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transform: scale(1);
+    animation: popupAnimation 0.3s ease-in-out;
+    margin-left: 55%;
+    margin-bottom:20%;
+}
+
+@keyframes popupAnimation {
+    from {
+        transform: scale(0.7);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.header {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.form-group {
+    padding: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    width: 340px;
+    height: 80px;
+}
+
+.form-group .required {
+    color: red;
+}
+
+
+
+.buttons button {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons  .cancel {
+    background-color: #e0e0e0;  
+    width: 80px;
+    height: 35px;
+    text-decoration: none;
+    color:white;
+    margin-left:280px ;
+    margin-top: -90px;
+}
+
+
+
+.buttons  .publish {
+    background-color: #007bff;
+    width: 80px;
+    height: 35px;
+    text-decoration: none;
+    color: white;
+    margin-left: 10px;
+}
+
+.background {
+    background-image: url('C:\Users\Lenovo\Desktop\Daycare front end\Assets\ event.png');
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+}

@@ -4,7 +4,7 @@
 <head>
     <title>Create Package</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="<?= CSS ?>/Manager/component.css" />
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/component.css?v=<?= time() ?>" />
     <link rel="icon" href="<?= IMAGE ?>/KIDDOVILLE_LOGO.jpg">
     <style>
         .services {
@@ -96,7 +96,7 @@
 
         <!-- Cancel button -->
         <div class="buttons" style="margin-left: 280px; margin-top: -35px;">
-            <a href="view-package.html"><button type="button" class="cancel">Cancel</button></a>
+            <a href="<?=ROOT?>/Manager/Home"><button type="button" class="cancel">Cancel</button></a>
         </div>
     </div>
 </body>

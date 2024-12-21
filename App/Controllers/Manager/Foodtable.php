@@ -4,9 +4,9 @@
 
     defined('ROOTPATH') or exit('Access denied');
 
-    class Viewprofile{
+    class Foodtable{
         use MainController;
         public function index(){
-            $this->view('Manager/Viewprofile/Profile');
+            $this->view('Manager/Foodtable');
         }
     }

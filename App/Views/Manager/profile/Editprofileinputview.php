@@ -61,10 +61,10 @@
             <br />
           </span>
           <button class="button-c" onclick="window.location.href='../../Login/Signup.html'">Join Us Today</button>
-          <img alt="Kids" src="../<?= IMAGE ?>/Kids.png" class="kids" />
-          <img alt="cloud" src="../<?= IMAGE ?>/cloud-1.png" class="cloud-1" />
-          <img alt="cloud" src="../<?= IMAGE ?>/cloud-2.png" class="cloud-2" />
-          <img alt="cloud" src="../<?= IMAGE ?>/cloud-2.png" class="cloud-3" />
+          <img alt="Kids" src="<?= IMAGE ?>/Kids.png" class="kids" />
+          <img alt="cloud" src="<?= IMAGE ?>/cloud-1.png" class="cloud-1" />
+          <img alt="cloud" src="<?= IMAGE ?>/cloud-2.png" class="cloud-2" />
+          <img alt="cloud" src="<?= IMAGE ?>/cloud-2.png" class="cloud-3" />
         </div>
         <div class="content">
           <span class="Why-choose"><span>Why choose us?</span></span>
