@@ -1,0 +1,209 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);
+    margin: 0;
+    padding: 0;
+}
+
+.container_event {
+    display: flex;
+    padding: 20px;
+    width: 70%;
+    margin: auto;
+    gap: 0;
+    margin-top: 9%;
+    margin-left:23%;
+}
+.card1,.card2{
+    width: 50%;
+}
+
+.form-section
+{
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    
+}
+
+.form-section h2,
+.upload-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    height: 150px;
+}
+
+.add-content {
+    color: #007bff;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+}
+
+.upload-section {
+    background: rgba(255, 255, 255, 0.9);
+    height: 50%;
+    width: 55%;
+    border-radius: 0 2% 2% 0;
+    text-align: center;
+}
+
+.upload-box {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    height: 40%;
+    margin: 30px 0px;
+    padding: 60px 0px;
+    width: 79.3%;
+    margin-left: 10%;
+    
+}
+
+.upload-box i {
+    font-size: 50px;
+    color: #ccc;
+}
+
+.upload-box p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.upload-box button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.import-url {
+    margin-bottom: 20px;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: -1%;
+}
+
+.import-url input {
+    width: calc(100%);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+.buttons button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    font-size: 14px; /* Smaller font size */
+    border-radius: 5px;
+    height: 35Px;
+    cursor: pointer;
+    min-width: 80px; /* Minimum size */
+    text-align: center;
+    margin-bottom: 12px;
+    margin-top: -10px;
+}
+
+.done{
+    margin-left: -1000%;
+}
+
+
+
+
+.buttons .cancel:hover{
+    background-color: #ccc;
+}
+.custom-file-input {
+    display: none;
+}
+
+
+.custom-file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:#007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.custom-file-label:hover {
+    background-color: #007bff;
+}
+/* .toggle {
+    position: absolute; 
+    top: 10px; 
+    right: 200px;
+    z-index: 10000;
+}
+.toggle input {
+    display: none; 
+}
+.toggle .slider {
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+.toggle .slider:before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 1px;
+    left: 1px;
+    transition: all 0.3s;
+}
+input:checked + .slider {
+    background-color: #007bff;
+}
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+.content {
+    display: none;
+}
+
+.content.show {
+    display: block;
+}
+
+
+ */

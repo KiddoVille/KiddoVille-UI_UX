@@ -3,7 +3,7 @@
 
 <head>
     <title>Publish Leaves</title>
-    <link rel="stylesheet" href="<?=CSS?>/Manager/meeting.css">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/meeting.css">
     <link rel="icon" href="C:\Users\Lenovo\Desktop\Daycare front end\Assets\KIDDOVILLE_LOGO.jpg">
 </head>
 
@@ -25,14 +25,14 @@
                     <option>Cultural Leave</option>
                     <option>Religion Leave</option>
                 </select>
-                
+
                 <label for="dates">Dates <span class="required">*</span></label>
                 <input type="date" id="dates" value="08/14/2025" style="width:340px" required>
-                
+
                 <label for="about">About</label>
                 <textarea id="about" placeholder="Include comments for your approver" required></textarea>
             </div>
-            
+
             <div class="buttons">
                 <button type="submit" onclick="history.back();" class="publish">Publish</button>
                 <button type="button" style="margin-left:200px;width:85px;height:35px">Cancel</button>

@@ -4,12 +4,12 @@
 
     defined('ROOTPATH') or exit('Access denied');
 
-    class Foodplane{
+    class Problem{
         use MainController;
         public function index(){
-            $this->view('Manager/Foodplane/Food');
+            $this->view('Manager/problem/Problem');
         }
-        public function editblog(){
-            $this->view('Manager/Blog/Editbloginput');
+        public function solution(){
+            $this->view('Manager/problem/addsolution');
         }
     }

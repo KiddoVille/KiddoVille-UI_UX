@@ -134,6 +134,5 @@
         }
         
     </script>
-    <div id="toast" class="toast"></div>
 </body>
 </html>
