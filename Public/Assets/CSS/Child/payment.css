@@ -8,6 +8,13 @@
     width: 100%;
 }
 
+.minimized ul{
+    margin-top: -30px !important;
+}
+.sidebar ul{
+    margin-top: -20px !important;
+}
+
 .saperate {
     display: flex;
     flex-direction: row;
@@ -111,7 +118,7 @@
 }
 
 .reservation-container thead {
-    background-color: #0288d1;
+    background-color: #60a6ec;
     color: #ffffff;
 }
 
@@ -124,7 +131,7 @@
 }
 
 .reservation-container th {
-    background-color: #0288d1;
+    background-color: #60a6ec;
     color: #ffffff;
     font-weight: 800;
     white-space: nowrap;
@@ -161,10 +168,6 @@
 
 .reservation-container tr:nth-child(even) td {
     background-color: #eaf3fa;
-}
-
-.reservation-container tr:hover td {
-    background-color: #d1ecf5;
 }
 
 /* Custom scrollbar for Webkit browsers */
@@ -204,36 +207,31 @@
     height: 40px;
 }
 
-.approved p {
-    color: #099690;
-    margin-top: 10px;
-}
-
-/* pending */
 .pending {
-    background-color: #F1E1FE;
-    border-color: #BC6BFF;
-    border: 2px solid #BC6BFF;
+    background-color: #FFF8E1;
+    border-color: #FFC107;
+    border: 2px solid #b38601;
     border-radius: 20px;
     height: 40px;
 }
 
-.pending p {
-    color: #BC6BFF;
-    margin-top: 10px;
-}
-
-/* cancel */
 .cancel {
     background-color: #F6DADA;
     border-color: #FF8787;
-    border: 2px solid #FF8787;
+    border: 2px solid #f96969;
     border-radius: 20px;
     height: 40px;
 }
 
+.approved p {
+    margin-top: 10px;
+}
+
+.pending p {
+    margin-top: 10px;
+}
+
 .cancel p {
-    color: #FF8787;
     margin-top: 10px;
 }
 

@@ -7,6 +7,13 @@
     height: 100% !important;
 }
 
+.minimized ul{
+    margin-top: -30px !important;
+}
+.sidebar ul{
+    margin-top: -20px !important;
+}
+
 .saperate {
     display: flex;
     flex-direction: row;
@@ -29,7 +36,6 @@
     box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
     border-radius: 12px;
     padding: 20px 10px;
-    max-width: 500px;
     width: 90%;
     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
@@ -100,7 +106,7 @@
 }
 
 .event-container thead {
-    background-color: #0288d1;
+    background-color: #60a6ec;
     color: #ffffff;
 }
 
@@ -113,7 +119,7 @@
 }
 
 .event-container th {
-    background-color: #0288d1;
+    background-color: #60a6ec;
     color: #ffffff;
     font-weight: 800;
     white-space: nowrap;
@@ -150,10 +156,6 @@
 
 .event-container tr:nth-child(even) td {
     background-color: #eaf3fa;
-}
-
-.event-container tr:hover td {
-    background-color: #d1ecf5;
 }
 
 /* Custom scrollbar for Webkit browsers */

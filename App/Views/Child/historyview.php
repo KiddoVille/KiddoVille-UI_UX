@@ -8,19 +8,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Child/history.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
-    <script src="<?= JS ?>/Child/history.js"></script>
-    <script src="<?= JS ?>/Child/Navbar.js"></script>
-    <script src="<?= JS ?>/Child/Pickup.js"></script>
-    <script src="<?= JS ?>/Child/OTP.js"></script>
-    <script src="<?= JS ?>/Child/Taskbar.js"></script>
+    <script src="<?= JS ?>/Child/history.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Pickup.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/OTP.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/Profile.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
 </head>
 
 <body style="overflow: hidden;">
     <div class="container">
         <!-- mimnized sidebar -->
-        <div class="sidebar minimized" id="sidebar1">
-            <img src="<?= IMAGE ?>/navbar-star.png" class="star show" id="starImage">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
+        <div class="sidebar" id="sidebar1">
+            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
+            <div class="logo-div">
+                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
+            </div>
             <ul>
                 <li class="hover-effect unselected first">
                     <a href="<?= ROOT ?>/Child/Home">
@@ -186,14 +190,15 @@
             <div class="saperate" style="height: 540px;">
                 <!-- Child history table -->
                 <div class="child-history" style="width: 760px !important; height: 430px !important; margin-top: 0px;">
-                    <h1>Child History</h1>
+                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Child History </h2>
+                    <hr>
                     <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                     <table style="margin-bottom: 20px;">
                         <thead>
                             <tr>
                                 <th style="padding: 10px -5px;">Date</th>
-                                <th>Arrival time</th>
-                                <th>Departure time</th>
+                                <th>Arrival</th>
+                                <th>Departure</th>
                                 <th>Pickup person</th>
                             </tr>
                         </thead>
@@ -254,7 +259,10 @@
                 </div> -->          
                 <div class="attendance">
                     <div class="attendance-component">
-                        <h1>Attendance</h1>
+                        <div style="display: flex; flex-direction: column;">
+                            <h2 style="margin-top: -5px !important; margin-bottom: 2px;"> Attendance </h2>
+                            <hr style="width: 480px;">
+                        </div>
                         <div class="contain">
                             <div class="attendance-grid">
                                 <div class="attendance-item present">
@@ -320,10 +328,6 @@
                     <p> 2</p>
                 </div>
             </a>
-            <!-- tasks right navbar -->
-            <div class="tasks" id="taskbtn">
-                <i class="fas fa-chevron-left" id="taskicon"></i>
-            </div>
         </div>
         <!-- Profile card -->
         <div class="profile-card" id="profileCard" tyle="margin-top: -710px;">
@@ -349,114 +353,6 @@
             <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
                 LogOut
             </button>
-        </div>
-        <!-- Task Modal -->
-        <div class="task-container" id="tasknavbar">
-            <h1 style="margin-top: 20px;"> Quick Tasks Hub </h1>
-            <div class="card">
-                <h2>Calendar</h2>
-                <div class="calendar-header">
-                    <a href="#">&lt; October</a>
-                    <h3>November 2024</h3>
-                    <a href="#">December &gt;</a>
-                </div>
-                <!-- calender -->
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                            <th>Sun</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>1</td>
-                            <td><span class="today">2</span></td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>12</td>
-                            <td>13</td>
-                            <td>14</td>
-                            <td>15</td>
-                            <td>16</td>
-                            <td>17</td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td>19</td>
-                            <td>20</td>
-                            <td>21</td>
-                            <td>22</td>
-                            <td>23</td>
-                            <td>24</td>
-                        </tr>
-                        <tr>
-                            <td>25</td>
-                            <td>26</td>
-                            <td>27</td>
-                            <td>28</td>
-                            <td>29</td>
-                            <td>30</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card">
-                <h2>Upcoming Tasks</h2>
-                <div class="task-item">
-                    <div class="task-info">
-                        <p class="task-title">Math Homework</p>
-                        <span class="task-deadline">Due: Nov 5, 2024</span>
-                    </div>
-                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                </div>
-                <div class="task-item">
-                    <div class="task-info">
-                        <p class="task-title">History Essay</p>
-                        <span class="task-deadline">Due: Nov 10, 2024</span>
-                    </div>
-                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                </div>
-                <div class="task-item">
-                    <div class="task-info">
-                        <p class="task-title">Science Project</p>
-                        <span class="task-deadline">Due: Nov 15, 2024</span>
-                    </div>
-                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                </div>
-            </div>
-            <div class="card">
-                <h2>Main menu</h2>
-                <a href="#" class="main-menu-item">
-                    <i class="fas fa-bullhorn icon-announcements"></i>
-                    <span>Site announcements</span>
-                </a>
-                <a href="#" class="main-menu-item">
-                    <i class="fas fa-globe icon-library"></i>
-                    <span>KIDDOVILLE Funzone</span>
-                </a>
-            </div>
         </div>
     </div>
     <script>
@@ -500,7 +396,7 @@
                 })
                 .catch(error => console.error("Error:", error));
         }
-    </script>
+    </>
 </body>
 
 </html>

@@ -4,10 +4,10 @@
 
     defined('ROOTPATH') or exit('Access denied');
 
-    class Home{
+    class CreatePost{
         use MainController;
         public function index(){
-            $this->view('main/home');
+            $this->view('Main/CreatePost');
         }
     }
 ?>
