@@ -7,80 +7,84 @@
     </title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="<?=CSS?>/Child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Child/funzonehome.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzone.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Setting.js"></script>
-    <script src="<?=JS?>/Child/Parental-lock.js"></script>
-    <script src="<?=JS?>/Child/Select-child.js"></script>
-    <script src="<?=JS?>/Child/Select-type.js"></script>
-    <script src="<?=JS?>/Child/Load.js"></script>
+    <script src="<?=JS?>/Child/Setting.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/Select-child.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/Select-type.js?v=<?= time() ?>"></script>
+    <!-- <script src="../JS/Load.js"></script> -->
 </head>
 
 <body>
-    <!-- minimized sidebar navigate pages -->
-    <div class="sidebarhome minimized" id="sidebar1">
-        <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-        <h2 style="margin-top: -15px;">Dashboard</h2>
-        <ul>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/Home">
-                    <i class="fas fa-home" style="font-size: 20px; color: black; margin-left: -2px;"></i> <span>Home</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/history">
-                    <i class="fas fa-history"></i> <span>History</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/report">
-                    <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/reservation">
-                    <i class="fas fa-calendar-check"></i> <span>Reservation</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/meal">
-                    <i class="fas fa-utensils"></i> <span>Meal plan</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/event">
-                    <i class="fas fa-calendar-alt"></i> <span>Event</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/package">
-                    <i class="fas fa-box"></i> <span>Package</span>
-                </a>
-            </li>
-            <li class="selected" style="margin-top: 40px;">
-                <a href="<?=ROOT?>/Child/funzonehome">
-                    <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/payment">
-                    <i class="fas fa-credit-card"></i> <span>Payments</span>
-                </a>
-            </li>
-        </ul>
-        <hr style="margin-top: 40px;">
-        <div class="help">
-            <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
+    <!-- minimized sidebar -->
+    <div class="sidebarhome" id="sidebar1">
+            <div class="logo-div" style="display: flex; flex-direction: row; align-items: center; margin-left: 20px;">
+            <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo" style="width: 60px; height: 60px; margin-left: 0px; margin-bottom: 0px;"> </img>
+            <h2 id="sidebar-kiddo" style="font-size: 1.5em; margin-left: 10px;">KIDDO VILLE </h2>
         </div>
-    </div>
-    <!-- to navigate funzone -->
-    <div class="sidebar">
-        <a href="<?=ROOT?>/ReChild/Home">
+            <ul style="margin-top: -20px;">
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Home">
+                        <i class="fas fa-house"></i> <span>Home</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/history">
+                        <i class="fas fa-history"></i> <span>History</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/report">
+                        <i class="fa fa-user-shield"></i> <span>Report</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/reservation">
+                        <i class="fas fa-calendar-check"></i> <span>Reservation</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/meal">
+                        <i class="fas fa-utensils"></i> <span>Meal plan</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/event">
+                        <i class="fas fa-calendar-alt"></i> <span>Event</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/package">
+                        <i class="fas fa-box"></i> <span>Package</span>
+                    </a>
+                </li>
+                <li class="selected" style="margin-top: 40px;">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
+                        <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/payment">
+                        <i class="fas fa-credit-card"></i> <span>Payments</span>
+                    </a>
+                </li>
+            </ul>
+            <hr style="margin-top: 40px;">
+            <div class="help">
+                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
+                        id="help">Help</span></a>
+            </div>
+        </div>
+    <!-- navigation for funzone -->
+    <!-- <div class="sidebar" style="background:white;">
+        <a href="<?ROOT?>/ReParent/Home">
             <img alt="Kiddo Ville Logo" height="50" src="<?=IMAGE?>/logo_light-remove.png" width="50" />
         </a>
         <h1>Kiddo Ville</h1>
         <input placeholder="Search" type="text" /><i class="fas fa-search"></i>
-        <button onclick="location.href='<?=ROOT?>/Child/funzonehome';">Home</button>
+        <button onclick="location.href='<?=ROOT?>/Parent/funzonehome';">Home</button>
         <div class="custom-select-container" tabindex="0">
             <div class="custom-select-trigger">
                 Type <i class="fa fa-chevron-down"></i>
@@ -95,29 +99,31 @@
                 <div class="custom-option"> Lessons </div>
             </div>
         </div>
-        <button onclick="location.href='<?=ROOT?>/Child/funzonewhishlist';">Wishlist</button>
-        <button onclick="location.href='<?=ROOT?>/Child/funzoneTasks';">Tasks</button>
-        <button onclick="location.href='<?=ROOT?>/Child/funzoneHistory';">History</button>
+        <button onclick="location.href='<?=ROOT?>/Parent/funzonewhishlist';">Wishlist</button>
+        <button onclick="location.href='<?=ROOT?>/Parent/funzoneTasks';">Tasks</button>
+        <button onclick="location.href='<?=ROOT?>/Parent/funzoneHistory';">History</button>
         <div class="bottom-text">
-            <a href="<?=ROOT?>/ReChild/Home" class="nav-link">
+            <a href="<?=ROOT?>/ReParent/Home" class="nav-link">
                 <i class="fas fa-home"></i>
                 <p class="Welcome">Welcome to Funzone</p>
             </a>
         </div>
-    </div>
-    <div class="main-content" id="main-content" style="background:linear-gradient(to bottom right, #f7f7f7,#eaeaea)" >
+    </div> -->
+    <div class="main-content" id="main-content" style=" background:linear-gradient(to bottom right, #f7f7f7, #eaeaea)">
         <!-- Header -->
         <div class="header">
             <div class="nav-buttons">
-                <div class="circle">
+                <div class="circle" onclick="window.location.href='<?=ROOT?>/Child/funzoneHistory'">
                     <i class="fas fa-chevron-left"></i>
                 </div>
-                <div class="circle">
+                <div class="circle" onclick="window.location.href='<?=ROOT?>/Child/funzoneWhishlist'">
                     <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
             <h2>Home</h2>
-            <!-- settings -->
+            <div class="search-bar" style="margin-left: -600px; margin-right: 200px; margin-top:0px;">
+                <input type="text" placeholder="Search">
+            </div>
             <i class="fas fa-cog settings"></i>
             <div class="profile-card" id="profileCard" style="margin-top: 200px;">
                 <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
@@ -127,8 +133,9 @@
                 <h2 class="child-name">Thilina Perera</h2>
                 <p>Student    RS0110657</p>
                 <button class="logout-button"
-                    onclick="window.location.href = '<?=ROOT?>/Main/Home' ">Logout</button>
-                <div class="lock" id="lockcon">
+                    onclick="window.location.href = '<?=ROOT?>/Main/Home' ">Logout
+                </button>
+                <div class="lock">
                     <p class="lock-p"> Parental lock</p>
                     <div class="switch">
                         <input type="checkbox" id="toggle">
@@ -140,70 +147,236 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <div class="contents" id="contents">
+        <div class="header2">
+            <img src="<?=IMAGE?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
+            <p style="color: white; font-size: 17px;">Funzone </p>
+            <a href="<?=ROOT?>/Child/funzonehome" class="hover-effect select" style="margin-left: 170px;">Home</a>
+            <a href="<?=ROOT?>/Child/funzonewhishlist" class="hover-effect">Whishlist</a>
+            <a href="<?=ROOT?>/Child/funzonetasks" class="hover-effect">Task</a>
+            <a href="<?=ROOT?>/Child/funzonehistory" class="hover-effect">History</a>
+            <select style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
+                <option> Videos </option>
+                <option> Books </option>
+                <option> Images </option>
+                <option> Songs </option>
+            </select>
+        </div>
+        <div class="contents" id="contents" style="margin-top: -100px !important;">
+            <div class="day">
+                <h3> Trending Now </h3>
+            </div>
             <div class="grid" id="grid">
-                <div class="item" onclick="window.location.href='<?=ROOT?>/ReChild/video'">
+                <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/video'">
                     <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
                     <h3>Over It</h3>
-                    <p> Small description</p>
                 </div>
-                <div class="item" onclick="window.location.href='<?=ROOT?>/ReChild/youtube'">
+                <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/youtube'">
                     <img alt="Leo Season" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
                     <h3>Leo Season </h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Amalia(Deluxe Version)" src="<?=IMAGE?>/funzone-3.png" />
                     <h3>Amalia(Deluxe Version)</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Fever" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
                     <h3>Fever</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Certified Lover Boy" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
                     <h3>Certified Lover Boy</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Dawn FM" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
                     <h3>Dawn FM</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Meet The Woo" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
                     <h3>Meet The Woo</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Queen" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
                     <h3>Queen</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
                     <h3>Issa</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
                     <h3>Issa</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
                     <h3>Issa</h3>
-                    <p> Small description</p>
                 </div>
                 <div class="item">
                     <img alt="Plain Jane REMIX (feat. Nicki Minaj) - Single" height="150"
                         src="<?=IMAGE?>/funzone-4.png" width="150" />
                     <h3>Plain Jane</h3>
-                    <p> Small description</p>
+                </div>
+            </div>
+            <div class="day" style="margin-top: 20px;">
+                <h3> Watch It Again </h3>
+            </div>
+            <div class="grid" id="grid">
+                <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/video'">
+                    <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Over It</h3>
+                </div>
+                <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/youtube'">
+                    <img alt="Leo Season" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Leo Season </h3>
+                </div>
+                <div class="item">
+                    <img alt="Amalia(Deluxe Version)" src="<?=IMAGE?>/funzone-3.png" />
+                    <h3>Amalia(Deluxe Version)</h3>
+                </div>
+                <div class="item">
+                    <img alt="Fever" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Fever</h3>
+                </div>
+                <div class="item">
+                    <img alt="Certified Lover Boy" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Certified Lover Boy</h3>
+                </div>
+                <div class="item">
+                    <img alt="Dawn FM" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Dawn FM</h3>
+                </div>
+                <div class="item">
+                    <img alt="Meet The Woo" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
+                    <h3>Meet The Woo</h3>
+                </div>
+                <div class="item">
+                    <img alt="Queen" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Queen</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Plain Jane REMIX (feat. Nicki Minaj) - Single" height="150"
+                        src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Plain Jane</h3>
+                </div>
+            </div>
+            <div class="day" style="margin-top: 20px;">
+                <h3> Popular </h3>
+            </div>
+            <div class="grid" id="grid">
+                <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/video'">
+                    <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Over It</h3>
+                </div>
+                <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/youtube'">
+                    <img alt="Leo Season" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Leo Season </h3>
+                </div>
+                <div class="item">
+                    <img alt="Amalia(Deluxe Version)" src="<?=IMAGE?>/funzone-3.png" />
+                    <h3>Amalia(Deluxe Version)</h3>
+                </div>
+                <div class="item">
+                    <img alt="Fever" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Fever</h3>
+                </div>
+                <div class="item">
+                    <img alt="Certified Lover Boy" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Certified Lover Boy</h3>
+                </div>
+                <div class="item">
+                    <img alt="Dawn FM" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Dawn FM</h3>
+                </div>
+                <div class="item">
+                    <img alt="Meet The Woo" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
+                    <h3>Meet The Woo</h3>
+                </div>
+                <div class="item">
+                    <img alt="Queen" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Queen</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Plain Jane REMIX (feat. Nicki Minaj) - Single" height="150"
+                        src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Plain Jane</h3>
+                </div>
+            </div>
+            <div class="day" style="margin-top: 20px;">
+                <h3> Recomended </h3>
+            </div>
+            <div class="grid" id="grid" style="margin-bottom: 20px;">
+                <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/video'">
+                    <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Over It</h3>
+                </div>
+                <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/youtube'">
+                    <img alt="Leo Season" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Leo Season </h3>
+                </div>
+                <div class="item">
+                    <img alt="Amalia(Deluxe Version)" src="<?=IMAGE?>/funzone-3.png" />
+                    <h3>Amalia(Deluxe Version)</h3>
+                </div>
+                <div class="item">
+                    <img alt="Fever" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Fever</h3>
+                </div>
+                <div class="item">
+                    <img alt="Certified Lover Boy" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Certified Lover Boy</h3>
+                </div>
+                <div class="item">
+                    <img alt="Dawn FM" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Dawn FM</h3>
+                </div>
+                <div class="item">
+                    <img alt="Meet The Woo" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
+                    <h3>Meet The Woo</h3>
+                </div>
+                <div class="item">
+                    <img alt="Queen" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Queen</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Issa" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
+                    <h3>Issa</h3>
+                </div>
+                <div class="item">
+                    <img alt="Plain Jane REMIX (feat. Nicki Minaj) - Single" height="150"
+                        src="<?=IMAGE?>/funzone-4.png" width="150" />
+                    <h3>Plain Jane</h3>
                 </div>
             </div>
             <!-- loading animation -->
@@ -218,10 +391,6 @@
                 </div>
             </div>
         </div>
-        <!-- Home navigation -->
-        <a href="<?=ROOT?>/ReChild/Home" class="chatbox">
-            <i class="fas fa-home" style="margin-top: 1px; text-decoration: none;"></i>
-        </a>
     </div>
 </body>
 

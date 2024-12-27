@@ -6,8 +6,10 @@
     Trait Database {
 
         private function connect(){
-            $string = "mysql:hostname=".DBHOST.";dbname=".DBNAME;
-            $con =new \PDO($string,DBUSER,DBPASS);
+            $string = "mysql:host=mysql-abdullaaurad.alwaysdata.net;dbname=abdullaaurad_my_db";
+            //"mysql:hostname=".DBHOST.";dbname=".DBNAME;
+            $con = new \PDO($string, "387928_abdulla", "yunus2017");
+            //new \PDO($string,DBUSER,DBPASS);
             return $con;
         }
 

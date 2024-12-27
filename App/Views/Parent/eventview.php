@@ -13,7 +13,6 @@
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Parent/event.js?v=<?= time() ?>"></script>
 </head>
 
 <body>
@@ -165,9 +164,17 @@
                 </div>
             </div>
             <div class="stats">
-                <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Upcoming events</h3>
+                <div class="stat" id="NewEvent" style="width: 60px !important; display: none; flex-direction: row !important;">
+                    <div style="display: flex; flex-direction: row;">
+                        <img src="<?= IMAGE ?>/packages.png" style="width: 220px; height: auto;margin-left: -15px !important; margin-top: -15px; border-radius: 7px 0px 0px 7px; margin-bottom: -15px;">
+                        <div style=" display: flex; flex-direction: column; margin-top: 10px;">
+                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Event Name: Drawing</p>
+                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;" >Date: 12/12/2024</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat" id="stat1">
+                    <h3><img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Upcoming events</h3>
                     <p style="margin-bottom: 3px;">19/09/2024</p>
                     <span style="font-weight: 50;">Unattended days</span>
                 </div>
@@ -190,28 +197,31 @@
                 <!-- Event Modal -->
                 <div class="modal" id="EventModal">
                     <div class="View-Package">
-                        <div class="top-con">
+                        <img src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
+                        <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
                             <div class="back-con" id="back-arrow">
                                 <i class="fas fa-chevron-left" id="backformeeting"></i>
                             </div>
                         </div>
-                        <div class="back-arrow" id="back-arrow">
-                            <i class="fas fa-chevron-left" style="color: white !important; margin-left: 0px;"></i>
+                        <div class="pickup-section" style="margin-top: 190px;">
+                            <label for="package-name">Event name</label>
+                            <input id="package-name" readonly="" type="text" value="Basic care plan" />
                         </div>
-                        <h1>View Event</h1>
-                        <label for="package-name">Event name</label>
-                        <input id="package-name" readonly="" type="text" value="Basic care plan" />
-                        <label for="included-services">Activity details</label>
-                        <div class="services" id="included-services">
-                            title of the compition is on nature
-                            <br />
-                            All type of drawing methods are allowd
-                            <br />
-                            competiton is partitioned in age groups
+                        <div class="pickup-section">
+                            <label for="included-services">Activity details</label>
+                            <div class="services" id="included-services">
+                                title of the compition is on nature
+                                <br />
+                                All type of drawing methods are allowd
+                                <br />
+                                competiton is partitioned in age groups
+                            </div>
                         </div>
-                        <label for="price">Price</label>
-                        <div class="price-container">
-                            <input id="price" readonly="" type="text" value="10:00 - 11:00 AM" />
+                        <div class="pickup-section">
+                            <label for="price">Date Time</label>
+                            <div class="price-container">
+                                <input id="price" readonly="" type="text" value="12/12/2024 11:00 AM" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,23 +238,28 @@
                             </div>
                         </div>
                         <form id="ratingform">
-                            <h1>Review and Rating</h1>
-                            <label for="package-name">Reason</label>
-                            <input id="package-name" type="text" placeholder="Reason for the review" />
-                            <label for="included-services">Your review</label>
-                            <textarea class="services" id="included-services"
-                                placeholder="Provided a good service. The child was so happy. but the he left his toy at the daycare"></textarea>
-                            <label for="price">Add your rating</label>
-                            <div class="rating pickup-section">
-                                <i class="star-rate fas fa-star" data-value="5"></i>
-                                <i class="star-rate fas fa-star" data-value="4"></i>
-                                <i class="star-rate fas fa-star" data-value="3"></i>
-                                <i class="star-rate fas fa-star" data-value="2"></i>
-                                <i class="star-rate fas fa-star" data-value="1"></i>
+                            <h1 style="margin-left: 20px; margin-top: 40px !important;">Review and Rating</h1>
+                            <div class="pickup-section">
+                                <label for="package-name">Reason</label>
+                                <input id="package-name" type="text" placeholder="Reason for the review" />
+                            </div>
+                            <div class="pickup-section">
+                                <label for="included-services">Your review</label>
+                                <textarea id="included-services" placeholder="Provided a good service. The child was so happy. but the he left his toy at the daycare"></textarea>
+                            </div>
+                            <div class="pickup-section">
+                                <label for="price">Add your rating</label>
+                                <div class="rating pickup-section">
+                                    <i class="star-rate fas fa-star" data-value="5"></i>
+                                    <i class="star-rate fas fa-star" data-value="4"></i>
+                                    <i class="star-rate fas fa-star" data-value="3"></i>
+                                    <i class="star-rate fas fa-star" data-value="2"></i>
+                                    <i class="star-rate fas fa-star" data-value="1"></i>
+                                </div>
                             </div>
                             <div class="button-popup">
-                                <button style="margin-right: 120px;" id="closeratingBtn">Cancel</button>
-                                <button style="margin-right: 15px;" type="submit">Done</button>
+                                <button style="margin-right: 150px;" id="closeratingBtn">Cancel</button>
+                                <button type="submit">Done</button>
                             </div>
                         </form>
                     </div>
@@ -396,6 +411,101 @@
                 })
                 .catch(error => console.error("Error:", error));
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const EventModal = document.getElementById('EventModal');
+            const eventbtns = document.querySelectorAll('.eventbtn');
+            const mainContent = document.getElementById('main-content');
+            const eventback = document.getElementById('back-arrow');
+
+            eventback.addEventListener('click', function() {
+                toggleModal(EventModal, 'none');
+            })
+
+            eventbtns.forEach(function(eventbtn) {
+                eventbtn.addEventListener('click', function() {
+                    toggleModal(EventModal, 'flex');
+                })
+            });
+
+            window.addEventListener('click', function(e) {
+                if (e.target === EventModal) {
+                    toggleModal(EventModal, 'none');
+                }
+            });
+
+            const RatingModal = document.getElementById('RatingModal');
+            const feedbackbtn = document.getElementById('feedbackbtn');
+            const backforrating = document.getElementById('backforrating');
+
+            backforrating.addEventListener('click', function() {
+                toggleModal(RatingModal, 'none');
+            });
+
+            feedbackbtn.addEventListener('click', function() {
+                toggleModal(RatingModal, 'flex');
+            });
+
+            const stars = document.querySelectorAll('.star-rate');
+            const meetingrefresh = document.getElementById('ratingrefresh');
+            const ratingform = document.getElementById('ratingform');
+
+            meetingrefresh.addEventListener('click', function () {
+                ratingform.reset();
+                stars.forEach((star) => {
+                    star.classList.remove('selectestar')
+                });
+            })
+
+            let rating = 0;
+            let i = 0;
+
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    if (star.classList.contains('selectestar') && index === rating - 1) {
+                        for (let j = index; j < stars.length; j++) {
+                            stars[j].classList.remove('selectestar');
+                        }
+                        rating -= 1;
+                        i -= 1;
+                    }
+                    else if (index === rating) {
+                        stars[index].classList.add('selectestar');
+                        rating += 1;
+                        i += 1;
+                    }
+                });
+            });
+
+            function toggleModal(modal, display) {
+                modal.style.display = display;
+                if (display === 'flex') {
+                    document.body.classList.add('no-scroll');
+                    mainContent.classList.add('blurred');
+                } else {
+                    document.body.classList.remove('no-scroll');
+                    mainContent.classList.remove('blurred');
+                }
+            }
+
+            const stat1 = document.getElementById('stat1');
+            const stat2 = document.getElementById('stat2');
+            const NewEvent = document.getElementById('NewEvent');
+
+            function rotateStats () {
+                if(stat1.style.display == ''){
+                    stat1.style.display = 'none';
+                    NewEvent.style.display = 'flex';
+                }
+                else{
+                    stat1.style.display = '';
+                    NewEvent.style.display = 'none';
+                }
+            }
+
+            setInterval(rotateStats, 5000);
+
+        });
     </script>
 </body>
 

@@ -28,4 +28,9 @@
     require 'Modal.php';
     require 'Controller.php';
     require 'App.php';
+    require 'Mailer.php';
+    require 'SMS.php';
+    require 'Whatsapp.php';
+    require 'Quail.php';
+    require 'Payment.php';
 ?>

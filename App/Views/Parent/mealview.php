@@ -162,94 +162,276 @@
                     </button>
                 </div>
             </div>
-
-            <div class="container-food">
-                <img src="<?= IMAGE ?>/meal.png" style="margin-right: 500px; margin-left: -480px; margin-bottom: -120px; margin-top: -50px;">
-                <div class="title">KIDDO VILLE Food plan</div>
-                <div class="navigation">
-                    <button><i class="fas fa-chevron-left"></i></button>
-                    <span>Aug 04 - Aug 07</span>
-                    <button><i class="fas fa-chevron-right"></i></button>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <tr>
-                            <th>2024 Aug</th>
-                            <th>2024 Aug</th>
-                            <th>2024 Aug</th>
-                            <th>2024 Aug</th>
-                        </tr>
-                        <tr>
-                            <td>Breakfast</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                        </tr>
-                        <tr>
-                            <td>Breakfast</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                        </tr>
-                        <tr>
-                            <td>Breakfast</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                        </tr>
-                    </table>
-                </div>
-                <img src="<?= IMAGE ?>/snack.png" style="margin-left: 800px; margin-right: -200px; margin-top: -80px; margin-bottom: -90px;">
-                <div class="title">KIDDO VILLE SNACK PLAN</div>
-                <div class="table-container">
-                    <table>
-                        <tr>
-                            <th>2024 Aug</th>
-                            <th>2024 Aug</th>
-                            <th>2024 Aug</th>
-                            <th>2024 Aug</th>
-                        </tr>
-                        <tr>
-                            <td>Snack</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                        </tr>
-                        <tr>
-                            <td>Snack</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                        </tr>
-                        <tr>
-                            <td>Snack</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                            <td>Rice + Dhal, Sambol<br>String Hoppers + Dhal<br>Bread + Butter and Jam</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="snack-actions">
-                <button id="openSnackModal" style="margin-left: 70px; margin-right: 50px;">Add Snack</button>
-                <div class="stats" style="margin-bottom: 70px !important;">
-                    <div class="stat" style="width: 300px !important; margin-top: -85px;">
-                        <h3>Added Snacks</h3>
-                        <p style="margin-bottom: 3px;">Milk</p>
-                        <!-- You can add more snacks here -->
+            <div style="display: flex; flex-direction: row; width: 100%; justify-content:flex-start;">
+                <div class="container-food" style="margin-left: 20px;">
+                    <!-- Table for Food -->
+                    <div class="timetable" style="margin-right: 1%; width: 395px;">
+                        <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Meal Plan</h3>
+                        <hr>
+                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Meal</th>
+                                    <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Dish</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Breakfast Rows -->
+                                <tr>
+                                    <td rowspan="4">Breakfast</td>
+                                    <td>Pancakes</td>
+                                </tr>
+                                <tr>
+                                    <td>Omelette</td>
+                                </tr>
+                                <tr>
+                                    <td>Omelette</td>
+                                </tr>
+                                <tr>
+                                    <td>Fruit Smoothie</td>
+                                </tr>
+                                <!-- Lunch Rows -->
+                                <tr>
+                                    <td rowspan="4">Lunch</td>
+                                    <td>Grilled Chicken Salad</td>
+                                </tr>
+                                <tr>
+                                    <td>Garlic Bread</td>
+                                </tr>
+                                <tr>
+                                    <td>Soup</td>
+                                </tr>
+                                <tr>
+                                    <td>Omelette</td>
+                                </tr>
+                                <!-- Dinner Rows -->
+                                <tr>
+                                    <td rowspan="4">Dinner</td>
+                                    <td>Spaghetti Bolognese</td>
+                                </tr>
+                                <tr>
+                                    <td>Omelette</td>
+                                </tr>
+                                <tr>
+                                    <td>Caesar Salad</td>
+                                </tr>
+                                <tr>
+                                    <td>Chocolate Mousse</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-
-            <!-- Snack Modal -->
-            <div class="snack-modal" id="snackModal">
-                <div class="snack-modal-content">
-                    <span class="close" id="closeSnackModal"><i class="fas fa-xmark"></i></span>
-                    <input type="text" id="snackName" placeholder="Snack Name">
-                    <button id="addSnackButton">Add Snack</button>
+                <div class="container-food" style="margin-left: 20px;">
+                    <!-- Table for Snacks -->
+                    <div class="timetable" style="margin-right: 1%; width: 395px;">
+                        <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Snack Plan</h3>
+                        <hr>
+                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Time</th>
+                                    <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Snack</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Morning Snack Rows -->
+                                <tr>
+                                    <td rowspan="3">Morning</td>
+                                    <td>Fruit Salad</td>
+                                </tr>
+                                <tr>
+                                    <td>Energy Bar</td>
+                                </tr>
+                                <tr>
+                                    <td>Apple</td>
+                                </tr>
+                                <tr>
+                                    <td>Apple</td>
+                                </tr>
+                                <!-- Afternoon Snack Rows -->
+                                <tr>
+                                    <td rowspan="3">Afternoon</td>
+                                    <td>Yogurt with Granola</td>
+                                </tr>
+                                <tr>
+                                    <td>Banana</td>
+                                </tr>
+                                <tr>
+                                    <td>Trail Mix</td>
+                                </tr>
+                                <tr>
+                                    <td>Apple</td>
+                                </tr>
+                                <!-- Evening Snack Rows -->
+                                <tr>
+                                    <td rowspan="3">Evening</td>
+                                    <td>Mixed Nuts</td>
+                                </tr>
+                                <tr>
+                                    <td>Cheese Crackers</td>
+                                </tr>
+                                <tr>
+                                    <td>Dark Chocolate</td>
+                                </tr>
+                                <tr>
+                                    <td>Apple</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="container-food" style="margin-left: 20px;">
+                    <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Add Snack</h3>
+                    <hr style="width: 160px;">
+                    <div class="pickup-section" style="margin-top: 20px;">
+                        <label for="date">Date</label>
+                        <input required id="customdate" type="date">
+                        <label for="date">Meal</label>
+                        <select required id="customdate" type="date">
+                            <option>Breakfast</option>
+                            <option>Lunch</option>
+                            <option>Dinner</option>
+                        </select>
+                        <label for="date">Child</label>
+                        <select required id="customdate" type="date">
+                            <option>Breakfast</option>
+                            <option>Lunch</option>
+                            <option>Dinner</option>
+                        </select>
+                        <label for="date">Snack</label>
+                        <select required id="customdate" type="date">
+                            <option>Breakfast</option>
+                            <option>Lunch</option>
+                            <option>Dinner</option>
+                        </select>
+                    </div>
+                    <button style="margin-top: 15px; margin-left:110px;"> Add </button>
                 </div>
             </div>
 
+            <div class="container-food" style="margin-left: 40px; margin-top: 20px; align-items: left; width: 1060px; justify-content: space-between;">
+                <h3 style="margin-top: 0px !important; margin-bottom: 4px; margin-right: 900px;">Assigned Snacks</h3>
+                <hr style="width: 1070px;">
+                <p> Please select the child and meal, then enter the snack to assign it. You can easily view and edit the assigned snacks for each child as needed. </p>
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <div style="display: flex; flex-direction: column; margin-right: 50px;">
+                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Edit Snack Request</h3>
+                        <hr style="width: 360px;">
+                        <div class="pickup-section" style="margin-top: 20px;">
+                            <label for="date">Date</label>
+                            <input class="editsnack" required id="customdate" type="date">
+                            <label for="date">Meal</label>
+                            <select class="editsnacksel" required id="customdate" type="date">
+                                <option>Breakfast</option>
+                                <option>Lunch</option>
+                                <option>Dinner</option>
+                            </select>
+                            <label for="date">Child</label>
+                            <select class="editsnacksel" required id="customdate" type="date">
+                                <option>Breakfast</option>
+                                <option>Lunch</option>
+                                <option>Dinner</option>
+                            </select>
+                            <label for="date">Snack</label>
+                            <select class="editsnacksel" required id="customdate" type="date">
+                                <option>Breakfast</option>
+                                <option>Lunch</option>
+                                <option>Dinner</option>
+                            </select>
+                        </div>
+                        <button style="margin-top: 15px; margin-left:200px;"> Edit </button>
+                    </div>
+                    <div style="width: 3px; background-color: lightgray; margin-right: 50px;"></div>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Child</th>
+                                <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Meal</th>
+                                <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Snack</th>
+                                <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Breakfast Rows -->
+                            <tr>
+                                <td style="padding: 10px 15px;" rowspan="3">Child 1</td>
+                                <td style="padding: 10px 15px;" rowspan="3">Breakfast</td>
+                                <td style="padding: 10px 15px;">Fruit Salad</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 15px;">Energy Bar</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 15px;">Apple</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                            <!-- Lunch Rows -->
+                            <tr>
+                                <td style="padding: 10px 15px;" rowspan="3">Child 2</td>
+                                <td style="padding: 10px 15px;" rowspan="3">Lunch</td>
+                                <td style="padding: 10px 15px;">Yogurt with Granola</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 15px;">Banana</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 15px;">Trail Mix</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                            <!-- Dinner Rows -->
+                            <tr>
+                                <td style="padding: 10px 15px;" rowspan="3">Child 3</td>
+                                <td style="padding: 10px 15px;" rowspan="3">Dinner</td>
+                                <td style="padding: 10px 15px;">Mixed Nuts</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 15px;">Cheese Crackers</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 15px;">Dark Chocolate</td>
+                                <td class="edit" style="padding: 10px 15px;">
+                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
+                                    <i class="fas fa-trash"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
             <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
                 <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots" style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">

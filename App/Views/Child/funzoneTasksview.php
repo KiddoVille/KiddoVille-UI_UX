@@ -7,79 +7,84 @@
     </title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzoneTasks.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzone.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Setting.js"></script>
-    <script src="<?=JS?>/Child/Parental-lock.js"></script>
-    <script src="<?=JS?>/Child/Select-child.js"></script>
-    <script src="<?=JS?>/Child/Select-type.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?=CSS?>/Child/funzonetasks.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Child/funzone1.css?v=<?= time() ?>">
+    <script src="<?=JS?>/Child/Setting.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/Select-child.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/Select-type.js?v=<?= time() ?>"></script>
 </head>
 
 <body>
-    <!-- minimized sidebar -->
-    <div class="sidebarhome minimized" id="sidebar1">
-        <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-        <h2 style="margin-top: -15px;">Dashboard</h2>
-        <ul>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/Home">
-                    <i class="fas fa-home" style="font-size: 20px; color: black; margin-left: -2px;"></i> <span>Home</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/history">
-                    <i class="fas fa-history"></i> <span>History</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/report">
-                    <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/reservation">
-                    <i class="fas fa-calendar-check"></i> <span>Reservation</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/meal">
-                    <i class="fas fa-utensils"></i> <span>Meal plan</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/event">
-                    <i class="fas fa-calendar-alt"></i> <span>Event</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/package">
-                    <i class="fas fa-box"></i> <span>Package</span>
-                </a>
-            </li>
-            <li class="selected" style="margin-top: 40px;">
-                <a href="<?=ROOT?>/Child/funzonehome">
-                    <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/payment">
-                    <i class="fas fa-credit-card"></i> <span>Payments</span>
-                </a>
-            </li>
-        </ul>
-        <hr style="margin-top: 40px;">
-        <div class="help">
-            <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
+    <!-- minimzed sidebar -->
+    <div class="sidebarhome" id="sidebar1">
+            <div class="logo-div" style="display: flex; flex-direction: row; align-items: center; margin-left: 20px;">
+            <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo" style="width: 60px; height: 60px; margin-left: 0px; margin-bottom: 0px;"> </img>
+            <h2 id="sidebar-kiddo" style="font-size: 1.5em; margin-left: 10px;">KIDDO VILLE </h2>
         </div>
-    </div>
-    <!-- to naviagate funzone -->
-    <div class="sidebar">
-        <a href="<?=ROOT?>/ReChild/Home">
+            <ul style="margin-top: -20px;">
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Home">
+                        <i class="fas fa-house"></i> <span>Home</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/history">
+                        <i class="fas fa-history"></i> <span>History</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/report">
+                        <i class="fa fa-user-shield"></i> <span>Report</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/reservation">
+                        <i class="fas fa-calendar-check"></i> <span>Reservation</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/meal">
+                        <i class="fas fa-utensils"></i> <span>Meal plan</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/event">
+                        <i class="fas fa-calendar-alt"></i> <span>Event</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/package">
+                        <i class="fas fa-box"></i> <span>Package</span>
+                    </a>
+                </li>
+                <li class="selected" style="margin-top: 40px;">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
+                        <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/payment">
+                        <i class="fas fa-credit-card"></i> <span>Payments</span>
+                    </a>
+                </li>
+            </ul>
+            <hr style="margin-top: 40px;">
+            <div class="help">
+                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
+                        id="help">Help</span></a>
+            </div>
+        </div>
+    <!-- navigation -->
+    <!-- <div class="sidebar" style="background:white">
+        <a href="<?=ROOT?>/ReParent/Home"></a>
             <img alt="Kiddo Ville Logo" height="50" src="<?=IMAGE?>/logo_light-remove.png" width="50" />
         </a>
         <h1>Kiddo Ville</h1>
         <input placeholder="Search" type="text" /><i class="fas fa-search"></i>
-        <button onclick="location.href='<?=ROOT?>/Child/funzonehome';">Home</button>
+        <button onclick="location.href='<?=ROOT?>/Parent/funzonehome';">Home</button>
         <div class="custom-select-container" tabindex="0">
             <div class="custom-select-trigger">
                 Type <i class="fa fa-chevron-down"></i>
@@ -94,24 +99,24 @@
                 <div class="custom-option"> Lessons </div>
             </div>
         </div>
-        <button onclick="location.href='<?=ROOT?>/Child/funzonewhishlist';">Wishlist</button>
-        <button onclick="location.href='<?=ROOT?>/Child/funzoneTasks';">Tasks</button>
-        <button onclick="location.href='<?=ROOT?>/Child/funzoneHistory';">History</button>
+        <button onclick="location.href='<?=ROOT?>/Parent/funzonewhishlist';">Wishlist</button>
+        <button onclick="location.href='<?=ROOT?>/Parent/funzoneTasks';">Tasks</button>
+        <button onclick="location.href='<?=ROOT?>/Parent/funzoneHistory';">History</button>
         <div class="bottom-text">
-            <a href="<?=ROOT?>/ReChild/Home" class="nav-link">
+            <a href="<?=ROOT?>/ReParent/funzoneHome" class="nav-link">
                 <i class="fas fa-home"></i>
                 <p class="Welcome">Welcome to Funzone</p>
             </a>
         </div>
-    </div>
-    <div class="main-content">
+    </div> -->
+    <div class="main-content" style="background:linear-gradient(to bottom right, #f7f7f7, #eaeaea)">
         <!-- Header -->
         <div class="header">
             <div class="nav-buttons">
-                <div class="circle">
+                <div class="circle" onclick="window.location.href='<?=ROOT?>/Child/funzoneWhishlist'">
                     <i class="fas fa-chevron-left"></i>
                 </div>
-                <div class="circle">
+                <div class="circle"  onclick="window.location.href='<?=ROOT?>/Child/funzoneHistory'">
                     <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
@@ -140,10 +145,22 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <!-- tasks for child -->
-        <div class="grid">
+        <div class="header2">
+            <img src="<?=IMAGE?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
+            <p style="color: white; font-size: 17px;">Funzone </p>
+            <a href="<?=ROOT?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
+            <a href="<?=ROOT?>/Child/funzonewhishlist" class="hover-effect">Whishlist</a>
+            <a href="<?=ROOT?>/Child/funzonetasks" class="hover-effect select">Task</a>
+            <a href="<?=ROOT?>/Child/funzonehistory" class="hover-effect">History</a>
+            <select style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
+                <option> Videos </option>
+                <option> Books </option>
+                <option> Images </option>
+                <option> Songs </option>
+            </select>
+        </div>
+        <div class="grid" style="margin-top: 20px;">
             <div class="item">
                 <div class="icon-container">
                     <button class="icon-btn watch-btn"><i class="fas fa-play"
@@ -427,10 +444,6 @@
             </div>
         </div>
     </div>
-    <!-- navigation to home page -->
-    <a href="<?=ROOT?>/ReChild/Home" class="chatbox">
-        <i class="fa fa-home" style="margin-top: 1px; text-decoration: none;"></i>
-    </a>
     </div>
 </body>
 

@@ -490,7 +490,7 @@
         }
     
         // Return the age as "X years and Y months"
-        return "{$years} years and {$months} months";
+        return "{$years} years {$months} months";
     }
 
     function lastSeen($timestamp) {
