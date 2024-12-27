@@ -2,67 +2,67 @@
 
 <head>
     <title>Events</title>
-    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/all-event.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/Main.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Parent/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/Navbar.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/all-event.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
 </head>
 
 <body style=" overflow: hidden;">
     <div class="container">
-        <div class="sidebar "id="sidebar1">
-            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
+        <div class="sidebar " id="sidebar1">
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
-                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
                 <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
             </div>
             <ul>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/Home">
+                    <a href="<?= ROOT ?>/Parent/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Parent/history">
+                    <a href="<?= ROOT ?>/Parent/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/report">
+                    <a href="<?= ROOT ?>/Parent/report">
                         <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/reservation">
+                    <a href="<?= ROOT ?>/Parent/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/meal">
+                    <a href="<?= ROOT ?>/Parent/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
-                <li class="selected">
-                    <a href="<?=ROOT?>/Parent/event">
+                <li class="selected" style="margin-top: 40px;">
+                    <a href="<?= ROOT ?>/Parent/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/package">
+                    <a href="<?= ROOT ?>/Parent/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/funzonehome">
+                    <a href="<?= ROOT ?>/Parent/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/package">
+                    <a href="<?= ROOT ?>/Parent/package">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -78,8 +78,8 @@
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
                         <li class="hover-effect first select-child"
-                            onclick="window.location.href = '<?=ROOT?>/ReParent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                            onclick="window.location.href = '<?= ROOT ?>/ReParent/Home'">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -93,7 +93,7 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -104,7 +104,7 @@
                 </div>
             </div>
         </div>
-        <div class="main-content">
+        <div class="main-content" id="main-content">
             <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"
                     style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
@@ -158,8 +158,8 @@
                 </div>
             </div>
             <div class="chatbox">
-                <a href="../Messager/Message.html">
-                    <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
+                <a href="<?= ROOT ?>/Parent/Message">
+                    <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
                         style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 </a>
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
@@ -168,37 +168,76 @@
             </div>
             <div class="modal" id="EventModal">
                 <div class="View-Package">
-                    <div class="top-con">
+                    <img src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
+                    <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
                         <div class="back-con" id="back-arrow">
                             <i class="fas fa-chevron-left" id="backformeeting"></i>
                         </div>
                     </div>
-                    <h1>View Event</h1>
-                    <label for="package-name">Event name</label>
-                    <input id="package-name" readonly="" type="text" value="Basic care plan" />
-                    <label for="included-services">Activity details</label>
-                    <div class="services" id="included-services">
-                        title of the compition is on nature
-                        <br />
-                        All type of drawing methods are allowd
-                        <br />
-                        competiton is partitioned in age groups
+                    <div class="pickup-section" style="margin-top: 190px;">
+                        <label for="package-name">Event name</label>
+                        <input id="package-name" readonly="" type="text" value="Basic care plan" />
                     </div>
-                    <label for="price">Price</label>
-                    <div class="price-container">
-                        <input id="price" readonly="" type="text" value="10:00 - 11:00 AM" />
+                    <div class="pickup-section">
+                        <label for="included-services">Activity details</label>
+                        <div class="services" id="included-services">
+                            title of the compition is on nature
+                            <br />
+                            All type of drawing methods are allowd
+                            <br />
+                            competiton is partitioned in age groups
+                        </div>
                     </div>
+                    <div class="pickup-section">
+                        <label for="price">Date Time</label>
+                        <div class="price-container">
+                            <input id="price" readonly="" type="text" value="12/12/2024 11:00 AM" />
+                        </div>
+                    </div>
+                    <button id="Enrollbtn" style="width: 150px; margin-left: 170px; margin-top: 10px;" class="eventbtn"> Select Child </button>
                 </div>
             </div>
-            <div class="fill">
-                <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
-                <hr>
+            <div class="modal" id="EnrollModal">
+                <div class="View-Package" style="height: 400px;">
+                    <img src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
+                    <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
+                        <div class="back-con" id="Eback-arrow">
+                            <i class="fas fa-chevron-left" id="backforenroll"></i>
+                        </div>
+                    </div>
+                    <div class="pickup-section" style="margin-top: 190px;">
+                        <label for="package-name">Select Child</label>
+                        <div class="child-selection" style="margin-top: 20px;">
+                            <!-- Example list of children -->
+                            <div style="margin-bottom: 10px; display: flex; flex-direction: row;" >
+                                <input type="radio" id="child1" name="child" value="child1">
+                                <label for="child1">John Doe</label>
+                            </div>
+                            <div style="margin-bottom: 10px; display: flex; flex-direction: row;">
+                                <input type="radio" id="child2" name="child" value="child2">
+                                <label for="child2">Jane Smith</label>
+                            </div>
+                            <div style="margin-bottom: 10px; display: flex; flex-direction: row;">
+                                <input type="radio" id="child3" name="child" value="child3">
+                                <label for="child3">Emily Brown</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button style="width: 150px; margin-left: 170px" class="eventbtn"> Enroll </button>
+                </div>
+            </div>
+            <div class="fill" style="margin-left: 35px;">
+                <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
+                    style="width: 24px; height: 24px; fill: #233E8D !important; margin-left: -1080px; cursor: pointer;"
+                    class="back" onclick="window.location.href='<?= ROOT ?>/Parent/event'">
+                <h2 style="margin-top: 10px !important; margin-bottom: 2px; margin-right: 970px;"> Events </h2>
+                <hr style="width: 1070px;">
                 <div class="filters">
                     <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                 </div>
                 <div class="packages">
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -207,7 +246,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -216,7 +255,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -225,7 +264,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -234,7 +273,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -245,7 +284,7 @@
                 </div>
                 <div class="packages" style="margin-top: -10px;">
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -254,7 +293,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -263,7 +302,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -293,8 +332,8 @@
                     </a>
                 </div>
             </div>
-            <a href="<?=ROOT?>/Parent/Message" class="chatbox">
-                <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
+            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
+                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
                     style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
                     <p> 2</p>
@@ -303,9 +342,9 @@
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard">
-            <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
                 Thilina Perera
@@ -313,13 +352,13 @@
             <p>
                 Student    RS0110657
             </p>
-            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/Parent/ParentProfile'">
+            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">
                 Profile
             </button>
-            <button class="secondary-button"  onclick="window.location.href ='<?=ROOT?>/Parent/GuardianProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button"  onclick="window.location.href ='<?=ROOT?>/Main/Home'">
+            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
                 LogOut
             </button>
         </div>
@@ -327,42 +366,59 @@
     <script>
         function setChildSession(childName) {
             console.log(childName);
-            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ childName: childName })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Child name set in session.");
-                    window.location.href = '<?= ROOT ?>/Child/Home';
-                } else {
-                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:",error));
+            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        childName: childName
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child name set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Home';
+                    } else {
+                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const EventModal = document.getElementById('EventModal');
             const eventbtns = document.querySelectorAll('.eventbtn');
             const mainContent = document.getElementById('main-content');
             const eventback = document.getElementById('back-arrow');
 
-            eventback.addEventListener('click', function () {
+            eventback.addEventListener('click', function() {
                 toggleModal(EventModal, 'none');
             })
 
-            eventbtns.forEach(function (eventbtn) {
-                eventbtn.addEventListener('click', function () {
+            eventbtns.forEach(function(eventbtn) {
+                eventbtn.addEventListener('click', function() {
                     toggleModal(EventModal, 'flex');
                 })
             });
 
-            window.addEventListener('click', function (e) {
+            const EnrollModal = document.getElementById('EnrollModal');
+            const Enrollbtn = document.getElementById('Enrollbtn');
+            const Enrollback = document.getElementById('Eback-arrow');
+
+            backforenroll.addEventListener('click', function() {
+                toggleModal(EnrollModal, 'none');
+                toggleModal(EventModal, 'flex');
+            })
+
+            Enrollbtn.addEventListener('click', function() {
+                toggleModal(EventModal, 'none');
+                console.log('lol');
+                toggleModal(EnrollModal, 'flex');
+            })
+
+            window.addEventListener('click', function(e) {
                 if (e.target === EventModal) {
                     toggleModal(EventModal, 'none');
                 }
@@ -381,4 +437,5 @@
         });
     </script>
 </body>
+
 </html>
