@@ -9,6 +9,7 @@
             'C:/xampp/htdocs/MVC/App/Modals/',
             'C:/xampp/htdocs/MVC/App/core/',
             'C:/xampp/htdocs/MVC/App/Controllers/',
+            'C:/xampp/htdocs/MVC/App/Helper/',
         ];
     
         foreach ($directories as $directory) {
@@ -29,8 +30,4 @@
     require 'Controller.php';
     require 'App.php';
     require 'Mailer.php';
-    require 'SMS.php';
-    require 'Whatsapp.php';
-    require 'Quail.php';
-    require 'Payment.php';
 ?>

@@ -20,7 +20,7 @@
 
 <body>
     <div class="container">
-    <div class="sidebar" id="sidebar1">
+        <div class="sidebar" id="sidebar1">
             <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
                 <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
@@ -86,7 +86,7 @@
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -99,8 +99,8 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -170,7 +170,7 @@
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Meal Plan</h3>
                         <hr>
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                        <table style="width: 100%; border-collapse: collapse;">
+                        <table id="mealsTable" style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr>
                                     <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Meal</th>
@@ -229,8 +229,8 @@
                     <div class="timetable" style="margin-right: 1%; width: 395px;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Snack Plan</h3>
                         <hr>
-                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                        <table style="width: 100%; border-collapse: collapse;">
+                        <input type="date" id="snacckdatePicker" value="2025-01-10" style="width: 200px">
+                        <table id="snacksTable" style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr>
                                     <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Time</th>
@@ -440,28 +440,111 @@
         </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+        function setChildSession(ChildID) {
+            fetch(' <?= ROOT ?>/Parent/Meal/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        childName: childName
+                        ChildID: ChildID
                     })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
+                        window.location.href = '<?= ROOT ?>/Child/Meal';
                     } else {
                         console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
                     }
                 })
                 .catch(error => console.error("Error:", error));
         }
+
+        function fetchMealPlan(date) {
+            fetch('<?= ROOT ?>/Parent/Meal/store_food', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Meal plan data:", data.data);
+                        updateMealPlanTables(data.data);
+                    } else {
+                        console.error("Failed to fetch meal plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        // Function to update tables dynamically
+        function updateMealPlanTables(mealPlan) {
+            const mealsTableBody = document.querySelector('#mealsTable tbody');
+            const snacksTableBody = document.querySelector('#snacksTable tbody');
+
+            mealsTableBody.innerHTML = ''; // Clear existing rows
+            snacksTableBody.innerHTML = ''; // Clear existing rows
+
+            // Populate meals table
+            for (const [meal, dishes] of Object.entries(mealPlan.meals)) {
+                let rowSpanSet = false;
+
+                dishes.forEach(dish => {
+                    const row = document.createElement('tr');
+
+                    if (!rowSpanSet) {
+                        const mealCell = document.createElement('td');
+                        mealCell.textContent = meal.charAt(0).toUpperCase() + meal.slice(1);
+                        mealCell.rowSpan = dishes.length;
+                        row.appendChild(mealCell);
+                        rowSpanSet = true;
+                    }
+
+                    const dishCell = document.createElement('td');
+                    dishCell.textContent = dish;
+                    row.appendChild(dishCell);
+
+                    mealsTableBody.appendChild(row);
+                });
+            }
+
+            // Populate snacks table
+            for (const [time, snacks] of Object.entries(mealPlan.snacks)) {
+                let rowSpanSet = false;
+
+                snacks.forEach(snack => {
+                    const row = document.createElement('tr');
+
+                    if (!rowSpanSet) {
+                        const timeCell = document.createElement('td');
+                        timeCell.textContent = time.charAt(0).toUpperCase() + time.slice(1);
+                        timeCell.rowSpan = snacks.length;
+                        row.appendChild(timeCell);
+                        rowSpanSet = true;
+                    }
+
+                    const snackCell = document.createElement('td');
+                    snackCell.textContent = snack;
+                    row.appendChild(snackCell);
+
+                    snacksTableBody.appendChild(row);
+                });
+            }
+        }
+
+        // Add event listener for date picker
+        document.getElementById('datePicker').addEventListener('change', function() {
+            const selectedDate = this.value;
+            fetchMealPlan(selectedDate);
+        });
     </script>
 </body>
 

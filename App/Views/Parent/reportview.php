@@ -12,7 +12,6 @@
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Parent/report.js?v=<?= time() ?>"></script>
 </head>
 
 <body>
@@ -85,7 +84,7 @@
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -98,8 +97,8 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -165,33 +164,64 @@
                     </button>
                 </div>
             </div>
-            <div class="stats">
+            <div class="stats" id="maid-stats">
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/report.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Pending reports</h3>
-                    <p style="margin-bottom: 3px;">Sep first week</p>
-                    <span style="font-weight: 50;">report's still in progress</span>
+                    <h3><img src="<?= IMAGE ?>/report.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Pending reports</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['maid_pending'] ?> pending</p>
+                    <span style="font-weight: 50;">Maid reports still in progress</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/report view.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Report views</h3>
-                    <p style="margin-bottom: 3px;">1 left</p>
-                    <span style="font-weight: 50;">Report left to view</span>
+                    <h3><img src="<?= IMAGE ?>/report view.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Report views</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['maid_viewed'] ?> viewed</p>
+                    <span style="font-weight: 50;">Maid reports viewed</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/report download.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Report downloads</h3>
-                    <p style="margin-bottom: 3px;">5 downloaded</p>
-                    <span style="font-weight: 50;">Total of 5 report downloaded</span>
+                    <h3><img src="<?= IMAGE ?>/report download.svg?v=<?= time() ?>" alt="Attendance" style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Report downloads</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['maid_downloaded'] ?> downloaded</p>
+                    <span style="font-weight: 50;">Total Maid reports downloaded</span>
+                </div>
+            </div>
+            <div class="stats" id="teacher-stats" style="display: none;">
+                <div class="stat">
+                    <h3><img src="<?= IMAGE ?>/report.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Pending reports</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_pending'] ?> pending</p>
+                    <span style="font-weight: 50;">Maid reports still in progress</span>
+                </div>
+                <div class="stat">
+                    <h3><img src="<?= IMAGE ?>/report view.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Report views</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_viewed'] ?> viewed</p>
+                    <span style="font-weight: 50;">Maid reports viewed</span>
+                </div>
+                <div class="stat">
+                    <h3><img src="<?= IMAGE ?>/report download.svg?v=<?= time() ?>" alt="Attendance" style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Report downloads</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_downloaded'] ?> downloaded</p>
+                    <span style="font-weight: 50;">Total Maid reports downloaded</span>
                 </div>
             </div>
             <!-- View Report -->
             <div class="saperate">
                 <div class="report-container" style="width: 1200px !important;">
-                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Child Reports </h2>
-                    <hr>
-                    <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                    <table>
+                    <div style="display: flex; flex-direction: column; justify-content: flex-start; margin-bottom: -20px; margin-top: 20px; margin-left: 7px;">
+                        <div class="toggle">
+                            <label class="background" for="toggle"></label>
+                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                                <label class="up-btn" id="up-btn" style="padding-left: 50px !important; padding-right: 40px;">Maid</label>
+                                <label class="hi-btn" id="hi-btn">Teacher</label>
+                            </div>
+                        </div>
+                        <h2 style="margin-top: -10px !important; margin-bottom: 5px;"> Child Reports </h2>
+                        <hr style="margin-bottom: 30px;">
+                    </div>
+                    <input type="date" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
+                    <select id="childPicker">
+                        <option Value="All" selected> All </option>
+                        <?php foreach ($data['children'] as $child): ?>
+                            <option value="<?php echo htmlspecialchars($child['name']); ?>">
+                                <?php echo htmlspecialchars($child['name']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <table id="upcoming">
                         <thead>
                             <tr>
                                 <th>Child</th>
@@ -203,97 +233,21 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                        </tbody>
+                    </table>
+                    <table id="history" style="display: none;">
+                        <thead>
                             <tr>
-                                <td>Abdulla</td>
-                                <td>25/03/2025</td>
-                                <td>Anula</td>
-                                <td><i class="fas fa-eye icon reportbtn"></i></td>
-                                <td><i class="fas fa-download icon"></i></td>
-                                <td>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" class="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
+                                <th>Child</th>
+                                <th>Date</th>
+                                <th>Teacher</th>
+                                <th>View</th>
+                                <th>Download</th>
+                                <th>Viewed</th>
                             </tr>
-                            <tr>
-                                <td>Abdulla</td>
-                                <td>02/01/2025</td>
-                                <td>Anula</td>
-                                <td><i class="fas fa-eye icon reportbtn"></i></td>
-                                <td><i class="fas fa-download icon"></i></td>
-                                <td>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" class="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Abdulla</td>
-                                <td>20/12/2024</td>
-                                <td>Anula</td>
-                                <td><i class="fas fa-eye icon reportbtn"></i></td>
-                                <td><i class="fas fa-download icon"></i></td>
-                                <td>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" class="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Abdulla</td>
-                                <td>10/11/2024</td>
-                                <td>Anula</td>
-                                <td><i class="fas fa-eye icon reportbtn"></i></td>
-                                <td><i class="fas fa-download icon"></i></td>
-                                <td>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" class="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Abdulla</td>
-                                <td>13/08/2024</td>
-                                <td>Anula</td>
-                                <td><i class="fas fa-eye icon reportbtn"></i></td>
-                                <td><i class="fas fa-download icon"></i></td>
-                                <td>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" class="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Abdulla</td>
-                                <td>13/08/2024</td>
-                                <td>Anula</td>
-                                <td><i class="fas fa-eye icon reportbtn"></i></td>
-                                <td><i class="fas fa-download icon"></i></td>
-                                <td>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" class="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Abdulla</td>
-                                <td>13/08/2024</td>
-                                <td>Anula</td>
-                                <td><i class="fas fa-eye icon reportbtn"></i></td>
-                                <td><i class="fas fa-download icon"></i></td>
-                                <td>
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" class="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </td>
-                            </tr>
+                        </thead>
+                        <tbody>
                         </tbody>
                     </table>
                 </div>
@@ -406,28 +360,171 @@
     </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+        function fetchReports(date, child) {
+            fetch('<?= ROOT ?>/Parent/Report/store_reports', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        childName: childName
+                        date: date,
+                        child: child
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Meal plan data:", data.data);
+                        updateReportTables(data.data);
+                    } else {
+                        console.error("Failed to fetch meal plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function setChildSession(ChildID) {
+            console.log(ChildID);
+            fetch(' <?= ROOT ?>/Parent/Report/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ChildID: ChildID
                     })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
+                        window.location.href = '<?= ROOT ?>/Child/Report';
                     } else {
                         console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
                     }
                 })
                 .catch(error => console.error("Error:", error));
         }
+
+        function updateReportTables(data) {
+            const maidTableBody = document.querySelector('#upcoming tbody');
+            const teacherTableBody = document.querySelector('#history tbody');
+
+            // Clear the existing table rows
+            maidTableBody.innerHTML = '';
+            teacherTableBody.innerHTML = '';
+
+            // Update Maid Reports table
+            if (data.Maid) {
+                data.Maid.forEach(report => {
+                    const formattedDate = new Date(report.Report_Date).toLocaleDateString('en-GB');
+                    const row = `
+                        <tr>
+                            <td>${sanitizeHTML(report.Child_Name)}</td>
+                            <td>${formattedDate}</td>
+                            <td>${sanitizeHTML(report.Maid_Name)}</td>
+                            <td><i class="fas fa-eye icon reportbtn"></i></td>
+                            <td><i class="fas fa-download icon"></i></td>
+                            <td>
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" class="checkbox" ${report.Viewed === 'Yes' ? 'checked' : ''} />
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    `;
+                    maidTableBody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+
+            // Update Teacher Reports table
+            if (data.Teacher) {
+                data.Teacher.forEach(report => {
+                    const formattedDate = new Date(report.Report_Date).toLocaleDateString('en-GB');
+                    const row = `
+                        <tr>
+                            <td>${sanitizeHTML(report.Child_Name)}</td>
+                            <td>${formattedDate}</td>
+                            <td>${sanitizeHTML(report.Teacher_Name)}</td>
+                            <td><i class="fas fa-eye icon reportbtn"></i></td>
+                            <td><i class="fas fa-download icon"></i></td>
+                            <td>
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" class="checkbox" ${report.Viewed === 'Yes' ? 'checked' : ''} />
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    `;
+                    teacherTableBody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+        }
+
+        // Helper function to sanitize HTML content to prevent XSS
+        function sanitizeHTML(str) {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const upbtn = document.getElementById('up-btn');
+            const hibtn = document.getElementById('hi-btn');
+            const maidStats = document.getElementById('maid-stats');
+            const teacherStats = document.getElementById('teacher-stats');
+            const upcoming = document.getElementById('upcoming');
+            const history = document.getElementById('history');
+
+            upbtn.addEventListener('click', function() {
+                // Toggle stats visibility
+                maidStats.style.display = 'flex';
+                teacherStats.style.display = 'none';
+
+                // Toggle table visibility
+                upcoming.style.display = 'block';
+                history.style.display = 'none';
+
+                // Update button styles
+                upbtn.style.color = 'white';
+                hibtn.style.color = 'white';
+                upbtn.style.backgroundColor = '#10639a';
+                hibtn.style.backgroundColor = '#60a6ec';
+            });
+
+            hibtn.addEventListener('click', function() {
+                // Toggle stats visibility
+                maidStats.style.display = 'none';
+                teacherStats.style.display = 'flex';
+
+                // Toggle table visibility
+                upcoming.style.display = 'none';
+                history.style.display = 'block';
+
+                // Update button styles
+                hibtn.style.color = 'white';
+                upbtn.style.color = 'white';
+                hibtn.style.backgroundColor = '#10639a';
+                upbtn.style.backgroundColor = '#60a6ec';
+            });
+
+
+            const datePicker = document.getElementById('datePicker');
+            const childPicker = document.getElementById('childPicker');
+
+            fetchReports(datePicker.value, childPicker.value);
+
+            datePicker.addEventListener('change', function() {
+                fetchReports(datePicker.value, childPicker.value);
+            });
+
+            childPicker.addEventListener('change', function() {
+                fetchReports(datePicker.value, childPicker.value);
+            });
+
+        });
     </script>
 </body>
 

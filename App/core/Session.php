@@ -164,8 +164,8 @@ use SessionHandler;
             $this->start_session();
             $session = new Session;
     
-            if (!empty($session->get('CHILDNAME'))) {
-                return true;
+            if (empty($session->get('CHILDID'))) {
+                redirect ('Parent/Home');
             }
         
             return false;

@@ -13,50 +13,56 @@
 
             $Data = [];
             $session = new \Core\Session;
-            $username = $session->get('USERNAME');
+            $ParentID = $session->get('ParentID');
             $guardian = new \Modal\Guardian;
-            $result = $guardian->where_norder(['Parent_Name' => $username]);
+            $result = $guardian->where_norder(['ParentID' => $ParentID]);
             if(!empty($result)){
                 redirect('Parent/Home');
             }
             $requiredFields = ['First_Name', 'Last_Name', 'Relation', 'Phone_Number', 'Language','Address','NID','Email','Gender', ];
             if(($_SERVER['REQUEST_METHOD'] === 'POST'&& checkRequiredFields($requiredFields, $_POST))){
-                $errors = $this->validate();
+                $errors = $guardian->validate();
                 if(empty($errors)){
                     if(empty($result)){
-                        $_POST['Parent_Name'] = $username;
-                        $guardian-> insert($_POST);
+                        $_POST['ParentID'] = $ParentID;
 
-                        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-                            $file = $_FILES['profile_image'];
-                            $fileType = 'profile';
-            
-                            $filePath = uploadFile($username,"Guardian" , $fileType, $file);
-            
-                            if ($filePath) {
-                                $_POST['profile_image_path'] = $filePath;
+                        $imageFile = $_FILES['profile_image'];
+                        if ($imageFile['error'] === 0) {
+                            $imageBlob = file_get_contents($imageFile['tmp_name']);
+                            if ($imageBlob === false) {
+                                $errors['Image'] = "Failed to read the image file.";
                             } else {
-                                echo "File upload failed.";
+                                $_POST['Image'] = $imageBlob;
+                                show($_POST);
+                                $guardian->insert($_POST);
+                                $session->unset('CHILDID');
+                                $session->unset('PARENTID');
+                                redirect('Parent/Home');
                             }
+                        } else {
+                            $errors['Image'] = "Error occurred while uploading the image.";
                         }
                         redirect('Parent/Home');
                     }
                     else{
-                        $_POST['Parent_Name'] = $username;
-                        $guardian-> update(['Parent_Name'=> $username], $_POST);
+                        $_POST['ParentID'] = $ParentID;
+                        $imageFile = $_FILES['profile_image'];
 
-                        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-                            $file = $_FILES['profile_image'];
-                            $fileType = 'profile';
-            
-                            $filePath = uploadFile($username,"Guardian" , $fileType, $file);
-            
-                            if ($filePath) {
-                                $_POST['profile_image_path'] = $filePath;
+                        if ($imageFile['error'] === 0) {
+                            $imageBlob = file_get_contents($imageFile['tmp_name']);
+                            if ($imageBlob === false) {
+                                $errors['Image'] = "Failed to read the image file.";
                             } else {
-                                echo "File upload failed.";
+                                $_POST['Image'] = $imageBlob;
+                                $parent = new \Modal\Guardian;
+                                show($_POST);
+                                $guardian-> update(['ParentID'=> $ParentID], $_POST);
+                                redirect('Parent/Home');
                             }
+                        } else {
+                            $errors['Image'] = "Error occurred while uploading the image.";
                         }
+
                         redirect('Parent/Home');
                     }
                 }
@@ -68,26 +74,6 @@
             }
 
             $this->view('Onbording/Guardian' , $Data);
-        }
-
-        private function validate() {
-            $errors = [];
-            if (!isString($_POST['First_Name'])) {
-                $errors['First_Name'] = "First Name must be a valid string";
-            }
-            if (!isString($_POST['Last_Name'])) {
-                $errors['Last_Name'] = "Last Name must be a valid string";
-            }
-            if (!isNumber($_POST['NID'])) {
-                $errors['NID'] = "NID must be a valid number";
-            }
-            if (!isEmail($_POST['Email'])) {
-                $errors['Email'] = "Email is not valid";
-            }
-            if (!IsString($_POST['Relation'])) {
-                $errors['Relation'] = "Relation is not valid";
-            }
-            return $errors;
         }
     
         private function setvalues(){

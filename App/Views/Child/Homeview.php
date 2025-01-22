@@ -13,7 +13,7 @@
     <script src="<?= JS ?>/Child/OTP.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Number.js?v=<?= time() ?>"> </script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"> </script>
-    <script src="<?= JS ?>/Child/Home.js?v=<?= time() ?>"> </script>
+    <!-- <script src="<?= JS ?>/Child/Home.js?v=<?= time() ?>"> </script> -->
     <script src="<?= JS ?>/Child/Taskbar.js?v=<?= time() ?>"> </script>
 </head>
 
@@ -87,7 +87,7 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -105,8 +105,8 @@
                                     echo "select-child";
                                 } ?>
                             "
-                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
                                                                                                 echo "margin-left: -20px !important";
@@ -177,6 +177,7 @@
             </div>
             <div style="display: flex; flex-direction: row;">
                 <div class="report-page">
+                    <?php show($_SESSION) ?>
                     <h1 style="color: #233E8D; margin-left: 15px;">
                         <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
                     <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our family! </p>
@@ -185,7 +186,7 @@
                             <h3 style="margin-top: 0px; margin-bottom: 2px;">Child Profile</h3>
                             <hr>
                             <div class="first-row">
-                                <img src="<?= isset($data['selectedchildren']['image']) ? $data['selectedchildren']['image'] . '?v=' . time() : 'No name set'; ?>" alt="profile pic">
+                                <img src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>">
                                 <h4 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h4>
                             </div>
                             <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
@@ -767,27 +768,58 @@
         fixedSlider.value = initialValue;
     });
 
-    function setChildSession(childName) {
+    // function setChildSession(ChildID) {
+    //     fetch('<?= ROOT ?>/Parent/Home/setchildsession', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             ChildID: ChildID
+    //         })
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             // If the response status is not OK (e.g., 404, 500), throw an error
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+    //         return response.json(); // Parse the response as JSON
+    //     })
+    //     .then(data => {
+    //         if (data.success) {
+    //             console.log("Child ID set in session.");
+    //             window.location.href = '<?= ROOT ?>/Child/Home';
+    //         } else {
+    //             console.error("Failed to set child name in session:", data.message);
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error("Error in setChildSession:", error);
+    //     });
+    // }
+
+    function setChildSession(ChildID){
         fetch('<?= ROOT ?>/Child/Home/setchildsession', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    childName: childName
+                    ChildID: ChildID
                 })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    console.log("Child name set in session.");
+                    console.log("Child id set in session.");
                     window.location.href = '<?= ROOT ?>/Child/Home';
                 } else {
-                    console.error("Failed to set child name in session.", data.message);
+                    console.error("Failed to set child id from session.", data.message);
                 }
             })
             .catch(error => console.error("Error:", error));
     }
+
 
     function removechildsession() {
         fetch('<?= ROOT ?>/Child/Home/removechildsession', {
@@ -799,10 +831,10 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    console.log("Child name removed from session.");
+                    console.log("Child id removed from session.");
                     window.location.href = '<?= ROOT ?>/Parent/Home';
                 } else {
-                    console.error("Failed to remove child name from session.", data.message);
+                    console.error("Failed to remove child id from session.", data.message);
                 }
             })
             .catch(error => console.error("Error:", error));

@@ -1,89 +1,265 @@
 <?php
 
-    namespace Controller;
+namespace Controller;
 
-    defined('ROOTPATH') or exit('Access denied');
+defined('ROOTPATH') or exit('Access denied');
 
-    class Event{
-        use MainController;
-        public function index(){
+class Event
+{
+    use MainController;
+    public function index(){
 
-            $session = new \Core\Session;
-            $session->check_login();
+        $session = new \Core\Session;
+        $session->check_login();
 
-            $data = [];
-            $username = $session->get('USERNAME');
+        $data = [];
+        $UserID = $session->get('USERID');
 
-            $child = new \Modal\Child;
-            $children = $child->where_norder(['Parent_Name' => $username]);
-            $parent = new \Modal\ParentUser;
-            $pre = $parent->where_norder(['Username' => $username]);
+        $parent = new \Modal\ParentUser;
+        $pre = $parent->first(['UserID' => $UserID]);
+        $ParentID = $pre->ParentID;
 
-            $data = $this->store($username,$children, $pre);
+        $child = new \Modal\Child;
+        $children = $child->where_norder(['ParentID' => $ParentID]);
 
-            $this->view('Parent/event', $data);
-        }
+        $data = $data + $this->store($children, $pre);
+        $data = $data + $this->store_Stats($children);
+        $this->view('Parent/event', $data);
+    }
 
-        private function store($username, $children, $pre){
-            $data = [];
-            
-            // Retrieve the parent's profile image
-            $parentImage = getProfileImageUrl($username);
-            $data['parent'] = [
-                'fullname' => $pre[0]->First_Name . ' ' . $pre[0]->Last_Name,
-                'username' => $username,
-                'image' => !empty($parentImage) ? $parentImage : null,
-                'childcount' => count($children),
-                'lastseen' => $pre[0]->Last_Seen,
-                'firstname' => $pre[0]->First_Name,
-                'lastname' => $pre[0]->Last_Name,
-                'lastseen' => lastSeen($pre[0]->Last_Seen),
+    private function store($children, $pre)
+    {
+        $data = [];
+        $imageData = $pre->Image;
+        $imageType = $pre->ImageType;  // Get the image MIME type from the database
+
+        // If image data is available, construct the Base64 string using the correct MIME type
+        $base64Image = (!empty($imageData) && is_string($imageData))
+            ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+            : null;
+
+        $data['parent'] = [
+            'fullname' => $pre->First_Name . ' ' . $pre->Last_Name,
+            'childcount' => count($children),
+            'lastseen' => $pre->Last_Seen,
+            'firstname' => $pre->First_Name,
+            'lastname' => $pre->Last_Name,
+            'lastseen' => lastSeen($pre->Last_Seen),
+            'image' => $base64Image
+        ];
+
+        // Retrieve each child's profile image and store by index
+        foreach ($children as $index => $child) {
+            $fullName = $child->First_Name . " " . $child->Last_Name;
+
+            $imageData = $child->Image;
+            $imageType = $child->ImageType;
+            $base64Image = (!empty($imageData) && is_string($imageData))
+                ? 'data:image/jpeg;base64,' . base64_encode($imageData)
+                : null;
+
+            $data['children'][$index] = [
+                'Id' => $child->ChildID,
+                'name' => $child->First_Name,
+                'fullname' => $fullName,
+                'image' => $base64Image,
             ];
-    
-            // Retrieve each child's profile image and store by index
-            foreach ($children as $index => $child) {
-                $fullName = $child->First_Name . " " . $child->Last_Name ;
-                $childImage = getProfileImageUrl($username, $child->First_Name);
-                $data['children'][$index] = [
-                    'name' => $child->First_Name,
-                    'fullname' => $fullName,
-                    'image' => !empty($childImage) ? $childImage : null,
-                ];
+        }
+        return $data;
+    }
+
+    private function store_Stats($children){
+        $upcomingEvent = null;
+        $enrolledEvents = 0;
+        $newEvent = null; // Store the most recent event
+        $EventModal = new \Modal\Event;
+        $Enrollment = new \Modal\EventEnrollment;
+
+        // Loop through each child to calculate stats
+        foreach ($children as $child) {
+            $childEnrollments = $Enrollment->where_norder(['ChildID' => $child->ChildID]);
+
+            // Loop through each event the child is enrolled in
+            foreach ($childEnrollments as $enrollment) {
+                $event = $EventModal->first(['EventID' => $enrollment->EventID]);
+                $eventDate = new \DateTime($event->Date);
+
+                // Count the total events enrolled
+                $enrolledEvents++;
+
+                // Check if the event is upcoming and the closest one
+                if ($eventDate > new \DateTime()) {
+                    if (!$upcomingEvent || $eventDate < new \DateTime($upcomingEvent->Date)) {
+                        $upcomingEvent = $event;  // Set the closest upcoming event
+                    }
+                }
             }
-    
-            return $data;
         }
 
-        public function setchildsession(){
+        $AllEvents = $EventModal->findall();
+        $newEvent = null;
+        if (!empty($AllEvents)) {
+            $newEvent = array_reduce($AllEvents, function ($carry, $item) {
+                return (!$carry || $item->EventID > $carry->EventID) ? $item : $carry;
+            });
+        }
 
-            $response = ['called' => true];
-            defined('ROOTPATH') or define('ROOTPATH', __DIR__); // Define the root if not already defined
+        $stats = [];
+        $stats['stat1'] = [
+            'upcomingEvent' => $upcomingEvent ? [
+                'EventName' => $upcomingEvent->EventName,
+                'Date' => $upcomingEvent->Date,
+            ] : null,
+        ];
+        $stats['stat2'] = [
+            'enrolledEvents' => $enrolledEvents,
+            'eventsMessage' => $enrolledEvents > 0
+                ? "$enrolledEvents events upcoming this month"
+                : "No events upcoming",
+        ];
 
-            // Session and JSON response settings
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
+        $imageData = $newEvent->Image;
+        $imageType = $newEvent->ImageType; // The MIME type of the image (e.g., image/jpeg, image/png)
+    
+        // Check if image data is available and it's a valid string
+        $base64Image = (!empty($imageData) && is_string($imageData)) 
+            ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+            : null;
+
+        $stats['stat3'] = $newEvent ? [
+            'EventName' => $newEvent->EventName,
+            'Date' => $newEvent->Date,
+            'Image' => $base64Image, // This will be the Base64 string representation of the image
+        
+        ]: null;
+
+
+        return $stats;
+    }
+
+
+    public function Event_details(){
+        header('Content-Type: application/json');
+
+        // Parse incoming JSON request
+        $requestData = json_decode(file_get_contents("php://input"), true);
+        $EventID = isset($requestData['EventID']) ? $requestData['EventID'] : null;
+
+        $event = [];
+        if ($EventID) {
+            $EventModal = new \Modal\Event;
+            $event = $EventModal->first(['EventID' => $EventID]);
+    
+        }
+
+        if (empty($event)) {
+            echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
+        } else {
+            echo json_encode(['success' => true, 'data' => $event]);
+        }
+
+    }
+
+
+    public function store_data(){
+        header('Content-Type: application/json');
+
+        // Parse incoming JSON request
+        $requestData = json_decode(file_get_contents("php://input"), true);
+        $filterDate = isset($requestData['date']) ? new \DateTime($requestData['date']) : null;
+        $filterStatus = $requestData['status'] ?? null;
+
+        $session = new \Core\Session;
+        $UserID = $session->get('USERID');
+
+        $parent = new \Modal\ParentUser;
+        $pre = $parent->first(['UserID' => $UserID]);
+        $ParentID = $pre->ParentID;
+
+        $child = new \Modal\Child;
+        $children = $child->where_norder(['ParentID' => $ParentID]);
+
+        $Enrollment = new \Modal\EventEnrollment;
+        $EventModal = new \Modal\Event;
+
+        $data = [];
+        foreach ($children as $childRow) {
+            $EventEnrollments = $Enrollment->where_norder(["ChildID" => $childRow->ChildID]);
+            foreach ($EventEnrollments as $enrollment) {
+                $enrollment->ChildName = $childRow->First_Name;
+                $data[] = $enrollment;
             }
-        
-            header('Content-Type: application/json');
-        
-            // Disable error reporting for clean JSON output in production
-            ini_set('display_errors', 0);
-            error_reporting(0);
-        
-            // Handle AJAX request and set the child session
-            $request = json_decode(file_get_contents('php://input'), true);
-            $response = [];
-        
-            if (isset($request['childName'])) {
-                $session = new \Core\Session;
-                $session->set('CHILDNAME', $request['childName']);
-                $_SESSION['CHILDNAME'] = $request['childName'];
-                $response = ['success' => true];
+        }
+
+        $today = new \DateTime();
+        foreach ($data as $row) {
+            $Event = $EventModal->first(['EventID' => $row->EventID]);
+            $row->EventName = $Event->EventName;
+            $row->EventID = $Event->EventID;
+            $row->Date = (new \DateTime($Event->Date))->format('Y-m-d');
+
+            $eventDate = new \DateTime($Event->Date);
+            if ($eventDate == $today) {
+                $row->Status = 'Happening';
+            } elseif ($eventDate > $today) {
+                $row->Status = 'Upcoming';
             } else {
-                $response = ['success' => false, 'message' => 'Child name not provided.'];
+                $row->Status = 'Finished';
             }
-            echo json_encode($response); // Output JSON response
-            exit();
+        }
+
+        // Apply filters
+        if ($filterDate) {
+            $filterDate = $filterDate->format('Y-m-d'); // Convert to string
+            $data = array_filter($data, function ($row) use ($filterDate) {
+                return $row->Date == $filterDate;
+            });
+        }
+
+        if ($filterStatus && $filterStatus !== 'NULL') {
+            $data = array_filter($data, function ($row) use ($filterStatus) {
+                return $row->Status == $filterStatus;
+            });
+        }
+
+        // Sort the data
+        usort($data, function ($a, $b) use ($today) {
+            $statusOrder = ['Happening' => 0, 'Upcoming' => 1, 'Finished' => 2];
+            $statusComparison = $statusOrder[$a->Status] <=> $statusOrder[$b->Status];
+            if ($statusComparison === 0) {
+                return $a->Date <=> $b->Date;
+            }
+            return $statusComparison;
+        });
+
+        if (empty($data)) {
+            echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
+        } else {
+            echo json_encode(['success' => true, 'data' => $data]);
         }
     }
-?>
+
+
+
+    public function setchildsession()
+    {
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        header('Content-Type: application/json');
+        $request = json_decode(file_get_contents('php://input'), true);
+        $response = [];
+
+        $session = new \Core\Session;
+        if (isset($request['ChildID'])) {
+            $session->set('CHILDID', $request['ChildID']);
+            $response = ['success' => true, 'message' => 'Child session removed.'];
+        } else {
+            $response = ['success' => false, 'message' => 'No child session to remove.'];
+        }
+
+        echo json_encode($response);
+        exit();
+    }
+}

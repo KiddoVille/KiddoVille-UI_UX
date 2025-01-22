@@ -13,64 +13,56 @@
             $session->check_login();
 
             $Data = [];
-            $username = $session->get('USERNAME');
+            $UserID = $session->get('USERID');
 
             $parent = new \Modal\ParentUser;
-            $result = $parent->where_norder(["Username" => $username]);
+            $result = $parent->where_norder(["UserID" => $UserID]);
             if(!empty($result)){
                 redirect('Parent/Home');
             }
 
             $requiredFields = ['First_Name', 'Last_Name', 'Phone_Number', 'Address', 'NID', 'Email', 'Gender', 'Language'];
 
-            if(($_SERVER['REQUEST_METHOD'] === 'POST') && checkRequiredFields($requiredFields, $_POST)){
-                $errors = $this->validate();
-                if(empty($errors)){
-                    $parent = new \Modal\ParentUser;
-                    $parent -> insert($_POST);
+            if(($_SERVER['REQUEST_METHOD'] === 'POST') && $_FILES['profile_image'] && checkRequiredFields($requiredFields, $_POST)){
+                if (empty($errors)) {
+                    $_POST['UserID'] = $UserID;
+                    $imageFile = $_FILES['profile_image'];
+                    
+                    if ($imageFile['error'] === 0) {
+                        // Get the MIME type of the uploaded file
+                        $imageType = mime_content_type($imageFile['tmp_name']);
+                        if (in_array($imageType, ['image/jpeg', 'image/png', 'image/gif'])) {
 
-                    if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-                        $userId = $username;
-                        $file = $_FILES['profile_image'];
-                        $fileType = 'profile';
-        
-                        // Call the uploadFile function
-                        $filePath = uploadFile($userId, null, $fileType, $file);
-        
-                        if ($filePath) {
-                            $_POST['profile_image_path'] = $filePath;
+                            $imageBlob = file_get_contents($imageFile['tmp_name']);
+                            
+                            if ($imageBlob === false) {
+                                $errors['Image'] = "Failed to read the image file.";
+                            } else {
+                                $_POST['Image'] = $imageBlob;
+                                $_POST['ImageType'] = $imageType;
+                                $parent = new \Modal\ParentUser;
+                                $parent->insert($_POST);
+                                
+                                redirect('Onbording/Child');
+                            }
                         } else {
-                            echo "File upload failed.";
+                            $errors['Image'] = "Unsupported image type. Please upload JPEG, PNG, or GIF images.";
                         }
+                    } else {
+                        $errors['Image'] = "Error occurred while uploading the image.";
                     }
-                    redirect('Onbording/Child');
-                }
-                else{
-                    $values= $this->setvalues();
+                } else {
+                    $values = $this->setvalues();
                     $Data['values'] = $values;
                     $Data['errors'] = $errors;
                 }
             }
 
+            $user = new \Modal\User;
+            $result = $user->first(['UserID' => $UserID]);
+            $username = $result->Username;
             $Data['username'] = $username;
             $this->view('Onbording/ParentUser', $Data);
-        }
-
-        private function validate() {
-            $errors = [];
-            if (!isString($_POST['First_Name'])) {
-                $errors['First_Name'] = "First Name must be a valid string";
-            }
-            if (!isString($_POST['Last_Name'])) {
-                $errors['Last_Name'] = "Last Name must be a valid string";
-            }
-            if (!isNumber($_POST['NID'])) {
-                $errors['NID'] = "NID must be a valid number";
-            }
-            if (!isEmail($_POST['Email'])) {
-                $errors['Email'] = "Email is not valid";
-            }
-            return $errors;
         }
 
         private function setvalues(){
