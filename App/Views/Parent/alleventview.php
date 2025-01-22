@@ -79,7 +79,7 @@
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/ReParent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -93,7 +93,7 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -168,37 +168,31 @@
             </div>
             <div class="modal" id="EventModal">
                 <div class="View-Package">
-                    <img src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
-                    <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
+                    <img src="" id="Event-img" style="width: 360px; height: 250px; position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
+                    <div class="top-con" style="margin-top: 0px; margin-left: 1px;">
                         <div class="back-con" id="back-arrow">
                             <i class="fas fa-chevron-left" id="backformeeting"></i>
                         </div>
                     </div>
-                    <div class="pickup-section" style="margin-top: 190px;">
+                    <div class="pickup-section" style="margin-top: 230px;">
                         <label for="package-name">Event name</label>
-                        <input id="package-name" readonly="" type="text" value="Basic care plan" />
+                        <input id="Event-name" readonly="" type="text" />
                     </div>
                     <div class="pickup-section">
                         <label for="included-services">Activity details</label>
-                        <div class="services" id="included-services">
-                            title of the compition is on nature
-                            <br />
-                            All type of drawing methods are allowd
-                            <br />
-                            competiton is partitioned in age groups
+                        <div class="services" id="description">
+
                         </div>
                     </div>
                     <div class="pickup-section">
                         <label for="price">Date Time</label>
-                        <div class="price-container">
-                            <input id="price" readonly="" type="text" value="12/12/2024 11:00 AM" />
-                        </div>
+                        <input id="datetime" readonly="" type="text" />
                     </div>
-                    <button id="Enrollbtn" style="width: 150px; margin-left: 170px; margin-top: 10px;" class="eventbtn"> Select Child </button>
+                    <button id="Enrollbtn" value="" style="width: 150px; margin-left: 170px; margin-top: 10px;" class="eventbtn" onclick="getchildrens(this.value)"> Enroll Children </button>
                 </div>
             </div>
             <div class="modal" id="EnrollModal">
-                <div class="View-Package" style="height: 400px;">
+                <div class="View-Package" style="height: 440px;">
                     <img src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
                     <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
                         <div class="back-con" id="Eback-arrow">
@@ -207,129 +201,37 @@
                     </div>
                     <div class="pickup-section" style="margin-top: 190px;">
                         <label for="package-name">Select Child</label>
-                        <div class="child-selection" style="margin-top: 20px;">
-                            <!-- Example list of children -->
-                            <div style="margin-bottom: 10px; display: flex; flex-direction: row;" >
-                                <input type="radio" id="child1" name="child" value="child1">
-                                <label for="child1">John Doe</label>
-                            </div>
-                            <div style="margin-bottom: 10px; display: flex; flex-direction: row;">
-                                <input type="radio" id="child2" name="child" value="child2">
-                                <label for="child2">Jane Smith</label>
-                            </div>
-                            <div style="margin-bottom: 10px; display: flex; flex-direction: row;">
-                                <input type="radio" id="child3" name="child" value="child3">
-                                <label for="child3">Emily Brown</label>
-                            </div>
+                        <div class="child-selection" style="margin-top: 20px; height: 150px;">
+
                         </div>
                     </div>
-                    <button style="width: 150px; margin-left: 170px" class="eventbtn"> Enroll </button>
+                    <button style="width: 150px; margin-left: 170px" id="Enrollmodel"> Enroll </button>
                 </div>
             </div>
-            <div class="fill" style="margin-left: 35px;">
+            <div class="fill" style="margin-left: 30px; width: 1180px;">
                 <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                    style="width: 24px; height: 24px; fill: #233E8D !important; margin-left: -1080px; cursor: pointer;"
+                    style="width: 24px; height: 24px; fill: #233E8D !important; margin-left: -1120px; cursor: pointer;"
                     class="back" onclick="window.location.href='<?= ROOT ?>/Parent/event'">
-                <h2 style="margin-top: 10px !important; margin-bottom: 2px; margin-right: 970px;"> Events </h2>
+                <h2 style="margin-top: -10px !important; margin-bottom: 2px; margin-right: 980px;"> Events </h2>
                 <hr style="width: 1070px;">
-                <div class="filters">
-                    <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                <div class="filters" style="margin-left: 330px !important;">
+                    <input type="date" id="datePicker" value="" style="width: 200px; margin-left: 70px;">
+                    <select id="age">
+                        <option value="All" selected> All </option>
+                        <option value="2-3"> 2-3 </option>
+                        <option value="4-5"> 4-5 </option>
+                        <option value="6-7"> 6-7 </option>
+                        <option value="8-9"> 8-9 </option>
+                        <option value="10-11"> 10-11 </option>
+                        <option value="12-13"> 12-13 </option>
+                        <option value="14-15"> 14-15 </option>
+                    </select>
                 </div>
-                <div class="packages">
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-                    </div>
+                <div class="packages" style="display: grid; grid-template-columns: repeat(5, 1fr); height: 460px;">
+
                 </div>
-                <div class="packages" style="margin-top: -10px;">
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-                    </div>
-                </div>
-                <div class="pagination">
-                    <a href="#">
-                        &lt;
-                    </a>
-                    <a class="active" href="#">
-                        1
-                    </a>
-                    <a href="#">
-                        2
-                    </a>
-                    <a href="#">
-                        3
-                    </a>
-                    <a href="#">
-                        ...
-                    </a>
-                    <a href="#">
-                        &gt;
-                    </a>
+                <div class="pagination" style="margin-top: 30px; margin-bottom: -10px;">
+
                 </div>
             </div>
             <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
@@ -364,6 +266,8 @@
         </div>
     </div>
     <script>
+        let paginatedData = [];
+
         function setChildSession(childName) {
             console.log(childName);
             fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
@@ -387,7 +291,187 @@
                 .catch(error => console.error("Error:", error));
         }
 
+        function fetchrequest(date, age) {
+            fetch('<?= ROOT ?>/Parent/allevent/store_events', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        Age: age
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Event data:", data.data);
+                        const eventArray = Object.values(data.data);
+                        displayEvents(eventArray);
+                    } else {
+                        console.error("Failed to fetch events:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function getchildrens(eventId) {
+            toggleModal(EnrollModal, 'flex');
+            fetch('<?= ROOT ?>/Parent/allevent/store_allowedchild', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Id: eventId,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Event data:", data.data);
+                        const childs = Object.values(data.data);
+                        displaychilds(childs);
+                    } else {
+                        console.error("Failed to fetch events:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function displaychilds(children) {
+            const childSelectionDiv = document.querySelector('.child-selection');
+            childSelectionDiv.innerHTML = ''; // Clear the existing content
+
+            children.forEach(child => {
+                // Create the container div for each child
+                const childDiv = document.createElement('div');
+                childDiv.style.marginBottom = '0px';
+                childDiv.style.display = 'flex';
+                childDiv.style.flexDirection = 'row';
+
+                // Create the radio input element
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.id = `child${child.ChildID}`;
+                input.name = 'child';
+                input.value = child.ChildID;
+
+                // Create the label for the radio input
+                const label = document.createElement('label');
+                label.htmlFor = `child${child.ChildID}`;
+                label.textContent = child.childName;
+
+                // Append the input and label to the container div
+                childDiv.appendChild(input);
+                childDiv.appendChild(label);
+
+                // Append the container div to the parent selection div
+                childSelectionDiv.appendChild(childDiv);
+            });
+        }
+
+        function toggleModal(modal, display) {
+            const mainContent = document.getElementById('main-content');
+            modal.style.display = display;
+            if (display === 'flex') {
+                document.body.classList.add('no-scroll');
+                mainContent.classList.add('blurred');
+            } else {
+                document.body.classList.remove('no-scroll');
+                mainContent.classList.remove('blurred');
+            }
+        }
+
+        function setModalData(event) {
+            console.log("Event data:", event);
+            const Event_img = document.getElementById('Event-img');
+            const Event_name = document.getElementById('Event-name');
+            const Description = document.getElementById('description');
+            const Datetime = document.getElementById('datetime');
+            const Enrollbtn = document.getElementById('Enrollbtn');
+
+            Enrollbtn.value = event.EventID;
+            Event_img.src = event.Image;
+            Event_name.value = event.EventName;
+            Description.innerHTML = `
+                ${event.Description}
+            `
+            Datetime.value = event.Date + ' ' + event.Time;
+        }
+
+        function displayEvents(data, page = 1, itemsPerPage = 10) {
+            const eventsContainer = document.querySelector(".packages");
+            const paginationContainer = document.querySelector(".pagination");
+
+            // Clear the current events and pagination
+            eventsContainer.innerHTML = "";
+            paginationContainer.innerHTML = "";
+
+            // Pagination logic
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = page * itemsPerPage;
+            paginatedData = data.slice(startIndex, endIndex); // Store the paginated data globally
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+
+            paginatedData.forEach((event, index) => {
+                const card = document.createElement("div");
+                card.classList.add("package-card");
+
+                card.innerHTML = `
+                    <img alt="Classroom with colorful furniture and toys" src="${event.image || '<?= IMAGE ?>/packages.png'}" />
+                    <p>Event Name: ${event.EventName}</p>
+                    <p>Date: ${event.Date}</p>
+                    <p>Time: ${event.Time}</p>
+                    <button class="eventbtn lol" data-index="${index}">View</button>
+                `;
+                eventsContainer.appendChild(card);
+            });
+
+            const eventBtns = eventsContainer.querySelectorAll(".eventbtn");
+            eventBtns.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const index = parseInt(btn.getAttribute("data-index")); // Get the index from the button's data attribute
+                    const selectedEvent = paginatedData[index]; // Use the paginatedData to get the correct event
+                    setModalData(selectedEvent); // Pass the event data to setModalData
+                    toggleModal(document.getElementById("EventModal"), "flex"); // Open the modal
+                });
+            });
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = document.createElement("a");
+                pageLink.href = "#";
+                pageLink.textContent = i;
+                if (i === page) {
+                    pageLink.classList.add("active");
+                }
+                pageLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    displayEvents(data, i, itemsPerPage);
+                });
+                paginationContainer.appendChild(pageLink);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+
+            fetchrequest(null, null);
+
+            const datePicker = document.getElementById('datePicker');
+            const age = document.getElementById('age');
+
+            function applyFilters() {
+                const date = datePicker.value || null;
+                const agegroup = age.value || null;
+                console.log(date, agegroup);
+                fetchrequest(date, agegroup);
+            }
+
+            datePicker.addEventListener('change', applyFilters);
+            age.addEventListener('change', applyFilters);
+
             const EventModal = document.getElementById('EventModal');
             const eventbtns = document.querySelectorAll('.eventbtn');
             const mainContent = document.getElementById('main-content');
@@ -400,6 +484,7 @@
             eventbtns.forEach(function(eventbtn) {
                 eventbtn.addEventListener('click', function() {
                     toggleModal(EventModal, 'flex');
+                    toggleModal(EnrollModal, 'none');
                 })
             });
 
@@ -410,13 +495,12 @@
             backforenroll.addEventListener('click', function() {
                 toggleModal(EnrollModal, 'none');
                 toggleModal(EventModal, 'flex');
-            })
+            });
 
             Enrollbtn.addEventListener('click', function() {
-                toggleModal(EventModal, 'none');
-                console.log('lol');
-                toggleModal(EnrollModal, 'flex');
-            })
+                toggleModal(EventModal, 'none'); // Close the EventModal first
+                toggleModal(EnrollModal, 'flex'); // Then open the EnrollModal
+            });
 
             window.addEventListener('click', function(e) {
                 if (e.target === EventModal) {

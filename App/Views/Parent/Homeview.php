@@ -14,7 +14,6 @@
     <script src="<?= JS ?>/Parent/Number.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Home.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Parent/Taskbar.js?v=<?= time() ?>"></script>
 </head>
 
 <body style="overflow-x: hidden;">
@@ -54,11 +53,11 @@
                 </li>
                 <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Parent/event">
-                        <i class="fas fa-calendar-alt"></i> 
-                        <span>Event 
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Event
                             <span class="message-numbers" style="margin-left: 30px; padding: 6px 10px;"> 1
-                            </span> 
-                        </span>                 
+                            </span>
+                        </span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -91,7 +90,7 @@
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -104,8 +103,8 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -125,7 +124,7 @@
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
                     <p style="color: white">Let’s do some productive activities today</p>
                 </div>
-                <div class="search-bar" >
+                <div class="search-bar">
                     <input type="text" placeholder="Search">
                     <i class="fas fa-search"></i>
                     <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
@@ -186,18 +185,18 @@
                         <div class="first-row" style="display: flex; flex-direction: row;">
                             <div style="display: flex; flex-direction: column;">
                                 <img
-                                    src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
-                                    alt="profile pic">
+                                    src=" "
+                                    alt="parent profile pic"
+                                    style="height: 150px; border: 2px solid lightgrey; border-radius: 5px;"
+                                >
                             </div>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
                                     aria-valuemax="100"></div>
                             </div>
                         </div>
-                        <h3
-                            style="margin-top: 0px !important;">
-                            Child Name :
-                            <?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?>
+                        <h3 style="margin-top: 0px !important;" id="fullname"> Child Name :
+                            
                         </h3>
                         <hr style="margin-top: -15px; margin-bottom: -10px;">
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -211,9 +210,10 @@
                                 </div>
                                 <div style="display: flex; flex-direction: row; margin-top: 30px; margin-bottom: -30px;">
                                     <h4 style="margin-top: -10px;"> Upcoming Reservation : </h4>
-                                    <p style="margin-top: -10px;"> Dec 20 </p>
+                                    <p style="margin-top: -10px;" id="upcomingreservations"> </p>
                                 </div>
-                                <button class="button" style="margin: -40px 0px 0px 315px !important; padding: 15px 20px 15px 20px;"> View Child </button>
+                                <button class="button" id="Viewchild" style="margin: -40px 0px 0px 315px !important; padding: 15px 20px 15px 20px;" value=""> View Child 
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -221,16 +221,16 @@
                         <h3 style="margin-top: 10px !important; margin-bottom: 2px;">Childrens</h3>
                         <hr>
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="child present" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            <li class="child present" onclick="setChild('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     class='child-photo'>
                                 <div class="child-info">
                                     <p class="child-name">
                                         <?= isset($child['fullname']) ? $child['fullname'] : 'No name set'; ?>
                                     </p>
-                                    <p class="attendancestatus">
-                                        present
+                                    <p class="attendancestatus" style="color: <?= isset($child['Status']) && $child['Status'] == 'Absent' ? 'red' : 'green'; ?>;">
+                                        <?= isset($child['Status']) ? $child['Status'] : 'Absent'; ?>
                                     </p>
                                 </div>
                             </li>
@@ -316,26 +316,12 @@
                         <div class="table-body-container" style="max-height: 90px; overflow-y: auto; padding: 10px;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tbody>
-                                    <tr>
-                                        <td> Child </td>
-                                        <td>Description</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Child </td>
-                                        <td>Description</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Child </td>
-                                        <td>Description</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Child </td>
-                                        <td>Description</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Child </td>
-                                        <td>Description</td>
-                                    </tr>
+                                    <?php foreach($data['reminders'] as $row): ?>
+                                        <tr>
+                                            <td><?=$row->Name ?></td>
+                                            <td><?=$row->Description ?></td>
+                                        </tr>
+                                    <?php endforeach;?>
                                 </tbody>
                             </table>
                         </div>
@@ -547,7 +533,7 @@
                         <div class="pickup-section">
                             <label>Select person for pickup</label>
                             <div class="person-section">
-                                <img alt="Person's photo" height="50" src="<?=IMAGE?>/face.jpeg" width="50" />
+                                <img alt="Person's photo" height="50" src="<?= IMAGE ?>/face.jpeg" width="50" />
                                 <div class="person-info">
                                     <span>Abdulla</span>
                                 </div>
@@ -715,30 +701,80 @@
         <div class="tasks" id="taskbtn" style="position: fixed;">
             <i class="fas fa-chevron-left" id="taskicon"></i>
         </div>
+    </div>
         <script>
-            function setChildSession(childName) {
-                console.log(childName);
+            function setChildSession(ChildID) {
+                console.log(ChildID);
                 fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            childName: childName
+                            ChildID: ChildID
                         })
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            console.log("Child name set in session.");
+                            console.log("Child Id set in session.");
                             window.location.href = '<?= ROOT ?>/Child/Home';
                         } else {
-                            console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                            console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
                         }
                     })
                     .catch(error => console.error("Error:", error));
             }
-        </script>
+
+            const childrenData = <?php echo json_encode($data['children']); ?>;
+
+            function setChild(childId) {
+                const selectedChild = childrenData.find(child => child.Id == childId);
+
+                if (selectedChild) {
+                    // Update the child profile image
+                    const childProfileImage = document.querySelector(".first-row img");
+                    if (childProfileImage) {
+                        childProfileImage.src = selectedChild.image ? selectedChild.image : "default-profile.png";
+                        childProfileImage.alt = selectedChild.fullname ? `${selectedChild.fullname}'s profile picture` : "Child Profile Picture";
+                    }
+
+                    // Update the child name
+                    const childNameElement = document.getElementById("fullname");
+                    if (childNameElement) {
+                        childNameElement.innerHTML = `Child Name: ${selectedChild.fullname ? selectedChild.fullname : "No name set"}`;
+                    }
+
+                    // Update the activity description
+                    const activityDescriptionElement = document.querySelector(".overdue-payment p");
+                    if (activityDescriptionElement) {
+                        activityDescriptionElement.innerText = selectedChild.activity ? selectedChild.activity.description : "No activity data available.";
+                    }
+
+                    const upcomingreservations = document.getElementById('upcomingreservations');
+                    if(upcomingreservations){
+                        upcomingreservations.innerHTML = selectedChild.upcomingreservations;
+                    }
+
+                    const Viewchildbtn = document.getElementById("Viewchild");
+                    Viewchildbtn.value=childId;
+                }
+            }
+
+    // Set the first child as the default profile on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            if (childrenData.length > 0) {
+                setChild(childrenData[0].Id);
+            }
+
+            const Viewchildbtn = document.getElementById("Viewchild");
+
+            Viewchildbtn.addEventListener("click", function(){
+                setChildSession(this.value)
+            });
+        });    
+            
+    </script>
 </body>
 
 </html>

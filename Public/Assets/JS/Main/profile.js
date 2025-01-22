@@ -1,88 +1,84 @@
-    let map, directionsService, directionsRenderer;
-        let userLocation = null; // To store the current live location
-        const destination = { lat: 6.90224024303256953, lng: 79.86109020 }; // Destination coordinates
+let map, directionsService, directionsRenderer, userLocationMarker;
+const destination = { lat: 6.90224024303257, lng: 79.86109020 }; // Destination coordinates
 
-        function initMap() {
-            // Initialize the map centered at the destination
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: destination,
-                zoom: 14
-            });
+function initMap() {
+    // Initialize the map centered at the destination
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: destination,
+        zoom: 14
+    });
 
-            // Initialize DirectionsService and DirectionsRenderer
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer();
+    // Initialize DirectionsService and DirectionsRenderer
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
 
-            // Bind the DirectionsRenderer to the map
-            directionsRenderer.setMap(map);
+    // Add a marker at the destination
+    new google.maps.marker.AdvancedMarkerElement({
+        position: destination,
+        map: map,
+        title: "Destination"
+    });
 
-            // Add a marker at the destination
-            new google.maps.Marker({
-                position: destination,
-                map: map,
-                title: "Destination"
-            });
+    // Start tracking the user's location
+    trackLiveLocation();
+}
 
-            // Start tracking the user's location and updating the route
-            trackLiveLocation();
-        }
+function trackLiveLocation() {
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        return;
+    }
 
-        function trackLiveLocation() {
-            if (!navigator.geolocation) {
-                alert("Geolocation is not supported by your browser.");
-                return;
+    // Continuously update the user's location and route
+    navigator.geolocation.watchPosition(
+        (position) => {
+            const userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            if (userLocationMarker) {
+                userLocationMarker.setMap(null); // Remove the previous marker
             }
 
-            // Continuously update the user's location and route
-            setInterval(() => {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        userLocation = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        };
-
-                        console.log("Updated location:", userLocation);
-
-                        userLocationMarker = new google.maps.Marker({
-                            position: userLocation,
-                            map: map,
-                            title: "Your Location",
-                            icon: {
-                                url: "https://img.icons8.com/ios-filled/50/000000/car.png", // Car icon URL
-                                scaledSize: new google.maps.Size(42, 42) // Adjust size as necessary
-                            },
-                            zIndex: 999
-                        });
-
-                        // Recalculate the route using the updated location
-                        calculateAndDisplayRoute(userLocation, destination);
-                    },
-                    (error) => {
-                        console.error("Error getting location:", error.message);
-                        alert("Error retrieving your location.");
-                    }
-                );
-            }, 5000); // Update every 5 seconds
-        }
-
-        function calculateAndDisplayRoute(origin, destination) {
-            // Request a route from origin to destination
-            directionsService.route(
-                {
-                    origin: origin,
-                    destination: destination,
-                    travelMode: google.maps.TravelMode.DRIVING
-                },
-                (response, status) => {
-                    if (status === google.maps.DirectionsStatus.OK) {
-                        directionsRenderer.setDirections(response);
-                    } else {
-                        alert("Failed to display directions: " + status);
-                    }
+            userLocationMarker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: "Your Location",
+                icon: {
+                    url: "https://img.icons8.com/ios-filled/50/000000/car.png",
+                    scaledSize: new google.maps.Size(42, 42)
                 }
-            );
+            });
+
+            // Recalculate and display the route
+            calculateAndDisplayRoute(userLocation, destination);
+        },
+        (error) => {
+            console.error("Error getting location:", error.message);
+            alert("Error retrieving your location.");
+        },
+        { enableHighAccuracy: true }
+    );
+}
+
+function calculateAndDisplayRoute(origin, destination) {
+    directionsService.route(
+        {
+            origin: origin,
+            destination: destination,
+            travelMode: google.maps.TravelMode.DRIVING
+        },
+        (response, status) => {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsRenderer.setDirections(response);
+            } else {
+                console.error("Failed to display directions:", status);
+            }
         }
+    );
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const enrichPhoto = document.querySelector('.Enrich-photo');

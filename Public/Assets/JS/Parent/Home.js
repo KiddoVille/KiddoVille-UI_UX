@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const openvisitModal = document.getElementById('openvisitModal');
-    const visitModal = document.getElementById('visitModal');
-    const closeVisitModalBtn = document.getElementById('closeVisitModalBtn');
-    const visitrefreshIcon = document.getElementById('visitrefresh');
-    const visitForm = document.getElementById('visitForm');
     const dateElements = document.querySelectorAll('.date');
     const timeElements = document.querySelectorAll('.time');
     const pickupForm = document.getElementById('pickupForm');
@@ -28,9 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const profilebtn = document.querySelector('.profilebtn');
     const profilecard = document.getElementById('profileCard');
     const editmeetingbtn = document.getElementById('editmeetingbtn');
-    const editvisitbtn = document.getElementById('editvisitbtn');
     const agree = document.getElementById('agree');
-    const visitheading = document.getElementById('visitheading');
     const refreshvist = document.getElementById('refreshvist');
     const meetingrefreshcon = document.getElementById('meetingrefreshcon');
     const customeschedule = document.getElementById('customeschedule');
@@ -112,13 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleModal(meetingrefreshcon,'none');
     })
 
-    editvisitbtn.addEventListener('click',function(){
-        toggleModal(visitModal,'flex');
-        toggleModal(agree, 'none');
-        visitheading.textContent = 'Edit Sheduled visit';
-        toggleModal(refreshvist, 'none');
-    });
-
     profilebtn.addEventListener('click',function(){
         console.log('lol');
         profilecard.style.display = 'flex';
@@ -175,23 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleModal(pickupModal, 'none');
     });
 
-    // Open visit modal
-    openvisitModal.addEventListener('click', function () {
-        toggleModal(visitModal, 'flex');
-    });
-
-    closeVisitModalBtn.addEventListener('click', function () {
-        toggleModal(visitModal, 'none');
-    });
-
-    openvisitModal.addEventListener('click', function () {
-        toggleModal(visitModal, 'flex');
-    });
-
-    closeVisitModalBtn.addEventListener('click', function () {
-        toggleModal(visitModal, 'none');
-    });
-
     meetingrefresh.addEventListener('click', function () {
         meetingform.reset();
     })
@@ -203,17 +172,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target === pickupModal2) {
             toggleModal(pickupModal2, 'none');
         }
-        if (e.target === visitModal) {
-            toggleModal(visitModal, 'none');
-        }
         if (e.target === viewpackage) {
             toggleModal(viewpackage, 'none');
         }
         if (e.target === meetingModal) {
             toggleModal(meetingModal, 'none');
-        }
-        if (e.target === editvisitModal) {
-            toggleModal(editvisitModal, 'none');
         }
         if (e.target === customMeetingModal) {
             toggleModal(customMeetingModal, 'none');
@@ -222,10 +185,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     backforpickup.addEventListener('click', function () {
         toggleModal(pickupModal, 'none');
-    });
-
-    backforvisit.addEventListener('click', function () {
-        toggleModal(visitModal, 'none');
     });
 
     function toggleModal(modal, display) {
@@ -273,14 +232,6 @@ document.addEventListener('DOMContentLoaded', function () {
         redstar.classList.remove('hidden');
         redstar2.classList.remove('hidden');
     });
-
-        visitrefreshIcon.addEventListener('click', function () {
-            clearSelectedDates();
-            clearSelectedTimes();
-            visitForm.reset();
-            redstar3.classList.remove('hidden');
-            redstar4.classList.remove('hidden');
-        });
 
     pickuptime.addEventListener("input", function () {
         if (!pickuptime.value) {
@@ -339,22 +290,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 time.classList.add('select');
             }
         });
-    });
-
-    const visitresults = document.getElementById('visitresults');
-    const visitresultsdate = document.getElementById('visitresultsdate');
-    const visitresultstime = document.getElementById('visitresultstime');
-
-    visitForm.addEventListener('submit', function(event){
-        event.preventDefault();
-        console.log(selectedDate);
-        console.log(selectedTime);
-        openvisitModal.style.display = 'none';
-        visitModal.style.display = 'none';
-        visitresults.style.display = 'block';
-        visitresultsdate.textContent = "Date :" + selectedDate;
-        visitresultstime.textContent = "Time :" + selectedTime;
-        editvisitbtn.style.display = 'block';
     });
 
 });

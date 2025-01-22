@@ -14,7 +14,7 @@
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
 </head>
 
-<body style="overflow: hidden;"> 
+<body style="overflow: hidden;">
     <div class="container">
         <div class="sidebar" id="sidebar1">
             <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
@@ -81,7 +81,7 @@
                     <ul style="margin-left: 20px;">
                         <li class="hover-effect first select-child" style="width:140px;"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -95,8 +95,8 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first"
-                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['id']) ? $child['id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['id']) ? $child['id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -444,12 +444,20 @@
                         <hr>
                     </div>
                     <div class="filters">
-                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                        <select style="margin-right: 325px; width: 200px">
-                            <option value="" hidden>Status</option>
-                            <option value="2 - 5">Approved</option>
-                            <option value="5 - 7">Pending</option>
-                            <option value="7 - 9">Canceled</option>
+                        <input type="date" id="datePicker" style="width: 200px">
+                        <select id="statusPicker" style="margin-right: 25px; width: 200px; margin-left: -70px; margin-top: 10px;">
+                            <option value="">All</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Canceled">Canceled</option>
+                        </select>
+                        <select id="childPicker" style="margin-right: 200px; margin-top: 10px;">
+                            <option Value="" selected> All </option>
+                            <?php foreach ($data['children'] as $child): ?>
+                                <option value="<?= $child['name']; ?>">
+                                    <?= $child['name']; ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <table id="upcoming">
@@ -465,60 +473,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($data['upcoming'] as $res): ?>
-                                <tr>
-                                    <td> <?= isset($res['reservation']->Res_Id) ? $res['reservation']->Res_Id : "No res set" ?> </td>
-                                    <td> <?= isset($res['First_Name']) ? $res['First_Name'] : "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->Date) ? $res['reservation']->Date : "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->Start_Time) ? $res['reservation']->Start_Time : "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->End_Time) ? $res['reservation']->End_Time : "No res set" ?> </td>
-                                    <td>
-                                        <div class="<?= isset($res['reservation']->Status) ? $res['reservation']->Status : "cancel" ?>">
-                                            <p> <?= isset($res['reservation']->Status) ? $res['reservation']->Status : "cancel" ?> </p>
-                                        </div>
-                                    </td>
-                                    <td class="edit">
-                                        <i class="fas fa-pen reservation-edit"></i>
-                                        <?= (isset($res['reservation']->Status) && $res['reservation']->Status === 'Pending') ? "<i class='fas fa-trash' onclick='deleteReservation({$res['reservation']->Res_Id})'></i>" : '' ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+
                         </tbody>
                     </table>
-                    <table id="history" style="display: none ;">
+                    <table id="history" style="display: none;">
                         <thead>
                             <tr>
-                                <th>Res ID</th>
-                                <th> Child </th>
+                                <th>Child</th>
                                 <th>Date</th>
                                 <th>Start Time</th>
-                                <th> Status</th>
+                                <th>End Time</th>
+                                <th>Status</th>
                                 <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($data['history'] as $res): ?>
-                                <tr>
-                                    <td> <?= isset($res['reservation']->Res_Id) ? $res['reservation']->Res_Id : "No res set" ?> </td>
-                                    <td> <?= isset($res['First_Name']) ? $res['First_Name'] : "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->Date) ? $res['reservation']->Date : "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->Start_Time) ? $res['reservation']->Start_Time : "No res set" ?> </td>
-                                    <td> <?= isset($res['reservation']->End_Time) ? $res['reservation']->End_Time : "No res set" ?> </td>
-                                    <td>
-                                        <div class="<?= isset($res['reservation']->Status) ? $res['reservation']->Status : "cancel" ?>">
-                                            <p> <?= isset($res['reservation']->Status) ? $res['reservation']->Status : "cancel" ?> </p>
-                                        </div>
-                                    </td>
-                                    <td class="edit">
-                                        <i class="fas fa-eye"></i>
-                                        <i class="fas fa-star feedbackbtn" style="display :<?php if ($res['reservation']->Status === 'Canceled') {
-                                                                                                echo "none";
-                                                                                            };  ?>"></i>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+
                         </tbody>
                     </table>
+
+
                 </div>
             </div>
             <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
@@ -568,22 +542,21 @@
         </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+        function setChildSession(ChildID) {
+            fetch(' <?= ROOT ?>/Parent/Reservation/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        childName: childName
+                        ChildID: ChildID
                     })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
+                        window.location.href = '<?= ROOT ?>/Child/Reservation';
                     } else {
                         console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
                     }
@@ -641,7 +614,120 @@
             }
         }
 
+        function fetchReservation(date = null, status = null, child = null) {
+            console.log(date, child, status)
+            fetch('<?= ROOT ?>/Parent/Reservation/store_reservations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        child: child,
+                        status: status
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("data:", data.data);
+                        updaterReservationTable(data.data);
+                    } else {
+                        console.error("Failed to fetch meal plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function updaterReservationTable(data) {
+            const upcomingTableBody = document.querySelector('#upcoming tbody');
+            const historyTableBody = document.querySelector('#history tbody');
+
+            // Clear existing rows
+            upcomingTableBody.innerHTML = '';
+            historyTableBody.innerHTML = '';
+
+            // Populate upcoming reservations
+            data.upcoming.forEach(res => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${res?.ResID ?? "No res set"}</td>
+            <td>${res.First_Name ?? "No res set"}</td>
+            <td>${res?.Date ?? "No res set"}</td>
+            <td>${res?.Start_Time ?? "No res set"}</td>
+            <td>
+                ${res?.End_Time ?? "No res set"}
+                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> (24-hour)</span>' : ''}
+            </td>
+            <td>
+                <div class="${res?.Status ?? "cancel"}">
+                    <p>${res?.Status ?? "cancel"}</p>
+                </div>
+            </td>
+            <td class="edit">
+                <i class="fas fa-pen reservation-edit"></i>
+                ${res?.Status === 'Pending' ? `<i class="fas fa-trash" onclick="deleteReservation(${res.ResID})"></i>` : ''}
+            </td>
+        `;
+                upcomingTableBody.appendChild(row);
+            });
+
+            // Populate history reservations
+            data.history.forEach(res => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${res.First_Name ?? "No res set"}</td>
+            <td>${res?.Date ?? "No res set"}</td>
+            <td>${res?.Start_Time ?? "No res set"}</td>
+            <td>
+                ${res?.End_Time ?? "No res set"}
+                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> (24-hour)</span>' : ''}
+            </td>
+            <td>
+                <div class="${res?.Status ?? "cancel"}">
+                    <p>${res?.Status ?? "cancel"}</p>
+                </div>
+            </td>
+            <td class="edit">
+                <i class="fas fa-eye"></i>
+                <i class="fas fa-star feedbackbtn" style="display: ${res?.Status === 'Canceled' ? "none" : ""}"></i>
+            </td>
+        `;
+                historyTableBody.appendChild(row);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            
+            const datePicker = document.getElementById('datePicker');
+            const childPicker = document.getElementById('childPicker');
+            const statusPicker = document.getElementById('statusPicker');
+
+            // Initial fetch with 'null' values (or a default option like 'All')
+            fetchReservation( null , null, null);
+
+            datePicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null; // Use null if empty
+                const statusValue = statusPicker.value || null; // Use null if empty
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchReservation(dateValue, statusValue, childValue);
+            });
+
+            childPicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null;
+                const statusValue = statusPicker.value || null;
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchReservation(dateValue, statusValue, childValue);
+            });
+
+            statusPicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null;
+                const statusValue = statusPicker.value || null;
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchReservation(dateValue, statusValue, childValue);
+            });
+
 
             const dateElements = document.querySelectorAll('.date');
             const redstar3 = document.getElementById('red-star3');
@@ -706,7 +792,6 @@
 
             upbtn.addEventListener('click', function() {
                 upbtn.style.color = 'white';
-                hibtn.style.color = 'black';
                 upbtn.style.backgroundColor = '#10639a';
                 hibtn.style.backgroundColor = '#60a6ec';
                 upcoming.style.display = 'block';
@@ -717,7 +802,6 @@
 
             hibtn.addEventListener('click', function() {
                 hibtn.style.color = 'white';
-                upbtn.style.color = 'black';
                 hibtn.style.backgroundColor = '#10639a';
                 upbtn.style.backgroundColor = '#60a6ec';
                 upcoming.style.display = 'none';

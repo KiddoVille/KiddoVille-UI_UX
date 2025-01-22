@@ -11,18 +11,22 @@
             $session->check_login();
     
             $data = [];
-            $username = $session->get('USERNAME');
+            $UserID = $session->get('USERID');
             $child = new \Modal\Child;
+
+            $parent = new \Modal\ParentUser;
+            $pre = $parent->first(["UserID" => $UserID]);
+            $session->set(['PARENTID' => $pre->ParentID]);
     
             // Fetch children of the current parent
-            // $children = $child->where_norder(['Parent_Name' => $username]);
+            $children = $child->where_norder(['ParentID' => $pre->ParentID ]);
             
             // Handle child limit and determine button visibility
             // $this->checkChildLimit($children, $child, $data);
     
             // Process form submission if POST request is made
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $this->handleFormSubmission($child, $username, $data);
+                $this->handleFormSubmission($child, $data);
             }
 
             // $action = $_POST['action'] ?? '';
@@ -48,15 +52,18 @@
         //     }
         // }
     
-        private function handleFormSubmission($child, $username, &$data) {
+        private function handleFormSubmission($child, &$data) {
             $requiredFields = ['First_Name', 'Last_Name', 'DOB', 'Relation', 'Language'];
     
             if (checkRequiredFields($requiredFields, $_POST)) {
-                $errors = $this->validate();
+                $errors = $child->validate();
     
                 if (empty($errors)) {
+                    $session = new \Core\Session;
+                    $ParentID = $session->get('PARENTID');
+
                     $existingChild = $child->first([
-                        'Parent_Name' => $username,
+                        'ParentID' => $ParentID,
                         'First_Name' => $_POST['First_Name']
                     ]);
     
@@ -65,9 +72,68 @@
                         $this->handleDuplicateChildError($child, $data);
                     } else {
                         // Insert child and handle file uploads
-                        $_POST['Parent_Name'] = $username;
-                        $child->insert($_POST);
-                        $this->handleFileUploads($username, $_POST['First_Name']);
+                        $_POST['ParentID'] = $ParentID;
+                        $_POST['PackageID'] = 101;
+                        $imageFile = $_FILES['profile_image'];
+
+                        if ($imageFile['error'] === 0) {
+                            // Get the MIME type of the uploaded file
+                            $imageType = mime_content_type($imageFile['tmp_name']);
+                            if (in_array($imageType, ['image/jpeg', 'image/png', 'image/gif'])) {
+    
+                                $imageBlob = file_get_contents($imageFile['tmp_name']);
+                                
+                                if ($imageBlob === false) {
+                                    $errors['Image'] = "Failed to read the image file.";
+                                } else {
+                                    $_POST['Image'] = $imageBlob;
+                                    $_POST['ImageType'] = $imageType;
+                                    $child = new \Modal\Child;
+                                    $child->insert($_POST);
+                                    
+                                    redirect('Onbording/Child');
+                                }
+                            } else {
+                                $errors['Image'] = "Unsupported image type. Please upload JPEG, PNG, or GIF images.";
+                            }
+                        }
+
+                        $insertchild = $child->first(["ParentID"=>$ParentID, "First_Name"=> $_POST['First_Name']]);
+                        $session->set(['CHILDID' => $insertchild->ChildID]);
+
+                        $uploadedFiles = $_FILES['prescriptions'];
+                        $childMedication = new \Modal\ChildMedication();
+                        foreach ($uploadedFiles['tmp_name'] as $index => $tmpName) {
+                            if ($uploadedFiles['error'][$index] === UPLOAD_ERR_OK) {
+                                $file = [
+                                    'tmp_name' => $tmpName,
+                                    'name' => $uploadedFiles['name'][$index],
+                                    'type' => $uploadedFiles['type'][$index],
+                                    'size' => $uploadedFiles['size'][$index],
+                                ];
+                                $childMedication->saveMedicationImages($insertchild->ChildID, [$file]);
+                            }
+                        }
+
+                        $files = $_FILES['documents'];
+                        $documentModel = new \Modal\ChildDocuments();
+
+                        // Loop through each uploaded file for documents
+                        foreach ($files['tmp_name'] as $index => $tmpName) {
+                            if ($files['error'][$index] === UPLOAD_ERR_OK) {
+                                $file = [
+                                    'tmp_name' => $tmpName,
+                                    'name' => $files['name'][$index],
+                                    'type' => $files['type'][$index],
+                                    'size' => $files['size'][$index],
+                                    'error' => $files['error'][$index]
+                                ];
+
+                                // Call saveDocuments to insert the document
+                                $documentModel->saveMedicationDocuments($insertchild->ChildID, $file); // Pass $file directly
+                            }
+                        }
+
     
                         // Redirect based on the new count of children
                         // $this->redirectBasedOnChildCount($child, $username);
@@ -89,53 +155,6 @@
             $data['values'] = $child->values;
         }
     
-        private function handleFileUploads($username, $firstName) {
-            // Handle single profile image upload
-            if (isset($_FILES['profile_image'])) {
-                $this->uploadFile($username, $firstName, 'profile', $_FILES['profile_image']);
-            }
-    
-            // Handle multiple prescriptions uploads
-            if (isset($_FILES['prescriptions'])) {
-                $this->uploadMultipleFiles($username, $firstName, 'prescriptions', $_FILES['prescriptions']);
-            }
-    
-            // Handle multiple documents uploads
-            if (isset($_FILES['documents'])) {
-                $this->uploadMultipleFiles($username, $firstName, 'documents', $_FILES['documents']);
-            }
-
-            $ageValidation = agecalculate($_POST['DOB']);
-            if (is_string($ageValidation)) {
-                // Set error only if the validation result is an error message
-                if ($ageValidation === "Age must be at least 2 years" || 
-                    $ageValidation === "Age must be less than or equal to 12 years" || 
-                    $ageValidation === "Birthdate cannot be in the future") {
-                    $errors['DOB'] = $ageValidation;
-                }
-            }
-        }
-    
-        private function uploadMultipleFiles($username, $firstName, $fileType, $files) {
-            $numFiles = count($files['name']);
-            
-            for ($i = 0; $i < $numFiles; $i++) {
-                $file = [
-                    'name' => $files['name'][$i],
-                    'type' => $files['type'][$i],
-                    'tmp_name' => $files['tmp_name'][$i],
-                    'error' => $files['error'][$i],
-                    'size' => $files['size'][$i]
-                ];
-                $this->uploadFile($username, $firstName, $fileType, $file);
-            }
-        }
-    
-        private function uploadFile($username, $firstName, $fileType, $file) {
-            // Assuming uploadFile is a defined function elsewhere
-            uploadFile($username, $firstName, $fileType, $file);
-        }
-    
         // private function redirectBasedOnChildCount($child, $username) {
         //     $children = $child->where_norder(['Parent_Name' => $username]);
     
@@ -145,33 +164,6 @@
         //         redirect('Onbording/Guardian');
         //     }
         // }
-    
-        private function validate() {
-            $errors = [];
-            if (!is_string($_POST['First_Name'])) {
-                $errors['First_Name'] = "First Name must be a valid string";
-            }
-
-            if (!is_string($_POST['Last_Name'])) {
-                $errors['Last_Name'] = "Last Name must be a valid string";
-            }
-        
-            $ageValidation = agecalculate($_POST['DOB']);
-            if (is_string($ageValidation)) {
-                // Set error only if the validation result is an error message
-                if ($ageValidation === "Age must be at least 2 years" || 
-                    $ageValidation === "Age must be less than or equal to 12 years" || 
-                    $ageValidation === "Birthdate cannot be in the future") {
-                    $errors['DOB'] = $ageValidation;
-                }
-            }
-        
-            if (!is_string($_POST['Relation'])) {
-                $errors['Relation'] = "Relation must be a valid string";
-            }
-            return $errors;
-        }
-        
     
         private function setValues() {
             $values = [];

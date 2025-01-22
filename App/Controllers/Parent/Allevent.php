@@ -1,6 +1,8 @@
 <?php
 
     namespace Controller;
+    use App\Helpers\SidebarHelper;
+    use App\Helpers\ChildHelper;
 
     defined('ROOTPATH') or exit('Access denied');
 
@@ -12,77 +14,130 @@
             $session->check_login();
 
             $data = [];
-            $username = $session->get('USERNAME');
-
-            $child = new \Modal\Child;
-            $children = $child->where_norder(['Parent_Name' => $username]);
-            $parent = new \Modal\ParentUser;
-            $pre = $parent->where_norder(['Username' => $username]);
-
-            $data = $this->store($username,$children, $pre);
-
+            $SidebarHelper = new SidebarHelper();
+            $data = $SidebarHelper->store_sidebar();
             $this->view('Parent/allevent', $data);
         }
 
-        private function store($username, $children, $pre){
-            $data = [];
-            
-            // Retrieve the parent's profile image
-            $parentImage = getProfileImageUrl($username);
-            $data['parent'] = [
-                'fullname' => $pre[0]->First_Name . ' ' . $pre[0]->Last_Name,
-                'username' => $username,
-                'image' => !empty($parentImage) ? $parentImage : null,
-                'childcount' => count($children),
-                'lastseen' => $pre[0]->Last_Seen,
-                'firstname' => $pre[0]->First_Name,
-                'lastname' => $pre[0]->Last_Name,
-                'lastseen' => lastSeen($pre[0]->Last_Seen),
-            ];
-    
-            // Retrieve each child's profile image and store by index
-            foreach ($children as $index => $child) {
-                $fullName = $child->First_Name . " " . $child->Last_Name ;
-                $childImage = getProfileImageUrl($username, $child->First_Name);
-                $data['children'][$index] = [
-                    'name' => $child->First_Name,
-                    'fullname' => $fullName,
-                    'image' => !empty($childImage) ? $childImage : null,
-                ];
+        public function store_allowedchild() {
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $eventId = $requestData['Id'] ?? null;
+
+            $EventModal = new \Modal\Event;
+            $Event = $EventModal->first(["EventID" => $eventId]);
+            $filterAgeGroup = $Event->AgeGroup;
+        
+            $ChildHelper = new ChildHelper();
+            $children = $ChildHelper->store_child();
+        
+            if (!$children) {
+                echo json_encode(['success' => false, 'message' => 'No child data found']);
+                return;
             }
-    
-            return $data;
+        
+            $filteredChildren = array_filter($children, function($child) use ($filterAgeGroup) {
+                $dob = new \DateTime($child->DOB); // Access property using -> notation
+                $currentDate = new \DateTime(); // Get the current date
+                $age = $currentDate->format('Y') - $dob->format('Y'); // Calculate the age using only the year
+        
+                if ($filterAgeGroup === 'All') {
+                    return true; // Include all children if 'All' is specified
+                }
+        
+                $ageRange = explode('-', $filterAgeGroup);
+                if (count($ageRange) === 2) {
+                    $minAge = (int)$ageRange[0];
+                    $maxAge = (int)$ageRange[1];
+                    return $age >= $minAge && $age <= $maxAge;
+                }
+        
+                return false;
+            });
+        
+            // Map only ChildID and childName from the filtered results
+            $result = array_map(function($child) {
+                return [
+                    'ChildID' => $child->ChildID,
+                    'childName' => $child->First_Name
+                ];
+            }, $filteredChildren);
+        
+            if (empty($result)) {
+                echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
+            } else {
+                // Correctly return the filtered children in JSON format
+                echo json_encode(['success' => true, 'data' => $result]);
+            }
+        }        
+
+        public function store_events() {
+            header('Content-Type: application/json');
+        
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $filterDate = $requestData['date'] ?? null;
+            $filterAge = $requestData['Age'] ?? null;
+        
+            $EventModal = new \Modal\Event;
+            $Events = $filterDate ? $EventModal->where_norder(["Date" => $filterDate]) : $EventModal->findall();
+        
+            if ($filterAge !== null) {
+                $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15', 'All'];
+        
+                if (in_array($filterAge, $validAgeGroups)) {
+                    if ($filterAge !== 'All') {
+                        [$filterMinAge, $filterMaxAge] = explode('-', $filterAge);
+        
+                        $Events = array_filter($Events, function ($row) use ($filterMinAge, $filterMaxAge) {
+                            if ($row->AgeGroup === 'All') {
+                                return true; // Show "All" age groups regardless of the filter
+                            }
+                            [$eventMinAge, $eventMaxAge] = explode('-', $row->AgeGroup);
+        
+                            // Check if the age ranges overlap
+                            return $filterMinAge <= $eventMaxAge && $filterMaxAge >= $eventMinAge;
+                        });
+                    }
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Invalid age group provided']);
+                    return;
+                }
+            }
+
+            foreach($Events as $Event){
+                $imageData = $Event->Image;
+                $imageType = $Event->ImageType;
+                $base64Image = (!empty($imageData) && is_string($imageData)) 
+                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+                    : null;
+                
+                $Event->Image = $base64Image;
+            }
+        
+            if (empty($Events)) {
+                echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $Events]);
+            }
         }
 
         public function setchildsession(){
-
-            $response = ['called' => true];
-            defined('ROOTPATH') or define('ROOTPATH', __DIR__); // Define the root if not already defined
-
-            // Session and JSON response settings
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-        
             header('Content-Type: application/json');
-        
-            // Disable error reporting for clean JSON output in production
-            ini_set('display_errors', 0);
-            error_reporting(0);
-        
-            // Handle AJAX request and set the child session
             $request = json_decode(file_get_contents('php://input'), true);
             $response = [];
         
-            if (isset($request['childName'])) {
-                $session = new \Core\Session;
-                $session->set('CHILDNAME', $request['childName']);
-                $_SESSION['CHILDNAME'] = $request['childName'];
-                $response = ['success' => true];
+            $session = new \Core\Session;
+            if (isset($request['ChildID'])) {
+                $session->set('CHILDID', $request['ChildID']);
+                $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
-                $response = ['success' => false, 'message' => 'Child name not provided.'];
+                $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
-            echo json_encode($response); // Output JSON response
+
+            echo json_encode($response);  // Send JSON response
             exit();
         }
     }

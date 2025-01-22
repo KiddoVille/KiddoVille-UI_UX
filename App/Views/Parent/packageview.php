@@ -80,7 +80,7 @@
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -94,7 +94,7 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -168,7 +168,7 @@
                     <h1>View Package</h1>
                     <label for="package-name">Package name</label>
                     <input id="package-name" readonly="" type="text" value="Basic care plan" />
-                    <label for="included-services">Included services</label>
+                    <label for="included-services" style="margin-top: -10px;">Included services</label>
                     <div class="services" id="included-services">
                         Standard hours of care.
                         <br />
@@ -176,12 +176,16 @@
                         <br />
                         Healthy snacks and meals provided during the day.
                     </div>
-                    <label for="price">Price</label>
+                    <label for="price" style="margin-top: -10px;">Price</label>
                     <div class="price-container">
                         <input id="price" readonly="" type="text" value="80,000" />
                         <span>RS</span>
                     </div>
-                    <img src="<?= IMAGE ?>/package-back.jpg" alt="packages" class="package-img">
+                    <label for="included-days" style="margin-top: -10px;">Included days</label>
+                    <div class="services" id="included-days" style="display: grid; grid-template-columns: repeat(2, 1fr); height: 70px;">
+                        <ul id="first-ul" style="margin-top: -10px;"></ul>
+                        <ul id="second-ul" style="margin-top: -10px;"></ul>
+                    </div>
                 </div>
             </div>
             <div class="chatbox">
@@ -194,113 +198,34 @@
                 </div>
             </div>
             <div class="fill">
-            <div style="text-align: left; left: 0; display: flex; flex-direction: column; justify-content: left;">
-                <h2 style="margin-top: 0px !important; margin-bottom: 2px;">Packages</h2>
-                <hr style="width: 1080px;">
-            </div>
+                <div style="text-align: left; left: 0; display: flex; flex-direction: column; justify-content: left;">
+                    <h2 style="margin-top: 0px !important; margin-bottom: 2px;">Packages</h2>
+                    <hr style="width: 1080px;">
+                </div>
                 <div class="filters" style="text-align: left;">
                     <label for="minPrice">Min Price:</label>
-                    <input type="text" id="minPrice" class="price" maxlength="7" placeholder="Min Price"
+                    <input type="text" id="min_price" class="price" maxlength="7" placeholder="Min Price"
                         style="width: 100px;">
                     <label for="maxPrice">Max Price:</label>
-                    <input type="text" id="maxPrice" class="price" maxlength="7" placeholder="Max Price"
+                    <input type="text" id="max_price" class="price" maxlength="7" placeholder="Max Price"
                         style="width: 100px;">
+                    <label for="minPrice">Age Group:</label>
+                    <select id="age">
+                        <option value="All" selected> All </option>
+                        <option value="2-3"> 2-3 </option>
+                        <option value="4-5"> 4-5 </option>
+                        <option value="6-7"> 6-7 </option>
+                        <option value="8-9"> 8-9 </option>
+                        <option value="10-11"> 10-11 </option>
+                        <option value="12-13"> 12-13 </option>
+                        <option value="14-15"> 14-15 </option>
+                    </select>
                 </div>
-                <div class="packages">
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
+                <div class="packages" style="display: grid; grid-template-columns: repeat(5, 1fr); height: 460px;">
+
                 </div>
-                <div class="packages" style="margin-top: -10px;">
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                        <p>Package : Basic care plan</p>
-                        <p>Price : Rs. 12000</p>
-                        <button class="view">
-                            View
-                        </button>
-                    </div>
-                </div>
-                <div class="pagination">
-                    <a href="#">
-                        &lt;
-                    </a>
-                    <a class="active" href="#">
-                        1
-                    </a>
-                    <a href="#">
-                        2
-                    </a>
-                    <a href="#">
-                        3
-                    </a>
-                    <a href="#">
-                        ...
-                    </a>
-                    <a href="#">
-                        &gt;
-                    </a>
+                <div class="pagination" style="margin-top: 30px; margin-bottom: -10px;">
+
                 </div>
             </div>
             <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
@@ -335,29 +260,251 @@
         </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
+        function setChildSession(ChildID) {
+            console.log(ChildID);
             fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        childName: childName
+                        ChildID: ChildID
                     })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
+                        console.log("Child Id set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Package';
                     } else {
-                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                        console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
                     }
                 })
                 .catch(error => console.error("Error:", error));
         }
+
+        function fetchrequest(max, min, age) {
+            fetch('<?= ROOT ?>/Parent/package/store_package', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Min_price: min,
+                        Max_price: max,
+                        Age: age
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Event data:", data.data);
+                        const packagesArray = Object.values(data.data);
+                        displayPackages(packagesArray);
+                        attachEventListeners(packagesArray);
+                    } else {
+                        console.error("Failed to fetch events:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function displayPackages(data, page = 1, itemsPerPage = 10) {
+            const packagesContainer = document.querySelector(".packages");
+            const paginationContainer = document.querySelector(".pagination");
+
+            // Clear the current packages and pagination
+            packagesContainer.innerHTML = "";
+            paginationContainer.innerHTML = "";
+
+            // Pagination logic
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = page * itemsPerPage;
+            const paginatedData = data.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+
+            // Create package cards
+            paginatedData.forEach(pkg => {
+                const card = document.createElement("div");
+                card.classList.add("package-card");
+
+                card.innerHTML = `
+                    <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                    <p>Package : ${pkg.Name}</p>
+                    <p>Price : Rs. ${pkg.Price}</p>
+                    <button class="view">View</button>
+                `;
+                packagesContainer.appendChild(card);
+            });
+
+            // Create pagination
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = document.createElement("a");
+                pageLink.href = "#";
+                pageLink.textContent = i;
+                if (i === page) {
+                    pageLink.classList.add("active");
+                }
+                pageLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    displayPackages(data, i, itemsPerPage); // Load the selected page
+                });
+                paginationContainer.appendChild(pageLink);
+            }
+
+            // Add previous and next links
+            if (page > 1) {
+                const prevLink = document.createElement("a");
+                prevLink.href = "#";
+                prevLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    displayPackages(data, page - 1, itemsPerPage);
+                });
+                paginationContainer.insertBefore(prevLink, paginationContainer.firstChild);
+            }
+
+            if (page < totalPages) {
+                const nextLink = document.createElement("a");
+                nextLink.href = "#";
+                nextLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    displayPackages(data, page + 1, itemsPerPage);
+                });
+                paginationContainer.appendChild(nextLink);
+            }
+        }
+
+        function attachEventListeners(packages) {
+            const PackageModal = document.getElementById('PackageModal');
+            const packageBtns = document.querySelectorAll('.view');
+
+            packageBtns.forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    const pkg = packages[index]; // Get the corresponding package data
+                    if (pkg) {
+                        setModalData(pkg); // Set modal data with the package details
+                        toggleModal(PackageModal, 'flex'); // Show the modal
+                    }
+                });
+            });
+        }
+
+        function getAllowedDaysList(pkg) {
+            const days = [{
+                    name: 'Monday',
+                    value: pkg.Monday
+                },
+                {
+                    name: 'Tuesday',
+                    value: pkg.Tuesday
+                },
+                {
+                    name: 'Wednesday',
+                    value: pkg.Wednesday
+                },
+                {
+                    name: 'Thursday',
+                    value: pkg.Thursday
+                },
+                {
+                    name: 'Friday',
+                    value: pkg.Friday
+                },
+                {
+                    name: 'Saturday',
+                    value: pkg.Saturday
+                },
+                {
+                    name: 'Sunday',
+                    value: pkg.Sunday
+                },
+            ];
+
+            // Split the days into two parts
+            const firstHalfDays = days.slice(0, Math.ceil(days.length / 2));
+            const secondHalfDays = days.slice(Math.ceil(days.length / 2));
+
+            // Create the first <ul> element and add the first half of the days
+            const firstUl = document.getElementById('first-ul');
+            firstUl.innerHTML = ''; // Clear previous content
+            firstHalfDays.forEach(day => {
+                if (day.value) {
+                    const li = document.createElement('li');
+                    li.textContent = day.name;
+                    firstUl.appendChild(li);
+                }
+            });
+
+            // Create the second <ul> element and add the second half of the days
+            const secondUl = document.getElementById('second-ul');
+            secondUl.innerHTML = ''; // Clear previous content
+            secondHalfDays.forEach(day => {
+                if (day.value) {
+                    const li = document.createElement('li');
+                    li.textContent = day.name;
+                    secondUl.appendChild(li);
+                }
+            });
+        }
+
+        function setModalData(pkg) {
+            // Set the package name
+            const packageNameInput = document.getElementById('package-name');
+            packageNameInput.value = pkg.Name;
+
+            // Set the included services
+            const includedServicesDiv = document.getElementById('included-services');
+            const includeddatesDiv = document.getElementById('included-days');
+            includedServicesDiv.innerHTML = `
+                ${pkg.Description}
+                <br />
+                ${pkg.AllHours ? '24/7 care included.' : ''}
+                <br />
+                ${pkg.FoodAddons ? 'All food add-ons allowed.' : ''}
+                <br />
+                ${pkg.Everything ? 'Everything included in the package.' : ''}
+            `;
+
+            getAllowedDaysList(pkg);
+            // Set the price
+            const priceInput = document.getElementById('price');
+            priceInput.value = pkg.Price;
+        }
+
+
+        function toggleModal(modal, display) {
+            const mainContent = document.getElementById('main-content');
+            modal.style.display = display;
+            if (display === 'flex') {
+                document.body.classList.add('no-scroll');
+                mainContent.classList.add('blurred');
+            } else {
+                document.body.classList.remove('no-scroll');
+                mainContent.classList.remove('blurred');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+
+            fetchrequest(null, null, null);
+
+            const max_price = document.getElementById('max_price');
+            const min_price = document.getElementById('min_price');
+            const age = document.getElementById('age');
+
+            function applyFilters() {
+                const max = max_price.value || null;
+                const min = min_price.value || null;
+                const agegroup = age.value || null;
+                console.log(max, min, agegroup);
+                fetchrequest(max, min, agegroup);
+            }
+
+            max_price.addEventListener('change', applyFilters);
+            min_price.addEventListener('change', applyFilters);
+            age.addEventListener('change', applyFilters);
+
             const PackageModal = document.getElementById('PackageModal');
             const packagebtns = document.querySelectorAll('.view');
             const mainContent = document.getElementById('main-content');

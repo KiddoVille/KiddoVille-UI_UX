@@ -9,16 +9,14 @@
 
         protected $table = 'teacher';
         protected $allowedColumns = [
-            'Username',
-            'First_Name',
             'Last_Name',
+            'First_Name',
             'Phone_Number',
             'Address',
             'NID',
-            'Email',
-            'Gender',
-            'Language',
-            'Last_Seen'
+            'Last_Seen',
+            'AgeGroup',
+            'ProfileImage'
         ];
 
         public function validate($data){
