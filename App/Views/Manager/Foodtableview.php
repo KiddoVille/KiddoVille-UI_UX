@@ -5,7 +5,6 @@
         KIDDO VILLE Food Plan
     </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="Header.css" />
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Food-table.css?v=<?= time() ?>" />
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Manager/foodtable.js"></script>
@@ -20,9 +19,9 @@
                 <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
                 <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
             </div>
-            <ul>
+            <ul style=" margin-top: 10%;">
                 <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%">
+                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
@@ -55,36 +54,27 @@
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;">
-                            <i class="fas fa-share"></i>Publish
+                            <i class="fas fa-umbrella-beach"></i> Holiday</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Event" style="font-size: 18px;">
-                            <i class="fa fa-calendar-plus"></i>Event
+                            <i class="fa fa-calendar-plus"></i>Event</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="selected">
                         <a href="<?= ROOT ?>/Manager/Foodtable" style="font-size: 18px;">
-                            <i class="fa fa-pizza-slice"></i>Food Plane
+                            <i class="fa fa-pizza-slice"></i>Food Plane</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="#" style="font-size: 18px;">
-                            <i class="fas fa-info-circle"></i>Info
-                        </a>
-                        <ul class="dropdown">
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Blog"><i class="fas fa-blog"></i>Blog</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Aboutus"><i class="fas fa-info-circle"></i>About Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Contactus"><i class="fas fa-envelope"></i>Contact Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Profile"><i class="fas fa-user-circle"></i>Home</a></li>
-
-                        </ul>
+                        <a href="<?= ROOT ?>/Manager/Leaverequest" style="font-size: 18px;">
+                            <i class="fas fa-hand-paper"></i>Request</a>
                     </li>
                 </ul>
-
             </ul>
         </div>
 
@@ -174,86 +164,47 @@
                     <tr>
                         <th style="background-color:#f5f5f5; border:none">
                         </th>
+                        <?php 
+                            $today = date('Y-m-d'); // Format: YYYY-MM-DD
+                            $tomorrow = date('Y-m-d', strtotime('+1 day'));
+                            $dayAfterTomorrow = date('Y-m-d', strtotime('+2 days'));
+                        ?>
                         <th>
-                            <span class="date-display" id="dateHeader1">Aug 04, 2024</span>
+                            <span class="date-display" id="dateHeader1"><?=$today?></span>
                         </th>
                         <th>
-                            <span class="date-display" id="dateHeader2">Aug 05, 2024</span>
+                            <span class="date-display" id="dateHeader2"><?=$tomorrow?></span>
                         </th>
                         <th>
-                            <span class="date-display" id="dateHeader3">Aug 06, 2024</span>
+                            <span class="date-display" id="dateHeader3"><?=$dayAfterTomorrow?></span>
                         </th>
                     </tr>
                     <tr>
                         <td>
                             Breakfast
                         </td>
-                        <td>
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected>Select the Food</option>
-                                <option value="">StringHoppers+CoconutSambol+PotatoCurr</option>
-                                <option value="">Milk Rice+Seeni Sambol</option>
-                                <option value="">Hoppers+SpicyOnionSambol+CoconutMilk</option>
-                            </select>
-                            <br />
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected> Select the Food</option>
-                                <option value="">PlainRoti+DhalCurry+CoconutSambol</option>
-                                <option value="">Pittu+CoconutMilk+FishCurry(or vegcurry)</option>
-                                <option value="">PolRoti(CoconutRoti)+KattaSambol+Banana</option>
-                            </select>
-                            <br />
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected>Select the Food</option>
-                                <option value="">Bread + Butter+Lunu Miris + Scrambled Egg</option>
-                                <option value="">StringHoppers+KiriHodhi+Dhal</option>
-                                <option value="">Rice + Polos Curry+Coconut Sambol</option>
-                            </select>
+                        <td class="food-items">
+                            <?php foreach($data as $foods){
+                                if($foods->Date == $today && $foods->Time == 'Breakfast'){  
+                                    echo htmlspecialchars($foods->Food); 
+                                }
+                            }
+                        ?>
                         </td>
-                        <td>
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected>Select the Food</option>
-                                <option value="">StringHoppers+CoconutSambol+PotatoCurr</option>
-                                <option value="">Milk Rice+Seeni Sambol</option>
-                                <option value="">Hoppers+SpicyOnionSambol+CoconutMilk</option>
-                            </select>
-                            <br />
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected> Select the Food</option>
-                                <option value="">PlainRoti+DhalCurry+CoconutSambol</option>
-                                <option value="">Pittu+CoconutMilk+FishCurry(or vegcurry)</option>
-                                <option value="">PolRoti(CoconutRoti)+KattaSambol+Banana</option>
-                            </select>
-                            <br />
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected>Select the Food</option>
-                                <option value="">Bread + Butter+Lunu Miris + Scrambled Egg</option>
-                                <option value="">StringHoppers+KiriHodhi+Dhal</option>
-                                <option value="">Rice + Polos Curry+Coconut Sambol</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected>Select the Food</option>
-                                <option value="">StringHoppers+CoconutSambol+PotatoCurr</option>
-                                <option value="">Milk Rice+Seeni Sambol</option>
-                                <option value="">Hoppers+SpicyOnionSambol+CoconutMilk</option>
-                            </select>
-                            <br />
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected> Select the Food</option>
-                                <option value="">PlainRoti+DhalCurry+CoconutSambol</option>
-                                <option value="">Pittu+CoconutMilk+FishCurry(or vegcurry)</option>
-                                <option value="">PolRoti(CoconutRoti)+KattaSambol+Banana</option>
-                            </select>
-                            <br />
-                            <select name="" id="selectfood">
-                                <option value="" disabled selected>Select the Food</option>
-                                <option value="">Bread + Butter+Lunu Miris + Scrambled Egg</option>
-                                <option value="">StringHoppers+KiriHodhi+Dhal</option>
-                                <option value="">Rice + Polos Curry+Coconut Sambol</option>
-                            </select>
-                        </td>
+                        <td class="food-items">
+                        <?php foreach($data as $foods){
+                                if($foods->Date == $tomorrow && $foods->Time == 'Breakfast'){  
+                                    echo htmlspecialchars($foods->Food); 
+                                }
+                            }
+                        ?>
+                        <td class="food-items">
+                        <?php foreach($data as $foods){
+                                if($foods->Date == $dayAfterTomorrow && $foods->Time == 'Breakfast'){  
+                                    echo htmlspecialchars($foods->Food); 
+                                }
+                            }
+                        ?>
                     </tr>
                     <tr>
                         <td>
@@ -777,15 +728,9 @@
                 </table>
             </div>
             <div class="button-row">
-                <button class="reset-button" onclick="resetSelects()">Reset</button>
+                <button class="reset-button" onclick="resetSelects()">Edit</button>
             </div>
         </div>
-
-
-
-
-
-
     </div>
 
     <script>

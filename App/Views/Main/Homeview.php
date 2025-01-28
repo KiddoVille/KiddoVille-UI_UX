@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="english">
+
 <head>
-<title>Kiddo Ville</title>
+    <title>Landing Page</title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
@@ -18,249 +19,180 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
         data-tag="font" />
-    <link rel="stylesheet" href="<?=CSS?>/Teacher/home.css?v=<?= time() ?>" />
-    <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>"" />
-   
+    <link rel="stylesheet" href="<?=CSS?>/Main/Footer.css" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Header.css" />
+    <link href="<?=CSS?>/Main/Landing.css" rel="stylesheet" />
     <script src="<?=JS?>/Main/Landing.js"></script>
 </head>
-<body>
 
-    <div class="backdrop" style="background:url(<?=IMAGE?>/back-login-1.jpg); background-size:cover; ">
-        <div class="blur-layer">
-        <div class="wrapper-1">
-            <div class="navbar">
-                <div class="navbar-logo">
-                    <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
-                </div>
-                <div class="navbar-links">
-                    <a href="<?=ROOT?>/Main/Home"><div class="navbar-link select">Home</div></a>
-                    <a href="<?=ROOT?>/Main/Profile"><div class="navbar-link">Profile</div></a>
-                    <a href="<?=ROOT?>/Main/Blog"> <div class="navbar-link">Blog</div></a>
-                    <a href="<?=ROOT?>/Main/AboutUs"><div class="navbar-link">AboutUs</div></a>
-                    <a href="<?=ROOT?>/Main/Help"><div class="navbar-link">ContactUs</div></a>
-                </div>
-                <div class="sign-up-buttons">
-                    <a href="<?=ROOT?>/Main/Login"><div class="navbar-link-login">Login</div></a>
-                    <a href="<?=ROOT?>/Main/Signup"><div class="navbar-link-signup">Sign Up</div></a>
-                </div>
+<body>
+    <div>
+        <!-- Header of the landing page -->
+        <div class="navbar">
+            <div class="navbar-logo">
+                <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
             </div>
-        <div class="view">
-        <div class="hero-section">
-            <div class="hero-content1">
-                <span class="heading first">
+            <div class="navbar-links">
+                <a href="<?=ROOT?>/Main/Home"><button class="navbar-link select">Home</button></a>
+                <a href="<?=ROOT?>/Main/Profile"><button class="navbar-link">Profile</button></a>
+                <a href="<?=ROOT?>/Main/Blog"> <button class="navbar-link">Blog</button></a>
+                <a href="<?=ROOT?>/Main/AboutUs"><button class="navbar-link">AboutUs</button></a>
+                <a href="<?=ROOT?>/Main/Help"><button class="navbar-link">ContactUs</button></a>
+                <a href="<?=ROOT?>/Main/Login"><button class="navbar-button login">Login</button></a>
+                <a href="<?=ROOT?>/Main/Signup"><button class="navbar-button signup">Sign Up</button></a>
+            </div>
+        </div>
+
+        <div class="landing-page-container">
+            <div class="landing-page">
+                <div class="landing-page-frame">
+                    <span class="Heading">
                         <!-- Starting heading -->
-                        <h1>Welcome to</h1>
-                        <h1><span class="name">Kiddo Ville</span> Wonderland</h1>
-                </span>
-                <span class="paragraph first">
-                    <span class="paragraph-1">
+                        <span class="Heading-1">Welcome to our</span>
+                        <br />
+                        <span class="Heading-3" style="margin-left: 250px;">Kiddo Ville</span>
+                        <br />
+                        <span class="Heading-1">Wonderland!</span>
+                    </span>
+                    <span class="paragraph">
+                        <span class="paragraph-1">
                             Welcome to Kiddo Ville Wonderland, a vibrant haven where
                             imagination meets adventure! Dive into a world designed for
                             fun and discovery, where every day is an exciting new journey!
-                    </span>
+                        </span>
                         <br />
-                </span>
-                    <!-- the kids image and the clouds -->
-                <button class="button-c first" onclick="window.location.href='../../Login/Signup.html'">Enroll Your Child Now</button>
-
-            </div>
-            <div class="hero-content2">
-            `<img alt="Kids" src="<?=IMAGE?>/Kids.png" class="kids first" />
-            </div>
-        </div>
-        <!--End od the Hero-->
-<!-- 
-        <div class="clouds">
-            <img alt="Kids" src="<?=IMAGE?>/new-back.jpg" class="kids" />
-        </div> -->
-       
-        <div class="content">
-            <span class="why-choose block"><span>Why choose us?</span></span>
-            <div class="double-content">
-                <div class="left-c block">
-                    <span class="enrich">
-                        Enriched Learning Environment
                     </span>
-                    <span class="foster">
+                    <!-- the kids image and the clouds -->
+                    <button class="button-c" onclick="window.location.href='../../Login/Signup.html'">Join Us Today</button>
+                    <img alt="Kids" src="<?=IMAGE?>/Kids.png" class="kids" />
+                    <img alt="cloud" src="<?=IMAGE?>/cloud-1.png" class="cloud-1" />
+                    <img alt="cloud" src="<?=IMAGE?>/cloud-2.png" class="cloud-2" />
+                    <img alt="cloud" src="<?=IMAGE?>/cloud-2.png" class="cloud-3" />
+                </div>
+                <!-- details on kiddoVille -->
+                <div class="content">
+                    <span class="Why-choose"><span>Why choose us?</span></span>
+                    <span class="Enrich">
+                        <span class="fade-in">Enriched Learning Environment</span>
+                    </span>
+                    <span class="p-1">
+                        <span class="fade-in">
+                            Our daycare offers a stimulating and nurturing environment that
+                            promotes learning and development through a variety of
+                            age-appropriate activities. We provide a balanced curriculum
+                            that includes play-based learning, creative arts, and early
+                            education fundamentals. We help your child develop essential
+                            skills and a love for learning.
+                        </span>
+                    </span>
+                    <span class="Foster">
                         <span class="fade-in">Fostering Growth and Development</span>
                     </span>
-    
-                    <p class="fade-in">
-                    Our daycare offers a stimulating and nurturing environment that
-                    promotes learning and development through a variety of
-                    age-appropriate activities. We provide a balanced curriculum
-                    that includes play-based learning, creative arts, and early
-                    education fundamentals. We help your child develop essential
-                    skills and a love for learning.
-                    </p>
-
                 </div>
-                <div class="right-c block">
-                <img alt="Kids" src="<?=IMAGE?>/circle.png" class="kids" />
-                </div>
-            </div>
-
-            <div class="double-content">
-                <div class="left-c1 block">
-                    <img alt="Kids" src="<?=IMAGE?>/clock.png" class="kids" />
-                </div>
-
-                <div class="right-c1 block">
-                    <span class="enrich">
-                    Real-Time Updates
+                <div class="Real">
+                    <span class="Real-time">
+                        <span class="fade-in">Real-Time Updates and Communication</span>
                     </span>
-                    <span class="foster">
-                        <span class="fade-in">Stay Connected, Anytime, Anywhere</span>
-                    </span>
-    
-                    <p class="fade-in">
-                    We understand how important it is for parents to stay informed
+                    <span class="p-2">
+                        <span class="fade-in">
+                            We understand how important it is for parents to stay informed
                             about their child's day. Our system provides real-time updates
                             on your child's activities, meals, and nap times. Our secure
                             messaging feature allows seamless communication with daycare
                             staff, providing peace of mind and fostering a transparent
                             relationship.
-                    </p>
-
+                        </span>
+                    </span>
+                    <span class="Stay">
+                        <span class="fade-in">Stay Connected, Anytime, Anywhere</span>
+                    </span>
                 </div>
-               
-            </div>
-
-           
-            <div class="double-content">
-                <div class="left-c block">
-                    <span class="enrich">
-                    Efficient and Organized Management
+                <div class="Efficient">
+                    <span class="Efficient-and fade-in">
+                        <span class="fade-in">Efficient and Organized Management</span>
                     </span>
-                    <span class="foster">
-                        <span class="fade-in">Streamlined Operations for Quality Care</span>
-                    </span>
-    
-                    <p class="fade-in">
-                    Our daycare management system is designed to make the
+                    <span class="p-3">
+                        <span class="fade-in">
+                            Our daycare management system is designed to make the
                             administration of the daycare seamless and efficient. From easy
                             check-ins and check-outs to managing staff schedules and
                             tracking attendance, our platform handles it all. This allows
                             daycare staff to focus more on providing high-quality care and
                             engaging activities for your children
-                    </p>
-
+                        </span>
+                    </span>
+                    <span class="Stream">
+                        <span class="fade-in">Streamlined Operations for Quality Care</span>
+                    </span>
                 </div>
-                <div class="right-c block">
-                <img alt="Kids" src="<?=IMAGE?>/Task.png" class="kids" />
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="guide block">
-                <h1>Our Teachers</h1>
-           </div>
-        <div class="teacher-list">
-            
-         
-           <div class="teachers block">
-                <div class="profile-1 ">
-                    <div class="circle">
-                    <img alt="teacher" src="<?=IMAGE?>/t1.jpg"  />
+                <img alt="cover" src="<?=IMAGE?>/cover.png" class="Cover" />
+                <div class="Teachers">
+                    <div class="T-1">
+                        <span class="T-1-N"><span>Name</span></span>
                     </div>
-                    <div class="name-box">
-                        <div class="name">
-                            <p>Sara Britney</p>
-                        </div>
-                        
+                    <div class="T-2">
+                        <span class="T-2-N"><span>Name</span></span>
                     </div>
-
-                </div>
-                <div class="profile-2 ">
-                    <div class="circle">
-                        <img alt="teacher" src="<?=IMAGE?>/t2.jpg"  />
+                    <div class="T-3">
+                        <span class="T-3-N"><span>Name</span></span>
                     </div>
-                    <div class="name-box">
-                        <div class="name">
-                            <p> Olivia Davis</p>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="profile-3 ">
-                    <div class="circle">
-                        <img alt="teacher" src="<?=IMAGE?>/t4.jpg"  />
-                    </div>
-                    <div class="name-box">
-                        <div class="name">
-                            <p>Emma Clark</p>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="profile-4 ">
-                    <div class="circle">
-                        <img alt="teacher" src="<?=IMAGE?>/t3.jpg"  />
-                    </div>
-                    <div class="name-box">
-                        <div class="name">
-                            <p>Emily Roberts</p>
-                        </div>
-                        
+                    <div class="T-4">
+                        <span class="T-4-N"><span>Name</span></span>
                     </div>
                 </div>
-           </div>
-        </div>
-       
-
-        </div>
-
-        <div class="location-box">
-            <div class="description block">
-                <h1>Discover Our Location</h1>
-                <p>Conveniently located to serve you better, our Daycare center is easily accessible and provides a welcoming environment. Check the map to find us effortlessly and plan your visit today!"</p>
-            </div>
-
-            <div class="map block">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9040252131454!2d79.85830197448266!3d6.9020802186492896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25963126b91e7%3A0x5b54a2722ff782ab!2sUCSC%20Building%20Complex%2C%20University%20of%20Colombo%20School%20of%20Computing%2C%20UCSC%20Building%20Complex%2C%2035%2C%2C%20Reiv%20Ave%2C%20Colombo%2000700!5e0!3m2!1sen!2slk!4v1733758620611!5m2!1sen!2slk" width="400" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <span class="Our-best">
+                    <span>Our Best Teachers</span>
+                </span>
+                <!-- Best teachers display -->
+                <div class="photo">
+                    <img alt="Rectangle91487" src="<?=IMAGE?>/box.png" class="ph-1" />
+                    <img alt="Rectangle101487" src="<?=IMAGE?>/box.png" class="ph-2" />
+                    <img alt="Rectangle111487" src="<?=IMAGE?>/box.png" class="ph-3" />
+                    <img alt="Rectangle121487" src="<?=IMAGE?>/box.png" class="ph-4" />
+                </div>
+                <img alt="person1487" src="<?=IMAGE?>/person.svg" class="Ic-1" />
+                <img alt="person1487" src="<?=IMAGE?>/person.svg" class="Ic-2" />
+                <img alt="person1487" src="<?=IMAGE?>/person.svg" class="Ic-3" />
+                <img alt="person1487" src="<?=IMAGE?>/person.svg" class="Ic-4" />
+                <img alt="Enrich-photo" src="<?=IMAGE?>/Task.png" class="Enrich-photo" />
+                <img alt="pngwingcom1011487" src="<?=IMAGE?>/circle.png" class="clock" />
+                <img alt="l11487" src="<?=IMAGE?>/clock.png" class="task" />
+                <span class="Last">
+                    <span>Where Little Minds Grow Big Dreams.</span>
+                </span>
             </div>
         </div>
-        
+    </div>
 
-        <div class="footer">
-            <div class="footer-up">
-                <div class="fl-1 col">
-                <img alt="logo" src="<?=IMAGE?>/logo_light-remove.png" width="100px" />
-                <h1>Kiddo Ville</h1>
-                </div>
-                <div class="fl-2 col">
-                    <div class="Home"><a href="Home">Home</a></div>
-                    <div class="AboutUs"><a href="<?=ROOT?>/Main/AboutUs">About Us</a></div>
-                    <div class="ContactUs"><a href="<?=ROOT?>/Main/Help">Contact Us</a></div>
-                    <div class="Features"><a href="<?=ROOT?>/Main/features">Features</a></div>
-                </div>
-                <div class="fl-3 col">
-                    <div class="Contact"><a href="<?=ROOT?>/Main/FAQ">FAQ</a></div>
-                    <div style="white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Report">Report Problems</a></div>
-                    <div  class="Address"><a href="<?=ROOT?>/Main/Terms">Terms</a></div>
-                </div>
-                <div class="fl-4 col">
-                    <div class="Contact"><a href="<?=ROOT?>/Main/Blog">Blog</a></div>
-                    <div class="Address"><a href="<?=ROOT?>/Main/Profile">Profile</a></div>
-                    <div  class="Address"><a href="<?=ROOT?>/Main/Privacy">Privacy Policy</a></div>
-                </div>
-                <div class="fl-5 col">
-                <div class="enrol">Enrol now to kickstart the childhood journey</div>
-                    <div class="join-btn">
-                        <button >Join US Today</button>
-                    </div>
-                    
-                </div>
-
+    <!-- Footer -->
+    <div class="Footer">
+        <img class="Footer-logo" src="<?=IMAGE?>/Footer-logo.png" alt="WhatsApp Icon" />
+        <div class="KiddoVille">Kiddo<br />Ville</div>
+        <div class="Group4">
+            <div class="Home"><a href="Home">Home</a></div>
+            <div class="AboutUs"><a href="<?=ROOT?>/Main/AboutUs">About Us</a></div>
+            <div class="ContactUs"><a href="<?=ROOT?>/Main/Help">Contact Us</a></div>
+            <div class="Features"><a href="<?=ROOT?>/Main/features">Features</a></div>
+        </div>
+        <div class="Group5">
+            <div class="Contact"><a href="<?=ROOT?>/Main/FAQ">FAQ</a></div>
+            <div style="white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Report">Report Problems</a></div>
+            <div style="margin-top: 20px;" class="Address"><a href="<?=ROOT?>/Main/Terms">Terms</a></div>
+        </div>
+        <div class="Group6">
+            <div class="Contact"><a href="<?=ROOT?>/Main/Blog">Blog</a></div>
+            <div class="Address"><a href="<?=ROOT?>/Main/Profile">Profile</a></div>
+            <div style="margin-top: 20px; white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Privacy">Privacy Policy</a></div>
+        </div>
+        <div class="Group7">
+            <div class="Frame13">
+                <button class="Join">Join US Today</button>
             </div>
-            <hr>
-            <div class="footer-down">
-
-            <div class="social-icons">
+            <div class="Enrol">Enrol now to kickstart the childhood journey</div>
+        </div>
+        <div class="Line6"></div>
+        <!-- Social icons -->
+        <div class="social-icons">
             <!-- twiiter icon -->
             <div class="socialcontainer">
                 <div class="icon social-icon-1-1">
@@ -336,17 +268,7 @@
                 </div>
             </div>
         </div>
-
-            </div>
-            <div class="copyright">
-                &copy; 2025 | All rights received
-            </div>
-        </div>
-        <!--Wrapper ends-->
-        </div>
-      
-        </div>
-        
     </div>
 </body>
+
 </html>

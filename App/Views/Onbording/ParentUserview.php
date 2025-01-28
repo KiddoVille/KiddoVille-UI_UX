@@ -6,7 +6,7 @@
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="<?= CSS ?>/Onbording/Onbording.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Onbording/Onbording.css">
     <script src="<?= JS ?>/Onbording/Number.js"></script>
     <!-- <script src="<?= JS ?>/Onbording/parent.js"></script> -->
 
@@ -24,7 +24,7 @@
 <body>
     <div class="Profilecard">
         <div
-            style="background-color: #60a6ec; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
+            style="background-color: #2524E8; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
             <img src="<?= IMAGE ?>/logo_light-remove.png" style="width:70px">
             <div class="heading">
                 <h1>Let's Create Your</h1>

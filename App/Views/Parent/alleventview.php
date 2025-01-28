@@ -5,35 +5,22 @@
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/all-event.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/Main.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Parent/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/Navbar.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
+    <link rel="stylesheet" href="<?=CSS?>/Parent/all-event.css">
+    <link rel="stylesheet" href="<?=CSS?>/Parent/Main.css">
+    <script src="<?=JS?>/Parent/Profile.js"></script>
+    <script src="<?=JS?>/Parent/Navbar.js"></script>
+    <script src="<?=JS?>/Parent/MessageDropdown.js"></script>
 </head>
 
-<body style=" overflow: hidden;">
+<body style=" overflow: hidden; background-image: url('<?=IMAGE?>/dashboard-background.jpeg');">
     <div class="container">
-        <div class="sidebar "id="sidebar1">
-            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
-            <div class="logo-div">
-                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
-                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
-            </div>
+        <div class="sidebar minimized" id="sidebar1">
+            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
+            <h2 style="margin-top: 10px;">Dashboard</h2>
             <ul>
-                <li class="hover-effect unselected">
+                <li class="hover-effect">
                     <a href="<?=ROOT?>/Parent/Home">
-                        <i class="fas fa-home"></i> <span>Home</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Parent/history">
-                        <i class="fas fa-history"></i> <span>History</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/report">
-                        <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
+                        <i class="fas fa-home"></i><span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -46,24 +33,14 @@
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
-                <li class="selected">
-                    <a href="<?=ROOT?>/Parent/event">
+                <li class="selected" style="margin-top: 40px;">
+                    <a href="<?=ROOT?>/Parent/allevent">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
                     <a href="<?=ROOT?>/Parent/package">
                         <i class="fas fa-box"></i> <span>Package</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/funzonehome">
-                        <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/package">
-                        <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
             </ul>
@@ -74,32 +51,46 @@
         </div>
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
+                <h2 style="margin-top: 25px;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first select-child"
-                            onclick="window.location.href = '<?=ROOT?>/ReParent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first select-child">
+                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul class="children-list">
-                        <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
-                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
-                            </li>
-                            <hr>
-                        <?php endforeach; ?>
+                    <ul>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
                     </ul>
                 </div>
             </div>
@@ -191,8 +182,7 @@
                 </div>
             </div>
             <div class="fill">
-                <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
-                <hr>
+                <h1 style="color: black"> Events</h1>
                 <div class="filters">
                     <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                 </div>
@@ -325,27 +315,6 @@
         </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ childName: childName })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Child name set in session.");
-                    window.location.href = '<?= ROOT ?>/Child/Home';
-                } else {
-                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:",error));
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
             const EventModal = document.getElementById('EventModal');
             const eventbtns = document.querySelectorAll('.eventbtn');

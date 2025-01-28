@@ -4,13 +4,13 @@
 <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="<?=CSS?>/Parent/profile.css?v=<?= time() ?>">
-<script src="<?=JS?>/Parent/Number.js?v=<?= time() ?>"></script>
+<link rel="stylesheet" href="<?=CSS?>/Parent/profile.css">
+<script src="<?=JS?>/Parent/Number.js"></script>
 
 <head>
 </head>
 
-<body>
+<body style="background-image: url('<?=IMAGE?>/profile-bg.png');">
     <div class="Profilecard" style="margin-top: 140px;">
         <div class="Profile">
             <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer;"

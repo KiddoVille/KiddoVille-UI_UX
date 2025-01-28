@@ -6,40 +6,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/Home.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/Main.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Parent/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/OTP.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/Number.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/Navbar.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/Home.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Parent/Taskbar.js?v=<?= time() ?>"></script>
+    <link rel="stylesheet" href="<?=CSS?>/Parent/Home.css">
+    <link rel="stylesheet" href="<?=CSS?>/Parent/Main.css">
+    <!-- <script src="<?=JS?>/Parent/Profile.js"></script>
+    <script src="<?=JS?>/Parent/MessageDropdown.js"></script>
+    <script src="<?=JS?>/Parent/OTP.js"></script>
+    <script src="<?=JS?>/Parent/Number.js"></script>
+    <script src="<?=JS?>/Parent/Navbar.js"></script>
+    <script src="<?=JS?>/Parent/Home.js"></script>
+    <script src="<?=JS?>/Parent/Taskbar.js"></script> -->
+    <style>
+        .children-list li {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: left !important;
+            text-align: left;
+            align-items: center;
+            margin-left: 30px;
+        }
+        .sidebar-2 ul li::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            bottom: -2px;
+            height: 2px;
+            width: 100%;
+            background-color: white;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .child-info .child-name{
+            margin-right: -10px !important;
+        }
+
+    </style>
 </head>
 
-<body style="overflow-x: hidden;">
+<body style="background-image: url('<?=IMAGE?>/dashboard-background.jpeg'); overflow:hidden">
     <div class="container">
         <!-- minimized sidebar -->
-        <div class="sidebar" id="sidebar1">
-            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
-            <div class="logo-div">
-                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
-                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
-            </div>
+        <div class="sidebar minimized" id="sidebar1">
+            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
+            <h2 style="margin-top: 10px;">Dashboard</h2>
             <ul>
-                <li class="selected">
+                <li class="selected first">
                     <a href="<?=ROOT?>/Parent/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Parent/history">
-                        <i class="fas fa-history"></i> <span>History</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/report">
-                        <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -53,23 +67,13 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/event">
+                    <a href="<?=ROOT?>/Parent/allevent">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
                     <a href="<?=ROOT?>/Parent/package">
                         <i class="fas fa-box"></i> <span>Package</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/funzonehome">
-                        <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Parent/payment">
-                        <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
             </ul>
@@ -82,12 +86,12 @@
         <!-- navigation to choose child -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
+                <h2 style="margin-top: 25px;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
                         <li class="hover-effect first select-child"
-                            onclick="window.location.href = '<?=ROOT?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                            onclick="window.location.href = '<?=ROOT?>/ReParent/Home'">
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image']: ''?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -95,13 +99,13 @@
                 </div>
                 <div>
                     <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                <img src="<?= isset($child['image']) ? $child['image'] : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -112,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <div class="main-content" style="overflow-y: scroll; overflow-x: hidden;">
+        <div class="main-content">
             <!-- Header -->
             <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"
@@ -169,56 +173,47 @@
                 </div>
             </div>
             <div class="report-page">
-            <H2 style="color: #2353A7; margin-left: 15px;margin-top:-8px">
+            <h1 style="color: #233E8D; margin-left: 15px;">
                 <?= isset($data['parent']['lastname']) ? $data['parent']['lastname'] : 'No name set'; ?> Our Pillar of Strength
-            </H2>
-            <p style="margin-left: 15px; margin-bottom: 0px; color:#363636">
+            </h1>
+            <p style="margin-left: 15px; margin-bottom: 0px;">
                 Today, we shine a spotlight on <?= isset($data['parent']['firstname']) ? $data['parent']['firstname'] : 'Our beloved parent'; ?>, the guiding light and heart of our family!
             </p>
                 <div class="report-header">
-                    <div class="profile" style="margin-right: 1%; width: 420px !important;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 2px;">Child Profile</h3>
-                        <hr>
-                        <div class="first-row" style="display: flex; flex-direction: row;">
-                            <div style="display: flex; flex-direction: column;">
-                                <img 
-                                    src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>" 
-                                    alt="profile pic" >
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
+                    <div class="profile">
+                        <div class="first-row">
+                            <img 
+                                src="<?= isset($data['parent']['image']) ? $data['parent']['image']: ''?>" 
+                                alt="profile pic" 
+                                style="border: 4px solid #233E8D;">
+                            <h3 
+                                style="margin-top: 0px !important;">
+                                <?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?>
+                            </h3>
                         </div>
-                        </div>
-                        <h3 
-                            style="margin-top: 0px !important;"> 
-                            Child Name :
-                            <?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?>
-                        </h3>
-                        <hr style="margin-top: -15px; margin-bottom: -10px;">
-                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <div>
-                                <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 10px 15px;">
-                                    <h4> Activity : Happening now </h4>
-                                    <div style="display: flex; flex-direction: row;">
-                                        <h4 style="margin-top: -10px;"> Description : </h4>
-                                        <p style="margin-top: -18px; margin-left: 5px;"> description of activity </p>
-                                    </div>
-                                </div>
-                                <div style="display: flex; flex-direction: row; margin-top: 30px; margin-bottom: -30px;">
-                                    <h4 style="margin-top: -10px;"> Upcoming Reservation : </h4>
-                                    <p style="margin-top: -10px;"> Dec 20  </p>
-                                </div>
-                                <button class="button" style="margin: -40px 0px 0px 315px !important; padding: 15px 20px 15px 20px;"> View Child </button>
-                            </div>
+                        <div class="sub-details"
+                            style="display: flex;flex-direction: column; justify-content: space-between; margin-top: -10px">
+                            <p style="white-space: nowrap;">UserName :
+                                <span>
+                                    <?= isset($data['parent']['username']) ? $data['parent']['username'] : 'No name set'; ?>
+                                </span>
+                            </p>
+                            <p style="margin-top: -10px;">Child: 
+                                <span>
+                                    <?= isset($data['parent']['childcount']) ? $data['parent']['childcount'] : 'No name set'; ?>
+                                </span>
+                            </p>
+                            <p style="margin-top: -10px;">Last seen: 
+                                <span>
+                                    <?= isset($data['parent']['lastseen']) ? $data['parent']['lastseen'] : 'No name set'; ?>
+                                </span>
+                            </p>
                         </div>
                     </div>
-                    <div class="profile" style="width: 240px !important; margin-right: 1%;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 2px;">Childrens</h3>
-                        <hr>
+                    <div class="attendence-bar">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="child present" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                <img src="<?= isset($child['image']) ? $child['image'] : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
                                     alt="Child Profile Image"
                                     class='child-photo'>
                                 <div class="child-info">
@@ -229,57 +224,46 @@
                                         present
                                     </p>
                                 </div>
-                            </li>
-                            <hr class="attendance-hr">
-                        <?php endforeach; ?>
-                    </div>
-                    <!-- <div class="attendence-bar" style="width: 300px !important;">
-                        <?php foreach ($data['children'] as $child): ?>
-                            <li class="child present" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
-                                    alt="Child Profile Image"
-                                    class='child-photo'>
-                                <div class="child-info">
-                                    <p class="child-name">
-                                        <?= isset($child['fullname']) ? $child['fullname'] : 'No name set'; ?>
-                                    </p>
-                                    <p class="attendancestatus">
-                                        present
-                                    </p>
-                                </div>
+                                <h2></h2>
                             </li>
                             <hr>
                         <?php endforeach; ?>
-                    </div> -->
+                    </div>
                     <div class="profile">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 2px;">Child Payments</h3>
-                        <hr>
                         <div class="overdue-payment card" style="justify-content: center; display: flex;">
-                            <div style="margin-left: 20px; margin-right: 20px; margin-top:40px">
-                                <h3 style="color:#4380D1">Overdue Payment</h3>
+                            <div>
+                                <img src="<?=IMAGE?>/face.jpeg" alt="profile pic"
+                                    style="width: 130px; height: 130px; margin-top: 10px;">
+                            </div>
+                            <div style="margin-left: 20px; margin-right: 20px;">
+                                <h2>Overdue Payment</h2>
                                 <p>Due Date: <strong>2023-11-01</strong></p>
                                 <p>Amount: <strong>$120</strong></p>
-                                
+                                <p>Status: <span class="overdue">Overdue</span></p>
                                 <p>Days Overdue: <strong>10 days</strong></p>
-                                <button class="pay-now" style="white-space: nowrap; margin-bottom: -10px !important; margin-top: 7px;">Pay Now</button>
+                                <button class="pay-now" style="white-space: nowrap">Pay Now</button>
                             </div>
                         </div>
-                        <div class="upcoming-payment card" style="justify-content: center; display: flex; margin-top: 20px;">
-                            <div style="margin-left: -10px; margin-right: 20px;  margin-top:50px">
-                                <h3 style="color:#4380D1">Upcoming Payment</h3>
+                        <div class="upcoming-payment card" style="justify-content: center; display: flex;">
+                            <div>
+                                <img src="<?=IMAGE?>/face.jpeg" alt="profile pic"
+                                    style="width: 130px; height: 130px">
+                            </div>
+                            <div style="margin-left: 20px; margin-right: 20px;">
+                                <h2>Upcoming Payment</h2>
                                 <p>Due Date: <strong>2023-12-15</strong></p>
                                 <p>Amount: <strong>$150</strong></p>
                                 <p>Status: <span class="upcoming">Upcoming</span></p>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="profile">
+                    <div class="profile">
                         <a href="#" class="main-menu-item">
                             <i class="fas fa-bullhorn icon-announcements"></i>
                             <span style="font-size: 15px;">Announcements</span>
                         </a>
                         <div class="announcement-list">
-                            Example Announcements
+                            <!-- Example Announcements -->
                             <div class="announcement">
                                 <p class="event-name" style="margin-top: 5px;">Winter Vacation</p>
                                 <p class="event-date" style="margin-top: 5px;">11/02/2025</p>
@@ -295,97 +279,12 @@
                                 <p class="event-date" style="margin-top: 5px;">11/02/2025</p>
                             </div>
                         </div>
-                    </div> -->
-                </div>
-                <div class="report-header">
-                    <div class="timetable" style=" margin-right: 1%; width: 395px;" >
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px;"> Reminders </h3>
-                        <hr>
-                            <table style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Child</th>
-                                        <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Description</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <div class="table-body-container" style="max-height: 90px; overflow-y: auto; padding: 10px;">
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tbody>
-                                        <tr>
-                                            <td> Child </td>
-                                            <td>Description</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Child </td>
-                                            <td>Description</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Child </td>
-                                            <td>Description</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Child </td>
-                                            <td>Description</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Child </td>
-                                            <td>Description</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                    </div>
-                    <div class="profile" style="margin-right: 1%;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Consultation </h3>
-                        <hr>
-                        <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
-                            <div style="display: flex; flex-direction: row;">
-                                <h4 style=" white-space: nowrap;"> Date : </h4>
-                                <p style="margin-top: 12px;  margin-left: 5px;"> 2025/12/21 </p>
-                            </div>
-                            <div style="display: flex; flex-direction: row;">
-                                <h4 style="margin-top: -10px; white-space: nowrap;"> Time : </h4>
-                                <p style="margin-top: -18px; margin-left: 5px;"> 8:00 AM </p>
-                            </div>
-                        </div>
-                        <button class="button" style="margin: 0px !important; padding: 15px 20px 15px 20px;"> Edit </button>
-                    </div>
-                    <div class="profile" style="margin-right: 1%;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 2px; white-space: nowrap;"> Upcoming Events  </h3>
-                        <hr>
-                        <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
-                            <div style="display: flex; flex-direction: row;">
-                                <h4> Date : </h4>
-                                <p style="margin-top: 12px;  margin-left: 5px;"> 2025/12/21 </p>
-                            </div>
-                            <div style="display: flex; flex-direction: row;">
-                                <h4 style="margin-top: -10px;"> Event : </h4>
-                                <p style="margin-top: -18px; margin-left: 5px;"> Dance </p>
-                            </div>
-                        </div>
-                        <button class="button" style="margin: 0px !important; padding: 15px 20px 15px 20px;"> Edit </button>
-                    </div>
-                    <div class="profile margin-right: 1%;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Departure </h3>
-                        <hr>
-                        <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
-                            <div style="display: flex; flex-direction: row;">
-                                <h4> Time : </h4>
-                                <p style="margin-top: 12px;  margin-left: 5px;"> 6:00 PM </p>
-                            </div>
-                            <div style="display: flex; flex-direction: row;">
-                                <h4 style="margin-top: -10px; white-space: nowrap;"> Person : </h4>
-                                <p style="margin-top: -18px; margin-left: 5px;"> Parent </p>
-                            </div>
-                        </div>
-                        <button class="button" style="margin: 0px !important; padding: 15px 20px 15px 20px;"> Customize </button>
                     </div>
                 </div>
-                <!-- <div class="report-header"
+                <div class="report-header"
                     style="justify-content: space-between; text-align: center; margin-top: -5px;">
                     <div class="profile"
-                        style="width: 300px;display: flex; justify-content: center; align-items: center; font-weight:600" >
+                        style="width: 300px;display: flex; justify-content: center; align-items: center;">
                         Schedule pickups
                         <button id="openModalBtn" class="button" style="width: 240px;">Schedule</button>
                         <div class="pickupresults" id="pickupresults">
@@ -397,7 +296,7 @@
                         </div>
                     </div>
                     <div class="profile"
-                        style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
+                        style="width: 300px;display: flex; justify-content: center; align-items: center;">
                         Schedule Meeting
                         <button id="meetingbtn" class="button" style="width: 240px;">Schedule</button>
                         <div class="pickup-section" id="meetingresults"
@@ -408,7 +307,7 @@
                         <button id="editmeetingbtn" class="button" style="width: 240px; display: none;">Edit</button>
                     </div>
                     <div class="profile"
-                        style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
+                        style="width: 300px;display: flex; justify-content: center; align-items: center;">
                         Schedule Visit
                         <button id="openvisitModal" class="button" style="width: 240px;">Schedule</button>
                         <div class="pickup-section" id="visitresults"
@@ -419,7 +318,7 @@
                         <button id="editvisitbtn" class="button" style="width: 240px; display: none;">Edit</button>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
         <!-- schedule meetings -->
         <div class="modal" id="MeetingModal">
@@ -683,7 +582,7 @@
         </div>
     </div>
     <!-- navigation to message page -->
-    <a href="<?=ROOT?>/Parent/Message" class="chatbox">
+    <a href="<?=ROOT?>/ReParent/Message" class="chatbox">
         <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
             style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
         <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
@@ -700,9 +599,9 @@
         <p>Student    RS0110657</p>
         <button class="profile-button"
             onclick="window.location.href ='../Profile/ChildViewProfile.html'">Profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Parent/ParentProfile'">Parent
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReParent/ParentProfile'">Parent
             profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Parent/GuardianProfile'">Guardian
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReParent/GuardianProfile'">Guardian
             profile</button>
         <button class="secondary-button">Medications</button>
         <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Main/Home'">LogOut</button>
@@ -710,28 +609,29 @@
     <div class="tasks" id="taskbtn" style="position: fixed;">
         <i class="fas fa-chevron-left" id="taskicon"></i>
     </div>
-    <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ childName: childName })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Child name set in session.");
-                    window.location.href = '<?= ROOT ?>/Child/Home';
-                } else {
-                    console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:",error));
-        }
-    </script>
 </body>
+
+<script>
+    function setChildSession(childName) {
+        console.log(childName);
+        fetch(' <?=ROOT?>/Parent/Home/setchildsession', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ childName: childName })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Child name set in session.");
+                window.location.href = '<?= ROOT ?>/Child/Home';
+            } else {
+                console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+            }
+        })
+        .catch(error => console.error("Error:",error));
+    }
+</script>
 
 </html>

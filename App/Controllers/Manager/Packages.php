@@ -8,7 +8,7 @@
         use MainController;
         
         public function index(){
-            $packages = new \Modal\Packages;
+            $packages = new \Modal\Package;
             $result = $packages->findall();
             $data = ['packageData' => $result];
             $this->view('Manager/Packages', $data);

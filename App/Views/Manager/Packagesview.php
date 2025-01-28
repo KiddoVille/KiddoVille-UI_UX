@@ -6,7 +6,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../Header/Header.css" />
     <link rel="stylesheet" href="<?= CSS ?>/Manager/View-package.css?v=<?= time() ?>" />
-    <link rel="stylesheet" href="<?= CSS ?>/Manager/Dashboard.css?v=<?= time() ?>" />
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>" />
     <script src="<?= JS ?>/Manager/profileview.js"></script>
 
 </head>
@@ -18,9 +18,9 @@
                 <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
                 <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
             </div>
-            <ul>
+            <ul style=" margin-top: 10%;">
                 <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;">
+                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
@@ -53,7 +53,7 @@
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;">
-                            <i class="fas fa-share"></i>Publish</a>
+                            <i class="fas fa-umbrella-beach"></i> Holiday</a>
                     </li>
                 </ul>
                 <ul>
@@ -70,19 +70,10 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="#" style="font-size: 18px;">
-                            <i class="fas fa-info-circle"></i>Info
-                        </a>
-                        <ul class="dropdown">
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Blog"><i class="fas fa-blog"></i>Blog</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Aboutus"><i class="fas fa-info-circle"></i>About Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Contactus"><i class="fas fa-envelope"></i>Contact Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Profile"><i class="fas fa-user-circle"></i>Home</a></li>
-
-                        </ul>
+                        <a href="<?= ROOT ?>/Manager/Leaverequest" style="font-size: 18px;">
+                            <i class="fas fa-hand-paper"></i>Request</a>
                     </li>
                 </ul>
-
             </ul>
         </div>
         <div class="header" style="margin-top:-1.5%">
@@ -123,9 +114,9 @@
                     <?php foreach ($data['packageData'] as $package) : ?>
                         <div class="package-card">
                             <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
-                            <p><?= $package->name; ?></p>
+                            <p><?= $package->Name; ?></p>
                             <p style="display: none;"><?= $package->services; ?></p>
-                            <p>LKR.<?= $package->price; ?>.00</p>
+                            <p>LKR.<?= $package->Price; ?>.00</p>
                             <p style="display: none;"><?= $package->days; ?></p>
                             <p style="display: none;"><?= $package->id; ?></p>
                             <button id='confirmView' class="view-btn" onclick="viewPackage('<?= $package->id; ?>')">View</button>

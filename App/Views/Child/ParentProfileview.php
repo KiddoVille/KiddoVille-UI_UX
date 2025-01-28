@@ -4,105 +4,100 @@
 <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="<?=CSS?>/Child/profile.css?v=<?= time() ?>">
-<script src="<?=JS?>/Parent/Number.js"></script>
-    <style>
-        .fa-chevron-left{
-            margin-left: 40px;
-            cursor: pointer;
-            color: white !important;
-        }
-    </style>
+<link rel="stylesheet" href="<?=CSS?>/Child/profile.css">
+<script src="<?=JS?>/Child/Number.js"></script>
+
 <head>
 </head>
-<body>
-    <!-- View parent details -->
-    <div class="Profilecard">
-        <div class="top-con">
-            <div class="back-con">
-                <i class="fas fa-chevron-left" id="backforpickup" onclick="window.location.href='<?=ROOT?>/Child/Home'"></i>
-            </div>
-        </div>
+<body style="background-image: url('<?=IMAGE?>/profile-bg.png');">
+    <div class="Profilecard" style="margin-top: 80px;">
         <div class="Profile">
-            <p style="margin-top: -40px; margin-bottom: 20px; margin-left: 60px; cursor: pointer; color: rgba(35, 83, 167, 1);">Parent Profile</p>
+            <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer; color: rgba(35, 83, 167, 1);">Parent Profile</p>
         </div>
         <div class="ProfileContainer">
             <div class="leftcon">
                 <form id="editprofileleft">
-                    <img src="<?= isset($data[0]->profile)? $data[0]->profile.'?v=' . time() : '' ?>" class="profile-img" style="width: 200px; height: 200px;">
+                    <img src="<?=IMAGE?>/face.jpeg" class="profile-img">
                     <div class="datacon">
                         <div class="data">
                             <label>First Name</label>
-                            <input readonly placeholder="<?= isset($data[0]->First_Name)? $data[0]->First_Name : '' ?> " type="text">
+                            <input readonly placeholder="Abdulla" type="text">
                         </div>
                         <div class="data">
                             <label>Last Name</label>
-                            <input readonly placeholder="<?= isset($data[0]->Last_Name)? $data[0]->Last_Name : '' ?> " type="text">
-                        </div>
-                    </div>
-                    <div class="datacon">
-                        <div class="data">
-                            <label>Password</label>
-                            <input readonly placeholder="*******" style="width: 627.5px;" type="password">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/ResetPasswordNown'" style="cursor: pointer;"> Change Password</p>
+                            <input readonly placeholder="Aurad" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>User Name</label>
                             <input readonly placeholder="AbdullaAurad" style="width: 627.5px;" type="text">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/ChangeUsername'" style="cursor: pointer;"> Change UserName</p>
+                        </div>
+                    </div>
+                    <div class="datacon">
+                        <div class="data">
+                            <label>Email</label>
+                            <input readonly placeholder="abdullaaurad@gmail.com" type="email">
+                        </div>
+                        <div class="data">
+                            <label>NID</label>
+                            <input readonly maxlength="12" placeholder="200232901776" type="text">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="divider"></div>
             <form id="editprofileright">
-                <div class="rightcon" style="margin-top: 40px;">
-                    <div class="datacon">
-                        <div class="data">
-                            <label>Email</label>
-                            <input readonly placeholder="<?= isset($data[0]->Email)? $data[0]->Email : '' ?> " type="email">
-                        </div>
-                        <div class="data">
-                            <label>NID</label>
-                            <input readonly maxlength="12" placeholder="<?= isset($data[0]->NID)? $data[0]->NID : '' ?> " type="text">
-                        </div>
-                    </div>
+                <div class="rightcon">
                     <div class="datacon">
                         <div class="data">
                             <label>Gender</label>
-                            <input readonly type="text" placeholder="<?= isset($data[0]->Gender)? $data[0]->Gender : '' ?> ">
+                            <input readonly type="text" placeholder="Male">
                         </div>
                         <div class="data">
                             <label>Language</label>
-                            <input readonly type="text" placeholder="<?= isset($data[0]->Language)? $data[0]->Language : '' ?> ">
+                            <input readonly type="text" placeholder="English">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
-                            <label>Last seen</label>
-                            <input readonly placeholder="<?= isset($data[0]->Last_Seen)? $data[0]->Last_Seen : '' ?> " type="text">
+                            <label>Date of birth</label>
+                            <input readonly placeholder="24/11/2002" type="text">
                         </div>
                         <div class="data">
                             <label>Contact</label>
-                            <input readonly class="number" maxlength="12" placeholder="<?= isset($data[0]->Phone_Number)? $data[0]->Phone_Number : '' ?> " type="text">
+                            <input readonly class="number" maxlength="12" placeholder="0714810928" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Address</label>
-                            <input readonly placeholder="<?= isset($data[0]->Address)? $data[0]->Address : '' ?> " style="width: 625px;" type="text">
+                            <input readonly  placeholder="106/37,Brandiyawatta,wellampitiya" style="width: 625px;" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Contact Preference</label>
-                            <input readonly type="text" placeholder="Mobile">
+                            <input readonly type="text" placeholder="Email">
                         </div>
                         <div class="data">
                             <label>Visibility</label>
-                            <input readonly type="text" placeholder="Only to Manager">
+                            <input readonly type="text" placeholder="Everyone">
+                        </div>
+                    </div>
+                    <div class="datacon">
+                        <div class="data">
+                            payment Methods
+                            <div style="display: flex; flex-direction: row; margin-top: 10px;">
+                                <div class="cardcon">
+                                    <img src="<?=IMAGE?>/Visa.png" class="card">
+                                    Visa
+                                </div>
+                                <div class="cardcon">
+                                    <img src="<?=IMAGE?>/master.png" class="card">
+                                    Master
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
 
         protected $table = 'reservation';
         protected $allowedColumns = [
-            'Child_Id',
+            'ChildID',
             'Start_Time',
             'Date',
             'End_Time',

@@ -6,7 +6,7 @@
     </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="icon" href="<?= IMAGE ?>/Manager/KIDDOVILLE_LOGO.jpg">
-    <link rel="stylesheet" href="<?= CSS ?>/Manager/Dashboard.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Allocation.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/child-profile.css?v=<?= time() ?>">
 
@@ -117,120 +117,7 @@
             </button>
         </div>
     </div>
-    <div style="width: 85%; margin-top:-20%">
-        <div class="fill">
-            <div style="display: block;">
-                <h3 class="heading">
-                    View profiles
-                </h3>
-            </div>
-            <hr>
-            <div class="search-container">
-                <input placeholder="Search Id" type="text" style="padding: 10px 30px;" />
-                <select id="role">
-                    <option value="" disabled selected>Select role</option>
-                    <option value="user">User</option>
-                    <option value="teacher">Teacher</option>
-                    <option value="maid">Maid</option>
-                    <option value="receptionist">Receptionist</option>
-                    <option value="doctor">Doctor</option>
-                </select>
-            </div>
-            <div class="cards">
-                <div class="report-card">
-                    <div class="card-content">
-                        <div class="profile-img">
-                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
-                        </div>
-                        <div class="card-details">
-                            <h4>Kavindu Jayawardena</h4>
-                            <p>Reg No: SNT110923</p>
-                        </div>
-                        <div class="card-footer">
-                            <button>View</button>
-                            <button class="del">Delete</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="card-content">
-                        <div class="profile-img">
-                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
-                        </div>
-                        <div class="card-details">
-                            <h4>Kavindu Jayawardena</h4>
-                            <p>Reg No: SNT110923</p>
-                        </div>
-                        <div class="card-footer">
-                            <button>View</button>
-                            <button class="del">Delete</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="card-content">
-                        <div class="profile-img">
-                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
-                        </div>
-                        <div class="card-details">
-                            <h4>Kavindu Jayawardena</h4>
-                            <p>Reg No: SNT110923</p>
-                        </div>
-                        <div class="card-footer">
-                            <button>View</button>
-                            <button class="del">Delete</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="card-content">
-                        <div class="profile-img">
-                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
-                        </div>
-                        <div class="card-details">
-                            <h4>Kavindu Jayawardena</h4>
-                            <p>Reg No: SNT110923</p>
-                        </div>
-                        <div class="card-footer">
-                            <button>View</button>
-                            <button class="del">Delete</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="card-content">
-                        <div class="profile-img">
-                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
-                        </div>
-                        <div class="card-details">
-                            <h4>Kavindu Jayawardena</h4>
-                            <p>Reg No: SNT110923</p>
-                        </div>
-                        <div class="card-footer">
-                            <button>View</button>
-                            <button class="del">Delete</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="report-card">
-                    <div class="card-content">
-                        <div class="profile-img">
-                            <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
-                        </div>
-                        <div class="card-details">
-                            <h4>Kavindu Jayawardena</h4>
-                            <p>Reg No: SNT110923</p>
-                        </div>
-                        <div class="card-footer">
-                            <button>View</button>
-                            <button class="del">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a href="" style="margin-left:85%;text-decoration:none;font-size:20px;color:blue">+Add User</a>
-        </div>
-    </div>
+    
 
     <script>
         function handleClick() {

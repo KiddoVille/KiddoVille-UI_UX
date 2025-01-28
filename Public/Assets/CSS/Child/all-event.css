@@ -2,13 +2,7 @@
     padding: 20px;
     height: 60vh !important;
     margin-left: 270px;
-}
-
-.minimized ul{
-    margin-top: -30px !important;
-}
-.sidebar ul{
-    margin-top: -20px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .package-card {

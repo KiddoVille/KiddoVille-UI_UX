@@ -2,69 +2,46 @@
 
 <head>
     <title>Package</title>
-    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= CSS ?>/Parent/package.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
-    <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Parent/Price.js?v=<?= time() ?>"></script>
+    <link rel="stylesheet" href="<?=CSS?>/Parent/package.css">
+    <link rel="stylesheet" href="<?=CSS?>/Parent/Main.css">
+    <script src="<?=JS?>/Parent/Profile.js"></script>
+    <script src="<?=JS?>/Parent/MessageDropdown.js"></script>
+    <script src="<?=JS?>/Parent/Navbar.js"></script>
+    <script src="<?=JS?>/Parent/Price.js"></script>
 </head>
 
-<body>
+<body style="background-image: url('<?=IMAGE?>/dashboard-background.jpeg');">
     <div class="container">
-        <div class="sidebar" id="sidebar1">
-            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
-            <div class="logo-div">
-                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
-                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
-            </div>
+        <div class="sidebar minimized" id="sidebar1">
+            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
+            <h2 style="margin-top: 10px;">Dashboard</h2>
             <ul>
-                <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Parent/Home">
+                <li class="hover-effect">
+                    <a href="<?=ROOT?>/Parent/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
-                <li class="hover-effect unselected" style="margin-top: 40px;">
-                    <a href="<?= ROOT ?>/Parent/history">
-                        <i class="fas fa-history"></i> <span>History</span>
-                    </a>
-                </li>
                 <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Parent/report">
-                        <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Parent/reservation">
+                    <a href="<?=ROOT?>/Parent/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Parent/meal">
+                    <a href="<?=ROOT?>/Parent/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Parent/event">
+                    <a href="<?=ROOT?>/Parent/allevent">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top:40px;">
-                    <a href="<?= ROOT ?>/Parent/package">
+                <li class="selected" style="margin-top: 40px;">
+                    <a href="<?=ROOT?>/Parent/package">
                         <i class="fas fa-box"></i> <span>Package</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Parent/funzonehome">
-                        <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Parent/payment">
-                        <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
             </ul>
@@ -75,32 +52,46 @@
         </div>
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;margin-left: 12px !important;">Familty Ties</h2>
+                <h2 style="margin-top: 25px;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first select-child"
-                            onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first select-child">
+                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul class="children-list">
-                        <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
-                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
-                            </li>
-                            <hr>
-                        <?php endforeach; ?>
+                    <ul>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
                     </ul>
                 </div>
             </div>
@@ -181,12 +172,12 @@
                         <input id="price" readonly="" type="text" value="80,000" />
                         <span>RS</span>
                     </div>
-                    <img src="<?= IMAGE ?>/package-back.jpg" alt="packages" class="package-img">
+                    <img src="<?=IMAGE?>/package-back.jpg" alt="packages" class="package-img">
                 </div>
             </div>
             <div class="chatbox">
                 <a href="../Messager/Message.html">
-                    <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
+                    <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
                         style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 </a>
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
@@ -194,10 +185,7 @@
                 </div>
             </div>
             <div class="fill">
-            <div style="text-align: left; left: 0; display: flex; flex-direction: column; justify-content: left;">
-                <h2 style="margin-top: 0px !important; margin-bottom: 2px;">Packages</h2>
-                <hr style="width: 1080px;">
-            </div>
+                <h1 style="color: black"> Packages</h1>
                 <div class="filters" style="text-align: left;">
                     <label for="minPrice">Min Price:</label>
                     <input type="text" id="minPrice" class="price" maxlength="7" placeholder="Min Price"
@@ -208,7 +196,7 @@
                 </div>
                 <div class="packages">
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -216,7 +204,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -224,7 +212,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -232,7 +220,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -240,7 +228,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -250,7 +238,7 @@
                 </div>
                 <div class="packages" style="margin-top: -10px;">
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -258,7 +246,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -266,7 +254,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -274,7 +262,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p>Package : Basic care plan</p>
                         <p>Price : Rs. 12000</p>
                         <button class="view">
@@ -303,8 +291,8 @@
                     </a>
                 </div>
             </div>
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
+            <a href="<?=ROOT?>/Parent/Message" class="chatbox">
+                <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
                     style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
                 <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
                     <p> 2</p>
@@ -313,9 +301,9 @@
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
+            <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
                 Thilina Perera
@@ -323,58 +311,36 @@
             <p>
                 Student    RS0110657
             </p>
-            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">
+            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/Parent/ParentProfile'">
                 Profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Parent/Main/Home'">
+            <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Parent/Main/Home'">
                 LogOut
             </button>
         </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        childName: childName
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
-                    } else {
-                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const PackageModal = document.getElementById('PackageModal');
             const packagebtns = document.querySelectorAll('.view');
             const mainContent = document.getElementById('main-content');
             const packageback = document.getElementById('back-arrow');
 
-            packageback.addEventListener('click', function() {
+            packageback.addEventListener('click', function () {
                 toggleModal(PackageModal, 'none');
             })
 
-            packagebtns.forEach(function(eventbtn) {
+            packagebtns.forEach(function (eventbtn) {
                 console.log("Hi");
-                eventbtn.addEventListener('click', function() {
+                eventbtn.addEventListener('click', function () {
                     toggleModal(PackageModal, 'flex');
                 })
             });
 
-            window.addEventListener('click', function(e) {
+            window.addEventListener('click', function (e) {
                 if (e.target === PackageModal) {
                     toggleModal(PackageModal, 'none');
                 }

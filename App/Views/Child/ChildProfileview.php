@@ -4,22 +4,15 @@
 <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="<?=CSS?>/Child/profile.css?v=<?= time() ?>">
+<link rel="stylesheet" href="<?=CSS?>/Child/profile.css">
 <script src="<?=JS?>/Child/Number.js"></script>
-    <style>
-        .fa-chevron-left{
-            margin-left: 40px;
-            cursor: pointer;
-            color: white !important;
-        }
-    </style>
 
 <head>
 </head>
 
-<body>
+<body style="background-image: url('<?=IMAGE?>/profile-bg.png');">
     <div id="prescriptionModal" class="prescription-view">
-        <div class="top-con" style="margin-top: -555px !important;">
+        <div class="top-con">
             <div class="back-con" id="back-arrow">
                 <i class="fas fa-chevron-left" id="backforprescription"></i>
             </div>
@@ -28,57 +21,62 @@
         <img src="<?=IMAGE?>/prescription1.jpeg" alt="prescriptions" class="prescription-img" id="prescription-img">
         <i class="fa fa-chevron-right move" id="right"></i>
     </div>
-    <div id="documentModal" style="width: 350px">
+    <div id="documentModal">
         <div class="top-con">
             <div class="back-con" id="back-arrow">
                 <i class="fas fa-chevron-left" id="backfordocument"></i>
             </div>
         </div>
-        <div id="fileListContainer" style="display: flex; justify-content:space-between; width: 330px;">
+        <div id="fileListContainer">
         </div>
     </div>
     <div class="Profilecard" id="Profilecard">
-        <div class="top-con">
-            <div class="back-con">
-                <i class="fas fa-chevron-left" id="backforpickup" onclick="window.location.href='<?=ROOT?>/Child/Home'"></i>
-            </div>
-        </div>
         <div class="Profile">
-            <p style="margin-top: -40px; margin-bottom: 20px; margin-left: 60px; cursor: pointer; color: rgba(35, 83, 167, 1);">Child Profile
+            <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer; color: rgba(35, 83, 167, 1);">Child Profile
             </p>
         </div>
         <div class="ProfileContainer">
             <div class="leftcon">
                 <form id="editprofileleft">
-                    <img src="<?= isset($data[0]->profile)? $data[0]->profile .'?v=' . time() : '' ?> " class="profile-img" style="width: 200px; height: 200px;">
+                    <img src="<?=IMAGE?>/face.jpeg" class="profile-img">
                     <div class="datacon">
                         <div class="data">
                             <label>First Name</label>
-                            <input readonly placeholder="<?= isset($data[0]->First_Name)? $data[0]->First_Name : '' ?> " type="text">
+                            <input readonly placeholder="Yunus" type="text">
                         </div>
                         <div class="data">
                             <label>Last Name</label>
-                            <input readonly placeholder="<?= isset($data[0]->Last_Name)? $data[0]->Last_Name : '' ?> " type="text">
+                            <input readonly placeholder="Mahir" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Nickname</label>
-                            <input readonly placeholder="<?= isset($data[0]->Nickname)? $data[0]->Nickname : '' ?> " type="text">
+                            <input readonly placeholder="Yunu" type="text">
                         </div>
                         <div class="data">
                             <label>Date Of Birth</label>
-                            <input readonly placeholder="<?= isset($data[0]->DOB)? $data[0]->DOB : '' ?> " type="date">
+                            <input readonly placeholder="Yunu" type="date">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Gender</label>
-                            <input type="text" placeholder="<?= isset($data[0]->Gender)? $data[0]->Gender : 'Male' ?>">
+                            <input type="text" placeholder="Male">
                         </div>
                         <div class="data">
                             <label>User Relationship</label>
-                            <input type="text" placeholder="<?= isset($data[0]->Relation)? $data[0]->Relation : '' ?>">
+                            <input type="text" placeholder="Father">
+                        </div>
+                    </div>
+                    <div class="datacon">
+                        <div class="data">
+                            <label>Language</label>
+                            <input readonly placeholder="Tamil,English" type="text">
+                        </div>
+                        <div class="data">
+                            <label>Religion</label>
+                            <input readonly placeholder="Islam" type="text">
                         </div>
                     </div>
                 </form>
@@ -88,22 +86,12 @@
                 <div class="rightcon">
                     <div class="datacon">
                         <div class="data">
-                            <label>Language</label>
-                            <input readonly placeholder="<?= isset($data[0]->Language)? $data[0]->Language : '' ?>" type="text">
-                        </div>
-                        <div class="data">
-                            <label>Religion</label>
-                            <input readonly placeholder="<?= isset($data[0]->Religion)? $data[0]->Religion : '' ?>" type="text">
-                        </div>
-                    </div>
-                    <div class="datacon">
-                        <div class="data">
                             <label>Emergency Contact</label>
-                            <input readonly class="number" type="number" placeholder="<?= isset($data[0]->Mobile)? $data[0]->Mobile : 'None' ?>">
+                            <input readonly class="number" type="number" placeholder="071-4810928">
                         </div>
                         <div class="data">
-                            <label>Email</label>
-                            <input readonly type="text" placeholder="<?= isset($data[0]->Email)? $data[0]->Email : 'None' ?>">
+                            <label>Allergies</label>
+                            <input readonly type="text" placeholder="Shrimp">
                         </div>
                     </div>
                     <div class="datacon">
@@ -123,8 +111,26 @@
                     </div>
                     <div class="datacon">
                         <div class="data">
-                            <label>Allergies</label>
-                            <input readonly type="text" style="width:635px;" placeholder="<?= (isset($data[0]->Allergies)&&$data[0]->Allergies !== '' )? $data[0]->Allergies : 'None' ?>">
+                            <label>Enrolled clubs</label>
+                            <select style="width: 315px">
+                                <option hidden>Guardening Club</option>
+                                <option>Swimming Club</option>
+                                <option>Singing Club</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="datacon">
+                        <div class="data">
+                            <label>Attending Days</label>
+                            <div class="days">
+                                <div class="day select" style="margin-left:0px">Sun</div>
+                                <div class="day">Mon</div>
+                                <div class="day select">Tue</div>
+                                <div class="day">Wed</div>
+                                <div class="day">Thur</div>
+                                <div class="day">Fri</div>
+                                <div class="day select">Sat</div>
+                            </div>
                         </div>
                     </div>
                     <div
@@ -171,13 +177,15 @@
                 Profilecard.style.filter = "blur(10px)";
             });
 
-            const images = <?= json_encode($data[0]->prescription); ?>;
-            console.log(images);
+            const images = [
+                "../../Assets/prescription1.jpeg",
+                "../../Assets/prescription2.jpeg",
+                "../../Assets/prescription3.jpeg"
+            ];
             let currentIndex = 0;
 
             function updateImage() {
                 prescriptionimg.src = images[currentIndex];
-                console.log(prescriptionimg.src);
             }
 
             left.addEventListener('click', function () {
@@ -192,7 +200,11 @@
 
             updateImage();
 
-            const files = <?= json_encode($data[0]->documents); ?>;
+            const files = [
+                { name: "Report_January.pdf", path: "../../Assets/Report_January.pdf" },
+                { name: "Report_February.pdf", path: "../../Assets/Report_February.pdf" },
+                { name: "Summary_March.pdf", path: "../../Assets/Summary_March.pdf" }
+            ];
 
             files.forEach(file => {
                 const fileDiv = document.createElement('div');

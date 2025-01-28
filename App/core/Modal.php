@@ -20,7 +20,7 @@
         }
 
         public function findall(){
-            $query = "select * from $this->table order by $this->order_column $this->order_type";
+            $query = "select * from $this->table";
             return $this->query($query);
         }
 
@@ -28,18 +28,46 @@
             $keys = array_keys($data);
             $keys_not = array_keys($data_not);
             $query = "select * from $this->table where ";
+
             foreach ($keys as $key){
-                $query .= $key . " = :". $key. " AND ";
-            }
-            foreach ($keys_not as $key){
-                $query .= $key . "!=:". $key. " AND ";
+                $query .= $key . " = :". $key . " AND ";
             }
 
-            $query = rtrim($query," AND ");
+            foreach ($keys_not as $key){
+                $query .= $key . "!= :". $key. " AND ";
+            }
+
+            $query = substr($query, 0, strrpos($query, " AND "));
 
             $data = array_merge($data, $data_not);
             return $this->query($query, $data);
-        }        
+        }       
+        
+        public function where_order($data, $data_not = [], $order_by = null) {
+            $keys = array_keys($data);
+            $keys_not = array_keys($data_not);
+            $query = "SELECT * FROM $this->table WHERE ";
+        
+            foreach ($keys as $key) {
+                $query .= $key . " = :" . $key . " AND ";
+            }
+            foreach ($keys_not as $key) {
+                $query .= $key . " != :" . $key . " AND ";
+            }
+        
+            if (strrpos($query, " AND ") !== false) {
+                $query = substr($query, 0, strrpos($query, " AND "));
+            }
+        
+            if ($order_by) {
+                $query .= " ORDER BY " . $order_by . " ASC";
+            }
+
+            $data = array_merge($data, $data_not);
+        
+            return $this->query($query, $data);
+        }
+        
 
         public function where($data, $data_not = []){
 
@@ -143,28 +171,27 @@
         }
 
         public function update($condition, $data) {
-            $conditionColumn = key($condition);
-            $conditionValue = $condition[$conditionColumn];
+            $conditionColumn = key($condition); // Get the condition column name
+            $conditionValue = $condition[$conditionColumn]; // Get the condition column value
         
             if (!empty($this->allowedColumns)) {
                 foreach ($data as $key => $value) {
                     if (!in_array($key, $this->allowedColumns)) {
-                        unset($data[$key]);
+                        unset($data[$key]); // Remove any data not in the allowed columns
                     }
                 }
             }
         
             $keys = array_keys($data);
-            $query = "UPDATE $this->table SET ";
+            $query = " UPDATE $this->table SET ";
             foreach ($keys as $key) {
-                $query .= "$key = :$key, ";
+                $query .= $key . " = :" . $key . " , ";
             }
-    
-            $query = rtrim($query, ", ");
-            $query .= " WHERE $conditionColumn = :conditionValue";
-            $data['conditionValue'] = $conditionValue;
-            show($query);
-            return $this->query($query, $data);
-        }        
+        
+            $query = trim($query, ", ");
+            $query .= " WHERE $conditionColumn = :$conditionColumn";
+            $data[$conditionColumn] = $conditionValue; // Add the condition to the data array
+            return ($this->query($query, $data));
+        }               
     }
 ?>

@@ -5,66 +5,44 @@
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Child/package.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/Main.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Navbar.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Price.js?v=<?= time() ?>"></script>
+    <link rel="stylesheet" href="<?=CSS?>/Child/package.css">
+    <link rel="stylesheet" href="<?=CSS?>/Child/Main.css">
+    <script src="<?=JS?>/Child/Profile.js"></script>
+    <script src="<?=JS?>/Child/MessageDropdown.js"></script>
+    <script src="<?=JS?>/Child/Navbar.js"></script>
+    <script src="<?=JS?>/Child/Price.js"></script>
+    <script src="<?=JS?>/Child/Taskbar.js"></script>
 </head>
 
-<body style="overflow: hidden;">
+<body style="overflow: hidden; background-image: url('<?=IMAGE?>/dashboard-background.jpeg');">
     <div class="container">
-        <div class="sidebar" id="sidebar1">
-            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
-            <div class="logo-div">
-                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
-                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
-            </div>
+        <div class="sidebar minimized" id="sidebar1">
+            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
+            <h2 style="margin-top: 10px;">Dashboard</h2>
             <ul>
-                <li class="hover-effect unselected first">
-                    <a href="<?=ROOT?>/Child/Home">
+                <li class="hover-effect">
+                    <a href="<?=ROOT?>/Main/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/history">
-                        <i class="fas fa-history"></i> <span>History</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/report">
-                        <i class="fa fa-user-shield"></i> <span>Report</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/reservation">
+                    <a href="<?=ROOT?>/Main/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/meal">
+                    <a href="<?=ROOT?>/Main/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/event">
+                    <a href="<?=ROOT?>/Main/allevent">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="selected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Child/package">
+                    <a href="<?=ROOT?>/Main/package">
                         <i class="fas fa-box"></i> <span>Package</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/funzonehome">
-                        <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
-                    </a>
-                </li>
-                <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/payment">
-                        <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
             </ul>
@@ -75,35 +53,46 @@
         </div>
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2 style="margin-top: 25px;">Familty Ties</h2>
+                <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first"
-                            onclick="removechildsession();">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
+                    <h2 style="margin-top: 25px;">Little Explorers</h2>
+                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul class="children-list">
-                        <?php foreach ($data['children'] as $child): ?>
-                            <li class="first
-                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
-                            " 
-                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
-                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
-                            </li>
-                            <hr>
-                        <?php endforeach; ?>
+                    <ul>
+                        <li class="hover-effect first select-child">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
                     </ul>
                 </div>
             </div>
@@ -197,10 +186,7 @@
                 </div>
             </div>
             <div class="fill">
-                <div style="display: flex; flex-direction: column;">
-                    <h2 style="margin-top: 0px !important; margin-bottom: 2px;"> Packages  </h2>
-                    <hr style="width: 1070px;">
-                </div>
+                <h1 style="color: black"> Packages</h1>
                 <div class="filters" style="text-align: left;">
                     <label for="minPrice">Min Price:</label>
                     <input type="text" id="minPrice" class="price" maxlength="7" placeholder="Min Price"
@@ -339,6 +325,115 @@
                 LogOut
             </button>
         </div>
+        <div class="tasks" id="taskbtn">
+            <i class="fas fa-chevron-left" id="taskicon"></i>
+        </div>
+        <div class="task-container" id="tasknavbar">
+            <h1 style="margin-top: 20px;"> Quick Tasks Hub </h1>
+            <div class="card">
+                <h2>Calendar</h2>
+                <div class="calendar-header">
+                    <a href="#">&lt; October</a>
+                    <h3>November 2024</h3>
+                    <a href="#">December &gt;</a>
+                </div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                            <th>Sun</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>1</td>
+                            <td><span class="today">2</span></td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>12</td>
+                            <td>13</td>
+                            <td>14</td>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>17</td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>19</td>
+                            <td>20</td>
+                            <td>21</td>
+                            <td>22</td>
+                            <td>23</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>25</td>
+                            <td>26</td>
+                            <td>27</td>
+                            <td>28</td>
+                            <td>29</td>
+                            <td>30</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card">
+                <h2>Upcoming Tasks</h2>
+                <div class="task-item">
+                    <div class="task-info">
+                        <p class="task-title">Math Homework</p>
+                        <span class="task-deadline">Due: Nov 5, 2024</span>
+                    </div>
+                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
+                </div>
+                <div class="task-item">
+                    <div class="task-info">
+                        <p class="task-title">History Essay</p>
+                        <span class="task-deadline">Due: Nov 10, 2024</span>
+                    </div>
+                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
+                </div>
+                <div class="task-item">
+                    <div class="task-info">
+                        <p class="task-title">Science Project</p>
+                        <span class="task-deadline">Due: Nov 15, 2024</span>
+                    </div>
+                    <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Main menu</h2>
+                <a href="#" class="main-menu-item">
+                    <i class="fas fa-bullhorn icon-announcements"></i>
+                    <span>Site announcements</span>
+                </a>
+                <a href="#" class="main-menu-item">
+                    <i class="fas fa-globe icon-library"></i>
+                    <span>KIDDOVILLE Funzone</span>
+                </a>
+            </div>
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -375,46 +470,6 @@
                 }
             }
         });
-        function setChildSession(childName) {
-            fetch('<?= ROOT ?>/Child/Home/setchildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        childName: childName
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Package';
-                    } else {
-                        console.error("Failed to set child name in session.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        function removechildsession() {
-            fetch('<?= ROOT ?>/Child/Home/removechildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child name removed from session.");
-                        window.location.href = '<?= ROOT ?>/Parent/Package';
-                    } else {
-                        console.error("Failed to remove child name from session.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
     </script>
 </body>
 

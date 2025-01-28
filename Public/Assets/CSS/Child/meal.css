@@ -4,9 +4,95 @@ body {
     padding: 0;
     background-color: #3a3a3a;
 }
+.container {
+    display: flex;
+}
+.sidebar {
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    justify-content: center !important;
+    padding: 20px;
+    padding-left: 0px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-bottom: 0;
+    overflow-y: auto;
+    border-right: 5px solid #007bff;
+    box-sizing: border-box;
+    width: 270px;
+}
+.sidebar h2 {
+    font-size: 40px;
+    margin-bottom: 0px;
+    margin-left: 25px;
+    color:#2353A7 ;
+    margin-top: 10px;
+}
+.sidebar ul {
+    font-weight: bold;
+    list-style: none;
+    padding: 0;
+    margin-left: 25px;
+    margin-top: -10px;
+    margin-left: 45px;
+}
+.sidebar ul li {
+    margin-bottom: -30px;
+    position: relative;
+}
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    padding: 10px;
+    transition: color 0.3s, border-color 0.3s; 
+}
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+.sidebar ul li a:hover {
+    color: #007bff;
+}
+.sidebar ul li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #007bff;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+.sidebar ul li a:hover::before {
+    transform: scaleX(1);
+}
+.sidebar .help {
+    margin-top: 10px;
+    font-size: 18px;
+    margin-left: 10px;
+    color: ;
+}
 
-.minimized ul{
-    margin-top: -30px !important;
+.selected {
+    background-color: #2353A7;
+    border-radius: 10px;
+    width: 90%;
+    margin-top: 40px;
+}
+.unselected a {
+    padding: 1px 10px;
+}
+.selected a {
+    color: white !important;
+    margin-top: 5px !important;
+    margin-bottom: -15px !important;
+    padding: 15px 10px;
 }
 .main-content {
     padding: 20px;
@@ -523,7 +609,7 @@ th, td {
 }
 
 .table-container th {
-    background: #60a6ec; /* Gradient background */
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient background */
     color: white;
     padding: 20px; /* Increased padding */
     font-size: 16px;
@@ -536,6 +622,11 @@ td {
     padding: 15px 20px; /* Increased padding */
     font-size: 15px;
     color: #555; /* Slightly lighter text color for better readability */
+}
+
+.table-container th:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff); /* Gradient hover effect */
+    cursor: pointer; /* Pointer cursor on hover */
 }
 
 table th, table td {

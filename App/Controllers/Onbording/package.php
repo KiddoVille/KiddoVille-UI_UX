@@ -11,18 +11,26 @@
             $session->check_login();
     
             $data = [];
-            $username = $session->get('USERNAME');
+            $ParentID = $session->get('PARENTID');
             $child = new \Modal\Child;
     
             // Fetch children of the current parent
-            $children = $child->where_norder(['Parent_Name' => $username]);
+            $children = $child->where_norder(['ParentID' => $ParentID]);
+
+            $ChildID = $session->get('CHILDID');
+            show ($ChildID);
+            if (!$ChildID) {
+                show("ChildID is not set in the session.");
+            } else {
+                show("ChildID is set: " . $ChildID);
+            }
             
             // Handle child limit and determine button visibility
             $this->checkChildLimit($children, $child, $data);
-    
+
             // Process form submission if POST request is made
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $this->handleFormSubmission($child, $username, $data);
+                $this->handleFormSubmission($child, $data);
             }
 
             $action = $_POST['action'] ?? '';
@@ -48,18 +56,27 @@
             }
         }
     
-        private function handleFormSubmission($child, $username, &$data) {    
+        private function handleFormSubmission($child, &$data) {    
+            
+            $session = new \Core\Session;
+            $ChildID = $session->get('CHILDID');
 
-            if(!isset($_POST['package'])){
-                $_POST['package'] = 0;
+            if(!isset($_POST['PackageID'])){
+                $_POST['PackageID'] = 1;
             }
-            $child->insert($_POST);
-            $this->redirectBasedOnChildCount($child, $username);
+            $child->update(["ChildID" => $ChildID], ["PackageID" => $_POST['PackageID']]);
+
+            $session->unset('CHILDID');
+
+            $this->redirectBasedOnChildCount($child);
             redirect ('Onbording/package');
         }
     
-        private function redirectBasedOnChildCount($child, $username) {
-            $children = $child->where_norder(['Parent_Name' => $username]);
+        private function redirectBasedOnChildCount($child) {
+            $session = new \Core\Session;
+            $ParentID = $session->get('PARENTID');
+
+            $children = $child->where_norder(['ParentID' => $ParentID]);
         
             if (isset($_POST['action'])) {
                 if ($_POST['action'] === "child" && is_array($children) && count($children) < 5) {
@@ -67,7 +84,6 @@
                 } elseif ($_POST['action'] === "guardian") {
                     redirect('Onbording/Guardian');
                 } else {
-                    // Optional: Handle cases when adding more children is not allowed
                     redirect('Onbording/Guardian');
                 }
             }

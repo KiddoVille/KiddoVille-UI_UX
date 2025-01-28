@@ -122,3 +122,26 @@ select{
     margin-top: 5px;
     border-radius: 10px;
 }
+
+
+.food {
+    width: 100%; 
+    height: 40px;
+    border-radius: 8px; 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.food:focus, .food:hover {
+    border-color: #5f8fd7; 
+    box-shadow: 0 0 5px rgba(76, 120, 175, 0.5);
+    outline: none;
+}
+
+.food::placeholder {
+    color: #aaa; 
+    font-style: italic;
+}

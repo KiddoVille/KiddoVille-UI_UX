@@ -92,8 +92,8 @@
                 <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
             </div>
             <ul>
-                <li class="selected">
-                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;">
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
@@ -118,7 +118,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="hover-effect unselected">
+                    <li class="selected">
                         <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
                     </li>
                 </ul>
@@ -126,35 +126,27 @@
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;">
-                            <i class="fas fa-share"></i>Publish
+                            <i class="fas fa-umbrella-beach"></i> Holiday</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Event" style="font-size: 18px;">
-                            <i class="fa fa-calendar-plus"></i>Event
+                            <i class="fa fa-calendar-plus"></i>Event</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
                         <a href="<?= ROOT ?>/Manager/Foodtable" style="font-size: 18px;">
-                            <i class="fa fa-pizza-slice"></i>Food Plane
+                            <i class="fa fa-pizza-slice"></i>Food Plane</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="#" style="font-size: 18px;">
-                            <i class="fas fa-info-circle"></i>Info
-                        </a>
-                        <ul class="dropdown">
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Blog"><i class="fas fa-blog"></i>Blog</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Aboutus"><i class="fas fa-info-circle"></i>About Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Contactus"><i class="fas fa-envelope"></i>Contact Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Profile"><i class="fas fa-user-circle"></i>Home</a></li>
-                        </ul>
+                        <a href="<?= ROOT ?>/Manager/Leaverequest" style="font-size: 18px;">
+                            <i class="fas fa-hand-paper"></i>Request</a>
                     </li>
                 </ul>
-
             </ul>
         </div>
         <div class="header" style="margin-top:-8.5%">

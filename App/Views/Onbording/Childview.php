@@ -6,7 +6,7 @@
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="<?= CSS ?>/Onbording/Onbording.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Onbording/Onbording.css">
     <script src="<?= JS ?>/Onbording/child.js"></script>
     <style>
         .error {
@@ -50,7 +50,8 @@
                     <i class="fas fa-chevron-left" id="backfordocument"></i>
                 </div>
             </div>
-            <div id="fileListContainer"></div>
+            <div id="fileListContainer">
+            </div>
             <div>
                 <input type="file" style="display: none; position: absolute;" id="file-input" name='documents[]' multiple>
                 <button class="add-files" style="cursor: pointer !important;" for="file-input" id="file-btn" type='button'> Add Files </button>
@@ -59,7 +60,7 @@
         <!-- container to get details -->
         <div class="Profilecard">
             <div
-                style="background-color: #60a6ec; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
+                style="background-color: #2524E8; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
                 <img src="<?= IMAGE ?>/logo_light-remove.png" style="width:70px">
                 <div class="heading">
                     <h1>Let's Create Your</h1>
@@ -73,12 +74,13 @@
                     <p>and safe Daycare Experienece</p>
                 </div>
                 <div class="circles">
-                    <div class="circle"></div>
                     <div class="circle select"></div>
+                    <div class="circle"></div>
                     <div class="circle"></div>
                 </div>
             </div>
             <div class="ProfileContainer" style="flex-direction: column !important;">
+
                 <h2> Let's Get Started</h2>
                 <div class="hori">
                     <div class="datacon">
@@ -194,16 +196,16 @@
                 <!-- <?php echo !empty($data['value']['button']) ? 'flex-end' : 'space-between '; ?> -->
                 <div class="datacon" style="flex-direction: row; justify-content: <?php echo empty($data['value']['button']) ? 'flex-end' : 'space-between '; ?>; margin-right: 20px;">
                     <?php
-                    // if (!empty($data['value']['button']) && $data['value']['button'] === true) {
-                    //     echo <<<HTML
-                    //         <div class="data">
-                    //             <button name="action" value="child" type="submit" id="add-btn" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px; background-color:rgb(67, 99, 154) !important; color: white !important;">Add Children<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
-                    //         </div>
-                    //     HTML;
-                    // }
-                    // ?>
+                    if (!empty($data['value']['button']) && $data['value']['button'] === true) {
+                        echo <<<HTML
+                            <div class="data">
+                                <button name="action" value="child" type="submit" id="add-btn" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px; background-color:rgb(67, 99, 154) !important; color: white !important;">Add Children<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
+                            </div>
+                        HTML;
+                    }
+                    ?>
                     <div class="data">
-                        <button name="action" value="guardian" type="submit" id="submit" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px;     background-color:rgb(67, 99, 154) !important; color: white !important;">Save<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
+                        <button name="action" value="guardian" type="submit" id="submit" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px;     background-color:rgb(67, 99, 154) !important; color: white !important;">Add Guardian<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
                     </div>
                 </div>
             </div>
