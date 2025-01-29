@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Dashboard.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Account.css?v=<?= time() ?>">
-    <script src="<?= JS ?>/Manager/profileview.js"></script>
+    <!-- <script src="<?= JS ?>/Manager/profileview.js"></script> -->
 </head>
 
 <body id="body">
@@ -122,18 +122,17 @@
                 <div class="search-container">
                     <form action="" method="GET">
                         <input type="text"
+                            id="Idpicker"
                             name="search_id"
                             placeholder="Search ID"
-                            style="padding: 10px 30px;"
-                            value="<?= htmlspecialchars($_GET['search_id']) ?>">
-
-                        <select name="role" id="role" onchange="this.form.submit()">
-                            <option value="" <?= empty($_GET['role']) ? 'selected' : '' ?>>Selcet role</option>
-                            <option value="user" <?= isset($_GET['role']) && $_GET['role'] == 'User' ? 'selected' : '' ?>>User</option>
-                            <option value="teacher" <?= isset($_GET['role']) && $_GET['role'] == 'teacher' ? 'selected' : '' ?>>Teacher</option>
-                            <option value="maid" <?= isset($_GET['role']) && $_GET['role'] == 'maid' ? 'selected' : '' ?>>Maid</option>
-                            <option value="receptionist" <?= isset($_GET['role']) && $_GET['role'] == 'receptionist' ? 'selected' : '' ?>>Receptionist</option>
-                            <option value="doctor" <?= isset($_GET['role']) && $_GET['role'] == 'doctor' ? 'selected' : '' ?>>Doctor</option>
+                            style="padding: 10px 30px;margin-left:-50%">
+                        <select name="role" id="rolefilter" style="margin-left:50%">
+                            <option value="All">All</option>
+                            <option value="User">Parent</option>
+                            <option value="Teacher">Teacher</option>
+                            <option value="Maid">Maid</option>
+                            <option value="Receptionist">Receptionist</option>
+                            <option value="Doctor">Doctor</option>
                         </select>
                     </form>
                 </div>
@@ -166,7 +165,82 @@
             </div>
         </div>
     </div>
+    <script>
+        function fetchProfile(Role, Id) {
+            fetch('<?= ROOT ?>/Manager/Viewprofile/store_users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        role: Role,
+                        id: Id
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Meal plan data:", data.data);
+                        updateProfileCards(data.data);
+                    } else {
+                        console.error("Failed to fetch meal plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
 
+        function updateProfileCards(users) {
+            const cardsContainer = document.querySelector('.cards'); // Select the container
+
+            // Clear previous content
+            cardsContainer.innerHTML = '';
+
+            if (users.length === 0) {
+                cardsContainer.innerHTML = '<p>No users found matching the criteria.</p>';
+                return;
+            }
+
+            users.forEach(user => {
+                const cardHTML = `
+            <div class="report-card">
+                <div class="card-content">
+                    <div class="profile-img">
+                        <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
+                    </div>
+                    <div class="card-details">
+                        <h4>${user.Username}</h4>
+                        <p>UserID: ${user.UserID}</p>
+                        <p>Role: ${user.Role}</p>
+                    </div>
+                    <div class="card-footer">
+                        <button onclick="viewUser(${user.UserID})">View</button>
+                        <button class="del" onclick="deleteUser(${user.UserID})">Delete</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+                // Append new card to the container
+                cardsContainer.innerHTML += cardHTML;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const rolePicker = document.getElementById('rolefilter');
+            const idPicker = document.getElementById('Idpicker');
+
+            fetchProfile('All', null);
+
+            rolePicker.addEventListener('change', function() {
+                fetchProfile(rolePicker.value, idPicker.value);
+            });
+
+            idPicker.addEventListener('change', function() {
+                fetchProfile(rolePicker.value, idPicker.value);
+            });
+        });
+    </script>
 </body>
 
 </html>

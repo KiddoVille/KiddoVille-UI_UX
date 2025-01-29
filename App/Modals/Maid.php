@@ -9,6 +9,7 @@
 
         protected $table = 'maid';
         protected $allowedColumns = [
+            'UserID',
             'Last_Name',
             'First_Name',
             'Phone_Number',

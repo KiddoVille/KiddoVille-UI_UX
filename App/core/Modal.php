@@ -173,7 +173,8 @@
         public function update($condition, $data) {
             $conditionColumn = key($condition); // Get the condition column name
             $conditionValue = $condition[$conditionColumn]; // Get the condition column value
-        
+            
+            // Ensure that only allowed columns are in the update data
             if (!empty($this->allowedColumns)) {
                 foreach ($data as $key => $value) {
                     if (!in_array($key, $this->allowedColumns)) {
@@ -182,16 +183,23 @@
                 }
             }
         
+            // Prepare the SET clause
             $keys = array_keys($data);
-            $query = " UPDATE $this->table SET ";
+            $query = "UPDATE $this->table SET ";
             foreach ($keys as $key) {
-                $query .= $key . " = :" . $key . " , ";
+                $query .= "$key = :$key, ";
             }
         
-            $query = trim($query, ", ");
+            // Trim the last comma and add the WHERE clause
+            $query = rtrim($query, ", ");
             $query .= " WHERE $conditionColumn = :$conditionColumn";
-            $data[$conditionColumn] = $conditionValue; // Add the condition to the data array
-            return ($this->query($query, $data));
-        }               
+        
+            // Add condition to the data array
+            $data[$conditionColumn] = $conditionValue; 
+        
+            // Execute the query using the prepared statement
+            return $this->query($query, $data);
+        }
+                     
     }
 ?>

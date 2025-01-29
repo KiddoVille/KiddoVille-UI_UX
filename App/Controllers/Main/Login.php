@@ -19,52 +19,57 @@
                         if(checkpassword($_POST["Password"],$result->Password)){
                             
                             $session = new \Core\Session;
-                            $session->set(['USERNAME' => $result->Username]);
-                            $session->set(['Logged_In' => true]);               //to only allow access when loged in
-
-                            $parent = new \Modal\ParentUser;
-                            $lastseen = date('Y-m-d H:i:s');
-                            $parent->update(["Username" => $username],["Last_Seen"=>$lastseen]);
+                            $session->set(['USERID' => $result->UserID]);
+                            $session->set(['Logged_In' => true]);
         
-                            if($result->Role === "Unregistered"){
+                            if($result->Role === "User"){
                                 $parent = new \Modal\ParentUser;
-                                $result = $parent->first(['Username' => $result -> Username]);
+                                $result = $parent->first(['UserID' => $result -> UserID]);
                                 if(empty($result)){
                                     redirect('Onbording/ParentUser');
                                 }
                                 else{
+                                    $parent = new \Modal\ParentUser;
+                                    $lastseen = date('Y-m-d H:i:s');
+                                    $parent->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
+
                                     redirect('Parent/Home');
                                 }
                             }
-                            if($result->Role === "Registered"){
-                                $parent = new \Modal\ParentUser;
-                                $result = $parent->first(['Username' => $result -> Username]);
-                                show($result);
-                                if(empty($result)){
-                                    redirect('Onbording/ParentUser');
-                                }
-                                else{
-                                    redirect('ReParent/Home');
-                                }
-                            }
                             if($result->Role === "Teacher"){
+                                $teacher = new \Modal\Teacher;
+                                $lastseen = date('Y-m-d H:i:s');
+                                $teacher->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
+
                                 redirect('Teacher/Home');
                             }
                             if($result->Role === "Maid"){
+                                $maid = new \Modal\Maid;
+                                $lastseen = date('Y-m-d H:i:s');
+                                $maid->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
                                 redirect('Maid/Home');
                             }
                             if($result->Role === "Manager"){
+                                $Manager = new \Modal\Manager;
+                                $lastseen = date('Y-m-d H:i:s');
+                                $Manager->update(["UserID" => 6],["Last_Seen"=>$lastseen]);
                                 redirect('Manager/Home');
                             }
                             if($result->Role === "Receptionist"){
+                                $receptionist = new \Modal\Receptionist;
+                                $lastseen = date('Y-m-d H:i:s');
+                                $receptionist->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
                                 redirect('Receptionist/Home');
                             }
                             if($result->Role === "Doctor"){
+                                $doctor = new \Modal\Doctor;
+                                $lastseen = date('Y-m-d H:i:s');
+                                $doctor->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
                                 redirect('Doctor/Home');
                             }
-                            // if($result->Role){
-                            //     redirect('_404');
-                            // }
+                            if($result->Role){
+                                redirect('_404');
+                            }
                         }
                         else{
                             $user->values['uservalue'] = $username;

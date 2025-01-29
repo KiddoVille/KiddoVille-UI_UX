@@ -10,6 +10,8 @@
         protected $table = 'manager';
         protected $allowedColumns = [
             'Last_Name',
+            'UserID',
+            'Last_Seen'
         ];
 
         public function validate($data){

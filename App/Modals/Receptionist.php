@@ -9,6 +9,8 @@
 
         protected $table = 'receptionist';
         protected $allowedColumns = [
+            "UserID",
+            'First_Name',
             'Last_Name',
         ];
 
