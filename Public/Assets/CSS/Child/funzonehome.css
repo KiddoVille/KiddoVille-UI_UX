@@ -15,28 +15,33 @@ body {
     padding: 0;
     box-sizing: content-box;
     position: relative;
+
 }
 
-/* video cards */
 .main-content .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    display: flex;
+    flex-direction: row;
     padding: 10px 30px;
     margin-top: 120px;
-    overflow-y: auto;
     box-sizing: border-box;
-    max-height: 80%;
+    margin-left: 20px;
+    overflow-x: scroll;
+}
+
+.main-content .grid::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
 }
 
 .main-content .grid .item {
+    width: 170px;
+    height: 160px;
     background-color: white;
     border-radius: 10px;
-    overflow: hidden;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 8px 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 20px;
 }
 
 .main-content .grid .item:hover {
@@ -47,8 +52,8 @@ body {
 }
 
 .main-content .grid .item img {
-    width: 100%;
-    height: 200px;
+    width: 170px;
+    height: 130px;
     border-radius: 7px;
 }
 
@@ -223,4 +228,30 @@ body {
 .nav-buttons {
     display: flex;
     align-items: center;
+}
+
+.day {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    width: 95%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid #233E8D;
+    padding: 10px 0px;
+    margin-bottom: -120px;
+    margin-left: 50px;
+    margin-top: 130px;
+}
+
+.day h3 {
+    font-size: 18px;
+    /* Slightly larger font size for visibility */
+    font-weight: bold;
+    color: #233E8D;
+    /* Darker blue color for text */
+    margin: 0;
+    /* Remove margin */
+    margin-left: 20px;
 }

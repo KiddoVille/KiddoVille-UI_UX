@@ -38,10 +38,11 @@ body {
     padding: 10px 10px;
 }
 
-/* history on which day */
 .day {
+    display: flex;
+    justify-content: left;
     margin-top: 10px;
-    width: 98%;
+    width: 95%;
     margin-bottom: -15px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
@@ -96,7 +97,6 @@ body {
     /* Increase shadow on hover */
 }
 
-/* icons */
 .icon-container {
     top: 10px;
     left: 10px;

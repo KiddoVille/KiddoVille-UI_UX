@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="<?=CSS?>/ReChild/Main.css">
     <link rel="stylesheet" href="<?=CSS?>/ReChild/Home.css">
     <script src="<?=JS?>/ReChild/Profile.js"></script>
@@ -55,6 +56,17 @@
         }
 
     </style>
+=======
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"> </script>
+    <script src="<?= JS ?>/Child/OTP.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Number.js?v=<?= time() ?>"> </script>
+    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"> </script>
+    <!-- <script src="<?= JS ?>/Child/Home.js?v=<?= time() ?>"> </script> -->
+    <script src="<?= JS ?>/Child/Taskbar.js?v=<?= time() ?>"> </script>
+>>>>>>> origin/main
 </head>
 
 <body  style="background-image: url('<?=IMAGE?>/dashboard-background.jpeg');">
@@ -109,7 +121,11 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
+<<<<<<< HEAD
                             <img src="<?= isset($data['parent']['image']) ? $data['parent']['image']: ''?>"
+=======
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
+>>>>>>> origin/main
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -122,11 +138,21 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
+<<<<<<< HEAD
                             <li class="hover-effect first
                                 <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
                             " 
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
                                 <img src="<?= isset($child['image']) ? $child['image'] : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+=======
+                            <li class="first
+                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
+                                    echo "select-child";
+                                } ?>
+                            "
+                            onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
+>>>>>>> origin/main
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -193,6 +219,7 @@
                     </button>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="report-page">
                 <h1 style="color: #233E8D; margin-left: 15px;">
                 <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
@@ -203,6 +230,40 @@
                         <div class="first-row">
                             <img src="<?= isset($data['selectedchildren']['image']) ? $data['selectedchildren']['image'] : 'No name set'; ?>" alt="profile pic" style="border: 4px solid #233E8D;">
                             <h3 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h3>
+=======
+            <div style="display: flex; flex-direction: row;">
+                <div class="report-page">
+                    <?php show($_SESSION) ?>
+                    <h1 style="color: #233E8D; margin-left: 15px;">
+                        <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
+                    <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our family! </p>
+                    <div class="report-header">
+                        <div class="profile" id="profile" style="max-height: 350px; margin-right: 2%; width: 200px !important;">
+                            <h3 style="margin-top: 0px; margin-bottom: 2px;">Child Profile</h3>
+                            <hr>
+                            <div class="first-row">
+                                <img src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>">
+                                <h4 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h4>
+                            </div>
+                            <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
+                                <p style="margin-top: -30px;">Reg Num: <span>SRD110021</span></p>
+                                <p style="margin-top: -10px;">Age:
+                                    <span>
+                                        <?= isset($data['selectedchildren']['age']) ? $data['selectedchildren']['age'] : 'No name set'; ?>
+                                    </span>
+                                </p>
+                                <p style="margin-top: -10px;">Language:
+                                    <span>
+                                        <?= isset($data['selectedchildren']['language']) ? $data['selectedchildren']['language'] : 'No name set'; ?>
+                                    </span>
+                                </p>
+                                <p style="margin-top: -10px;">Religion:
+                                    <span>
+                                        <?= isset($data['selectedchildren']['religion']) ? $data['selectedchildren']['religion'] : 'No name set'; ?>
+                                    </span>
+                                </p>
+                            </div>
+>>>>>>> origin/main
                         </div>
                         <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
                             <p style="margin-top: -30px;">Reg Number : <span>SRD110021</span></p>
@@ -752,6 +813,7 @@
         fixedSlider.value = initialValue;
     });
 
+<<<<<<< HEAD
     function setChildSession(childName) {
         fetch('<?=ROOT?>/Child/Home/setchildsession', {
             method: 'POST',
@@ -789,6 +851,78 @@
             }
         })
         .catch(error => console.error("Error:",error));
+=======
+    // function setChildSession(ChildID) {
+    //     fetch('<?= ROOT ?>/Parent/Home/setchildsession', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             ChildID: ChildID
+    //         })
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             // If the response status is not OK (e.g., 404, 500), throw an error
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+    //         return response.json(); // Parse the response as JSON
+    //     })
+    //     .then(data => {
+    //         if (data.success) {
+    //             console.log("Child ID set in session.");
+    //             window.location.href = '<?= ROOT ?>/Child/Home';
+    //         } else {
+    //             console.error("Failed to set child name in session:", data.message);
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error("Error in setChildSession:", error);
+    //     });
+    // }
+
+    function setChildSession(ChildID){
+        fetch('<?= ROOT ?>/Child/Home/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ChildID: ChildID
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child id set in session.");
+                    window.location.href = '<?= ROOT ?>/Child/Home';
+                } else {
+                    console.error("Failed to set child id from session.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+
+    function removechildsession() {
+        fetch('<?= ROOT ?>/Child/Home/removechildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child id removed from session.");
+                    window.location.href = '<?= ROOT ?>/Parent/Home';
+                } else {
+                    console.error("Failed to remove child id from session.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+>>>>>>> origin/main
     }
 </script>
 

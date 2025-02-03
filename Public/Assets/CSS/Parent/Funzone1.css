@@ -80,19 +80,18 @@
     background-color: #3974BA;
     padding: 10px 20px;
     color: white;
-    border-radius: 5px;
     position: fixed;
     top: 0;
     left: 250px;
     right: 0;
     z-index: 1000;
-    height: 80px
+    height: 60px
 }
 
 .main-content .header h2 {
     margin: 0;
     font-size: 40px;
-    margin-right: 750px;
+    margin-right: 920px;
 }
 
 .main-content .header .nav-buttons {
@@ -132,7 +131,7 @@
 }
 
 .profile-card.show {
-    margin-top: 210px !important;
+    margin-top: 230px !important;
     display: flex;
     right: 0px;
 }
@@ -455,6 +454,7 @@
     margin: 0 10px;
     /* Spacing between icons */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
     /* Smooth transition for transform and box-shadow */
 }
 
@@ -574,13 +574,38 @@
     background-color: #0f020216;
     width: 250px;
 }
-
-
-
+.search-bar {
+    align-items: center;
+    position: relative;
+    display: inline-block;
+}
+.search-bar .clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.search-bar input, select {
+    padding: 10px;
+    border: 3px solid rgba(107, 106, 106, 0.4);
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: rgba(179, 179, 179, 0.4);
+    width: 430px;
+    padding: 10px 40px 10px 10px;
+    border-radius: 15px;
+    font-size: 16px;
+    margin-left: -160px;
+}
+.search-bar input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 20px;
+}
 
 .sidebarhome {
     background-color: #ffffff;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: 5px 0 5px -2px grey;
     justify-content: center;
     padding: 20px;
     padding-left: 0px;
@@ -590,7 +615,6 @@
     left: 0px;
     margin-bottom: 0;
     overflow-y: auto;
-    border-right: 5px solid #007bff;
     box-sizing: border-box;
     width: 270px;
     transform: translateX(0px);
@@ -712,4 +736,43 @@
 .selectedk {
     border-radius: 10px;
     width: 90%;
+}
+.header2{
+    width: 100%;
+    height: 45px;
+    background-color: #60a6ec;
+    margin-top: 80px;
+    margin-left: 22px;
+    display: flex; /* Enable flexbox */
+    align-items: center
+}
+.main-content::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+}
+.header2 a{
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+    margin-left: 40px;
+    position: relative;
+}
+.header2 a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #2353A7 ;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+.header2 a:hover::before {
+    transform: scaleX(1);
+}
+.header2 a:hover {
+    color:  #2353A7;
+}
+.select{
+    color:#2353A7 !important;
 }

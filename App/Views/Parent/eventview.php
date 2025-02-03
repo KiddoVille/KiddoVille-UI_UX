@@ -13,7 +13,6 @@
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Parent/event.js?v=<?= time() ?>"></script>
 </head>
 
 <body>
@@ -85,7 +84,7 @@
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/ReParent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -98,8 +97,8 @@
                     </p>
                     <ul class=" children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -165,17 +164,41 @@
                 </div>
             </div>
             <div class="stats">
-                <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Upcoming events</h3>
-                    <p style="margin-bottom: 3px;">19/09/2024</p>
-                    <span style="font-weight: 50;">Unattended days</span>
+                <div class="stat" id="NewEvent" style="width: 60px !important; display: flex; flex-direction: row !important;">
+                    <div style="display: flex; flex-direction: row;">
+                        <img src="<?=isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE.'/event-2.svg'; ?>" alt="Event Image"
+                            style="width: 130px ; height: 130px; margin-top: -15px; border-radius: 7px 0px 0px 7px; margin-bottom: -15px;">
+                        <div style="display: flex; flex-direction: column; margin-top: 10px;">
+                            <h3 class="footer" style="margin-left: 5px;">Event Name: <?= $data['stat3']['EventName'] ?></h3>
+                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Date: <?= date('d/m/Y', strtotime($data['stat3']['Date'])) ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat" id="stat1" style="display: none;">
+                    <h3>
+                        <img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">
+                        Upcoming events
+                    </h3>
+
+                    <?php if (!empty($data['stat1']['upcomingEvent'])): ?>
+                        <!-- If there is an upcoming event -->
+                        <p style="margin-bottom: 3px;">
+                            <?= $data['stat1']['upcomingEvent']['EventName'] ?>
+                        </p>
+                    <?php else: ?>
+                        <!-- If there is no upcoming event -->
+                        <p style="margin-bottom: 3px;">
+                            No upcoming events at the moment.
+                        </p>
+                    <?php endif; ?>
+
+                    <span style="font-weight: 50;"><?= $data['stat1']['upcomingEvent']['Date'] ?></span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Enroll to events</h3>
-                    <p style="margin-bottom: 3px;"> 2 events left</p>
-                    <span style="font-weight: 50;">2 enrolled events upcoming this month</span>
+                    <p style="margin-bottom: 3px;"> <?= $data['stat2']['enrolledEvents'] ?></p>
+                    <span style="font-weight: 50;"><?= $data['stat2']['eventsMessage'] ?></span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
@@ -190,28 +213,26 @@
                 <!-- Event Modal -->
                 <div class="modal" id="EventModal">
                     <div class="View-Package">
-                        <div class="top-con">
+                        <img id="Eventimage" src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
+                        <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
                             <div class="back-con" id="back-arrow">
                                 <i class="fas fa-chevron-left" id="backformeeting"></i>
                             </div>
                         </div>
-                        <div class="back-arrow" id="back-arrow">
-                            <i class="fas fa-chevron-left" style="color: white !important; margin-left: 0px;"></i>
+                        <div class="pickup-section" style="margin-top: 190px;">
+                            <label for="package-name">Event name</label>
+                            <input id="event-name" readonly="" type="text"/>
                         </div>
-                        <h1>View Event</h1>
-                        <label for="package-name">Event name</label>
-                        <input id="package-name" readonly="" type="text" value="Basic care plan" />
-                        <label for="included-services">Activity details</label>
-                        <div class="services" id="included-services">
-                            title of the compition is on nature
-                            <br />
-                            All type of drawing methods are allowd
-                            <br />
-                            competiton is partitioned in age groups
+                        <div class="pickup-section">
+                            <label for="included-services">Activity details</label>
+                            <div class="services" id="event-description">
+                            </div>
                         </div>
-                        <label for="price">Price</label>
-                        <div class="price-container">
-                            <input id="price" readonly="" type="text" value="10:00 - 11:00 AM" />
+                        <div class="pickup-section">
+                            <label for="price">Date Time</label>
+                            <div class="price-container">
+                                <input id="datetime" readonly="" type="text"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,98 +249,58 @@
                             </div>
                         </div>
                         <form id="ratingform">
-                            <h1>Review and Rating</h1>
-                            <label for="package-name">Reason</label>
-                            <input id="package-name" type="text" placeholder="Reason for the review" />
-                            <label for="included-services">Your review</label>
-                            <textarea class="services" id="included-services"
-                                placeholder="Provided a good service. The child was so happy. but the he left his toy at the daycare"></textarea>
-                            <label for="price">Add your rating</label>
-                            <div class="rating pickup-section">
-                                <i class="star-rate fas fa-star" data-value="5"></i>
-                                <i class="star-rate fas fa-star" data-value="4"></i>
-                                <i class="star-rate fas fa-star" data-value="3"></i>
-                                <i class="star-rate fas fa-star" data-value="2"></i>
-                                <i class="star-rate fas fa-star" data-value="1"></i>
+                            <h1 style="margin-left: 20px; margin-top: 40px !important;">Review and Rating</h1>
+                            <div class="pickup-section">
+                                <label for="package-name">Reason</label>
+                                <input id="package-name" type="text" placeholder="Reason for the review" />
+                            </div>
+                            <div class="pickup-section">
+                                <label for="included-services">Your review</label>
+                                <textarea id="included-services" placeholder="Provided a good service. The child was so happy. but the he left his toy at the daycare"></textarea>
+                            </div>
+                            <div class="pickup-section">
+                                <label for="price">Add your rating</label>
+                                <div class="rating pickup-section">
+                                    <i class="star-rate fas fa-star" data-value="5"></i>
+                                    <i class="star-rate fas fa-star" data-value="4"></i>
+                                    <i class="star-rate fas fa-star" data-value="3"></i>
+                                    <i class="star-rate fas fa-star" data-value="2"></i>
+                                    <i class="star-rate fas fa-star" data-value="1"></i>
+                                </div>
                             </div>
                             <div class="button-popup">
-                                <button style="margin-right: 120px;" id="closeratingBtn">Cancel</button>
-                                <button style="margin-right: 15px;" type="submit">Done</button>
+                                <button style="margin-right: 150px;" id="closeratingBtn">Cancel</button>
+                                <button type="submit">Done</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <!-- Event conatiner -->
-                <div class="event-container" style="width:750px; ">
+                <div class="event-container" style="width:750px; height: 400px; ">
                     <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
-                    <hr>
+                    <hr style="margin-bottom: 15px;">
                     <div class="filters">
                         <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                        <select style="width: 200px">
+                        <select style="width: 200px" id="select">
                             <option value="" hidden>Status</option>
-                            <option value="2 - 5">Upcoming</option>
-                            <option value="5 - 7">Happening</option>
-                            <option value="7 - 9">finished</option>
+                            <option value="NULL">All</option>
+                            <option value="Upcoming">Upcoming</option>
+                            <option value="Happening">Happening</option>
+                            <option value="Finished">Finished</option>
                         </select>
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 <th>Event Name</th>
+                                <th> Child </th>
                                 <th>Date</th>
                                 <th>Status</th>
                                 <th>View</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -374,28 +355,247 @@
         </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+        function setChildSession(ChildID) {
+            console.log(ChildID);
+            fetch(' <?= ROOT ?>/Parent/Event/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        childName: childName
+                        ChildID: ChildID
                     })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        console.log("Child name set in session.");
+                        console.log("Child Id set in session.");
                         window.location.href = '<?= ROOT ?>/Child/Home';
                     } else {
-                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                        console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
                     }
                 })
                 .catch(error => console.error("Error:", error));
         }
+
+        function fetchrequest(date, status) {
+            fetch('<?= ROOT ?>/Parent/Event/store_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        status: status
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Event data:", data.data);
+                        updateEventTable(data.data);
+                        attachEventListeners();
+                    } else {
+                        console.error("Failed to fetch events:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function updateEventTable(events) {
+            const tbody = document.querySelector('.event-container table tbody');
+            tbody.innerHTML = '';
+
+            events.forEach(event => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${event.EventName}</td>
+                    <td> ${event.ChildName} </td>
+                    <td>${new Date(event.Date).toLocaleDateString()}</td>
+                    <td>${event.Status}</td>
+                    <td><i class="fas fa-eye icon eventbtn" data-eventid="${event.EventID}"></i></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function attachEventListeners() {
+            const eventbtns = document.querySelectorAll('.eventbtn');
+            const EventModal = document.getElementById('EventModal');
+            eventbtns.forEach(function(eventbtn) {
+                eventbtn.addEventListener('click', function() {
+                    const eventId = this.dataset.eventid;
+                    console.log(eventId);
+                    fetchEventDetails(eventId);
+                });
+            });
+        }
+
+        function fetchEventDetails(eventId) {
+            const eventNameInput = document.getElementById('event-name');
+            const eventDetailsDiv = document.getElementById('event-description');
+            const eventDateTimeInput = document.getElementById('datetime');
+            const eventImage = document.getElementById('Eventimage');
+
+            fetch('<?= ROOT ?>/Parent/Event/Event_details', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify({
+                    EventID: eventId
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Populate modal with event details
+                        eventNameInput.value = data.data.EventName;
+                        eventDateTimeInput.value = data.data.Date;
+                        eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
+                        if (data.data.Image) {
+                            eventImage.src = data.data.Image;
+                        } else {
+                            eventImage.src = "<?= IMAGE ?>/packages.png";
+                        }
+                        toggleModal(EventModal, 'flex');
+                    } else {
+                        alert(data.message || 'Failed to load event details.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching event details:', error);
+                    alert('An error occurred while fetching event details.');
+                });
+        }
+
+
+        function toggleModal(modal, display) {
+            const mainContent = document.getElementById('main-content');
+            modal.style.display = display;
+            if (display === 'flex') {
+                document.body.classList.add('no-scroll');
+                mainContent.classList.add('blurred');
+            } else {
+                document.body.classList.remove('no-scroll');
+                mainContent.classList.remove('blurred');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchrequest(null, null);
+
+            const datePicker = document.getElementById('datePicker');
+            const statusDropdown = document.querySelector('select');
+
+            function applyFilters() {
+                const selectedDate = datePicker.value || null;
+                const selectedStatus = statusDropdown.value || null;
+                console.log(selectedDate, selectedStatus);
+                fetchrequest(selectedDate, selectedStatus);
+            }
+
+            datePicker.addEventListener('change', applyFilters);
+            statusDropdown.addEventListener('change', applyFilters);
+
+            const EventModal = document.getElementById('EventModal');
+            const eventbtns = document.querySelectorAll('.eventbtn');
+            const mainContent = document.getElementById('main-content');
+            const eventback = document.getElementById('back-arrow');
+
+            eventback.addEventListener('click', function() {
+                toggleModal(EventModal, 'none');
+            })
+
+            function attachEventListeners() {
+                const eventbtns = document.querySelectorAll('.eventbtn');
+                eventbtns.forEach(function(eventbtn) {
+                    eventbtn.addEventListener('click', function() {
+                        console.log("EVENT BTN");
+                        toggleModal(EventModal, 'block');
+                    });
+                });
+            }
+
+            attachEventListeners();
+
+            window.addEventListener('click', function(e) {
+                if (e.target === EventModal) {
+                    toggleModal(EventModal, 'none');
+                }
+            });
+
+            const RatingModal = document.getElementById('RatingModal');
+            const feedbackbtn = document.getElementById('feedbackbtn');
+            const backforrating = document.getElementById('backforrating');
+
+            backforrating.addEventListener('click', function() {
+                toggleModal(RatingModal, 'none');
+            });
+
+            feedbackbtn.addEventListener('click', function() {
+                toggleModal(RatingModal, 'flex');
+            });
+
+            const stars = document.querySelectorAll('.star-rate');
+            const meetingrefresh = document.getElementById('ratingrefresh');
+            const ratingform = document.getElementById('ratingform');
+
+            meetingrefresh.addEventListener('click', function() {
+                ratingform.reset();
+                stars.forEach((star) => {
+                    star.classList.remove('selectestar')
+                });
+            })
+
+            let rating = 0;
+            let i = 0;
+
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    if (star.classList.contains('selectestar') && index === rating - 1) {
+                        for (let j = index; j < stars.length; j++) {
+                            stars[j].classList.remove('selectestar');
+                        }
+                        rating -= 1;
+                        i -= 1;
+                    } else if (index === rating) {
+                        stars[index].classList.add('selectestar');
+                        rating += 1;
+                        i += 1;
+                    }
+                });
+            });
+
+            function toggleModal(modal, display) {
+                modal.style.display = display;
+                if (display === 'flex') {
+                    document.body.classList.add('no-scroll');
+                    mainContent.classList.add('blurred');
+                } else {
+                    document.body.classList.remove('no-scroll');
+                    mainContent.classList.remove('blurred');
+                }
+            }
+
+            const stat1 = document.getElementById('stat1');
+            const stat2 = document.getElementById('stat2');
+            const NewEvent = document.getElementById('NewEvent');
+
+            function rotateStats() {
+                if (stat1.style.display == '') {
+                    stat1.style.display = 'none';
+                    NewEvent.style.display = 'flex';
+                } else {
+                    stat1.style.display = '';
+                    NewEvent.style.display = 'none';
+                }
+            }
+
+            setInterval(rotateStats, 5000);
+
+        });
     </script>
 </body>
 

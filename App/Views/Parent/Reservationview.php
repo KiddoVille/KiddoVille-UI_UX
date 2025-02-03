@@ -27,7 +27,11 @@
     </style>
 </head>
 
+<<<<<<< HEAD
 <body style="background-image: url('<?=IMAGE?>/dashboard-background.jpeg'); overflow: hidden;">
+=======
+<body style="overflow: hidden;">
+>>>>>>> origin/main
     <div class="container">
         <div class="sidebar minimized" id="sidebar1">
             <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
@@ -68,9 +72,16 @@
             <div>
                 <h2 style="margin-top: 25px;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
+<<<<<<< HEAD
                     <ul>
                         <li class="hover-effect first select-child">
                             <img src="<?= isset($data['parent']['image']) ? $data['parent']['image']: ''?>"
+=======
+                    <ul style="margin-left: 20px;">
+                        <li class="hover-effect first select-child" style="width:140px;"
+                            onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
+>>>>>>> origin/main
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -83,9 +94,15 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
+<<<<<<< HEAD
                             <li class="hover-effect first" 
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['id']) ? $child['id'] : '' ?>')">
                                 <img src="<?= isset($child['image']) ? $child['image'] : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+=======
+                            <li class="hover-effect first"
+                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['id']) ? $child['id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
+>>>>>>> origin/main
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -475,12 +492,20 @@
                         <h1 style="font-size: 35px; margin-left: 130px;">Reservations</h1>
                     </div>
                     <div class="filters">
-                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                        <select style="margin-right: 325px; width: 200px">
-                            <option value="" hidden>Status</option>
-                            <option value="2 - 5">Approved</option>
-                            <option value="5 - 7">Pending</option>
-                            <option value="7 - 9">Canceled</option>
+                        <input type="date" id="datePicker" style="width: 200px">
+                        <select id="statusPicker" style="margin-right: 25px; width: 200px; margin-left: -70px; margin-top: 10px;">
+                            <option value="">All</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Canceled">Canceled</option>
+                        </select>
+                        <select id="childPicker" style="margin-right: 200px; margin-top: 10px;">
+                            <option Value="" selected> All </option>
+                            <?php foreach ($data['children'] as $child): ?>
+                                <option value="<?= $child['name']; ?>">
+                                    <?= $child['name']; ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <table id="upcoming">
@@ -496,6 +521,7 @@
                             </tr>
                         </thead>
                         <tbody>
+<<<<<<< HEAD
                             <?php foreach ($data['upcoming'] as $res): ?>
                                 <tr>
                                     <td> <?= isset($res['reservation']->Res_Id)? $res['reservation']->Res_Id: "No res set" ?> </td>
@@ -514,20 +540,24 @@
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+=======
+
+>>>>>>> origin/main
                         </tbody>
                     </table>
-                    <table id="history" style="display: none ;">
+                    <table id="history" style="display: none;">
                         <thead>
                             <tr>
-                                <th>Res ID</th>
-                                <th> Child </th>
+                                <th>Child</th>
                                 <th>Date</th>
                                 <th>Start Time</th>
-                                <th> Status</th>
+                                <th>End Time</th>
+                                <th>Status</th>
                                 <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
+<<<<<<< HEAD
                         <?php foreach ($data['history'] as $res): ?>
                                 <tr>
                                     <td> <?= isset($res['reservation']->Res_Id)? $res['reservation']->Res_Id: "No res set" ?> </td>
@@ -546,8 +576,13 @@
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+=======
+
+>>>>>>> origin/main
                         </tbody>
                     </table>
+
+
                 </div>
             </div>
             <a href="<?=ROOT?>/Parent/Message" class="chatbox">
@@ -582,6 +617,7 @@
         </div>
     </div>
     <script>
+<<<<<<< HEAD
 
         function setChildSession(childName, childId) {
             fetch('<?=ROOT?>/Parent/Reservation/setchildsession', {
@@ -605,6 +641,238 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
+=======
+        function setChildSession(ChildID) {
+            fetch(' <?= ROOT ?>/Parent/Reservation/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ChildID: ChildID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child name set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Reservation';
+                    } else {
+                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        <?php if (isset($_SESSION['success']) && $_SESSION['success'] === true): ?>
+            document.getElementById('alert').classList.add('showl');
+            setTimeout(function() {
+                document.getElementById('alert').classList.remove('showl');
+            }, 1000);
+            <?php $_SESSION['success'] = false; ?>
+        <?php endif; ?>
+
+        let currentResId = null;
+
+        function deleteReservation(Res_Id) {
+            currentResId = Res_Id; // Store Res_Id in a variable
+            document.getElementById("confirmationModal").style.display = "flex"; // Show modal
+        }
+
+        // Close the modal without deleting
+        function closeModal() {
+            document.getElementById("confirmationModal").style.display = "none";
+            currentResId = null; // Clear the stored Res_Id
+        }
+
+        function confirmDelete() {
+            console.log("time to delete = ", currentResId);
+            if (currentResId) {
+                // Send AJAX request
+                fetch('<?= ROOT ?>/Parent/Reservation/RemoveReservation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `Res_Id=${currentResId}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log(data.message);
+                            closeModal();
+                            document.getElementById('alert').classList.add('showl');
+                            setTimeout(function() {
+                                document.getElementById('alert').classList.remove('showl'); // Hide the alert after 6 seconds
+                                window.location.reload(); // Reload the page after hiding the alert
+                            }, 1000);
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function fetchReservation(date = null, status = null, child = null) {
+            console.log(date, child, status)
+            fetch('<?= ROOT ?>/Parent/Reservation/store_reservations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        child: child,
+                        status: status
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("data:", data.data);
+                        updaterReservationTable(data.data);
+                    } else {
+                        console.error("Failed to fetch meal plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function updaterReservationTable(data) {
+            const upcomingTableBody = document.querySelector('#upcoming tbody');
+            const historyTableBody = document.querySelector('#history tbody');
+
+            // Clear existing rows
+            upcomingTableBody.innerHTML = '';
+            historyTableBody.innerHTML = '';
+
+            // Populate upcoming reservations
+            data.upcoming.forEach(res => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${res?.ResID ?? "No res set"}</td>
+            <td>${res.First_Name ?? "No res set"}</td>
+            <td>${res?.Date ?? "No res set"}</td>
+            <td>${res?.Start_Time ?? "No res set"}</td>
+            <td>
+                ${res?.End_Time ?? "No res set"}
+                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> (24-hour)</span>' : ''}
+            </td>
+            <td>
+                <div class="${res?.Status ?? "cancel"}">
+                    <p>${res?.Status ?? "cancel"}</p>
+                </div>
+            </td>
+            <td class="edit">
+                <i class="fas fa-pen reservation-edit"></i>
+                ${res?.Status === 'Pending' ? `<i class="fas fa-trash" onclick="deleteReservation(${res.ResID})"></i>` : ''}
+            </td>
+        `;
+                upcomingTableBody.appendChild(row);
+            });
+
+            // Populate history reservations
+            data.history.forEach(res => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${res.First_Name ?? "No res set"}</td>
+            <td>${res?.Date ?? "No res set"}</td>
+            <td>${res?.Start_Time ?? "No res set"}</td>
+            <td>
+                ${res?.End_Time ?? "No res set"}
+                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> (24-hour)</span>' : ''}
+            </td>
+            <td>
+                <div class="${res?.Status ?? "cancel"}">
+                    <p>${res?.Status ?? "cancel"}</p>
+                </div>
+            </td>
+            <td class="edit">
+                <i class="fas fa-eye"></i>
+                <i class="fas fa-star feedbackbtn" style="display: ${res?.Status === 'Canceled' ? "none" : ""}"></i>
+            </td>
+        `;
+                historyTableBody.appendChild(row);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const datePicker = document.getElementById('datePicker');
+            const childPicker = document.getElementById('childPicker');
+            const statusPicker = document.getElementById('statusPicker');
+
+            // Initial fetch with 'null' values (or a default option like 'All')
+            fetchReservation( null , null, null);
+
+            datePicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null; // Use null if empty
+                const statusValue = statusPicker.value || null; // Use null if empty
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchReservation(dateValue, statusValue, childValue);
+            });
+
+            childPicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null;
+                const statusValue = statusPicker.value || null;
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchReservation(dateValue, statusValue, childValue);
+            });
+
+            statusPicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null;
+                const statusValue = statusPicker.value || null;
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchReservation(dateValue, statusValue, childValue);
+            });
+
+
+            const dateElements = document.querySelectorAll('.date');
+            const redstar3 = document.getElementById('red-star3');
+            const redstar6 = document.getElementById('red-star6');
+
+            dateElements.forEach(function(date) {
+                date.addEventListener('click', function(event) {
+                    const dayNumber = date.querySelector('h1').textContent;
+
+                    if (date.classList.contains('select')) {
+                        date.classList.remove('select');
+                        redstar3.classList.remove('hidden');
+                        redstar6.classList.remove('hidden');
+                        selectedDate = null;
+                    } else {
+                        selectedDate = dayNumber;
+                        redstar3.classList.add('hidden');
+                        redstar6.classList.add('hidden');
+                        clearSelectedDates();
+                        date.classList.add('select');
+                        selectDate(selectedDate);
+                    }
+                });
+            });
+
+            function selectDate(date) {
+                console.log("Selected date:", date);
+                var dateInput = document.getElementById('date-inputforpost');
+                dateInput.value = '2024-11-' + date;
+
+                var allDates = document.querySelectorAll('.date');
+                allDates.forEach(function(element) {
+                    element.classList.remove('select');
+                });
+
+                event.target.closest('.date').classList.add('select');
+            }
+
+            function clearSelectedDates() {
+                dateElements.forEach(function(date) {
+                    date.classList.remove('select');
+                });
+            }
+
+>>>>>>> origin/main
             const feedbackbtns = document.querySelectorAll('.feedbackbtn');
             const RatingModal = document.getElementById('RatingModal');
             const backformeeting = document.getElementById('backforrating');
@@ -625,9 +893,14 @@
 
             upbtn.addEventListener('click', function(){
                 upbtn.style.color = 'white';
+<<<<<<< HEAD
                 hibtn.style.color = 'black';
                 upbtn.style.backgroundColor = '#099690';
                 hibtn.style.backgroundColor = '#BADBD0';
+=======
+                upbtn.style.backgroundColor = '#10639a';
+                hibtn.style.backgroundColor = '#60a6ec';
+>>>>>>> origin/main
                 upcoming.style.display = 'block';
                 history.style.display = 'none';
                 headingres.style.marginLeft = '180px';
@@ -636,9 +909,14 @@
 
             hibtn.addEventListener('click', function(){
                 hibtn.style.color = 'white';
+<<<<<<< HEAD
                 upbtn.style.color = 'black';
                 hibtn.style.backgroundColor = '#099690';
                 upbtn.style.backgroundColor = '#BADBD0';
+=======
+                hibtn.style.backgroundColor = '#10639a';
+                upbtn.style.backgroundColor = '#60a6ec';
+>>>>>>> origin/main
                 upcoming.style.display = 'none';
                 history.style.display = 'block';
                 headingres.style.marginLeft = '140px';

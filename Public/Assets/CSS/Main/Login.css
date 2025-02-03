@@ -1,5 +1,4 @@
 body {
-    background-color: #f0ffff;
     min-height: 100vh;
     margin: 0;
     font-family: "Poppins", sans-serif;
@@ -340,4 +339,37 @@ p{
 
 .appear{
     opacity: 1 !important;
+<<<<<<< HEAD
 }
+=======
+}
+
+.verification-alert {
+    margin-top: 20px;
+    position: fixed;
+    width: 400px;
+    top: -20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 4px solid #0056b3;
+    z-index: 1000000;
+    backdrop-filter: blur(5px) !important;
+}
+
+.verification-alert.show {
+    display: block;
+}
+
+.alert-icon {
+    margin-bottom: -10px;
+    text-align: center;
+}
+
+.alert-message {
+    text-align: center;
+}
+>>>>>>> origin/main
