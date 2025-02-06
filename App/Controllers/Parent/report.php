@@ -19,11 +19,11 @@ class Report
         $data = [];
         $SidebarHelper = new SidebarHelper();
         $data = $SidebarHelper->store_sidebar();
-
-        $data['Maid_Reports'] = $this->store_reports_maid();
-        $data['Teacher_Reports'] = $this->store_reports_teacher();
-
         $data['stats'] =$this->store_stats();
+
+        $ChildHelper = new ChildHelper();
+        $data['Child_Count'] = $ChildHelper->child_count();
+        $session->set("Location" , 'Parent/Event');
 
         $this->view('Parent/report', $data);
     }
@@ -205,101 +205,109 @@ class Report
         }
     }    
 
-    private function store_reports_maid(){
-        $ChildHelper = new ChildHelper();
-        $children = $ChildHelper->store_child();
+    public function Logout(){
+        $session = new \core\Session();
+        $session->logout();
 
-        // Initialize models
-        $attendanceModel = new \Modal\Attendance; // Assuming you have an Attendance model
-        $childModel = new \Modal\Child; // Assuming you have a Child model
-        $maidModel = new \Modal\Maid; // Assuming you have a Maid model
-        $maidReportModel = new \Modal\MaidReport; // Assuming you have a MaidReport model
+        echo json_encode(["success" => true]);
+        exit;
+    }
+
+    // private function store_reports_maid(){
+    //     $ChildHelper = new ChildHelper();
+    //     $children = $ChildHelper->store_child();
+
+    //     // Initialize models
+    //     $attendanceModel = new \Modal\Attendance; // Assuming you have an Attendance model
+    //     $childModel = new \Modal\Child; // Assuming you have a Child model
+    //     $maidModel = new \Modal\Maid; // Assuming you have a Maid model
+    //     $maidReportModel = new \Modal\MaidReport; // Assuming you have a MaidReport model
     
-        $reportRecords = [];
+    //     $reportRecords = [];
     
-        // Iterate through each child
-        foreach ($children as $child) {
-            // Fetch the child information (First_Name) based on ChildID
-            $childInfo = $childModel->first(['ChildID' => $child->ChildID]);
+    //     // Iterate through each child
+    //     foreach ($children as $child) {
+    //         // Fetch the child information (First_Name) based on ChildID
+    //         $childInfo = $childModel->first(['ChildID' => $child->ChildID]);
     
-            if (!empty($childInfo)) {
-                $childFirstName = $childInfo->First_Name;
+    //         if (!empty($childInfo)) {
+    //             $childFirstName = $childInfo->First_Name;
     
-                // Fetch attendance records for the child
-                $childAttendance = $attendanceModel->where_order(['ChildID' => $child->ChildID]);
+    //             // Fetch attendance records for the child
+    //             $childAttendance = $attendanceModel->where_order(['ChildID' => $child->ChildID]);
     
-                if (!empty($childAttendance)) {
-                    foreach ($childAttendance as $attendance) {
-                        // Fetch the maid report for the attendance record (there can be only one)
-                        $maidReport = $maidReportModel->first(['AttendanceID' => $attendance->AttendanceID]);
+    //             if (!empty($childAttendance)) {
+    //                 foreach ($childAttendance as $attendance) {
+    //                     // Fetch the maid report for the attendance record (there can be only one)
+    //                     $maidReport = $maidReportModel->first(['AttendanceID' => $attendance->AttendanceID]);
     
-                        if (!empty($maidReport)) {
-                            // Fetch maid information based on MaidID
-                            $maidInfo = $maidModel->first(['MaidID' => $maidReport->MaidID]);
-                            $maidName = !empty($maidInfo) 
-                                ? $maidInfo->First_Name . ' ' . $maidInfo->Last_Name 
-                                : 'Unknown Maid';
+    //                     if (!empty($maidReport)) {
+    //                         // Fetch maid information based on MaidID
+    //                         $maidInfo = $maidModel->first(['MaidID' => $maidReport->MaidID]);
+    //                         $maidName = !empty($maidInfo) 
+    //                             ? $maidInfo->First_Name . ' ' . $maidInfo->Last_Name 
+    //                             : 'Unknown Maid';
     
-                            $reportDetails = [
-                                'Child_Name' => $childFirstName,
-                                'Maid_Name' => $maidName,
-                                'Report_Date' => $attendance->Start_Date,
-                                'Viewed' => $maidReport->Viewed ? 'Yes' : 'No',
-                            ];
+    //                         $reportDetails = [
+    //                             'Child_Name' => $childFirstName,
+    //                             'Maid_Name' => $maidName,
+    //                             'Report_Date' => $attendance->Start_Date,
+    //                             'Viewed' => $maidReport->Viewed ? 'Yes' : 'No',
+    //                         ];
     
-                            $reportRecords[] = $reportDetails;
-                        }
-                    }
-                }
-            }
-        }
+    //                         $reportRecords[] = $reportDetails;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
         
-        usort($reportRecords, function ($a, $b) {
-            return strtotime($a['Report_Date']) - strtotime($b['Report_Date']);
-        });
+    //     usort($reportRecords, function ($a, $b) {
+    //         return strtotime($a['Report_Date']) - strtotime($b['Report_Date']);
+    //     });
 
-        return $reportRecords;
-    }
+    //     return $reportRecords;
+    // }
     
 
-    private function store_reports_teacher(){
+    // private function store_reports_teacher(){
 
-        $ChildHelper = new ChildHelper();
-        $children = $ChildHelper->store_child();
+    //     $ChildHelper = new ChildHelper();
+    //     $children = $ChildHelper->store_child();
 
-        $childModel = new \Modal\Child;
-        $TeacherModel = new \Modal\Teacher;
-        $TeacherReportModel = new \Modal\TeacherReport;
+    //     $childModel = new \Modal\Child;
+    //     $TeacherModel = new \Modal\Teacher;
+    //     $TeacherReportModel = new \Modal\TeacherReport;
 
-        $reportRecords = [];
+    //     $reportRecords = [];
 
-        foreach ($children as $child) {
-            if (!empty($child)) {
-                $childFirstName = $child->First_Name;
-                $TeacherReports = $TeacherReportModel->where_order(['ChildID' => $child->ChildID], [], 'Date');
+    //     foreach ($children as $child) {
+    //         if (!empty($child)) {
+    //             $childFirstName = $child->First_Name;
+    //             $TeacherReports = $TeacherReportModel->where_order(['ChildID' => $child->ChildID], [], 'Date');
 
-                if (!empty($TeacherReports)) {
-                    foreach ($TeacherReports as $report) {
-                        $TeacherInfo = $TeacherModel->first(['TeacherID' => $report->TeacherID]);
-                        $TeacherName = !empty($TeacherInfo) ? $TeacherInfo->First_Name . ' ' . $TeacherInfo->Last_Name : 'Unknown Teacher';
+    //             if (!empty($TeacherReports)) {
+    //                 foreach ($TeacherReports as $report) {
+    //                     $TeacherInfo = $TeacherModel->first(['TeacherID' => $report->TeacherID]);
+    //                     $TeacherName = !empty($TeacherInfo) ? $TeacherInfo->First_Name . ' ' . $TeacherInfo->Last_Name : 'Unknown Teacher';
 
-                        $reportDetails = [
-                            'Child_Name' => $childFirstName,
-                            'Teacher_Name' => $TeacherName,
-                            'Report_Date' => $report->Date,
-                            'Viewed' => $report->Viewed ? 'Yes' : 'No',
-                        ];
+    //                     $reportDetails = [
+    //                         'Child_Name' => $childFirstName,
+    //                         'Teacher_Name' => $TeacherName,
+    //                         'Report_Date' => $report->Date,
+    //                         'Viewed' => $report->Viewed ? 'Yes' : 'No',
+    //                     ];
 
-                        $reportRecords[] = $reportDetails;
+    //                     $reportRecords[] = $reportDetails;
             
-                    }
-                }
-            }
-        }
-        usort($reportRecords, function ($a, $b) {
-            return strtotime($a['Report_Date']) - strtotime($b['Report_Date']);
-        });
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     usort($reportRecords, function ($a, $b) {
+    //         return strtotime($a['Report_Date']) - strtotime($b['Report_Date']);
+    //     });
 
-        return $reportRecords;
-    }
+    //     return $reportRecords;
+    // }
 }

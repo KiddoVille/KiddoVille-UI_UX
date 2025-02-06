@@ -1,6 +1,7 @@
 <?php
 
     namespace Controller;
+    use App\Helpers\SidebarHelper;
 
     defined('ROOTPATH') or exit('Access denied');
 
@@ -10,104 +11,126 @@
 
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child('Parent');
+            $session->check_child();
+            $ChildID = $session->get("CHILDID");
 
-            // Retrieve session variables
-            $childname = $session->get('CHILDNAME');
-            $parentname = $session->get('USERNAME');
+            $data = [];
+            $SidebarHelper = new SidebarHelper();
+            $data = $SidebarHelper->store_sidebar();
 
-            // Retrieve parent and children data
-            $child = new \Modal\Child;
-            $children = $child->where_norder(['Parent_Name' => $parentname]);
-            $parent = new \Modal\ParentUser;
-            $pre = $parent->where_norder(['Username' => $parentname]);
+            $ChildModal = new \Modal\Child;
+            $select = $ChildModal->first(['ChildID' => $ChildID ]);
+            $data['child_id'] = $ChildID;
 
-            // Prepare data for all children
-            $data = $this->store($children, $pre);
-
-            // Select specific child by name, if it exists
-            $select = $child->where_norder(['Parent_Name' => $parentname, 'First_Name' => $childname ]);
-            $session->set('CHILD_ID', $select[0]->Child_Id);
-
-            $child_id = $session->get('CHILD_ID');
-            $data['child_id'] = $child_id;
-            
             if (!empty($select)) {
-                $data2 = $this->selectedchild($select[0], $pre);
+                $data2 = $this->selectedchild($select);
                 $data = $data + $data2;
             }
 
+            $session->set("Location" , 'Child/Package');
             $this->view('Child/package',$data);
         }
 
-        private function store($children, $pre){
-            $data = [];
-
-            // Retrieve the parent's profile image
-            $parentImage = getProfileImageUrl($pre[0]->Username);
-            $data['parent'] = [
-                'fullname' => $pre[0]->First_Name . ' ' . $pre[0]->Last_Name,
-                'image' => !empty($parentImage) ? $parentImage : null,
-            ];
-
-            // Retrieve each child's profile image and details
-            foreach ($children as $index => $child) {
-                $childImage = getProfileImageUrl($pre[0]->Username, $child->First_Name);
-                $data['children'][$index] = [
-                    'name' => $child->First_Name,
-                    'image' => !empty($childImage) ? $childImage : null,
-                ];
-            }
-
-            return $data;
-        }
-
-        private function selectedchild($selectedchild, $pre){
+        private function selectedchild($selectedchild){
             $data = [];
 
             // Retrieve the specific child's profile image and details
-            $childImage = getProfileImageUrl($pre[0]->Username, $selectedchild->First_Name);
+
+            $imageData = $selectedchild->Image;
+            $imageType = $selectedchild->ImageType;  // Get the image MIME type from the database
+
+            // If image data is available, construct the Base64 string using the correct MIME type
+            $base64Image = (!empty($imageData) && is_string($imageData)) 
+                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+                : null;
+
             $data['selectedchildren'] = [
                 'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
                 'name' => $selectedchild->First_Name,
-                'image' => !empty($childImage) ? $childImage : null,
+                'image' => $base64Image,
                 'age' => agecalculate($selectedchild->DOB),
                 'language' => $selectedchild->Language,
                 'religion' => $selectedchild->Religion,
+                'id' => str_pad($selectedchild->ChildID, 5, '0', STR_PAD_LEFT), 
             ];
 
             return $data;
         }
 
+        public function store_package(){
+            header('Content-Type: application/json');
+        
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $filterMax = $requestData['Max_price'] ?? null;
+            $filterMin = $requestData['Min_price'] ?? null;
+        
+            $session = new \core\Session;
+            $ChildModal = new \Modal\Child;
+            $ChildID = $session->get("CHILDID");
+            $Child = $ChildModal->first(["ChildID" => $ChildID]);
+        
+            // Calculate child's age at the start of the year
+            $currentYear = (new \DateTime())->format('Y');
+            $startOfYear = new \DateTime("$currentYear-01-01");
+            $dob = new \DateTime($Child->DOB);
+            $filterAge = $dob->diff($startOfYear)->y; // Child's age at the start of the year
+        
+            $PackageModal = new \Modal\Package;
+            $Packages = $PackageModal->findall();
+        
+            // Filter by price range
+            if ($filterMax !== null || $filterMin !== null) {
+                $Packages = array_filter($Packages, function ($row) use ($filterMax, $filterMin) {
+                    $price = (float)$row->Price;
+                    return ($filterMax === null || $price <= $filterMax) && ($filterMin === null || $price >= $filterMin);
+                });
+            }
+        
+            // Filter by age group
+            $Packages = array_filter($Packages, function ($row) use ($filterAge) {
+                // Handle "All" age group (no restriction)
+                if ($row->AgeGroup === 'All') {
+                    return true;
+                }
+        
+                // Parse age group range (e.g., "2-3" -> min: 2, max: 3)
+                if (preg_match('/^(\d+)-(\d+)$/', $row->AgeGroup, $matches)) {
+                    $minAge = (int)$matches[1];
+                    $maxAge = (int)$matches[2];
+        
+                    // Check if child's age falls within the range
+                    return $filterAge >= $minAge && $filterAge <= $maxAge;
+                }
+        
+                // If AgeGroup format is invalid, exclude the package
+                return false;
+            });
+        
+            if (empty($Packages)) {
+                echo json_encode(['success' => true, 'message' => 'No packages found for the selected filters']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $Packages]);
+            }
+        }     
+
         public function setchildsession(){
 
-            defined('ROOTPATH') or define('ROOTPATH', __DIR__); // Define the root if not already defined
-
-            // Session and JSON response settings
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-        
             header('Content-Type: application/json');
-        
-            // Disable error reporting for clean JSON output in production
-            ini_set('display_errors', 0);
-            error_reporting(0);
-        
-            // Handle AJAX request and set the child session
             $request = json_decode(file_get_contents('php://input'), true);
             $response = [];
         
-            if (isset($request['childName'])) {
-                $session = new \Core\Session;
-                $_SESSION['CHILD_ID'] = $request['childId'];
-                $session->set('CHILD_ID', $request['childId']);
-                $session->set('CHILDNAME', $request['childName']);
-                $response = ['success' => true];
+            $session = new \Core\Session;
+            if (isset($request['ChildID'])) {
+                $session->set('CHILDID', $request['ChildID']);
+                $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
-                $response = ['success' => false, 'message' => 'Child name not provided.'];
+                $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
-            echo json_encode($response); // Output JSON response
+    
+            echo json_encode($response);
             exit();
         }
 
@@ -118,16 +141,18 @@
             }
             header('Content-Type: application/json');
             $response = [];
+
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
             
-            if (isset($_SESSION['CHILDNAME'])) {
-                $session = new \Core\Session;
-                $session->unset("CHILDNAME");
+            if (isset($ChildID)) {
+                $session->unset("CHILDID");
                 $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
                 $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
 
-            echo json_encode($response);  // Send JSON response
+            echo json_encode($response);
             exit();
         }
     }

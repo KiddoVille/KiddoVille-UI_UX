@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     // selecting child
     const customChildSelectTrigger = document.querySelector('.custom-child-select-trigger');

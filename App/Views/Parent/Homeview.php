@@ -689,20 +689,42 @@
                 class="profile" />
             <h2>Thilina Perera</h2>
             <p>Student    RS0110657</p>
-            <button class="profile-button"
-                onclick="window.location.href ='../Profile/ChildViewProfile.html'">Profile</button>
-            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">Parent
-                profile</button>
-            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">Guardian
-                profile</button>
-            <button class="secondary-button">Medications</button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">LogOut</button>
+            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">
+                Profile
+            </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
+                Guardian profile
+            </button>
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
+                LogOut
+            </button>
         </div>
         <div class="tasks" id="taskbtn" style="position: fixed;">
             <i class="fas fa-chevron-left" id="taskicon"></i>
         </div>
     </div>
         <script>
+                function logoutUser() {
+                fetch("<?= ROOT ?>/Parent/Home/Logout", {
+                    method: "POST", 
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+
             function setChildSession(ChildID) {
                 console.log(ChildID);
                 fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {

@@ -198,7 +198,7 @@
 
                         <!-- Leave Requests -->
                         <div class="request" data-name="John Doe" data-role="Teacher" data-dates="2024-12-20 to 2024-12-22" data-reason="Flu">
-                            <img img src="<?= IMAGE ?>/profilePic.png"  class="resize" style="width: 50px; border-radius: 50%;">
+                            <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
                             <p class="l_name"><strong>John Doe</strong><br>Teacher</p>
                             <p style="margin-top: 10%;">From: 2024-12-20 To: 2024-12-22</p>
                             <p>Reason: Flu</p>
@@ -206,7 +206,7 @@
                         </div>
 
                         <div class="request" data-name="Jane Smith" data-role="Maid" data-dates="2024-12-25 to 2024-12-30" data-reason="Family Trip">
-                            <img img src="<?= IMAGE ?>/profilePic.png"  class="resize" style="width: 50px; border-radius: 50%;">
+                            <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
                             <p class="l_name"><strong>Jane Smith</strong><br>Maid</p>
                             <p style="margin-top: 10%;">From: 2024-12-25 To: 2024-12-30</p>
                             <p>Reason: Family Trip</p>
@@ -246,72 +246,72 @@
             </div>
 
             <div class="today_visitors">
-    <div class="today_visitors_header">
-        <span><i class="fas fa-door-open"></i>Lastday Visitors Summary</span>
-    </div>
-    <div class="visitor-table-topics">
-        <div class="visitorname"><span>NAME</span></div>
-        <div class="visitorposition"><span>POSITION</span></div>
-        <div class="visitorpurpose"><span>PURPOSE</span></div>
-    </div>
-    <div class="today_visitors_content">
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Lisa Johnson</span></div>
-            <div class="visitorposition"><span>Delivery Personnel</span></div>
-            <div class="visitorpurpose"><span>Delivering office supplies</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Dr. Emily Brown</span></div>
-            <div class="visitorposition"><span>Pediatrician</span></div>
-            <div class="visitorpurpose"><span>Conducting health check-ups</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Michael Smith</span></div>
-            <div class="visitorposition"><span>Maintenance Staff</span></div>
-            <div class="visitorpurpose"><span>Inspecting AC systems</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Sarah White</span></div>
-            <div class="visitorposition"><span>Parent</span></div>
-            <div class="visitorpurpose"><span>Meeting with teachers</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>David Green</span></div>
-            <div class="visitorposition"><span>IT Technician</span></div>
-            <div class="visitorpurpose"><span>Fixing internet issues</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Anna Roberts</span></div>
-            <div class="visitorposition"><span>Event Organizer</span></div>
-            <div class="visitorpurpose"><span>Planning holiday events</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>John Carter</span></div>
-            <div class="visitorposition"><span>Government Inspector</span></div>
-            <div class="visitorpurpose"><span>Checking safety protocols</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Karen Lee</span></div>
-            <div class="visitorposition"><span>Consultant</span></div>
-            <div class="visitorpurpose"><span>Discussing childcare strategy</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Daniel Williams</span></div>
-            <div class="visitorposition"><span>Courier</span></div>
-            <div class="visitorpurpose"><span>Package delivery</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Jessica Brown</span></div>
-            <div class="visitorposition"><span>Photographer</span></div>
-            <div class="visitorpurpose"><span>Taking promotional photos</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Chris Taylor</span></div>
-            <div class="visitorposition"><span>Electrician</span></div>
-            <div class="visitorpurpose"><span>Repairing power issues</span></div>
-        </div>
-    </div>
-</div>
+                <div class="today_visitors_header">
+                    <span><i class="fas fa-door-open"></i>Lastday Visitors Summary</span>
+                </div>
+                <div class="visitor-table-topics">
+                    <div class="visitorname"><span>NAME</span></div>
+                    <div class="visitorposition"><span>POSITION</span></div>
+                    <div class="visitorpurpose"><span>PURPOSE</span></div>
+                </div>
+                <div class="today_visitors_content">
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Lisa Johnson</span></div>
+                        <div class="visitorposition"><span>Delivery Personnel</span></div>
+                        <div class="visitorpurpose"><span>Delivering office supplies</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Dr. Emily Brown</span></div>
+                        <div class="visitorposition"><span>Pediatrician</span></div>
+                        <div class="visitorpurpose"><span>Conducting health check-ups</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Michael Smith</span></div>
+                        <div class="visitorposition"><span>Maintenance Staff</span></div>
+                        <div class="visitorpurpose"><span>Inspecting AC systems</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Sarah White</span></div>
+                        <div class="visitorposition"><span>Parent</span></div>
+                        <div class="visitorpurpose"><span>Meeting with teachers</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>David Green</span></div>
+                        <div class="visitorposition"><span>IT Technician</span></div>
+                        <div class="visitorpurpose"><span>Fixing internet issues</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Anna Roberts</span></div>
+                        <div class="visitorposition"><span>Event Organizer</span></div>
+                        <div class="visitorpurpose"><span>Planning holiday events</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>John Carter</span></div>
+                        <div class="visitorposition"><span>Government Inspector</span></div>
+                        <div class="visitorpurpose"><span>Checking safety protocols</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Karen Lee</span></div>
+                        <div class="visitorposition"><span>Consultant</span></div>
+                        <div class="visitorpurpose"><span>Discussing childcare strategy</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Daniel Williams</span></div>
+                        <div class="visitorposition"><span>Courier</span></div>
+                        <div class="visitorpurpose"><span>Package delivery</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Jessica Brown</span></div>
+                        <div class="visitorposition"><span>Photographer</span></div>
+                        <div class="visitorpurpose"><span>Taking promotional photos</span></div>
+                    </div>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span>Chris Taylor</span></div>
+                        <div class="visitorposition"><span>Electrician</span></div>
+                        <div class="visitorpurpose"><span>Repairing power issues</span></div>
+                    </div>
+                </div>
+            </div>
 
 
         </div>

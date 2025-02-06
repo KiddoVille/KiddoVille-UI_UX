@@ -1,11 +1,11 @@
 <html>
 
 <head>
-    <title>
-        ID Card
-    </title>
+    <title>ID Card</title>
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <!-- Updated to latest stable version of html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body {
             display: flex;
@@ -18,6 +18,7 @@
         }
 
         .id-card {
+            margin-top: -50px;
             width: 300px;
             height: 500px;
             background-color: #0275d8;
@@ -71,7 +72,7 @@
         .id-card .info {
             background-color: #025aa5;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 10px;
             margin: 10px 0;
         }
 
@@ -92,20 +93,35 @@
             margin-left: -20px;
             margin-right: -20px;
             margin-bottom: -30px !important;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
 
         .id-card .website a {
-            color:#025aa5;
+            color: #025aa5;
             text-decoration: none;
             font-size: 20px;
+        }
+
+        .download-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .download-btn:hover {
+            background-color: #025aa5;
         }
     </style>
 </head>
 
 <body>
-    <div class="id-card">
+    <div class="id-card" id="id-card">
         <div class="header">
             <h1>
                 KIDDO VILLE
@@ -115,25 +131,25 @@
             </h2>
         </div>
         <div class="content">
-            <img alt="Portrait of the child" src="https://storage.googleapis.com/a1aa/image/LRD5K5nU0yZ6MpvwNnL0SlPsQ86iZfHNeDtv36NNZKAs5C6TA.jpg" />
+            <img id="childImage" alt="Portrait of the child" src="<?= $data['Child']->Image ?>" />
             <h2>
-                Jane Doe
+                <?= isset($data['Child']->fullname) ? $data['Child']->fullname : ''; ?>
             </h2>
             <p>
-                Age: 4
+                Age: <?= isset($data['Child']->Age) ? $data['Child']->Age : ''; ?>
             </p>
             <div class="info">
                 <p>
                     <span>
                         ID NO:
                     </span>
-                    DC12345
+                    SRD<?= isset($data['Child']->ChildID) ? $data['Child']->ChildID : ''; ?>
                 </p>
                 <p>
                     <span>
                         CONTACT:
                     </span>
-                    0714810928
+                    <?= isset($data['Child']->Contact) ? $data['Child']->Contact : ''; ?>
                 </p>
             </div>
             <div class="website">
@@ -141,6 +157,41 @@
             </div>
         </div>
     </div>
+
+    <button class="download-btn" style="margin-top: 40%; margin-right: 0%; position: fixed;" id="download-btn">Download ID Card</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const downloadBtn = document.getElementById("download-btn");
+            const idCard = document.getElementById("id-card");
+
+            downloadBtn.addEventListener("click", async function() {
+                try {
+                    // Wait for images to load
+                    await document.getElementById('childImage').decode();
+
+                    const canvas = await html2canvas(idCard, {
+                        useCORS: true, // Enable CORS for images
+                        scale: 5, // Improve quality
+                        logging: true, // Help with debugging
+                        allowTaint: true,
+                        backgroundColor: null,
+                        height: idCard.scrollHeight * 1.001,
+                        width: idCard.scrollWidth * 1.1,
+                    });
+
+                    const imgData = canvas.toDataURL("image/png");
+                    const link = document.createElement('a');
+                    link.href = imgData;
+                    link.download = "ID_Card.png";
+                    link.click();
+                } catch (error) {
+                    console.error('Error generating ID card:', error);
+                    alert('There was an error generating the ID card. Please try again.');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

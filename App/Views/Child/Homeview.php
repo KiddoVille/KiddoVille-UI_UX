@@ -105,7 +105,7 @@
                                     echo "select-child";
                                 } ?>
                             "
-                            onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
@@ -177,7 +177,6 @@
             </div>
             <div style="display: flex; flex-direction: row;">
                 <div class="report-page">
-                    <?php show($_SESSION) ?>
                     <h1 style="color: #233E8D; margin-left: 15px;">
                         <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
                     <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our family! </p>
@@ -190,7 +189,7 @@
                                 <h4 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h4>
                             </div>
                             <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
-                                <p style="margin-top: -30px;">Reg Num: <span>SRD110021</span></p>
+                                <p style="margin-top: -30px;">Reg Num: <span>SRD<?= $data['selectedchildren']['id'] ?></span></p>
                                 <p style="margin-top: -10px;">Age:
                                     <span>
                                         <?= isset($data['selectedchildren']['age']) ? $data['selectedchildren']['age'] : 'No name set'; ?>
@@ -208,12 +207,13 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="attendence-bar" style="margin-right: 2%;" id="attendance">
+                        <div class="attendence-bar" style="margin-right: 2%; width: 220px;" id="attendance">
                             <h3 style="margin-top: 0px;">Child Attendence </h3>
                             <hr>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
+                            <div class="progress" style="margin-left: -10px;">
+                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba <?=$data['graph'] ?>%, rgba(204, 204, 204, 0.56) 0);">
+                                    <?= $data['graph'] ?>%
+                                </div>
                             </div>
                             <p style="margin-top: 18px;"> Completed Tasks</p>
                             <input style="margin-top: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
@@ -222,7 +222,7 @@
                             <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
                             <hr>
                             <div class="filters">
-                                <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                                <input type="date" id="datePicker" value="" style="width: 200px">
                             </div>
                             <table style="width: 100%;">
                                 <thead>
@@ -237,51 +237,7 @@
                             <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
                                 <table style="width: 100%; border-collapse: collapse;">
                                     <tbody>
-                                        <tr>
-                                            <td>Breakfast</td>
-                                            <td>8.00 AM</td>
-                                            <td>9.00 AM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Creative Play</td>
-                                            <td>9.00 AM</td>
-                                            <td>10.00 AM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Creative Play</td>
-                                            <td>10.00 AM</td>
-                                            <td>11.00 AM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Story Time</td>
-                                            <td>11.00 AM</td>
-                                            <td>12.00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lunch</td>
-                                            <td>12.00 PM</td>
-                                            <td>1.00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bed Time</td>
-                                            <td>1.00 PM</td>
-                                            <td>2.00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Basic Learning Activities</td>
-                                            <td>2.00 PM</td>
-                                            <td>3.00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tea Time</td>
-                                            <td>3.00 PM</td>
-                                            <td>4.00 PM</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Outdoor Play</td>
-                                            <td>4.00 PM</td>
-                                            <td>5.00 PM</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -745,16 +701,17 @@
     <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
         <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
             style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-        <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
+        <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
             class="profile" />
-        <h2>Thilina Perera</h2>
-        <p>Student    RS0110657</p>
+        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
+        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
         <button class="profile-button"
             onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">Profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">Parent profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">Guardian profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
-        <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Child/Home'">LogOut</button>
+        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
+        <button class="logout-button" onclick="logoutUser()">LogOut</button>
     </div>
     <div class="tasks" id="taskbtn" style="position: fixed;">
         <i class="fas fa-chevron-left" id="taskicon"></i>
@@ -798,7 +755,42 @@
     //     });
     // }
 
-    function setChildSession(ChildID){
+    function logoutUser() {
+        fetch("<?= ROOT ?>/Parent/Home/Logout", {
+            method: "POST", 
+            credentials: "same-origin"
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+            } else {
+                alert("Logout failed. Try again.");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    function removechildsession() {
+        fetch('<?= ROOT ?>/Child/Home/removechildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child id removed from session.");
+                    window.location.href = '<?= ROOT ?>/Parent/Home';
+                } else {
+                    console.error("Failed to remove child id from session.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    function setChildSession(ChildID) {
         fetch('<?= ROOT ?>/Child/Home/setchildsession', {
                 method: 'POST',
                 headers: {
@@ -820,25 +812,113 @@
             .catch(error => console.error("Error:", error));
     }
 
-
-    function removechildsession() {
-        fetch('<?= ROOT ?>/Child/Home/removechildsession', {
+    function fetchActivitySchedule(date) {
+        console.log(date);
+        fetch('<?= ROOT ?>/Child/Home/store_schedule', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                body: JSON.stringify({
+                    date: date
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    console.log("Child id removed from session.");
-                    window.location.href = '<?= ROOT ?>/Parent/Home';
+                    console.log(data.data);
+                    renderScheduleTable(data.data);
                 } else {
-                    console.error("Failed to remove child id from session.", data.message);
+                    console.error("Failed to set child id from session.", data.message);
                 }
             })
             .catch(error => console.error("Error:", error));
     }
+
+    function renderScheduleTable(activities) {
+        const timetableBody = document.querySelector('.table-body-container tbody');
+        timetableBody.innerHTML = ''; // Clear any existing rows
+
+        // Get the current time as a string (HH:mm:ss)
+        const currentTime = new Date('2025-01-28T11:30:00'); // Example for testing
+        const currentTimeString = currentTime.toTimeString().split(' ')[0]; // Get just "HH:mm:ss"
+        const currentTimeInMillis = convertTimeToMillis(currentTimeString);
+
+        activities.forEach((activity, index) => {
+            const row = document.createElement('tr');
+
+            // Convert the Start Time and End Time into milliseconds
+            const startTimeInMillis = convertTimeToMillis(activity.Start_Time);
+            const endTimeInMillis = convertTimeToMillis(activity.End_Time);
+
+            // Add the Activity Name, Start Time, and End Time to the row
+            row.innerHTML = `
+            <td>${activity.Subject}</td>
+            <td style="padding-left: -15%;">${activity.Start_Time}</td>
+            <td style="padding-left: -15%;">${activity.End_Time}</td>
+        `;
+
+            // Highlight the row if it matches the current time
+            if (currentTimeInMillis >= startTimeInMillis && currentTimeInMillis <= endTimeInMillis) {
+                row.style.backgroundColor = '#cce5ff'; // Light blue color for the current activity
+                row.classList.add('selected'); // Add class for further styling
+            }
+
+            // When the row is clicked, insert the description row below it
+            row.addEventListener('click', function() {
+                // Check if this row already has a visible description row
+                const existingDescriptionRow = document.querySelector(`.description-row[data-index="${index}"]`);
+
+                if (existingDescriptionRow) {
+                    // If the description row exists, remove it
+                    existingDescriptionRow.remove();
+                } else {
+                    // Remove any other existing description rows
+                    const allDescriptionRows = document.querySelectorAll('.description-row');
+                    allDescriptionRows.forEach((descRow) => descRow.remove());
+
+                    // Create a new description row
+                    const descriptionRow = document.createElement('tr');
+                    descriptionRow.classList.add('description-row');
+                    descriptionRow.setAttribute('data-index', index); // Use index to identify the row
+
+                    descriptionRow.innerHTML = `
+            <td colspan="3" style="background-color: #f9f9f9; padding: 10px; border-top: 1px solid #ddd;">
+                ${activity.Description || 'No description available'}
+            </td>
+        `;
+
+                    // Insert the description row after the clicked row
+                    timetableBody.insertBefore(descriptionRow, row.nextSibling);
+                }
+            });
+
+
+            timetableBody.appendChild(row);
+        });
+    }
+
+    // Convert time (HH:mm:ss) to milliseconds since midnight
+    function convertTimeToMillis(timeString) {
+        const [hours, minutes, seconds] = timeString.split(':').map(Number);
+        return (hours * 3600 + minutes * 60 + seconds) * 1000; // Return time in milliseconds
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const datePicker = document.getElementById('datePicker');
+
+        fetchActivitySchedule(null);
+
+        datePicker.addEventListener('change', function() {
+            console.log(datePicker.value);
+            fetchActivitySchedule(datePicker.value);
+        });
+
+        const existingDescriptionRows = document.querySelectorAll('.description-row');
+        existingDescriptionRows.forEach((descRow) => descRow.remove());
+
+
+    });
 </script>
 
 </html>

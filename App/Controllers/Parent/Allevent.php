@@ -11,11 +11,16 @@
         public function index(){
 
             $session = new \Core\Session;
+            $SidebarHelper = new SidebarHelper();
+            $ChildHelper = new ChildHelper();
             $session->check_login();
 
             $data = [];
-            $SidebarHelper = new SidebarHelper();
             $data = $SidebarHelper->store_sidebar();
+
+            $data['Child_Count'] = $ChildHelper->child_count();
+            $session->set("Location" , 'Parent/Allevent');
+
             $this->view('Parent/allevent', $data);
         }
 
@@ -122,6 +127,7 @@
         }
 
         public function setchildsession(){
+
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -136,9 +142,17 @@
             } else {
                 $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
-
-            echo json_encode($response);  // Send JSON response
+    
+            echo json_encode($response);
             exit();
+        }
+
+        public function Logout(){
+            $session = new \core\Session();
+            $session->logout();
+
+            echo json_encode(["success" => true]);
+            exit;
         }
     }
 ?>

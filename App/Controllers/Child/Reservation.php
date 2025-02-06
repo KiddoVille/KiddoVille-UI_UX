@@ -2,74 +2,118 @@
 
     namespace Controller;
 
+    use App\Helpers\SidebarHelper;
+
     defined('ROOTPATH') or exit('Access denied');
 
     class Reservation{
         use MainController;
         public function index(){
-
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child('Parent');
+            $session->check_child();
+            $ChildID = $session->get("CHILDID");
 
-            // Retrieve session variables
-            $childname = $session->get('CHILDNAME');
-            $parentname = $session->get('USERNAME');
+            $data = [];
+            $SidebarHelper = new SidebarHelper();
+            $data = $SidebarHelper->store_sidebar();
 
-            $child = new \Modal\Child;
-            $children = $child->where_norder(['Parent_Name' => $parentname]);
-            $parent = new \Modal\ParentUser;
-            $pre = $parent->where_norder(['Username' => $parentname]);
-    
-            // Prepare data for all children
-            $data = $this->store($children, $pre);
-    
-            // Select specific child by name, if it exists
-            $select = $child->where_norder(['Parent_Name' => $parentname, 'First_Name' => $childname ]);
+            $ChildModal =new \Modal\Child;
+            $select = $ChildModal->first(['ChildID' => $ChildID]);
+            $data['child_id'] = $ChildID;
     
             if (!empty($select)) {
-                $data2 = $this->selectedchild($select[0], $pre);
+                $data2 = $this->selectedchild($select);
                 $data = $data + $data2;
             }
 
-            $data['child_Id'] = $_SESSION['CHILD_ID'];
-            $child_id = $_SESSION['CHILD_ID'];
-
-            $data2 = $this->store_reservations($child_id);
-            $data = $data + $data2;
-
-            $data2 = $this->set_stats($data['upcoming']);
+            $data2 = $this->set_stats();
             $data = $data + $data2;
 
             $data2['dates'] = $this->set_dates();
             $data = $data + $data2;
 
-            $data2 = $this->makereservation();
-            if(!empty($data2)){
-                $data = $data + $data2;
-            }
+            // $data2 = $this->makereservation();
+            // if(!empty($data2)){
+            //     $data = $data + $data2;
+            // }
 
-            $data2 = $this->editreservation();
-            if(!empty($data2)){
-                $data = $data + $data2;
-            }
+            // $data2 = $this->editreservation();
+            // if(!empty($data2)){
+            //     $data = $data + $data2;
+            // }
 
+            $session->set("Location" , 'Child/Reservation');
             $this->view('Child/reservation', $data);
         }
 
-        private function Get_Reservation($Res_Id){
-            $data = [];
-            $reservation = new \Modal\Reservation;
-            $result = $reservation->first(["Res_Id" => $Res_Id]);
-
-            if($result){
-                $data['edit']['Res_Id'] = $result->Res_Id; 
-                $data['edit']['Date'] = $result->Date ?? '';
-                $data['edit']['Start_Time'] = $result->Start_Time ?? '';
-                $data['edit']['End_Time'] = $result->End_Time ?? '';
-                $data['edit']['Notes'] = $result->Notes ?? '';
+        public function store_reservations() {
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+        
+            $date = $requestData['date'];
+            if ($date === null) {
+                $date = null;
             }
-            return $data;
+    
+            $status = $requestData['status'];
+            if ($status === null || $status === 'All') {
+                $status = 'All';
+            }
+        
+            $res = new \Modal\Reservation;
+            $reservations = [];  // Initialize this outside of the loop
+
+            $session = new \core\session;
+            $ChildID = $session->get("CHILDID");
+
+            $childReservations = $res->where_order(['ChildID' => $ChildID], [] , "Date");
+            if(!empty($childReservations)){
+                foreach ($childReservations as $reservation) {
+                    // Apply the date filter
+                    if ($date !== null && $reservation->Date !== $date) {
+                        continue; // Skip if the date does not match
+                    }
+        
+                    // Apply the status filter
+                    if ($status !== 'All' && $reservation->Status !== $status) {
+                        continue; // Skip if the status does not match
+                    }
+        
+                    $ChildModal = new \Modal\Child;
+                    $Child = $ChildModal->first(["ChildID"=> $ChildID]);
+
+                    $reservation->First_Name = $Child->First_Name;
+                    $reservations[] = $reservation;
+                }
+            }
+
+            $yesterday = new \DateTime('yesterday');
+        
+            $data = [
+                'upcoming' => [],
+                'history' => [],
+            ];
+        
+            foreach ($reservations as $reservation) {
+                $reservationDate = new \DateTime($reservation->Date);
+        
+                if ($reservationDate > $yesterday) {
+                    $data['upcoming'][] = $reservation;
+                } else {
+                    // Auto-cancel expired pending reservations
+                    if ($reservation->Status === 'Pending') {
+                        $res->update(['ResID' => $reservation->ResID], ['Status' => 'Canceled']);
+                    }
+                    $data['history'][] = $reservation; // Add to history
+                }
+            }
+        
+            if (empty($data)){
+                echo json_encode(['success' => false, 'message' => 'No reservations found for the selected filters']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $data]);
+            }
         }
 
         private function makereservation() {
@@ -268,139 +312,104 @@
         }
         
 
-        private function set_stats($reservations){
-            $data = [
-                'Approved' => 0,
-                'Pending' => 0,
-                'Canceled' => 0,
-            ];
-            foreach ($reservations as $reservation) {
-                if($reservation->Status === "Approved"){
-                    $data["Approved"] += 1;
-                }
-                if($reservation->Status === "Pending"){
-                    $data["Pending"] += 1;
-                }
-                if($reservation->Status === "Canceled"){
-                    $data["Canceled"] += 1;
-                }
-            };
+        private function set_stats() {
+            $session = new \core\Session;
+            $ChildID = $session->get("CHILDID");
 
-            return $data;
-        }
-
-        private function store_reservations($child_id) {
+            $ChildModal = new \Modal\Child;
+            $Child = $ChildModal->first(['ChildID' => $ChildID]);
             $res = new \Modal\Reservation;
-            $reservations = $res->where_norder(['Child_Id' => $child_id]);
+            $reservations = [];
         
-            // Define "yesterday" as a DateTime object
+            $reservations = $res->where_norder(['ChildID' => $ChildID]);
             $yesterday = new \DateTime('yesterday');
         
+            // Filter reservations to keep only upcoming ones
+            $upcomingReservations = array_filter($reservations, function ($reservation) use ($yesterday) {
+                $reservationDate = new \DateTime($reservation->Date);
+                return $reservationDate > $yesterday; // Only include upcoming reservations
+            });
+        
+            // Initialize statistics
             $data = [
-                'upcoming' => [],
-                'history' => [],
+                'Approved' => 1,
+                'Pending' => 2,
+                'Canceled' => 3,
             ];
         
-            if(!empty($reservations)){
-                foreach ($reservations as $reservation) {
-                    // Convert reservation date to DateTime for comparison
-                    $reservationDate = new \DateTime($reservation->Date);
-            
-                    if ($reservationDate > $yesterday) {
-                        // Store in upcoming reservations
-                        $data['upcoming'][] = $reservation;
-                    } else {
-                        // Store in history reservations
-                        $review = new \Modal\Review;
-                        $result = $review->first(["Res_Id" => $reservation->Res_Id]);
-                        $reservation->reviewdone = !empty($result);
-
-                        $data['history'][] = $reservation;
-                    }
+            // Calculate statistics for upcoming reservations
+            foreach ($upcomingReservations as $reservation) {
+                if ($reservation->Status === "Approved") {
+                    $data['Approved'] += 1;
+                } elseif ($reservation->Status === "Pending") {
+                    $data['Pending'] += 1;
+                } elseif ($reservation->Status === "Canceled") {
+                    $data['Canceled'] += 1;
                 }
             }
         
-            // Now $data contains categorized reservations
             return $data;
         }
-        
+    
+        private function selectedchild($selectedchild)
+        {
+            $data = [];
 
-        private function store($children, $pre){
-            $data = [];
-    
-            // Retrieve the parent's profile image
-            $parentImage = getProfileImageUrl($pre[0]->Username);
-            $data['parent'] = [
-                'fullname' => $pre[0]->First_Name . ' ' . $pre[0]->Last_Name,
-                'image' => !empty($parentImage) ? $parentImage : null,
-            ];
-    
-            // Retrieve each child's profile image and details
-            foreach ($children as $index => $child) {
-                $childImage = getProfileImageUrl($pre[0]->Username, $child->First_Name);
-                $data['children'][$index] = [
-                    'id' => $child->Child_Id,
-                    'name' => $child->First_Name,
-                    'image' => !empty($childImage) ? $childImage : null,
-                ];
-            }
-    
-            return $data;
-        }
-    
-        private function selectedchild($selectedchild, $pre){
-            $data = [];
-    
-            $_SESSION['CHILD_ID'] = $selectedchild->Child_Id;
+            $imageData = $selectedchild->Image;
+            $imageType = $selectedchild->ImageType;  // Get the image MIME type from the database
+
+            // If image data is available, construct the Base64 string using the correct MIME type
+            $base64Image = (!empty($imageData) && is_string($imageData))
+                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                : null;
+
             $data['selectedchildren'] = [
+                'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
                 'name' => $selectedchild->First_Name,
+                'image' => $base64Image,
+                'age' => agecalculate($selectedchild->DOB),
+                'language' => $selectedchild->Language,
+                'religion' => $selectedchild->Religion,
+                'id' => str_pad($selectedchild->ChildID, 5, '0', STR_PAD_LEFT),
             ];
-    
+
             return $data;
         }
 
-        public function setchildsession(){
-
-            defined('ROOTPATH') or define('ROOTPATH', __DIR__); // Define the root if not already defined
-
-            // Session and JSON response settings
+        public function setchildsession()
+        {
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-        
             header('Content-Type: application/json');
-        
-            // Disable error reporting for clean JSON output in production
-            ini_set('display_errors', 0);
-            error_reporting(0);
-        
-            // Handle AJAX request and set the child session
             $request = json_decode(file_get_contents('php://input'), true);
             $response = [];
-        
-            if (isset($request['childName'])) {
-                $session = new \Core\Session;
-                $session->set('CHILDNAME', $request['childId']);
-                $session->set('CHILDNAME', $request['childName']);
-                $response = ['success' => true];
+
+            $session = new \Core\Session;
+            if (isset($request['ChildID'])) {
+                $session->set('CHILDID', $request['ChildID']);
+                $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
-                $response = ['success' => false, 'message' => 'Child name not provided.'];
+                $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
-            echo json_encode($response); // Output JSON response
+
+            echo json_encode($response);
             exit();
         }
 
-        public function removechildsession(){
-
+        public function removechildsession()
+        {
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             header('Content-Type: application/json');
             $response = [];
-            
-            if (isset($_SESSION['CHILDNAME'])) {
-                $session = new \Core\Session;
-                $session->unset("CHILDNAME");
+
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+
+            if (isset($ChildID)) {
+                $session->unset("CHILDID");
                 $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
                 $response = ['success' => false, 'message' => 'No child session to remove.'];
@@ -410,48 +419,6 @@
             exit();
         }
 
-        public function RemoveReservation() {
-            header('Content-Type: application/json');
-        
-            $response = [];
-        
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // Check if Res_Id is provided
-                if (isset($_POST['Res_Id'])) {
-                    $Res_Id = $_POST['Res_Id'];
-                    
-                    $reservation = new \Modal\Reservation;
-                    $res = $reservation->delete($Res_Id, "Res_Id");
-                    $isDeleted = true;
-        
-                    if ($isDeleted) {
-                        $response = [
-                            'success' => true,
-                            'message' => "Reservation ID $Res_Id deleted successfully"
-                        ];
-                    } else {
-                        $response = [
-                            'success' => false,
-                            'message' => "Failed to delete Reservation ID $Res_Id"
-                        ];
-                    }
-                } else {
-                    $response = [
-                        'success' => false,
-                        'message' => "Reservation ID not provided"
-                    ];
-                }
-            } else {
-                $response = [
-                    'success' => false,
-                    'message' => "Invalid request method"
-                ];
-            }
-        
-            echo json_encode($response);
-            exit();
-        }
-        
         public function GeteditReservation() {
             header('Content-Type: application/json');
             

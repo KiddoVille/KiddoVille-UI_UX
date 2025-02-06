@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('http://127.0.0.1/MVC/Public/Assets/Images/profile-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     font-size: 20px;
@@ -42,7 +41,7 @@ body {
     width: 150px;
     height: 150px;
     border-radius: 100%;
-    border: 5px solid rgba(27, 54, 101, 1);
+    border: 5px solid  #10639a;
     box-shadow: 0px 0px 12px rgba(72, 99, 180, 0.5);
     transition: box-shadow 0.3s;
     margin-top: 10px;
@@ -62,7 +61,7 @@ body {
 .add{
     cursor: pointer;
     font-size: 40px;
-    color: rgba(27, 54, 101, 1); 
+    color:  #10639a; 
 }
 
 .leftcon {
@@ -100,6 +99,7 @@ label{
 .data input[type='password'],
 .data input[type='email'],
 .data input[type='date'],
+.data textarea,
 .add-btn
 {
     background-color: #dcdcdc;
@@ -117,6 +117,7 @@ label{
 .data input[type='password']:hover,
 .data input[type='email']:hover,
 .data input[type='date']:hover,
+.data textarea:hover,
 .data select:hover {
     box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
 }
@@ -151,7 +152,7 @@ label{
     margin-top: 40px;
     margin-right: -200px;
     margin-left: 450px;
-    color: rgb(2, 77, 205);
+    color:  #10639a;
     font-weight: 600;
 }
 .divider {
@@ -164,7 +165,7 @@ label{
     margin-right: 10px;
 }
 .refresh-con{
-    background-color: #007bff;
+    background-color:  #10639a;
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -242,7 +243,7 @@ p{
 }
 
 h2{
-    color: #2524E8;
+    color:  #10639a;
     margin-left: 30px;
     font-size: 30px;
     margin-top: 10px;
@@ -261,7 +262,7 @@ h2{
     margin-right: 20px;
     padding: 0px !important; 
     background-size: cover; 
-    border: 5px solid #2524E8;
+    border: 5px solid  #10639a;
     border-radius: 90px; 
     width: 150px; 
     height: 150px; 
@@ -282,7 +283,7 @@ h2{
 }
 
 .add-btn{
-    background-color:  #2524E8 !important;
+    background-color:  #10639a !important;
     color: white !important;
 }
 
@@ -291,7 +292,7 @@ h2{
     margin-top: 40px;
     margin-right: -200px;
     margin-left: 450px;
-    color: rgb(2, 77, 205);
+    color:  #10639a;
     font-weight: 600;
     cursor: pointer;
 }
@@ -348,7 +349,7 @@ h2{
 }
 
 .back-con{
-    background-color: #007bff;
+    background-color:  #10639a;
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -361,7 +362,7 @@ h2{
 }
 
 .refresh-con{
-    background-color: #007bff;
+    background-color:  #10639a;
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -480,13 +481,13 @@ h2{
     border: none;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
-    border-top: 2px solid darkblue;
-    border-left: 2px solid darkblue;
-    border-right: 2px solid darkblue;
+    border-top: 2px solid  #10639a;
+    border-left: 2px solid  #10639a;
+    border-right: 2px solid  #10639a;
 }
 .selectday{
     background-color: rgba(58, 99, 223, 0.8);
-    border: 2px solid darkblue;
+    border: 2px solid  #10639a;
     color: white;
 }
 
@@ -500,3 +501,28 @@ h2{
     margin-left: -25px;
 }
 
+.home-contain {
+    margin-top: -30px; 
+    color: black;
+    z-index: 10000;
+    display: flex;
+    position: absolute; 
+    background-color:  #10639a;
+    padding: 12px;
+    border-radius: 0px 19px 0px 0px;
+    margin-left: 644px ;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.fa-home {
+    margin: 0px; 
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.home-contain:hover{
+    transform: scale(1.05);
+    z-index: 1;
+}
