@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/child/Main.css?v=<?= time() ?>">
     <script src="<?= JS ?>/child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/child/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/child/meal.js?v=<?= time() ?>"></script>
+    <!-- <script src="<?= JS ?>/child/meal.js?v=<?= time() ?>"></script> -->
     <script src="<?= JS ?>/child/Navbar.js?v=<?= time() ?>"></script>
 </head>
 
@@ -84,7 +84,7 @@
                 <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first select-child"
+                        <li class="hover-effect first"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
                             <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
@@ -98,11 +98,18 @@
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
-                        <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                    <?php foreach ($data['children'] as $child): ?>
+                            <li class="first
+                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
+                                    echo "select-child";
+                                } ?>
+                            "
+                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important <?php if ($child['name'] !== $data['selectedchildren']['name']) {
+                                                                                                echo "margin-left: -20px !important";
+                                                                                            } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -169,7 +176,7 @@
                     <div class="timetable" style="margin-right: 1%; width: 395px;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Meal Plan</h3>
                         <hr>
-                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                        <input type="date" id="datePicker" value="" style="width: 200px">
                         <table id="mealsTable" style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr>
@@ -178,58 +185,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Breakfast Rows -->
-                                <tr>
-                                    <td rowspan="4">Breakfast</td>
-                                    <td>Pancakes</td>
-                                </tr>
-                                <tr>
-                                    <td>Omelette</td>
-                                </tr>
-                                <tr>
-                                    <td>Omelette</td>
-                                </tr>
-                                <tr>
-                                    <td>Fruit Smoothie</td>
-                                </tr>
-                                <!-- Lunch Rows -->
-                                <tr>
-                                    <td rowspan="4">Lunch</td>
-                                    <td>Grilled Chicken Salad</td>
-                                </tr>
-                                <tr>
-                                    <td>Garlic Bread</td>
-                                </tr>
-                                <tr>
-                                    <td>Soup</td>
-                                </tr>
-                                <tr>
-                                    <td>Omelette</td>
-                                </tr>
-                                <!-- Dinner Rows -->
-                                <tr>
-                                    <td rowspan="4">Dinner</td>
-                                    <td>Spaghetti Bolognese</td>
-                                </tr>
-                                <tr>
-                                    <td>Omelette</td>
-                                </tr>
-                                <tr>
-                                    <td>Caesar Salad</td>
-                                </tr>
-                                <tr>
-                                    <td>Chocolate Mousse</td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="container-food" style="margin-left: 20px;">
                     <!-- Table for Snacks -->
-                    <div class="timetable" style="margin-right: 1%; width: 395px;">
+                    <div class="timetable" id="snackTable" style="margin-right: 1%; width: 395px;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Snack Plan</h3>
                         <hr>
-                        <input type="date" id="snacckdatePicker" value="2025-01-10" style="width: 200px">
+                        <input type="date" id="SnackdatePicker" value="" style="width: 200px">
                         <table id="snacksTable" style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr>
@@ -238,48 +204,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Morning Snack Rows -->
-                                <tr>
-                                    <td rowspan="3">Morning</td>
-                                    <td>Fruit Salad</td>
-                                </tr>
-                                <tr>
-                                    <td>Energy Bar</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple</td>
-                                </tr>
-                                <!-- Afternoon Snack Rows -->
-                                <tr>
-                                    <td rowspan="3">Afternoon</td>
-                                    <td>Yogurt with Granola</td>
-                                </tr>
-                                <tr>
-                                    <td>Banana</td>
-                                </tr>
-                                <tr>
-                                    <td>Trail Mix</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple</td>
-                                </tr>
-                                <!-- Evening Snack Rows -->
-                                <tr>
-                                    <td rowspan="3">Evening</td>
-                                    <td>Mixed Nuts</td>
-                                </tr>
-                                <tr>
-                                    <td>Cheese Crackers</td>
-                                </tr>
-                                <tr>
-                                    <td>Dark Chocolate</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple</td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -287,7 +212,7 @@
                 <div class="container-food" style="margin-left: 20px;">
                     <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Add Snack</h3>
                     <hr style="width: 160px;">
-                    <div class="pickup-section" style="margin-top: 20px;">
+                    <div class="pickup-section" style="margin-top: 20px; width: 160px;">
                         <label for="date">Date</label>
                         <input required id="customdate" type="date">
                         <label for="date">Meal</label>
@@ -310,12 +235,12 @@
             <div class="container-food" style="margin-left: 40px; margin-top: 20px; align-items: left; width: 1060px; justify-content: space-between;">
                 <h3 style="margin-top: 0px !important; margin-bottom: 4px; margin-right: 900px;">Assigned Snacks</h3>
                 <hr style="width: 1070px;">
-                <p> Please select the child and meal, then enter the snack to assign it. You can easily view and edit the assigned snacks for each child as needed. </p>
+                <p style="margin-left: -60px !important;"> Please select the child and meal, then enter the snack to assign it. You can easily view and edit the assigned snacks for each child as needed. </p>
                 <div style="display: flex; flex-direction: row; justify-content:space-around;">
-                    <div style="display: flex; flex-direction: column; margin-right: 100px; margin-left: -100px;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Edit Snack Request</h3>
-                        <hr style="width: 360px;">
-                        <div class="pickup-section" style="margin-top: 20px;">
+                    <div style="display: flex; flex-direction: column; margin-right: 100px;">
+                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-left: 20px;">Edit Snack Request</h3>
+                        <hr style="width: 360px; margin-left: 20px; margin-right: -150px;">
+                        <div class="pickup-section" style="margin-top: 20px; width: 320px; margin-left: 50px;">
                             <label for="date">Date</label>
                             <input class="editsnack" required id="customdate" type="date">
                             <label for="date">Meal</label>
@@ -333,87 +258,23 @@
                         </div>
                         <button style="margin-top: 15px; margin-left:200px;"> Edit </button>
                     </div>
-                    <div style="width: 3px; background-color: lightgray; margin-right: 100px;"></div>
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-                        <thead>
-                            <tr>
-                                <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Meal</th>
-                                <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Snack</th>
-                                <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Breakfast Rows -->
-                            <tr>
-                                <td style="padding: 10px 15px;" rowspan="3">Breakfast</td>
-                                <td style="padding: 10px 15px;">Fruit Salad</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px;">Energy Bar</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px;">Apple</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                            <!-- Lunch Rows -->
-                            <tr>
-                                <td style="padding: 10px 15px;" rowspan="3">Lunch</td>
-                                <td style="padding: 10px 15px;">Yogurt with Granola</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px;">Banana</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px;">Trail Mix</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                            <!-- Dinner Rows -->
-                            <tr>
-                                <td style="padding: 10px 15px;" rowspan="3">Dinner</td>
-                                <td style="padding: 10px 15px;">Mixed Nuts</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px;">Cheese Crackers</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 10px 15px;">Dark Chocolate</td>
-                                <td class="edit" style="padding: 10px 15px;">
-                                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px;"></i>
-                                    <i class="fas fa-trash"></i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="width: 3px; background-color: lightgray; margin-right: 50px;"></div>
+                    <div class="timetable" style="display: flex; flex-direction: column;">
+                        <input type="date" id="requestPicker" value="<?=(date('Y-m-d'));?>" style="width: 200px; margin-top:20px; margin-bottom: -10px; table-layout: fixed;">
+                        <table id="requestTable" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                            <thead>
+                                <tr>
+                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Child</th>
+                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Meal</th>
+                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Snack</th>
+                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody style="max-height: 400px; overflow-y: auto;">
+                                
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
             </div>
@@ -427,15 +288,16 @@
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
-                class="profile" />
-            <h2>Thilina Perera</h2>
-            <p>Student    RS0110657</p>
+                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+            class="profile" />
+        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
+        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button"
                 onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">Profile</button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">Parent profile</button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">Guardian profile</button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
             <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Child/Home'">LogOut</button>
         </div>
     </div>
@@ -463,7 +325,7 @@
         }
 
         function fetchMealPlan(date) {
-            fetch('<?= ROOT ?>/Parent/Meal/store_food', {
+            fetch('<?= ROOT ?>/Child/Meal/store_food', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -487,64 +349,206 @@
 
         // Function to update tables dynamically
         function updateMealPlanTables(mealPlan) {
+            console.log(mealPlan);
             const mealsTableBody = document.querySelector('#mealsTable tbody');
-            const snacksTableBody = document.querySelector('#snacksTable tbody');
+            mealsTableBody.innerHTML = '';
 
-            mealsTableBody.innerHTML = ''; // Clear existing rows
-            snacksTableBody.innerHTML = ''; // Clear existing rows
-
-            // Populate meals table
-            for (const [meal, dishes] of Object.entries(mealPlan.meals)) {
+            // Loop through each meal type (e.g., breakfast, lunch, dinner)
+            for (const [meal, dishes] of Object.entries(mealPlan)) {
                 let rowSpanSet = false;
 
+                // Loop through the dishes for the current meal
                 dishes.forEach(dish => {
                     const row = document.createElement('tr');
 
+                    // Add meal type cell with rowspan for multiple dishes
                     if (!rowSpanSet) {
                         const mealCell = document.createElement('td');
-                        mealCell.textContent = meal.charAt(0).toUpperCase() + meal.slice(1);
-                        mealCell.rowSpan = dishes.length;
+                        mealCell.textContent = meal.charAt(0).toUpperCase() + meal.slice(1); // Capitalize meal type
+                        mealCell.rowSpan = dishes.length; // Set rowspan for the meal type cell
                         row.appendChild(mealCell);
                         rowSpanSet = true;
                     }
 
+                    // Add dish cell
                     const dishCell = document.createElement('td');
-                    dishCell.textContent = dish;
+                    dishCell.textContent = dish; // Set the dish name
                     row.appendChild(dishCell);
 
+                    // Append the row to the table body
                     mealsTableBody.appendChild(row);
                 });
             }
+        }
 
-            // Populate snacks table
-            for (const [time, snacks] of Object.entries(mealPlan.snacks)) {
+        function fetchSnackPlan(date) {
+            fetch('<?= ROOT ?>/Child/Meal/store_snack', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Snack plan data:", data.data);
+                        updateSnackPlanTables(data.data);
+                    } else {
+                        console.error("Failed to fetch snack plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        // Function to update tables dynamically
+        function updateSnackPlanTables(SnackPlan) {
+            console.log(SnackPlan);
+            const snacksTableBody = document.querySelector('#snackTable tbody');
+            snacksTableBody.innerHTML = '';
+
+            // Loop through each meal type (e.g., breakfast, lunch, dinner)
+            for (const [meal, dishes] of Object.entries(SnackPlan)) {
                 let rowSpanSet = false;
 
-                snacks.forEach(snack => {
+                // Loop through the dishes for the current meal
+                dishes.forEach(dish => {
                     const row = document.createElement('tr');
 
+                    // Add meal type cell with rowspan for multiple dishes
                     if (!rowSpanSet) {
-                        const timeCell = document.createElement('td');
-                        timeCell.textContent = time.charAt(0).toUpperCase() + time.slice(1);
-                        timeCell.rowSpan = snacks.length;
-                        row.appendChild(timeCell);
+                        const mealCell = document.createElement('td');
+                        mealCell.textContent = meal.charAt(0).toUpperCase() + meal.slice(1); // Capitalize meal type
+                        mealCell.rowSpan = dishes.length; // Set rowspan for the meal type cell
+                        row.appendChild(mealCell);
                         rowSpanSet = true;
                     }
 
-                    const snackCell = document.createElement('td');
-                    snackCell.textContent = snack;
-                    row.appendChild(snackCell);
+                    // Add dish cell
+                    const dishCell = document.createElement('td');
+                    dishCell.textContent = dish; // Set the dish name
+                    row.appendChild(dishCell);
 
+                    // Append the row to the table body
                     snacksTableBody.appendChild(row);
                 });
             }
         }
 
-        // Add event listener for date picker
-        document.getElementById('datePicker').addEventListener('change', function() {
-            const selectedDate = this.value;
-            fetchMealPlan(selectedDate);
-        });
+        function fetchrequest(date) {
+            fetch('<?= ROOT ?>/Child/Meal/store_request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("snack request data:", data.data);
+                        updateSnackrequestTables(data.data);
+                    } else {
+                        console.error("Failed to fetch snack request:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function updateSnackrequestTables(snackRequestData) {
+            console.log(snackRequestData);
+            // Get the table body element
+            const tableBody = document.querySelector("#requestTable tbody");
+            tableBody.innerHTML = "";
+
+            // Iterate through the snack request data
+            for (const childName in snackRequestData) {
+                const meals = snackRequestData[childName];
+                let firstRowForChild = true;
+
+                // Iterate through meals (breakfast, lunch, dinner)
+                for (const meal in meals) {
+                    const snacks = meals[meal];
+                    let firstRowForMeal = true;
+
+                    // Iterate through snacks for the current meal
+                    for (const snackName in snacks) {
+                        const quantity = snacks[snackName];
+
+                        // Create a new row for the table
+                        const row = document.createElement("tr");
+
+                        // Add child name cell (only for the first row of the child)
+                        if (firstRowForChild) {
+                            const childCell = document.createElement("td");
+                            childCell.textContent = childName;
+                            childCell.style.padding = "10px 15px";
+                            childCell.rowSpan = Object.values(meals).reduce((sum, mealSnacks) => sum + Object.keys(mealSnacks).length, 0);
+                            row.appendChild(childCell);
+                            firstRowForChild = false;
+                        }
+
+                        // Add meal cell (only for the first row of the meal)
+                        if (firstRowForMeal) {
+                            const mealCell = document.createElement("td");
+                            mealCell.textContent = meal;
+                            mealCell.style.padding = "10px 15px";
+                            mealCell.rowSpan = Object.keys(snacks).length;
+                            row.appendChild(mealCell);
+                            firstRowForMeal = false;
+                        }
+
+                        // Add snack name cell
+                        const snackCell = document.createElement("td");
+                        snackCell.textContent = `${snackName} (${quantity})`;
+                        snackCell.style.padding = "10px 15px";
+                        row.appendChild(snackCell);
+
+                        // Add edit actions cell
+                        const editCell = document.createElement("td");
+                        editCell.className = "edit";
+                        editCell.style.padding = "10px 15px";
+                        editCell.innerHTML = `
+                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px; cursor: pointer;"></i>
+                    <i class="fas fa-trash" style="cursor: pointer;"></i>`;
+                        row.appendChild(editCell);
+
+                        // Append the row to the table body
+                        tableBody.appendChild(row);
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDate = new Date().toISOString().split('T')[0];
+            fetchMealPlan(currentDate);
+            fetchSnackPlan(currentDate);
+            fetchrequest(currentDate);
+            console.log(currentDate);
+
+            document.getElementById('requestPicker').addEventListener('change', function() {
+                const selectedDate = this.value;
+                fetchrequest(selectedDate);
+            });
+
+            document.getElementById('datePicker').addEventListener('change', function() {
+                const selectedDate = this.value;
+                fetchMealPlan(selectedDate);
+            });
+
+            document.getElementById('SnackdatePicker').addEventListener('change', function() {
+                const selectedDate = this.value;
+                console.log(selectedDate);
+                fetchSnackPlan(selectedDate);
+            });
+            });
     </script>
 </body>
 

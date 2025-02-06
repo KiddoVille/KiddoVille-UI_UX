@@ -536,12 +536,32 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href='<?= ROOT ?>/Main/Home'">
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
                 LogOut
             </button>
         </div>
     </div>
     <script>
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/resevation/Logout", {
+                method: "POST", 
+                credentials: "same-origin"
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                } else {
+                    alert("Logout failed. Try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
         function setChildSession(ChildID) {
             fetch(' <?= ROOT ?>/Parent/Reservation/setchildsession', {
                     method: 'POST',

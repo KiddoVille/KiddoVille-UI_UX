@@ -399,23 +399,24 @@
             </a>
         </div>
         <!-- profile card -->
-        <div class="profile-card" id="profileCard">
+        <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
-                class="profile" />
-            <h2>
-                Thilina Perera
-            </h2>
-            <p>
-                Student    RS0110657
-            </p>
+                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+            class="profile" />
+        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
+        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">
                 Profile
+            </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">
+                Parent profile
             </button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
             <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
                 LogOut
             </button>

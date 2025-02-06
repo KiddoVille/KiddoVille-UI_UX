@@ -92,7 +92,7 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
+                            <li class="hover-effect first"  onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
@@ -260,36 +260,58 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
                 LogOut
             </button>
         </div>
     </div>
     <script>
+
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/allevent/Logout", {
+                method: "POST", 
+                credentials: "same-origin"
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                } else {
+                    alert("Logout failed. Try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
         let paginatedData = [];
 
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        childName: childName
+        function setChildSession(ChildID) {
+                console.log(ChildID);
+                fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            ChildID: ChildID
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
-                    } else {
-                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log("Child Id set in session.");
+                            window.location.href = '<?= ROOT ?>/Child/allevent';
+                        } else {
+                            console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+            }
 
         function fetchrequest(date, age) {
             fetch('<?= ROOT ?>/Parent/allevent/store_events', {

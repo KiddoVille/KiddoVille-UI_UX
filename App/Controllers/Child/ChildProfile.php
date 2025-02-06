@@ -8,47 +8,63 @@
         use MainController;
         public function index(){
 
-            $session = new \Core\Session;
-            $session->check_login();
+            $data = [];
 
-            $Username = $session->get('USERNAME');
-            $Child_Id = $session->get('CHILD_ID');
-            $Child_Name = $session->get('CHILDNAME');
+            $session = new \core\Session;
+            $ChildID = $session->get("CHILDID");
 
             $child = new \Modal\Child;
-            $children = $child->first(["Child_Id" => $Child_Id]);
-            $childrenimage = getProfileImageUrl($Username, $Child_Name);
+            $childdocumentModal = new \Modal\ChildDocuments;
+            $childmedicationModal = new \Modal\ChildMedication;
+            $ParentModal = new \Modal\ParentUser;
 
-            $par = new \Modal\ParentUser;
-            $parent = $par->first(["Username"=> $Username]);
+            $data['children'] = $child->first(["ChildID"=> $ChildID]);
+            $Parent = $ParentModal->first(["ParentID" => $data['children']->ParentID]);
 
-            $prescription = getFilesByType("Abu", "Aahil", 'prescriptions');
-            $prescription = array_map(function($filePath) {
-                return ROOT . '/' . $filePath;
-            }, $prescription);
-            $prescription = array_values($prescription);
+            $data['children']->Email = $Parent->Email;
+            $data['children']->Phone_Number = $Parent->Phone_Number;
+            $imageData = $data['children']->Image;
+            $imageType = $data['children']->ImageType;  // Get the image MIME type from the database
+    
+            // If image data is available, construct the Base64 string using the correct MIME type
+            $base64Image = (!empty($imageData) && is_string($imageData))
+                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                : null
+            ;
 
-            $documents = getFilesByType($Username, $Child_Name, 'documents');
-            $documents = array_map(function($filePath, $index) {
-                $fileName = basename($filePath);
-                
-                return [
-                    'name' => 'document' . ($index + 1),
-                    'path' => ROOT . '/' . $filePath
-                ];
-            }, $documents, array_keys($documents));
+            $data['children']->Image = $base64Image;
 
-            if($children){
-                // $children->Gender = genderconvert($children->Gender);
-                $children->profile = $childrenimage;
-                $children->Mobile = $parent->Phone_Number;
-                $children->Email = $parent->Email;
-                $children->prescription = $prescription;
-                $children->documents = $documents;
+            $data['medications'] = $childmedicationModal->where_norder(["ChildID" => $ChildID]);
+            if(!empty($data['documents'])){
+                foreach ($data['medications'] as $medication){
+                    $imageData = $medication->MedicationImage;
+                    $imageType = $medication->ImageType;  // Get the image MIME type from the database
+            
+                    // If image data is available, construct the Base64 string using the correct MIME type
+                    $base64Image = (!empty($imageData) && is_string($imageData))
+                        ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                        : null
+                    ;
+
+                    $medication->MedicationImage = $base64Image;
+                }
             }
+            
+            $data['documents'] = $childdocumentModal->where_norder(["ChildID" => $ChildID]);
+            if(!empty($data['documents'])){
+                foreach ($data['documents'] as $document){
+                    $imageData = $document->UploadedFile;
+                    $imageType = $document->FileType;  // Get the image MIME type from the database
+            
+                    // If image data is available, construct the Base64 string using the correct MIME type
+                    $base64Image = (!empty($imageData) && is_string($imageData))
+                        ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                        : null
+                    ;
 
-            $data = [];
-            $data[] = $children;
+                    $document->UploadedFile = $base64Image;
+                }
+            }
 
             $this->view('Child/childprofile',$data);
         }

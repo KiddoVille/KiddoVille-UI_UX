@@ -44,7 +44,7 @@
         </div>
         <!-- To input guardina details -->
         <div class="ProfileContainer" style="flex-direction: column !important;">
-            <form method="post" id="details" enctype="multipart/form-data">
+            <form method="post" id="details" enctype="multipart/form-data" action="<?=ROOT?>/Onbording/Guardian/handlesubmission">
                 <h2> Let's Get Started</h2>
                 <div class="hori">
                     <div class="datacon">
@@ -137,14 +137,14 @@
                 </div>
                 <div class="datacon" style="flex-direction: row !important;">
                     <div class="data">
-                        <label>Gender <span id="red-star9" class="red-star"> *</span></label>
+                        <label>Gender</label>
                         <select name="Gender" style="width: 323px;">
                             <option>Male</option>
                             <option>Female</option>
                         </select>
                     </div>
                     <div class="data">
-                        <label>Language Preference <span id="red-star10" class="red-star"> *</span> </label>
+                        <label>Language Preference</label>
                         <select name="Language" style="width: 323px;">
                             <option>English</option>
                             <option>Tamil</option>
@@ -167,9 +167,9 @@
             const image = document.getElementById('image');
             const imagebg = document.getElementById('image-bg');
 
-            imageicon.addEventListener('click', function(){
-                image.click();
-            })
+            // imageicon.addEventListener('click', function(){
+            //     image.click();
+            // })
 
             image.addEventListener('input',function(event){
                 const file= event.target.files[0];

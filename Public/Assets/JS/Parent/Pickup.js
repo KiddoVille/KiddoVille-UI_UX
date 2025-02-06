@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const visitrefreshIcon = document.getElementById('visitrefresh');
     const visitForm = document.getElementById('visitForm');

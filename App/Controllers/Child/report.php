@@ -2,126 +2,235 @@
 
     namespace Controller;
 
+    use App\Helpers\SidebarHelper;
+
     defined('ROOTPATH') or exit('Access denied');
 
     class Report{
         use MainController;
-        public function index(){
-
+        public function index() {
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child('Parent');
+            $session->check_child();
+            $ChildID = $session->get("CHILDID");
 
-            // Retrieve session variables
-            $childname = $session->get('CHILDNAME');
-            $parentname = $session->get('USERNAME');
+            $data = [];
+            $SidebarHelper = new SidebarHelper();
+            $data = $SidebarHelper->store_sidebar();
 
-            // Retrieve parent and children data
-            $child = new \Modal\Child;
-            $children = $child->where_norder(['Parent_Name' => $parentname]);
-            $parent = new \Modal\ParentUser;
-            $pre = $parent->where_norder(['Username' => $parentname]);
+            $ChildModal = new \Modal\Child;
+            $select = $ChildModal->first(['ChildID' => $ChildID]);
+            $data['child_id'] = $ChildID;
 
-            // Prepare data for all children
-            $data = $this->store($children, $pre);
-
-            // Select specific child by name, if it exists
-            $select = $child->where_norder(['Parent_Name' => $parentname, 'First_Name' => $childname ]);
-            $session->set('CHILD_ID', $select[0]->Child_Id);
-
-            $child_id = $session->get('CHILD_ID');
-            $data['child_id'] = $child_id;
-            
             if (!empty($select)) {
-                $data2 = $this->selectedchild($select[0], $pre);
+                $data2 = $this->selectedchild($select);
                 $data = $data + $data2;
             }
 
-            $this->view('Child/report',$data);
+            $data['stats'] =$this->store_stats();
+            $session->set("Location" , 'Child/Report');
+            $this->view('Child/report', $data);
         }
 
-        private function store($children, $pre){
-            $data = [];
-
-            // Retrieve the parent's profile image
-            $parentImage = getProfileImageUrl($pre[0]->Username);
-            $data['parent'] = [
-                'fullname' => $pre[0]->First_Name . ' ' . $pre[0]->Last_Name,
-                'image' => !empty($parentImage) ? $parentImage : null,
-            ];
-
-            // Retrieve each child's profile image and details
-            foreach ($children as $index => $child) {
-                $childImage = getProfileImageUrl($pre[0]->Username, $child->First_Name);
-                $data['children'][$index] = [
-                    'name' => $child->First_Name,
-                    'image' => !empty($childImage) ? $childImage : null,
-                ];
+        public function store_reports() {
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+        
+            // Default to today's date if no 'date' is provided
+            $date = $requestData['date'] ?? date('Y-m-d');
+            if ($date === 'null' || $date === 'All') {
+                $date = null;  // Treat 'null' or 'All' as no date filter (fetch all records)
             }
 
-            return $data;
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+        
+            $attendanceModel = new \Modal\Attendance;
+            $maidModel = new \Modal\Maid;
+            $maidReportModel = new \Modal\MaidReport;
+            $TeacherModel = new \Modal\Teacher;
+            $TeacherReportModel = new \Modal\TeacherReport;
+            $ChildModel = new \Modal\Child;
+        
+            $maidReports = [];
+            $teacherReports = [];
+        
+            $childAttendance = $date ? 
+                $attendanceModel->where_order(['ChildID' => $ChildID, 'Start_Date' => $date], [] , "Start_Date") : 
+                $attendanceModel->where_order(['ChildID' => $ChildID], [] , "Start_Date");
+        
+            $child = $ChildModel->first(["ChildID" => $ChildID]);
+
+            if (!empty($childAttendance)) {
+                foreach ($childAttendance as $attendance) {
+                    $maidReport = $maidReportModel->first(['AttendanceID' => $attendance->AttendanceID]);
+                    if (!empty($maidReport)) {
+                        $maidInfo = $maidModel->first(['MaidID' => $maidReport->MaidID]);
+                        $maidName = !empty($maidInfo) 
+                            ? $maidInfo->First_Name . ' ' . $maidInfo->Last_Name 
+                            : 'Unknown Maid';
+    
+                        $maidReports[] = [
+                            'Child_Name' => $child->First_Name,
+                            'Maid_Name' => $maidName,
+                            'Report_Date' => $attendance->Start_Date,
+                            'Viewed' => $maidReport->Viewed ? 'Yes' : 'No',
+                        ];
+                    }
+                }
+            }
+        
+                // Fetch teacher reports
+            $TeacherReports = $date ? 
+                $TeacherReportModel->where_order(['ChildID' => $ChildID, 'Date' => $date], [] , "Date") : 
+                $TeacherReportModel->where_order(['ChildID' => $ChildID], [] , "
+                'Date");
+        
+            if (!empty($TeacherReports)) {
+                foreach ($TeacherReports as $report) {
+                    $TeacherInfo = $TeacherModel->first(['TeacherID' => $report->TeacherID]);
+                    $TeacherName = !empty($TeacherInfo) 
+                        ? $TeacherInfo->First_Name . ' ' . $TeacherInfo->Last_Name 
+                        : 'Unknown Teacher';
+    
+                    $teacherReports[] = [
+                        'Child_Name' => $child->First_Name,
+                        'Teacher_Name' => $TeacherName,
+                        'Report_Date' => $report->Date,
+                        'Viewed' => $report->Viewed ? 'Yes' : 'No',
+                    ];
+                }
+            }
+        
+            // Sort reports by date
+            usort($maidReports, function ($a, $b) {
+                return strtotime($a['Report_Date']) - strtotime($b['Report_Date']);
+            });
+        
+            usort($teacherReports, function ($a, $b) {
+                return strtotime($a['Report_Date']) - strtotime($b['Report_Date']);
+            });
+            
+            // Prepare response data
+            $data = [
+                'Maid' => $maidReports,
+                'Teacher' => $teacherReports
+            ];
+            
+            if (empty($data)) {
+                // If no records were found, return a failure response with a message
+                echo json_encode(['success' => false, 'message' => 'No attendance records found for the selected filters']);
+            } else {
+                // If records are found, return them in the response with a success flag
+                echo json_encode(['success' => true, 'data' => $data]);
+            }
+        }    
+
+        private function store_stats()
+        {
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+
+            $attendanceModel = new \Modal\Attendance;
+            $maidReportModel = new \Modal\MaidReport;
+            $teacherReportModel = new \Modal\TeacherReport;
+
+            // Initialize stats arrays
+            $stats = [
+                'maid_pending' => 0,
+                'maid_viewed' => 0,
+                'maid_downloaded' => 0,
+                'teacher_pending' => 0,
+                'teacher_viewed' => 0,
+                'teacher_downloaded' => 0,
+            ];
+
+            $childAttendance = $attendanceModel->where_order(['ChildID' => $ChildID], [], 'Start_Date');
+
+            if (!empty($childAttendance)) {
+                foreach ($childAttendance as $attendance) {
+                    $maidReports = $maidReportModel->where_norder(['AttendanceID' => $attendance->AttendanceID]);
+                    if (!empty($maidReports)) {
+                        foreach ($maidReports as $report) {
+                            $stats['maid_pending'] += ($report->Viewed == 0) ? 1 : 0;
+                            $stats['maid_viewed'] += ($report->Viewed == 1) ? 1 : 0;
+                            $stats['maid_downloaded'] += ($report->Downloaded == 1) ? 1 : 0;
+                        }
+                    }
+                }
+            }
+
+            $teacherReports = $teacherReportModel->where_norder(['ChildID' => $ChildID]);
+            if (!empty($teacherReports)) {
+                foreach ($teacherReports as $report) {
+                    $stats['teacher_pending'] += ($report->Viewed == 0) ? 1 : 0;
+                    $stats['teacher_viewed'] += ($report->Viewed == 1) ? 1 : 0;
+                    $stats['teacher_downloaded'] += ($report->Downloaded == 1) ? 1 : 0;
+                }
+            }
+
+            return $stats;
         }
 
-        private function selectedchild($selectedchild, $pre){
+        private function selectedchild($selectedchild)
+        {
             $data = [];
 
-            // Retrieve the specific child's profile image and details
-            $childImage = getProfileImageUrl($pre[0]->Username, $selectedchild->First_Name);
+            $imageData = $selectedchild->Image;
+            $imageType = $selectedchild->ImageType;  // Get the image MIME type from the database
+
+            // If image data is available, construct the Base64 string using the correct MIME type
+            $base64Image = (!empty($imageData) && is_string($imageData))
+                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                : null;
+
             $data['selectedchildren'] = [
                 'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
                 'name' => $selectedchild->First_Name,
-                'image' => !empty($childImage) ? $childImage : null,
+                'image' => $base64Image,
                 'age' => agecalculate($selectedchild->DOB),
                 'language' => $selectedchild->Language,
                 'religion' => $selectedchild->Religion,
+                'id' => str_pad($selectedchild->ChildID, 5, '0', STR_PAD_LEFT),
             ];
 
             return $data;
         }
 
-        public function setchildsession(){
-
-            defined('ROOTPATH') or define('ROOTPATH', __DIR__); // Define the root if not already defined
-
-            // Session and JSON response settings
+        public function setchildsession()
+        {
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-        
             header('Content-Type: application/json');
-        
-            // Disable error reporting for clean JSON output in production
-            ini_set('display_errors', 0);
-            error_reporting(0);
-        
-            // Handle AJAX request and set the child session
             $request = json_decode(file_get_contents('php://input'), true);
             $response = [];
-        
-            if (isset($request['childName'])) {
-                $session = new \Core\Session;
-                $_SESSION['CHILD_ID'] = $request['childId'];
-                $session->set('CHILD_ID', $request['childId']);
-                $session->set('CHILDNAME', $request['childName']);
-                $response = ['success' => true];
+
+            $session = new \Core\Session;
+            if (isset($request['ChildID'])) {
+                $session->set('CHILDID', $request['ChildID']);
+                $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
-                $response = ['success' => false, 'message' => 'Child name not provided.'];
+                $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
-            echo json_encode($response); // Output JSON response
+
+            echo json_encode($response);
             exit();
         }
 
-        public function removechildsession(){
-
+        public function removechildsession()
+        {
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             header('Content-Type: application/json');
             $response = [];
-            
-            if (isset($_SESSION['CHILDNAME'])) {
-                $session = new \Core\Session;
-                $session->unset("CHILDNAME");
+
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+
+            if (isset($ChildID)) {
+                $session->unset("CHILDID");
                 $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
                 $response = ['success' => false, 'message' => 'No child session to remove.'];

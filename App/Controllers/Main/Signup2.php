@@ -1,12 +1,9 @@
 <?php
-
     namespace Controller;
-
     defined('ROOTPATH') or exit('Access denied');
-
+    
     class Signup2{
         use MainController;
-
         public function index(){
             $Data = [];
             $Data['errors'] = 'hi';
@@ -30,7 +27,6 @@
                     else{
                         $user->errors['username'] = 'username already exists';
                         $Data['errors'] = $user->errors;
-
                         $user->values['uservalue'] = $username;
                         $Data['value'] = $user->values;
                     }

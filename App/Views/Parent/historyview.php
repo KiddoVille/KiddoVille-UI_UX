@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/history.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Parent/history.js?v=<?= time() ?>"></script> -->
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Parent/Pickup.js?v=<?= time() ?>"></script> -->
@@ -187,7 +189,7 @@
                 <div class="child-history" style="width: 760px !important; height: 420px; margin-top: 0px;">
                     <h2 style="margin-top: 10px !important; margin-bottom: 2px;">Child Attendance</h2>
                     <hr>
-                    <input type="date" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
+                    <input type="date" id="datePicker" value="" style="width: 200px; margin-right: 20px;">
                     <select id="childPicker">
                         <option Value="All" selected> All </option>
                         <?php foreach ($data['children'] as $child): ?>
@@ -365,7 +367,7 @@
             </a>
         </div>
         <!-- profile card -->
-        <div class="profile-card" id="profileCard">
+        <div class="profile-card" id="profileCard" style="margin-top: 0px; margin-right: 0px !important; margin-left: 0px !important; position:fixed;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" id="back-arrow-profile"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
@@ -382,12 +384,34 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
                 LogOut
             </button>
         </div>
     </div>
     <script>
+
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/history/Logout", {
+                method: "POST", 
+                credentials: "same-origin"
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                } else {
+                    alert("Logout failed. Try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+        
         function setChildSession(ChildID) {
             fetch(' <?= ROOT ?>/Parent/History/setchildsession', {
                     method: 'POST',

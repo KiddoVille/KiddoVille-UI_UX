@@ -18,92 +18,108 @@
 <body>
     <!-- View parent details -->
     <div class="Profilecard">
-        <div class="top-con">
-            <div class="back-con">
-                <i class="fas fa-chevron-left" id="backforpickup" onclick="window.location.href='<?=ROOT?>/Child/Home'"></i>
-            </div>
-        </div>
         <div class="Profile">
-            <p style="margin-top: -40px; margin-bottom: 20px; margin-left: 60px; cursor: pointer; color: rgba(35, 83, 167, 1);">Parent Profile</p>
+            <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer; color: rgba(35, 83, 167, 1);">My Profile</p>
         </div>
         <div class="ProfileContainer">
             <div class="leftcon">
                 <form id="editprofileleft">
-                    <img src="<?= isset($data[0]->profile)? $data[0]->profile.'?v=' . time() : '' ?>" class="profile-img" style="width: 200px; height: 200px;">
+                    <img style="width: 150px; height: 150px;" src="<?= isset($data['Image'])? $data['Image'] : '' ?>" class="profile-img">
                     <div class="datacon">
                         <div class="data">
                             <label>First Name</label>
-                            <input readonly placeholder="<?= isset($data[0]->First_Name)? $data[0]->First_Name : '' ?> " type="text">
+                            <input readonly placeholder="<?= isset($data['First_Name'])? $data['First_Name'] : '' ?>" type="text">
                         </div>
                         <div class="data">
                             <label>Last Name</label>
-                            <input readonly placeholder="<?= isset($data[0]->Last_Name)? $data[0]->Last_Name : '' ?> " type="text">
+                            <input readonly placeholder="<?= isset($data['Last_Name'])? $data['Last_Name'] : '' ?>" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Password</label>
                             <input readonly placeholder="*******" style="width: 627.5px;" type="password">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/ResetPasswordNown'" style="cursor: pointer;"> Change Password</p>
+                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/Reset-password-nown'" style="cursor: pointer;"> Change Password</p>
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>User Name</label>
-                            <input readonly placeholder="AbdullaAurad" style="width: 627.5px;" type="text">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/ChangeUsername'" style="cursor: pointer;"> Change UserName</p>
+                            <input readonly placeholder="<?= isset($data['Username'])? $data['Username'] : '' ?>" style="width: 627.5px;" type="text">
+                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/change-username'" style="cursor: pointer;"> Change UserName</p>
+                        </div>
+                    </div>
+                    <div class="datacon">
+                        <div class="data">
+                            <label>Email</label>
+                            <input readonly placeholder="<?= isset($data['Email'])? $data['Email'] : '' ?>" style="width: 627.5px;" type="text">
+                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/change-username'" style="cursor: pointer;"> Change Email</p>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="divider"></div>
             <form id="editprofileright">
-                <div class="rightcon" style="margin-top: 40px;">
+                <div class="rightcon">
                     <div class="datacon">
                         <div class="data">
-                            <label>Email</label>
-                            <input readonly placeholder="<?= isset($data[0]->Email)? $data[0]->Email : '' ?> " type="email">
-                        </div>
-                        <div class="data">
-                            <label>NID</label>
-                            <input readonly maxlength="12" placeholder="<?= isset($data[0]->NID)? $data[0]->NID : '' ?> " type="text">
+                            <label>Contact Number</label>
+                            <input readonly placeholder="<?= isset($data['Phone_Number'])? $data['Phone_Number'] : '' ?>" style="width: 627.5px;" type="text">
+                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/change-number'" style="cursor: pointer; margin-left: 420px;" > Change Mobile Number</p>
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Gender</label>
-                            <input readonly type="text" placeholder="<?= isset($data[0]->Gender)? $data[0]->Gender : '' ?> ">
+                            <input readonly type="text" placeholder="<?= ($data['Gender'] == 'M')? 'Male' : 'Female' ?>">
                         </div>
                         <div class="data">
                             <label>Language</label>
-                            <input readonly type="text" placeholder="<?= isset($data[0]->Language)? $data[0]->Language : '' ?> ">
+                            <input readonly type="text" placeholder="<?= isset($data['Language'])? $data['Language'] : '' ?>">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
-                            <label>Last seen</label>
-                            <input readonly placeholder="<?= isset($data[0]->Last_Seen)? $data[0]->Last_Seen : '' ?> " type="text">
+                            <label>Last Seen</label>
+                            <input readonly placeholder="<?= isset($data['Last_Seen'])? $data['Last_Seen'] : '' ?>" type="text">
                         </div>
                         <div class="data">
-                            <label>Contact</label>
-                            <input readonly class="number" maxlength="12" placeholder="<?= isset($data[0]->Phone_Number)? $data[0]->Phone_Number : '' ?> " type="text">
+                            <label>ParentID</label>
+                            <input style="width:293px;" class="number" maxlength="12" placeholder="<?= isset($data['ParentID'])? $data['ParentID'] : '' ?>"
+                                type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Address</label>
-                            <input readonly placeholder="<?= isset($data[0]->Address)? $data[0]->Address : '' ?> " style="width: 625px;" type="text">
+                            <input readonly  placeholder="<?= isset($data['Address'])? $data['Address'] : '' ?>" style="width: 625px;" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
-                            <label>Contact Preference</label>
-                            <input readonly type="text" placeholder="Mobile">
+                            <label>NID</label>
+                            <input name="Address" placeholder="<?= isset($data['NID'])? $data['NID'] : '' ?>" type="text">
                         </div>
                         <div class="data">
-                            <label>Visibility</label>
-                            <input readonly type="text" placeholder="Only to Manager">
+                            <label>Childs</label>
+                            <input readonly maxlength="12" placeholder="<?= isset($data['childcount'])? $data['childcount'] : '' ?>" type="text">
                         </div>
+                    </div>
+                    <div class="datacon">
+                        <!-- <div class="data">
+                            payment Methods
+                            <div style="display: flex; flex-direction: row; margin-top: 10px;">
+                                <div class="cardcon">
+                                    <img src="<?=IMAGE?>/Visa.png" class="card">
+                                    Visa
+                                </div>
+                                <div class="cardcon">
+                                    <img src="<?=IMAGE?>/master.png" class="card">
+                                    Master
+                                </div>
+                            </div>
+                            <p style="color:rgb(2, 77, 205); margin-top: 5px; font-weight: 600;">+Add payment modes</p>
+                        </div> -->
                     </div>
                 </div>
             </form>

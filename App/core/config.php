@@ -14,12 +14,12 @@
         // define('DBPASS', 'yunus2017');
         // define('DBDRIVER', 'mysql');
 
-        define('IMAGE',"http://localhost/MVC/Public/Assets/Images");
-        define('JS',"http://localhost/MVC/Public/Assets/JS");
-        define('CSS',"http://localhost/MVC/Public/Assets/CSS");
-        define('VIDEO',"http://localhost/MVC/Public/Assets/videos");
-        define('ROOT',"http://localhost/MVC/Public");
-        define('UPLOADS',"http://localhost/MVC/Public/Uploads");
+        define('IMAGE',"http://localhost/KiddoVille-UI_UX/Public/Assets/Images");
+        define('JS',"http://localhost/KiddoVille-UI_UX/Public/Assets/JS");
+        define('CSS',"http://localhost/KiddoVille-UI_UX/Public/Assets/CSS");
+        define('VIDEO',"http://localhost/KiddoVille-UI_UX/Public/Assets/videos");
+        define('ROOT',"http://localhost/KiddoVille-UI_UX/Public");
+        define('UPLOADS',"http://localhost/KiddoVille-UI_UX/Public/Uploads");
     // }
     // else{
         

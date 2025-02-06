@@ -7,27 +7,32 @@
     class GuardianProfile{
         use MainController;
         public function index(){
-
-            $session = new \Core\Session;
-            $session->check_login();
-
-            $username = $session->get('USERNAME');
-
-            $guardian = new \Modal\Guardian;
-            $pre = $guardian->first(['Parent_Name' => $username]);
-            $parentImage = getProfileImageUrl($username,"Guardian");
-            if($pre){
-                $pre->Gender = genderconvert($pre->Gender);
-                $pre->profile = $parentImage;
-            }
-            else{
-                $this->view('_404');
-            }
-
-            $data = [];
-            $data[]  = $pre;
-
+            $data = $this->store_data();
             $this->view('Child/guardianprofile',$data);
+        }
+
+        private function store_data(){
+            $data = [];
+            $session = new \core\Session;
+            $ParentModal = new \Modal\ParentUser;
+            $GuardianModal = new \Modal\Guardian;
+            $UserID = $session->get("USERID");
+        
+            $Parent = $ParentModal->first(["UserID" => $UserID]);
+            $Guardian = $GuardianModal->first(["ParentID" => $Parent->ParentID]);
+        
+            if ($Guardian) {
+                $imageData = $Guardian->Image;
+                $imageType = $Guardian->ImageType;
+                $base64Image = (!empty($imageData) && is_string($imageData)) 
+                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+                    : null;
+        
+                $Guardian->Image = $base64Image;
+                $data = (array) $Guardian;
+            }
+        
+            return $data;
         }
     }
 ?>
