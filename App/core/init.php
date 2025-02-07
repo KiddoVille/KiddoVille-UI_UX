@@ -6,10 +6,10 @@
         $classname = end($classnameParts);
 
         $directories = [
-            'C:/xampp/htdocs/MVC/App/Modals/',
-            'C:/xampp/htdocs/MVC/App/core/',
-            'C:/xampp/htdocs/MVC/App/Controllers/',
-            'C:/xampp/htdocs/MVC/App/Helper/',
+            'C:/xampp/htdocs/KiddoVille-UI_UX/App/Modals/',
+            'C:/xampp/htdocs/KiddoVille-UI_UX/App/core/',
+            'C:/xampp/htdocs/KiddoVille-UI_UX/App/Controllers/',
+            'C:/xampp/htdocs/KiddoVille-UI_UX/App/Helper/',
         ];
     
         foreach ($directories as $directory) {

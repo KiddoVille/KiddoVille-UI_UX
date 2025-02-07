@@ -84,7 +84,7 @@
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -97,8 +97,8 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -189,7 +189,7 @@
                     <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Last bill amount</h3>
                     <div class="lol" style="cursor: pointer; margin-top: 10px;">
-                        <p>7000</p>
+                        <p><?= isset($data['totalAmountPaid'])? $data['totalAmountPaid'] : '0' ;?> Rs</p>
                     </div>
                 </div>
             </div>
@@ -207,21 +207,25 @@
                         <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Payment History </h2>
                         <hr>
                         <div class="filters">
-                            <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                            <select style="margin-right: 325px; width: 200px">
-                                <option value="" hidden>Status</option>
-                                <option value="2 - 5">Approved</option>
-                                <option value="5 - 7">Pending</option>
-                                <option value="7 - 9">Canceled</option>
+                            <input type="date" id="datePicker" style="width: 200px">
+                            <select id="modePicker" style="margin-right: 100px; width: 200px">
+                                <option value="All" hidden>Mode</option>
+                                <option value="All">All</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Online">Online</option>
+                                <option value="Transfer">Transfer</option>
                             </select>
-                            <select style="margin-right: 700px; width: 200px; margin-left: -200px;">
-                                <option value="" hidden>Child</option>
-                                <option value="2 - 5">Abdulla</option>
-                                <option value="5 - 7">yunus</option>
-                                <option value="7 - 9">Ayyub</option>
+                            <select id="childPicker" style="margin-right: 400px;">
+                                <option value="All" selected hidden>Child</option>
+                                <option Value="All"> All </option>
+                                <?php foreach ($data['children'] as $child): ?>
+                                    <option value="<?= $child['name']; ?>">
+                                        <?= $child['name']; ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
-                        <table class="payments" style="margin-top: -10px;">
+                        <table id="history" class="payments" style="margin-top: -10px;">
                             <thead>
                                 <tr>
                                     <th>Payment ID</th>
@@ -234,101 +238,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="approved">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="approved">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="cancel">
-                                            <p> Declined </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="cancel">
-                                            <p> Declined </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="pending">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="approved">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="approved">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                
                             </tbody>
                         </table>
-                        <button class="pay"> Make payment </button>
                     </div>
                     <div id="upcoming" style="display: flex; flex-direction: row; align-items: flex-start;">
                         <canvas id="paymentsChart" width="500" height="200"></canvas>
@@ -444,15 +356,15 @@
             .catch(error => console.error("Error:", error));
         }
 
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+        function setChildSession(ChildID) {
+            console.log(ChildID);
+            fetch(' <?= ROOT ?>/Parent/Payment/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        childName: childName
+                        ChildID: ChildID
                     })
                 })
                 .then(response => response.json())
@@ -467,7 +379,80 @@
                 .catch(error => console.error("Error:", error));
         }
 
+        function fetchPayments(date = null, mode = null, child = null) {
+            console.log(date, child, mode)
+            fetch('<?= ROOT ?>/Parent/Payment/store_history', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        child: child,
+                        mode: mode
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("data:", data.data);
+                        updaterHistoryTable(data.data);
+                    } else {
+                        console.error("Failed to fetch meal plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function updaterHistoryTable(data) {
+            const historyTableBody = document.querySelector('#history tbody');
+            historyTableBody.innerHTML = '';
+
+            data.forEach(pay => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${pay.PaymentID ?? "No res set"}</td>
+                    <td>${pay.ChildName ?? "No res set"}</td>
+                    <td>${pay.Date ?? "No res set"}</td>
+                    <td> ${pay.Time ?? "No res set"} </td>
+                    <td> ${pay.Amount ?? "No res set"} </td>
+                    <td> <i class="fas fa-eye"></i> </td>
+                    <td> ${pay.Mode ?? "No res set"} </td>
+                `;
+                historyTableBody.appendChild(row);
+            });
+        }   
+
         document.addEventListener('DOMContentLoaded', function() {
+            const datePicker = document.getElementById('datePicker');
+            const childPicker = document.getElementById('childPicker');
+            const modePicker = document.getElementById('modePicker');
+
+            // Initial fetch with 'null' values (or a default option like 'All')
+            fetchPayments( null , null, null);
+
+            datePicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null; // Use null if empty
+                const modeValue = modePicker.value || null; // Use null if empty
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchPayments(dateValue, modeValue, childValue);
+            });
+
+            childPicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null;
+                const modeValue = modePicker.value || null;
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchPayments(dateValue, modeValue, childValue);
+            });
+
+            modePicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null;
+                const modeValue = modePicker.value || null;
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchPayments(dateValue, modeValue, childValue);
+            });
+
             const upbtn = document.getElementById('up-btn');
             const hibtn = document.getElementById('hi-btn');
             const upcoming = document.getElementById('upcoming');
@@ -475,19 +460,15 @@
             const headingres = document.getElementById('heading-res');
 
             upbtn.addEventListener('click', function() {
-                upbtn.style.color = 'white';
-                hibtn.style.color = 'black';
                 upbtn.style.backgroundColor = '#10639a';
                 hibtn.style.backgroundColor = '#60a6ec';
-                upcoming.style.display = 'block';
+                upcoming.style.display = 'flex';
                 history.style.display = 'none';
                 headingres.style.marginLeft = '180px';
                 headingres.textContent = 'Reervation';
             });
 
             hibtn.addEventListener('click', function() {
-                hibtn.style.color = 'white';
-                upbtn.style.color = 'black';
                 hibtn.style.backgroundColor = '#10639a';
                 upbtn.style.backgroundColor = '#60a6ec';
                 upcoming.style.display = 'none';
