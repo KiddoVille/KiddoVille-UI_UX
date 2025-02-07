@@ -24,6 +24,11 @@ body {
     padding-left: 20px;
 }
 
+
+.sidebar-list{
+    margin-top: 100%;
+}
+
 .sidebar h2 {
     font-size: 40px;
     margin-bottom: 20px;
@@ -80,9 +85,10 @@ body {
 
 
 .selected {
-    background-color: #2353A7;
+    background-color: #3974ba;
     border-radius: 10px;
     width: 90%;
+    margin-top: -10%;
 }
 
 .unselected a {
@@ -144,7 +150,7 @@ li:hover .dropdown {
     display: block;
     padding: 20px;
     background-size: cover;
-    height: 120vh;
+    height: fit-contentto;
     margin-left: 270px;
     background-color: #eee;
 }
@@ -551,83 +557,9 @@ li:hover .dropdown {
     gap: 60px;
    }
 
-   .scroll-container {
-    max-height: 300px; /* Limit the height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    border: 1px solid #ddd; /* Add a border for clarity */
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #f9f9f9;
-  }
 
-  .leaverequest{
-    margin-top: 0.95%;
-    margin-left: 3%;
-    width: 366px;
-    height: 600px;
-  }
-  
-  .request {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-  }
-  
-  .request:last-child {
-    margin-bottom: 0; /* Remove margin from the last request */
-  }
-  
-  /* Optional: Add a scrollbar style for better visuals */
-  .scroll-container::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .scroll-container::-webkit-scrollbar-thumb {
-    background: #888; /* Scrollbar color */
-    border-radius: 4px;
-  }
-  
-  .scroll-container::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Scrollbar hover color */
-  }
 
-  .veiwbtn{
-    border: none;
-    width: 70px;
-    height: 30px;
-    border-radius: 10px;
-    color: white;
-    background-color: #1A73E8;
-  }
-  .veiwbtn:hover{
-    cursor: pointer;
-    color: black;
-    background-color: #eee;
-  }
-
-  .resize{
-    width: 50px;
-    height: 50px;
-  }
-
-  .l_name{
-    margin-left: 18%;
-    margin-top: -16%;
-    color: #233E8D;
-  }
-  
-
- /* General Styles */
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
-
-.today_visitors {
+   .today_visitors {
     width: 90%;
     max-width: 1200px;
     background-color: #ffffff;
@@ -635,7 +567,7 @@ body {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     margin-left: 0.25%;
-    margin-top: -14%;
+    margin-top: 1%;
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -650,10 +582,18 @@ body {
     font-weight: 600;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.visitorsdate {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .visitor-table-topics {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr; /* Adjusting the columns to balance content */
     background-color: #f0f4f8;
     padding: 10px 15px;
     font-weight: 600;
@@ -661,6 +601,7 @@ body {
     text-transform: uppercase;
     font-size: 0.9em;
     color: #555555;
+    align-items: center;
 }
 
 .today_visitors_content {
@@ -670,12 +611,22 @@ body {
 }
 
 .detailed-lines {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr; /* Aligning the data into the same column structure */
     padding: 10px 15px;
     border-bottom: 1px solid #e0e6eb;
     background-color: #ffffff;
     transition: background-color 0.3s ease-in-out;
 }
+
+.detailed-lines:hover {
+    background-color: #f9f9f9;
+}
+
+.visitorname, .visitorposition, .visitorpurpose, .visitorstarttime, .visitorendtime {
+    padding: 5px;
+}
+
 
 .detailed-lines:nth-child(odd) {
     background-color: #f9fbfd;
@@ -704,119 +655,35 @@ body {
     }
 }
 
-  
-  .request {
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin: 20px auto; /* Center horizontally in the container */
+.emergency{
+    width: 19.75%;
+    height: 337px;
+    background-color:white;
+    border: 1px solid #eee;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%; /* Make the width responsive to fit smaller screens */
-    max-width: 280px; /* Limit maximum width */
+    margin-top: 1.05%;
+    margin-left: 3%;
+    overflow-y: auto;
+}
+
+
+  .scroll-container::-webkit-scrollbar {
+    width: 4px;
   }
-  
-  .viewbtn {
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: #888; /* Scrollbar color */
+    border-radius: 4px;
   }
-  
-  .viewbtn:hover {
-    background-color: #0056b3;
+
+  .scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Scrollbar hover color */
   }
-  
-  .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-  }
-  
-  .popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
+
+
+  .visitorsdate{
+    padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    padding: 20px;
-    width: 90%; /* Make popup responsive */
-    max-width: 400px; /* Limit popup width */
-    box-sizing: border-box; /* Ensure padding does not add to width */
+    background-color: #4d4c4c16;
+    margin-left: 10%;
   }
-  
-  .popup h3 {
-    margin-top: 0;
-  }
-  
-  .popup .form-field {
-    margin-bottom: 15px;
-  }
-  
-  .popup .form-field label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .popup .form-field input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box; /* Prevent horizontal overflow due to padding */
-  }
-  
-  .popup .buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .popup .approve-btn {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .popup .approve-btn:hover {
-    background-color: #218838;
-  }
-  
-  .popup .reject-btn {
-    padding: 10px 20px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .popup .reject-btn:hover {
-    background-color: #c82333;
-  }
-  
-  .close-btn {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007BFF;
-    cursor: pointer;
-  }
-  
-  .close-btn:hover {
-    text-decoration: underline;
-  }
-  

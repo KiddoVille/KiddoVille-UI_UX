@@ -22,5 +22,15 @@
             }
             return false;
         }
+<<<<<<< HEAD
+
+        public function findbyDate($date){
+            $query = "SELECT * FROM `foodplan` WHERE Date = :date";
+            $param = [':date' => $date]; 
+            $result = $this->query($query,$param);
+            return $result;
+        }
+=======
+>>>>>>> origin/main
     }
 ?>

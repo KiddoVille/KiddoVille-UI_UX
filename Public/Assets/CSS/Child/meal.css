@@ -4,12 +4,97 @@ body {
     padding: 0;
     background-color: #3a3a3a;
 }
+.container {
+    display: flex;
+}
+.sidebar {
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    justify-content: center !important;
+    padding: 20px;
+    padding-left: 0px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-bottom: 0;
+    overflow-y: auto;
+    border-right: 5px solid #007bff;
+    box-sizing: border-box;
+    width: 270px;
+}
+.sidebar h2 {
+    font-size: 40px;
+    margin-bottom: 0px;
+    margin-left: 25px;
+    color:#2353A7 ;
+    margin-top: 10px;
+}
+.sidebar ul {
+    font-weight: bold;
+    list-style: none;
+    padding: 0;
+    margin-left: 25px;
+    margin-top: -10px;
+    margin-left: 45px;
+}
+.sidebar ul li {
+    margin-bottom: -30px;
+    position: relative;
+}
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    padding: 10px;
+    transition: color 0.3s, border-color 0.3s; 
+}
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+.sidebar ul li a:hover {
+    color: #007bff;
+}
+.sidebar ul li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #007bff;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+.sidebar ul li a:hover::before {
+    transform: scaleX(1);
+}
+.sidebar .help {
+    margin-top: 10px;
+    font-size: 18px;
+    margin-left: 10px;
+    color: ;
+}
 
+<<<<<<< HEAD
+.selected {
+    background-color: #2353A7;
+    border-radius: 10px;
+    width: 90%;
+    margin-top: 40px;
+}
+.unselected a {
+    padding: 1px 10px;
+=======
 body::-webkit-scrollbar {
     display: none; /* This hides the scrollbar in Webkit-based browsers like Chrome and Safari */
 }
 .container {
     display: flex;
+>>>>>>> origin/main
 }
 .selected a {
     color: white !important;
@@ -51,9 +136,139 @@ body::-webkit-scrollbar {
     width: 520px;
 }
 
+<<<<<<< HEAD
+.table-container table:hover {
+    transform: translateY(-10px); /* Move table up slightly */
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animation */
+}
+
+.table-container th {
+    background-color: #3366cc;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Table data cell styling */
+.table-container td {
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #333; /* Dark text color for readability */
+    border-bottom: 1px solid #e0e0e0; /* Light border between rows */
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Adding hover effect on rows */
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Adding border to each cell */
+table th, table td {
+    border-right: 1px solid #ddd;
+}
+
+/* Last column should not have right border */
+table th:last-child, table td:last-child {
+    border-right: none;
+}
+
+th, td {
+    border: 1px solid #ddd; /* Light border around cells */
+    text-align: center; /* Center-align content inside cells */
+}
+
+/* Adjusting Header Style */
+.table-container th {
+    background-color: #2f855a;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase; /* Capitalize text */
+}
+
+/* Responsive font sizes */
+@media (max-width: 768px) {
+    table th, table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+.table-container tr {
+    transition: background-color 0.3s ease; /* Smooth transition for row hover */
+}
+
+.table-container th {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient background */
+    color: white;
+    padding: 20px; /* Increased padding */
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none; /* Remove border to enhance appearance */
+}
+
+td {
+    padding: 15px 20px; /* Increased padding */
+    font-size: 15px;
+    color: #555; /* Slightly lighter text color for better readability */
+}
+
+.table-container th:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff); /* Gradient hover effect */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+table th, table td {
+    border: 1px solid #ddd; /* Light border around cells */
+}
+
+table td {
+    border-bottom: 1px solid #e0e0e0; /* Subtle bottom border */
+}
+
+/* Button to trigger the snack form */
+.add-snack-btn-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.add-snack-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-snack-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Snack Popup Form Styles */
+.snack-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    justify-content: center;
+=======
 .timetable .filters {
     display: flex;
     justify-content: flex-start;
+>>>>>>> origin/main
     align-items: center;
 }
 

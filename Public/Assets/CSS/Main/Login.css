@@ -339,6 +339,9 @@ p{
 
 .appear{
     opacity: 1 !important;
+<<<<<<< HEAD
+}
+=======
 }
 
 .verification-alert {
@@ -369,3 +372,4 @@ p{
 .alert-message {
     text-align: center;
 }
+>>>>>>> origin/main
