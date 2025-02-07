@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Between Two Divs</title>
+  <style>
+    /* Toggle button style */
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 34px;
+      transition: 0.4s;
+    }
+
+    .slider::before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    .toggle input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    .toggle input:checked + .slider::before {
+      transform: translateX(26px);
+    }
+
+    /* Content div styles */
+    .content {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .content.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Toggle Between Two Content Sections</h1>
+
+  <label class="toggle">
+    <input type="checkbox" id="toggleSwitch">
+    <span class="slider"></span>
+  </label>
+
+  <!-- Content Divs -->
+  <div id="content1" class="content show">
+    
+    
+    <div class="table-container">
+        <div class="title">
+            KIDDO VILLE Food plan
+        </div>
+        <div class="navigation">
+            <span class="datebutton" onclick="changeDate('prev')">&lt;</span>
+            <span class="date-display" id="dateRange">Aug 04, 2024 - Aug 06, 2024</span>
+            <span class="datebutton" onclick="changeDate('next')">&gt;</span>
+        </div>
+        <table id="foodtable">
+            <tr>
+                <th style="background-color:#f5f5f5; border:none">
+                </th>
+                <th>
+                    <span class="date-display" id="dateHeader1">Aug 04, 2024</span>
+                </th>
+                <th>
+                    <span class="date-display" id="dateHeader2">Aug 05, 2024</span>
+                </th>
+                <th>
+                    <span class="date-display" id="dateHeader3">Aug 06, 2024</span>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    Breakfast
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">StringHoppers+CoconutSambol+PotatoCurr</option>
+                        <option value="">Milk Rice+Seeni Sambol</option>
+                        <option value="">Hoppers+SpicyOnionSambol+CoconutMilk</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected> Select the Food</option>
+                        <option value="">PlainRoti+DhalCurry+CoconutSambol</option>
+                        <option value="">Pittu+CoconutMilk+FishCurry(or vegcurry)</option>
+                        <option value="">PolRoti(CoconutRoti)+KattaSambol+Banana</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Bread + Butter+Lunu Miris + Scrambled Egg</option>
+                        <option value="">StringHoppers+KiriHodhi+Dhal</option>
+                        <option value="">Rice + Polos Curry+Coconut Sambol</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">StringHoppers+CoconutSambol+PotatoCurr</option>
+                        <option value="">Milk Rice+Seeni Sambol</option>
+                        <option value="">Hoppers+SpicyOnionSambol+CoconutMilk</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected> Select the Food</option>
+                        <option value="">PlainRoti+DhalCurry+CoconutSambol</option>
+                        <option value="">Pittu+CoconutMilk+FishCurry(or vegcurry)</option>
+                        <option value="">PolRoti(CoconutRoti)+KattaSambol+Banana</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Bread + Butter+Lunu Miris + Scrambled Egg</option>
+                        <option value="">StringHoppers+KiriHodhi+Dhal</option>
+                        <option value="">Rice + Polos Curry+Coconut Sambol</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">StringHoppers+CoconutSambol+PotatoCurr</option>
+                        <option value="">Milk Rice+Seeni Sambol</option>
+                        <option value="">Hoppers+SpicyOnionSambol+CoconutMilk</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected> Select the Food</option>
+                        <option value="">PlainRoti+DhalCurry+CoconutSambol</option>
+                        <option value="">Pittu+CoconutMilk+FishCurry(or vegcurry)</option>
+                        <option value="">PolRoti(CoconutRoti)+KattaSambol+Banana</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Bread + Butter+Lunu Miris + Scrambled Egg</option>
+                        <option value="">StringHoppers+KiriHodhi+Dhal</option>
+                        <option value="">Rice + Polos Curry+Coconut Sambol</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Morning Tea time
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Bun + Milk Tea + Banana</option>
+                        <option value="">Plain Cake + Orange Juice</option>
+                        <option value="">Biscuits + Warm Milk + Apple Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Savory Puff Pastry + Lemon Tea</option>
+                        <option value="">Sweet Bun + Mango Juice </option>
+                        <option value="">Cupcake + Fresh Watermelon Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Milk Toffee + Herbal Tea</option>
+                        <option value="">Bread And Butter+Jam + WarmMilk </option>
+                        <option value="">Sandwiches(CheeseOrEgg)+IcedMilo</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Bun + Milk Tea + Banana</option>
+                        <option value="">Plain Cake + Orange Juice</option>
+                        <option value="">Biscuits + Warm Milk + Apple Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Savory Puff Pastry + Lemon Tea</option>
+                        <option value="">Sweet Bun + Mango Juice </option>
+                        <option value="">Cupcake + Fresh Watermelon Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Milk Toffee + Herbal Tea</option>
+                        <option value="">Bread And Butter+Jam + WarmMilk </option>
+                        <option value="">Sandwiches(CheeseOrEgg)+IcedMilo</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Bun + Milk Tea + Banana</option>
+                        <option value="">Plain Cake + Orange Juice</option>
+                        <option value="">Biscuits + Warm Milk + Apple Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Savory Puff Pastry + Lemon Tea</option>
+                        <option value="">Sweet Bun + Mango Juice </option>
+                        <option value="">Cupcake + Fresh Watermelon Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Milk Toffee + Herbal Tea</option>
+                        <option value="">Bread And Butter+Jam + WarmMilk </option>
+                        <option value="">Sandwiches(CheeseOrEgg)+IcedMilo</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Lunch
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Rice+Chicken Curry+Dhal Curry+Mallung</option>
+                        <option value="">Rice+Fish Curry+Pumpkin Curry+Papadam</option>
+                        <option value="">Rice+Dhal+Beetroot Curry+Coconut Sambol</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">YellowRice+ChickenFry+Salad+Potato</option>
+                        <option value="">Rice+Soya MeatCurry+GotuKola+Dhal</option>
+                        <option value="">Rice+FishAmbulThiyal+CabbageMall+Carrot</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">FriedRice+DeviledChicken+TomatoAndCucu</option>
+                        <option value="">Rice+PolosCurry+Beans+CoconutSambol</option>
+                        <option value="">Rice+EggCurry+SpinachCurry+BrinjalMoju</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Rice+Chicken Curry+Dhal Curry+Mallung</option>
+                        <option value="">Rice+Fish Curry+Pumpkin Curry+Papadam</option>
+                        <option value="">Rice+Dhal+Beetroot Curry+Coconut Sambol</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">YellowRice+ChickenFry+Salad+Potato</option>
+                        <option value="">Rice+Soya MeatCurry+GotuKola+Dhal</option>
+                        <option value="">Rice+FishAmbulThiyal+CabbageMall+Carrot</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">FriedRice+DeviledChicken+TomatoAndCucu</option>
+                        <option value="">Rice+PolosCurry+Beans+CoconutSambol</option>
+                        <option value="">Rice+EggCurry+SpinachCurry+BrinjalMoju</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Rice+Chicken Curry+Dhal Curry+Mallung</option>
+                        <option value="">Rice+Fish Curry+Pumpkin Curry+Papadam</option>
+                        <option value="">Rice+Dhal+Beetroot Curry+Coconut Sambol</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">YellowRice+ChickenFry+Salad+Potato</option>
+                        <option value="">Rice+Soya MeatCurry+GotuKola+Dhal</option>
+                        <option value="">Rice+FishAmbulThiyal+CabbageMall+Carrot</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">FriedRice+DeviledChicken+TomatoAndCucu</option>
+                        <option value="">Rice+PolosCurry+Beans+CoconutSambol</option>
+                        <option value="">Rice+EggCurry+SpinachCurry+BrinjalMoju</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Evening Tea time
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Bun + Milk Tea + Banana</option>
+                        <option value="">Plain Cake + Orange Juice</option>
+                        <option value="">Biscuits + Warm Milk + Apple Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Savory Puff Pastry + Lemon Tea</option>
+                        <option value="">Sweet Bun + Mango Juice </option>
+                        <option value="">Cupcake + Fresh Watermelon Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Milk Toffee + Herbal Tea</option>
+                        <option value="">Bread And Butter+Jam + WarmMilk </option>
+                        <option value="">Sandwiches(CheeseOrEgg)+IcedMilo</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Bun + Milk Tea + Banana</option>
+                        <option value="">Plain Cake + Orange Juice</option>
+                        <option value="">Biscuits + Warm Milk + Apple Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Savory Puff Pastry + Lemon Tea</option>
+                        <option value="">Sweet Bun + Mango Juice </option>
+                        <option value="">Cupcake + Fresh Watermelon Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Milk Toffee + Herbal Tea</option>
+                        <option value="">Bread And Butter+Jam + WarmMilk </option>
+                        <option value="">Sandwiches(CheeseOrEgg)+IcedMilo</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Bun + Milk Tea + Banana</option>
+                        <option value="">Plain Cake + Orange Juice</option>
+                        <option value="">Biscuits + Warm Milk + Apple Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Savory Puff Pastry + Lemon Tea</option>
+                        <option value="">Sweet Bun + Mango Juice </option>
+                        <option value="">Cupcake + Fresh Watermelon Slices</option>
+                    </select>
+                    <br>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Milk Toffee + Herbal Tea</option>
+                        <option value="">Bread And Butter+Jam + WarmMilk </option>
+                        <option value="">Sandwiches(CheeseOrEgg)+IcedMilo</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dinner(For 24 hours service)
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">String Hoppers+Coconut Sambol+Fish Curry</option>
+                        <option value="">Plain Roti + Dhal Curry + Potato Fry</option>
+                        <option value="">Hoppers + Coconut Milk+Seeni Sambol</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Pittu + Coconut Milk + Chicken Curry</option>
+                        <option value="">Milk Rice (Kiribath) +Katta Sambol + Banana</option>
+                        <option value="">Rice + Egg Curry + Gotu Kola Sambol </option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">FriedRice+SoySauceFriedVegetab+Omelette</option>
+                        <option value="">Rice + Pumpkin Curry + Dhal + Papadam</option>
+                        <option value="">Roti + Fish Cutlet + Coconut Sambol</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">String Hoppers+Coconut Sambol+Fish Curry</option>
+                        <option value="">Plain Roti + Dhal Curry + Potato Fry</option>
+                        <option value="">Hoppers + Coconut Milk+Seeni Sambol</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Pittu + Coconut Milk + Chicken Curry</option>
+                        <option value="">Milk Rice (Kiribath) +Katta Sambol + Banana</option>
+                        <option value="">Rice + Egg Curry + Gotu Kola Sambol </option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">FriedRice+SoySauceFriedVegetab+Omelette</option>
+                        <option value="">Rice + Pumpkin Curry + Dhal + Papadam</option>
+                        <option value="">Roti + Fish Cutlet + Coconut Sambol</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">String Hoppers+Coconut Sambol+Fish Curry</option>
+                        <option value="">Plain Roti + Dhal Curry + Potato Fry</option>
+                        <option value="">Hoppers + Coconut Milk+Seeni Sambol</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">Pittu + Coconut Milk + Chicken Curry</option>
+                        <option value="">Milk Rice (Kiribath) +Katta Sambol + Banana</option>
+                        <option value="">Rice + Egg Curry + Gotu Kola Sambol </option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Food</option>
+                        <option value="">FriedRice+SoySauceFriedVegetab+Omelette</option>
+                        <option value="">Rice + Pumpkin Curry + Dhal + Papadam</option>
+                        <option value="">Roti + Fish Cutlet + Coconut Sambol</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="title">
+            KIDDO VILLE SNACK PLAN
+        </div>
+        <table id="snacktable">
+            <tr>
+                <th style="background-color: #f5f5f5;border:none">
+                </th>
+                <th>
+                    <span class="date-display" id="snackDateHeader1">Aug 04, 2024</span>
+                </th>
+                <th>
+                    <span class="date-display" id="snackDateHeader2">Aug 05, 2024</span>
+                </th>
+                <th>
+                    <span class="date-display" id="snackDateHeader3">Aug 06, 2024</span>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    Breakfast
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Yogurt Parfait</option>
+                        <option value="">Peanut Butter Banana Toast</option>
+                        <option value="">Avocado Toast</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Fruit and Nut Energy Bites</option>
+                        <option value="">Cheese and Crackers</option>
+                        <option value="">Hard-Boiled Eggs</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Oatmeal Cups</option>
+                        <option value="">Mini Breakfast Burritos</option>
+                        <option value="">Muffins</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Yogurt Parfait</option>
+                        <option value="">Peanut Butter Banana Toast</option>
+                        <option value="">Avocado Toast</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Fruit and Nut Energy Bites</option>
+                        <option value="">Cheese and Crackers</option>
+                        <option value="">Hard-Boiled Eggs</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Oatmeal Cups</option>
+                        <option value="">Mini Breakfast Burritos</option>
+                        <option value="">Muffins</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Yogurt Parfait</option>
+                        <option value="">Peanut Butter Banana Toast</option>
+                        <option value="">Avocado Toast</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Fruit and Nut Energy Bites</option>
+                        <option value="">Cheese and Crackers</option>
+                        <option value="">Hard-Boiled Eggs</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Oatmeal Cups</option>
+                        <option value="">Mini Breakfast Burritos</option>
+                        <option value="">Muffins</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Lunch
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Hummus and Veggies</option>
+                        <option value="">Turkey and Cheese Roll-Ups</option>
+                        <option value="">Caprese Skewers</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Quinoa Salad</option>
+                        <option value="">Pita Bread with Tzatziki</option>
+                        <option value="">Mini Quesadillas</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Rice Cakes with Avocado</option>
+                        <option value="">Sushi Rolls</option>
+                        <option value="">Fruit and Nut Snack Box</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Hummus and Veggies</option>
+                        <option value="">Turkey and Cheese Roll-Ups</option>
+                        <option value="">Caprese Skewers</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Quinoa Salad</option>
+                        <option value="">Pita Bread with Tzatziki</option>
+                        <option value="">Mini Quesadillas</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Rice Cakes with Avocado</option>
+                        <option value="">Sushi Rolls</option>
+                        <option value="">Fruit and Nut Snack Box</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Hummus and Veggies</option>
+                        <option value="">Turkey and Cheese Roll-Ups</option>
+                        <option value="">Caprese Skewers</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Quinoa Salad</option>
+                        <option value="">Pita Bread with Tzatziki</option>
+                        <option value="">Mini Quesadillas</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Rice Cakes with Avocado</option>
+                        <option value="">Sushi Rolls</option>
+                        <option value="">Fruit and Nut Snack Box</option>
+                    </select>
+                </td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dinner(For 24 hours service)
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Hummus and Veggies</option>
+                        <option value="">Vegetable Fried Rice</option>
+                        <option value="">Fish or Chicken Roll</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Pumpkin and Lentil Stew</option>
+                        <option value="">Stuffed Bell Peppers</option>
+                        <option value="">Coconut and Vegetable Kottu</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Dhal and Vegetable Fritters</option>
+                        <option value="">Pasta Salad</option>
+                        <option value="">Sweet Potato Mash</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Hummus and Veggies</option>
+                        <option value="">Vegetable Fried Rice</option>
+                        <option value="">Fish or Chicken Roll</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Pumpkin and Lentil Stew</option>
+                        <option value="">Stuffed Bell Peppers</option>
+                        <option value="">Coconut and Vegetable Kottu</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Dhal and Vegetable Fritters</option>
+                        <option value="">Pasta Salad</option>
+                        <option value="">Sweet Potato Mash</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Hummus and Veggies</option>
+                        <option value="">Vegetable Fried Rice</option>
+                        <option value="">Fish or Chicken Roll</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Pumpkin and Lentil Stew</option>
+                        <option value="">Stuffed Bell Peppers</option>
+                        <option value="">Coconut and Vegetable Kottu</option>
+                    </select>
+                    <br />
+                    <select name="" id="selectfood">
+                        <option value="" disabled selected>Select the Snack</option>
+                        <option value="">Dhal and Vegetable Fritters</option>
+                        <option value="">Pasta Salad</option>
+                        <option value="">Sweet Potato Mash</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="button-row">
+            <button class="reset-button" onclick="resetSelects()">Reset</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="content2" class="content">
+    
+    <form id="staffAllocationForm">
+        <h1>Staff Allocation</h1>
+
+        <div class="form-group">
+            <label for="staff">Staff</label>
+            <select id="staff" class="styled-select" required>
+                <option value="" disabled selected>Select Staff</option>
+                <option value="Rahul">Ms. Rahul</option>
+                <option value="Thilina">Ms. Thilina</option>
+                <option value="Hanshika">Ms. Hanshika</option>
+                <option value="Kivitha">Ms. Kivitha</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="age-group">Age Group</label>
+            <select id="age-group" class="styled-select" required>
+                <option value="" disabled selected>Select Age Group</option>
+                <option value="2">Age: 2</option>
+                <option value="3">Age: 3</option>
+                <option value="4-5">Age: 4 - 5</option>
+                <option value="6-8">Age: 6 - 8</option>
+                <option value="9-11">Age: 9 - 11</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="activity">Activity</label>
+            <select id="activity" class="styled-select" required>
+                <option value="" disabled selected>Select Activity</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="tea-time">Tea Time</option>
+                <option value="lunch">Lunch</option>
+                <option value="creative-activity">Creative Activity</option>
+                <option value="story-time">Story Time</option>
+                <option value="outdoor-time">Outdoor Time</option>
+                <option value="basic-learning">Basic Learning Time</option>
+                <option value="tea-time-evening">Tea Time Evening</option>
+                <option value="end-time">End Time</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="start-time">Start Time</label>
+            <select id="start-time" class="styled-select" required>
+                <option value="" disabled selected>Select Start Time</option>
+                <option value="08:00">08:00</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="end-time">End Time</label>
+            <select id="end-time" class="styled-select" required>
+                <option value="" disabled selected>Select End Time</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location</label>
+            <select id="location" class="styled-select" required>
+                <option value="" disabled selected>Select Location</option>
+                <option value="room-1">Room 1</option>
+                <option value="room-2">Room 2</option>
+                <option value="room-3">Room 3</option>
+                <option value="room-4">Room 4</option>
+                <option value="room-5">Room 5</option>
+            </select>
+        </div>
+        
+        <div class="buttons">
+            <button type="button" onclick="saveForm()">Save</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+    <a href="<?=ROOT?>/Manager/Home"><button>Back</button></a>
+</div>
+
+  </div>
+
+  <script>
+    const toggleSwitch = document.getElementById('toggleSwitch');
+    const content1 = document.getElementById('content1');
+    const content2 = document.getElementById('content2');
+
+    toggleSwitch.addEventListener('change', () => {
+      if (toggleSwitch.checked) {
+        content1.classList.remove('show');
+        content2.classList.add('show');
+      } else {
+        content1.classList.add('show');
+        content2.classList.remove('show');
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -53,7 +53,7 @@
 
             <ul>
                 <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;">
+                    <a href="<?= ROOT ?>/Manager/Holiday" style="font-size: 18px;">
                         <i class="fas fa-umbrella-beach"></i> Holiday</a>
                 </li>
             </ul>

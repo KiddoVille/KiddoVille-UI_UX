@@ -7,7 +7,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Schedule.css?v=<?= time() ?>" />
     <link rel="icon" href="<?= CSS ?>/Manager/KIDDOVILLE_LOGO.jpg">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/Dashboard.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/Account.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Manage-problem.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Manager/profileview.js"></script>
 </head>
@@ -18,7 +20,7 @@
             <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
             <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
         </div>
-        <ul style=" margin-top: 10%;">
+        <ul>
             <li class="hover-effect unselected">
                 <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
@@ -76,7 +78,7 @@
             </ul>
         </ul>
     </div>
-    <div class="header" style="margin-top:0.05%">
+    <div class="header" style="margin-top:-1%">
         <div class="name">
             <h1>Hey Namal</h1>
             <p style="color: white;">Let’s do some productive activities today</p>
@@ -113,8 +115,8 @@
             <h1 style="color:#233E8D;font-size:24px;margin-left:8%;"><i class="fas fa-exclamation-circle"></i>
                 Manage Problems</h1>
             <hr>
-            <div class="filter-container" >
-                <select id="problem-type"style="background: white;">
+            <div class="filter-container">
+                <select id="problem-type">
                     <option value="" disabled selected>Select problem type</option>
                     <option value="Maid-Issue">Maid Issue</option>
                     <option value="Meal-Issue">Meal Issue</option>
@@ -137,7 +139,7 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <div class="uprofile">
+                        <div class="profile">
                             <img alt="Profile picture of Muhammad Alshamman" height="50" src="<?= IMAGE ?>/profilePic.png"
                                 width="70" />
                             <span class="user-name">
@@ -163,7 +165,7 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <div class="uprofile">
+                        <div class="profile">
                             <img alt="Profile picture of Abdullah Qureshi" height="50" src="<?= IMAGE ?>/profilePic.png" width="50" />
                             <span class="user-name">
                                 Abdullah Qureshi
@@ -188,7 +190,7 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <div class="uprofile">
+                        <div class="profile">
                             <img alt="Profile picture of Hannah Jacob" height="50" src="<?= IMAGE ?>/profilePic.png" width="50" />
                             <span class="user-name">
                                 Hannah Jacob
@@ -213,7 +215,7 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <div class="uprofile">
+                        <div class="profile">
                             <img alt="Profile picture of Muhammad Ewais" height="50" src="<?= IMAGE ?>/profilePic.png" width="50" />
                             <span class="user-name">
                                 Muhammad Ewais

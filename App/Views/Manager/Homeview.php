@@ -55,7 +55,7 @@
 
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;">
+                        <a href="<?= ROOT ?>/Manager/Holiday" style="font-size: 18px;">
                             <i class="fas fa-umbrella-beach"></i> Holiday</a>
                     </li>
                 </ul>
@@ -202,25 +202,18 @@
                 <div class="emergency">
                     <h2 style="color: #233E8D;margin-left:5%;margin-top:5%;">Emergency Alerts</h2>
                     <hr>
-                    <div class="request" data-name="John Doe" data-role="Teacher" data-dates="2024-12-20 to 2024-12-22" data-reason="Flu">
-                        <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
-                        <p class="l_name" style="margin-left:30%;margin-top:-24%;"><strong>John Doe</strong><br>Teacher</p>
-                        <p>Reason:Today do not come to the class.be...</p>
-                        <button class="viewbtn">View</button>
-                    </div>
-                    <div class="request" data-name="John Doe" data-role="Teacher" data-dates="2024-12-20 to 2024-12-22" data-reason="Flu">
-                        <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
-                        <p class="l_name" style="margin-left:30%;margin-top:-24%;"><strong>John Doe</strong><br>Maid</p>
-                        <p>Reason: Child emergency situation</p>
-                        <button class="viewbtn">View</button>
-                    </div>
-                    <div class="request" data-name="John Doe" data-role="Teacher" data-dates="2024-12-20 to 2024-12-22" data-reason="Flu">
-                        <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
-                        <p class="l_name" style="margin-left:30%;margin-top:-24%;"><strong>John Doe</strong><br>Parent</p>
-                        <p>Reason: Today i will pick my child at 1:00 P.M</p>
-                        <button class="viewbtn">View</button>
-                    </div>
-                </div>
+                    <?php if (!empty($data['allemergency'])): ?>
+                        <?php foreach ($data['allemergency'] as $emergency): ?>
+                                <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
+                                <p class="Description" style="margin-left:30%;margin-top:-24%;"><strong><?= htmlspecialchars($emergency->Description); ?></strong><br>Teacher</p>
+                                <p>Reason:Today do not come to the class.be...</p>
+                                <button>Delete</button>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No Emergency alert found.</p>
+                    <?php endif; ?>
+                </div>   
             </div>
 
             <div class="today_visitors" style="padding-bottom: 2%;">
@@ -240,9 +233,9 @@
                 <?php if (!empty($data['visitorsummary'])): ?>
                     <?php foreach ($data['visitorsummary'] as $visitor): ?>
                         <div class="detailed-lines">
-                            <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName);?></span></div>
-                            <div class="visitorposition"><span><?= htmlspecialchars($visitor->Role);?></span></div>
-                            <div class="visitorpurpose"><span><?= htmlspecialchars($visitor->Purpose);?></span></div>
+                            <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
+                            <div class="visitorposition"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
+                            <div class="visitorpurpose"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
                             <div class="visitorstarttime"><span><?= htmlspecialchars($visitor->Start_Time); ?></span></div>
                             <div class="visitorendtime"><span><?= htmlspecialchars($visitor->End_Time); ?></span></div>
                         </div>
