@@ -2,17 +2,6 @@ body::-webkit-scrollbar {
     display: none;
 }
 
-hr {
-    border: 1px solid #ccccccb0;
-    margin: 5px 0px;
-}
-
-.attendance-hr {
-    border: 1px solid #ccccccb0;
-    margin-bottom: -10px !important;
-    margin-top: -5px !important;
-}
-
 .activity-schedule {
     background-color: #fff;
     padding: 20px;
@@ -82,8 +71,22 @@ hr {
     padding-bottom: 15px;
 }
 
-.timetable table tr {
-    border-bottom: 4px solid lightgray;
+.timetable table tr:nth-child(even) {
+    background-color: #809ffe;
+    border-bottom: 4px solid #0206ff;
+    color: white;
+}
+
+.timetable table tr:nth-child(odd) {
+    border-bottom: 3px solid #007bff;
+}
+
+.timetable table tr:nth-child(even):hover {
+    background-color: #517bfb;
+}
+
+.timetable table tr:hover {
+    background-color: #e0e0e0;
 }
 
 .timetable .description {
@@ -154,7 +157,7 @@ hr {
 .pickup-section label {
     display: block;
     font-size: 16px;
-    color: #4380D1;
+    color: #1e88e5;
     margin-bottom: 10px;
     font-weight: bold;
 }
@@ -598,14 +601,14 @@ td {
 
 .report-page {
     border-radius: 15px;
-    box-shadow: 0 2px 7px 0.001px rgba(0, 0, 0, 0.15);
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
+    background: #d9d9d9;
     padding: 25px;
     margin: 20px 20px;
-    margin-top: 90px;
+    margin-top: 80px;
     width: 1140px;
-    background-color: #fff;
 }
 
 .report-header {
@@ -619,7 +622,7 @@ td {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: 0 2px 7px 0.0001px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
     background-color: #fff;
@@ -634,13 +637,15 @@ td {
 }
 
 .report-header .profile img {
-    width: 150px;
+    width: 160px;
 }
 
 .profile .sub-details {
     color: var(--light-black);
     display: flex;
     justify-content: space-between;
+
+
 }
 
 .profile .first-row {
@@ -651,26 +656,17 @@ td {
     justify-content: center;
     align-items: center;
 }
-.first-row img{
-    border-radius: 35px;
-}
 
 .report-header .attendence-bar {
     padding: 20px 10px;
-    flex: 1;
-    box-shadow: 0 2px 7px 0.001px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
     background-color: #fff;
 }
 
-
-
 .attendence-bar {
     padding: 0px 20px;
-}
-.attendence-bar .child present{
-
 }
 
 .attendence-bar hr {
@@ -679,7 +675,7 @@ td {
 }
 
 .attendence-bar .progress-bar {
-    margin-top: 0px;
+    margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
     display: flex;
@@ -938,7 +934,7 @@ td {
 }
 .button {
     position: relative;
-    background-color: #4380D1;
+    background-color: #007bff;
     color: white;
     padding: 10px;
     text-align: center;
@@ -946,8 +942,6 @@ td {
     text-decoration: none;
     display: inline-block;
     transition: background-color 0.3s, transform 0.3s;
-    border: none;
-    outline: none;
 }
 
 .payment-overview {
@@ -955,27 +949,13 @@ td {
 }
 
 .upcoming-payment {
-    flex:1;
-    background-color: #f0efefd7;
-    border-radius: 20px;
+    background-color: #e0f7fa;
 }
 
 .overdue-payment {
-    flex: 1;
-    background-color: #f0efefd7;
+    background-color: #ffebee;
     display: flex;
     flex-direction: row;
-    border-radius: 20px;
-}
-.overdue-payment p, .upcoming-payment p{
-    font-size: 0.9rem;
-    padding-top: 10px;
-}
-.overdue-payment button{
-    background-color: rgb(243, 210, 44);
-    margin-bottom: 10px;
-    color: #353535;
-    font-weight: 600;
 }
 
 .upcoming {
@@ -1087,19 +1067,17 @@ td {
     display: flex;
     align-items: center;
     background-color: #fff;
-    border: 1px solid rgba(0,0,0,0.25);
-    padding: 0px 10px;
+    border: 1px solid lightblue;
+    padding: 0px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    width: 91%;
+    width: 185px;
     margin-top: 5px;
-    margin-bottom: 10px;
-    margin-right: 20px;
 }
 
 /* Styling for the child photo */
 .child-photo {
-    width: 50px !important;
+    width: 50px;
     height: 50px;
     border-radius: 13px;
     margin-right: 20px;
@@ -1110,29 +1088,13 @@ td {
     display: flex;
     flex-direction: column;
     margin-bottom: -5px;
+    margin-right: -10px;
 }
 
 .child-name {
     font-size: 16px;
     font-weight: bold;
     margin-top: 10px !important;
-}
-
-.progress-bar {
-    margin-top: 0px;
-    margin-left: 20px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba 65%, rgba(204, 204, 204, 0.56) 0);
-}
-
-.progress-bar::before {
-    content: "65%";
 }
 
 .attendancestatus {
@@ -1218,27 +1180,6 @@ td{
 .task-container, #taskbtn {
     transition: transform 0.6s ease;
 }
-.children-list li {
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
+.children-list{
     justify-content: left !important;
-    text-align: left;
-    align-items: center;
-    margin-left: 30px;
-}
-.sidebar-2 ul li::before {
-    content: '';
-    position: absolute;
-    left: -20px;
-    bottom: -2px;
-    height: 2px;
-    width: 100%;
-    background-color: white;
-    transform: scaleX(0);
-    transition: transform 0.3s;
-}
-.child-info .child-name{
-    margin-right: -10px !important;
 }

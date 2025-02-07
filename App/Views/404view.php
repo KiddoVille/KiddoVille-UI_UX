@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+<h1> View file not found </h1>
+=======
 <html>
 
 <head>
@@ -81,3 +84,4 @@
 </body>
 
 </html>
+>>>>>>> origin/main

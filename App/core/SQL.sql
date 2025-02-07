@@ -1170,6 +1170,192 @@ CREATE TABLE Attendance (
     FOREIGN KEY (ChildID) REFERENCES Child (ChildID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
+CREATE TABLE EmployeeAttendance (
+    AttendanceID INT NOT NULL AUTO_INCREMENT,
+    UserID INT NOT NULL,
+    Start_Date DATE NOT NULL,
+    Start_Time TIME NOT NULL,
+    End_Date DATE,
+    End_Time TIME,
+    Status ENUM('Present', 'Absent') NOT NULL,
+    PRIMARY KEY (AttendanceID),
+    FOREIGN KEY (UserID) REFERENCES User (UserID) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+INSERT INTO
+    EmployeeAttendance (
+        UserID,
+        Start_Date,
+        Start_Time,
+        End_Date,
+        End_Time,
+        Status
+    )
+VALUES (
+        29,
+        '2025-01-01',
+        '08:00:00',
+        '2025-01-01',
+        '15:00:00',
+        'Present'
+    ),
+    (
+        30,
+        '2025-01-01',
+        '08:30:00',
+        '2025-01-01',
+        '14:45:00',
+        'Present'
+    ),
+    (
+        31,
+        '2025-01-01',
+        '09:00:00',
+        '2025-01-01',
+        '13:30:00',
+        'Absent'
+    ),
+    (
+        32,
+        '2025-01-01',
+        '08:15:00',
+        '2025-01-01',
+        '12:45:00',
+        'Absent'
+    ),
+    (
+        33,
+        '2025-01-01',
+        '07:50:00',
+        NULL,
+        NULL,
+        'Absent'
+    ),
+    (
+        19,
+        '2025-01-02',
+        '08:10:00',
+        '2025-01-02',
+        '15:20:00',
+        'Present'
+    ),
+    (
+        20,
+        '2025-01-02',
+        '08:25:00',
+        '2025-01-02',
+        '14:30:00',
+        'Present'
+    ),
+    (
+        21,
+        '2025-01-02',
+        '08:50:00',
+        '2025-01-02',
+        '13:10:00',
+        'Absent'
+    ),
+    (
+        22,
+        '2025-01-02',
+        '08:00:00',
+        '2025-01-02',
+        '16:00:00',
+        'Present'
+    ),
+    (
+        23,
+        '2025-01-02',
+        '08:30:00',
+        NULL,
+        NULL,
+        'Absent'
+    ),
+    (
+        14,
+        '2025-01-03',
+        '08:00:00',
+        '2025-01-03',
+        '15:10:00',
+        'Present'
+    ),
+    (
+        15,
+        '2025-01-03',
+        '08:40:00',
+        '2025-01-03',
+        '14:00:00',
+        'Absent'
+    ),
+    (
+        16,
+        '2025-01-03',
+        '08:30:00',
+        '2025-01-03',
+        '14:15:00',
+        'Present'
+    ),
+    (
+        17,
+        '2025-01-03',
+        '07:55:00',
+        '2025-01-03',
+        '12:30:00',
+        'Absent'
+    ),
+    (
+        18,
+        '2025-01-03',
+        '08:00:00',
+        '2025-01-03',
+        '15:00:00',
+        'Present'
+    ),
+    (
+        1,
+        '2025-01-04',
+        '08:20:00',
+        '2025-01-04',
+        '14:50:00',
+        'Absent'
+    ),
+    (
+        2,
+        '2025-01-04',
+        '08:00:00',
+        '2025-01-04',
+        '15:10:00',
+        'Present'
+    ),
+    (
+        3,
+        '2025-01-04',
+        '09:00:00',
+        '2025-01-04',
+        '14:00:00',
+        'Absent'
+    ),
+    (
+        4,
+        '2025-01-04',
+        '08:15:00',
+        '2025-01-04',
+        '15:30:00',
+        'Present'
+    ),
+    (
+        5,
+        '2025-01-04',
+        '08:10:00',
+        NULL,
+        NULL,
+        'Absent'
+    );
+
+
+=======
+>>>>>>> origin/main
 ALTER TABLE attendance
 ADD COLUMN Pickup ENUM('Parent', 'Guardian', 'Other');
 

@@ -1,0 +1,257 @@
+.main-content {
+    padding: 20px;
+    position: relative;
+    height: 100% !important;
+    overflow: hidden !important;
+    margin-left: 270px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.saperate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.lol {
+    padding: 10px 10px;
+    background-color: #00FFFF;
+    color: #004099;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #004099;
+    border-radius: 10px;
+    padding-top: 0px !important;
+    justify-content: center;
+}
+
+.lol p {
+    color: #004099;
+}
+
+.reservation-container {
+    background-color: white;
+    border: 5px solid #00D0FF;
+    border-radius: 12px;
+    padding: 20px 30px;
+    width: 80%;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    height: 420px;
+    margin-bottom: -10px;
+}
+
+.reservation-container:hover {
+    transform: translateY(-10px);
+}
+
+.reservation-container h1 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: -10px;
+}
+
+.reservation-container .filters {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.reservation-container .filters input,
+.reservation-container .filters select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+.reservation-container .filters input[type="date"] {
+    width: 250px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 100px;
+}
+
+.reservation-container .filters select {
+    width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+}
+
+.reservation-container .filters select option {
+    text-align: center;
+}
+
+.reservation-container .table-container {
+    max-height: 300px;
+    overflow: hidden;
+    /* Hide the scrollbar initially */
+    position: relative;
+}
+
+.reservation-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+.reservation-container thead {
+    background-color: #0288d1;
+    color: #ffffff;
+}
+
+.reservation-container th,
+.reservation-container td {
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.reservation-container th {
+    background-color: #0288d1;
+    color: #ffffff;
+    font-weight: 800;
+    white-space: nowrap;
+    padding: 10px;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.reservation-container tbody {
+    display: block;
+    max-height: 240px;
+    overflow-y: hidden;
+    /* Initially hidden */
+    overflow-x: hidden;
+}
+
+.reservation-container tbody:hover {
+    overflow-y: auto;
+    /* Enable scrolling on hover */
+}
+
+.reservation-container tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.reservation-container td {
+    color: #333;
+    background-color: #f7f9fc;
+}
+
+.reservation-container tr:nth-child(even) td {
+    background-color: #eaf3fa;
+}
+
+.reservation-container tr:hover td {
+    background-color: #d1ecf5;
+}
+
+/* Custom scrollbar for Webkit browsers */
+.reservation-container tbody::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+    /* Initially hidden */
+}
+
+.reservation-container tbody:hover::-webkit-scrollbar {
+    background: transparent;
+}
+
+.reservation-container tbody::-webkit-scrollbar-thumb {
+    background-color: #60a6ec;
+    border-radius: 8px;
+}
+
+.reservation-container tbody::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.edit i {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: #0056b3;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.approved {
+    background-color: #A2EDEA;
+    border-color: #00FFF5;
+    border: 2px solid #099690;
+    border-radius: 20px;
+    height: 40px;
+}
+
+.approved p {
+    color: #099690;
+    margin-top: 10px;
+}
+
+.pending {
+    background-color: #F1E1FE;
+    border-color: #BC6BFF;
+    border: 2px solid #BC6BFF;
+    border-radius: 20px;
+    height: 40px;
+}
+
+.pending p {
+    color: #BC6BFF;
+    margin-top: 10px;
+}
+
+.cancel {
+    background-color: #F6DADA;
+    border-color: #FF8787;
+    border: 2px solid #FF8787;
+    border-radius: 20px;
+    height: 40px;
+}
+
+.cancel p {
+    color: #FF8787;
+    margin-top: 10px;
+}
+
+.pay {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 0px;
+    margin-left: 837px;
+    margin-top: 10px;
+}
+
+.pay:hover {
+    background-color: #0056b3;
+}
+
+.sidebar ul {
+    margin-top: -10px !important;
+}
+
+.sidebar.minimized ul {
+    margin-top: -19px !important;
+}

@@ -18,6 +18,13 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
     data-tag="font" />
+<<<<<<< HEAD
+    <link href="./Landing.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Profile.css" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Footer.css" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Header.css" />
+    <script src="<?=JS?>/Main/profile.js"></script>
+=======
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC20T-Ebp7Ly_5NzpJukTJ9JjD6rALsq3c&libraries=places&callback=initMap" async defer></script>
   <link href="./Landing.css" rel="stylesheet" />
   <link rel="stylesheet" href="<?= CSS ?>/Main/Profile.css?v=<?= time() ?>" />
@@ -26,6 +33,7 @@
   <link rel="stylesheet" href="<?= CSS ?>/variables.css?v=<?= time() ?>" />
   <script src="<?= JS ?>/Main/profile.js?v=<?= time() ?>"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC20T-Ebp7Ly_5NzpJukTJ9JjD6rALsq3c&libraries=places&callback=initMap" async defer></script>
+>>>>>>> origin/main
 </head>
 
 <body style="background:url(<?= IMAGE ?>/back-login.jpg); background-size:cover; ">
@@ -36,6 +44,15 @@
         <img src="<?= IMAGE ?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
       </div>
       <div class="navbar-links">
+<<<<<<< HEAD
+        <a href="<?=ROOT?>/Main/Home"><button class="navbar-link">Home</button></a>
+        <a href="<?=ROOT?>/Main/Profile"><button class="navbar-link select">Profile</button></a>
+        <a href="<?=ROOT?>/Main/Blog"> <button class="navbar-link">Blog</button></a>
+        <a href="<?=ROOT?>/Main/AboutUs"><button class="navbar-link">AboutUs</button></a>
+        <a href="<?ROOT?>Main/Help"><button class="navbar-link">ContactUs</button></a>
+        <a href="<?ROOT?>Main/Login"><button class="navbar-button login">Login</button></a>
+        <a href="<?ROOT?>Main/Signup"><button class="navbar-button signup">Sign Up</button></a>
+=======
         <a href="<?= ROOT ?>/Main/Home">
           <div class="navbar-link select">Home</div>
         </a>
@@ -59,6 +76,7 @@
         <a href="<?= ROOT ?>/Main/Signup">
           <div class="navbar-link-signup">Sign Up</div>
         </a>
+>>>>>>> origin/main
       </div>
     </div>
     <div class="landing-page-container">
@@ -152,16 +170,24 @@
             </span>
           </span>
         </div>
+<<<<<<< HEAD
+        <img alt="Enrich-photo" src="<?=IMAGE?>/Operating-hours.jpg" class="Enrich-photo" />
+        <img alt="pngwingcom1011487" src="<?=IMAGE?>/logo_light.png" class="clock" />
+        <img alt="l11487" src="<?=IMAGE?>/map.png" class="task" />
+        <img alt="l11487" src="<?=IMAGE?>/mission.jpeg" class="mission" />
+=======
         <img alt="Enrich-photo" src="<?= IMAGE ?>/Operating-hours.jpg" class="Enrich-photo" />
         <img alt="pngwingcom1011487" src="<?= IMAGE ?>/logo_light.png" class="clock" />
         <div id="map" style="height: 400px; width: 400px; z-index: 100000;" class="task"> </div>
         <img alt="l11487" src="<?= IMAGE ?>/mission.jpeg" class="mission" />
+>>>>>>> origin/main
         <span class="Last">
           <span>Where Little Minds Grow Big Dreams.</span>
         </span>
       </div>
     </div>
   </div>
+
   <!-- Footer -->
   <div class="Footer">
     <img class="Footer-logo" src="<?= IMAGE ?>/Footer-logo.png" alt="WhatsApp Icon" />
@@ -189,6 +215,7 @@
       <div class="Enrol">Enrol now to kickstart the childhood journey</div>
     </div>
     <div class="Line6"></div>
+
     <!-- Socila icons -->
     <div class="social-icons">
       <!-- twitter icon -->

@@ -21,7 +21,7 @@ body::-webkit-scrollbar {
 }
 
 .timetable {
-    width: 100%;
+    width: 520px;
 }
 
 .timetable .filters {
@@ -71,8 +71,18 @@ body::-webkit-scrollbar {
     padding-bottom: 15px;
 }
 
-.timetable table tr{
-    border-bottom: 1px solid lightgray;
+.timetable table tr:nth-child(even) {
+    background-color: #809ffe;
+    border-bottom: 4px solid #0206ff;
+    color: white;
+}
+
+.timetable table tr:nth-child(odd) {
+    border-bottom: 3px solid #007bff;
+}
+
+.timetable table tr:nth-child(even):hover {
+    background-color: #517bfb;
 }
 
 .timetable table tr:hover {
@@ -101,6 +111,7 @@ body::-webkit-scrollbar {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
     justify-content: center;
     align-items: center;
     transition: all 1s ease-in-out;
@@ -162,10 +173,6 @@ body::-webkit-scrollbar {
     border-radius: 5px;
     margin-bottom: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
-
-input[type="range"] {
-    width: 300px;
 }
 
 .pickup-section input:focus {
@@ -536,7 +543,6 @@ table {
 
 th,
 td {
-    font-size: 0.9em;
     padding: 5px;
     text-align: left;
 }
@@ -601,15 +607,14 @@ td {
 .report-page {
     border-radius: 15px;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    ;
     display: flex;
     flex-direction: column;
-    box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
+    background: #d9d9d9;
     padding: 25px;
     margin: 20px 20px;
     margin-top: 90px;
-    transition: width 0.3s ease-in-out;
-    flex-grow: 1;
-    width: 100%;
+    width: 1140px;
 }
 
 .report-header {
@@ -631,16 +636,14 @@ td {
 
 .report-page h1 {
     margin-top: 0px;
-    font-size: 24px;
 }
 
 .report-page p {
     margin-top: -16px;
-    font-size: 0.9rem;
 }
 
 .report-header .profile img {
-    width: 150px;
+    width: 200px;
 }
 
 .profile .sub-details {
@@ -670,11 +673,6 @@ td {
 
 .attendence-bar {
     padding: 0px 20px;
-}
-
-.profile hr {
-    border: 1px solid #ccccccb0;
-    margin: 5px 0px;
 }
 
 .attendence-bar hr {
@@ -777,7 +775,6 @@ td {
 
 .social .skills {
     display: flex;
-    flex-direction: column;
     gap: 40%;
     padding: 10px 10px;
 }
@@ -938,7 +935,7 @@ td {
 }
 .button {
     position: relative;
-    background-color: #4380D1;
+    background-color: #007bff;
     color: white;
     padding: 10px;
     text-align: center;
@@ -946,42 +943,4 @@ td {
     text-decoration: none;
     display: inline-block;
     transition: background-color 0.3s, transform 0.3s;
-}
-
-.children-list li {
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    justify-content: left !important;
-    text-align: left;
-    align-items: center;
-    margin-left: 30px;
-}
-.sidebar-2 ul li::before {
-    content: '';
-    position: absolute;
-    left: -20px;
-    bottom: -2px;
-    height: 2px;
-    width: 100%;
-    background-color: white;
-    transform: scaleX(0);
-    transition: transform 0.3s;
-}
-.child-info .child-name{
-    margin-right: -10px !important;
-}
-.select-child{
-    margin-left: 0px !important;
-    padding-right: 50px !important;
-}
-
-.select-child img{
-
-    margin-left: -7px !important;
-}
-
-.select-child h2{
-    margin-left: 15px !important;
 }

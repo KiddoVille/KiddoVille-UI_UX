@@ -4,22 +4,15 @@
 <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="<?=CSS?>/Child/profile.css?v=<?= time() ?>">
+<link rel="stylesheet" href="<?=CSS?>/Child/profile.css">
 <script src="<?=JS?>/Child/Number.js"></script>
-    <style>
-        .fa-chevron-left{
-            margin-left: 40px;
-            cursor: pointer;
-            color: white !important;
-        }
-    </style>
 
 <head>
 </head>
 
-<body>
+<body style="background-image: url('<?=IMAGE?>/profile-bg.png');">
     <div id="prescriptionModal" class="prescription-view">
-        <div class="top-con" style="margin-top: -555px !important;">
+        <div class="top-con">
             <div class="back-con" id="back-arrow">
                 <i class="fas fa-chevron-left" id="backforprescription"></i>
             </div>
@@ -38,13 +31,8 @@
         </div>
     </div>
     <div class="Profilecard" id="Profilecard">
-        <div class="top-con">
-            <div class="back-con">
-                <i class="fas fa-chevron-left" id="backforpickup" onclick="window.location.href='<?=ROOT?>/Child/Home'"></i>
-            </div>
-        </div>
         <div class="Profile">
-            <p style="margin-top: -40px; margin-bottom: 20px; margin-left: 60px; cursor: pointer; color: rgba(35, 83, 167, 1);">Child Profile
+            <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer; color: rgba(35, 83, 167, 1);">Child Profile
             </p>
         </div>
         <div class="ProfileContainer">

@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('../../../Assets/profile-bg.png');
+    background-image: url('http://localhost/MVC/Public/Assets/Images/profile-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     font-size: 20px;
