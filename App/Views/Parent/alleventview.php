@@ -5,32 +5,15 @@
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="<?=CSS?>/Parent/all-event.css">
-    <link rel="stylesheet" href="<?=CSS?>/Parent/Main.css">
-    <script src="<?=JS?>/Parent/Profile.js"></script>
-    <script src="<?=JS?>/Parent/Navbar.js"></script>
-    <script src="<?=JS?>/Parent/MessageDropdown.js"></script>
-=======
     <link rel="stylesheet" href="<?= CSS ?>/Parent/all-event.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
->>>>>>> origin/main
 </head>
 
-<body style=" overflow: hidden; background-image: url('<?=IMAGE?>/dashboard-background.jpeg');">
+<body style=" overflow: hidden;">
     <div class="container">
-<<<<<<< HEAD
-        <div class="sidebar minimized" id="sidebar1">
-            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
-            <ul>
-                <li class="hover-effect">
-                    <a href="<?=ROOT?>/Parent/Home">
-                        <i class="fas fa-home"></i><span>Home</span>
-=======
         <div class="sidebar " id="sidebar1">
             <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
@@ -51,7 +34,6 @@
                 <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Parent/report">
                         <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
->>>>>>> origin/main
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -65,11 +47,7 @@
                     </a>
                 </li>
                 <li class="selected" style="margin-top: 40px;">
-<<<<<<< HEAD
-                    <a href="<?=ROOT?>/Parent/allevent">
-=======
                     <a href="<?= ROOT ?>/Parent/event">
->>>>>>> origin/main
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
@@ -78,8 +56,6 @@
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
-<<<<<<< HEAD
-=======
                 <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Parent/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
@@ -90,7 +66,6 @@
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
->>>>>>> origin/main
             </ul>
             <hr style="margin-top: 40px;">
             <div class="help">
@@ -99,58 +74,25 @@
         </div>
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
+                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-<<<<<<< HEAD
-                        <li class="hover-effect first select-child">
-                            <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
-=======
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/ReParent/Home'">
                             <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
->>>>>>> origin/main
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
                         Explore your children's activities and progress!
                     </p>
-<<<<<<< HEAD
-                    <ul>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-                        <li class="hover-effect first">
-                            <img src="<?=IMAGE?>/face.jpeg">
-                            <h2>Abdulla</h2>
-                        </li>
-                        <hr>
-=======
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
+                            <li class="hover-effect first"  onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
@@ -158,7 +100,6 @@
                             </li>
                             <hr>
                         <?php endforeach; ?>
->>>>>>> origin/main
                     </ul>
                 </div>
             </div>
@@ -250,22 +191,6 @@
                     <button id="Enrollbtn" value="" style="width: 150px; margin-left: 170px; margin-top: 10px;" class="eventbtn" onclick="getchildrens(this.value)"> Enroll Children </button>
                 </div>
             </div>
-<<<<<<< HEAD
-            <div class="fill">
-                <h1 style="color: black"> Events</h1>
-                <div class="filters">
-                    <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                </div>
-                <div class="packages">
-                    <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
-                        <p> Event Name: Drawing</p>
-                        <p> Date: 10/09/2024</p>
-                        <p> Time: 10:00 - 11:00</p>
-                        <button class="eventbtn">
-                            View
-                        </button>
-=======
             <div class="modal" id="EnrollModal">
                 <div class="View-Package" style="height: 440px;">
                     <img src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
@@ -273,7 +198,6 @@
                         <div class="back-con" id="Eback-arrow">
                             <i class="fas fa-chevron-left" id="backforenroll"></i>
                         </div>
->>>>>>> origin/main
                     </div>
                     <div class="pickup-section" style="margin-top: 190px;">
                         <label for="package-name">Select Child</label>
@@ -336,39 +260,58 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
                 LogOut
             </button>
         </div>
     </div>
     <script>
-<<<<<<< HEAD
-        document.addEventListener('DOMContentLoaded', function () {
-=======
+
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/allevent/Logout", {
+                method: "POST", 
+                credentials: "same-origin"
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                } else {
+                    alert("Logout failed. Try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
         let paginatedData = [];
 
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        childName: childName
+        function setChildSession(ChildID) {
+                console.log(ChildID);
+                fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            ChildID: ChildID
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
-                    } else {
-                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log("Child Id set in session.");
+                            window.location.href = '<?= ROOT ?>/Child/allevent';
+                        } else {
+                            console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+            }
 
         function fetchrequest(date, age) {
             fetch('<?= ROOT ?>/Parent/allevent/store_events', {
@@ -551,7 +494,6 @@
             datePicker.addEventListener('change', applyFilters);
             age.addEventListener('change', applyFilters);
 
->>>>>>> origin/main
             const EventModal = document.getElementById('EventModal');
             const eventbtns = document.querySelectorAll('.eventbtn');
             const mainContent = document.getElementById('main-content');

@@ -13,7 +13,7 @@
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Child/event.js?v=<?= time() ?>"></script>
+    <!-- <script src="<?= JS ?>/Child/event.js?v=<?= time() ?>"></script> -->
 </head>
 
 <body style="overflow:hidden;">
@@ -85,7 +85,7 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -102,7 +102,7 @@
                                 <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
                             " 
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -171,22 +171,46 @@
             </div>
             <!-- stats on events -->
             <div class="stats">
-                <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Upcoming events</h3>
-                    <p style="margin-bottom: 3px;">19/09/2024</p>
-                    <span style="font-weight: 50;">Unattended days</span>
+                <div class="stat" id="NewEvent" style="width: 60px !important; display: flex; flex-direction: row !important;">
+                    <div style="display: flex; flex-direction: row;">
+                        <img src="<?=isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE.'/event-2.svg'; ?>" alt="Event Image"
+                            style="width: 130px ; height: 130px; margin-top: -15px; border-radius: 7px 0px 0px 7px; margin-bottom: -15px;">
+                        <div style="display: flex; flex-direction: column; margin-top: 10px;">
+                            <h3 class="footer" style="margin-left: 5px;">Event Name: <?= $data['stat3']['EventName'] ?></h3>
+                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Date: <?= date('d/m/Y', strtotime($data['stat3']['Date'])) ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat" id="stat1" style="display: none;">
+                    <h3>
+                        <img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">
+                        Upcoming events
+                    </h3>
+
+                    <?php if (!empty($data['stat1']['upcomingEvent'])): ?>
+                        <!-- If there is an upcoming event -->
+                        <p style="margin-bottom: 3px;">
+                            <?= $data['stat1']['upcomingEvent']['EventName'] ?>
+                        </p>
+                    <?php else: ?>
+                        <!-- If there is no upcoming event -->
+                        <p style="margin-bottom: 3px;">
+                            No upcoming events at the moment.
+                        </p>
+                    <?php endif; ?>
+
+                    <span style="font-weight: 50;"><?= $data['stat1']['upcomingEvent']['Date'] ?></span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Enroll to events</h3>
-                    <p style="margin-bottom: 3px;"> 2 events left</p>
-                    <span style="font-weight: 50;">2 enrolled events upcoming this month</span>
+                    <p style="margin-bottom: 3px;"> <?= $data['stat2']['enrolledEvents'] ?></p>
+                    <span style="font-weight: 50;"><?= $data['stat2']['eventsMessage'] ?></span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">View all events</h3>
-                    <div class="lol" style="cursor: pointer; margin-bottom: -100px; margin-top: 10px; margin-left: 70px;"
+                    <div class="lol" style="cursor: pointer; margin-bottom: -100px; margin-top: 10px;"
                         onclick="window.location.href='<?= ROOT ?>/Child/allevent';">
                         <p>View</p>
                     </div>
@@ -256,76 +280,31 @@
                     </div>
                 </div>
                 <!-- table on events -->
-                <div class="event-container" style="width: 750px;">
+                <div class="event-container" style="width: 750px; height: 400px;" >
                     <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
                     <hr>
                     <div class="filters">
-                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                        <input type="date" id="datePicker" value="" style="width: 200px">
                         <select style="width: 200px">
                             <option value="" hidden>Status</option>
-                            <option value="2 - 5">Upcoming</option>
-                            <option value="5 - 7">Happening</option>
-                            <option value="7 - 9">finished</option>
+                            <option value="NULL">All</option>
+                            <option value="Upcoming">Upcoming</option>
+                            <option value="Happening">Happening</option>
+                            <option value="Finished">Finished</option>
                         </select>
                     </div>
                     <table>
                         <thead>
                             <tr>
                                 <th>Event Name</th>
+                                <th> Child </th>
                                 <th>Date</th>
                                 <th>Status</th>
                                 <th>View</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Drawing</td>
-                                <td>20/0902024</td>
-                                <td>Upcoming</td>
-                                <td><i class="fas fa-eye icon eventbtn"></i></td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -354,17 +333,13 @@
             </a>
         </div>
         <!-- Profile card -->
-        <div class="profile-card" id="profileCard">
+        <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
-                class="profile" />
-            <h2>
-                Thilina Perera
-            </h2>
-            <p>
-                Student    RS0110657
-            </p>
+                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+            class="profile" />
+        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
+        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
                 Profile
             </button>
@@ -374,6 +349,8 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">
                 Guardian profile
             </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
             <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
                 LogOut
             </button>
@@ -420,6 +397,174 @@
                 })
                 .catch(error => console.error("Error:", error));
         }
+
+        function updateEventTable(events) {
+            const tbody = document.querySelector('.event-container table tbody');
+            tbody.innerHTML = '';
+
+            events.forEach(event => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${event.EventName}</td>
+                    <td> ${event.ChildName} </td>
+                    <td>${new Date(event.Date).toLocaleDateString()}</td>
+                    <td>${event.Status}</td>
+                    <td><i class="fas fa-eye icon eventbtn" data-eventid="${event.EventID}"></i></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function attachEventListeners() {
+            const eventbtns = document.querySelectorAll('.eventbtn');
+            const EventModal = document.getElementById('EventModal');
+            eventbtns.forEach(function(eventbtn) {
+                eventbtn.addEventListener('click', function() {
+                    const eventId = this.dataset.eventid;
+                    console.log(eventId);
+                    fetchEventDetails(eventId);
+                });
+            });
+        }
+
+        function fetchrequest(date, status) {
+            fetch('<?= ROOT ?>/Child/Event/store_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        status: status
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Event data:", data.data);
+                        updateEventTable(data.data);
+                        attachEventListeners();
+                    } else {
+                        console.error("Failed to fetch events:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchrequest(null, null);
+
+            const datePicker = document.getElementById('datePicker');
+            const statusDropdown = document.querySelector('select');
+
+            function applyFilters() {
+                const selectedDate = datePicker.value || null;
+                const selectedStatus = statusDropdown.value || null;
+                console.log(selectedDate, selectedStatus);
+                fetchrequest(selectedDate, selectedStatus);
+            }
+
+            datePicker.addEventListener('change', applyFilters);
+            statusDropdown.addEventListener('change', applyFilters);
+
+            const EventModal = document.getElementById('EventModal');
+            const eventbtns = document.querySelectorAll('.eventbtn');
+            const mainContent = document.getElementById('main-content');
+            const eventback = document.getElementById('back-arrow');
+
+            eventback.addEventListener('click', function() {
+                toggleModal(EventModal, 'none');
+            })
+
+            function attachEventListeners() {
+                const eventbtns = document.querySelectorAll('.eventbtn');
+                eventbtns.forEach(function(eventbtn) {
+                    eventbtn.addEventListener('click', function() {
+                        console.log("EVENT BTN");
+                        toggleModal(EventModal, 'block');
+                    });
+                });
+            }
+
+            attachEventListeners();
+
+            window.addEventListener('click', function(e) {
+                if (e.target === EventModal) {
+                    toggleModal(EventModal, 'none');
+                }
+            });
+
+            const RatingModal = document.getElementById('RatingModal');
+            const feedbackbtn = document.getElementById('feedbackbtn');
+            const backforrating = document.getElementById('backforrating');
+
+            backforrating.addEventListener('click', function() {
+                toggleModal(RatingModal, 'none');
+            });
+
+            feedbackbtn.addEventListener('click', function() {
+                toggleModal(RatingModal, 'flex');
+            });
+
+            const stars = document.querySelectorAll('.star-rate');
+            const meetingrefresh = document.getElementById('ratingrefresh');
+            const ratingform = document.getElementById('ratingform');
+
+            meetingrefresh.addEventListener('click', function() {
+                ratingform.reset();
+                stars.forEach((star) => {
+                    star.classList.remove('selectestar')
+                });
+            })
+
+            let rating = 0;
+            let i = 0;
+
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    if (star.classList.contains('selectestar') && index === rating - 1) {
+                        for (let j = index; j < stars.length; j++) {
+                            stars[j].classList.remove('selectestar');
+                        }
+                        rating -= 1;
+                        i -= 1;
+                    } else if (index === rating) {
+                        stars[index].classList.add('selectestar');
+                        rating += 1;
+                        i += 1;
+                    }
+                });
+            });
+
+            function toggleModal(modal, display) {
+                modal.style.display = display;
+                if (display === 'flex') {
+                    document.body.classList.add('no-scroll');
+                    mainContent.classList.add('blurred');
+                } else {
+                    document.body.classList.remove('no-scroll');
+                    mainContent.classList.remove('blurred');
+                }
+            }
+
+            const stat1 = document.getElementById('stat1');
+            const stat2 = document.getElementById('stat2');
+            const NewEvent = document.getElementById('NewEvent');
+
+            function rotateStats() {
+                if (stat1.style.display == '') {
+                    stat1.style.display = 'none';
+                    NewEvent.style.display = 'flex';
+                } else {
+                    stat1.style.display = '';
+                    NewEvent.style.display = 'none';
+                }
+            }
+
+            setInterval(rotateStats, 5000);
+
+        });
     </script>
 </body>
 

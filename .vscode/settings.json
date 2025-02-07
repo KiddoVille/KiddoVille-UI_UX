@@ -1,7 +1,5 @@
 {
-    "liveServer.settings.port": 5501,
-    "livePreview.defaultPreviewPath": "/Footer/Footer.html",
-    "cSpell.words": [
-        "uploadcontent"
-    ]
+    "files.watcherExclude": {
+        "**/target": true
+    }
 }

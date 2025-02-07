@@ -2,6 +2,10 @@
 
 namespace Controller;
 
+
+use App\Helpers\SidebarHelper;
+use App\Helpers\ChildHelper;
+
 defined('ROOTPATH') or exit('Access denied');
 
 class Event
@@ -13,17 +17,15 @@ class Event
         $session->check_login();
 
         $data = [];
-        $UserID = $session->get('USERID');
+        $SidebarHelper = new SidebarHelper();
+        $data = $SidebarHelper->store_sidebar();
 
-        $parent = new \Modal\ParentUser;
-        $pre = $parent->first(['UserID' => $UserID]);
-        $ParentID = $pre->ParentID;
+        $data = $data + $this->store_Stats();
+        
+        $ChildHelper = new ChildHelper();
+        $data['Child_Count'] = $ChildHelper->child_count();
+        $session->set("Location" , 'Parent/Event');
 
-        $child = new \Modal\Child;
-        $children = $child->where_norder(['ParentID' => $ParentID]);
-
-        $data = $data + $this->store($children, $pre);
-        $data = $data + $this->store_Stats($children);
         $this->view('Parent/event', $data);
     }
 
@@ -68,7 +70,10 @@ class Event
         return $data;
     }
 
-    private function store_Stats($children){
+    private function store_Stats(){
+        $ChildHelper = new ChildHelper();
+        $children = $ChildHelper->store_child();
+
         $upcomingEvent = null;
         $enrolledEvents = 0;
         $newEvent = null; // Store the most recent event
@@ -80,17 +85,19 @@ class Event
             $childEnrollments = $Enrollment->where_norder(['ChildID' => $child->ChildID]);
 
             // Loop through each event the child is enrolled in
-            foreach ($childEnrollments as $enrollment) {
-                $event = $EventModal->first(['EventID' => $enrollment->EventID]);
-                $eventDate = new \DateTime($event->Date);
+            if(!empty($childEnrollments)){
+                foreach ($childEnrollments as $enrollment) {
+                    $event = $EventModal->first(['EventID' => $enrollment->EventID]);
+                    $eventDate = new \DateTime($event->Date);
 
-                // Count the total events enrolled
-                $enrolledEvents++;
+                    // Count the total events enrolled
+                    $enrolledEvents++;
 
-                // Check if the event is upcoming and the closest one
-                if ($eventDate > new \DateTime()) {
-                    if (!$upcomingEvent || $eventDate < new \DateTime($upcomingEvent->Date)) {
-                        $upcomingEvent = $event;  // Set the closest upcoming event
+                    // Check if the event is upcoming and the closest one
+                    if ($eventDate > new \DateTime()) {
+                        if (!$upcomingEvent || $eventDate < new \DateTime($upcomingEvent->Date)) {
+                            $upcomingEvent = $event;  // Set the closest upcoming event
+                        }
                     }
                 }
             }
@@ -160,44 +167,47 @@ class Event
 
     }
 
-
-    public function store_data(){
+    public function store_data() {
         header('Content-Type: application/json');
-
+    
         // Parse incoming JSON request
         $requestData = json_decode(file_get_contents("php://input"), true);
         $filterDate = isset($requestData['date']) ? new \DateTime($requestData['date']) : null;
         $filterStatus = $requestData['status'] ?? null;
-
+        $filtersChild = $requestData['child'] ?? null;
+    
         $session = new \Core\Session;
         $UserID = $session->get('USERID');
-
+    
         $parent = new \Modal\ParentUser;
         $pre = $parent->first(['UserID' => $UserID]);
         $ParentID = $pre->ParentID;
-
+    
         $child = new \Modal\Child;
         $children = $child->where_norder(['ParentID' => $ParentID]);
-
+    
         $Enrollment = new \Modal\EventEnrollment;
         $EventModal = new \Modal\Event;
-
+    
         $data = [];
         foreach ($children as $childRow) {
             $EventEnrollments = $Enrollment->where_norder(["ChildID" => $childRow->ChildID]);
-            foreach ($EventEnrollments as $enrollment) {
-                $enrollment->ChildName = $childRow->First_Name;
-                $data[] = $enrollment;
+            if (!empty($EventEnrollments)){
+                foreach ($EventEnrollments as $enrollment) {
+                    $enrollment->ChildName = $childRow->First_Name;
+                    $enrollment->ChildID = $childRow->ChildID; // Add ChildID for filtering
+                    $data[] = $enrollment;
+                }
             }
         }
-
+    
         $today = new \DateTime();
         foreach ($data as $row) {
             $Event = $EventModal->first(['EventID' => $row->EventID]);
             $row->EventName = $Event->EventName;
             $row->EventID = $Event->EventID;
             $row->Date = (new \DateTime($Event->Date))->format('Y-m-d');
-
+    
             $eventDate = new \DateTime($Event->Date);
             if ($eventDate == $today) {
                 $row->Status = 'Happening';
@@ -207,7 +217,7 @@ class Event
                 $row->Status = 'Finished';
             }
         }
-
+    
         // Apply filters
         if ($filterDate) {
             $filterDate = $filterDate->format('Y-m-d'); // Convert to string
@@ -215,13 +225,19 @@ class Event
                 return $row->Date == $filterDate;
             });
         }
-
+    
         if ($filterStatus && $filterStatus !== 'NULL') {
             $data = array_filter($data, function ($row) use ($filterStatus) {
                 return $row->Status == $filterStatus;
             });
         }
-
+    
+        if ($filtersChild && $filtersChild !== 'NULL') {
+            $data = array_filter($data, function ($row) use ($filtersChild) {
+                return $row->ChildName == $filtersChild;
+            });
+        }
+    
         // Sort the data
         usort($data, function ($a, $b) use ($today) {
             $statusOrder = ['Happening' => 0, 'Upcoming' => 1, 'Finished' => 2];
@@ -231,16 +247,14 @@ class Event
             }
             return $statusComparison;
         });
-
+    
         if (empty($data)) {
             echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
         } else {
             echo json_encode(['success' => true, 'data' => $data]);
         }
-    }
-
-
-
+    }    
+    
     public function setchildsession()
     {
 
@@ -261,5 +275,13 @@ class Event
 
         echo json_encode($response);
         exit();
+    }
+
+    public function Logout(){
+        $session = new \core\Session();
+        $session->logout();
+
+        echo json_encode(["success" => true]);
+        exit;
     }
 }

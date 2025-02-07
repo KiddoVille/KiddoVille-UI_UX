@@ -37,6 +37,7 @@
                 $data = $data + $data2;
             }
 
+            $session->set("Location" , 'Child/Payment');
             $this->view('Child/payment',$data);
         }
 

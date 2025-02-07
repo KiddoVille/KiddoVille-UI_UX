@@ -1,8 +1,6 @@
 <?php
 
     namespace Controller;
-
-    use App\Helpers\ChildSessionHelper;
     use App\Helpers\SidebarHelper;
     use App\Helpers\ChildHelper;
 
@@ -21,6 +19,11 @@
 
             $data['children'] = $this->store_child_details($data['children']);
             $data['reminders'] = $this->store_reminders();
+
+            $ChildHelper = new ChildHelper();
+            $data['Child_Count'] = $ChildHelper->child_count();
+            $session->set("Location" , 'Parent/Home');
+
             $this->view('Parent/home',$data);
         }
 
@@ -104,6 +107,14 @@
     
             echo json_encode($response);
             exit();
+        }
+
+        public function Logout(){
+            $session = new \core\Session();
+            $session->logout();
+
+            echo json_encode(["success" => true]);
+            exit;
         }
     }  
 ?>

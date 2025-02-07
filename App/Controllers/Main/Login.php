@@ -24,16 +24,23 @@
         
                             if($result->Role === "User"){
                                 $parent = new \Modal\ParentUser;
-                                $result = $parent->first(['UserID' => $result -> UserID]);
+                                $result = $parent->first(['Username' => $result -> Username]);
                                 if(empty($result)){
                                     redirect('Onbording/ParentUser');
                                 }
                                 else{
-                                    $parent = new \Modal\ParentUser;
-                                    $lastseen = date('Y-m-d H:i:s');
-                                    $parent->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
-
                                     redirect('Parent/Home');
+                                }
+                            }
+                            if($result->Role === "Registered"){
+                                $parent = new \Modal\ParentUser;
+                                $result = $parent->first(['Username' => $result -> Username]);
+                                show($result);
+                                if(empty($result)){
+                                    redirect('Onbording/ParentUser');
+                                }
+                                else{
+                                    redirect('ReParent/Home');
                                 }
                             }
                             if($result->Role === "Teacher"){
@@ -50,9 +57,6 @@
                                 redirect('Maid/Home');
                             }
                             if($result->Role === "Manager"){
-                                $Manager = new \Modal\Manager;
-                                $lastseen = date('Y-m-d H:i:s');
-                                $Manager->update(["UserID" => 6],["Last_Seen"=>$lastseen]);
                                 redirect('Manager/Home');
                             }
                             if($result->Role === "Receptionist"){

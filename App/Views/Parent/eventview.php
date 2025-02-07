@@ -192,7 +192,7 @@
                         </p>
                     <?php endif; ?>
 
-                    <span style="font-weight: 50;"><?= $data['stat1']['upcomingEvent']['Date'] ?></span>
+                    <span style="font-weight: 50;"><?= isset($data['stat1']['upcomingEvent']['Date'])? $data['stat1']['upcomingEvent']['Date']: '' ;?></span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
@@ -280,13 +280,21 @@
                     <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
                     <hr style="margin-bottom: 15px;">
                     <div class="filters">
-                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                        <input type="date" id="datePicker" value="" style="width: 200px">
                         <select style="width: 200px" id="select">
                             <option value="" hidden>Status</option>
                             <option value="NULL">All</option>
                             <option value="Upcoming">Upcoming</option>
                             <option value="Happening">Happening</option>
                             <option value="Finished">Finished</option>
+                        </select>
+                        <select id="childPicker" style="margin-right: 200px;">
+                            <option Value="" selected> All </option>
+                            <?php foreach ($data['children'] as $child): ?>
+                                <option value="<?= $child['name']; ?>">
+                                    <?= $child['name']; ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <table>
@@ -349,12 +357,34 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/ReParent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
                 LogOut
             </button>
         </div>
     </div>
     <script>
+
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/event/Logout", {
+                method: "POST", 
+                credentials: "same-origin"
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                } else {
+                    alert("Logout failed. Try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
         function setChildSession(ChildID) {
             console.log(ChildID);
             fetch(' <?= ROOT ?>/Parent/Event/setchildsession', {
@@ -378,7 +408,7 @@
                 .catch(error => console.error("Error:", error));
         }
 
-        function fetchrequest(date, status) {
+        function fetchrequest(date, status, child) {
             fetch('<?= ROOT ?>/Parent/Event/store_data', {
                     method: 'POST',
                     headers: {
@@ -386,7 +416,8 @@
                     },
                     body: JSON.stringify({
                         date: date,
-                        status: status
+                        status: status,
+                        child: child
                     })
                 })
                 .then(response => response.json())
@@ -484,20 +515,23 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            fetchrequest(null, null);
+            fetchrequest(null, null, null);
 
             const datePicker = document.getElementById('datePicker');
             const statusDropdown = document.querySelector('select');
+            const childPicker = document.getElementById('childPicker');
 
             function applyFilters() {
                 const selectedDate = datePicker.value || null;
                 const selectedStatus = statusDropdown.value || null;
-                console.log(selectedDate, selectedStatus);
-                fetchrequest(selectedDate, selectedStatus);
+                const selectedchild = childPicker.value || null;
+                console.log(selectedDate, selectedStatus, selectedchild);
+                fetchrequest(selectedDate, selectedStatus, selectedchild);
             }
 
             datePicker.addEventListener('change', applyFilters);
             statusDropdown.addEventListener('change', applyFilters);
+            childPicker.addEventListener('change', applyFilters);
 
             const EventModal = document.getElementById('EventModal');
             const eventbtns = document.querySelectorAll('.eventbtn');

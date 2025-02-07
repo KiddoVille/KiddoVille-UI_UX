@@ -28,6 +28,10 @@
                 $data = $data + $data2; 
             }
 
+            $ChildHelper = new ChildHelper();
+            $data['Child_Count'] = $ChildHelper->child_count();
+            $session->set("Location" , 'Parent/Event');
+
             $this->view('Parent/reservation', $data);
         }
 
@@ -353,5 +357,14 @@
             echo json_encode($response);
             exit();
         }
+
+        public function Logout(){
+            $session = new \core\Session();
+            $session->logout();
+
+            echo json_encode(["success" => true]);
+            exit;
+        }
+        
     }
 ?>

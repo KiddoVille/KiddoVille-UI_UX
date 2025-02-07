@@ -1,127 +1,223 @@
 <?php
 
     namespace Controller;
+    use App\Helpers\SidebarHelper;
 
     defined('ROOTPATH') or exit('Access denied');
 
     class Meal{
         use MainController;
         public function index(){
-
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child('Parent');
+            $session->check_child();
+            $ChildID = $session->get("CHILDID");
 
-            // Retrieve session variables
-            $childname = $session->get('CHILDNAME');
-            $parentname = $session->get('USERNAME');
+            $data = [];
+            $SidebarHelper = new SidebarHelper();
+            $data = $SidebarHelper->store_sidebar();
 
             // Retrieve parent and children data
-            $child = new \Modal\Child;
-            $children = $child->where_norder(['Parent_Name' => $parentname]);
-            $parent = new \Modal\ParentUser;
-            $pre = $parent->where_norder(['Username' => $parentname]);
+            $ChildModal = new \Modal\Child;
+            $select = $ChildModal->first(['ChildID' => $ChildID]);
+            $data['child_id'] = $ChildID;
 
-            // Prepare data for all children
-            $data = $this->store($children, $pre);
-
-            // Select specific child by name, if it exists
-            $select = $child->where_norder(['Parent_Name' => $parentname, 'First_Name' => $childname ]);
-            $session->set('CHILD_ID', $select[0]->Child_Id);
-
-            $child_id = $session->get('CHILD_ID');
-            $data['child_id'] = $child_id;
-            
             if (!empty($select)) {
-                $data2 = $this->selectedchild($select[0], $pre);
+                $data2 = $this->selectedchild($select);
                 $data = $data + $data2;
             }
 
+            $session->set("Location" , 'Child/Meal');
             $this->view('Child/Meal',$data);
         }
 
-        private function store($children, $pre){
+        private function selectedchild($selectedchild)
+        {
             $data = [];
 
-            // Retrieve the parent's profile image
-            $parentImage = getProfileImageUrl($pre[0]->Username);
-            $data['parent'] = [
-                'fullname' => $pre[0]->First_Name . ' ' . $pre[0]->Last_Name,
-                'image' => !empty($parentImage) ? $parentImage : null,
-            ];
+            $imageData = $selectedchild->Image;
+            $imageType = $selectedchild->ImageType;  // Get the image MIME type from the database
 
-            // Retrieve each child's profile image and details
-            foreach ($children as $index => $child) {
-                $childImage = getProfileImageUrl($pre[0]->Username, $child->First_Name);
-                $data['children'][$index] = [
-                    'name' => $child->First_Name,
-                    'image' => !empty($childImage) ? $childImage : null,
-                ];
-            }
+            // If image data is available, construct the Base64 string using the correct MIME type
+            $base64Image = (!empty($imageData) && is_string($imageData))
+                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                : null;
 
-            return $data;
-        }
-
-        private function selectedchild($selectedchild, $pre){
-            $data = [];
-
-            // Retrieve the specific child's profile image and details
-            $childImage = getProfileImageUrl($pre[0]->Username, $selectedchild->First_Name);
             $data['selectedchildren'] = [
                 'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
                 'name' => $selectedchild->First_Name,
-                'image' => !empty($childImage) ? $childImage : null,
+                'image' => $base64Image,
                 'age' => agecalculate($selectedchild->DOB),
                 'language' => $selectedchild->Language,
                 'religion' => $selectedchild->Religion,
+                'id' => str_pad($selectedchild->ChildID, 5, '0', STR_PAD_LEFT),
             ];
 
             return $data;
         }
 
+        public function store_food() {
+            header('Content-Type: application/json');
+            
+            // Get the JSON body data
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $date = $requestData['date'] ?? date('Y-m-d'); // Default to today if no date provided
+        
+            // Define the structure for the meal plan
+            $mealPlan = [
+                'breakfast' => [],
+                'lunch' => [],
+                'dinner' => []
+            ];
+            
+            // Fetch the meal data for the given date
+            $FoodModal = new \Modal\FoodPlan;
+            $results = $FoodModal->where_norder(['Date' => $date]);
+            
+            // Iterate through the results and categorize the food without removing existing meal data
+            foreach ($results as $row) {
+                $food = $row->Food;
+                $time = $row->Time;
+
+                if ($time === 'Breakfast') {
+                    $mealPlan['breakfast'][] =  $food; // Append to breakfast
+                } elseif ($time === 'Lunch') {
+                    $mealPlan['lunch'][] = $food; // Append to lunch
+                } elseif ($time === 'Dinner') {
+                    $mealPlan['dinner'][] = $food; // Append to dinner
+                }
+            }
+                    
+            // Return the meal plan data in JSON format
+            if (empty($mealPlan['breakfast']) && empty($mealPlan['lunch']) && empty($mealPlan['dinner'])) {
+                echo json_encode(['success' => false, 'message' => 'No meal plan found for the selected date']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $mealPlan]);
+            }
+        }    
+
+        public function store_snack() {
+            header('Content-Type: application/json');
+            
+            // Get the JSON body data
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $date = $requestData['date'] ?? date('Y-m-d'); // Default to today if no date provided
+        
+            // Define the structure for the meal plan
+            $snackPlan = [
+                'breakfast' => [],
+                'lunch' => [],
+                'dinner' => []
+            ];
+            
+            // Fetch the meal data for the given date
+            $SnackModal = new \Modal\SnackPlan;
+            $results = $SnackModal->where_norder(['Date' => $date]);
+            
+            // Iterate through the results and categorize the food without removing existing meal data
+            foreach ($results as $row) {
+                $food = $row->Snack;
+                $time = $row->Time;
+
+                if ($time === 'Breakfast') {
+                    $snackPlan['breakfast'][] =  $food; // Append to breakfast
+                } elseif ($time === 'Lunch') {
+                    $snackPlan['lunch'][] = $food; // Append to lunch
+                } elseif ($time === 'Dinner') {
+                    $snackPlan['dinner'][] = $food; // Append to dinner
+                }
+            }
+                    
+            // Return the meal plan data in JSON format
+            if (empty($snackPlan['breakfast']) && empty($snackPlan['lunch']) && empty($snackPlan['dinner'])) {
+                echo json_encode(['success' => false, 'message' => 'No meal plan found for the selected date']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $snackPlan]);
+            }
+        }    
+
+        public function store_request() {
+            header('Content-Type: application/json');
+        
+            // Get the JSON body data
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $Date = $requestData['date'] ?? date('Y-m-d');
+
+            $ChildModal = new \Modal\Child;
+            $SnackRequest = new \Modal\SnackRequest;
+            $SnackPlan = new \Modal\SnackPlan;
+
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+
+            $requestPlan = []; 
+        
+            $Child = $ChildModal->first(["ChildID" => $ChildID]);
+            $ChildName = $Child->First_Name;
+        
+            $snackRequests = $SnackRequest->where_norder(['ChildID' => $ChildID]);
+            $groupedSnacks = [
+                "Breakfast" => [],
+                "Lunch" => [],
+                "Dinner" => []
+            ];
+
+            foreach ($snackRequests as $request) {
+                $snackDetails = $SnackPlan->first(['SnackID' => $request->SnackID, 'Date' => $Date]);
+                if ($snackDetails) {
+                    $mealTime = $snackDetails->Time;
+                    $snackName = $snackDetails->Snack;
+
+                    if (!isset($groupedSnacks[$snackName])) {
+                        if (!isset($groupedSnacks[$mealTime][$snackName])) {
+                            $groupedSnacks[$mealTime][$snackName] = 0;
+                        }
+                        $groupedSnacks[$mealTime][$snackName] += $request->Quantity;
+                    }
+                }
+            }
+            $requestPlan[$ChildName] = $groupedSnacks;
+        
+            // Return the response
+            if (empty($requestPlan)) {
+                echo json_encode(['success' => false, 'message' => 'No snack requests found for the selected date']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $requestPlan]);
+            }
+        }
+
         public function setchildsession(){
-
-            defined('ROOTPATH') or define('ROOTPATH', __DIR__); // Define the root if not already defined
-
-            // Session and JSON response settings
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-        
             header('Content-Type: application/json');
-        
-            // Disable error reporting for clean JSON output in production
-            ini_set('display_errors', 0);
-            error_reporting(0);
-        
-            // Handle AJAX request and set the child session
             $request = json_decode(file_get_contents('php://input'), true);
             $response = [];
-        
-            if (isset($request['childName'])) {
-                $session = new \Core\Session;
-                $_SESSION['CHILD_ID'] = $request['childId'];
-                $session->set('CHILD_ID', $request['childId']);
-                $session->set('CHILDNAME', $request['childName']);
-                $response = ['success' => true];
+
+            $session = new \Core\Session;
+            if (isset($request['ChildID'])) {
+                $session->set('CHILDID', $request['ChildID']);
+                $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
-                $response = ['success' => false, 'message' => 'Child name not provided.'];
+                $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
-            echo json_encode($response); // Output JSON response
+
+            echo json_encode($response);
             exit();
         }
 
         public function removechildsession(){
-
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             header('Content-Type: application/json');
             $response = [];
-            
-            if (isset($_SESSION['CHILDNAME'])) {
-                $session = new \Core\Session;
-                $session->unset("CHILDNAME");
+
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+
+            if (isset($ChildID)) {
+                $session->unset("CHILDID");
                 $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
                 $response = ['success' => false, 'message' => 'No child session to remove.'];
@@ -130,6 +226,5 @@
             echo json_encode($response);  // Send JSON response
             exit();
         }
-
     }
 ?>

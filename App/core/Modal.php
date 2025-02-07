@@ -24,6 +24,23 @@
             return $this->query($query);
         }
 
+        public function findall_order($orderBy = null, $direction = "ASC") {
+            $query = "SELECT * FROM $this->table";
+        
+            // Validate sorting direction
+            $direction = strtoupper($direction);
+            if (!in_array($direction, ["ASC", "DESC"])) {
+                $direction = "ASC"; // Default to ASC if invalid input is given
+            }
+        
+            // Apply ordering if a column is specified
+            if ($orderBy) {
+                $query .= " ORDER BY $orderBy $direction";
+            }
+        
+            return $this->query($query);
+        }
+
         public function where_norder($data, $data_not = []){
             $keys = array_keys($data);
             $keys_not = array_keys($data_not);
@@ -63,6 +80,33 @@
                 $query .= " ORDER BY " . $order_by . " ASC";
             }
 
+            $data = array_merge($data, $data_not);
+        
+            return $this->query($query, $data);
+        }
+        
+        public function where_order_desc($data, $data_not = [], $order_by = null) {
+            $keys = array_keys($data);
+            $keys_not = array_keys($data_not);
+            $query = "SELECT * FROM $this->table WHERE ";
+        
+            foreach ($keys as $key) {
+                $query .= $key . " = :" . $key . " AND ";
+            }
+            foreach ($keys_not as $key) {
+                $query .= $key . " != :" . $key . " AND ";
+            }
+        
+            // Remove the last "AND"
+            if (strrpos($query, " AND ") !== false) {
+                $query = substr($query, 0, strrpos($query, " AND "));
+            }
+        
+            // Ensure $order_by is a valid string
+            if (!empty($order_by) && is_string($order_by)) {
+                $query .= " ORDER BY " . $order_by . " DESC";  // Change ASC to DESC
+            }
+        
             $data = array_merge($data, $data_not);
         
             return $this->query($query, $data);

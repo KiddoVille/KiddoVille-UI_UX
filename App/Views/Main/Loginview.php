@@ -16,7 +16,6 @@
 </head>
 
 <body>
-    <!-- login form -->
     <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
         <div id="fade" class="box fade-out" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; transition: opacity 1s ease,transform 1s ease;">
             <div class="logo">

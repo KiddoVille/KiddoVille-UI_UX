@@ -690,11 +690,6 @@ td {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba 65%, rgba(204, 204, 204, 0.56) 0);
-}
-
-.progress-bar::before {
-    content: "65%";
 }
 
 .timetable hr {

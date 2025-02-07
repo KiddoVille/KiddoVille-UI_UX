@@ -9,7 +9,6 @@ body {
     background-color: #e0e0e0;
     height: 100vh;
     overflow-y: auto;
-    background: url('../../../../Assets/funzone-backgound.png') no-repeat center center;
     background-size: cover;
     background-position: center;
     padding: 0;
@@ -33,8 +32,8 @@ body {
 }
 
 .main-content .grid .item {
-    width: 170px;
-    height: 160px;
+    width: 175px;
+    height: 210px;
     background-color: white;
     border-radius: 10px;
     text-align: center;
@@ -51,8 +50,9 @@ body {
     /* Increase shadow on hover */
 }
 
-.main-content .grid .item img {
-    width: 170px;
+.main-content .grid .item img,
+.main-content .grid .item video {
+    width: 164px;
     height: 130px;
     border-radius: 7px;
 }
@@ -254,4 +254,18 @@ body {
     margin: 0;
     /* Remove margin */
     margin-left: 20px;
+}
+
+.load-more-btn{
+    white-space:nowrap;
+    height: 40px;
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    padding: 7px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 0px;
+    margin-top: 180px;
 }

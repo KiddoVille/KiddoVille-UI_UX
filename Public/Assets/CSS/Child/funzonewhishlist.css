@@ -9,7 +9,6 @@ body {
     background-color: #e0e0e0;
     height: 100vh;
     overflow-y: auto;
-    background: url('../../../../Assets/funzone-backgound.png') no-repeat center center;
     background-size: cover;
     background-position: center;
     padding: 0;
@@ -25,7 +24,6 @@ body {
     margin-top: 120px;
     overflow-y: auto;
     box-sizing: border-box;
-    max-height: 80%;
 }
 
 .grid::-webkit-scrollbar {
