@@ -6,57 +6,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="<?=CSS?>/ReChild/Main.css">
-    <link rel="stylesheet" href="<?=CSS?>/ReChild/Home.css">
-    <script src="<?=JS?>/ReChild/Profile.js"></script>
-    <script src="<?=JS?>/ReChild/MessageDropdown.js"></script>
-    <script src="<?=JS?>/ReChild/OTP.js"></script>
-    <script src="<?=JS?>/ReChild/Number.js"></script>
-    <script src="<?=JS?>/ReChild/Navbar.js"></script>
-    <script src="<?=JS?>/ReChild/Home.js"></script>
-    <script src="<?=JS?>/ReChild/Taskbar.js"></script>
-    <style>
-        .children-list li {
-            position: relative;
-            cursor: pointer;
-            display: flex;
-            flex-direction: row;
-            justify-content: left !important;
-            text-align: left;
-            align-items: center;
-            margin-left: 30px;
-        }
-        .sidebar-2 ul li::before {
-            content: '';
-            position: absolute;
-            left: -20px;
-            bottom: -2px;
-            height: 2px;
-            width: 100%;
-            background-color: white;
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-        .child-info .child-name{
-            margin-right: -10px !important;
-        }
-        .select-child{
-            margin-left: 0px !important;
-            padding-right: 50px !important;
-        }
-
-        .select-child img{
-
-            margin-left: -7px !important;
-        }
-
-        .select-child h2{
-            margin-left: 15px !important;
-        }
-
-    </style>
-=======
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
@@ -66,7 +15,6 @@
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"> </script>
     <!-- <script src="<?= JS ?>/Child/Home.js?v=<?= time() ?>"> </script> -->
     <script src="<?= JS ?>/Child/Taskbar.js?v=<?= time() ?>"> </script>
->>>>>>> origin/main
 </head>
 
 <body  style="background-image: url('<?=IMAGE?>/dashboard-background.jpeg');">
@@ -121,11 +69,7 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-<<<<<<< HEAD
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image']: ''?>"
-=======
                             <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
->>>>>>> origin/main
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -138,13 +82,6 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-<<<<<<< HEAD
-                            <li class="hover-effect first
-                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
-                            " 
-                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
-=======
                             <li class="first
                                 <?php if ($child['name'] === $data['selectedchildren']['name']) {
                                     echo "select-child";
@@ -152,7 +89,6 @@
                             "
                                 onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
->>>>>>> origin/main
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -173,11 +109,7 @@
                     <p style="color: white">Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <!-- message icon -->
                 <div class="bell-con" id="bell-container" style="cursor: pointer;">
                     <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
                     <div class="message-dropdown" id="messageDropdown" style="display: none;">
@@ -194,13 +126,6 @@
                                 <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
                                 <p class="content"> content like a message</p>
                             </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
                             </li>
                             <li>
                                 <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
@@ -208,7 +133,6 @@
                             </li>
                         </ul>
                     </div>
-                </div>
                 <div class="message-numbers">
                     <p> 2</p>
                 </div>
@@ -219,18 +143,6 @@
                     </button>
                 </div>
             </div>
-<<<<<<< HEAD
-            <div class="report-page">
-                <h1 style="color: #233E8D; margin-left: 15px;">
-                <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
-                <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our
-                    family! </p>
-                <div class="report-header">
-                    <div class="profile" style="height: 340px;">
-                        <div class="first-row">
-                            <img src="<?= isset($data['selectedchildren']['image']) ? $data['selectedchildren']['image'] : 'No name set'; ?>" alt="profile pic" style="border: 4px solid #233E8D;">
-                            <h3 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h3>
-=======
             <div style="display: flex; flex-direction: row;">
                 <div class="report-page">
                     <h1 style="color: #233E8D; margin-left: 15px;">
@@ -262,9 +174,8 @@
                                     </span>
                                 </p>
                             </div>
->>>>>>> origin/main
                         </div>
-<<<<<<< HEAD
+
                         <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
                             <p style="margin-top: -30px;">Reg Number : <span>SRD110021</span></p>
                             <p style="margin-top: -10px;">Age: 
@@ -277,37 +188,6 @@
                                 <?= isset($data['selectedchildren']['language']) ? $data['selectedchildren']['language'] : 'No name set'; ?>
                                 </span>
                             </p>
-                            <p style="margin-top: -10px;">Religion: 
-                                <span>
-                                <?= isset($data['selectedchildren']['religion']) ? $data['selectedchildren']['religion'] : 'No name set'; ?>
-                                </span>
-                            </p>
-=======
-                        <div class="attendence-bar" style="margin-right: 2%; width: 220px;" id="attendance">
-                            <h3 style="margin-top: 0px;">Child Attendence </h3>
-                            <hr>
-                            <div class="progress" style="margin-left: -10px;">
-                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba <?=$data['graph'] ?>%, rgba(204, 204, 204, 0.56) 0);">
-                                    <?= $data['graph'] ?>%
-                                </div>
-                            </div>
-                            <p style="margin-top: 18px;"> Completed Tasks</p>
-                            <input style="margin-top: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
-                        </div>
-                        <div class="timetable" id="timetable">
-                            <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
-                            <hr>
-                            <div class="filters">
-                                <input type="date" id="datePicker" value="" style="width: 200px">
-                            </div>
-                            <table style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th style="color: #233E8D; background-color:transparent;">Activity</th>
-                                        <th style="color: #233E8D; background-color:transparent; white-space: nowrap; padding-left: 18%;"> Start Time</th>
-                                        <th style="color: #233E8D; background-color:transparent; white-space: nowrap; padding-left: 7%;">End Time</th>
-                                    </tr>
-                                </thead>
                             </table>
                             <!-- childs activity for the day -->
                             <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
@@ -317,7 +197,7 @@
                                     </tbody>
                                 </table>
                             </div>
->>>>>>> main
+
                         </div>
                     </div>
                     <div class="attendence-bar">
@@ -326,12 +206,10 @@
                         <div class="progress" style="margin-left: 30px;">
                             <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
                                 aria-valuemax="100"></div>
-                        </div>
                         <p style="margin-top: 20px;"> Completed Tasks</p>
                         <input style="margin-top: 0px; width: 300px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
                     </div>
                     <div class="timetable">
-                        <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
                         <hr>
                         <div class="filters">
                             <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
@@ -824,30 +702,17 @@
     <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
         <img src="<?=IMAGE?>/back-arrow-2.svg" id="back-arrow-profile"
             style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-<<<<<<< HEAD
-        <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
-=======
         <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
->>>>>>> main
             class="profile" />
         <h2><?=$data['selectedchildren']['fullname'] ?></h2>
         <p>SRD<?= $data['selectedchildren']['id'] ?></p>
         <button class="profile-button"
-<<<<<<< HEAD
-            onclick="window.location.href ='<?=ROOT?>/ReChild/ChildProfile'">Profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/ParentProfile'">Parent
-            profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/GuardianProfile'">Guardian
-            profile</button>
-        <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/ReChild/Home'">LogOut</button>
-=======
             onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">Profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">Parent profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">Guardian profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
         <button class="logout-button" onclick="logoutUser()">LogOut</button>
->>>>>>> main
     </div>
     <div class="tasks" id="taskbtn" style="position: fixed;">
         <i class="fas fa-chevron-left" id="taskicon"></i>
@@ -862,45 +727,6 @@
         fixedSlider.value = initialValue;
     });
 
-<<<<<<< HEAD
-    function setChildSession(childName) {
-        fetch('<?=ROOT?>/Child/Home/setchildsession', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ childName: childName })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Child name set in session.");
-                window.location.href = '<?= ROOT ?>/Child/Home';
-            } else {
-                console.error("Failed to set child name in session.", data.message);
-            }
-        })
-        .catch(error => console.error("Error:",error));
-    }
-
-    function removechildsession(){
-        fetch('<?=ROOT?>/Child/Home/removechildsession', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Child name removed from session.");
-                window.location.href = '<?= ROOT ?>/Parent/Home';
-            } else {
-                console.error("Failed to remove child name from session.", data.message);
-            }
-        })
-        .catch(error => console.error("Error:",error));
-=======
     // function setChildSession(ChildID) {
     //     fetch('<?= ROOT ?>/Parent/Home/setchildsession', {
     //         method: 'POST',
@@ -1009,7 +835,6 @@
                 }
             })
             .catch(error => console.error("Error:", error));
->>>>>>> origin/main
     }
 
     function renderScheduleTable(activities) {
