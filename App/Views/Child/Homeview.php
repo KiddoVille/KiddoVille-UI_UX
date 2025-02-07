@@ -264,6 +264,25 @@
                             </div>
 >>>>>>> origin/main
                         </div>
+<<<<<<< HEAD
+                        <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
+                            <p style="margin-top: -30px;">Reg Number : <span>SRD110021</span></p>
+                            <p style="margin-top: -10px;">Age: 
+                                <span>
+                                <?= isset($data['selectedchildren']['age']) ? $data['selectedchildren']['age'] : 'No name set'; ?>
+                                </span>
+                            </p>
+                            <p style="margin-top: -10px;">Language: 
+                                <span>
+                                <?= isset($data['selectedchildren']['language']) ? $data['selectedchildren']['language'] : 'No name set'; ?>
+                                </span>
+                            </p>
+                            <p style="margin-top: -10px;">Religion: 
+                                <span>
+                                <?= isset($data['selectedchildren']['religion']) ? $data['selectedchildren']['religion'] : 'No name set'; ?>
+                                </span>
+                            </p>
+=======
                         <div class="attendence-bar" style="margin-right: 2%; width: 220px;" id="attendance">
                             <h3 style="margin-top: 0px;">Child Attendence </h3>
                             <hr>
@@ -298,14 +317,97 @@
                                     </tbody>
                                 </table>
                             </div>
+>>>>>>> main
                         </div>
                     </div>
-                    <div class="report-header" style="display: flex; flex-direction: row;">
-                        <div class="timetable">
-                            <h3 style="margin-top: 0px; margin-bottom: 5px;">Subject Marks</h3>
-                            <hr>
-                            <div class="filters">
-                                <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                    <div class="attendence-bar">
+                        <h3 style="margin-top: 0px;">Child Attendence </h3>
+                        <hr>
+                        <div class="progress" style="margin-left: 30px;">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
+                        <p style="margin-top: 20px;"> Completed Tasks</p>
+                        <input style="margin-top: 0px; width: 300px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
+                    </div>
+                    <div class="timetable">
+                        <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
+                        <hr>
+                        <div class="filters">
+                            <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                        </div>
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;">Activity</th>
+                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;"> Start Time</th>
+                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;">End Time</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <!-- childs activity for the day -->
+                        <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td>Breakfast</td>
+                                        <td>8.00 AM</td>
+                                        <td>9.00 AM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Creative Play</td>
+                                        <td>9.00 AM</td>
+                                        <td>10.00 AM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Creative Play</td>
+                                        <td>10.00 AM</td>
+                                        <td>11.00 AM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Story Time</td>
+                                        <td>11.00 AM</td>
+                                        <td>12.00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lunch</td>
+                                        <td>12.00 PM</td>
+                                        <td>1.00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bed Time</td>
+                                        <td>1.00 PM</td>
+                                        <td>2.00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Basic Learning Activities</td>
+                                        <td>2.00 PM</td>
+                                        <td>3.00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tea Time</td>
+                                        <td>3.00 PM</td>
+                                        <td>4.00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Outdoor Play</td>
+                                        <td>4.00 PM</td>
+                                        <td>5.00 PM</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-header" style="justify-content: space-between; text-align: center; margin-top: -5px;">
+                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;">
+                        Schedule pickups
+                        <button id="openModalBtn" class="button" style="width: 240px;">Schedule</button>
+                        <div class="pickupresults" id="pickupresults">
+                            <div class="pickup-section"
+                                style="display: flex; flex-direction: row; width: 200px; justify-content: center; align-items: center;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); margin-top: 10px;">
+                                <i class="fas fa-check-circle" style="color:green"></i>
+                                <h4> Success</h4>
                             </div>
                         </div>
                     </div>
@@ -722,17 +824,30 @@
     <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
         <img src="<?=IMAGE?>/back-arrow-2.svg" id="back-arrow-profile"
             style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+<<<<<<< HEAD
+        <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
+=======
         <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+>>>>>>> main
             class="profile" />
         <h2><?=$data['selectedchildren']['fullname'] ?></h2>
         <p>SRD<?= $data['selectedchildren']['id'] ?></p>
         <button class="profile-button"
+<<<<<<< HEAD
+            onclick="window.location.href ='<?=ROOT?>/ReChild/ChildProfile'">Profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/ParentProfile'">Parent
+            profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/GuardianProfile'">Guardian
+            profile</button>
+        <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/ReChild/Home'">LogOut</button>
+=======
             onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">Profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">Parent profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">Guardian profile</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
         <button class="logout-button" onclick="logoutUser()">LogOut</button>
+>>>>>>> main
     </div>
     <div class="tasks" id="taskbtn" style="position: fixed;">
         <i class="fas fa-chevron-left" id="taskicon"></i>
