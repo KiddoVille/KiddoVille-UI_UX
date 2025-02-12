@@ -1,144 +1,6 @@
 <html>
 
 <head>
-<<<<<<< HEAD
-    <title> Blog </title>
-    <link rel="icon" href="<?IMAGE?>/logo_light-remove.png" type="image/x-icon">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="<?=CSS?>/Main/Header.css">
-    <link rel="stylesheet" href="<?=CSS?>/Main/Footer.css">
-    <link rel="stylesheet" href="<?=CSS?>/Main/Blog.css">
-</head>
-
-<body style="background: url('http://localhost/MVC/Public/Assets/Images/blog-background.png') no-repeat top center, url('http://localhost/MVC/Public/Assets/Images/blog-background 2.png') no-repeat bottom center; ">
-    <!-- Header structure -->
-    <div class="navbar">
-        <div class="navbar-logo">
-            <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
-        </div>
-        <div class="navbar-links">
-            <a href="<?=ROOT?>/Main/Home"><button class="navbar-link">Home</button></a>
-            <a href="<?=ROOT?>/Main/Profile"><button class="navbar-link">Profile</button></a>
-            <a href="<?=ROOT?>/Main/Blog"> <button class="navbar-link select">Blog</button></a>
-            <a href="<?=ROOT?>/Main/AboutUs"><button class="navbar-link">AboutUs</button></a>
-            <a href="<?=ROOT?>/Main/Help"><button class="navbar-link">ContactUs</button></a>
-            <a href="<?=ROOT?>/Main/Login"><button class="navbar-button login">Login</button></a>
-            <a href="<?=ROOT?>/Main/Signup"><button class="navbar-button signup">Sign Up</button></a>
-        </div>
-    </div>
-    <!-- Articles on we page -->
-    <div class="container">
-        <div class="header">
-            <h1>
-                All Articles
-            </h1>
-            <h2>
-                2024 Early Learning Back to School Summit: ECE Best Practices
-            </h2>
-            <p class="date">
-                <i class="fas fa-calendar-alt"></i> August 31, 2024
-            </p>
-        </div>
-
-        <!-- Events of the daycare to enter images on the event -->
-        <div class="events">
-            <h3>
-                Our Events
-            </h3>
-            <div class="event-list">
-                <div class="event-item">
-                    <img alt="Children playing sports"
-                        src="https://storage.googleapis.com/a1aa/image/6xdsDjOa5y6sHtiKt5dbOfInhiouxfziq9yM4BETXbzanSmTA.jpg" />
-                    <p>Sports Programs</p>
-                </div>
-                <div class="event-item">
-                    <img alt="Children in an educational program"
-                        src="https://storage.googleapis.com/a1aa/image/PX0HgJDFGvKTIFvcR4Z9DhZK48mZosIwNQCWyfy8AjjvTJzJA.jpg" />
-                    <p>Educational Programs</p>
-                </div>
-                <div class="event-item">
-                    <img alt="Cultural event with many people"
-                        src="https://storage.googleapis.com/a1aa/image/HV24dTKDcsrfcqGfxieP9aE2c5WSmbngJhvOdyPRfq7ydKZOB.jpg" />
-                    <p>Cultural Events</p>
-                </div>
-            </div>
-
-            <div class="pagination">
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#"><i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-
-<!-- Articles on events  -->
-        <div class="articles">
-            <h3>
-                Articles
-            </h3>
-            <div class="article-list">
-                <div class="article-item">
-                    <img alt="Management tips"
-                        src="https://storage.googleapis.com/a1aa/image/uPXFsQ0xbiqZPx7GBNlKEKle7l34UtfJLEfR7fFuBcL1dKZOB.jpg" />
-                    <p>Management tips</p>
-                </div>
-                <div class="article-item">
-                    <img alt="Child development"
-                        src="https://storage.googleapis.com/a1aa/image/FNgene62jFq0CUFw7lHK1OgaV2Wr8gMfeOfb8SoOO8xB8UycC.jpg" />
-                    <p>Child development</p>
-                </div>
-                <div class="article-item">
-                    <img alt="Group activities"
-                        src="https://storage.googleapis.com/a1aa/image/BkOG01jx5SZkJVnTfKoFiTSu9TZTfLQRgUku7khVbokhnSmTA.jpg" />
-                    <p>Group activities</p>
-                </div>
-            </div>
-
-            <div class="pagination">
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-            </div>
-        </div>
-
-        <div class="new-articles">
-            <p>Every last week of the month we publish new articles</p>
-            <a href="#">Sign Up</a>
-        </div>
-
-        <div class="border-image">
-            <img src="<?=IMAGE?>/blog-border.png" alt="border">
-        </div>
-
-        <div class="footer=p">
-            <p>
-                Check out the KIDDO blog for your all-in-one source for everything you need to know about the building blocks of high-quality childcare! We cover the latest on early childhood education, childcare center management, family engagement, professional development, and more. Find the latest on trends, innovations, inspiration, and best practices in the early childhood education industry.
-            </p>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="Footer">
-        <img class="Footer-logo" src="<?=IMAGE?>/Footer-logo.png" alt="WhatsApp Icon" />
-        <div class="KiddoVille">Kiddo<br/>Ville</div>
-            <div class="Group4">
-                <div class="Home"><a href="<?=ROOT?>/Main/Home">Home</a></div>
-                <div class="AboutUs"><a href="<?=ROOT?>/Main/AboutUs">About Us</a></div>
-                <div class="ContactUs"><a href="<?=ROOT?>/Main/Help">Contact Us</a></div>
-                <div class="Features"><a href="<?=ROOT?>/Main/features">Features</a></div>
-            </div>
-            <div class="Group5">
-                <div class="Contact"><a href="<?=ROOT?>/Main/FAQ">FAQ</a></div>
-                <div style="white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Report">Report Problems</a></div>
-                <div style="margin-top: 20px;" class="Address"><a href="<?=ROOT?>/Main/Terms">Terms</a></div>
-            </div>
-            <div class="Group6">
-                <div class="Contact"><a href="<?=ROOT?>/Main/Blog">Blog</a></div>
-                <div class="Address"><a href="<?=ROOT?>/Main/Profile">Profile</a></div>
-                <div style="margin-top: 20px; white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Privacy">Privacy Policy</a></div>
-            </div>
-=======
     <title>Blog</title>
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet"
@@ -493,7 +355,6 @@
             <div class="Address"><a href="<?= ROOT ?>/Main/Profile">Profile</a></div>
             <div style="margin-top: 20px; white-space: nowrap;" class="Address"><a href="<?= ROOT ?>/Main/Privacy">Privacy Policy</a></div>
         </div>
->>>>>>> origin/main
         <div class="Group7">
             <div class="Frame13">
                 <button class="Join">Join US Today</button>
@@ -501,11 +362,10 @@
             <div class="Enrol">Enrol now to kickstart the childhood journey</div>
         </div>
         <div class="Line6"></div>
-        
-        <!-- Social Icons -->
+        <!-- Social icons -->
         <div class="social-icons">
+            <!-- twiiter icon -->
             <div class="socialcontainer">
-                <!-- twiiter icon -->
                 <div class="icon social-icon-1-1">
                     <svg viewBox="0 0 512 512" height="1.7em" xmlns="http://www.w3.org/2000/svg" class="svgIcontwit"
                         fill="white">
@@ -524,8 +384,8 @@
                     </svg>
                 </div>
             </div>
+            <!-- instagram icon -->
             <div class="socialcontainer">
-                <!-- instagram icon -->
                 <div class="icon social-icon-2-2">
                     <svg fill="white" class="svgIcon" viewBox="0 0 448 512" height="1.5em"
                         xmlns="http://www.w3.org/2000/svg">
@@ -534,7 +394,7 @@
                         </path>
                     </svg>
                 </div>
-                <!-- instagram icon effect-->
+                <!-- Instagram icon effect-->
                 <div class="social-icon-2">
                     <svg fill="white" class="svgIcon" viewBox="0 0 448 512" height="1.5em"
                         xmlns="http://www.w3.org/2000/svg">
@@ -553,7 +413,7 @@
                         </path>
                     </svg>
                 </div>
-                <!-- facebook icon effect -->
+                <!-- facebook icon effect-->
                 <div class="social-icon-3">
                     <svg viewBox="0 0 384 512" fill="white" height="1.6em" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -568,16 +428,16 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 256 180">
                         <path fill="white" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"></path>
                         <path fill="#144A78" d="m102.421 128.06l66.328-38.418l-66.328-38.418z"></path>
-                    </svg>            
+                    </svg>
                 </div>
                 <!-- Youtube icon effect-->
                 <div class="social-icon-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 256 180">
                         <path fill="white" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"></path>
                         <path fill="red" d="m102.421 128.06l66.328-38.418l-66.328-38.418z"></path>
-                    </svg>            
+                    </svg>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
 </body>

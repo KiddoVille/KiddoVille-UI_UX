@@ -118,7 +118,7 @@
             $stats['stat3'] = $newEvent ? [
                 'EventName' => $newEvent->EventName,
                 'Date' => $newEvent->Date,
-                'Image' => $base64Image, // This will be the Base64 string representation of the image
+                'Image' => $base64Image,
             
             ]: null;
     

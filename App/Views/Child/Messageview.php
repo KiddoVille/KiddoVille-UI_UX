@@ -4,14 +4,14 @@
     <title>Chat Application</title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="<?=CSS?>/Child/Message.css" />
+    <link rel="stylesheet" href="<?=CSS?>/Child/Message.css?v=<?= time() ?>" />
     <script src="<?=JS?>/Child/Upload-file.js"></script>
     <script src="<?=JS?>/Child/message.js"></script>
 </head>
 <style>
 </style>
 
-<body id="body-blur" class="">
+<body id="body-blur" style="overflow: hiden;">
     <section class="hidden" id="refresh-section">
         <div class="loader">
             <span style="--i:1"></span>
@@ -291,7 +291,7 @@
             <p>Student    RS0110657</p>
             <button class="logout-button" type="button" onclick="window.location.href ='<?=ROOT?>/Main/Home'" >Logout</button>
         </div>
-        <div class="messages" id="chat-window" style="background: url('<?=IMAGE?>/Messenger.jpg')">
+        <div class="messages" id="chat-window">
             <div class="container" id="start">
                 <h1>Welcome to Messager</h1>
                 <p class="welcome-text">Connect with your friends and start chatting.</p>

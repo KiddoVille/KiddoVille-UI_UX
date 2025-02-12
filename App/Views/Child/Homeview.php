@@ -2,7 +2,7 @@
 
 <head>
     <title>Dashboard</title>
-    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -17,40 +17,58 @@
     <script src="<?= JS ?>/Child/Taskbar.js?v=<?= time() ?>"> </script>
 </head>
 
-<body  style="background-image: url('<?=IMAGE?>/dashboard-background.jpeg');">
+<body>
     <div class="container">
-        <!-- minimized sidebar -->
-        <div class="sidebar minimized" id="sidebar1">
-            <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-            <h2 style="margin-top: 10px;">Dashboard</h2>
+        // minimized sidebar
+        <div class="sidebar" id="sidebar1">
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
+            <div class="logo-div">
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
+            </div>
             <ul>
                 <li class="selected first">
-                    <a href="<?=ROOT?>/Child/Home">
+                    <a href="<?= ROOT ?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/reservation">
+                    <a href="<?= ROOT ?>/Child/history">
+                        <i class="fas fa-history"></i> <span>History</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/report">
+                        <i class="fa fa-user-shield"></i> <span>Report</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/meal">
+                    <a href="<?= ROOT ?>/Child/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/event">
+                    <a href="<?= ROOT ?>/Child/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/package">
+                    <a href="<?= ROOT ?>/Child/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/payment">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
+                        <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -65,7 +83,7 @@
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
                 <h2 style="margin-top: 25px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
@@ -90,7 +108,9 @@
                                 onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
+                                                                                                echo "margin-left: -20px !important";
+                                                                                            } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -99,7 +119,7 @@
                 </div>
             </div>
         </div>
-        <div class="main-content" style="height: 125vh;">
+        <div class="main-content" style="margin-left: 150px; height: 100%; width: 90%;">
             <!-- Header -->
             <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"
@@ -175,7 +195,6 @@
                                 </p>
                             </div>
                         </div>
-
                         <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
                             <p style="margin-top: -30px;">Reg Number : <span>SRD110021</span></p>
                             <p style="margin-top: -10px;">Age: 
@@ -197,7 +216,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                     <div class="attendence-bar">
@@ -214,218 +232,102 @@
                         <div class="filters">
                             <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                         </div>
-                        <table style="width: 100%;">
+                        <table class="calendar-table" style="margin-bottom: 15px;">
                             <thead>
                                 <tr>
-                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;">Activity</th>
-                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;"> Start Time</th>
-                                    <th style="color: #233E8D; background-color:transparent;text-align: right !important;">End Time</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                    <th>Sun</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>1</td>
+                                    <td><span class="today">2</span></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                    <td>15</td>
+                                    <td>16</td>
+                                    <td>17</td>
+                                </tr>
+                                <tr>
+                                    <td>18</td>
+                                    <td>19</td>
+                                    <td>20</td>
+                                    <td>21</td>
+                                    <td>22</td>
+                                    <td>23</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>25</td>
+                                    <td>26</td>
+                                    <td>27</td>
+                                    <td>28</td>
+                                    <td>29</td>
+                                    <td>30</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
                         </table>
-                        <!-- childs activity for the day -->
-                        <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <tbody>
-                                    <tr>
-                                        <td>Breakfast</td>
-                                        <td>8.00 AM</td>
-                                        <td>9.00 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Creative Play</td>
-                                        <td>9.00 AM</td>
-                                        <td>10.00 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Creative Play</td>
-                                        <td>10.00 AM</td>
-                                        <td>11.00 AM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Story Time</td>
-                                        <td>11.00 AM</td>
-                                        <td>12.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lunch</td>
-                                        <td>12.00 PM</td>
-                                        <td>1.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bed Time</td>
-                                        <td>1.00 PM</td>
-                                        <td>2.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Basic Learning Activities</td>
-                                        <td>2.00 PM</td>
-                                        <td>3.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tea Time</td>
-                                        <td>3.00 PM</td>
-                                        <td>4.00 PM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Outdoor Play</td>
-                                        <td>4.00 PM</td>
-                                        <td>5.00 PM</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
-                </div>
-                <div class="report-header" style="justify-content: space-between; text-align: center; margin-top: -5px;">
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;">
-                        Schedule pickups
-                        <button id="openModalBtn" class="button" style="width: 240px;">Schedule</button>
-                        <div class="pickupresults" id="pickupresults">
-                            <div class="pickup-section"
-                                style="display: flex; flex-direction: row; width: 200px; justify-content: center; align-items: center;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); margin-top: 10px;">
-                                <i class="fas fa-check-circle" style="color:green"></i>
-                                <h4> Success</h4>
+                    <div class="card">
+                        <h2>Upcoming Tasks</h2>
+                        <div class="task-item">
+                            <div class="task-info">
+                                <p class="task-title">Math Homework</p>
+                                <span class="task-deadline">Due: Nov 5, 2024</span>
                             </div>
+                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-info">
+                                <p class="task-title">History Essay</p>
+                                <span class="task-deadline">Due: Nov 10, 2024</span>
+                            </div>
+                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-info">
+                                <p class="task-title">Science Project</p>
+                                <span class="task-deadline">Due: Nov 15, 2024</span>
+                            </div>
+                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
                         </div>
                     </div>
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;">
-                        Schedule Meeting
-                        <button id="meetingbtn" class="button" style="width: 240px;">Schedule</button>
-                <div class="pickup-section" id="meetingresults"
-                    style="display: none; width: 220px;margin-bottom: 0px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-                    <p id="meetingresultsdate" style="margin-top: 10px;"></p>
-                    <p id="meetingresultstime"></p>
-                </div>
-                <button id="editmeetingbtn" class="button" style="width: 240px; display: none;">Edit</button>
+                    <div class="card">
+                        <h2>Main menu</h2>
+                        <a href="#" class="main-menu-item">
+                            <i class="fas fa-bullhorn icon-announcements"></i>
+                            <span>Site announcements</span>
+                        </a>
+                        <a href="#" class="main-menu-item">
+                            <i class="fas fa-globe icon-library"></i>
+                            <span>KIDDOVILLE Funzone</span>
+                        </a>
                     </div>
-                    <div class="profile" style="width: 300px;display: flex; justify-content: center; align-items: center;">
-                        Schedule Visit
-                        <button id="openvisitModal" class="button" style="width: 240px;">Schedule</button>
-                        <div class="pickup-section" id="visitresults" style="display: none; width: 220px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-                            <p id="visitresultsdate" style="margin-top: 10px;">Nice</p>
-                            <p id="visitresultstime">Nice</p>
-                        </div>
-                        <button id="editvisitbtn" class="button" style="width: 240px; display: none;">Edit</button>
-                    </div>
-                </div>
-                <div class="general-notes" style="margin-top: -20px; margin-left: 0px;">
-                    <div class="note-head">
-                        <h3>General Notes and Suggestions</h3>
-                    </div>
-                    <div class="text-area" style="margin-top: -10px;">
-                        <textarea rows="2" placeholder="Give suggestions and feedbacks" id="note"></textarea>
-                    </div>
-                    <div style=" display: flex; justify-content: right;">
-                        <button class="button" style="width: 130px; align-items: center;text-align:center;"> Submit </button>
-                    </div>
-                </div>
-            </div>
-            <!-- tasks right navbar -->
-            <div class="task-container" id="tasknavbar" style="position: fixed; margin-top: -882px; margin-left: 1310px;">
-                <h1 style="margin-top: 20px;"> Quick Tasks Hub </h1>
-                <div class="card">
-                    <h2>Calendar</h2>
-                    <div class="calendar-header">
-                        <a href="#">&lt; October</a>
-                        <h3>November 2024</h3>
-                        <a href="#">December &gt;</a>
-                    </div>
-                    <table class="calendar-table">
-                        <thead>
-                            <tr>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
-                                <th>Sun</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>1</td>
-                                <td><span class="today">2</span></td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                                <td>14</td>
-                                <td>15</td>
-                                <td>16</td>
-                                <td>17</td>
-                            </tr>
-                            <tr>
-                                <td>18</td>
-                                <td>19</td>
-                                <td>20</td>
-                                <td>21</td>
-                                <td>22</td>
-                                <td>23</td>
-                                <td>24</td>
-                            </tr>
-                            <tr>
-                                <td>25</td>
-                                <td>26</td>
-                                <td>27</td>
-                                <td>28</td>
-                                <td>29</td>
-                                <td>30</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card">
-                    <h2>Upcoming Tasks</h2>
-                    <div class="task-item">
-                        <div class="task-info">
-                            <p class="task-title">Math Homework</p>
-                            <span class="task-deadline">Due: Nov 5, 2024</span>
-                        </div>
-                        <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-info">
-                            <p class="task-title">History Essay</p>
-                            <span class="task-deadline">Due: Nov 10, 2024</span>
-                        </div>
-                        <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-info">
-                            <p class="task-title">Science Project</p>
-                            <span class="task-deadline">Due: Nov 15, 2024</span>
-                        </div>
-                        <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                    </div>
-                </div>
-                <div class="card">
-                    <h2>Main menu</h2>
-                    <a href="#" class="main-menu-item">
-                        <i class="fas fa-bullhorn icon-announcements"></i>
-                        <span>Site announcements</span>
-                    </a>
-                    <a href="#" class="main-menu-item">
-                        <i class="fas fa-globe icon-library"></i>
-                        <span>KIDDOVILLE Funzone</span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -550,7 +452,7 @@
                     <div class="pickup-section">
                         <label>Select person for pickup</label>
                         <div class="person-section">
-                            <img alt="Person's photo" height="50" src="<?=IMAGE?>/face.jpeg" width="50" />
+                            <img alt="Person's photo" height="50" src="<?= IMAGE ?>/face.jpeg" width="50" />
                             <div class="person-info">
                                 <span>Abdulla</span>
                             </div>
@@ -691,8 +593,8 @@
         </div>
     </div>
     <!-- navigation to message page -->
-    <a href="<?=ROOT?>/ReChild/Message" class="chatbox">
-        <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
+    <a href="<?= ROOT ?>/Child/Message" class="chatbox">
+        <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
             style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
         <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
             <p> 2</p>
@@ -700,7 +602,7 @@
     </a>
     <!-- profile card -->
     <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
-        <img src="<?=IMAGE?>/back-arrow-2.svg" id="back-arrow-profile"
+        <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
             style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
         <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
             class="profile" />
@@ -722,7 +624,6 @@
     const fixedSlider = document.getElementById('fixedSlider');
     const initialValue = fixedSlider.value;
 
-    // Add an event listener to reset the slider if it changes
     fixedSlider.addEventListener('input', () => {
         fixedSlider.value = initialValue;
     });
