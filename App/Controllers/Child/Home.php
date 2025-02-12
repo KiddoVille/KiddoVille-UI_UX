@@ -32,9 +32,145 @@ class Home
         }
 
         $data = $data + $this->store_attendance();
+        $data = $data + $this->store_stats();
+
         $session->set("Location" , 'Child/Home');
         $this->view('Child/home', $data);
     }
+
+    private function store_stats(){
+
+        $today = new \DateTime();
+        $today = $today->format("Y-m-d");
+        $session = new \Core\Session;
+        $childattended = false;
+        $hasPickup = false;
+        $ChildID = $session->get("CHILDID");
+        
+        $AttendanceModal = new \Modal\Attendance;
+        $attendanceRow = $AttendanceModal->first(["ChildID" => $ChildID, "Status" => "Present"]);
+            
+        if ($attendanceRow) {
+            $childattended = true;
+        }
+        
+        $PickupModal = new \Modal\Pickup;
+        $row = $PickupModal->first(['ChildID' => $ChildID, 'Date' => $today, "AllChild" => 0]);
+            
+        if ($row) {
+            $hasPickup = true;
+            if ($row->Person == 'New') {
+                $imageData = $row->Image;
+                $imageType = $row->ImageType;
+                $base64Image = (!empty($imageData) && is_string($imageData)) 
+                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+                    : null;
+                $stats['stat2'] = [
+                    'Time' => $row->Time,
+                    'Person' => $row->Person,
+                    'Image' => $base64Image
+                ];
+            } else {
+                $stats['stat2'] = [
+                    'Time' => $row->Time,
+                    'Person' => $row->Person
+                ];
+            }
+        }
+        
+        if (!$childattended) {
+            $stats['stat2'] = [
+                'nochild' => 'child not attended'
+            ];
+        } elseif (!$hasPickup) { 
+            $stats['stat2'] = [
+                'Time' => '8:00PM',
+                'Person' => 'Parent'
+            ];
+        }            
+
+        $UserID = $session->get("USERID");
+        $ParentModal = new \Modal\ParentUser;
+        $Parent = $ParentModal->first(["UserID" => $UserID]);
+        $GuardianModal = new \Modal\Guardian;
+        $Guardian = $GuardianModal->first(["ParentID" => $Parent->ParentID]);
+
+        $imageData = $Guardian->Image;
+        $imageType = $Guardian->ImageType;
+        $base64Image = (!empty($imageData) && is_string($imageData)) 
+            ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+            : null;
+
+        $stats['guardian']['Image'] = $base64Image;
+        $stats['guardian']['name'] = $Guardian->First_Name . ' ' . $Guardian->Last_Name ;
+
+        return $stats;
+    }
+
+    public function deletePickup(){
+        header('Content-Type: application/json');
+        $requestData = json_decode(file_get_contents("php://input"), true);
+
+        $today = new \DateTime();
+        $today = $today->format("Y-m-d");
+        $session = new \Core\Session;
+        $ChildID = $session->get("CHILDID");
+
+        $PickupModal = new \Modal\Pickup;
+        $row = $PickupModal->first(['ChildID' => $ChildID, 'Date' => $today, "AllChild" => 0]);
+
+        if ($row) {
+            $PickupModal->delete($row->PickupID , "PickupID");
+        }
+        echo json_encode(['success' => true, 'message' => '']);
+    }
+
+    public function handlePickups(){
+
+        $session = new \Core\Session;
+        $PickupModal = new \Modal\Pickup;
+        $ChildID = $session->get("CHILDID");
+        
+        $today = new \DateTime();
+        $today = $today->format("Y-m-d");
+        $_POST['Person'] = $_POST['PersonType'];
+        $_POST['AllChild'] = 0;
+        $_POST['OTP'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        unset($_POST['PersonType']);
+        unset($_POST['selectedPerson']);
+        unset($_POST['inform']);
+
+        $_POST['Date'] = $today;
+        if(isset($_FILES['newPersonImage']) && ($_FILES['newPersonImage']['error'] === UPLOAD_ERR_OK) && ($_POST['Person'] == 'New') ){
+            $imageFile = $_FILES['newPersonImage'];
+            $imageType = mime_content_type($imageFile['tmp_name']);
+
+            $imageBlob = file_get_contents($imageFile['tmp_name']);
+            if ($imageBlob !== false) {
+                $_POST['Image'] = $imageBlob;
+                $_POST['ImageType'] = $imageType;
+            } else {
+                $errors['Image'] = "Failed to read the image file.";
+            }
+        }
+
+        $row = $PickupModal->first(['ChildID' => $ChildID, 'Date' => $today, "AllChild" => 0]);
+        if ($row) {
+            $PickupModal->delete($row->PickupID , "PickupID");
+        }
+
+        // show($_POST);
+        $_POST['ChildID'] = $ChildID;
+        $AttendanceModal = new \Modal\Attendance;
+        $attendanceRow = $AttendanceModal->first(["ChildID" => $ChildID, "Status" => "Present"]);
+        
+        if ($attendanceRow) {
+            $PickupModal->insert($_POST);
+        }
+
+        redirect('Child/Home');
+    }
+
 
     private function store_attendance() {
         $session = new \core\session;
