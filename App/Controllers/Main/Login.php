@@ -24,23 +24,22 @@
         
                             if($result->Role === "User"){
                                 $parent = new \Modal\ParentUser;
-                                $result = $parent->first(['Username' => $result -> Username]);
-                                if(empty($result)){
+                                $pre = $parent->first(['UserID' => $result -> UserID]);
+                                if(empty($pre)){
                                     redirect('Onbording/ParentUser');
                                 }
                                 else{
-                                    redirect('Parent/Home');
-                                }
-                            }
-                            if($result->Role === "Registered"){
-                                $parent = new \Modal\ParentUser;
-                                $result = $parent->first(['Username' => $result -> Username]);
-                                show($result);
-                                if(empty($result)){
-                                    redirect('Onbording/ParentUser');
-                                }
-                                else{
-                                    redirect('ReParent/Home');
+                                    $lastseen = date('Y-m-d H:i:s');
+                                    $parent->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
+
+                                    $child = new \Modal\Child;
+                                    $children = $child->where_norder(["ParentID"=> $pre->ParentID]);
+                                    if(!$children){
+                                        redirect('Onbording/Child');
+                                    }
+                                    else{
+                                        redirect('Parent/Home');
+                                    }
                                 }
                             }
                             if($result->Role === "Teacher"){
@@ -57,6 +56,9 @@
                                 redirect('Maid/Home');
                             }
                             if($result->Role === "Manager"){
+                                $Manager = new \Modal\Manager;
+                                $lastseen = date('Y-m-d H:i:s');
+                                $Manager->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
                                 redirect('Manager/Home');
                             }
                             if($result->Role === "Receptionist"){

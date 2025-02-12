@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const timeElements = document.querySelectorAll('.time');
     const pickupForm = document.getElementById('pickupForm');
     const refreshIcon = document.getElementById('pickuprefresh');
-    const openModalBtn = document.getElementById('openModalBtn');
+    const openModalBtn = document.getElementById('openPickupModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const pickupModal = document.getElementById('pickupModal');
     const pickupModal2 = document.getElementById('pickupModal2');
-    const meetingbtn = document.getElementById('meetingbtn');
+    const meetingbtn = document.getElementById('openMeetingModal');
     const meetingModal = document.getElementById('MeetingModal');
     const mainContent = document.querySelector('.main-content');
     const viewpackage = document.getElementById('PackageModal');
@@ -28,107 +28,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const meetingrefreshcon = document.getElementById('meetingrefreshcon');
     const customeschedule = document.getElementById('customeschedule');
     const customMeetingModal = document.getElementById('customMeetingModal');
-    const backforcustommeeting = document.getElementById('backforcustommeeting');
-    const closecustommeetingBtn = document.getElementById('closecustommeetingBtn');
-    const custommeetingform = document.getElementById('custommeeting-form');
-    const custommeetingrefresh = document.getElementById('custommeetingrefresh');
 
-    custommeetingrefresh.addEventListener('click', function(){
-        custommeetingform.reset();
-    })
-
-    custommeetingform.addEventListener('submit', function(){
-        event.preventDefault();
-        meetingresultsdate.textContent = "Date " + document.getElementById("customdate").value;
-        meetingresultstime.textContent = "Time " + document.getElementById("customtime").value;
-        meetingresults.style.display = 'block';
-        editmeetingbtn.style.display = 'block';
-        toggleModal(customMeetingModal, 'none');
-        meetingbtn.style.display = 'none';
-    });
-
-    document.getElementById("customdate").addEventListener('change' , function(event){
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const futureDate = new Date(today);
-        futureDate.setDate(today.getDate() + 2);
-
-        const customdateStr = document.getElementById("customdate").value;
-        const customDate = new Date(customdateStr);
-        customDate.setHours(0, 0, 0, 0);
-        if(customDate < futureDate){
-            document.getElementById("customdate").value = futureDate.toISOString().split('T')[0];
+    function previewNewPersonImage(event) {
+        const file = event.target.files[0];
+    
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newPersonContainer = document.getElementById("newPersonContainer");
+                const newPersonImage = document.getElementById("newPersonImage");
+    
+                newPersonImage.src = e.target.result;
+                newPersonContainer.style.display = "flex"; // Show the new person section
+    
+                // Automatically select the new person
+                selectPerson("new");
+            };
+            reader.readAsDataURL(file);
         }
-    });
-
-    document.getElementById("customtime").addEventListener('change' , function(event){
-        const timeInput = event.target;
-        const [hours, minutes] = timeInput.value.split(":").map(Number);
-
-        const roundedMinutes = Math.round(minutes / 15) * 15;
-        let adjustedHours = hours;
-        let adjustedMinutes = roundedMinutes;
-        if (roundedMinutes === 60) {
-            adjustedHours += 1;
-            adjustedMinutes = 0;
+    }
+    
+    function selectPerson(personType) {
+        if (personType === "parent") {
+            document.getElementById("parentRadio").checked = true;
+            document.getElementById("newPersonRadio").checked = false;
+            document.getElementById("selectedPersonType").value = "parent";
+        } else {
+            document.getElementById("parentRadio").checked = false;
+            document.getElementById("newPersonRadio").checked = true;
+            document.getElementById("selectedPersonType").value = "new";
         }
-        if (adjustedHours < 8) {
-            adjustedHours = 8;
-            adjustedMinutes = 0;
-        }
-        else if (adjustedHours >= 17 && adjustedMinutes > 0) {
-            adjustedHours = 17;
-            adjustedMinutes = 0;
-        }
-        const formattedHours = String(adjustedHours).padStart(2, '0');
-        const formattedMinutes = String(adjustedMinutes).padStart(2, '0');
-        timeInput.value = `${formattedHours}:${formattedMinutes}`;
-    })
-
-    backforcustommeeting.addEventListener('click', function(){
-        toggleModal(meetingModal, 'flex');
-        toggleModal(customMeetingModal, 'none');
-    });
-
-    closecustommeetingBtn.addEventListener('click', function(){
-        toggleModal(meetingModal, 'flex');
-        toggleModal(customMeetingModal, 'none');
-    });
-
-    customeschedule.addEventListener('click', function(){
-        toggleModal(meetingModal, 'none');
-        toggleModal(customMeetingModal, 'flex');
-    })
-
-    editmeetingbtn.addEventListener('click', function(){
-        toggleModal(meetingModal,'flex');
-        toggleModal(meetingrefreshcon,'none');
-    })
+    }
 
     profilebtn.addEventListener('click',function(){
         console.log('lol');
         profilecard.style.display = 'flex';
         profilecard.style.zIndex = 10000;
         profilecard.style.flexDirection = 'start';
-    });
-
-    pickupForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        openModalBtn.style.display = 'none';
-        pickupresults.style.display = 'flex';
-        toggleModal(pickupModal, 'none');
-    });
-
-    meetingform.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const selectedOptions = Array.from(document.querySelectorAll('input[name="option"]:checked'));
-        const selectedValues = selectedOptions.map(checkbox => checkbox.value);
-        meetingresultsdate.textContent = "Date " + (selectedValues[0].split("+"))[0];
-        meetingresultstime.textContent = "Time :" + (selectedValues[0].split("+"))[1];
-        meetingresults.style.display = 'block';
-        editmeetingbtn.style.display = 'block';
-        toggleModal(meetingModal, 'none');
-        meetingbtn.style.display = 'none';
     });
 
     checkboxes.forEach(function (checkbox) {
@@ -153,9 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleModal(meetingModal, 'flex');
     });
 
-    openModalBtn.addEventListener('click', function () {
-        toggleModal(pickupModal, 'flex');
-    });
+    if(openModalBtn){
+        openModalBtn.addEventListener('click', function (){
+            toggleModal(pickupModal, 'flex');
+        })
+    }
 
     closeModalBtn.addEventListener('click', function () {
         toggleModal(pickupModal, 'none');
@@ -238,14 +176,6 @@ document.addEventListener('DOMContentLoaded', function () {
             redstar.classList.remove('hidden');
         } else {
             redstar.classList.add('hidden');
-        }
-    });
-
-    pickupotp.addEventListener("input", function () {
-        if (pickupotp.value.length === 0) {
-            redstar2.classList.remove('hidden');
-        } else {
-            redstar2.classList.add('hidden');
         }
     });
 

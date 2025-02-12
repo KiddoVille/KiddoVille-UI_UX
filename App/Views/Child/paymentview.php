@@ -82,7 +82,7 @@
                 <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first select-child"
+                        <li class="hover-effect first"
                             onclick="removechildsession();">
                             <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
@@ -343,7 +343,7 @@
             .then(data => {
                 if (data.success) {
                     console.log("Child id removed from session.");
-                    window.location.href = '<?= ROOT ?>/Parent/Home';
+                    window.location.href = '<?= ROOT ?>/Parent/Payment';
                 } else {
                     console.error("Failed to remove child id from session.", data.message);
                 }
@@ -366,7 +366,7 @@
             .then(data => {
                 if (data.success) {
                     console.log("Child id set in session.");
-                    window.location.href = '<?= ROOT ?>/Child/Home';
+                    window.location.href = '<?= ROOT ?>/Child/Payment';
                 } else {
                     console.error("Failed to set child id from session.", data.message);
                 }

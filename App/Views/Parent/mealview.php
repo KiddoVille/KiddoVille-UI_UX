@@ -12,6 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/meal.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
@@ -77,15 +80,14 @@
                 <a href="#" style="text-decoration:none; color:purple"><i class="fas fa-question-circle"></i> <span>Help</span></a>
             </div>
         </div>
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
@@ -97,10 +99,10 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                    style="margin-left: -20px;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -110,54 +112,34 @@
             </div>
         </div>
         <div class="main-content">
-            <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+        <div class="header">
+                <i class="fa fa-bars" id="minimize-btn" style=""></i>
                 <div class="name">
-                    <h1>Hey Thilina</h1>
-                    <p>Let’s do some productive activities today</p>
+                    <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
+                    <p style="color: white">Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
+                <!-- message icon -->
+                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <div class="message-numbers">
+                        <p> 2</p>
+                    </div>
                     <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
                             <li>
-                                <p>New Message 1 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
+                                <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
+                                <p class="content"> content like a message</p>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="message-numbers">
-                    <p>2</p>
-                </div>
+                <!-- Prodile btn -->
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>

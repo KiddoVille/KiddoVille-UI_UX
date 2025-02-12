@@ -8,7 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/reservation.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
@@ -70,35 +74,30 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
         </div>
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 25px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
-                    <ul style="margin-left: 20px;">
-                        <li class="hover-effect first select-child" style="width:140px;"
+                <h2>Familty Ties</h2>
+                <div class="family-section">
+                    <ul>
+                        <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px; margin-left: 30px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 30px !important;">
+                    <h2 style="margin-top: 25px;">Little Explorers</h2>
+                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first"
-                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['id']) ? $child['id'] : '' ?>')">
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px;">
+                                    style="margin-left: -20px;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -108,81 +107,56 @@
             </div>
         </div>
         <div class="main-content" id="main-content">
-            <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+        <div class="header">
+                <i class="fa fa-bars" id="minimize-btn" style=""></i>
                 <div class="name">
-                    <h1>Hey Thilina</h1>
-                    <p>Let’s do some productive activities today</p>
+                    <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
+                    <p style="color: white">Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
+                <!-- message icon -->
+                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <div class="message-numbers">
+                        <p> 2</p>
+                    </div>
                     <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
                                 <p class="content"> content like a message</p>
                             </li>
-                            <li>
-                                <p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
                         </ul>
                     </div>
                 </div>
-                <div class="message-numbers">
-                    <p> 2</p>
-                </div>
+                <!-- Prodile btn -->
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Accepted reservation</h3>
+                    <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance" >Accepted reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">Reservations been scheduled</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/pending.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Pending reservation</h3>
+                    <h3><img src="<?= IMAGE ?>/pending.svg?v=<?= time() ?>" alt="Attendance" >Pending reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Pending']) ? $data['Pending'] : '0'; ?> reservation</p>
                     <span style="font-weight: 50;">The reservation has not been accepted by maid
                         yet</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Canceled reservation</h3>
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg?v=<?= time() ?>" alt="Attendance" >Canceled reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">The reservation has not been canceled</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/calendar-plus-solid.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Make reservation</h3>
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/calendar-plus-solid.svg?v=<?= time() ?>" alt="Attendance">Make reservation</h3>
                     <div class="lol" id="newreservationbtn" style="cursor: pointer; margin-bottom: -100px; margin-top: 20px;">
                         <p>Create</p>
                     </div>
