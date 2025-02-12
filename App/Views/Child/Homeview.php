@@ -129,11 +129,7 @@
                     <p style="color: white">Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <!-- message icon -->
                 <div class="bell-con" id="bell-container" style="cursor: pointer;">
                     <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
                     <div class="message-dropdown" id="messageDropdown" style="display: none;">
@@ -150,13 +146,6 @@
                                 <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
                                 <p class="content"> content like a message</p>
                             </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
                             </li>
                             <li>
                                 <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
@@ -164,7 +153,6 @@
                             </li>
                         </ul>
                     </div>
-                </div>
                 <div class="message-numbers">
                     <p> 2</p>
                 </div>
@@ -207,31 +195,18 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="attendence-bar" style="margin-right: 2%; width: 220px;" id="attendance">
-                            <h3 style="margin-top: 0px;">Child Attendence </h3>
-                            <hr>
-                            <div class="progress" style="margin-left: -10px;">
-                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba <?=$data['graph'] ?>%, rgba(204, 204, 204, 0.56) 0);">
-                                    <?= $data['graph'] ?>%
-                                </div>
-                            </div>
-                            <p style="margin-top: 18px;"> Completed Tasks</p>
-                            <input style="margin-top: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
-                        </div>
-                        <div class="timetable" id="timetable">
-                            <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
-                            <hr>
-                            <div class="filters">
-                                <input type="date" id="datePicker" value="" style="width: 200px">
-                            </div>
-                            <table style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th style="color: #233E8D; background-color:transparent;">Activity</th>
-                                        <th style="color: #233E8D; background-color:transparent; white-space: nowrap; padding-left: 18%;"> Start Time</th>
-                                        <th style="color: #233E8D; background-color:transparent; white-space: nowrap; padding-left: 7%;">End Time</th>
-                                    </tr>
-                                </thead>
+                        <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
+                            <p style="margin-top: -30px;">Reg Number : <span>SRD110021</span></p>
+                            <p style="margin-top: -10px;">Age: 
+                                <span>
+                                <?= isset($data['selectedchildren']['age']) ? $data['selectedchildren']['age'] : 'No name set'; ?>
+                                </span>
+                            </p>
+                            <p style="margin-top: -10px;">Language: 
+                                <span>
+                                <?= isset($data['selectedchildren']['language']) ? $data['selectedchildren']['language'] : 'No name set'; ?>
+                                </span>
+                            </p>
                             </table>
                             <!-- childs activity for the day -->
                             <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
@@ -243,91 +218,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="report-header" style="display: flex; flex-direction: row;">
-                        <div class="timetable">
-                            <h3 style="margin-top: 0px; margin-bottom: 5px;">Subject Marks</h3>
-                            <hr>
-                            <div class="filters">
-                                <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                            </div>
-                            <table style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Subject</th>
-                                        <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Description</th>
-                                        <th style="color: #233E8D; background-color:transparent; padding-left:10%;">Marks</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tbody>
-                                        <tr>
-                                            <td>Math</td>
-                                            <td>Algebra and Geometry</td>
-                                            <td>85</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Science</td>
-                                            <td>Physics and Chemistry</td>
-                                            <td>85</td>
-                                        </tr>
-                                        <tr>
-                                            <td>English</td>
-                                            <td>Grammar and Writing</td>
-                                            <td>85</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="social" style="margin-left: 0px; width: 50%;">
-                            <div class="social-head">
-                                <h3 style="display: inline;">Social Development</h3>
-                            </div>
-                            <div class="skills">
-                                <span style="display: inline;">Connecting with Peers</span>
-                                <input type="range" min="0" max="100" value="50" step="20" readonly>
-                            </div>
-                            <div class="skills">
-                                <span style="display: inline;">Connecting with Peers</span>
-                                <input type="range" min="0" max="100" value="50" step="20" readonly>
-                            </div>
-                            <div class="behaviour-skills" style="margin-top: 0px;">
-                                <div class="text-line">
-                                    <input type="checkbox" name="behaviour">Consistently calm and cooperative
-                                </div>
-
-                                <div class="text-line">
-                                    <input type="checkbox" name="behaviour">Expresses emotions freely
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profile margin-right: 1%;">
-                            <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Departure </h3>
-                            <hr>
-                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
-                                <div style="display: flex; flex-direction: row;">
-                                    <h4 style="white-space: nowrap;"> Time : </h4>
-                                    <p style="white-space: nowrap; margin-top: 22px;  margin-left: 5px;"> 6:00 PM </p>
-                                </div>
-                                <div style="display: flex; flex-direction: row;">
-                                    <h4 style="white-space: nowrap; margin-top: -10px;"> Person : </h4>
-                                    <p style="white-space: nowrap; margin-top: -10px; margin-left: 5px;"> Parent </p>
-                                </div>
-                            </div>
-                            <button class="button" style="margin: 0px !important; padding: 15px 20px 15px 20px;"> Customize </button>
-                        </div>
+                    <div class="attendence-bar">
+                        <h3 style="margin-top: 0px;">Child Attendence </h3>
+                        <hr>
+                        <div class="progress" style="margin-left: 30px;">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        <p style="margin-top: 20px;"> Completed Tasks</p>
+                        <input style="margin-top: 0px; width: 300px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
                     </div>
-                </div>
-                <!-- tasks right navbar -->
-                <div class="task-container" id="tasknavbar" style="top: 0; margin-bottom: -20px; margin-left: -50px; position: sticky; height: 770px; overflow-y: auto;">
-                    <h2 style="margin-top: 30px;"> Quick Tasks Hub </h2>
-                    <div class="card">
-                        <h2 style="margin-top: 15px;">November</h2>
-                        <div class="calendar-header">
-                            <a href="#">&lt;October</a>
-                            <a href="#">December&gt;</a>
+                    <div class="timetable">
+                        <hr>
+                        <div class="filters">
+                            <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                         </div>
                         <table class="calendar-table" style="margin-bottom: 15px;">
                             <thead>
