@@ -86,9 +86,12 @@ use SessionHandler;
         public function logout(): int
         {
             $this->start_session();
-            $_SESSION = [];
-            session_unset();
-            session_destroy();
+
+            if (!empty($_SESSION[$this->userkey])) {
+
+                unset($_SESSION[$this->userkey]);
+            }
+
             return 0;
         }
 
@@ -150,14 +153,14 @@ use SessionHandler;
             return [];
         }
 
-        public function check_login() {
+        function check_login() {
             if (!$this->is_logged_in()) {
                 redirect('Main/Login');
                 exit;
             }
         }
 
-        public function check_child(){
+        function check_child(){
             $this->start_session();
             $session = new Session;
     

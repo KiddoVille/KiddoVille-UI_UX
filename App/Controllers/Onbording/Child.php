@@ -11,15 +11,24 @@
             $session->check_login();
     
             $data = [];
-            // $UserID = $session->get('USERID');
-            // $child = new \Modal\Child;
+            $UserID = $session->get('USERID');
+            $child = new \Modal\Child;
 
-            // $parent = new \Modal\ParentUser;
-            // $pre = $parent->first(["UserID" => $UserID]);
-            // $session->set(['PARENTID' => $pre->ParentID]);
+            $parent = new \Modal\ParentUser;
+            $pre = $parent->first(["UserID" => $UserID]);
+            $session->set(['PARENTID' => $pre->ParentID]);
+    
+            // Fetch children of the current parent
+            $children = $child->where_norder(['ParentID' => $pre->ParentID ]);
             
             // Handle child limit and determine button visibility
             // $this->checkChildLimit($children, $child, $data);
+    
+            // Process form submission if POST request is made
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $this->handleFormSubmission($child, $data);
+            }
+
             // $action = $_POST['action'] ?? '';
 
             // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,119 +52,108 @@
         //     }
         // }
     
-        public function lol() {
+        private function handleFormSubmission($child, &$data) {
             $requiredFields = ['First_Name', 'Last_Name', 'DOB', 'Relation', 'Language'];
-        
+    
             if (checkRequiredFields($requiredFields, $_POST)) {
-                $child = new \Modal\Child;
                 $errors = $child->validate();
-        
+    
                 if (empty($errors)) {
                     $session = new \Core\Session;
-                    $Parent = new \Modal\ParentUser;
-                    $UserID = $session->get('USERID');
-                    $pre = $Parent->first(["UserID" => $UserID]);
+                    $ParentID = $session->get('PARENTID');
 
                     $existingChild = $child->first([
-                        'ParentID' => $pre->ParentID,
+                        'ParentID' => $ParentID,
                         'First_Name' => $_POST['First_Name']
                     ]);
-        
+    
                     if (!empty($existingChild)) {
-                        $session = new \core\Session;
-                        $session->set("ChildExist" , "Child already exist");
-                        $session->set("First_Name" , $_POST['First_Name']);
-                        redirect("Onbording/Child");
-                    } 
-                    else {
-                        // Insert child details
-                        $_POST['ParentID'] = $pre->ParentID;
+                        // Handle duplicate child entry error
+                        $this->handleDuplicateChildError($child, $data);
+                    } else {
+                        // Insert child and handle file uploads
+                        $_POST['ParentID'] = $ParentID;
                         $_POST['PackageID'] = 101;
-        
-                        // Handle Profile Image Upload
-                        if (!empty($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-                            $imageFile = $_FILES['profile_image'];
+                        $imageFile = $_FILES['profile_image'];
+
+                        if ($imageFile['error'] === 0) {
+                            // Get the MIME type of the uploaded file
                             $imageType = mime_content_type($imageFile['tmp_name']);
-        
-                            $imageBlob = file_get_contents($imageFile['tmp_name']);
-                            if ($imageBlob !== false) {
-                                $_POST['Image'] = $imageBlob;
-                                $_POST['ImageType'] = $imageType;
+                            if (in_array($imageType, ['image/jpeg', 'image/png', 'image/gif'])) {
+    
+                                $imageBlob = file_get_contents($imageFile['tmp_name']);
+                                
+                                if ($imageBlob === false) {
+                                    $errors['Image'] = "Failed to read the image file.";
+                                } else {
+                                    $_POST['Image'] = $imageBlob;
+                                    $_POST['ImageType'] = $imageType;
+                                    $child = new \Modal\Child;
+                                    $child->insert($_POST);
+                                    
+                                    redirect('Onbording/Child');
+                                }
                             } else {
-                                $errors['Image'] = "Failed to read the image file.";
+                                $errors['Image'] = "Unsupported image type. Please upload JPEG, PNG, or GIF images.";
                             }
                         }
-        
-                        if (empty($errors)) {
-                            $child = new \Modal\Child;
-                            $child->insert($_POST);
-        
-                            // Fetch the newly inserted child
-                            $insertchild = $child->first(["ParentID" => $pre->ParentID, "First_Name" => $_POST['First_Name']]);
-                            $session->set(['CHILDID' => $insertchild->ChildID]);
-        
-                            // Handle Medication Files
-                            if (!empty($_FILES['prescriptions']['name'][0])) {
-                                $uploadedFiles = $_FILES['prescriptions'];
-                                $childMedication = new \Modal\ChildMedication();
-        
-                                foreach ($uploadedFiles['tmp_name'] as $index => $tmpName) {
-                                    if ($uploadedFiles['error'][$index] === UPLOAD_ERR_OK) {
-                                        $file = [
-                                            'tmp_name' => $tmpName,
-                                            'name' => $uploadedFiles['name'][$index],
-                                            'type' => $uploadedFiles['type'][$index],
-                                            'size' => $uploadedFiles['size'][$index]
-                                        ];
-                                        $childMedication->saveMedicationImages($insertchild->ChildID, [$file]);
-                                    } else {
-                                        $errors['prescriptions'][$index] = "Error uploading prescription file.";
-                                    }
-                                }
-                            }
-        
-                            // Handle Document Files
-                            if (!empty($_FILES['documents']['name'][0])) {
-                                $files = $_FILES['documents'];
-                                $documentModel = new \Modal\ChildDocuments();
-        
-                                foreach ($files['tmp_name'] as $index => $tmpName) {
-                                    if ($files['error'][$index] === UPLOAD_ERR_OK) {
-                                        $file = [
-                                            'tmp_name' => $tmpName,
-                                            'name' => $files['name'][$index],
-                                            'type' => $files['type'][$index],
-                                            'size' => $files['size'][$index]
-                                        ];
-                                        $documentModel->saveMedicationDocuments($insertchild->ChildID, $file);
-                                    } else {
-                                        $errors['documents'][$index] = "Error uploading document file.";
-                                    }
-                                }
-                            }
-        
-                            if (empty($errors)) {
-                                redirect('Onbording/package');
+
+                        $insertchild = $child->first(["ParentID"=>$ParentID, "First_Name"=> $_POST['First_Name']]);
+                        $session->set(['CHILDID' => $insertchild->ChildID]);
+
+                        $uploadedFiles = $_FILES['prescriptions'];
+                        $childMedication = new \Modal\ChildMedication();
+                        foreach ($uploadedFiles['tmp_name'] as $index => $tmpName) {
+                            if ($uploadedFiles['error'][$index] === UPLOAD_ERR_OK) {
+                                $file = [
+                                    'tmp_name' => $tmpName,
+                                    'name' => $uploadedFiles['name'][$index],
+                                    'type' => $uploadedFiles['type'][$index],
+                                    'size' => $uploadedFiles['size'][$index],
+                                ];
+                                $childMedication->saveMedicationImages($insertchild->ChildID, [$file]);
                             }
                         }
+
+                        $files = $_FILES['documents'];
+                        $documentModel = new \Modal\ChildDocuments();
+
+                        // Loop through each uploaded file for documents
+                        foreach ($files['tmp_name'] as $index => $tmpName) {
+                            if ($files['error'][$index] === UPLOAD_ERR_OK) {
+                                $file = [
+                                    'tmp_name' => $tmpName,
+                                    'name' => $files['name'][$index],
+                                    'type' => $files['type'][$index],
+                                    'size' => $files['size'][$index],
+                                    'error' => $files['error'][$index]
+                                ];
+
+                                // Call saveDocuments to insert the document
+                                $documentModel->saveMedicationDocuments($insertchild->ChildID, $file); // Pass $file directly
+                            }
+                        }
+
+    
+                        // Redirect based on the new count of children
+                        // $this->redirectBasedOnChildCount($child, $username);
+                        redirect ('Onbording/package');
                     }
-                }
-        
-                // If errors exist, return data
-                if (!empty($errors)) {
+                } else {
+                    // Return errors and set values
                     $data['values'] = $this->setValues();
                     $data['errors'] = $errors;
                 }
             }
-        }        
+        }
     
-        // private function handleDuplicateChildError($child, &$data) {
-        //     $child->errors['First_Name'] = "First name already exists";
-        //     $data['errors'] = $child->errors;
+        private function handleDuplicateChildError($child, &$data) {
+            $child->errors['First_Name'] = "First name already exists";
+            $data['errors'] = $child->errors;
     
-        //     $child->values['First_Name'] = $_POST['First_Name'];
-        //     $data['values'] = $child->values;
-        // }
+            $child->values['First_Name'] = $_POST['First_Name'];
+            $data['values'] = $child->values;
+        }
     
         // private function redirectBasedOnChildCount($child, $username) {
         //     $children = $child->where_norder(['Parent_Name' => $username]);

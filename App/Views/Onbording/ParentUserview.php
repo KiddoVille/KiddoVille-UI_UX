@@ -133,10 +133,9 @@
                     <div class="data">
                         <label>Gender <span id="red-star9" class="red-star"> *</span></label>
                         <select name="Gender" style="width: 323px;">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                            <option value="O">Other</option>
-                        </select> 
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
                     </div>
                     <div class="data">
                         <label>Language Preference <span id="red-star10" class="red-star"> *</span> </label>

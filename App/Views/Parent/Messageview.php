@@ -419,24 +419,6 @@
         </div>
     </div>
     <script>
-
-        function logoutUser() {
-            fetch("<?= ROOT ?>/Parent/allevent/Logout", {
-                method: "POST", 
-                credentials: "same-origin"
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
-                } else {
-                    alert("Logout failed. Try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
-        }
-
-
         document.addEventListener('DOMContentLoaded', function () {
             const persons = document.querySelectorAll('.chat-item');
             const refresh = document.getElementById('refresh');

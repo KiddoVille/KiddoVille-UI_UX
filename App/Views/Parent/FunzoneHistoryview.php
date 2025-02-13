@@ -6,9 +6,8 @@
         Kiddo Ville
     </title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?=CSS?>/Parent/funzonehistory.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Parent/funzone1.css?v=<?= time() ?>">
     <script src="<?=JS?>/parent/Setting.js?v=<?= time() ?>"></script>
@@ -20,15 +19,13 @@
 
 <body>
     <!-- minimized sidebar -->
-    <div class="sidebarhome" id="sidebar1">
-        <div class="logo-div" style="display: flex; flex-direction: row; align-items: center; margin-left: 20px;">
-            <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo" style="width: 60px; height: 60px; margin-left: 0px; margin-bottom: 0px;"> </img>
-            <h2 id="sidebar-kiddo" style="font-size: 1.5em; margin-left: 10px;">KIDDO VILLE </h2>
-        </div>
-        <ul style="margin-top: -20px;">
+    <div class="sidebarhome minimized" id="sidebar1">
+        <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
+        <h2 style="margin-top: -15px;">Dashboard</h2>
+        <ul>
                 <li class="hover-effect unselected">
                     <a href="<?=ROOT?>/Parent/Home">
-                        <i class="fas fa-house"></i> <span>Home</span>
+                        <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected" style="margin-top: 40px;">
@@ -78,8 +75,8 @@
         </div>
     </div>
     <!-- mavigation for funzone -->
-    <!-- <div class="sidebar" style="background:white">
-        <a href="../../Home/Home.html">
+    <div class="sidebar" style="background:white">
+        <a href="../../Home/Home.html"> <!-- Add href here -->
             <img alt="Kiddo Ville Logo" height="50" src="<?=IMAGE?>/logo_light-remove.png" width="50" />
         </a>
         <h1>Kiddo Ville</h1>
@@ -108,16 +105,16 @@
                 <p class="Welcome">Welcome to Funzone</p>
             </a>
         </div>
-    </div> -->
+    </div>
     <div class="main-content" style="background:linear-gradient(to bottom right, #f7f7f7,#eaeaea)">
         <!-- Header -->
-        <div class="header" style="z-index: 100 !important;">
+        <div class="header" style="z-index: 1000000 !important;">
             <div class="nav-buttons">
                 <div class="circle">
-                    <i class="fas fa-chevron-left" onclick="window.location.href='<?=ROOT?>/Child/funzonetasks'"></i>
+                    <i class="fas fa-chevron-left"></i>
                 </div>
                 <div class="circle">
-                    <i class="fas fa-chevron-right" onclick="window.location.href='<?=ROOT?>/Child/funzoneHome'"></i>
+                    <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
             <h2>
@@ -131,6 +128,33 @@
                     width="100" class="profile" />
                 <h2 class="child-name">Thilina Perera</h2>
                 <p>Student    RS0110657</p>
+                <div class="custom-child-select-container">
+                    <div class="custom-child-select-trigger">
+                        Select child <i class="fa fa-chevron-down"></i>
+                    </div>
+                    <div class="custom-child-options-container" style="background-color: #1d61c4">
+                        <div class="custom-option" data-value="1">
+                            <img src="<?=IMAGE?>/face.jpeg" alt="Abdulla">
+                            <span>Abdulla</span>
+                        </div>
+                        <div class="custom-option" data-value="2">
+                            <img src="<?=IMAGE?>/face.jpeg" alt="Abdulla">
+                            <span>Abdulla</span>
+                        </div>
+                        <div class="custom-option" data-value="3">
+                            <img src="<?=IMAGE?>/face.jpeg" alt="Abdulla">
+                            <span>Abdulla</span>
+                        </div>
+                        <div class="custom-option" data-value="4">
+                            <img src="<?=IMAGE?>/face.jpeg" alt="Abdulla">
+                            <span>Abdulla</span>
+                        </div>
+                        <div class="custom-option" data-value="5">
+                            <img src="<?=IMAGE?>/face.jpeg" alt="Abdulla">
+                            <span>Abdulla</span>
+                        </div>
+                    </div>
+                </div>
                 <button class="logout-button">Logout</button>
                 <div class="lock">
                     <p class="lock-p"> Parental lock</p>
@@ -144,22 +168,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
-        <div class="header2">
-            <img src="<?=IMAGE?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
-            <p style="color: white; font-size: 17px;">Funzone </p>
-            <a href="<?=ROOT?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
-            <a href="<?=ROOT?>/Child/funzonewhishlist" class="hover-effect">Whishlist</a>
-            <a href="<?=ROOT?>/Child/funzonetasks" class="hover-effect">Task</a>
-            <a href="<?=ROOT?>/Child/funzonehistory" class="hover-effect select">History</a>
-            <select style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
-                <option> Videos </option>
-                <option> Books </option>
-                <option> Images </option>
-                <option> Songs </option>
-            </select>
-        </div>
-        <div class="contents" id="contents" style="margin-top: -880px !important; z-index:1 !important ;">
+        <div class="contents" id="contents" style="margin-top: -760px !important; z-index:1 !important ;">
             <div class="grid" id="grid">
                 <div class="filter-section" style="margin-top: 770px; z-index:1 !important ;">
                     <label for="filter-date">Filter by date: </label>
@@ -167,7 +178,7 @@
                     <button id="filter-button">Filter</button>
                 </div>
                 <!-- <p style="margin-top: 700px;"> Hi </p> -->
-                <div class="day" style="margin-top: -15px;">
+                <div class="day" style="margin-top: 0px;">
                     <h3> Today </h3>
                 </div>
                 <div class="items-day">
@@ -370,6 +381,10 @@
                 </div>
             </div>
         </div>
+        <!-- navigation to home page -->
+        <a href="<?=IMAGE?>/Home" class="chatbox">
+            <i class="fa fa-home" style="margin-top: 1px; text-decoration: none;"></i>
+        </a>
     </div>
 </body>
 

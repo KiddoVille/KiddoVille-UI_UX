@@ -1,237 +1,168 @@
 <?php
 
-namespace Controller;
+    namespace Controller;
 
-use App\Helpers\SidebarHelper;
+    defined('ROOTPATH') or exit('Access denied');
 
-defined('ROOTPATH') or exit('Access denied');
+    class Home {
+        use MainController;
 
-class Home
-{
-    use MainController;
+        public function index() {
+            $session = new \Core\Session;
+            $session->check_login();
+            $session->check_child();
 
-    public function index()
-    {
-        $session = new \Core\Session;
-        $session->check_login();
-        $session->check_child();
-        $ChildID = $session->get("CHILDID");
-        $session->set("CHILDID", $ChildID);
+            // Retrieve session variables
+            $ChildID = $session->get('CHILDID');
+            $UserID = $session->get('USERID');
 
-        $data = [];
-        $SidebarHelper = new SidebarHelper();
-        $data = $SidebarHelper->store_sidebar();
+            // Retrieve parent and children data
+            $parent = new \Modal\ParentUser;
+            $pre = $parent->first(['UserID' => $UserID]);
+            $child = new \Modal\Child;
+            $children = $child->where_norder(['ParentID' => $pre->ParentID]);
 
-        $ChildModal = new \Modal\Child;
-        $select = $ChildModal->first(['ChildID' => $ChildID]);
-        $data['child_id'] = $ChildID;
+            // Prepare data for all children
+            $data = $this->store($children, $pre);
 
-        if (!empty($select)) {
-            $data2 = $this->selectedchild($select);
-            $data = $data + $data2;
+            // Select specific child by name, if it exists
+            $select = $child->first(['ChildID' => $ChildID ]);
+            $data['child_id'] = $ChildID;
+
+            if (!empty($select)) {
+                $data2 = $this->selectedchild($select);
+                $data = $data + $data2;
+            }
+
+            // Load the view with the data
+            $this->view('Child/home', $data);
         }
 
-        $data = $data + $this->store_attendance();
-        $session->set("Location" , 'Child/Home');
-        $this->view('Child/home', $data);
-    }
+        private function store($children, $pre){
+            $data = [];
 
-    private function store_attendance() {
-        $session = new \core\session;
-        $ChildID = $session->get("CHILDID");
+            $imageData = $pre->Image;
+            $imageType = $pre->ImageType;  // Get the image MIME type from the database
+
+            // If image data is available, construct the Base64 string using the correct MIME type
+            $base64Image = (!empty($imageData) && is_string($imageData)) 
+                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+                : null;
+
+            $data['parent'] = [
+                'fullname' => $pre->First_Name . ' ' . $pre->Last_Name,
+                'image' => !empty($base64Image) ? $base64Image : null,
+            ];
+
+            // Retrieve each child's profile image and details
+            foreach ($children as $index => $child) {
+
+                $imageData = $child->Image;
+                $imageType = $child->ImageType;  // Get the image MIME type from the database
     
-        $today = new \DateTime();
-        $todayFormatted = $today->format("Y-m-d");
-    
-        // Get Monday of the current week
-        $monday = clone $today;
-        $monday->modify('Monday this week');
-        $mondayFormatted = $monday->format("Y-m-d");
-    
-        $AttendanceModal = new \modal\Attendance;
+                // If image data is available, construct the Base64 string using the correct MIME type
+                $base64Image = (!empty($imageData) && is_string($imageData)) 
+                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+                    : null;
+                $data['children'][$index] = [
+                    'Id' => $child->ChildID,
+                    'name' => $child->First_Name,
+                    'image' => !empty($base64Image) ? $base64Image : null,
+                ];
+            }
+
+            return $data;
+        }
+
+        private function selectedchild($selectedchild){
+            $data = [];
+
+            // Retrieve the specific child's profile image and details
+
+            $imageData = $selectedchild->Image;
+            $imageType = $selectedchild->ImageType;  // Get the image MIME type from the database
+
+            // If image data is available, construct the Base64 string using the correct MIME type
+            $base64Image = (!empty($imageData) && is_string($imageData)) 
+                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+                : null;
+
+            $data['selectedchildren'] = [
+                'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
+                'name' => $selectedchild->First_Name,
+                'image' => $base64Image,
+                'age' => agecalculate($selectedchild->DOB),
+                'language' => $selectedchild->Language,
+                'religion' => $selectedchild->Religion,
+            ];
+
+            return $data;
+        }
+
+        // public function setchildsession() {
+        //     if (session_status() == PHP_SESSION_NONE) {
+        //         session_start();
+        //     }
         
-        $attendedDays = 0;
-        $totalDays = 0;
-    
-        // Loop from Monday to today
-        $currentDate = clone $monday;
-        while ($currentDate <= $today) {
-            $dateFormatted = $currentDate->format("Y-m-d");
-            $attendance = $AttendanceModal->first(["ChildID" => $ChildID, "Start_Date" => $dateFormatted]);
-    
-            if ($attendance) {
-                // If the child stayed overnight and left after 08:00 AM next day
-                if ($attendance->End_Date && $attendance->End_Date > $dateFormatted && $attendance->End_Time > "08:00") {
-                    $attendedDays += 2; // Count as two days
-                } else {
-                    $attendedDays++;
-                }
-            }
-    
-            $totalDays++;
-            $currentDate->modify("+1 day");
-        }
-        $attendancePercentage = ($totalDays > 0) ? ($attendedDays / $totalDays) * 100 : 0;
-    
-        $data['graph'] = round($attendancePercentage, 2);
-        return $data;
-    }    
-
-    private function selectedchild($selectedchild)
-    {
-        $data = [];
-
-        // Retrieve the specific child's profile image and details
-
-        $imageData = $selectedchild->Image;
-        $imageType = $selectedchild->ImageType;  // Get the image MIME type from the database
-
-        // If image data is available, construct the Base64 string using the correct MIME type
-        $base64Image = (!empty($imageData) && is_string($imageData))
-            ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
-            : null;
-
-        $data['selectedchildren'] = [
-            'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
-            'name' => $selectedchild->First_Name,
-            'image' => $base64Image,
-            'age' => agecalculate($selectedchild->DOB),
-            'language' => $selectedchild->Language,
-            'religion' => $selectedchild->Religion,
-            'id' => str_pad($selectedchild->ChildID, 5, '0', STR_PAD_LEFT),
-        ];
-
-        return $data;
-    }
-
-    public function store_schedule()
-    {
-        header('Content-Type: application/json');
-        $requestData = json_decode(file_get_contents("php://input"), true);
-
-        $date = $requestData['date'] ?? date('Y-m-d');
-        if ($date === null) {
-            $date = date('Y-m-d');
-        }
-
-        $session = new \core\session;
-        $ChildID = $session->get("CHILDID");
-
-        $ChildModal = new \Modal\Child;
-        $AssignModal = new \Modal\AssignTeacher;
-        $ActivityModal = new \Modal\Activity;
-
-        $Child = $ChildModal->first(["ChildID" => $ChildID]);
-        $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
-
-        // Calculate the child's age at the start of the current year (January 1st)
-        $dob = new \DateTime($Child->DOB); // Assuming $Child->DOB is a valid date string
-        $currentYear = (new \DateTime())->format('Y');
-        $startOfYear = new \DateTime("{$currentYear}-01-01");
-
-        // Calculate the age as of January 1st of the current year
-        $ageAtStartOfYear = $dob->diff($startOfYear)->y;
-
-        // Map the age to the corresponding age group
-        $AgeGroup = null; // Initialize with null in case no match is found
-
-        foreach ($validAgeGroups as $group) {
-            [$minAge, $maxAge] = explode('-', $group);
-
-            if ($ageAtStartOfYear >= $minAge && $ageAtStartOfYear <= $maxAge) {
-                $AgeGroup = $group;
-                break;
-            }
-        }
+        //     header('Content-Type: application/json');
         
-        $subjects = $AssignModal->where_order(["Agegroup" => $AgeGroup, "Date" => $date], [] , 'Start_Time');
-        foreach ($subjects as $subject) {
-            if (empty($subject->End_Time)) {
-                $startTime = new \DateTime($subject->Start_Time);
-                $startTime->modify('+1 hour');
-                $subject->End_Time = $startTime->format('H:i:s');
+        //     $request = json_decode(file_get_contents('php://input'), true);
+        
+        //     if (isset($request['ChildID'])) {
+        //         $session = new \Core\Session;
+        //         $session->set('CHILDID', $request['ChildID']);
+        //         $_SESSION['CHILDID'] = $request['ChildID'];
+        
+        //         // Return JSON indicating success
+        //         echo json_encode(['success' => true, 'message' => 'ChildID set successfully.']);
+        //     } else {
+        //         // Return JSON indicating failure
+        //         echo json_encode(['success' => false, 'message' => 'ChildID not provided.']);
+        //     }
+        //     exit();
+        // }  
+        
+        public function setchildsession(){
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
             }
-        }
-
-        $dinnerRow = new \stdClass(); // Create a new stdClass object for Dinner
-        $dinnerRow->Start_Time = '13:00:00';
-        $dinnerRow->End_Time = '14:00:00';
-        $dinnerRow->Activity = 'Dinner';
-
-        $inserted = false; // Track if the dinner row has been inserted
-        foreach ($subjects as $key => $subject) {
-            if (new \DateTime($dinnerRow->Start_Time) < new \DateTime($subject->Start_Time)) {
-                array_splice($subjects, $key, 0, [$dinnerRow]); // Insert Dinner row before this subject
-                $inserted = true;
-                break;
+            header('Content-Type: application/json');
+            $request = json_decode(file_get_contents('php://input'), true);
+            $response = [];
+        
+            $session = new \Core\Session;
+            if (isset($request['ChildID'])) {
+                $session->set('CHILDID', $request['ChildID']);
+                $response = ['success' => true, 'message' => 'Child session removed.'];
+            } else {
+                $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
+
+            echo json_encode($response);  // Send JSON response
+            exit();
         }
 
-        foreach ($subjects as $subject) {
-            if (!empty($subject->WorkID)){
-                $Activity = $ActivityModal->first(["WorkID" => $subject->WorkID]);
-                if ($Activity) { // Ensure $Activity is not null // Append $Activity to the 'Activity' array
-                    $subject->Description = $Activity->Description; // Set the Description
-                } else {
-                    $subject->Description = 'No Description Available';
-                }
+        public function removechildsession(){
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
             }
-        }
+            header('Content-Type: application/json');
+            $response = [];
 
-        if (!$inserted) {
-            $subjects[] = $dinnerRow;
-        }
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+            
+            if (isset($ChildID)) {
+                $session->unset("CHILDID");
+                $response = ['success' => true, 'message' => 'Child session removed.'];
+            } else {
+                $response = ['success' => false, 'message' => 'No child session to remove.'];
+            }
 
-        if (empty($subjects)) {
-            echo json_encode(['success' => false, 'message' => 'No attendance records found for the selected filters']);
-        } else {
-            echo json_encode(['success' => true, 'data' => $subjects]);
+            echo json_encode($response);  // Send JSON response
+            exit();
         }
-
     }
-
-    public function setchildsession()
-    {
-
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        header('Content-Type: application/json');
-        $request = json_decode(file_get_contents('php://input'), true);
-        $response = [];
-
-        $session = new \Core\Session;
-        if (isset($request['ChildID'])) {
-            $session->set('CHILDID', $request['ChildID']);
-            $response = ['success' => true, 'message' => 'Child session removed.'];
-        } else {
-            $response = ['success' => false, 'message' => 'No child session to remove.'];
-        }
-
-        echo json_encode($response);
-        exit();
-    }
-
-    public function removechildsession()
-    {
-
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        header('Content-Type: application/json');
-        $response = [];
-
-        $session = new \Core\Session;
-        $ChildID = $session->get("CHILDID");
-
-        if (isset($ChildID)) {
-            $session->unset("CHILDID");
-            $response = ['success' => true, 'message' => 'Child session removed.'];
-        } else {
-            $response = ['success' => false, 'message' => 'No child session to remove.'];
-        }
-
-        echo json_encode($response);  // Send JSON response
-        exit();
-    }
-}
+?>

@@ -1170,7 +1170,6 @@ CREATE TABLE Attendance (
     FOREIGN KEY (ChildID) REFERENCES Child (ChildID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-<<<<<<< HEAD
 CREATE TABLE EmployeeAttendance (
     AttendanceID INT NOT NULL AUTO_INCREMENT,
     UserID INT NOT NULL,
@@ -1354,8 +1353,6 @@ VALUES (
     );
 
 
-=======
->>>>>>> origin/main
 ALTER TABLE attendance
 ADD COLUMN Pickup ENUM('Parent', 'Guardian', 'Other');
 

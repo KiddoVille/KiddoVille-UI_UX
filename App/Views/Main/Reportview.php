@@ -1,48 +1,32 @@
 <!DOCTYPE html>
-
 <head>
     <title>Report Problem</title>
-    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
-    <link rel="stylesheet" href="<?= CSS ?>/Main/Report.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Main/Header.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Main/Footer.css?v=<?= time() ?>">
+    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="stylesheet" href="<?=CSS?>/Main/Report.css">
+    <link rel="stylesheet" href="<?=CSS?>/Main/Header.css">
+    <link rel="stylesheet" href="<?=CSS?>/Main/Footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        data-tag="font" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        data-tag="font" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
-        data-tag="font" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        data-tag="font" />
-    <script src="<?= JS ?>/Main/Help.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Main/Report.js?v=<?= time() ?>"></script>
-    <link rel="stylesheet" href="<?=CSS?>/variables.css?v=<?= time() ?>" />
+    <script src="<?=JS?>/Main/Help.js"></script>
+    <script src="<?=JS?>/Main/Report.js"></script>
 </head>
 
-<body style="width: 100%; overflow-x: hidden;">
+<body>
     <!-- Header -->
     <div class="main-content">
-    <div class="navbar" style="width: 208vh">
-                <div class="navbar-logo">
-                    <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
-                </div>
-                <div class="navbar-links">
-                    <a href="<?=ROOT?>/Main/Home"><div class="navbar-link select">Home</div></a>
-                    <a href="<?=ROOT?>/Main/Profile"><div class="navbar-link">Profile</div></a>
-                    <a href="<?=ROOT?>/Main/Blog"> <div class="navbar-link">Blog</div></a>
-                    <a href="<?=ROOT?>/Main/AboutUs"><div class="navbar-link">AboutUs</div></a>
-                    <a href="<?=ROOT?>/Main/Help"><div class="navbar-link">ContactUs</div></a>
-                </div>
-                <div class="sign-up-buttons">
-                    <a href="<?=ROOT?>/Main/Login"><div class="navbar-link-login">Login</div></a>
-                    <a href="<?=ROOT?>/Main/Signup"><div class="navbar-link-signup">Sign Up</div></a>
-                </div>
+        <div class="navbar">
+            <div class="navbar-logo">
+                <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
             </div>
+            <div class="navbar-links">
+                <a href="<?=ROOT?>/Main/Home"><button class="navbar-link">Home</button></a>
+                <a href="<?=ROOT?>/Main/Profile"><button class="navbar-link">Profile</button></a>
+                <a href="<?=ROOT?>/Main/Blog"> <button class="navbar-link">Blog</button></a>
+                <a href="<?=ROOT?>/Main/AboutUs"><button class="navbar-link">AboutUs</button></a>
+                <a href="<?=ROOT?>/Main/Help"><button class="navbar-link">ContactUs</button></a>
+                <a href="<?=ROOT?>/Main/Login"><button class="navbar-button login">Login</button></a>
+                <a href="<?=ROOT?>/Main/Signup"><button class="navbar-button signup">Sign Up</button></a>
+            </div>
+        </div>
         <!-- Report problem form -->
         <div class="container">
             <div class="top-con">
@@ -58,31 +42,28 @@
             <p>Refreshing the page or <a href="#">clearing your browser cache</a> will automatically resolve most issues
             </p>
             <p>Report are not end-to-end encrypted, please do not send any sensitive information</p>
-            <form action="<?= ROOT ?>/Main/Report/Send" method="post">
+            <form>
                 <label for="email" class="label">Email Address</label>
-                <input type="email" required id="email" name="email" value="<?= isset($data['email']) ? $data['email'] : '' ?>" placeholder="example@gmail.com">
+                <input type="email" id="email" name="email" placeholder="example@gmail.com">
                 <label for="category" class="label">Category</label>
-                <select id="category" required name="category">
+                <select id="category" name="category">
                     <option value="" hidden>Select</option>
-                    <option value="technical" <?= (isset($data['category']) && $data['category'] === 'technical') ? 'selected' : '' ?>>Technical Issue</option>
-                    <option value="account" <?= (isset($data['category']) && $data['category'] === 'account') ? 'selected' : '' ?>>Account/Login Issues</option>
-                    <option value="resources" <?= (isset($data['category']) && $data['category'] === 'resources') ? 'selected' : '' ?>>Classroom Resources</option>
-                    <option value="grades" <?= (isset($data['category']) && $data['category'] === 'grades') ? 'selected' : '' ?>>Grade or Report Card Discrepancies</option>
-                    <option value="communication" <?= (isset($data['category']) && $data['category'] === 'communication') ? 'selected' : '' ?>>Parent-Teacher Communication</option>
-                    <option value="attendance" <?= (isset($data['category']) && $data['category'] === 'attendance') ? 'selected' : '' ?>>Attendance Records</option>
-                    <option value="billing" <?= (isset($data['category']) && $data['category'] === 'billing') ? 'selected' : '' ?>>Payment or Billing</option>
-                    <option value="behavioral" <?= (isset($data['category']) && $data['category'] === 'behavioral') ? 'selected' : '' ?>>Behavioral Concerns</option>
-                    <option value="events" <?= (isset($data['category']) && $data['category'] === 'events') ? 'selected' : '' ?>>Event Registration</option>
-                    <option value="safety" <?= (isset($data['category']) && $data['category'] === 'safety') ? 'selected' : '' ?>>Safety & Security</option>
-                    <option value="transportation" <?= (isset($data['category']) && $data['category'] === 'transportation') ? 'selected' : '' ?>>Transportation</option>
-                    <option value="other" <?= (isset($data['category']) && $data['category'] === 'other') ? 'selected' : '' ?>>Other</option>
+                    <option value="technical">Technical Issue</option>
+                    <option value="account">Account/Login Issues</option>
+                    <option value="resources">Classroom Resources</option>
+                    <option value="grades">Grade or Report Card Discrepancies</option>
+                    <option value="communication">Parent-Teacher Communication</option>
+                    <option value="attendance">Attendance Records</option>
+                    <option value="billing">Payment or Billing</option>
+                    <option value="behavioral">Behavioral Concerns</option>
+                    <option value="events">Event Registration</option>
+                    <option value="safety">Safety & Security</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="other">Other</option>
                 </select>
                 <label for="description" class="label">What happened</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    required
-                    placeholder="Please describe the problem and include any error messages"><?= isset($data['description']) ? htmlspecialchars($data['description'], ENT_QUOTES, 'UTF-8') : '' ?></textarea>
+                <textarea id="description" name="description"
+                    placeholder="Please describe the problem and include any error messages"></textarea>
                 <p><a href="#" class="info-link">click to Attach screenshots <i class="fas fa-info-circle"></i></a></p>
                 <p>System information</p>
                 <div class="buttons">
@@ -93,24 +74,24 @@
         </div>
         <!-- Footer -->
         <div class="Footer">
-            <img class="Footer-logo" src="<?= IMAGE ?>/Footer-logo.png" alt="WhatsApp Icon" />
-            <div class="KiddoVille">Kiddo<br />Ville</div>
-            <div class="Group4">
-                <div class="Home"><a href="<?= ROOT ?>/Main/Home">Home</a></div>
-                <div class="AboutUs"><a href="<?= ROOT ?>/Main/AboutUs">About Us</a></div>
-                <div class="ContactUs"><a href="<?= ROOT ?>/Main/Help">Contact Us</a></div>
-                <div class="Features"><a href="<?= ROOT ?>/Main/features">Features</a></div>
-            </div>
-            <div class="Group5">
-                <div class="Contact"><a href="<?= ROOT ?>/Main/faq">FAQ</a></div>
-                <div style="white-space: nowrap;" class="Address"><a href="<?= ROOT ?>/Main/Report">Report Problems</a></div>
-                <div style="margin-top: 20px;" class="Address"><a href="<?= ROOT ?>/Main/Terms">Terms</a></div>
-            </div>
-            <div class="Group6">
-                <div class="Contact"><a href="<?= ROOT ?>/Main/Blog">Blog</a></div>
-                <div class="Address"><a href="<?= ROOT ?>/Main/Profile">Profile</a></div>
-                <div style="margin-top: 20px; white-space: nowrap;" class="Address"><a href="<?= ROOT ?>/Main/Privacy">Privacy Policy</a></div>
-            </div>
+            <img class="Footer-logo" src="<?=IMAGE?>/Footer-logo.png" alt="WhatsApp Icon" />
+            <div class="KiddoVille">Kiddo<br/>Ville</div>
+                <div class="Group4">
+                    <div class="Home"><a href="<?=ROOT?>/Main/Home">Home</a></div>
+                    <div class="AboutUs"><a href="<?=ROOT?>/Main/AboutUs">About Us</a></div>
+                    <div class="ContactUs"><a href="<?=ROOT?>/Main/Help">Contact Us</a></div>
+                    <div class="Features"><a href="<?=ROOT?>/Main/features">Features</a></div>
+                </div>
+                <div class="Group5">
+                    <div class="Contact"><a href="<?=ROOT?>/Main/faq">FAQ</a></div>
+                    <div style="white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Report">Report Problems</a></div>
+                    <div style="margin-top: 20px;" class="Address"><a href="<?=ROOT?>/Main/Terms">Terms</a></div>
+                </div>
+                <div class="Group6">
+                    <div class="Contact"><a href="<?=ROOT?>/Main/Blog">Blog</a></div>
+                    <div class="Address"><a href="<?=ROOT?>/Main/Profile">Profile</a></div>
+                    <div style="margin-top: 20px; white-space: nowrap;" class="Address"><a href="<?=ROOT?>/Main/Privacy">Privacy Policy</a></div>
+                </div>
             <div class="Group7">
                 <div class="Frame13">
                     <button class="Join">Join US Today</button>
@@ -184,16 +165,16 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 256 180">
                             <path fill="white" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"></path>
                             <path fill="#144A78" d="m102.421 128.06l66.328-38.418l-66.328-38.418z"></path>
-                        </svg>
+                        </svg>            
                     </div>
                     <!-- youtube icon effect -->
                     <div class="social-icon-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 256 180">
                             <path fill="white" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134"></path>
                             <path fill="red" d="m102.421 128.06l66.328-38.418l-66.328-38.418z"></path>
-                        </svg>
+                        </svg>            
                     </div>
-                </div>
+                </div>        
             </div>
         </div>
     </div>

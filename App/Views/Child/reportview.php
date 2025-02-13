@@ -12,7 +12,7 @@
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
-    <!-- <script src="<?= JS ?>/Child/report.js?v=<?= time() ?>"></script> -->
+    <script src="<?= JS ?>/Child/report.js?v=<?= time() ?>"></script>
 </head>
 
 <body style="overflow: hidden;">
@@ -85,7 +85,7 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -103,10 +103,10 @@
                                     echo "select-child";
                                 } ?>
                             "
-                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
+                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important <?php if ($child['name'] !== $data['selectedchildren']['name']) {
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
                                                                                                 echo "margin-left: -20px !important";
                                                                                             } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -171,58 +171,35 @@
                     </button>
                 </div>
             </div>
-            <div class="stats" id="maid-stats">
+            <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/report.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Pending reports</h3>
-                    <p style="margin-bottom: 3px;"><?= $data['stats']['maid_pending'] ?> pending</p>
-                    <span style="font-weight: 50;">Maid reports still in progress</span>
+                    <h3><img src="<?= IMAGE ?>/report.svg?v=<?= time() ?>" alt="Attendance"
+                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Pending reports</h3>
+                    <p style="margin-bottom: 3px;">Sep first week</p>
+                    <span style="font-weight: 50;">report's still in progress</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/report view.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Report views</h3>
-                    <p style="margin-bottom: 3px;"><?= $data['stats']['maid_viewed'] ?> viewed</p>
-                    <span style="font-weight: 50;">Maid reports viewed</span>
+                    <h3><img src="<?= IMAGE ?>/report view.svg?v=<?= time() ?>" alt="Attendance"
+                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Report views</h3>
+                    <p style="margin-bottom: 3px;">1 left</p>
+                    <span style="font-weight: 50;">Report left to view</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/report download.svg?v=<?= time() ?>" alt="Attendance" style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Report downloads</h3>
-                    <p style="margin-bottom: 3px;"><?= $data['stats']['maid_downloaded'] ?> downloaded</p>
-                    <span style="font-weight: 50;">Total Maid reports downloaded</span>
-                </div>
-            </div>
-            <div class="stats" id="teacher-stats" style="display: none;">
-                <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/report.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Pending reports</h3>
-                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_pending'] ?> pending</p>
-                    <span style="font-weight: 50;">Maid reports still in progress</span>
-                </div>
-                <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/report view.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Report views</h3>
-                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_viewed'] ?> viewed</p>
-                    <span style="font-weight: 50;">Maid reports viewed</span>
-                </div>
-                <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/report download.svg?v=<?= time() ?>" alt="Attendance" style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Report downloads</h3>
-                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_downloaded'] ?> downloaded</p>
-                    <span style="font-weight: 50;">Total Maid reports downloaded</span>
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/report download.svg?v=<?= time() ?>" alt="Attendance"
+                            style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Report downloads</h3>
+                    <p style="margin-bottom: 3px;">5 downloaded</p>
+                    <span style="font-weight: 50;">Total of 5 report downloaded</span>
                 </div>
             </div>
-            <div class="saperate">
+            <div class="saperate" style="margin-top: 25px !important; height: 460px !important;">
+                <!-- Report table -->
                 <div class="report-container" style="width: 1200px !important;">
-                    <div style="display: flex; flex-direction: column; justify-content: flex-start; margin-bottom: -20px; margin-top: 20px; margin-left: 7px;">
-                        <div class="toggle">
-                            <label class="background" for="toggle"></label>
-                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
-                                <label class="up-btn" id="up-btn" style="padding-left: 50px !important; padding-right: 40px;">Maid</label>
-                                <label class="hi-btn" id="hi-btn">Teacher</label>
-                            </div>
-                        </div>
-                        <h2 style="margin-top: -10px !important; margin-bottom: 5px;"> Child Reports </h2>
-                        <hr style="margin-bottom: 30px;">
-                    </div>
-                    <input type="date" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
-                    <table id="upcoming">
+                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Weekly Reports </h2>
+                    <hr>
+                    <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                    <table>
                         <thead>
                             <tr>
-                                <th>Child</th>
                                 <th>Date</th>
                                 <th>Maid</th>
                                 <th>View</th>
@@ -231,21 +208,90 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                        </tbody>
-                    </table>
-                    <table id="history" style="display: none;">
-                        <thead>
                             <tr>
-                                <th>Child</th>
-                                <th>Date</th>
-                                <th>Teacher</th>
-                                <th>View</th>
-                                <th>Download</th>
-                                <th>Viewed</th>
+                                <td>25/03/2025</td>
+                                <td>Anula</td>
+                                <td><i class="fas fa-eye icon reportbtn"></i></td>
+                                <td><i class="fas fa-download icon"></i></td>
+                                <td>
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" class="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
+                            <tr>
+                                <td>02/01/2025</td>
+                                <td>Anula</td>
+                                <td><i class="fas fa-eye icon reportbtn"></i></td>
+                                <td><i class="fas fa-download icon"></i></td>
+                                <td>
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" class="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>20/12/2024</td>
+                                <td>Anula</td>
+                                <td><i class="fas fa-eye icon reportbtn"></i></td>
+                                <td><i class="fas fa-download icon"></i></td>
+                                <td>
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" class="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10/11/2024</td>
+                                <td>Anula</td>
+                                <td><i class="fas fa-eye icon reportbtn"></i></td>
+                                <td><i class="fas fa-download icon"></i></td>
+                                <td>
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" class="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>13/08/2024</td>
+                                <td>Anula</td>
+                                <td><i class="fas fa-eye icon reportbtn"></i></td>
+                                <td><i class="fas fa-download icon"></i></td>
+                                <td>
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" class="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>13/08/2024</td>
+                                <td>Anula</td>
+                                <td><i class="fas fa-eye icon reportbtn"></i></td>
+                                <td><i class="fas fa-download icon"></i></td>
+                                <td>
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" class="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>13/08/2024</td>
+                                <td>Anula</td>
+                                <td><i class="fas fa-eye icon reportbtn"></i></td>
+                                <td><i class="fas fa-download icon"></i></td>
+                                <td>
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" class="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -335,13 +381,17 @@
         </a>
     </div>
     <!-- profile card -->
-    <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
+    <div class="profile-card" id="profileCard" style="margin-top: -710px;">
         <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
             style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+        <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
             class="profile" />
-        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
+        <h2>
+            Thilina Perera
+        </h2>
+        <p>
+            Student    RS0110657
+        </p>
         <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
             Profile
         </button>
@@ -351,23 +401,20 @@
         <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">
             Guardian profile
         </button>
-        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
-        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
         <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
             LogOut
         </button>
     </div>
     </div>
     <script>
-        function setChildSession(ChildID) {
-            console.log(ChildID);
-            fetch(' <?= ROOT ?>/Child/Report/setchildsession', {
+        function setChildSession(childName) {
+            fetch('<?= ROOT ?>/Child/Home/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        ChildID: ChildID
+                        childName: childName
                     })
                 })
                 .then(response => response.json())
@@ -376,95 +423,10 @@
                         console.log("Child name set in session.");
                         window.location.href = '<?= ROOT ?>/Child/Report';
                     } else {
-                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
+                        console.error("Failed to set child name in session.", data.message);
                     }
                 })
                 .catch(error => console.error("Error:", error));
-        }
-
-        function fetchReports(date, child) {
-            fetch('<?= ROOT ?>/Child/Report/store_reports', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        date: date,
-                        child: child
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Meal plan data:", data.data);
-                        updateReportTables(data.data);
-                    } else {
-                        console.error("Failed to fetch meal plan:", data.message);
-                        alert(data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        function updateReportTables(data) {
-            const maidTableBody = document.querySelector('#upcoming tbody');
-            const teacherTableBody = document.querySelector('#history tbody');
-
-            // Clear the existing table rows
-            maidTableBody.innerHTML = '';
-            teacherTableBody.innerHTML = '';
-
-            // Update Maid Reports table
-            if (data.Maid) {
-                data.Maid.forEach(report => {
-                    const formattedDate = new Date(report.Report_Date).toLocaleDateString('en-GB');
-                    const row = `
-                        <tr>
-                            <td>${sanitizeHTML(report.Child_Name)}</td>
-                            <td>${formattedDate}</td>
-                            <td>${sanitizeHTML(report.Maid_Name)}</td>
-                            <td><i class="fas fa-eye icon reportbtn"></i></td>
-                            <td><i class="fas fa-download icon"></i></td>
-                            <td>
-                                <label class="custom-checkbox">
-                                    <input type="checkbox" class="checkbox" ${report.Viewed === 'Yes' ? 'checked' : ''} />
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                        </tr>
-                    `;
-                    maidTableBody.insertAdjacentHTML('beforeend', row);
-                });
-            }
-
-            // Update Teacher Reports table
-            if (data.Teacher) {
-                data.Teacher.forEach(report => {
-                    const formattedDate = new Date(report.Report_Date).toLocaleDateString('en-GB');
-                    const row = `
-                        <tr>
-                            <td>${sanitizeHTML(report.Child_Name)}</td>
-                            <td>${formattedDate}</td>
-                            <td>${sanitizeHTML(report.Teacher_Name)}</td>
-                            <td><i class="fas fa-eye icon reportbtn"></i></td>
-                            <td><i class="fas fa-download icon"></i></td>
-                            <td>
-                                <label class="custom-checkbox">
-                                    <input type="checkbox" class="checkbox" ${report.Viewed === 'Yes' ? 'checked' : ''} />
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
-                        </tr>
-                    `;
-                    teacherTableBody.insertAdjacentHTML('beforeend', row);
-                });
-            }
-        }
-
-        function sanitizeHTML(str) {
-            const temp = document.createElement('div');
-            temp.textContent = str;
-            return temp.innerHTML;
         }
 
         function removechildsession() {
@@ -485,57 +447,6 @@
                 })
                 .catch(error => console.error("Error:", error));
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const upbtn = document.getElementById('up-btn');
-            const hibtn = document.getElementById('hi-btn');
-            const maidStats = document.getElementById('maid-stats');
-            const teacherStats = document.getElementById('teacher-stats');
-            const upcoming = document.getElementById('upcoming');
-            const history = document.getElementById('history');
-
-            upbtn.addEventListener('click', function() {
-                // Toggle stats visibility
-                maidStats.style.display = 'flex';
-                teacherStats.style.display = 'none';
-
-                // Toggle table visibility
-                upcoming.style.display = 'block';
-                history.style.display = 'none';
-
-                // Update button styles
-                upbtn.style.color = 'white';
-                hibtn.style.color = 'white';
-                upbtn.style.backgroundColor = '#10639a';
-                hibtn.style.backgroundColor = '#60a6ec';
-            });
-
-            hibtn.addEventListener('click', function() {
-                // Toggle stats visibility
-                maidStats.style.display = 'none';
-                teacherStats.style.display = 'flex';
-
-                // Toggle table visibility
-                upcoming.style.display = 'none';
-                history.style.display = 'block';
-
-                // Update button styles
-                hibtn.style.color = 'white';
-                upbtn.style.color = 'white';
-                hibtn.style.backgroundColor = '#10639a';
-                upbtn.style.backgroundColor = '#60a6ec';
-            });
-
-
-            const datePicker = document.getElementById('datePicker');
-
-            fetchReports(datePicker.value);
-
-            datePicker.addEventListener('change', function() {
-                fetchReports(datePicker.value, childPicker.value);
-            });
-        });
-
     </script>
 </body>
 

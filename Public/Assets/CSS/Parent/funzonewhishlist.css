@@ -28,10 +28,6 @@ body {
     max-height: 80%;
 }
 
-.grid::-webkit-scrollbar {
-    display: none; /* For Chrome, Safari, and Edge */
-}
-
 .main-content .grid .item {
     background-color: white;
     border-radius: 10px;

@@ -66,7 +66,7 @@
 }
 
 .selectday {
-    background-color: #60a6ec;
+    background-color: rgba(58, 99, 223, 0.8);
     border: 2px solid darkblue;
     color: white;
 }
@@ -128,15 +128,12 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.package::-webkit-scrollbar {
-    display: none; /* Hides scrollbar in Chrome, Safari, Edge */
-}
-
 .package div {
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding: 10px 0;
+    border-bottom: 3px solid lightgrey;
 }
 
 .package div:last-child {
@@ -159,35 +156,4 @@ span {
     padding: 10px;
     border-radius: 10px;
     margin-top: 10px;
-}
-
-.toggle{
-    z-index: 100;
-    margin-left: -30px;
-    margin-top: -30px;
-    margin-bottom: 20px;
-    height: 40px;
-    width: 220px;
-    font-family: Arial, sans-serif;
-    background: #60a6ec;
-    border-radius: 0px 8px 8px 0px;
-    position: relative;
-    overflow: hidden;
-}
-
-.hi-btn {
-    color: white;
-    position: relative;
-    font-size: 18px;
-    z-index: 100;
-    padding: 10px 30px;
-}
-
-.up-btn {
-    color: white;
-    position: relative;
-    font-size: 18px;
-    z-index: 100;
-    background-color: #10639a;
-    padding: 10px 27px;
 }
