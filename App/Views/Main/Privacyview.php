@@ -5,42 +5,27 @@
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        data-tag="font" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        data-tag="font" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
-        data-tag="font" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        data-tag="font" />
-    <link rel="stylesheet" href="<?=CSS?>/Main/Privacy.css?v=<?= time() ?>" />
-    <link rel="stylesheet" href="<?=CSS?>/Main/Footer.css?v=<?= time() ?>" />
-    <link rel="stylesheet" href="<?=CSS?>/Main/Header.css?v=<?= time() ?>" />
-    <link rel="stylesheet" href="<?=CSS?>/variables.css?v=<?= time() ?>" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Privacy.css" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Footer.css" />
+    <link rel="stylesheet" href="<?=CSS?>/Main/Header.css" />
 </head>
 
-<body style="background:url(<?=IMAGE?>/back-login.jpg); background-size:cover; ">
+<body>
     <!-- Header of the privacy -->
     <div class="navbar">
-                <div class="navbar-logo">
-                    <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
-                </div>
-                <div class="navbar-links">
-                    <a href="<?=ROOT?>/Main/Home"><div class="navbar-link select">Home</div></a>
-                    <a href="<?=ROOT?>/Main/Profile"><div class="navbar-link">Profile</div></a>
-                    <a href="<?=ROOT?>/Main/Blog"> <div class="navbar-link">Blog</div></a>
-                    <a href="<?=ROOT?>/Main/AboutUs"><div class="navbar-link">AboutUs</div></a>
-                    <a href="<?=ROOT?>/Main/Help"><div class="navbar-link">ContactUs</div></a>
-                </div>
-                <div class="sign-up-buttons">
-                    <a href="<?=ROOT?>/Main/Login"><div class="navbar-link-login">Login</div></a>
-                    <a href="<?=ROOT?>/Main/Signup"><div class="navbar-link-signup">Sign Up</div></a>
-                </div>
-            </div>
+        <div class="navbar-logo">
+            <img src="<?=IMAGE?>/Header logo.png" alt="Logo" style="height:80px ; width:100px" />
+        </div>
+        <div class="navbar-links">
+            <a href="<?=ROOT?>/Main/Home"><button class="navbar-link">Home</button></a>
+            <a href="<?=ROOT?>/Main/Profile"><button class="navbar-link">Profile</button></a>
+            <a href="<?=ROOT?>/Main/Blog"> <button class="navbar-link">Blog</button></a>
+            <a href="<?=ROOT?>/Main/AboutUs"><button class="navbar-link">AboutUs</button></a>
+            <a href="<?=ROOT?>/Main/Help"><button class="navbar-link">ContactUs</button></a>
+            <a href="<?=ROOT?>/Main/Login"><button class="navbar-button login">Login</button></a>
+            <a href="<?=ROOT?>/Main/Signup"><button class="navbar-button signup">Sign Up</button></a>
+        </div>
+    </div>
     <div class="container">
         <!-- detail on privacu and safety policy of the system -->
         <div class="content">

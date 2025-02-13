@@ -11,7 +11,7 @@
     <script src="<?=JS?>/Main/features.js"></script>
 </head>
 
-<body id="body" style="background:url(<?=IMAGE?>/back-login.jpg); background-size:cover; ">
+<body id="body">
     <!-- popup on events of daycare and it's content -->
     <div class="popup-container" id="event-Modal" style="margin-top: 730px;">
         <div class="left-panel" style="height: 500px !important;">

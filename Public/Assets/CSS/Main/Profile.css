@@ -25,6 +25,7 @@ body{
     position: relative;
     align-items: flex-start;
     flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 1);
     margin: 0%;
     padding: 05;
     overflow-x: hidden ;
@@ -85,7 +86,7 @@ body{
     color: rgba(109, 210, 233, 1);
   }
   .paragraph {
-    top: 440px;
+    top: 360px;
     left: 140px;
     color: rgba(76, 76, 76, 1);
     width: 651px;

@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: whitesmoke;
+    background-image: url('../../../Assets/profile-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     font-size: 20px;
@@ -38,8 +38,8 @@ body {
 }
 
 .profile-img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 100%;
     border: 5px solid rgba(27, 54, 101, 1);
     box-shadow: 0px 0px 12px rgba(72, 99, 180, 0.5);
@@ -156,7 +156,7 @@ label{
     border-radius: 10px;
     margin-right: 58px;
     margin-left: 10px;
-    background:  #10639a;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
     color: white;
     font-weight: bold;
     border: none;
@@ -172,7 +172,7 @@ label{
     margin-top: 40px;
     margin-right: -200px;
     margin-left: 450px;
-    color:  #10639a;
+    color: rgb(2, 77, 205);
     font-weight: 600;
     cursor: pointer;
 }
@@ -335,6 +335,7 @@ label{
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .file-entry {
@@ -366,13 +367,17 @@ label{
 }
 
 .delete-button {
-    background-color: red;
+    background-color: #4CAF50;
     color: white;
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     right: 0;
+}
+
+.delete-button:hover {
+    background-color: #45a049;
 }
 
 #documentModal{
@@ -401,37 +406,4 @@ label{
     border-radius: 10px;
     cursor: pointer !important;
     right: 0;
-}
-
-.top-con {
-    color: black;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.back-con{
-    background-color: #007bff;
-    z-index: 10000;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60px;
-    margin-left: -21px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-.add-con{
-    background-color: #007bff;
-    z-index: 10000;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60px;
-    margin-right: -650px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
 }

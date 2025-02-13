@@ -9,11 +9,8 @@
 
         protected $table = 'receptionist';
         protected $allowedColumns = [
-<<<<<<< HEAD
             "UserID",
             'First_Name',
-=======
->>>>>>> origin/main
             'Last_Name',
         ];
 

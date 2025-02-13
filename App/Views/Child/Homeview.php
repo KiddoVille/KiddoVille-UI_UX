@@ -6,15 +6,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
-    <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"> </script>
-    <script src="<?= JS ?>/Child/OTP.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Child/Number.js?v=<?= time() ?>"> </script>
-    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"> </script>
-    <!-- <script src="<?= JS ?>/Child/Home.js?v=<?= time() ?>"> </script> -->
-    <script src="<?= JS ?>/Child/Taskbar.js?v=<?= time() ?>"> </script>
+    <link rel="stylesheet" href="<?=CSS?>/ReChild/Main.css">
+    <link rel="stylesheet" href="<?=CSS?>/ReChild/Home.css">
+    <script src="<?=JS?>/ReChild/Profile.js"></script>
+    <script src="<?=JS?>/ReChild/MessageDropdown.js"></script>
+    <script src="<?=JS?>/ReChild/OTP.js"></script>
+    <script src="<?=JS?>/ReChild/Number.js"></script>
+    <script src="<?=JS?>/ReChild/Navbar.js"></script>
+    <script src="<?=JS?>/ReChild/Home.js"></script>
+    <script src="<?=JS?>/ReChild/Taskbar.js"></script>
+    <style>
+        .children-list li {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: left !important;
+            text-align: left;
+            align-items: center;
+            margin-left: 30px;
+        }
+        .sidebar-2 ul li::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            bottom: -2px;
+            height: 2px;
+            width: 100%;
+            background-color: white;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .child-info .child-name{
+            margin-right: -10px !important;
+        }
+        .select-child{
+            margin-left: 0px !important;
+            padding-right: 50px !important;
+        }
+
+        .select-child img{
+
+            margin-left: -7px !important;
+        }
+
+        .select-child h2{
+            margin-left: 15px !important;
+        }
+
+    </style>
 </head>
 
 <body  style="background-image: url('<?=IMAGE?>/dashboard-background.jpeg');">
@@ -69,7 +109,7 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image']: ''?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -82,13 +122,11 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="first
-                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
-                                    echo "select-child";
-                                } ?>
-                            "
-                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
-                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
+                            <li class="hover-effect first
+                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
+                            " 
+                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'] : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
                                     alt="Child Profile Image"
                                     style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -109,7 +147,11 @@
                     <p style="color: white">Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <i class="fas fa-search"></i>
+                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
+                <!-- message icon -->
                 <div class="bell-con" id="bell-container" style="cursor: pointer;">
                     <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
                     <div class="message-dropdown" id="messageDropdown" style="display: none;">
@@ -126,6 +168,13 @@
                                 <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
                                 <p class="content"> content like a message</p>
                             </li>
+                            <li>
+                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
+                                <p class="content"> content like a message</p>
+                            </li>
+                            <li>
+                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
+                                <p class="content"> content like a message</p>
                             </li>
                             <li>
                                 <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
@@ -133,6 +182,7 @@
                             </li>
                         </ul>
                     </div>
+                </div>
                 <div class="message-numbers">
                     <p> 2</p>
                 </div>
@@ -143,39 +193,17 @@
                     </button>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: row;">
-                <div class="report-page">
-                    <h1 style="color: #233E8D; margin-left: 15px;">
-                        <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
-                    <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our family! </p>
-                    <div class="report-header">
-                        <div class="profile" id="profile" style="max-height: 350px; margin-right: 2%; width: 200px !important;">
-                            <h3 style="margin-top: 0px; margin-bottom: 2px;">Child Profile</h3>
-                            <hr>
-                            <div class="first-row">
-                                <img src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>">
-                                <h4 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h4>
-                            </div>
-                            <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
-                                <p style="margin-top: -30px;">Reg Num: <span>SRD<?= $data['selectedchildren']['id'] ?></span></p>
-                                <p style="margin-top: -10px;">Age:
-                                    <span>
-                                        <?= isset($data['selectedchildren']['age']) ? $data['selectedchildren']['age'] : 'No name set'; ?>
-                                    </span>
-                                </p>
-                                <p style="margin-top: -10px;">Language:
-                                    <span>
-                                        <?= isset($data['selectedchildren']['language']) ? $data['selectedchildren']['language'] : 'No name set'; ?>
-                                    </span>
-                                </p>
-                                <p style="margin-top: -10px;">Religion:
-                                    <span>
-                                        <?= isset($data['selectedchildren']['religion']) ? $data['selectedchildren']['religion'] : 'No name set'; ?>
-                                    </span>
-                                </p>
-                            </div>
+            <div class="report-page">
+                <h1 style="color: #233E8D; margin-left: 15px;">
+                <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
+                <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our
+                    family! </p>
+                <div class="report-header">
+                    <div class="profile" style="height: 340px;">
+                        <div class="first-row">
+                            <img src="<?= isset($data['selectedchildren']['image']) ? $data['selectedchildren']['image'] : 'No name set'; ?>" alt="profile pic" style="border: 4px solid #233E8D;">
+                            <h3 style="margin-top: -5px;"> <?= isset($data['selectedchildren']['fullname']) ? $data['selectedchildren']['fullname'] : 'No name set'; ?></h3>
                         </div>
-
                         <div class="sub-details" style="display: flex;flex-direction: column; justify-content: space-between;">
                             <p style="margin-top: -30px;">Reg Number : <span>SRD110021</span></p>
                             <p style="margin-top: -10px;">Age: 
@@ -188,16 +216,11 @@
                                 <?= isset($data['selectedchildren']['language']) ? $data['selectedchildren']['language'] : 'No name set'; ?>
                                 </span>
                             </p>
-                            </table>
-                            <!-- childs activity for the day -->
-                            <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
+                            <p style="margin-top: -10px;">Religion: 
+                                <span>
+                                <?= isset($data['selectedchildren']['religion']) ? $data['selectedchildren']['religion'] : 'No name set'; ?>
+                                </span>
+                            </p>
                         </div>
                     </div>
                     <div class="attendence-bar">
@@ -206,10 +229,12 @@
                         <div class="progress" style="margin-left: 30px;">
                             <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
                                 aria-valuemax="100"></div>
+                        </div>
                         <p style="margin-top: 20px;"> Completed Tasks</p>
                         <input style="margin-top: 0px; width: 300px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
                     </div>
                     <div class="timetable">
+                        <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
                         <hr>
                         <div class="filters">
                             <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
@@ -702,17 +727,17 @@
     <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
         <img src="<?=IMAGE?>/back-arrow-2.svg" id="back-arrow-profile"
             style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-        <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+        <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
             class="profile" />
-        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
+        <h2>Thilina Perera</h2>
+        <p>Student    RS0110657</p>
         <button class="profile-button"
-            onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">Profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">Parent profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">Guardian profile</button>
-        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
-        <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
-        <button class="logout-button" onclick="logoutUser()">LogOut</button>
+            onclick="window.location.href ='<?=ROOT?>/ReChild/ChildProfile'">Profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/ParentProfile'">Parent
+            profile</button>
+        <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/ReChild/GuardianProfile'">Guardian
+            profile</button>
+        <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/ReChild/Home'">LogOut</button>
     </div>
     <div class="tasks" id="taskbtn" style="position: fixed;">
         <i class="fas fa-chevron-left" id="taskicon"></i>
@@ -727,200 +752,44 @@
         fixedSlider.value = initialValue;
     });
 
-    // function setChildSession(ChildID) {
-    //     fetch('<?= ROOT ?>/Parent/Home/setchildsession', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             ChildID: ChildID
-    //         })
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             // If the response status is not OK (e.g., 404, 500), throw an error
-    //             throw new Error(`HTTP error! Status: ${response.status}`);
-    //         }
-    //         return response.json(); // Parse the response as JSON
-    //     })
-    //     .then(data => {
-    //         if (data.success) {
-    //             console.log("Child ID set in session.");
-    //             window.location.href = '<?= ROOT ?>/Child/Home';
-    //         } else {
-    //             console.error("Failed to set child name in session:", data.message);
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error("Error in setChildSession:", error);
-    //     });
-    // }
-
-    function logoutUser() {
-        fetch("<?= ROOT ?>/Parent/Home/Logout", {
-            method: "POST", 
-            credentials: "same-origin"
+    function setChildSession(childName) {
+        fetch('<?=ROOT?>/Child/Home/setchildsession', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ childName: childName })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                console.log("Child name set in session.");
+                window.location.href = '<?= ROOT ?>/Child/Home';
             } else {
-                alert("Logout failed. Try again.");
+                console.error("Failed to set child name in session.", data.message);
             }
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => console.error("Error:",error));
     }
 
-    function removechildsession() {
-        fetch('<?= ROOT ?>/Child/Home/removechildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Child id removed from session.");
-                    window.location.href = '<?= ROOT ?>/Parent/Home';
-                } else {
-                    console.error("Failed to remove child id from session.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:", error));
-    }
-
-    function setChildSession(ChildID) {
-        fetch('<?= ROOT ?>/Child/Home/setchildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ChildID: ChildID
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Child id set in session.");
-                    window.location.href = '<?= ROOT ?>/Child/Home';
-                } else {
-                    console.error("Failed to set child id from session.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:", error));
-    }
-
-    function fetchActivitySchedule(date) {
-        console.log(date);
-        fetch('<?= ROOT ?>/Child/Home/store_schedule', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    date: date
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data.data);
-                    renderScheduleTable(data.data);
-                } else {
-                    console.error("Failed to set child id from session.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:", error));
-    }
-
-    function renderScheduleTable(activities) {
-        const timetableBody = document.querySelector('.table-body-container tbody');
-        timetableBody.innerHTML = ''; // Clear any existing rows
-
-        // Get the current time as a string (HH:mm:ss)
-        const currentTime = new Date('2025-01-28T11:30:00'); // Example for testing
-        const currentTimeString = currentTime.toTimeString().split(' ')[0]; // Get just "HH:mm:ss"
-        const currentTimeInMillis = convertTimeToMillis(currentTimeString);
-
-        activities.forEach((activity, index) => {
-            const row = document.createElement('tr');
-
-            // Convert the Start Time and End Time into milliseconds
-            const startTimeInMillis = convertTimeToMillis(activity.Start_Time);
-            const endTimeInMillis = convertTimeToMillis(activity.End_Time);
-
-            // Add the Activity Name, Start Time, and End Time to the row
-            row.innerHTML = `
-            <td>${activity.Subject}</td>
-            <td style="padding-left: -15%;">${activity.Start_Time}</td>
-            <td style="padding-left: -15%;">${activity.End_Time}</td>
-        `;
-
-            // Highlight the row if it matches the current time
-            if (currentTimeInMillis >= startTimeInMillis && currentTimeInMillis <= endTimeInMillis) {
-                row.style.backgroundColor = '#cce5ff'; // Light blue color for the current activity
-                row.classList.add('selected'); // Add class for further styling
+    function removechildsession(){
+        fetch('<?=ROOT?>/Child/Home/removechildsession', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Child name removed from session.");
+                window.location.href = '<?= ROOT ?>/Parent/Home';
+            } else {
+                console.error("Failed to remove child name from session.", data.message);
             }
-
-            // When the row is clicked, insert the description row below it
-            row.addEventListener('click', function() {
-                // Check if this row already has a visible description row
-                const existingDescriptionRow = document.querySelector(`.description-row[data-index="${index}"]`);
-
-                if (existingDescriptionRow) {
-                    // If the description row exists, remove it
-                    existingDescriptionRow.remove();
-                } else {
-                    // Remove any other existing description rows
-                    const allDescriptionRows = document.querySelectorAll('.description-row');
-                    allDescriptionRows.forEach((descRow) => descRow.remove());
-
-                    // Create a new description row
-                    const descriptionRow = document.createElement('tr');
-                    descriptionRow.classList.add('description-row');
-                    descriptionRow.setAttribute('data-index', index); // Use index to identify the row
-
-                    descriptionRow.innerHTML = `
-            <td colspan="3" style="background-color: #f9f9f9; padding: 10px; border-top: 1px solid #ddd;">
-                ${activity.Description || 'No description available'}
-            </td>
-        `;
-
-                    // Insert the description row after the clicked row
-                    timetableBody.insertBefore(descriptionRow, row.nextSibling);
-                }
-            });
-
-
-            timetableBody.appendChild(row);
-        });
+        })
+        .catch(error => console.error("Error:",error));
     }
-
-    // Convert time (HH:mm:ss) to milliseconds since midnight
-    function convertTimeToMillis(timeString) {
-        const [hours, minutes, seconds] = timeString.split(':').map(Number);
-        return (hours * 3600 + minutes * 60 + seconds) * 1000; // Return time in milliseconds
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const datePicker = document.getElementById('datePicker');
-
-        fetchActivitySchedule(null);
-
-        datePicker.addEventListener('change', function() {
-            console.log(datePicker.value);
-            fetchActivitySchedule(datePicker.value);
-        });
-
-        const existingDescriptionRows = document.querySelectorAll('.description-row');
-        existingDescriptionRows.forEach((descRow) => descRow.remove());
-
-
-    });
 </script>
 
 </html>

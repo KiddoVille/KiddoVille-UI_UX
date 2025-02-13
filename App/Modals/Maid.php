@@ -9,10 +9,7 @@
 
         protected $table = 'maid';
         protected $allowedColumns = [
-<<<<<<< HEAD
             'UserID',
-=======
->>>>>>> origin/main
             'Last_Name',
             'First_Name',
             'Phone_Number',

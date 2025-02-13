@@ -56,10 +56,6 @@
                 <h2 style="margin-top: 25px;">Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
-                        <li class="hover-effect first"
-                            onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
                         <li class="hover-effect first">
                             <img src="<?=IMAGE?>/family.jpg" style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
@@ -71,28 +67,37 @@
                     <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
                         Explore your children's activities and progress!
                     </p>
-                    <ul class="children-list">
-                        <?php foreach ($data['children'] as $child): ?>
-                            <li class="first
-                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
-                                    echo "select-child";
-                                } ?>
-                            "
-                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
-                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
-                            </li>
-                            <hr>
-                        <?php endforeach; ?>
+                    <ul>
+                        <li class="hover-effect first select-child">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
+                        <li class="hover-effect first">
+                            <img src="<?=IMAGE?>/face.jpeg">
+                            <h2>Abdulla</h2>
+                        </li>
+                        <hr>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="main-content" id="main-content">
+        <div class="main-content">
             <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"
                     style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
@@ -145,43 +150,41 @@
                     </button>
                 </div>
             </div>
-            <div class="modal" id="EventModal" style="z-index: 10000000;">
+            <div class="modal" id="EventModal">
                 <div class="View-Package">
-                    <img src="" id="Event-img" style="width: 360px; height: 250px; position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
-                    <div class="top-con" style="margin-top: 0px; margin-left: 1px;">
+                    <div class="top-con">
                         <div class="back-con" id="back-arrow">
                             <i class="fas fa-chevron-left" id="backformeeting"></i>
                         </div>
                     </div>
-                    <div class="pickup-section" style="margin-top: 220px;">
-                        <label for="package-name">Event name</label>
-                        <input id="Event-name" style="width: 270px;" readonly="" type="text" />
+                    <h1>View Event</h1>
+                    <label for="package-name">Event name</label>
+                    <input id="package-name" readonly="" type="text" value="Basic care plan" />
+                    <label for="included-services">Activity details</label>
+                    <div class="services" id="included-services">
+                        title of the compition is on nature
+                        <br />
+                        All type of drawing methods are allowd
+                        <br />
+                        competiton is partitioned in age groups
                     </div>
-                    <div class="pickup-section">
-                        <label for="included-services">Activity details</label>
-                        <div class="services" id="description" style="height: 30px; width:250px;">
-
-                        </div>
+                    <label for="price">Price</label>
+                    <div class="price-container">
+                        <input id="price" readonly="" type="text" value="10:00 - 11:00 AM" />
                     </div>
-                    <div class="pickup-section">
-                        <label for="price">Date Time</label>
-                        <input id="datetime" readonly="" type="text" style="width: 270px;" />
-                    </div>
-                    <button id="Enrollbtn" style="width: 100px; margin-left: 220px; margin-top: 0px" class="btn" onclick="getchildrens(this.value)">Enroll</button>
                 </div>
             </div>
             <div class="fill">
-                <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
+                <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
                     style="width: 24px; height: 24px; fill: #233E8D !important; margin-left: -1080px; cursor: pointer;"
-                    class="back" onclick="window.location.href='<?= ROOT ?>/Child/event'">
-                <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
-                <hr>
+                    class="back" onclick="window.location.href='./event.html'">
+                <h1 style="color: black"> Events</h1>
                 <div class="filters">
                     <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
                 </div>
                 <div class="packages">
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -190,7 +193,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -199,7 +202,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -208,7 +211,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -217,7 +220,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -228,7 +231,7 @@
                 </div>
                 <div class="packages" style="margin-top: -10px;">
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -237,7 +240,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -246,7 +249,7 @@
                         </button>
                     </div>
                     <div class="package-card">
-                        <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
+                        <img alt="Classroom with colorful furniture and toys" src="<?=IMAGE?>/packages.png" />
                         <p> Event Name: Drawing</p>
                         <p> Date: 10/09/2024</p>
                         <p> Time: 10:00 - 11:00</p>
@@ -288,7 +291,7 @@
         <div class="profile-card" id="profileCard">
             <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
                 Thilina Perera
@@ -296,7 +299,7 @@
             <p>
                 Student    RS0110657
             </p>
-            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
+            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/Child/ChildProfile'">
                 Profile
             </button>
             <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/ParentProfile'" >
@@ -305,7 +308,7 @@
             <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
+            <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Main/Home'">
                 LogOut
             </button>
         </div>
@@ -420,30 +423,7 @@
         </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        childName: childName
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
-                    } else {
-                        console.error("Failed to set child name in session at " + window.location.href + " inside function setChildSession.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const EventModal = document.getElementById('EventModal');
             const eventbtns = document.querySelectorAll('.eventbtn');
             const mainContent = document.getElementById('main-content');

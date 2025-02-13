@@ -6,72 +6,65 @@
         Kiddo Ville
     </title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/child/funzonehistory.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/child/funzone1.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
-    <script src="<?=JS?>/child/Setting.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/child/Parental-lock.js?v=<?= time() ?>"></script>
-    <!-- <script src="<?=JS?>/child/Select-child.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/child/Select-type.js?v=<?= time() ?>"></script> -->
-    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
-    <!-- <script src="<?=JS?>/child/Load.js?v=<?= time() ?>"></script> -->
+    <link rel="stylesheet" href="<?=CSS?>/Child/funzoneHistory.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Child/funzone.css?v=<?= time() ?>">
+    <script src="<?=JS?>/Child/Setting.js"></script>
+    <script src="<?=JS?>/Child/Parental-lock.js"></script>
+    <script src="<?=JS?>/Child/Select-child.js"></script>
+    <script src="<?=JS?>/Child/Select-type.js"></script>
+    <script src="<?=JS?>/Child/Load.js"></script>
 </head>
 
 <body>
-<div class="container">
     <!-- minimized sidebar -->
-    <div class="sidebar" id="sidebar1">
-        <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
-        <div class="logo-div">
-            <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
-            <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
-        </div>
-        <ul style="margin-top:-20px;">
-            <li class="hover-effect unselected first">
-                <a href="<?= ROOT ?>/Child/Home">
-                    <i class="fas fa-house"></i> <span>Home</span>
+    <div class="sidebarhome minimized" id="sidebar1">
+        <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
+        <h2 style="margin-top: -15px;">Dashboard</h2>
+        <ul>
+            <li class="hover-effect unselected">
+                <a href="<?=ROOT?>/Child/Home">
+                    <i class="fas fa-home" style="font-size: 20px; color: black; margin-left: -2px;"></i> <span>Home</span>
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?= ROOT ?>/Child/history">
+                <a href="<?=ROOT?>/Child/history">
                     <i class="fas fa-history"></i> <span>History</span>
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?= ROOT ?>/Child/report">
-                    <i class="fa fa-user-shield"></i> <span>Report</span>
+                <a href="<?=ROOT?>/Child/report">
+                    <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?= ROOT ?>/Child/reservation">
+                <a href="<?=ROOT?>/Child/reservation">
                     <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?= ROOT ?>/Child/meal">
+                <a href="<?=ROOT?>/Child/meal">
                     <i class="fas fa-utensils"></i> <span>Meal plan</span>
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?= ROOT ?>/Child/event">
+                <a href="<?=ROOT?>/Child/event">
                     <i class="fas fa-calendar-alt"></i> <span>Event</span>
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?= ROOT ?>/Child/package">
+                <a href="<?=ROOT?>/Child/package">
                     <i class="fas fa-box"></i> <span>Package</span>
                 </a>
             </li>
             <li class="selected" style="margin-top: 40px;">
-                <a href="<?= ROOT ?>/Child/funzonehome">
+                <a href="<?=ROOT?>/Child/funzonehome">
                     <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?= ROOT ?>/Child/payment">
+                <a href="<?=ROOT?>/Child/payment">
                     <i class="fas fa-credit-card"></i> <span>Payments</span>
                 </a>
             </li>
@@ -81,54 +74,14 @@
             <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
         </div>
     </div>
-    <!-- navigation to choose child -->
-    <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
-        <div>
-            <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
-            <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
-                <ul>
-                    <li class="hover-effect first"
-                        onclick="removechildsession();">
-                        <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                            style="width: 60px; height:60px; border-radius: 30px;">
-                        <h2>Family</h2>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
-                <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
-                    Explore your children's activities and progress!
-                </p>
-                <ul class="children-list">
-                    <?php foreach ($data['children'] as $child): ?>
-                        <li class="first
-                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
-                                    echo "select-child";
-                                } ?>
-                            "
-                            onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                            <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                alt="Child Profile Image"
-                                style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                            echo "margin-left: -20px !important";
-                                                                                        } ?>">
-                            <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
-                        </li>
-                        <hr>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- mavigation for funzone -->
-    <!-- <div class="sidebar" style="background:white">
-        <a href="../../Home/Home.html">
+    <!-- sidebar to naviaget through funzone -->
+    <div class="sidebar" style="background:white">
+        <a href="<?=ROOT?>/ReChild/Home">
             <img alt="Kiddo Ville Logo" height="50" src="<?=IMAGE?>/logo_light-remove.png" width="50" />
         </a>
         <h1>Kiddo Ville</h1>
         <input placeholder="Search" type="text" /><i class="fas fa-search"></i>
-        <button onclick="location.href='<?=ROOT?>/Parent/funzonehome';">Home</button>
+        <button onclick="location.href='<?=ROOT?>/Child/funzonehome';">Home</button>
         <div class="custom-select-container" tabindex="0">
             <div class="custom-select-trigger">
                 Type <i class="fa fa-chevron-down"></i>
@@ -143,33 +96,32 @@
                 <div class="custom-option"> Lessons </div>
             </div>
         </div>
-        <button onclick="location.href='<?=ROOT?>/Parent/funzonewhishlist';">Wishlist</button>
-        <button onclick="location.href='<?=ROOT?>/Parent/funzonetasks';">Tasks</button>
-        <button onclick="location.href='<?=ROOT?>/Parent/funzoneHistory';">History</button>
+        <button onclick="location.href='<?=ROOT?>/Child/funzonewhishlist';">Wishlist</button>
+        <button onclick="location.href='<?=ROOT?>/Child/funzoneTasks';">Tasks</button>
+        <button onclick="location.href='<?=ROOT?>/Child/funzoneHistory';">History</button>
         <div class="bottom-text">
-            <a href="<?=ROOT?>/ReParent/Home" class="nav-link">
+            <a href="<?=ROOT?>/ReChild/Home" class="nav-link">
                 <i class="fas fa-home"></i>
                 <p class="Welcome">Welcome to Funzone</p>
             </a>
         </div>
-    </div> -->
-    <div class="main-content" style="background:linear-gradient(to bottom right, #f7f7f7,#eaeaea)">
+    </div>
+    <div class="main-content" style="background:linear-gradient(to bottom right, #f7f7f7, #eaeaea)">
         <!-- Header -->
-        <div class="header" style="z-index: 100 !important;">
-        <i class="fa fa-bars" id="minimize-btn"
-        style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
-            <div class="nav-buttons" style="margin-left: 50px;">
+        <div class="header" style="z-index: 1000000 !important;">
+            <div class="nav-buttons">
                 <div class="circle">
-                    <i class="fas fa-chevron-left" onclick="window.location.href='<?=ROOT?>/Child/funzonetasks'"></i>
+                    <i class="fas fa-chevron-left"></i>
                 </div>
                 <div class="circle">
-                    <i class="fas fa-chevron-right" onclick="window.location.href='<?=ROOT?>/Child/funzoneHome'"></i>
+                    <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
             <h2>
                 History
             </h2>
             <i class="fas fa-cog settings"></i>
+            <!-- profile card -->
             <div class="profile-card" id="profileCard">
                 <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
                     style="width: 24px; height: 24px; fill:#233E8D !important;" class="back" id="closeProfileCard">
@@ -190,31 +142,18 @@
                     </div>
                 </div>
             </div>
+
         </div>
-        <div class="header2">
-            <img src="<?=IMAGE?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
-            <p style="color: white; font-size: 17px;">Funzone </p>
-            <a href="<?=ROOT?>/child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
-            <a href="<?=ROOT?>/child/funzonewhishlist" class="hover-effect">Whishlist</a>
-            <a href="<?=ROOT?>/child/funzonetasks" class="hover-effect">Task</a>
-            <a href="<?=ROOT?>/child/funzonehistory" class="hover-effect select">History</a>
-            <select id="typePicker" style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
-                <option value="All"> All </option>
-                <option value="Video"> Videos </option>
-                <option value="Book"> Books </option>
-                <option value="Image"> Images </option>
-                <option value="Audio"> Songs </option>
-            </select>
-        </div>
-        <div class="contents" id="media-container" style="margin-top: -880px !important; z-index:1 !important ;">
-            <!-- <div class="grid" id="grid">
+        <!-- start of details -->
+        <div class="contents" id="contents" style="margin-top: -760px !important; z-index:1 !important ;">
+            <div class="grid" id="grid">
                 <div class="filter-section" style="margin-top: 770px; z-index:1 !important ;">
                     <label for="filter-date">Filter by date: </label>
                     <input type="date" id="filter-date">
                     <button id="filter-button">Filter</button>
-                </div> -->
+                </div>
                 <!-- <p style="margin-top: 700px;"> Hi </p> -->
-                <!-- <div class="day" style="margin-top: -15px;">
+                <div class="day" style="margin-top: 0px;">
                     <h3> Today </h3>
                 </div>
                 <div class="items-day">
@@ -311,8 +250,8 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
-            <!--   <div class="day">
+                </div>
+                <div class="day">
                     <h3> 16/09/2024 </h3>
                 </div>
                 <div class="items-day">
@@ -384,7 +323,8 @@
                     </div>
                     <div class="item">
                         <div class="icon-container">
-                            <button class="icon-btn watch-btn"><i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
+                            <button class="icon-btn watch-btn"><i class="fas fa-play"
+                                    style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
                         </div>
                         <img src="<?=IMAGE?>/funzone-4.png" alt="Item Image">
                         <div class="content">
@@ -403,9 +343,10 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
-            <!-- </div> -->
-            <!-- <div class="loading-area" id="loader">
+                </div>
+            </div>
+            <!-- loading animation -->
+            <div class="loading-area" id="loader">
                 <div class="loader">
                     <div></div>
                     <div></div>
@@ -414,291 +355,13 @@
                     <div></div>
                     <div></div>
                 </div>
-            </div> -->
+            </div>
         </div>
+        <!-- Link to home page -->
+        <a href="<?=ROOT?>/ReChild/Home" class="chatbox">
+            <i class="fa fa-home" style="margin-top: 1px; text-decoration: none;"></i>
+        </a>
     </div>
-</div>
-<script>
-        function removechildsession() {
-            fetch('<?= ROOT ?>/Child/Funzonehistory/removechildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child id removed from session.");
-                        window.location.href = '<?= ROOT ?>/Parent/Home';
-                    } else {
-                        console.error("Failed to remove child id from session.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        function setChildSession(ChildID) {
-            fetch('<?= ROOT ?>/Child/Funzonehistory/setchildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        ChildID: ChildID
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child id set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
-                    } else {
-                        console.error("Failed to set child id from session.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        function fetchMedia(type, Date) {
-            fetch('<?= ROOT ?>/Child/FunzoneHistory/store_media', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        type: type,
-                        Date: Date,
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success && data.data) {
-                        console.log("Fetched media data:", data.data);
-                        generateMediaGrid(data.data);
-                    } else {
-                        console.error("Failed to fetch media data:", data.message);
-                        alert("Error fetching media data.");
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        function generateMediaGrid(data) {
-            const gridExist = document.getElementById('grid');
-            if (gridExist) {
-                gridExist.remove();
-            }
-
-            const grid = document.createElement("div");
-            grid.classList.add("grid");
-            grid.style.marginTop = "220px";
-            grid.style.marginLeft = "20px";
-            grid.id = "grid";
-
-            const filterSection = document.createElement("div");
-            filterSection.classList.add("filter-section");
-            filterSection.style.marginTop = "770px";
-            filterSection.style.zIndex = "1";
-            filterSection.innerHTML = `
-                <label for="filter-date">Filter by date: </label>
-                <input type="date" id="filter-date" value="${data.selected_date || ''}">
-            `;
-            grid.appendChild(filterSection);
-
-            // Iterate over the fetched data
-            Object.keys(data).filter(key => key !== "selected_date").forEach(dateKey => {
-                // Create the day container
-                const dateDiv = document.createElement("div");
-                dateDiv.className = "day";
-
-                const dateHeader = document.createElement("h3");
-                dateHeader.textContent = `Date: ${dateKey}`;
-                dateDiv.appendChild(dateHeader);
-
-                grid.appendChild(dateDiv);
-
-                // Create the items container
-                const itemsContainer = document.createElement("div");
-                itemsContainer.classList.add("items-day");
-
-                // Iterate over the items for this particular date
-                data[dateKey].forEach(item => {
-                    const itemDiv = document.createElement("div");
-                    itemDiv.classList.add("item");
-                    itemDiv.style.height= '200px';
-
-                    // Icon container (play button)
-                    const iconContainer = document.createElement("div");
-                    iconContainer.classList.add("icon-container");
-
-                    const watchButton = document.createElement("button");
-                    watchButton.classList.add("icon-btn", "watch-btn");
-                    watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i>';
-
-                    iconContainer.appendChild(watchButton);
-
-                    // Media content (Video or default image)
-                    let mediaContent;
-                    if (item.MediaType === "Video") {
-                        const videoContainer = document.createElement("div");
-                        videoContainer.classList.add("video-container");
-
-                        const thumbnail = document.createElement("img");
-                        thumbnail.src = item.Image || '<?= IMAGE ?>/video.png';
-                        thumbnail.alt = "Video Thumbnail";
-                        thumbnail.width = 150;
-                        thumbnail.height = 150;
-                        thumbnail.style.border = '5px solid grey';
-                        thumbnail.style.marginTop = '10px;';
-                        thumbnail.style,marginBottom = '-5px;';
-
-                        const video = document.createElement("video");
-                        video.width = 305;  // Set fixed width
-                        video.height = 210; // Set fixed height
-                        video.style.marginLeft = '-10px'; // Adjust position as needed
-                        video.style.marginRight = '-9px';
-                        video.style.display = "none";
-                        video.style.objectFit = "cover"; // Ensures video covers the container and crops if needed
-                        video.muted = true;
-                        video.preload = "none";
-
-                        const source = document.createElement("source");
-                        source.src = item.URL;
-                        source.type = "video/mp4";
-
-                        video.appendChild(source);
-                        videoContainer.appendChild(thumbnail);
-                        videoContainer.appendChild(video);
-                        mediaContent = videoContainer;
-
-                        // Video hover effect to play
-                        setTimeout(() => {
-                            const container = videoContainer;
-                            const thumb = thumbnail;
-                            const vid = video;
-
-                            if (container && thumb && vid) {
-                                container.addEventListener("mouseenter", () => {
-                                    thumb.style.display = "none";
-                                    vid.style.display = "block";
-                                    vid.play();
-                                });
-
-                                container.addEventListener("mouseleave", () => {
-                                    vid.pause();
-                                });
-                            }
-                        }, 0);
-                    } else if (item.MediaType === "Image") {
-                        mediaContent = document.createElement("img");
-                        mediaContent.src = item.URL;
-                        mediaContent.alt = item.Title;
-                        mediaContent.width = 180;
-                        mediaContent.height = 150;
-                        mediaContent.style.objectFit = "cover";
-                    }
-                    else if (item.MediaType === "Audio"){
-                            mediaContent = document.createElement("img");
-                            mediaContent.src = '<?= IMAGE ?>/Audio.jpeg';
-                            mediaContent.alt = "Default Placeholder";
-                            mediaContent.width = 180;
-                            mediaContent.height = 150;
-                            mediaContent.style.objectFit = "cover";
-                    }
-                    else if(item.MediaType === "Book"){
-                            mediaContent = document.createElement("img");
-                            mediaContent.src = '<?= IMAGE ?>/PDF.jpeg';
-                            mediaContent.alt = "Default Placeholder";
-                            mediaContent.width = 180;
-                            mediaContent.height = 150;
-                            mediaContent.style.objectFit = "cover";
-                    }
-                    else{
-                        mediaContent = document.createElement("img");
-                        mediaContent.src = '<?= IMAGE ?>/PDF.';
-                        mediaContent.alt = "Default Placeholder";
-                        mediaContent.width = 180;
-                        mediaContent.height = 150;
-                        mediaContent.style.objectFit = "cover";
-                    }
-
-                    itemDiv.appendChild(iconContainer);
-                    // Add media content to the iconContainer (before Content)
-                    itemDiv.appendChild(mediaContent); // Added here to ensure the media shows
-                    // Create Content div
-                    const Content = document.createElement("div");
-                    Content.classList = 'content';
-                    
-                    // Title
-                    const title = document.createElement("h3");
-                    title.textContent = item.Title;
-                    Content.appendChild(title);
-
-                    // Description
-                    const description = document.createElement("p");
-                    description.textContent = item.Description;
-                    Content.appendChild(description);
-
-                    // Date & Time container
-                    const dateTimeDiv = document.createElement("div");
-                    dateTimeDiv.classList.add("date-time");
-
-                    const reminderDateDiv = document.createElement("div");
-                    reminderDateDiv.classList.add("reminder-date");
-                    reminderDateDiv.innerHTML = `<i class="fas fa-calendar-alt" style="style="margin-left: 53px !important;"></i> <span class="date-text">${item.Date}</span>`;
-                    dateTimeDiv.appendChild(reminderDateDiv);
-
-                    const reminderTimeDiv = document.createElement("div");
-                    reminderTimeDiv.classList.add("reminder-date");
-                    reminderTimeDiv.innerHTML = `<i class="fas fa-video" style="style="margin-left: 53px !important;"></i> <span class="time-text">${item.Time}</span>`;
-                    dateTimeDiv.appendChild(reminderTimeDiv);
-
-                    const UserDiv = document.createElement("div");
-                    UserDiv.classList.add("reminder-date");
-                    UserDiv.innerHTML = `<i class="fas fa-user" style="style="margin-left: 53px !important;"></i> <span class="time-text">${item.TeacherName}</span>`;
-                    dateTimeDiv.appendChild(UserDiv);
-
-                    const progressDiv = document.createElement("div");
-                    progressDiv.classList.add("reminder-date");
-                    progressDiv.innerHTML = `<i class="fas fa-hourglass" style="style="margin-left: 53px !important;"></i> Progress: ${item.Progress}%`;
-                    dateTimeDiv.appendChild(progressDiv);
-
-                    Content.appendChild(dateTimeDiv);
-                    itemDiv.appendChild(Content);
-                    itemsContainer.appendChild(itemDiv);
-                });
-
-                // After creating all items, append the items container to the day container
-                grid.appendChild(itemsContainer);
-            });
-
-            // Append the grid to the media container
-            document.getElementById("media-container").appendChild(grid);
-            
-            const typePicker = document.getElementById('typePicker');
-            const datePicker = document.getElementById('filter-date');
-            datePicker.addEventListener('change', function() {
-                fetchMedia(typePicker.value, datePicker.value);
-            });
-        }
-    
-        document.addEventListener('DOMContentLoaded', function() {
-            const typePicker = document.getElementById('typePicker');
-            const datePicker = document.getElementById('filter-date');
-            // Initial fetch for media
-            fetchMedia('All' , null);
-
-            typePicker.addEventListener('change', function() {
-                fetchMedia(typePicker.value, datePicker.value);
-            });
-
-            datePicker.addEventListener('change', function() {
-                fetchMedia(typePicker.value, datePicker.value);
-            });
-
-        });
-    </script>
 </body>
 
 </html>

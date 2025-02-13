@@ -36,8 +36,6 @@
                 $data2 = $this->selectedchild($select[0], $pre);
                 $data = $data + $data2;
             }
-
-            $session->set("Location" , 'Child/Attendance');
             $this->view('Child/Attendance',$data);
         }
 

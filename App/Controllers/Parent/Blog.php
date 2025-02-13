@@ -1,8 +1,6 @@
 <?php
 
     namespace Controller;
-    use App\Helpers\SidebarHelper;
-    use App\Helpers\ChildHelper;
 
     defined('ROOTPATH') or exit('Access denied');
 
@@ -11,15 +9,17 @@
         public function index(){
 
             $session = new \Core\Session;
-            $session->check_login();
+            // $session->check_login();
 
             $data = [];
-            $SidebarHelper = new SidebarHelper();
-            $data = $SidebarHelper->store_sidebar();
+            $username = $session->get('USERNAME');
 
-            $ChildHelper = new ChildHelper();
-            $data['Child_Count'] = $ChildHelper->child_count();
-            $session->set("Location" , 'Parent/Blog');
+            $child = new \Modal\Child;
+            $children = $child->where_norder(['Parent_Name' => $username]);
+            $parent = new \Modal\ParentUser;
+            $pre = $parent->where_norder(['Username' => $username]);
+
+            $data = $this->store($username,$children, $pre);
 
             $this->view('Parent/blog', $data);
         }
@@ -85,14 +85,5 @@
             echo json_encode($response); // Output JSON response
             exit();
         }
-
-        public function Logout(){
-            $session = new \core\Session();
-            $session->logout();
-
-            echo json_encode(["success" => true]);
-            exit;
-        }
-        
     }
 ?>

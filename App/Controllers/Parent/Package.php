@@ -3,7 +3,6 @@
     namespace Controller;
 
     use App\Helpers\SidebarHelper;
-    use App\Helpers\ChildHelper;
 
     defined('ROOTPATH') or exit('Access denied');
 
@@ -17,10 +16,6 @@
             $data = [];
             $SidebarHelper = new SidebarHelper();
             $data = $SidebarHelper->store_sidebar();
-
-            $ChildHelper = new ChildHelper();
-            $data['Child_Count'] = $ChildHelper->child_count();
-            $session->set("Location" , 'Parent/Package');
 
             $this->view('Parent/package', $data);
         }
@@ -88,14 +83,6 @@
 
             echo json_encode($response);  // Send JSON response
             exit();
-        }
-
-        public function Logout(){
-            $session = new \core\Session();
-            $session->logout();
-
-            echo json_encode(["success" => true]);
-            exit;
         }
     }
 ?>
