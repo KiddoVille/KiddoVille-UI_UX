@@ -23,7 +23,7 @@
 <body>
     <div class="Profilecard">
         <div
-            style="background-color: #2524E8; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
+            style="background-color:  #60a6ec; width: 350px; height: 600px; border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
             <img src="<?= IMAGE ?>/logo_light-remove.png" style="width:70px">
             <div class="heading">
                 <h1>Let's Create Your</h1>

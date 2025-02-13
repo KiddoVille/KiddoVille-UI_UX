@@ -24,7 +24,24 @@
             return $this->query($query);
         }
 
-        public function where_norder($data = [], $data_not = []){
+        public function findall_order($orderBy = null, $direction = "ASC") {
+            $query = "SELECT * FROM $this->table";
+        
+            // Validate sorting direction
+            $direction = strtoupper($direction);
+            if (!in_array($direction, ["ASC", "DESC"])) {
+                $direction = "ASC"; // Default to ASC if invalid input is given
+            }
+        
+            // Apply ordering if a column is specified
+            if ($orderBy) {
+                $query .= " ORDER BY $orderBy $direction";
+            }
+        
+            return $this->query($query);
+        }
+
+        public function where_norder($data, $data_not = []){
             $keys = array_keys($data);
             $keys_not = array_keys($data_not);
             $query = "select * from $this->table where ";
@@ -67,6 +84,34 @@
         
             return $this->query($query, $data);
         }
+        
+        public function where_order_desc($data, $data_not = [], $order_by = null) {
+            $keys = array_keys($data);
+            $keys_not = array_keys($data_not);
+            $query = "SELECT * FROM $this->table WHERE ";
+        
+            foreach ($keys as $key) {
+                $query .= $key . " = :" . $key . " AND ";
+            }
+            foreach ($keys_not as $key) {
+                $query .= $key . " != :" . $key . " AND ";
+            }
+        
+            // Remove the last "AND"
+            if (strrpos($query, " AND ") !== false) {
+                $query = substr($query, 0, strrpos($query, " AND "));
+            }
+        
+            // Ensure $order_by is a valid string
+            if (!empty($order_by) && is_string($order_by)) {
+                $query .= " ORDER BY " . $order_by . " DESC";  // Change ASC to DESC
+            }
+        
+            $data = array_merge($data, $data_not);
+        
+            return $this->query($query, $data);
+        }
+        
 
         public function where($data, $data_not = []){
 
@@ -129,7 +174,8 @@
                         unset($data[$key]);
                     }
                 }
-            }        
+            }
+        
             $keys = array_keys($data);
             $placeholders = array_map(fn($key) => ":$key", $keys);
             $query = "INSERT INTO $this->table (" . implode(", ", $keys) . ") VALUES (" . implode(", ", $placeholders) . ")";
@@ -161,16 +207,17 @@
         }
 
         public function delete( $id, $id_column = 'id'){
+
             $data[$id_column] = $id;
             $query = "delete from $this->table where $id_column = :$id_column";
             $this->query($query, $data);
+
         }
 
         public function update($condition, $data) {
             $conditionColumn = key($condition); // Get the condition column name
             $conditionValue = $condition[$conditionColumn]; // Get the condition column value
-            
-            // Ensure that only allowed columns are in the update data
+        
             if (!empty($this->allowedColumns)) {
                 foreach ($data as $key => $value) {
                     if (!in_array($key, $this->allowedColumns)) {
@@ -181,21 +228,15 @@
         
             // Prepare the SET clause
             $keys = array_keys($data);
-            $query = "UPDATE $this->table SET ";
+            $query = " UPDATE $this->table SET ";
             foreach ($keys as $key) {
-                $query .= "$key = :$key, ";
+                $query .= $key . " = :" . $key . " , ";
             }
         
-            // Trim the last comma and add the WHERE clause
-            $query = rtrim($query, ", ");
+            $query = trim($query, ", ");
             $query .= " WHERE $conditionColumn = :$conditionColumn";
-        
-            // Add condition to the data array
-            $data[$conditionColumn] = $conditionValue; 
-        
-            // Execute the query using the prepared statement
-            return $this->query($query, $data);
-        }
-                     
+            $data[$conditionColumn] = $conditionValue; // Add the condition to the data array
+            return ($this->query($query, $data));
+        }               
     }
 ?>

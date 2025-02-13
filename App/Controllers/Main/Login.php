@@ -24,16 +24,22 @@
         
                             if($result->Role === "User"){
                                 $parent = new \Modal\ParentUser;
-                                $result = $parent->first(['UserID' => $result -> UserID]);
-                                if(empty($result)){
+                                $pre = $parent->first(['UserID' => $result -> UserID]);
+                                if(empty($pre)){
                                     redirect('Onbording/ParentUser');
                                 }
                                 else{
-                                    $parent = new \Modal\ParentUser;
                                     $lastseen = date('Y-m-d H:i:s');
                                     $parent->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
 
-                                    redirect('Parent/Home');
+                                    $child = new \Modal\Child;
+                                    $children = $child->where_norder(["ParentID"=> $pre->ParentID]);
+                                    if(!$children){
+                                        redirect('Onbording/Child');
+                                    }
+                                    else{
+                                        redirect('Parent/Home');
+                                    }
                                 }
                             }
                             if($result->Role === "Teacher"){
@@ -52,7 +58,7 @@
                             if($result->Role === "Manager"){
                                 $Manager = new \Modal\Manager;
                                 $lastseen = date('Y-m-d H:i:s');
-                                $Manager->update(["UserID" => 6],["Last_Seen"=>$lastseen]);
+                                $Manager->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
                                 redirect('Manager/Home');
                             }
                             if($result->Role === "Receptionist"){

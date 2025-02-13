@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <title>Child Profile</title>
-<link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+<link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="<?=CSS?>/Child/profile.css">
@@ -177,9 +177,9 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const profilerefresh = document.getElementById('profilerefresh');

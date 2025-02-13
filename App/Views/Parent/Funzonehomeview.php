@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="<?=CSS?>/Parent/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Parent/funzonehome.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
     <script src="<?=JS?>/Parent/Setting.js?v=<?= time() ?>"></script>
     <script src="<?=JS?>/Parent/Parental-lock.js?v=<?= time() ?>"></script>
     <script src="<?=JS?>/Parent/Select-child.js?v=<?= time() ?>"></script>
