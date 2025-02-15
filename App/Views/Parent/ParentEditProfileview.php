@@ -25,29 +25,29 @@
         </div>
         <div class="ProfileContainer">
             <div class="leftcon">
-                <form id="editprofileleft" action="<?=ROOT?>/Parent/ParentEditProfile/update" enctype="multipart/form-data" method="POST">
-                <div class="profile-img" style="display: none;" id="add-con">
-                    <input type="file" id="fileInput" name="image" accept="image/*">
-                    <i class="fa fa-plus add" id="add" style="margin-bottom: -25px !important;"></i>
-                </div>
-                    <img src="<?= isset($data['Image'])? $data['Image'] : '' ?>" class="profile-img" id="img">
+                <form id="editprofileleft">
+                    <div class="profile-img" style="display: none;" id="add-con">
+                        <input type="file" id="fileInput">
+                        <i class="fa fa-plus add" id="add"></i>
+                    </div>
+                    <img src="<?=IMAGE?>/face.jpeg" class="profile-img" id="img">
                     <i class="fa fa-edit"
                         style="font-size:30px; margin-left: -50px; margin-bottom: -20px; color: #6f6f6f; cursor: pointer"
                         id="image-edit"></i>
                     <div class="datacon">
                         <div class="data">
                             <label>First Name</label>
-                            <input name="First_Name" placeholder="<?= isset($data['First_Name'])? $data['First_Name'] : '' ?>" type="text">
+                            <input placeholder="Abdulla" type="text">
                         </div>
                         <div class="data">
                             <label>Last Name</label>
-                            <input name="Last_Name" placeholder="<?= isset($data['Last_Name'])? $data['Last_Name'] : '' ?>" type="text">
+                            <input placeholder="Aurad" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Password</label>
-                            <input readonly placeholder="*******" style="width: 634.5px;" type="password">
+                            <input placeholder="*******" style="width: 634.5px;" type="password">
                             <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/Resetpasswordnown'"
                                 style="cursor: pointer;"> Change Password</p>
                         </div>
@@ -55,7 +55,7 @@
                     <div class="datacon">
                         <div class="data">
                             <label>User Name</label>
-                            <input placeholder="<?= isset($data['Username'])? $data['Username'] : '' ?>" style="width: 634.5px;" type="text">
+                            <input placeholder="AbdullaAurad" style="width: 634.5px;" type="text">
                             <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/changeusername'"
                                 style="cursor: pointer;"> Change UserName</p>
                         </div>
@@ -63,65 +63,71 @@
                     <div class="datacon">
                         <div class="data">
                             <label>Email</label>
-                            <input readonly placeholder="<?= isset($data['Email'])? $data['Email'] : '' ?>" style="width: 634.5px;" type="email">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/change-username'" style="cursor: pointer;"> Change Email</p>
+                            <input placeholder="abdullaaurad@gmail.com" type="email">
+                        </div>
+                        <div class="data">
+                            <label>NID</label>
+                            <input maxlength="12" placeholder="200232901776" type="text">
                         </div>
                     </div>
+                </form>
             </div>
             <div class="divider"></div>
+            <form id="editprofileright">
                 <div class="rightcon">
-                <div class="datacon">
-                        <div class="data">
-                            <label>Contact Number</label>
-                            <input readonly placeholder="<?= isset($data['Phone_Number'])? $data['Phone_Number'] : '' ?>" style="width: 627.5px;" type="text">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/change-number'" style="cursor: pointer; margin-left: 420px;" > Change Mobile Number</p>
-                        </div>
-                    </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Gender</label>
-                            <select name="Gender">
-                                <option value="M" <?= ($data['Gender'] == 'M') ? 'selected' : '' ?>>Male</option>
-                                <option value="F" <?= ($data['Gender'] == 'F') ? 'selected' : '' ?>>Female</option>
+                            <select>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
                             </select>
                         </div>
                         <div class="data">
                             <label>Language</label>
-                            <select style="width: 307px;" name="Language">
-                                <option value="English" <?= ($data['Language'] == 'English') ? 'selected' : '' ?>>English</option>
-                                <option value="Sinhala" <?= ($data['Language'] == 'Sinhala') ? 'selected' : '' ?>>Sinhala</option>
-                                <option value="Tamil" <?= ($data['Language'] == 'Tamil') ? 'selected' : '' ?>>Tamil</option>
+                            <select style="width: 307px;">
+                                <option value="English">English</option>
+                                <option value="Sinhala">Sinhala</option>
+                                <option value="tamil">Tamil</option>
                             </select>
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
-                            <label>Last Seen</label>
-                            <input style="width: 290px;" readonly placeholder="<?= isset($data['Last_Seen'])? $data['Last_Seen'] : '' ?>" type="text">
+                            <label>Date of birth</label>
+                            <input style="width: 290px;" value="2022/11/24" type="date">
                         </div>
                         <div class="data">
-                            <label>ParentID</label>
-                            <input readonly style="width:293px;" class="number" maxlength="12" placeholder="<?= isset($data['ParentID'])? $data['ParentID'] : '' ?>"
+                            <label>Contact</label>
+                            <input style="width:293px;" class="number" maxlength="12" placeholder="0714810928"
                                 type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Address</label>
-                            <input name="Address" placeholder="<?= isset($data['Address'])? $data['Address'] : '' ?>" style="width: 618px;" type="text">
+                            <input placeholder="106/37,Brandiyawatta,wellampitiya" style="width: 618px;" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
-                            <label>NID</label>
-                            <input name="Address" placeholder="<?= isset($data['NID'])? $data['NID'] : '' ?>" type="text">
+                            <label>Contact Preference</label>
+                            <select>
+                                <option value="email">email</option>
+                                <option value="call">call</option>
+                                <option value="message">message</option>
+                            </select>
                         </div>
                         <div class="data">
-                            <label>Childs</label>
-                            <input readonly maxlength="12" placeholder="<?= isset($data['childcount'])? $data['childcount'] : '' ?>" type="text">
+                            <label>Visibility</label>
+                            <select style="width: 307px;">
+                                <option value="email">Everyone</option>
+                                <option value="call">none</option>
+                                <option value="message">staff</option>
+                            </select>
                         </div>
                     </div>
-                    <!-- <div class="datacon">
+                    <div class="datacon">
                         <div class="data">
                             payment Methods
                             <div style="display: flex; flex-direction: row; margin-top: 10px;">
@@ -136,12 +142,12 @@
                             </div>
                             <p style="color:rgb(2, 77, 205); margin-top: 5px; font-weight: 600;">+Add payment modes</p>
                         </div>
-                    </div> -->
-                    <div class="Save-con" style="margin-top: 20px;">
+                    </div>
+                    <div class="Save-con">
                         <button type="button" class="Save" onclick="window.location.href='<?=ROOT?>/Parent/ParentProfile'">
                             Cancel
                         </button>
-                        <button type="submit" class="Save">
+                        <button type="button" class="Save" onclick="window.location.href='<?=ROOT?>/Parent/ParentProfile'">
                             Save
                         </button>
                     </div>

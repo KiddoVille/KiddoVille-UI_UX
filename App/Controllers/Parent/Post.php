@@ -9,7 +9,5 @@
         public function index(){
             $this->view('Parent/post');
         }
-
-        
     }
 ?>

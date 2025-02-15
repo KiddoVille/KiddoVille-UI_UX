@@ -94,33 +94,33 @@
     text-align: center;
 }
 
-.reservation-container .payments .table-container {
-    max-height: 260px;
+.reservation-container .table-container {
+    max-height: 300px;
     overflow: hidden;
     /* Hide the scrollbar initially */
     position: relative;
 }
 
-.reservation-container .payments table {
+.reservation-container table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
 }
 
-.reservation-container .payments thead {
+.reservation-container thead {
     background-color: #60a6ec;
     color: #ffffff;
 }
 
-.reservation-container .payments th,
-.reservation-container .payments td {
+.reservation-container th,
+.reservation-container td {
     padding: 10px;
     text-align: center;
     font-size: 15px;
     border-right: 1px solid #e0e0e0;
 }
 
-.reservation-container .payments th {
+.reservation-container th {
     background-color: #60a6ec;
     color: #ffffff;
     font-weight: 800;
@@ -132,30 +132,33 @@
     z-index: 1;
 }
 
-.reservation-container .payments tbody {
+.reservation-container tbody {
     display: block;
-    max-height: 200px;
+    max-height: 240px;
     overflow-y: hidden;
     /* Initially hidden */
     overflow-x: hidden;
 }
 
-.reservation-container .payments tbody:hover {
+.reservation-container tbody:hover {
     overflow-y: auto;
     /* Enable scrolling on hover */
 }
 
-.reservation-container .payments tr {
+.reservation-container tr {
     display: table;
     width: 100%;
     table-layout: fixed;
 }
 
-.reservation-container .payments td {
+.reservation-container td {
     color: #333;
     background-color: #f7f9fc;
 }
 
+.reservation-container tr:nth-child(even) td {
+    background-color: #eaf3fa;
+}
 /* Custom scrollbar for Webkit browsers */
 .reservation-container tbody::-webkit-scrollbar {
     width: 8px;
@@ -185,12 +188,15 @@
 }
 
 .approved {
+    background-color: #A2EDEA;
+    border-color: #00FFF5;
     border: 2px solid #099690;
     border-radius: 20px;
     height: 40px;
 }
 
 .pending {
+    background-color: #FFF8E1;
     border-color: #FFC107;
     border: 2px solid #b38601;
     border-radius: 20px;
@@ -198,6 +204,7 @@
 }
 
 .cancel {
+    background-color: #F6DADA;
     border-color: #FF8787;
     border: 2px solid #f96969;
     border-radius: 20px;
@@ -238,155 +245,4 @@
 
 .sidebar.minimized ul {
     margin-top: -19px !important;
-}
-
-.toggle{
-    z-index: 100;
-    margin-left: -30px;
-    margin-top: -30px;
-    margin-bottom: 20px;
-    height: 40px;
-    width: 250px;
-    font-family: Arial, sans-serif;
-    background: #60a6ec;
-    border-radius: 8px;
-    border: 4px solid white;
-    position: relative;
-    overflow: hidden;
-}
-
-.hi-btn {
-    color: white;
-    position: relative;
-    font-size: 18px;
-    z-index: 100;
-    padding: 10px 30px;
-}
-
-.up-btn {
-    color: white;
-    position: relative;
-    font-size: 18px;
-    z-index: 100;
-    background-color: #10639a;
-    padding: 10px 26px;
-}
-
-table i {
-    margin-right: 10px;
-    margin-left: 10px;
-    color: #0056b3;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-#paymentsChart {
-    margin-top: -20px;
-    width: 600px !important; /* Set the display width */
-    height: 400px !important; /* Set the display height */
-}
-
-/* .upcoming-payment {
-    flex:1;
-    background-color: #f0efefd7;
-    border-radius: 20px;
-}
-
-.overdue-payment {
-    flex: 1;
-    background-color: #f0efefd7;
-    display: flex;
-    flex-direction: row;
-    border-radius: 20px;
-} */
-.overdue-payment p, .upcoming-payment p{
-    font-size: 0.9rem !important;
-}
-.overdue-payment button{
-    background-color: rgb(243, 210, 44);
-    margin-bottom: 10px;
-    color: #353535;
-    font-weight: 600;
-}
-
-.overdue {
-    color: #d32f2f;
-    font-weight: bold;
-}
-
-.pay-now {
-    background-color: #d32f2f;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: -20px;
-    margin-left: 170px;
-    margin-top: -10px;
-}
-
-.pay-now:hover {
-    background-color: #b71c1c;
-}
-
-.payment-description {
-    padding: 20px;
-    border-radius: 10px;
-    margin: auto;
-    margin-top: -40px;
-    margin-left: 50px;
-}
-.payment-description h3 {
-    margin: 0;
-    margin-bottom: 20px;
-    color: #000;
-    text-align: center;
-}
-.payment-description ul {
-    list-style: none;
-    padding: 0;
-}
-.payment-description ul li {
-    width: 400px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: space-between;
-    transition: background-color 0.3s;
-}
-.payment-description ul li:hover {
-    background-color: #f1f1f1;
-}
-.payment-description ul li span {
-    display: block;
-    font-size: 16px;
-    color: #333;
-}
-.payment-description ul li span.amount {
-    font-weight: bold;
-    color: #000;
-}
-.payment-description .total {
-    font-size: 18px;
-    font-weight: bold;
-    color: #000;
-    text-align: center;
-    margin-top: 20px;
-}
-.payment-description .btn {
-    display: block;
-    width: 40%;
-    background-color:  #10639a;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
 }

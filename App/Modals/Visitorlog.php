@@ -11,6 +11,7 @@
         protected $allowedColumns = [
             'VisitorName',
             'Role',
+            'Date',
             'Start_time',
             'End_time',
             'Purpose'
@@ -24,5 +25,7 @@
             }
             return false;
         }
+
+      
     }
 ?>

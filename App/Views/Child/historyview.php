@@ -8,21 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Child/history.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
-    <!-- <script src="<?= JS ?>/Child/history.js?v=<?= time() ?>"></script> -->
+    <script src="<?= JS ?>/Child/history.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
-    <!-- <script src="<?= JS ?>/Child/Pickup.js?v=<?= time() ?>"></script> -->
+    <script src="<?= JS ?>/Child/Pickup.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/OTP.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/Profile.js?v=<?= time() ?>"></script>
+    <script src="<?=JS?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
 </head>
 
 <body style="overflow: hidden;">
     <div class="container">
         <!-- mimnized sidebar -->
         <div class="sidebar" id="sidebar1">
-            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
+            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
-                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
                 <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
             </div>
             <ul>
@@ -85,7 +85,7 @@
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
+                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'].'?v=' . time(): ''?>"
                                 style="width: 60px; height:60px; border-radius: 30px;">
                             <h2>Family</h2>
                         </li>
@@ -99,16 +99,12 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="first
-                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
-                                    echo "select-child";
-                                } ?>
-                            "
-                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
+                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
+                            " 
+                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?= isset($child['image']) ? $child['image'].'?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>" 
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -173,22 +169,22 @@
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/attendance.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Holidays</h3>
-                    <p style="margin-bottom: 3px;"> <?= $data['holidays'] ?> Days</p>
-                    <span style="font-weight: 50;">holiday to the daycare</span>
+                    <h3><img src="<?= IMAGE ?>/attendance.svg?v=<?= time() ?> " alt="Attendance"
+                            style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Days not attended</h3>
+                    <p style="margin-bottom: 3px;">03/04 Days</p>
+                    <span style="font-weight: 50;">Unattended days</span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/sick.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Average attendance</h3>
-                    <p style="margin-bottom: 3px;"> <?= $data['average_attendance'] ?> Day</p>
-                    <span style="font-weight: 50;">Average of attendance in a month</span>
+                            style="width: 30px; margin-right: 10px; margin-bottom: -10px;">Sick days</h3>
+                    <p style="margin-bottom: 3px;">1 Day</p>
+                    <span style="font-weight: 50;">light fever</span>
                 </div>
                 <div class="stat">
                     <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Total late arrivals</h3>
-                    <p style="margin-bottom: 3px;"> <?= $data['late_arrivals'] ?> Days</p>
-                    <span style="font-weight: 50;">Laet arrivals of all child</span>
+                            style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Late departure</h3>
+                    <p style="margin-bottom: 3px;">Departure time 8:00 am</p>
+                    <span style="font-weight: 50;">Date: 20/09/2024</span>
                 </div>
             </div>
             <div class="saperate" style="height: 540px;">
@@ -196,18 +192,58 @@
                 <div class="child-history" style="width: 760px !important; height: 430px !important; margin-top: 0px;">
                     <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Child History </h2>
                     <hr>
-                    <input type="date" id="datePicker" style="width: 200px">
-                    <table id="historyTable">
+                    <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                    <table style="margin-bottom: 20px;">
                         <thead>
                             <tr>
+                                <th style="padding: 10px -5px;">Date</th>
                                 <th>Arrival</th>
                                 <th>Departure</th>
-                                <th>Pickup</th>
-                                <th>Status</th>
+                                <th>Pickup person</th>
                             </tr>
                         </thead>
-                        <tbody style="max-height: 300px; margin-bottom: 0px;">
-                        </tbody>
+                        <tr>
+                            <td>25/03/2025</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>02/01/2025</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>20/12/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Guardian</td>
+                        </tr>
+                        <tr>
+                            <td>10/11/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>13/08/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>13/08/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
+                        <tr>
+                            <td>13/08/2024</td>
+                            <td>7:30 A.M</td>
+                            <td>4:30 P.M</td>
+                            <td>Parent</td>
+                        </tr>
                     </table>
                 </div>
                 <!-- <div class="pickup-container">
@@ -220,7 +256,7 @@
                         <p>Departure time: 8:00pm</p>
                     </div>
                     <button class="button" style="width: 189px" id="editModalBtn">Edit</button>
-                </div> -->
+                </div> -->          
                 <div class="attendance">
                     <div class="attendance-component">
                         <div style="display: flex; flex-direction: column;">
@@ -229,149 +265,117 @@
                         </div>
                         <div class="contain">
                             <div class="attendance-grid">
-                                <?php foreach ($weeklyAttendance as $day): ?>
-                                    <div class="attendance-item <?= $day['style'] ?> " style="width: 75px;">
-                                        <?= $day['style'] ?>
-                                        <div class="day-label" style="font-size: 15px;"><?= $day['day'] ?></div>
-                                        <h2><?= date('d', strtotime($day['date'])) ?></h2>
-                                        <p><?= $day['status'] ?></p>
-                                    </div>
-                                <?php endforeach; ?>
+                                <div class="attendance-item present">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Present</p>
+                                </div>
+                                <div class="attendance-item half-day">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Half day</p>
+                                </div>
+                                <div class="attendance-item present">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Present</p>
+                                </div>
+                                <div class="attendance-item present">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Present</p>
+                                </div>
+                                <div class="attendance-item absent">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Absent</p>
+                                </div>
+                                <div class="attendance-item present">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Present</p>
+                                </div>
+                                <div class="attendance-item half-day">
+                                    <div class="day-label">Monday</div>
+                                    <h2>15</h2>
+                                    <p>Half day</p>
+                                </div>
                             </div>
                         </div>
                         <div class="summary-container">
                             <div class="summary">
                                 <div class="bar1">
                                     <p>Total</p>
-                                    <p style="color: #00bcd4">Attended days of week: <?= $summary['totalDaysPresent'] ?> day</p>
+                                    <p style="color: #00bcd4">Full day hours for week: 21 hrs</p>
                                 </div>
                                 <div class="bar2">
                                     <p style="margin-top: 15px;">Total</p>
-                                    <p style="color: #9c27b0">Absent days of week: <?= $summary['totalDaysAbsent'] ?> day</p>
+                                    <p style="color: #9c27b0">Half day hours for week: 4 hrs</p>
                                 </div>
                             </div>
                             <div class="image-container">
                                 <img alt="Cartoon of a student sitting at a desk with books" height="100"
-                                    src="<?= IMAGE ?>/child_attendance.png" width="100" />
+                                    src="<?=IMAGE?>/child_attendance.png" width="100" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- navigation to message page -->
-                <a href="<?= ROOT ?>/Child/Message" class="chatbox">
-                    <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                        style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                    <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                        <p> 2</p>
-                    </div>
-                </a>
-            </div>
-            <!-- Profile card -->
-            <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
-                <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                    style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
-                    class="profile" />
-                <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-                <p>SRD<?= $data['selectedchildren']['id'] ?></p>
-                <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
-                    Profile
-                </button>
-                <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">
-                    Parent profile
-                </button>
-                <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">
-                    Guardian profile
-                </button>
-                <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
-                <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
-                <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
-                    LogOut
-                </button>
-            </div>
+            <!-- navigation to message page -->
+            <a href="<?=ROOT?>/Child/Message" class="chatbox">
+                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
+                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
+                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
+                    <p> 2</p>
+                </div>
+            </a>
+        </div>
+        <!-- Profile card -->
+        <div class="profile-card" id="profileCard" tyle="margin-top: -710px;">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
+                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
+                class="profile" />
+            <h2>
+                Thilina Perera
+            </h2>
+            <p>
+                Student    RS0110657
+            </p>
+            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
+                Profile
+            </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">
+                Parent profile
+            </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">
+                Guardian profile
+            </button>
+            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
+                LogOut
+            </button>
         </div>
     </div>
     <script>
-        function setChildSession(ChildID) {
-            console.log(ChildID);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+        function setChildSession(childName) {
+            fetch('<?= ROOT ?>/Child/Home/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        ChildID: ChildID
+                        childName: childName
                     })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        console.log("Child Id set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
+                        console.log("Child name set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/History';
                     } else {
-                        console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
+                        console.error("Failed to set child name in session.", data.message);
                     }
                 })
                 .catch(error => console.error("Error:", error));
-        }
-
-        function fetchAttendanceHistory(date) {
-            fetch('<?= ROOT ?>/Child/History/store_history', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        date: date
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Meal plan data:", data.data);
-                        updateAttendanceTable(data.data);
-                    } else {
-                        console.error("Failed to fetch meal plan:", data.message);
-                        alert(data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        function updateAttendanceTable(attendanceData) {
-            // Get the table body
-            const tableBody = document.querySelector('#historyTable tbody');
-
-            // Clear any existing rows in the table
-            tableBody.innerHTML = '';
-
-            // Loop through the attendance data and create table rows
-            attendanceData.forEach(attendance => {
-                const row = document.createElement('tr');
-
-                // Arrival Time (Start Date & Time)
-                const arrivalCell = document.createElement('td');
-                arrivalCell.textContent = `${attendance.Start_Date} ${attendance.Start_Time}`;
-                row.appendChild(arrivalCell);
-
-                // Departure Time (End Date & Time)
-                const departureCell = document.createElement('td');
-                departureCell.textContent = `${attendance.End_Date} ${attendance.End_Time}`;
-                row.appendChild(departureCell);
-
-                // Pickup Information
-                const pickupCell = document.createElement('td');
-                pickupCell.textContent = attendance.Pickup || 'N/A'; // Handle if Pickup is empty or undefined
-                row.appendChild(pickupCell);
-
-                // Status (Present or Absent)
-                const statusCell = document.createElement('td');
-                statusCell.textContent = attendance.Status;
-                row.appendChild(statusCell);
-
-                // Append the created row to the table body
-                tableBody.appendChild(row);
-            });
         }
 
         function removechildsession() {
@@ -392,18 +396,7 @@
                 })
                 .catch(error => console.error("Error:", error));
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const datePicker = document.getElementById('datePicker');
-
-            fetchAttendanceHistory('All');
-
-            datePicker.addEventListener('change', function() {
-                fetchAttendanceHistory(datePicker.value);
-            });
-
-        });
-    </script>
+    </>
 </body>
 
 </html>

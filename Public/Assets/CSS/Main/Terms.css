@@ -1,18 +1,20 @@
 body {
     font-family: 'Inter', sans-serif;
+    background-color: #F5F7FA;
     margin: 0;
     padding: 0;
+    background-color: #e0f7fa;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #FFFFFF;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
     margin-bottom: 40px;
-    background-color: transparent;
 }
 
 .content {

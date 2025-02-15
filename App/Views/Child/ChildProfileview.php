@@ -28,13 +28,13 @@
         <img src="<?=IMAGE?>/prescription1.jpeg" alt="prescriptions" class="prescription-img" id="prescription-img">
         <i class="fa fa-chevron-right move" id="right"></i>
     </div>
-    <div id="documentModal" style="width: 550px; height: auto;" >
+    <div id="documentModal">
         <div class="top-con">
             <div class="back-con" id="back-arrow">
                 <i class="fas fa-chevron-left" id="backfordocument"></i>
             </div>
         </div>
-        <div id="fileListContainer" style="display: flex; justify-content:space-between; width: 530px; overflow-y: scroll; height: 100px;">
+        <div id="fileListContainer">
         </div>
     </div>
     <div class="Profilecard" id="Profilecard">
@@ -50,35 +50,45 @@
         <div class="ProfileContainer">
             <div class="leftcon">
                 <form id="editprofileleft">
-                    <img src="<?= isset($data['children']->Image)? $data['children']->Image: '' ?> " class="profile-img" style="width: 200px; height: 200px;">
+                    <img src="<?=IMAGE?>/face.jpeg" class="profile-img">
                     <div class="datacon">
                         <div class="data">
                             <label>First Name</label>
-                            <input readonly placeholder="<?= isset($data['children']->First_Name)? $data['children']->First_Name : '' ?> " type="text">
+                            <input readonly placeholder="Yunus" type="text">
                         </div>
                         <div class="data">
                             <label>Last Name</label>
-                            <input readonly placeholder="<?= isset($data['children']->Last_Name)? $data['children']->Last_Name : '' ?> " type="text">
+                            <input readonly placeholder="Mahir" type="text">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Nickname</label>
-                            <input readonly placeholder="<?= isset($data['children']->Nickname)? $data['children']->Nickname : '' ?> " type="text">
+                            <input readonly placeholder="Yunu" type="text">
                         </div>
                         <div class="data">
                             <label>Date Of Birth</label>
-                            <input readonly placeholder="<?= isset($data['children']->DOB)? $data['children']->DOB : '' ?> " type="date">
+                            <input readonly placeholder="Yunu" type="date">
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Gender</label>
-                            <input type="text" placeholder="<?= isset($data['children']->Gender)? $data['children']->Gender : 'Male' ?>">
+                            <input type="text" placeholder="Male">
                         </div>
                         <div class="data">
                             <label>User Relationship</label>
-                            <input type="text" placeholder="<?= isset($data['children']->Relation)? $data['children']->Relation : '' ?>">
+                            <input type="text" placeholder="Father">
+                        </div>
+                    </div>
+                    <div class="datacon">
+                        <div class="data">
+                            <label>Language</label>
+                            <input readonly placeholder="Tamil,English" type="text">
+                        </div>
+                        <div class="data">
+                            <label>Religion</label>
+                            <input readonly placeholder="Islam" type="text">
                         </div>
                     </div>
                 </form>
@@ -88,22 +98,12 @@
                 <div class="rightcon">
                     <div class="datacon">
                         <div class="data">
-                            <label>Language</label>
-                            <input readonly placeholder="<?= isset($data['children']->Language)? $data['children']->Language : '' ?>" type="text">
-                        </div>
-                        <div class="data">
-                            <label>Religion</label>
-                            <input readonly placeholder="<?= isset($data['children']->Religion)? $data['children']->Religion : '' ?>" type="text">
-                        </div>
-                    </div>
-                    <div class="datacon">
-                        <div class="data">
                             <label>Emergency Contact</label>
-                            <input readonly class="number" type="number" placeholder="<?= isset($data['children']->Phone_Number)? $data['children']->Phone_Number : 'None' ?>">
+                            <input readonly class="number" type="number" placeholder="071-4810928">
                         </div>
                         <div class="data">
-                            <label>Email</label>
-                            <input readonly type="text" placeholder="<?= isset($data['children']->Email)? $data['children']->Email : 'None' ?>">
+                            <label>Allergies</label>
+                            <input readonly type="text" placeholder="Shrimp">
                         </div>
                     </div>
                     <div class="datacon">
@@ -123,8 +123,26 @@
                     </div>
                     <div class="datacon">
                         <div class="data">
-                            <label>Allergies</label>
-                            <input readonly type="text" style="width:635px;" placeholder="<?= (isset($data['children']->Allergies)&&$data['children']->Allergies !== '' )? $data['children']->Allergies : 'None' ?>">
+                            <label>Enrolled clubs</label>
+                            <select style="width: 315px">
+                                <option hidden>Guardening Club</option>
+                                <option>Swimming Club</option>
+                                <option>Singing Club</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="datacon">
+                        <div class="data">
+                            <label>Attending Days</label>
+                            <div class="days">
+                                <div class="day select" style="margin-left:0px">Sun</div>
+                                <div class="day">Mon</div>
+                                <div class="day select">Tue</div>
+                                <div class="day">Wed</div>
+                                <div class="day">Thur</div>
+                                <div class="day">Fri</div>
+                                <div class="day select">Sat</div>
+                            </div>
                         </div>
                     </div>
                     <div
@@ -171,12 +189,15 @@
                 Profilecard.style.filter = "blur(10px)";
             });
 
-            let images = <?= json_encode($data['medications'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
+            const images = [
+                "../../Assets/prescription1.jpeg",
+                "../../Assets/prescription2.jpeg",
+                "../../Assets/prescription3.jpeg"
+            ];
             let currentIndex = 0;
 
             function updateImage() {
-                prescriptionimg.src = images[currentIndex]['MedicationImage'];
-                console.log(prescriptionimg.src);
+                prescriptionimg.src = images[currentIndex];
             }
 
             left.addEventListener('click', function () {
@@ -191,37 +212,37 @@
 
             updateImage();
 
-            const files = <?= json_encode($data['documents'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;;
+            const files = [
+                { name: "Report_January.pdf", path: "../../Assets/Report_January.pdf" },
+                { name: "Report_February.pdf", path: "../../Assets/Report_February.pdf" },
+                { name: "Summary_March.pdf", path: "../../Assets/Summary_March.pdf" }
+            ];
 
             files.forEach(file => {
                 const fileDiv = document.createElement('div');
                 fileDiv.className = "file-entry";
-                fileDiv.style.textAlign = "left";
 
-                // Display the filename
                 const viewLink = document.createElement('a');
-                viewLink.href = `data:${file.FileType};base64,${file.UploadedFile.split('base64,')[1]}`; // Extract the base64 string
+                viewLink.href = file.path;
                 viewLink.target = "_blank";
-                viewLink.textContent = file.OriginalName;
+                viewLink.textContent = file.name;
                 viewLink.className = "view-link";
-                viewLink.marginLeft = '0px';
 
-                // Create the download button
                 const downloadButton = document.createElement('button');
                 downloadButton.textContent = "Download";
                 downloadButton.className = "download-button";
                 downloadButton.onclick = function () {
                     const link = document.createElement('a');
-                    link.href = `data:${file.FileType};base64,${file.UploadedFile.split('base64,')[1]}`;
-                    link.download = file.OriginalName;
-                    link.click();  // Trigger the download
+                    link.href = file.path;
+                    link.download = file.name;
+                    link.click();
                 };
 
-                // Append the filename and button to the file container
                 fileDiv.appendChild(viewLink);
                 fileDiv.appendChild(downloadButton);
                 fileListContainer.appendChild(fileDiv);
             });
+
         });
 
     </script>

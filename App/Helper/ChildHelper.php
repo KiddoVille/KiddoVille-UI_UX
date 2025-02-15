@@ -20,10 +20,6 @@
 
             return $children;
         }
-
-        public function child_count(){
-            return count($this->store_child());
-        }
     }
 
 ?>

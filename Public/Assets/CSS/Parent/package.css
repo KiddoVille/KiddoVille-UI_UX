@@ -14,7 +14,7 @@
 }
 
 .filters{
-    margin-right: 400px !important;
+    margin-right: 630px !important;
     margin-bottom: -10px !important;
 }
 
@@ -24,25 +24,14 @@
     align-items: center;
     margin-bottom: 0px;
 }
-.fill .filters input,
-.fill .filters select{
+.fill .filters input{
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #0f020216;
 }
-
 .fill .filters input[type="text"] {
     width: 250px;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 40px !important;
-    margin-left: 10px;
-}
-.fill .filters select {
-    width: 100px;
     text-align: center;
     padding: 10px;
     border: 1px solid #ccc;
@@ -72,7 +61,7 @@
     border: 1px solid #ccc;
     animation: popupSlideIn 0.5s ease;
     position: relative;
-    border: 4px solid grey;
+    border: 4px solid #0000ff;
     border-radius: 10px;
     width: 320px;
     height: 500px;

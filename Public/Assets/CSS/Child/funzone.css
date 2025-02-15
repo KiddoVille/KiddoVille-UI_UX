@@ -1,7 +1,6 @@
 .sidebar {
     width: 200px;
     height: 100vh;
-    background: url('../../../../Assets/funzone-side.png') no-repeat center center;
     background-size: cover;
     padding: 20px;
     box-sizing: border-box;
@@ -12,6 +11,7 @@
     flex-direction: column;
     align-items: center;
     margin-left: 50px;
+    box-shadow: 5px 0 5px -2px grey !important;
 }
 
 .sidebar img {
@@ -132,7 +132,7 @@
 }
 
 .profile-card.show {
-    margin-top: 210px !important;
+    margin-top: 170px !important;
     display: flex;
     right: 0px;
 }
@@ -580,7 +580,7 @@
 
 .sidebarhome {
     background-color: #ffffff;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: 5px 0 5px -2px grey;
     justify-content: center;
     padding: 20px;
     padding-left: 0px;
