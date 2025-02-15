@@ -22,7 +22,6 @@
             }
             return false;
         }
-<<<<<<< HEAD
 
         public function findbyDate($date){
             $query = "SELECT * FROM `foodplan` WHERE Date = :date";
@@ -30,7 +29,5 @@
             $result = $this->query($query,$param);
             return $result;
         }
-=======
->>>>>>> origin/main
     }
 ?>

@@ -21,8 +21,46 @@
             $ChildHelper = new ChildHelper();
             $data['Child_Count'] = $ChildHelper->child_count();
             $session->set("Location" , 'Parent/Event');
-            
+
             $this->view('Parent/Meal', $data);
+        }
+
+        public function Snack_request(){
+            show($_POST);
+            $requestModal = new \Modal\SnackRequest;
+            $SnackModal = new \Modal\SnackPlan;
+
+            $result = $requestModal->first(["SnackID"=>$_POST['Snack'] , "ChildID"=> $_POST['Child']]);
+            if($result){
+                $requestModal->update(["SnackID"=>$_POST['Snack'] , "ChildID"=> $_POST['Child']], ["Quantity"=> $result->Quantity+1]);
+            }
+            else{
+                $requestModal->insert(["SnackID"=>$_POST['Snack'] , "ChildID"=> $_POST['Child'], ["Quantity"=> 1]]);
+            }
+
+            redirect('Parent/Meal');
+        }
+
+        public function delete_snack_request(){
+            header('Content-Type: application/json');
+            
+            // Get the JSON body data
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $Id = $requestData['ID'];
+
+            $requestModal = new \Modal\SnackRequest;
+            $requestModal->delete($Id , "RequestID");
+
+            echo json_encode(['success' => true, 'data' => '']);
+        }
+
+        public function Snack_request_edit(){
+
+            show($_POST);
+            if(isset($_POST)){
+                $requestModal = new \Modal\SnackRequest;
+                $requestModal->update(["RequestID" => $_POST['Request']], ["SnackID"=>$_POST['Snack'] , "ChildID"=> $_POST['Child'], "Meal"=> $_POST['Meal'], "Quantity"=> 1]);
+            }
         }
 
         public function store_food() {
@@ -63,7 +101,25 @@
             } else {
                 echo json_encode(['success' => true, 'data' => $mealPlan]);
             }
-        }    
+        }
+        
+        public function get_snacks(){
+            header('Content-Type: application/json');
+            
+            // Get the JSON body data
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $date = $requestData['date'] ?? date('Y-m-d');
+            $time = $requestData['time']?? 'Breakfast';
+
+            $SnackModal = new \Modal\SnackPlan;
+            $results = $SnackModal->where_norder(['Date' => $date, 'Time' => $time]);
+
+            if (empty($results)) {
+                echo json_encode(['success' => false, 'message' => 'No meal plan found for the selected date']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $results]);
+            }
+        }
 
         public function store_snack() {
             header('Content-Type: application/json');
@@ -111,6 +167,8 @@
             // Get the JSON body data
             $requestData = json_decode(file_get_contents("php://input"), true);
             $Date = $requestData['date'] ?? date('Y-m-d');
+            $Date = date('Y-m-d', strtotime($Date . ' +1 day'));
+            $Meal = $requestData['meal'] ?? 'Breakfast';
         
             $ChildHelper = new ChildHelper();
             $children = $ChildHelper->store_child();
@@ -133,16 +191,17 @@
                 ];
 
                 foreach ($snackRequests as $request) {
-                    $snackDetails = $SnackPlan->first(['SnackID' => $request->SnackID, 'Date' => $Date]);
+                    $snackDetails = $SnackPlan->first(['SnackID' => $request->SnackID, 'Date' => $Date, 'Time'=> $Meal]);
                     if ($snackDetails) {
                         $mealTime = $snackDetails->Time;
                         $snackName = $snackDetails->Snack;
+                        $requestID = $request->RequestID;
         
                         if (!isset($groupedSnacks[$snackName])) {
                             if (!isset($groupedSnacks[$mealTime][$snackName])) {
-                                $groupedSnacks[$mealTime][$snackName] = 0;
+                                $groupedSnacks[$mealTime][$snackName] = ['quantity' => 0, 'requestID' => $requestID];
                             }
-                            $groupedSnacks[$mealTime][$snackName] += $request->Quantity;
+                            $groupedSnacks[$mealTime][$snackName]['quantity'] += $request->Quantity;
                         }
                     }
                 }
@@ -184,5 +243,8 @@
             echo json_encode(["success" => true]);
             exit;
         }
+
+        
+
     }
 ?>
