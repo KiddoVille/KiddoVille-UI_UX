@@ -8,6 +8,7 @@
     <link rel="icon" href="<?= IMAGE ?>/KIDDOVILLE_LOGO.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="<?= JS ?>/Manager/profileview.js"></script>
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Leaverequest.css?<?= time() ?>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -199,25 +200,20 @@
                     <script src="inventoryGraph.js"></script>
                 </div>
                 <div class="emergency">
-                    <h2 style="color: #233E8D; margin-left:5%; margin-top:5%;">Emergency Alerts</h2>
+                    <h2 style="color: #233E8D;margin-left:5%;margin-top:5%;">Emergency Alerts</h2>
                     <hr>
-                    <?php if (!empty($data['emergency'])): ?> <!-- Check if data exists -->
-                        <?php foreach ($data['emergency'] as $emergency): ?> <!-- Loop through data -->
-                            <div class="alert-box">
-                                <img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;margin-left:5%;">
-                                <p class="description" style="margin-left:30%; margin-top:-18%;">
-                                    <strong><?= htmlspecialchars($emergency->Description); ?></strong><br>
-                                </p>
-                                <p style="margin-left:30%;"><?= htmlspecialchars($emergency->Name) ?></p>
-                                <p style="margin-left: 30%;"><?= htmlspecialchars($emergency->Time) ?></p>
-                                <a href="<?= ROOT ?>/Manager/Home/emergency_delete/<?= $emergency->EmergencyID ?>"><button class="edel">Delete</button></a>
+                    <?php if (!empty($data['allemergency'])): ?>
+                        <?php foreach ($data['allemergency'] as $emergency): ?>
+                                <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
+                                <p class="Description" style="margin-left:30%;margin-top:-24%;"><strong><?= htmlspecialchars($emergency->Description); ?></strong><br>Teacher</p>
+                                <p>Reason:Today do not come to the class.be...</p>
+                                <button>Delete</button>
                             </div>
-                            <br>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>No Emergency alert found.</p>
                     <?php endif; ?>
-                </div>
+                </div>   
             </div>
 
             <div class="today_visitors" style="padding-bottom: 2%;">
@@ -225,45 +221,32 @@
                     <span style="white-space: nowrap;">
                         <i class="fas fa-door-open" style="margin-right: 5%;"></i>Visitors Summary
                     </span>
-                    <input type="date" class="visitorsdate" id="search-date" oninput="filterByDate();">
+                    <input type="Date" class="visitorsdate">
                 </div>
-
                 <div class="visitor-table-topics">
                     <div class="visitorname"><span>NAME</span></div>
                     <div class="visitorposition"><span>Role</span></div>
                     <div class="visitorpurpose"><span>PURPOSE</span></div>
-                    <div class="visitordate"><span>DATE</span></div>
                     <div class="visitorstarttime"><span>Start Time</span></div>
                     <div class="visitorendtime"><span>End Time</span></div>
                 </div>
+                <?php if (!empty($data['visitorsummary'])): ?>
+                    <?php foreach ($data['visitorsummary'] as $visitor): ?>
+                        <div class="detailed-lines">
+                            <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
+                            <div class="visitorposition"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
+                            <div class="visitorpurpose"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
+                            <div class="visitorstarttime"><span><?= htmlspecialchars($visitor->Start_Time); ?></span></div>
+                            <div class="visitorendtime"><span><?= htmlspecialchars($visitor->End_Time); ?></span></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No visitors found.</p>
+                <?php endif; ?>
 
-                <div id="visitorData">
-                    <?php if (!empty($data['visitorsummary'])): ?>
-                        <?php foreach ($data['visitorsummary'] as $visitor): ?>
-                            <div class="detailed-lines">
-                                <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
-                                <div class="visitorposition"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
-                                <div class="visitorpurpose"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
-                                <div class="visitordate">
-                                    <span><?= htmlspecialchars(date('Y-m-d', strtotime($visitor->Date))); ?></span>
-                                </div>
-                                <div class="visitorstarttime"><span><?= htmlspecialchars($visitor->Start_Time); ?></span></div>
-                                <div class="visitorendtime"><span><?= htmlspecialchars($visitor->End_Time); ?></span></div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>No visitors found.</p>
-                    <?php endif; ?>
-                    <div id="no-results" style="display: none; color: red; text-align: center; margin-top: 11.5%;">
-                        <h1>Date Not Found</h1>
-                    </div>
-                </div>
             </div>
-
-
         </div>
     </div>
-
 
     <script>
         // Get the canvas element
@@ -329,37 +312,6 @@
                 }
             }
         });
-
-
-        const filterByDate = () => {
-            const searchDate = document.getElementById('search-date').value; // Get input date
-            const visitors = document.querySelectorAll('.detailed-lines'); // Select all visitor records
-            const noResultsMessage = document.getElementById('no-results');
-
-            let found = false; // Track if any match is found
-            noResultsMessage.style.display = "none"; // Hide "Date Not Found" initially
-
-            for (let i = 0; i < visitors.length; i++) {
-                let visitorDateElement = visitors[i].querySelector('.visitordate span'); // Get the date span inside each visitor record
-
-                if (visitorDateElement) {
-                    let visitorDate = visitorDateElement.textContent.trim(); // Get the text content (date)
-
-                    // Compare the selected date with the visitor's date
-                    if (searchDate === visitorDate) {
-                        visitors[i].style.display = ""; // Show matching record
-                        found = true;
-                    } else {
-                        visitors[i].style.display = "none"; // Hide non-matching records
-                    }
-                }
-            }
-
-            // If no match is found, show the "Date Not Found" message
-            if (!found && searchDate !== "") {
-                noResultsMessage.style.display = "block";
-            }
-        };
     </script>
 </body>
 

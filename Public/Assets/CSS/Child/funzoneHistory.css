@@ -34,14 +34,15 @@ body {
     grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 100px;
     padding: 10px 10px;
 }
 
-/* history on which day */
 .day {
+    display: flex;
+    justify-content: left;
     margin-top: 10px;
-    width: 98%;
+    width: 95%;
     margin-bottom: -15px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
@@ -76,10 +77,8 @@ body {
     /* Add padding inside the item */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
-    max-width: 520px;
-    /* Limit max-width to ensure responsiveness */
-    margin: auto;
-    /* Center the item horizontally */
+    max-width: 550px;
+    margin-left: -20px;
 }
 
 
@@ -96,7 +95,6 @@ body {
     /* Increase shadow on hover */
 }
 
-/* icons */
 .icon-container {
     top: 10px;
     left: 10px;
@@ -105,7 +103,7 @@ body {
     justify-content: space-between;
     padding: 5px;
     display: flex;
-    z-index: 1000;
+    z-index: 10;
     margin-top: -140px;
     margin-right: -50px;
 }
@@ -171,8 +169,8 @@ body {
 }
 
 .main-content .grid .item img {
-    width: 300px;
-    height: 200px;
+    width: 320px;
+    height: 210px;
     border-radius: 7px;
     margin: -10px -10px !important;
 }

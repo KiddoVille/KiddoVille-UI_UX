@@ -11,7 +11,8 @@
         protected $allowedColumns = [
             'MedicationImage',
             'DateAdded',
-            'ChildID'
+            'ChildID',
+            'ImageType'
         ];
 
         public function saveMedicationImages($childID, $uploadedFiles) {
@@ -20,7 +21,8 @@
                 $data = [
                     'MedicationImage' => $imageBlob,
                     'DateAdded' => date('Y-m-d H:i:s'),
-                    'ChildID' => $childID
+                    'ChildID' => $childID,
+                    'ImageType' => $file['type']
                 ];
                 $this->insert($data);
             }

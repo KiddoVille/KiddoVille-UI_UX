@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const openvisitModal = document.getElementById('openvisitModal');
-    const visitModal = document.getElementById('visitModal');
-    const closeVisitModalBtn = document.getElementById('closeVisitModalBtn');
-    const visitrefreshIcon = document.getElementById('visitrefresh');
-    const visitForm = document.getElementById('visitForm');
     const dateElements = document.querySelectorAll('.date');
     const timeElements = document.querySelectorAll('.time');
     const pickupForm = document.getElementById('pickupForm');
@@ -54,13 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    editvisitbtn.addEventListener('click',function(){
-        toggleModal(visitModal,'flex');
-        toggleModal(agree, 'none');
-        visitheading.textContent = 'Edit Sheduled visit';
-        toggleModal(refreshvist, 'none');
-    });
-
     profilebtn.addEventListener('click',function(){
         console.log('lol');
         profilecard.style.display = 'flex';
@@ -100,23 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleModal(pickupModal, 'none');
     });
 
-    // Open visit modal
-    openvisitModal.addEventListener('click', function () {
-        toggleModal(visitModal, 'flex');
-    });
-
-    closeVisitModalBtn.addEventListener('click', function () {
-        toggleModal(visitModal, 'none');
-    });
-
-    openvisitModal.addEventListener('click', function () {
-        toggleModal(visitModal, 'flex');
-    });
-
-    closeVisitModalBtn.addEventListener('click', function () {
-        toggleModal(visitModal, 'none');
-    });
-
     meetingrefresh.addEventListener('click', function () {
         meetingform.reset();
     })
@@ -135,10 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     backforpickup.addEventListener('click', function () {
         toggleModal(pickupModal, 'none');
-    });
-
-    backforvisit.addEventListener('click', function () {
-        toggleModal(visitModal, 'none');
     });
 
     function toggleModal(modal, display) {
@@ -177,6 +144,5 @@ document.addEventListener('DOMContentLoaded', function () {
         redstar.classList.remove('hidden');
         redstar2.classList.remove('hidden');
     });
-
 
 });

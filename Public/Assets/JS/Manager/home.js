@@ -127,5 +127,3 @@ const ctx = document.getElementById('inventoryChart').getContext('2d');
             popup.style.display = 'none';
             overlay.style.display = 'none';
         });
-
-        

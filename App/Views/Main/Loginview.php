@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
-    <link rel="stylesheet" href="<?=CSS?>/Main/Login.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Main/Login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -15,9 +15,8 @@
         rel="stylesheet">
 </head>
 
-<body style="background-image: url('<?= IMAGE ?>/Login-bg.png');">
-    <!-- login form -->
-    <div class="container" style="margin-top: 0.05%;">
+<body>
+    <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
         <div id="fade" class="box fade-out" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; transition: opacity 1s ease,transform 1s ease;">
             <div class="logo">
                 <img src="<?=IMAGE?>/logo_light.png" alt="Logo">
@@ -59,13 +58,13 @@
             </div>
         </div>
         <!-- righ side design and signup -->
-        <div id="move" class="box image" style="width: 400px; height: 500px;border-top-right-radius: 10px; border-bottom-right-radius: 10px;    background: linear-gradient(135deg, #c0c0c0, #007bff, #a0a0a0); transition: transform 1s ease;">
-            <div class="home-contain">
-                <i onclick="window.location.href='<?=ROOT?>/Main/Home'" class="fa fa-home" style=""></i>
+        <div id="move" class="box image" style="width: 400px; height: 500px;border-top-right-radius: 10px; border-bottom-right-radius: 10px; background-image: url('<?=IMAGE?>/side2.png'); transition: transform 1s ease;">
+            <div class="home-contain" style="background-color: white !important;">
+                <i onclick="window.location.href='<?=ROOT?>/Main/Home'" class="fa fa-home"></i>
             </div>
             <div class="filter-box">
-                <h2>Hello, User</h2>
-                <p>Enter your personal details and start journey with us</p>
+                <h2 style="color: white;">Hello, User</h2>
+                <p style="color: white;">Enter your personal details and start journey with us</p>
                 <button id="signup" type="button" style="width:200px;margin-top: 20px;">Sign Up</button>
             </div>
         </div>

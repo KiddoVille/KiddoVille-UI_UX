@@ -565,14 +565,13 @@ li:hover .dropdown {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: auto; /* Add scroll bar when content overflows */
+    overflow: hidden;
     margin-left: 0.25%;
     margin-top: 1%;
-    height: 400px; /* Adjust height for scrollable area */
+    height: 400px;
     display: flex;
     flex-direction: column;
 }
-
 
 .today_visitors_header {
     background-color: white;
@@ -594,7 +593,7 @@ li:hover .dropdown {
 
 .visitor-table-topics {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; /* 6 equal columns */
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr; /* Adjusting the columns to balance content */
     background-color: #f0f4f8;
     padding: 10px 15px;
     font-weight: 600;
@@ -604,7 +603,6 @@ li:hover .dropdown {
     color: #555555;
     align-items: center;
 }
-
 
 .today_visitors_content {
     flex: 1; /* Takes up the remaining space */
@@ -625,7 +623,7 @@ li:hover .dropdown {
     background-color: #f9f9f9;
 }
 
-.visitordata{
+.visitorname, .visitorposition, .visitorpurpose, .visitorstarttime, .visitorendtime {
     padding: 5px;
 }
 
@@ -638,7 +636,7 @@ li:hover .dropdown {
     background-color: #e6f7ff;
 }
 
-.visitodata {
+.visitorname, .visitorposition, .visitorpurpose {
     flex: 1;
     display: flex;
     align-items: center;
@@ -670,12 +668,11 @@ li:hover .dropdown {
 
 
   .scroll-container::-webkit-scrollbar {
-    width: 2px;
-    display: none;
+    width: 4px;
   }
   .scroll-container::-webkit-scrollbar-thumb {
     background: #888; /* Scrollbar color */
-    border-radius: 5px;
+    border-radius: 4px;
   }
 
   .scroll-container::-webkit-scrollbar-thumb:hover {
@@ -689,25 +686,4 @@ li:hover .dropdown {
     border-radius: 10px;
     background-color: #4d4c4c16;
     margin-left: 10%;
-  }
-
-  .alert-box{
-    background-color: #e6f7ff;
-    border-radius: 10px;
-    padding: 5%;
-    width: 80%;
-    margin-left: 5%;
-  }
-
-  .edel{
-    padding: 2.5%;
-    border: none;
-    border-radius:10px;
-    color: white;
-    background-color: #007bff;
-    cursor: pointer;
-    margin-left: 80%;
-  }
-  .edel:hover{
-    background-color: red;
   }

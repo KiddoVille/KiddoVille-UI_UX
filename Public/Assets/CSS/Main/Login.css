@@ -1,5 +1,4 @@
 body {
-    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(240, 240, 240, 1) 50%, rgba(255, 255, 255, 1) 100%);
     min-height: 100vh;
     margin: 0;
     font-family: "Poppins", sans-serif;
@@ -8,9 +7,8 @@ body {
     align-items: center;
     display: flex;
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; 
 }
-
 
 .box {
     background-color: #fff;
@@ -36,7 +34,7 @@ body {
     width: 40px;
 }
 
-h1 {
+h1{
     text-align: center;
     margin-bottom: 20px;
     color: #0635BE;
@@ -74,17 +72,17 @@ h1 {
     font-weight: bold;
 }
 
-a:link {
+a:link{
     text-decoration: none;
-    color: #8136F3;
+    color: #8136F3  ;
 }
 
-a:hover {
+a:hover{
     text-decoration: underline;
 }
 
-a:visited {
-    color: #8136F3;
+a:visited{
+    color:#8136F3 ;
 }
 
 button {
@@ -99,7 +97,7 @@ button {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
+button:hover{
     background-color: #0056b3;
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2)
@@ -117,24 +115,15 @@ hr {
     margin: 0 10px;
 }
 
-
-.container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    border: 1px solid rgb(61, 218, 242);
-    border-radius: 10px;
-}
-
-.container-border {
+.container-border{
     border: 3px solid rgb(191, 191, 191);
     border-radius: 10px;
     margin-left: 10px;
-    padding: 20px;
+    padding: 20px; 
     height: 470px;
 }
 
-.filter-box {
+.filter-box{
     text-align: center;
     margin-bottom: 20px;
     width: 350px;
@@ -156,19 +145,19 @@ input:focus {
     box-shadow: 0 0 10px 1px rgba(0, 123, 255, 0.5);
 }
 
-h2 {
+h2{
     padding-top: 60px;
     color: #007bff;
     font-size: 40px;
 }
 
-p {
+p{
     color: black;
     padding: 0px 30px;
 }
 
-.forgot-password {
-    font-weight: 400;
+.forgot-password{
+    font-weight:400;
     font-size: 15px;
     margin-left: 35px;
     margin-bottom: 5px;
@@ -196,7 +185,7 @@ p {
     transition: color 0.3s ease;
 }
 
-.password-group i:hover {
+.password-group i:hover{
     position: absolute;
     transform: scale(1.2);
     color: #0056b3;
@@ -218,14 +207,14 @@ p {
     font-weight: 900;
 }
 
-.Error {
-    color: red;
+.Error{
+    color: red; 
     font-size: 12px;
     margin-top: 5px;
 }
 
-.error {
-    color: red;
+.error{
+    color: red; 
     font-size: 12px;
     margin-top: 5px;
     text-align: left;
@@ -243,7 +232,7 @@ p {
     align-items: center;
 }
 
-.Footer-logo {
+.Footer-logo{
     width: 120px;
     height: 110px;
     left: 120px;
@@ -252,7 +241,7 @@ p {
 }
 
 .navbar {
-    width: 100%;
+    width:100%;
     height: 70px;
     padding-right: 39px;
     background: linear-gradient(to right, #3974BA, #4f4cd2);
@@ -290,8 +279,7 @@ p {
     width: 100%;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    position: relative;
-    /* Ensure position is relative for z-index effect */
+    position: relative; /* Ensure position is relative for z-index effect */
 }
 
 .google-button img {
@@ -302,38 +290,36 @@ p {
 .google-button:hover {
     background-color: #f1f1f1;
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    /* Adds a shadow to create depth */
-    z-index: 1;
-    /* Bring the button to the front */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a shadow to create depth */
+    z-index: 1; /* Bring the button to the front */
 }
 
-.hidden {
-    display: none
+.hidden{
+    display:none
 }
 
 .home-contain {
-    margin-top: -23px;
+    margin-top: -23px; 
     color: black;
     z-index: 10000;
     display: flex;
-    position: absolute;
+    position: absolute; 
     background-color: #00FFFF;
     padding: 7px;
     border-radius: 10px;
-    margin-left: 380px;
+    margin-left: 380px ;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .fa-home {
-    margin: 0px;
+    margin: 0px; 
     font-size: 25px;
     color: #0635BE;
     cursor: pointer;
     position: relative;
 }
 
-.home-contain:hover {
+.home-contain:hover{
     transform: scale(1.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
     z-index: 1;
@@ -351,6 +337,39 @@ p {
     transform: translateX(100%);
 }
 
-.appear {
+.appear{
     opacity: 1 !important;
+<<<<<<< HEAD
 }
+=======
+}
+
+.verification-alert {
+    margin-top: 20px;
+    position: fixed;
+    width: 400px;
+    top: -20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 4px solid #0056b3;
+    z-index: 1000000;
+    backdrop-filter: blur(5px) !important;
+}
+
+.verification-alert.show {
+    display: block;
+}
+
+.alert-icon {
+    margin-bottom: -10px;
+    text-align: center;
+}
+
+.alert-message {
+    text-align: center;
+}
+>>>>>>> origin/main

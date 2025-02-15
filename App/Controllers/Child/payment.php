@@ -1,6 +1,7 @@
 <?php
 
     namespace Controller;
+    use App\Helpers\SidebarHelper;
 
     defined('ROOTPATH') or exit('Access denied');
 
@@ -10,34 +11,27 @@
 
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child('Parent');
-
-            // Retrieve session variables
-            $childname = $session->get('CHILDNAME');
-            $parentname = $session->get('USERNAME');
-
-            // Retrieve parent and children data
-            $child = new \Modal\Child;
-            $children = $child->where_norder(['Parent_Name' => $parentname]);
-            $parent = new \Modal\ParentUser;
-            $pre = $parent->where_norder(['Username' => $parentname]);
-
-            // Prepare data for all children
-            $data = $this->store($children, $pre);
-
-            // Select specific child by name, if it exists
-            $select = $child->where_norder(['Parent_Name' => $parentname, 'First_Name' => $childname ]);
-            $session->set('CHILD_ID', $select[0]->Child_Id);
-
-            $child_id = $session->get('CHILD_ID');
-            $data['child_id'] = $child_id;
-            
+            $session->check_child();
+            $ChildID = $session->get("CHILDID");
+    
+            $data = ['hi'];
+            $SidebarHelper = new SidebarHelper();
+            $data = $SidebarHelper->store_sidebar();
+    
+            $ChildModal = new \Modal\Child;
+            $select = $ChildModal->first(['ChildID' => $ChildID]);
+            $data['child_id'] = $ChildID;
+    
             if (!empty($select)) {
-                $data2 = $this->selectedchild($select[0], $pre);
+                $data2 = $this->selectedchild($select);
                 $data = $data + $data2;
             }
+    
+            $session->set("Location" , 'Child/Payment');
 
-            $this->view('Child/payment',$data);
+            $data =$data + $this->store_states();
+            $data['test'] = $this->test();
+            $this->view('Child/Payment', $data);
         }
 
         private function store($children, $pre){
@@ -62,66 +56,181 @@
             return $data;
         }
 
-        private function selectedchild($selectedchild, $pre){
+        private function selectedchild($selectedchild){
             $data = [];
 
             // Retrieve the specific child's profile image and details
-            $childImage = getProfileImageUrl($pre[0]->Username, $selectedchild->First_Name);
+
+            $imageData = $selectedchild->Image;
+            $imageType = $selectedchild->ImageType;  // Get the image MIME type from the database
+
+            // If image data is available, construct the Base64 string using the correct MIME type
+            $base64Image = (!empty($imageData) && is_string($imageData))
+                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                : null;
+
             $data['selectedchildren'] = [
                 'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
                 'name' => $selectedchild->First_Name,
-                'image' => !empty($childImage) ? $childImage : null,
+                'image' => $base64Image,
                 'age' => agecalculate($selectedchild->DOB),
                 'language' => $selectedchild->Language,
                 'religion' => $selectedchild->Religion,
+                'id' => str_pad($selectedchild->ChildID, 5, '0', STR_PAD_LEFT),
             ];
 
             return $data;
         }
 
+        private function store_states(){
+            $data = [];
+            $PaymentsModal = new \Modal\Payment;
+
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+
+            $allPayments = [];
+
+            $childPayments = $PaymentsModal->where_order_desc(["ChildID" => $ChildID], [], "DateTime");
+            if(!empty($childPayments)){
+                $allPayments = array_merge($allPayments, $childPayments);
+            }
+            
+            // Find the most recent month
+            $latestMonth = null;
+            $groupedPayments = [];
+            
+            foreach ($allPayments as $payment) {
+                $paymentDate = new \DateTime($payment->DateTime);
+                $monthYear = $paymentDate->format("Y-m"); // Format as YYYY-MM
+            
+                if ($latestMonth === null) {
+                    $latestMonth = $monthYear; // Set first month as latest
+                }
+            
+                if ($monthYear === $latestMonth) {
+                    if (!isset($groupedPayments[$monthYear])) {
+                        $groupedPayments[$monthYear] = 0;
+                    }
+                    $groupedPayments[$monthYear] += $payment->Amount;
+                }
+            }
+            
+            // Get the total for the latest month
+            $totalAmountPaid = $groupedPayments[$latestMonth] ?? 0;
+            $data['totalAmountPaid'] = $totalAmountPaid;
+            return $data;
+        }
+
+        public function test(){
+            $date = null;
+            $mode = 'All';
+            $PaymentsModal = new \Modal\Payment;
+            $ChildModal = new \Modal\Child;
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+            $Child = $ChildModal->first(["ChildID" => $ChildID]);
+
+            $Payments = [];
+
+            $childPayments = $PaymentsModal->where_order_desc(["ChildID" => $ChildID], [], "DateTime");
+            foreach ($childPayments as $pay){
+                $pay->ChildName = $Child->First_Name;
+                $dateTime = new \DateTime($pay->DateTime);
+                $pay->Date = $dateTime->format('Y-m-d');
+                $pay->Time = $dateTime->format('H:i:s');
+
+                if ($date !== null && $pay->Date !== $date) {
+                    continue;
+                }
+        
+                // Apply the status filter
+                if ($mode !== 'All' && $pay->Mode !== $mode) {
+                    continue;
+                }
+                    $Payments[] = $pay;
+            }
+            return $Payments;
+        }
+
+        public  function store_history(){
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+        
+            $date = $requestData['date'];
+            if ($date === null) {
+                $date = null;
+            }
+    
+            $mode = $requestData['mode'];
+            if ($mode === null || $mode === 'All') {
+                $mode = 'All';
+            }
+
+            $PaymentsModal = new \Modal\Payment;
+            $ChildModal = new \Modal\Child;
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+            $Child = $ChildModal->first(["ChildID" => $ChildID]);
+
+            $Payments = [];
+
+            $childPayments = $PaymentsModal->where_order_desc(["ChildID" => $ChildID], [], "DateTime");
+            foreach ($childPayments as $pay){
+                $pay->ChildName = $Child->First_Name;
+                $dateTime = new \DateTime($pay->DateTime);
+                $pay->Date = $dateTime->format('Y-m-d');
+                $pay->Time = $dateTime->format('H:i:s');
+
+                if ($date !== null && $pay->Date !== $date) {
+                    continue;
+                }
+        
+                // Apply the status filter
+                if ($mode !== 'All' && $pay->Mode !== $mode) {
+                    continue;
+                }
+                    $Payments[] = $pay;
+            }
+            if (empty($Payments)){
+                echo json_encode(['success' => false, 'message' => 'No reservations found for the selected filters']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $Payments]);
+            }
+        }
+
         public function setchildsession(){
-
-            defined('ROOTPATH') or define('ROOTPATH', __DIR__); // Define the root if not already defined
-
-            // Session and JSON response settings
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-        
             header('Content-Type: application/json');
-        
-            // Disable error reporting for clean JSON output in production
-            ini_set('display_errors', 0);
-            error_reporting(0);
-        
-            // Handle AJAX request and set the child session
             $request = json_decode(file_get_contents('php://input'), true);
             $response = [];
-        
-            if (isset($request['childName'])) {
-                $session = new \Core\Session;
-                $_SESSION['CHILD_ID'] = $request['childId'];
-                $session->set('CHILD_ID', $request['childId']);
-                $session->set('CHILDNAME', $request['childName']);
-                $response = ['success' => true];
+
+            $session = new \Core\Session;
+            if (isset($request['ChildID'])) {
+                $session->set('CHILDID', $request['ChildID']);
+                $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
-                $response = ['success' => false, 'message' => 'Child name not provided.'];
+                $response = ['success' => false, 'message' => 'No child session to remove.'];
             }
-            echo json_encode($response); // Output JSON response
+
+            echo json_encode($response);
             exit();
         }
 
         public function removechildsession(){
-
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
             header('Content-Type: application/json');
             $response = [];
-            
-            if (isset($_SESSION['CHILDNAME'])) {
-                $session = new \Core\Session;
-                $session->unset("CHILDNAME");
+
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+
+            if (isset($ChildID)) {
+                $session->unset("CHILDID");
                 $response = ['success' => true, 'message' => 'Child session removed.'];
             } else {
                 $response = ['success' => false, 'message' => 'No child session to remove.'];
