@@ -163,93 +163,83 @@
     margin-top: 2.1rem;
 }
 
-/* Tablet View: Reduce sidebar width */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .sidebar {
-        width: 12rem; /* Reduce width */
+        width: 270px; /* Fixed width */
+        transform: translateX(0);
     }
     
     .sidebar.minimized {
         width: 3.125rem;
     }
-    
-    .sidebar .logo {
-        width: 3rem;
-        height: 3rem;
-    }
-    
-    .sidebar ul {
-        margin-left: 1.5rem;
-    }
-    
-    .sidebar ul li a {
-        font-size: 1rem;
-    }
 }
 
-/* Mobile View: Hide sidebar initially, show when needed */
-@media (max-width: 768px) {
+/* Medium screens */
+@media (max-width: 1000px) {
     .sidebar {
-        width: 12rem;
-        transform: translateX(-100%);
+        width: 270px;
     }
 
     .sidebar.visible {
         transform: translateX(0);
+        width: 270px;
+    }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 270px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: #ffffff;
+        padding: 1.25rem;
+        padding-left: 0rem;
+        overflow-y: auto;
+        z-index: 10000;
     }
 
-    /* Button to open sidebar */
-    .sidebar-toggle {
-        position: fixed;
-        top: 1rem;
-        left: 1rem;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        cursor: pointer;
-        z-index: 11000;
+    .sidebar.visible {
+        transform: translateX(0);
+        width: 270px;
+    }
+
+    .sidebar ul li a {
+        font-size: 1.125rem;
+        margin-top: 2.5rem;
+        padding: 0.625rem;
     }
 
     .sidebar .logo-div {
-        justify-content: center;
-        margin-left: 0;
+        justify-content: flex-start;
+        margin-left: 1.25rem;
+    }
+
+    .sidebar .logo {
+        width: 3.75rem;
+        height: 3.75rem;
     }
 
     .sidebar ul {
-        margin-left: 1rem;
-    }
-
-    .sidebar ul li a {
-        font-size: 1rem;
-        margin-top: 1.5rem;
+        margin-left: 2.8125rem;
+        margin-top: 1.875rem;
     }
 }
 
-/* Small Mobile View: Reduce even further */
+/* Small Mobile View */
 @media (max-width: 480px) {
     .sidebar {
-        width: 10rem;
+        width: 270px;
     }
 
-    .sidebar ul {
-        margin-left: 0.5rem;
-    }
-
-    .sidebar ul li a {
-        font-size: 0.9rem;
-        padding: 0.5rem;
+    .sidebar.visible {
+        width: 270px;
     }
 }
 
-/* Adjust HR margin for responsiveness */
-.sidebar hr {
-    margin-top: 2.1rem;
-}
-
-@media (max-width: 768px) {
-    .sidebar hr {
-        margin-top: 1.5rem;
-    }
+/* Ensure smooth transitions */
+.sidebar {
+    transition: transform 0.3s ease-in-out;
 }

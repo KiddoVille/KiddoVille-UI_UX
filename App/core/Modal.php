@@ -215,28 +215,38 @@
         }
 
         public function update($condition, $data) {
-            $conditionColumn = key($condition); // Get the condition column name
-            $conditionValue = $condition[$conditionColumn]; // Get the condition column value
+            // Initialize arrays for the condition part of the query
+            $conditionKeys = [];
+            $conditionValues = [];
+            
+            // Loop through the conditions and prepare the WHERE clause
+            foreach ($condition as $key => $value) {
+                $conditionKeys[] = "$key = :$key"; // Add each condition column
+                $conditionValues[":$key"] = $value; // Bind the values for conditions
+            }
         
+            // Filter allowed columns for data (to prevent SQL injection)
             if (!empty($this->allowedColumns)) {
                 foreach ($data as $key => $value) {
                     if (!in_array($key, $this->allowedColumns)) {
-                        unset($data[$key]); // Remove any data not in the allowed columns
+                        unset($data[$key]); // Remove data that is not in allowed columns
                     }
                 }
             }
         
-            // Prepare the SET clause
-            $keys = array_keys($data);
-            $query = " UPDATE $this->table SET ";
-            foreach ($keys as $key) {
-                $query .= $key . " = :" . $key . " , ";
+            // Prepare the SET clause for the query
+            $setClauses = [];
+            foreach ($data as $key => $value) {
+                $setClauses[] = "$key = :$key"; // Construct the SET part for each column
+                $conditionValues[":$key"] = $value; // Add the data to the parameters
             }
         
-            $query = trim($query, ", ");
-            $query .= " WHERE $conditionColumn = :$conditionColumn";
-            $data[$conditionColumn] = $conditionValue; // Add the condition to the data array
-            return ($this->query($query, $data));
-        }               
+            // Construct the full query
+            $query = "UPDATE $this->table SET " . implode(", ", $setClauses);
+            $query .= " WHERE " . implode(" AND ", $conditionKeys); // Join the conditions with AND
+        
+            // Execute the query with the combined data and conditions
+            return $this->query($query, $conditionValues);
+        }    
     }
 ?>

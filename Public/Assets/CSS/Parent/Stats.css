@@ -1,11 +1,12 @@
 .stats {
-    display: flex;
+    display: grid;
     justify-content: space-between;
     margin-top: 5.3125rem;
     width: 100%;
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .stats .stat {
@@ -75,6 +76,7 @@
 /* Mobile View */
 @media screen and (max-width: 768px) {
     .stats {
+        grid-template-columns: repeat(2, 1fr);
         flex-direction: column !important; /* Force column direction */
         align-items: center;
         gap: 1.25rem;

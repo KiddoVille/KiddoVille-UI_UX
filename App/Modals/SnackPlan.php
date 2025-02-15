@@ -11,7 +11,8 @@
         protected $allowedColumns = [
             'Date',
             'Time',
-            'Food',
+            'Snack',
+            'Price'
         ];
 
         public function validate($data){
