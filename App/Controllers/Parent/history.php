@@ -19,6 +19,11 @@ class History
         $data = $SidebarHelper->store_sidebar();
 
         $data = $data + $this->set_states();
+
+        $ChildHelper = new ChildHelper();
+        $data['Child_Count'] = $ChildHelper->child_count();
+        $session->set("Location" , 'Parent/History');
+
         $this->view('Parent/history', $data);
     }
     
@@ -183,5 +188,12 @@ class History
         echo json_encode($response);
         exit();
     }
+    
+    public function Logout(){
+        $session = new \core\Session();
+        $session->logout();
 
+        echo json_encode(["success" => true]);
+        exit;
+    }
 }

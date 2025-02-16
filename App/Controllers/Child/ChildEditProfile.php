@@ -9,121 +9,197 @@ class ChildEditProfile
     use MainController;
     public function index()
     {
+        $data = [];
 
-        $session = new \Core\Session;
-        $session->check_login();
-
-        $Username = $session->get('USERNAME');
-        $Child_Id = $session->get('CHILD_ID');
+        $session = new \core\Session;
+        $ChildID = $session->get("CHILDID");
 
         $child = new \Modal\Child;
-        $children = $child->first(["Child_Id" => $Child_Id]);
+        $childdocumentModal = new \Modal\ChildDocuments;
+        $childmedicationModal = new \Modal\ChildMedication;
+        $ParentModal = new \Modal\ParentUser;
 
-        $session->set('CHILDNAME', $children->First_Name);
-        $Child_Name = $session->get('CHILDNAME');
+        $data['children'] = $child->first(["ChildID"=> $ChildID]);
+        $Parent = $ParentModal->first(["ParentID" => $data['children']->ParentID]);
 
-        $par = new \Modal\ParentUser;
-        $parent = $par->first(["Username" => $Username]);
+        $data['children']->Email = $Parent->Email;
+        $data['children']->Phone_Number = $Parent->Phone_Number;
+        $imageData = $data['children']->Image;
+        $imageType = $data['children']->ImageType;  // Get the image MIME type from the database
 
-        $childrenimage = getProfileImageUrl($Username, $Child_Name);
+        // If image data is available, construct the Base64 string using the correct MIME type
+        $base64Image = (!empty($imageData) && is_string($imageData))
+            ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+            : null
+        ;
 
-        $prescription = getFilesByType($Username, $Child_Name, 'prescriptions');
-        $prescription = array_map(function ($filePath) {
-            return ROOT . '/' . $filePath;
-        }, $prescription);
-        $prescription = array_values($prescription);
+        $data['children']->Image = $base64Image;
 
-        $documents = getFilesByType($Username, $Child_Name, 'documents');
-        $documents = array_map(function ($filePath, $index) {
-            $fileName = basename($filePath);
+        $data['medications'] = $childmedicationModal->where_norder(["ChildID" => $ChildID]);
+        if(!empty($data['medications'])){
+            foreach ($data['medications'] as $medication){
+                $imageData = $medication->MedicationImage;
+                $imageType = $medication->ImageType;  // Get the image MIME type from the database
+        
+                // If image data is available, construct the Base64 string using the correct MIME type
+                $base64Image = (!empty($imageData) && is_string($imageData))
+                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                    : null
+                ;
 
-            return [
-                'name' => 'document' . ($index + 1),
-                'path' => ROOT . '/' . $filePath
-            ];
-        }, $documents, array_keys($documents));
-
-        if ($children) {
-            $children->profile = $childrenimage;
-            $children->Mobile = $parent->Phone_Number;
-            $children->Email = $parent->Email;
-            $children->prescription = $prescription;
-            $children->documents = $documents;
+                $medication->MedicationImage = $base64Image;
+            }
         }
+        
+        $data['documents'] = $childdocumentModal->where_norder(["ChildID" => $ChildID]);
+        if(!empty($data['documents'])){
+            foreach ($data['documents'] as $document){
+                $imageData = $document->UploadedFile;
+                $imageType = $document->FileType;  // Get the image MIME type from the database
+        
+                // If image data is available, construct the Base64 string using the correct MIME type
+                $base64Image = (!empty($imageData) && is_string($imageData))
+                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                    : null
+                ;
 
-        $data = [];
-        $data[] = $children;
+                $document->UploadedFile = $base64Image;
+            }
+        }
 
         $this->view('Child/childeditprofile', $data);
     }
 
-    public function Savedetails()
-    {
-        defined('ROOTPATH') or define('ROOTPATH', __DIR__);
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        header('Content-Type: application/json');
+    public function Savedetails() {
+        $postData = $_POST;
+    
+        $images = isset($postData['images']) ? json_decode($postData['images'], true) : [];
+        $files = isset($postData['files']) ? json_decode($postData['files'], true) : [];
+        unset($postData['images'], $postData['files']);
 
-        $response = [
-            'success' => true,
-            'message' => '',
-            'errors' => []
-        ];
-
-        try {
-            $session = new \Core\Session;
-            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-                throw new \Exception('Invalid request method.');
-            }
-
-            if (!empty($_POST)) { // Ensure $_POST is not empty
-                
-                $files = $_POST['remaining_files'];
-                $images = $_POST['remaining_images'];
-            
-                // Unset files and images from $_POST
-                unset($_POST['remaining_files']);
-                unset($_POST['remaining_images']);
-
-                $_SESSION['test'] = $_POST;
-                $Child_Id = $session->get('CHILD_ID');
-
-                $child = new \Modal\Child;
-                $child->update(['Child_Id'=>$Child_Id], $_POST);
-            }
-            
-            $Username = $session->get('USERNAME');
-            $Child_Name = $session->get('CHILDNAME');
-
-            // Handle file uploads
-            if (isset($_FILES['profileimage'])) {
-                $profileimage = $_FILES['profileimage'];
-                $_SESSION['test']['profile'] = $profileimage;
-
-                uploadFile($Username, $Child_Name, 'profile', $profileimage);
-            }
-
-            if (isset($files)) {
-                $_SESSION['test'] = $files;
-                foreach ($files as $file) { // Correct syntax: loop through each item in $files
-                    $results = uploadFileURL($Username, $Child_Name, 'documents', $file);
-                    $_SESSION['error'] = $results;
-                }
-            }
-            
-            if (isset($images)) {
-                foreach ($images as $image) { // Correct syntax: loop through each item in $images
-                    uploadFileURL($Username, $Child_Name, 'prescriptions', $image);
-                }
-            }            
-
-        } catch (\Exception $e) {
-            $response['success'] = false;
-            $response['errors'][] = $e->getMessage();
+        if (isset($_FILES['profileimage']) && $_FILES['profileimage']['error'] === UPLOAD_ERR_OK) {
+            $imageTmpPath = $_FILES['profileimage']['tmp_name'];
+            $imageType = $_FILES['profileimage']['type'];
+    
+            $imageData = file_get_contents($imageTmpPath);
+    
+            $postData['Image'] = $imageData;
+            $postData['ImageType'] = $imageType;
         }
 
-        echo json_encode($response);
-        exit;
-    }
+        $session = new \core\Session;
+        $ChildModal = new \Modal\Child;
+
+        $ChildID = $session->get("CHILDID");
+        $ChildModal->update(["ChildID" => $ChildID] , $postData); 
+
+        $childdocumentModal = new \Modal\ChildDocuments;
+        $childmedicationModal = new \Modal\ChildMedication;
+
+        $data['medications'] = $childmedicationModal->where_norder(["ChildID" => $ChildID]);
+        $data['documents'] = $childdocumentModal->where_norder(["ChildID" => $ChildID]);
+
+        if(!empty($images)){
+            foreach ($images as $image) {
+                if (!isset($image['ImageID'])) {
+                    $base64String = $image['MedicationImage'];
+
+                    // Check if the base64 string has the prefix and remove it
+                    if (strpos($base64String, 'base64,') !== false) {
+                        $base64String = explode('base64,', $base64String)[1]; // Get the actual base64 data
+                    }
+            
+                    // Decode the base64 string into binary data
+                    $binaryImage = base64_decode($base64String);
+            
+                    if ($binaryImage === false) {
+                        die("Error decoding base64 image"); // If decoding fails
+                    }
+
+                    $medicationData = [
+                        'MedicationImage' => $binaryImage, // Store the binary data (BLOB)
+                        'DateAdded' => date('Y-m-d H:i:s'),
+                        'ChildID' => $ChildID,
+                        'ImageType' => $image['FileType'] ?? 'image/jpeg', // Use the FileType (MIME type) from the uploaded image
+                    ];
+            
+                    $childmedicationModal->insert($medicationData);
+                }
+            }
+        }
+
+        if(!empty($data['medications'])){
+            foreach ($data['medications'] as $existingImage) {
+                // Check if this existing image's ImageID is present in the $images array
+                $found = false;
+            
+                foreach ($images as $image) {
+                    // Compare ImageID from the images array to the existing ImageID in the database
+                    if (isset($image['ImageID']) && $existingImage->ImageID === $image['ImageID']) {
+                        $found = true;
+                        break; // Exit the loop early if a match is found
+                    }
+                }
+            
+                // If the ImageID from the database is not found in the $images array, delete it
+                if (!$found) {
+                    // Delete the image from the database (childmedicationModal)
+                    $childmedicationModal->delete($existingImage->ImageID , "ImageID");
+                }
+            }
+        }
+    
+        if(!empty($files)){
+            foreach ($files as $file) {
+                if (!isset($file['FileID']) && isset($file['FileType']) && isset($file['UploadedFile'])) {
+
+                    $base64String = $file['UploadedFile'];
+
+                    // Check if the base64 string has the prefix and remove it
+                    if (strpos($base64String, 'base64,') !== false) {
+                        $base64String = explode('base64,', $base64String)[1]; // Get the actual base64 data
+                    }
+            
+                    // Decode the base64 string into binary data
+                    $binaryImage = base64_decode($base64String);
+            
+                    if ($binaryImage === false) {
+                        die("Error decoding base64 image"); // If decoding fails
+                    }
+                    // Store in ChildDocuments
+                    $documentData = [
+                        'OriginalName' => $file['OriginalName'],
+                        'FileType' => $file['FileType'],
+                        'UploadedFile' => $binaryImage,
+                        'UploadDate' => date('Y-m-d H:i:s'),
+                        'ChildID' => $ChildID
+                    ];
+                    $childdocumentModal->insert($documentData);
+                }
+            }
+        }
+
+        if(!empty($data['documents'])){
+            foreach ($data['documents'] as $existingdocument) {
+                // Check if this existing image's ImageID is present in the $images array
+                $found = false;
+            
+                foreach ($files as $file) {
+                    // Compare ImageID from the images array to the existing ImageID in the database
+                    if (isset($file['FileID']) && $existingdocument->FileID === $file['FileID']) {
+                        $found = true;
+                        break; // Exit the loop early if a match is found
+                    }
+                }
+            
+                // If the ImageID from the database is not found in the $images array, delete it
+                if (!$found) {
+                    $childdocumentModal->delete($existingdocument->FileID , "FileID");
+                }
+            }
+        }
+
+        redirect("Child/ChildProfile");
+    
+    }    
 }

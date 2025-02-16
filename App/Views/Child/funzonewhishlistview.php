@@ -5,81 +5,129 @@
     <title>
         Kiddo Ville
     </title>
-    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzonewhishlist.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzone.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Setting.js"></script>
-    <script src="<?=JS?>/Child/Parental-lock.js"></script>
-    <script src="<?=JS?>/Child/Select-child.js"></script>
-    <script src="<?=JS?>/Child/Select-type.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/funzonewhishlist.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
+    <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Select-type.js?v=<?= time() ?>"></script> -->
+    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
 </head>
 
 <body>
-    <!-- minimized sidebar -->
-    <div class="sidebarhome minimized" id="sidebar1">
-        <img src="<?=IMAGE?>/navbar-star.png" class="star show" id="starImage">
-        <h2 style="margin-top: -15px;">Dashboard</h2>
-        <ul>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/Home">
-                    <i class="fas fa-home" style="font-size: 20px; color: black; margin-left: -2px;"></i> <span>Home</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/history">
-                    <i class="fas fa-history"></i> <span>History</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/report">
-                    <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/reservation">
-                    <i class="fas fa-calendar-check"></i> <span>Reservation</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/meal">
-                    <i class="fas fa-utensils"></i> <span>Meal plan</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/event">
-                    <i class="fas fa-calendar-alt"></i> <span>Event</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/package">
-                    <i class="fas fa-box"></i> <span>Package</span>
-                </a>
-            </li>
-            <li class="selected" style="margin-top: 40px;">
-                <a href="<?=ROOT?>/Child/funzonehome">
-                    <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
-                <a href="<?=ROOT?>/Child/payment">
-                    <i class="fas fa-credit-card"></i> <span>Payments</span>
-                </a>
-            </li>
-        </ul>
-        <hr style="margin-top: 40px;">
-        <div class="help">
-            <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
+    <div class="container">
+        <!-- minimized sidebar -->
+        <div class="sidebar" id="sidebar1">
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
+            <div class="logo-div">
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
+            </div>
+            <ul style="margin-top:-20px;">
+                <li class="hover-effect unselected first">
+                    <a href="<?= ROOT ?>/Child/Home">
+                        <i class="fas fa-house"></i> <span>Home</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/history">
+                        <i class="fas fa-history"></i> <span>History</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/report">
+                        <i class="fa fa-user-shield"></i> <span>Report</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/reservation">
+                        <i class="fas fa-calendar-check"></i> <span>Reservation</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/meal">
+                        <i class="fas fa-utensils"></i> <span>Meal plan</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/event">
+                        <i class="fas fa-calendar-alt"></i> <span>Event</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/package">
+                        <i class="fas fa-box"></i> <span>Package</span>
+                    </a>
+                </li>
+                <li class="selected" style="margin-top: 40px;">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
+                        <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/payment">
+                        <i class="fas fa-credit-card"></i> <span>Payments</span>
+                    </a>
+                </li>
+            </ul>
+            <hr style="margin-top: 40px;">
+            <div class="help">
+                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
+            </div>
         </div>
-    </div>
-    <!-- sidebar funzone navigation -->
-    <div class="sidebar">
-        <a href="<?=ROOT?>/ReChild/Home">
-            <img alt="Kiddo Ville Logo" height="50" src="<?=IMAGE?>/logo_light-remove.png" width="50" />
+        <!-- navigation to choose child -->
+        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+            <div>
+                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
+                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                    <ul>
+                        <li class="hover-effect first"
+                            onclick="removechildsession();">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
+                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <h2>Family</h2>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
+                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
+                        Explore your children's activities and progress!
+                    </p>
+                    <ul class="children-list">
+                        <?php foreach ($data['children'] as $child): ?>
+                            <li class="first
+                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
+                                    echo "select-child";
+                                } ?>
+                            "
+                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
+                                    alt="Child Profile Image"
+                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
+                                                                                                echo "margin-left: -20px !important";
+                                                                                            } ?>">
+                                <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
+                            </li>
+                            <hr>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- navigation -->
+        <!-- <div class="sidebar" style="background:white">
+        <a href="<?= ROOT ?>/ReParent/Home">
+            <img alt="Kiddo Ville Logo" height="50" src="<?= IMAGE ?>/logo_light-remove.png" width="50" />
         </a>
         <h1>Kiddo Ville</h1>
         <input placeholder="Search" type="text" /><i class="fas fa-search"></i>
-        <button onclick="location.href='<?=ROOT?>/ReChild/Funzonehome';">Home</button>
+        <button onclick="location.href='<?= ROOT ?>/Parent/funzonehome';">Home</button>
         <div class="custom-select-container" tabindex="0">
             <div class="custom-select-trigger">
                 Type <i class="fa fa-chevron-down"></i>
@@ -94,384 +142,362 @@
                 <div class="custom-option"> Lessons </div>
             </div>
         </div>
-        <button onclick="location.href='<?=ROOT?>/Child/Funzonewhishlist';">Wishlist</button>
-        <button onclick="location.href='<?=ROOT?>/Child/FunzoneTasks';">Tasks</button>
-        <button onclick="location.href='<?=ROOT?>/Child/FunzoneHistory';">History</button>
+        <button onclick="location.href='<?= ROOT ?>/Parent/funzonewhishlist';">Wishlist</button>
+        <button onclick="location.href='<?= ROOT ?>/Parent/funzoneTasks';">Tasks</button>
+        <button onclick="location.href='<?= ROOT ?>/Parent/funzoneHistory';">History</button>
         <div class="bottom-text">
-            <a href="<?=ROOT?>/Child/Home" class="nav-link">
+            <a href="<?= ROOT ?>/ReParent/Home" class="nav-link">
                 <i class="fas fa-home"></i>
                 <p class="Welcome">Welcome to Funzone</p>
             </a>
         </div>
-    </div>
-    <div class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <div class="nav-buttons">
-                <div class="circle">
-                    <i class="fas fa-chevron-left"></i>
+    </div> -->
+        <div class="main-content" style="background:linear-gradient(to bottom right, #f7f7f7, #eaeaea)">
+            <!-- Header -->
+            <div class="header">
+                <i class="fa fa-bars" id="minimize-btn"
+                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <div class="nav-buttons" style="margin-left: 50px;">
+                    <div class="circle" onclick="window.location.href='<?= ROOT ?>/Child/funzoneHome'">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="circle" onclick="window.location.href='<?= ROOT ?>/Child/funzoneTasks'">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
                 </div>
-                <div class="circle">
-                    <i class="fas fa-chevron-right"></i>
+                <h2>WhishList</h2>
+                <i class="fas fa-cog settings" style="margin-right: 200px !important; margin-left: -38px;"></i>
+                <div class="profile-card" id="profileCard">
+                    <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
+                        style="width: 24px; height: 24px; fill:#233E8D !important;" class="back" id="closeProfileCard">
+                    <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png"
+                        width="100" class="profile" />
+                    <h2 class="child-name">Thilina Perera</h2>
+                    <p>Student    RS0110657</p>
+                    <button class="logout-button">Logout</button>
+                    <div class="lock">
+                        <p class="lock-p"> Parental lock</p>
+                        <div class="switch">
+                            <input type="checkbox" id="toggle">
+                            <label for="toggle">
+                                <div class="toggle-icon">
+                                    <i class="fa fa-unlock"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <h2>WhishList</h2>
-            <!-- settings -->
-            <i class="fas fa-cog settings"></i>
-            <div class="profile-card" id="profileCard">
-                <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
-                    style="width: 24px; height: 24px; fill:#233E8D !important;" class="back" id="closeProfileCard">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png"
-                    width="100" class="profile" />
-                <h2 class="child-name">Thilina Perera</h2>
-                <p>Student    RS0110657</p>
-                <button class="logout-button">Logout</button>
-                <div class="lock">
-                    <p class="lock-p"> Parental lock</p>
-                    <div class="switch">
-                        <input type="checkbox" id="toggle">
-                        <label for="toggle">
-                            <div class="toggle-icon">
-                                <i class="fa fa-unlock"></i>
-                            </div>
+            <div class="header2">
+                <img src="<?= IMAGE ?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
+                <p style="color: white; font-size: 17px;">Funzone </p>
+                <a href="<?= ROOT ?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
+                <a href="<?= ROOT ?>/Child/funzonewhishlist" class="hover-effect select">Whishlist</a>
+                <a href="<?= ROOT ?>/Child/funzonetasks" class="hover-effect">Task</a>
+                <a href="<?= ROOT ?>/Child/funzonehistory" class="hover-effect">History</a>
+                <select id="typePicker" style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
+                    <option value="All"> All </option>
+                    <option value="Video"> Videos </option>
+                    <option value="Book"> Books </option>
+                    <option value="Image"> Images </option>
+                    <option value="Audio"> Songs </option>
+                </select>
+            </div>
+            <div id="media-container">
+                <!-- <div class="item">
+                    <div class="icon-container">
+                        <button class="icon-btn watch-btn"><i class="fas fa-play"
+                                style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
+                        <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <img alt="Over It" height="150" src="<?= IMAGE ?>/funzone-1.png" width="150" />
+                    <h3>Over It</h3>
+                    <p> Small description</p>
+                    <p class="format"> Format: mp4</p>
+                    <div class="date-time">
+                        <div class="reminder-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="date-text">Sep 18, 2024</span>
+                        </div>
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            <span class="time-text">3:30 PM</span>
+                        </div>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
                         </label>
                     </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="grid">
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-play"
-                            style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-3.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-4.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
-                    </div>
-                    <div class="reminder-time">
-                        <i class="fas fa-clock"></i> <!-- Clock Icon -->
-                        <span class="time-text">3:30 PM</span>
-                    </div>
-                </div>
-                <div class="reminder-toggle">
-                    <span class="reminder-text">Set Reminder</span>
-                    <label class="switch-reminder">
-                        <input type="checkbox" id="reminder">
-                        <span class="slider"></span>
-                    </label>
-                </div>
+                </div> -->
             </div>
         </div>
-        <!-- navigation for home page -->
-        <a href="<?=ROOT?>/ReChild/Home" class="chatbox">
-            <i class="fa fa-home" style="margin-top: 1px; text-decoration: none;"></i>
-        </a>
     </div>
+    <script>
+        function removechildsession() {
+            fetch('<?= ROOT ?>/Child/Funzonewhishlist/removechildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child id removed from session.");
+                        window.location.href = '<?= ROOT ?>/Parent/Home';
+                    } else {
+                        console.error("Failed to remove child id from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function setChildSession(ChildID) {
+            fetch('<?= ROOT ?>/Child/Funzonewhishlist/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ChildID: ChildID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child id set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Home';
+                    } else {
+                        console.error("Failed to set child id from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function fetchMedia(type) {
+            fetch('<?= ROOT ?>/Child/Funzonewhishlist/store_media', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        type: type,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.data) {
+                        console.log("Fetched media data:", data.data);
+                        generateMediaGrid(data.data);
+                    } else {
+                        console.error("Failed to fetch media data:", data.message);
+                        alert("Error fetching media data.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function generateMediaGrid(data) {
+            const gridexist = document.getElementById('grid');
+            if(gridexist){
+                gridexist.remove();
+            }
+            const grid = document.createElement("div");
+            grid.classList.add("grid");
+            grid.style.marginTop = "120px";
+            grid.style.marginLeft = "20px";
+            grid.id = "grid";
+
+            data.forEach(item => {
+                const itemDiv = document.createElement("div");
+                itemDiv.classList.add("item");
+
+                // Icon container
+                const iconContainer = document.createElement("div");
+                iconContainer.classList.add("icon-container");
+
+                const watchButton = document.createElement("button");
+                watchButton.classList.add("icon-btn", "watch-btn");
+                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i>';
+
+                const removeButton = document.createElement("button");
+                removeButton.classList.add("icon-btn", "remove-btn");
+                removeButton.innerHTML = '<i class="fas fa-trash"></i>';
+
+                iconContainer.appendChild(watchButton);
+                iconContainer.appendChild(removeButton);
+
+                // Media Content
+                let mediaContent;
+                if (item.MediaType === "Image") {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = item.URL;
+                    mediaContent.alt = item.Title;
+                    mediaContent.width = 150;
+                    mediaContent.height = 150;
+                } 
+                else if (item.MediaType === "Video") {
+                    const videoContainer = document.createElement("div");
+                    videoContainer.classList.add("video-container");
+                    videoContainer.id = `video-container-${item.MediaID}`;
+
+                    const thumbnail = document.createElement("img");
+                    thumbnail.src = item.Image || '<?= IMAGE ?>/video.png';
+                    thumbnail.alt = "Video Thumbnail";
+                    thumbnail.width = 150;
+                    thumbnail.height = 150;
+                    thumbnail.id = `img-${item.MediaID}`;
+
+                    const video = document.createElement("video");
+                    video.width = 250;
+                    video.height = 230;
+                    video.id = `video-${item.MediaID}`;
+                    video.style.display = "none";
+                    video.style.marginTop = "-20px";
+                    video.style.marginBottom = "-10px";
+                    video.muted = true;
+                    video.preload = "none";
+
+                    const source = document.createElement("source");
+                    source.src = item.URL;
+                    source.type = "video/mp4";
+
+                    video.appendChild(source);
+                    videoContainer.appendChild(thumbnail);
+                    videoContainer.appendChild(video);
+                    mediaContent = videoContainer;
+
+                    // **Fix: Attach Event Listeners AFTER element is in the DOM**
+                    setTimeout(() => {
+                        const container = document.getElementById(`video-container-${item.MediaID}`);
+                        const thumb = document.getElementById(`img-${item.MediaID}`);
+                        const vid = document.getElementById(`video-${item.MediaID}`);
+
+                        if (container && thumb && vid) {
+                            container.addEventListener("mouseenter", () => {
+                                thumb.style.display = "none";
+                                vid.style.display = "block";
+                                vid.play();
+                            });
+
+                            container.addEventListener("mouseleave", () => {
+                                vid.pause();
+                            });
+                        }
+                    }, 0);
+                }
+                else if (item.MediaType === "Audio"){
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/Audio.jpeg';
+                    mediaContent.alt = "Default Placeholder";
+                    mediaContent.width = 150;
+                    mediaContent.height = 150;
+                }
+                else if(item.MediaType === "Book"){
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/PDF.jpeg';
+                    mediaContent.alt = "Default Placeholder";
+                    mediaContent.width = 150;
+                    mediaContent.height = 150;
+                }
+                else{
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/PDF.';
+                    mediaContent.alt = "Default Placeholder";
+                    mediaContent.width = 150;
+                    mediaContent.height = 150;
+                }
+
+                // Title
+                const title = document.createElement("h3");
+                title.style.marginTop = "0px";
+                title.textContent = item.Title;
+
+                // Description
+                const description = document.createElement("p");
+                description.textContent = item.Description;
+
+                // Append elements to item div
+                itemDiv.appendChild(iconContainer);
+                itemDiv.appendChild(mediaContent);
+                itemDiv.appendChild(title);
+                itemDiv.appendChild(description);
+
+                const format = document.createElement("p");
+                format.classList.add("format");
+                format.textContent = `Format: ${item.Format}`;
+
+                // Date & Time Container
+                const dateTimeDiv = document.createElement("div");
+                dateTimeDiv.classList.add("date-time");
+
+                const reminderDateDiv = document.createElement("div");
+                reminderDateDiv.classList.add("reminder-date");
+                reminderDateDiv.innerHTML = `<i class="fas fa-calendar-alt"></i> <span class="date-text">${item.Date}</span>`;
+
+                const reminderTimeDiv = document.createElement("div");
+                reminderTimeDiv.classList.add("reminder-time");
+                reminderTimeDiv.innerHTML = `<i class="fas fa-clock"></i> <span class="time-text">${item.Time}</span>`;
+
+                dateTimeDiv.appendChild(reminderDateDiv);
+                dateTimeDiv.appendChild(reminderTimeDiv);
+
+                // Reminder Toggle
+                const reminderToggleDiv = document.createElement("div");
+                reminderToggleDiv.classList.add("reminder-toggle");
+
+                const reminderText = document.createElement("span");
+                reminderText.classList.add("reminder-text");
+                reminderText.textContent = "Set Reminder";
+
+                const reminderLabel = document.createElement("label");
+                reminderLabel.classList.add("switch-reminder");
+
+                const reminderInput = document.createElement("input");
+                reminderInput.type = "checkbox";
+                reminderInput.id = `reminder-${item.MediaID}`;
+
+                if (item.Reminder) {
+                    reminderInput.checked = true;
+                }
+
+                const reminderSlider = document.createElement("span");
+                reminderSlider.classList.add("slider");
+
+                reminderLabel.appendChild(reminderInput);
+                reminderLabel.appendChild(reminderSlider);
+                reminderToggleDiv.appendChild(reminderText);
+                reminderToggleDiv.appendChild(reminderLabel);
+
+                // Append all elements to the item div
+                itemDiv.appendChild(mediaContent);
+                itemDiv.appendChild(title);
+                itemDiv.appendChild(description);
+                itemDiv.appendChild(format);
+                itemDiv.appendChild(dateTimeDiv);
+                itemDiv.appendChild(reminderToggleDiv);
+
+                        // Append item to grid
+                    grid.appendChild(itemDiv);
+                });
+
+            document.getElementById("media-container").appendChild(grid);
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const typePicker = document.getElementById('typePicker');
+            // Initial fetch for media
+            fetchMedia('All');
+
+            typePicker.addEventListener('change', function() {
+                fetchMedia(typePicker.value);
+            });
+        });
+    </script>
 </body>
 
 </html>

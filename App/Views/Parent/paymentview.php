@@ -166,9 +166,9 @@
                     </div>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" >Last bill amount</h3>
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg" alt="Attendance">Last bill amount</h3>
                     <div class="lol" style="cursor: pointer; margin-top: 10px; margin-left: 4rem;">
-                        <p><?= isset($data['totalAmountPaid'])? $data['totalAmountPaid'] : '0' ;?> Rs</p>
+                        <p><?= isset($data['totalAmountPaid']) ? $data['totalAmountPaid'] : '0'; ?> Rs</p>
                     </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -268,10 +268,10 @@
                                     Total Amount: $950
                                 </div>
                                 <div style=" display: flex;justify-content: space-between; ">
-                                    <button class="btn" onclick="window.location.href='<?=ROOT?>/Parent/PaymentSheet'">
+                                    <button class="btn" onclick="window.location.href='<?= ROOT ?>/Parent/PaymentSheet'">
                                         View Details
                                     </button>
-                                    <button class="btn" onclick="window.location.href='<?=ROOT?>/Parent/Pay'">
+                                    <button class="btn" onclick="window.location.href='<?= ROOT ?>/Parent/Pay'">
                                         Pay Now
                                     </button>
                                 </div>
@@ -318,21 +318,20 @@
         </div>
     </div>
     <script>
-
         function logoutUser() {
             fetch("<?= ROOT ?>/Parent/payment/Logout", {
-                method: "POST", 
-                credentials: "same-origin"
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
-                } else {
-                    alert("Logout failed. Try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
 
         function setChildSession(ChildID) {
@@ -401,7 +400,7 @@
                 `;
                 historyTableBody.appendChild(row);
             });
-        }   
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             const datePicker = document.getElementById('datePicker');
@@ -409,7 +408,7 @@
             const modePicker = document.getElementById('modePicker');
 
             // Initial fetch with 'null' values (or a default option like 'All')
-            fetchPayments( null , null, null);
+            fetchPayments(null, null, null);
 
             datePicker.addEventListener('change', function() {
                 const dateValue = datePicker.value || null; // Use null if empty
@@ -457,68 +456,33 @@
             });
         });
 
-        const data = {
-            labels: ['October', 'November', 'December'], // Months
-            datasets: [{
-                    label: 'Child 1',
-                    data: [400, 500, 450], // Payments for Child 1
-                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Child 2',
-                    data: [300, 400, 350], // Payments for Child 2
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Child 3',
-                    data: [200, 250, 300], // Payments for Child 3
-                    backgroundColor: 'rgba(255, 206, 86, 0.6)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Child 4',
-                    data: [100, 150, 200], // Payments for Child 4
-                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Child 5',
-                    data: [50, 100, 150], // Payments for Child 5
-                    backgroundColor: 'rgba(153, 102, 255, 0.6)',
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    borderWidth: 1
-                }
-            ]
-        };
+        var chartData = <?php echo($data['graph']); ?>;
 
-        // Configuration for the chart
-        const config = {
-            type: 'bar', // Bar chart
-            data: data,
+        const ctx = document.getElementById('paymentsChart').getContext('2d');
+
+        // Destroy existing chart instance if it exists
+        if (window.myChart instanceof Chart) {
+            window.myChart.destroy();
+        }
+
+        // Create the chart
+        window.myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData, // Directly use the PHP-injected JSON data
             options: {
                 responsive: true,
                 plugins: {
                     legend: {
                         display: true,
-                        position: 'top',
-                        font: {
-                            size: 20, // Font size in pixels
-                            weight: 'bold', // Font weight (e.g., 'bold', 'normal', 'lighter')
-                        },
+                        position: 'top'
                     },
                     title: {
                         display: true,
                         text: 'Payments per Child',
                         font: {
-                            size: 20, // Font size in pixels
-                            weight: 'bold', // Font weight (e.g., 'bold', 'normal', 'lighter')
-                        },
+                            size: 20,
+                            weight: 'bold'
+                        }
                     }
                 },
                 scales: {
@@ -527,11 +491,10 @@
                             display: true,
                             text: 'Month',
                             font: {
-                                size: 20, // Font size in pixels
-                                weight: 'bold', // Font weight (e.g., 'bold', 'normal', 'lighter')
-                            },
-                        },
-                        stacked: false
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        }
                     },
                     y: {
                         beginAtZero: true,
@@ -539,18 +502,14 @@
                             display: true,
                             text: 'Payments (RS)',
                             font: {
-                                size: 20, // Font size in pixels
-                                weight: 'bold', // Font weight (e.g., 'bold', 'normal', 'lighter')
-                            },
+                                size: 16,
+                                weight: 'bold'
+                            }
                         }
                     }
                 }
             }
-        };
-
-        // Render the chart
-        const ctx = document.getElementById('paymentsChart').getContext('2d');
-        new Chart(ctx, config);
+        });
     </script>
 </body>
 

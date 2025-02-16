@@ -7,16 +7,28 @@
     class Guardian{
         use MainController;
         public function index(){
-
             $session = new \Core\Session;
             $session->check_login();
 
             $Data = [];
+            $this->view('Onbording/Guardian' , $Data);
+        }
+
+        public function handlesubmission(){
             $session = new \Core\Session;
-            $ParentID = $session->get('ParentID');
+            $UserID = $session->get('USERID');
+
+            $Parent = new \Modal\ParentUser;
             $guardian = new \Modal\Guardian;
+
+            $location = $session->get("Location");
+
+            $ParentID = ($Parent->first(["UserID" => $UserID]))->ParentID;
             $result = $guardian->where_norder(['ParentID' => $ParentID]);
             if(!empty($result)){
+                if(isset($location)){
+                    redirect ($location);
+                }
                 redirect('Parent/Home');
             }
             $requiredFields = ['First_Name', 'Last_Name', 'Relation', 'Phone_Number', 'Language','Address','NID','Email','Gender', ];
@@ -33,7 +45,6 @@
                                 $errors['Image'] = "Failed to read the image file.";
                             } else {
                                 $_POST['Image'] = $imageBlob;
-                                show($_POST);
                                 $guardian->insert($_POST);
                                 $session->unset('CHILDID');
                                 $session->unset('PARENTID');
@@ -72,8 +83,6 @@
                     $Data['errors'] = $errors;
                 }
             }
-
-            $this->view('Onbording/Guardian' , $Data);
         }
     
         private function setvalues(){
