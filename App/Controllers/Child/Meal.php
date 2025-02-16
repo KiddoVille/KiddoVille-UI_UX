@@ -30,6 +30,44 @@
             $session->set("Location" , 'Child/Meal');
             $this->view('Child/Meal',$data);
         }
+    
+        public function Snack_request(){
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+            $requestModal = new \Modal\SnackRequest;
+            $SnackModal = new \Modal\SnackPlan;
+
+            $result = $requestModal->first(["SnackID"=>$_POST['Snack'] , "ChildID"=> $ChildID]);
+            if($result){
+                $requestModal->update(["SnackID"=>$_POST['Snack'] , "ChildID"=> $ChildID], ["Quantity"=> $result->Quantity+1]);
+            }
+            else{
+                $requestModal->insert(["SnackID"=>$_POST['Snack'] , "ChildID"=> $ChildID, ["Quantity"=> 1]]);
+            }
+
+            redirect('Child/Meal');
+        }
+
+        public function delete_snack_request(){
+            header('Content-Type: application/json');
+            
+            // Get the JSON body data
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $Id = $requestData['ID'];
+
+            $requestModal = new \Modal\SnackRequest;
+            $requestModal->delete($Id , "RequestID");
+
+            echo json_encode(['success' => true, 'data' => '']);
+        }
+
+        public function Snack_request_edit(){
+            if(isset($_POST)){
+                $requestModal = new \Modal\SnackRequest;
+                $requestModal->update(["RequestID" => $_POST['Request']], ["SnackID"=>$_POST['Snack'] , "Meal"=> $_POST['Meal'], "Quantity"=> 1]);
+            }
+            redirect("Child/meal");
+        }
 
         private function selectedchild($selectedchild)
         {
@@ -96,6 +134,24 @@
             }
         }    
 
+        public function get_snacks(){
+            header('Content-Type: application/json');
+            
+            // Get the JSON body data
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $date = $requestData['date'] ?? date('Y-m-d');
+            $time = $requestData['time']?? 'Breakfast';
+
+            $SnackModal = new \Modal\SnackPlan;
+            $results = $SnackModal->where_norder(['Date' => $date, 'Time' => $time]);
+
+            if (empty($results)) {
+                echo json_encode(['success' => false, 'message' => 'No meal plan found for the selected date']);
+            } else {
+                echo json_encode(['success' => true, 'data' => $results]);
+            }
+        }
+
         public function store_snack() {
             header('Content-Type: application/json');
             
@@ -139,44 +195,49 @@
         public function store_request() {
             header('Content-Type: application/json');
         
+            $session = new \Core\Session;
+            $ChildID = $session->get("CHILDID");
+        
             // Get the JSON body data
             $requestData = json_decode(file_get_contents("php://input"), true);
             $Date = $requestData['date'] ?? date('Y-m-d');
-
-            $ChildModal = new \Modal\Child;
+            $Date = date('Y-m-d', strtotime($Date . ' +1 day'));
+        
+            if (!$ChildID) {
+                echo json_encode(['success' => false, 'message' => 'Child ID not found in session']);
+                return;
+            }
+        
             $SnackRequest = new \Modal\SnackRequest;
             $SnackPlan = new \Modal\SnackPlan;
-
-            $session = new \Core\Session;
-            $ChildID = $session->get("CHILDID");
-
-            $requestPlan = []; 
         
-            $Child = $ChildModal->first(["ChildID" => $ChildID]);
-            $ChildName = $Child->First_Name;
-        
+            // Fetch all snack requests for the child
             $snackRequests = $SnackRequest->where_norder(['ChildID' => $ChildID]);
-            $groupedSnacks = [
-                "Breakfast" => [],
-                "Lunch" => [],
-                "Dinner" => []
-            ];
+            $groupedSnacks = [];
 
+            $ChildModal = new \Modal\Child;
+            $children = $ChildModal->first(["ChildID"=> $ChildID]);
+        
             foreach ($snackRequests as $request) {
+
                 $snackDetails = $SnackPlan->first(['SnackID' => $request->SnackID, 'Date' => $Date]);
                 if ($snackDetails) {
                     $mealTime = $snackDetails->Time;
                     $snackName = $snackDetails->Snack;
-
-                    if (!isset($groupedSnacks[$snackName])) {
-                        if (!isset($groupedSnacks[$mealTime][$snackName])) {
-                            $groupedSnacks[$mealTime][$snackName] = 0;
-                        }
-                        $groupedSnacks[$mealTime][$snackName] += $request->Quantity;
+                    $requestID = $request->RequestID;
+        
+                    // Properly group snacks under the child name
+                    if (!isset($groupedSnacks[$mealTime])) {
+                        $groupedSnacks[$mealTime] = [];
                     }
+        
+                    if (!isset($groupedSnacks[$mealTime][$snackName])) {
+                        $groupedSnacks[$mealTime][$snackName] = ['quantity' => 0, 'requestID' => $requestID];
+                    }
+                    $groupedSnacks[$mealTime][$snackName]['quantity'] += $request->Quantity;
                 }
+                $requestPlan[$children->First_Name] = $groupedSnacks;
             }
-            $requestPlan[$ChildName] = $groupedSnacks;
         
             // Return the response
             if (empty($requestPlan)) {
@@ -184,7 +245,7 @@
             } else {
                 echo json_encode(['success' => true, 'data' => $requestPlan]);
             }
-        }
+        }         
 
         public function setchildsession(){
             if (session_status() == PHP_SESSION_NONE) {

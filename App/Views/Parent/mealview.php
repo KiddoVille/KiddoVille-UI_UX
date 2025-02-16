@@ -665,6 +665,8 @@
                 editChild.value = child;
                 requestid.value = id;
 
+                editSnackTime.value = meal;
+
                 fetchSnacksEdit(date, meal);
                 setTimeout(() => {
                     Array.from(editSnackSelect.options).forEach(option => {
