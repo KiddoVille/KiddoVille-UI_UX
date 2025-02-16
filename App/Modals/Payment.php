@@ -12,7 +12,8 @@
             'DateTime',
             'Amount',
             'ChildID',
-            'Mode'
+            'Mode',
+            'Month'
         ];
 
         public function validate($data){

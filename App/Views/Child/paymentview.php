@@ -240,7 +240,7 @@
                         <button class="pay"> Make payment </button>
                     </div>
                     <div id="upcoming" style="display: flex; flex-direction: row; align-items: flex-start;">
-                    <canvas id="inventoryChart" width="600" height="380"></canvas>
+                    <canvas id="paymentChart" width="500" height="200" style="max-width: 600px; max-height: 400px; margin-top:-10px;"></canvas>
                         <div>
                             <html>
                             <div class="payment-description">
@@ -460,97 +460,68 @@
             });
         });
 
-        const ctx = document.getElementById('inventoryChart').getContext('2d');
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('paymentChart').getContext('2d');
 
-        const productLabels = ['1st', '2nd', '3rd', '4th'];
-        const inventoryData = [56, 32, 42, 65];
+    var chartData = <?php echo($data['graph']); ?>;
 
-        const inventoryChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: productLabels,
-                datasets: [{
-                    label: 'Income in LKR',
-                    data: inventoryData,
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: false,
-                plugins: {
-                    legend: {
-                        display: true, // Show the legend
-                        labels: {
+    // Destroy existing chart instance if it exists
+    if (window.inventoryChart instanceof Chart) {
+        window.inventoryChart.destroy();
+    }
+
+    // Create the new line chart
+    window.inventoryChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData, // Use the PHP-injected data
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
                         font: {
-                            size: 14, // Font size for legend text
-                            weight: 'bold' // Bold legend text
-                        }
-                    }
-                    },
-                    tooltip: {
-                        enabled: true, // Show tooltips on hover
-                        bodyFont: {
-                            weight: 'bold' // Bold text in tooltips
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Weekly Inventory Income',
-                        font: {
-                            size: 18, // Font size for chart title
-                            weight: 'bold' // Bold chart title
+                            size: 14,
+                            weight: 'bold'
                         }
                     }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true, // Start y-axis at zero
-                        title: {
-                            display: true,
-                            text: 'Income in LKR X 1000',
-                            font: {
-                                size: 14, // Font size for Y-axis title
-                                weight: 'bold' // Bold Y-axis title
-                            }
-                        },
-                        ticks: {
-                            font: {
-                                weight: 'bold' // Bold Y-axis tick labels
-                            }
+                title: {
+                    display: true,
+                    text: 'Monthly Fees for <?=$data['selectedchildren']['name'] ?>',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Months',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
                         }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Weekly Income',
-                            font: {
-                                size: 14, // Font size for X-axis title
-                                weight: 'bold' // Bold X-axis title
-                            }
-                        },
-                        ticks: {
-                            font: {
-                                weight: 'bold' // Bold X-axis tick labels
-                            }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Income (LKR)',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
                         }
                     }
                 }
             }
-        });
+        }
+    });
+});
+
 
         // const data = {
         //     labels: ['October', 'November', 'December'], // Months

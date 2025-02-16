@@ -4,6 +4,10 @@
 
     use App\Helpers\SidebarHelper;
     use App\Helpers\ChildHelper;
+    use Illuminate\Http\Request;
+    use Illuminate\Routing\Controller;
+
+use DateTime;
 
     defined('ROOTPATH') or exit('Access denied');
 
@@ -20,8 +24,98 @@
             $session->set("Location" , 'Parent/Payments');
 
             $data = $data + $this->store_states();
+            $data['graph'] = $this->graph();
             $this->view('Parent/payment',$data);
         }
+
+        public function graph() {
+            $PaymentModal = new \Modal\Payment;
+            $Childhelper = new ChildHelper();
+        
+            $children = $Childhelper->store_child();
+            $childPayments = []; // This will store all payments
+        
+            foreach ($children as $child) {
+                $Day = new DateTime();
+                $Day->modify('first day of last month'); // Start from the previous month
+        
+                for ($i = 0; $i < 3; $i++) { // Loop for the last 3 months
+                    $formattedDate = $Day->format('Y-m-01'); // Format as YYYY-MM-01
+        
+                    // Fetch payments for the current child and month
+                    $payments = $PaymentModal->where_norder([
+                        'ChildID' => $child->ChildID,
+                        'Month' => $formattedDate
+                    ]);
+        
+                    // Store in array
+                    $childPayments[$child->First_Name][$formattedDate] = $payments;
+        
+                    // Move to the previous month
+                    $Day->modify('-1 month');
+                }
+            }
+        
+            // Convert to Chart.js format
+            $chartData = [
+                'labels' => [], // To store months
+                'datasets' => [] // To store children's data
+            ];
+        
+            if (!empty($childPayments)) {
+                // Get all unique months
+                $months = [];
+                foreach ($childPayments as $childName => $monthsData) {
+                    foreach ($monthsData as $month => $payments) {
+                        if (!in_array($month, $months)) {
+                            $months[] = $month;
+                        }
+                    }
+                }
+        
+                // Sort months in ascending order
+                sort($months);
+                $chartData['labels'] = array_map(function ($month) {
+                    return date('F', strtotime($month)); // Convert "YYYY-MM-01" to "January"
+                }, $months);
+        
+                // Generate datasets dynamically
+                $colors = [
+                    'rgba(255, 99, 132, 0.6)',  // Red
+                    'rgba(54, 162, 235, 0.6)',  // Blue
+                    'rgba(255, 206, 86, 0.6)',  // Yellow
+                    'rgba(75, 192, 192, 0.6)',  // Teal
+                    'rgba(153, 102, 255, 0.6)'  // Purple
+                ];
+        
+                $i = 0;
+                foreach ($childPayments as $childName => $monthsData) {
+                    $childData = [];
+        
+                    foreach ($months as $month) {
+                        $amount = 0;
+                        if (!empty($monthsData[$month])) {
+                            foreach ($monthsData[$month] as $payment) {
+                                $amount += $payment->Amount; // Sum all payments for the month
+                            }
+                        }
+                        $childData[] = $amount;
+                    }
+        
+                    $chartData['datasets'][] = [
+                        'label' => $childName,
+                        'data' => $childData,
+                        'backgroundColor' => $colors[$i % count($colors)],
+                        'borderColor' => str_replace('0.6', '1', $colors[$i % count($colors)]),
+                        'borderWidth' => 1
+                    ];
+        
+                    $i++;
+                }
+            }
+        
+            return (json_encode($chartData));
+        }        
 
         private function store_states(){
             $data = [];

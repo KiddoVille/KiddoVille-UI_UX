@@ -30,7 +30,7 @@
             $session->set("Location" , 'Child/Payment');
 
             $data =$data + $this->store_states();
-            $data['test'] = $this->test();
+            $data['graph'] = $this->graph();
             $this->view('Child/Payment', $data);
         }
 
@@ -55,6 +55,73 @@
 
             return $data;
         }
+
+        public function graph() {
+            $PaymentModal = new \Modal\Payment;
+            $session = new \core\Session;
+            $ChildModal = new \Modal\Child;
+        
+            $ChildID = $session->get("CHILDID");
+            $child = $ChildModal->first(["ChildID" => $ChildID]);
+        
+            $childPayments = [];
+            $Day = new \DateTime();
+            $Day->modify('first day of last month'); // Start from the previous month
+        
+            for ($i = 0; $i < 3; $i++) { // Loop for the last 3 months (same as parent)
+                $formattedDate = $Day->format('Y-m-01'); // Format as YYYY-MM-01
+        
+                // Fetch payments for the child and month
+                $payments = $PaymentModal->where_norder([
+                    'ChildID' => $ChildID,
+                    'Month' => $formattedDate
+                ]);
+        
+                // Store in array
+                $childPayments[$formattedDate] = $payments;
+        
+                // Move to the previous month
+                $Day->modify('-1 month');
+            }
+        
+            // Convert to Chart.js format for line chart (monthly mapping)
+            $chartData = [
+                'labels' => [],
+                'datasets' => []
+            ];
+        
+            if (!empty($childPayments)) {
+                // Get all unique months
+                $months = array_keys($childPayments);
+                sort($months);
+                $chartData['labels'] = array_map(function ($month) {
+                    return date('F', strtotime($month)); // Convert "YYYY-MM-01" to "January"
+                }, $months);
+        
+                $incomeData = [];
+        
+                foreach ($months as $month) {
+                    $amount = 0;
+                    if (!empty($childPayments[$month])) {
+                        foreach ($childPayments[$month] as $payment) {
+                            $amount += $payment->Amount; // Sum all payments for the month
+                        }
+                    }
+                    $incomeData[] = $amount;
+                }
+        
+                $chartData['datasets'][] = [
+                    'label' => 'Fees in LKR',
+                    'data' => $incomeData,
+                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                    'borderColor' => 'rgb(72, 151, 207)',
+                    'borderWidth' => 1
+                ];
+            }
+        
+            return json_encode($chartData);
+        }
+        
 
         private function selectedchild($selectedchild){
             $data = [];
