@@ -160,11 +160,16 @@ border: 1px solid #ccceeb97;
 .social-head, .behaviour-head{
 margin-top:3px;
 margin-bottom: 10px;
+
 }
 .social .skills{
 display: flex;
 gap: 40%;
 padding: 10px 10px;
+width: 100%;
+}
+.skills p{
+  width: 100%;
 }
 .behaviour-skills{
 display: flex;
@@ -173,6 +178,7 @@ padding: 10px 10px;
 }
 .behaviour-skills .text-line{
 display: flex;
+align-items: center;
 padding: 10px 0px;
 gap: 5px;
 }
