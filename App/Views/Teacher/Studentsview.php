@@ -33,9 +33,9 @@
                         <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="<?=ROOT?>/Main/Home" class="sidebar-list-item" id="home-link">
-                        <i class='bx bxs-home'></i>
-                        <span class="text">Home</span>
+                    <a href="<?=ROOT?>/Teacher/Funzone" class="sidebar-list-item" id="home-link">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                        <span class="text">Funzone</span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Reports" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
@@ -167,60 +167,29 @@
                 <div class="student-table" style="background-image: url(<?=IMAGE?>/std.png)">
                     
                     <div class="student-table-title">
-                        <h4>Name</h4>
+                        <h4>Reg NO</h4>
+                        <h4>Full Name</h4>
                         <h4>Age</h4>
-                        <h4>Gender</h4>
-                        <h4>Add Note</h4>
+                        <h4>Add Marks</h4>
                     </div>
-                    <div class="student-row">
-                        <p class="row-items">Thilina Perera</p>
-                        <p class="row-items">10</p>
-                        <p class="row-items">Male</p>
-                        <i class='bx bx-plus-circle' class="row-items"></i>                        
-                    </div>
-                    <div class="student-row">
-                        <p class="row-items">Kavindu Jayawardena</p>
-                        <p class="row-items">8</p>
-                        <p class="row-items">Male</p>
-                        <i class='bx bx-plus-circle' class="row-items"></i> 
-                        
-                    </div>
-                    <div class="student-row">
-                        <p class="row-items">Dinushi Wijeratne</p>
-                        <p class="row-items">8</p>
-                        <p class="row-items">Female</p>
-                        <i class='bx bx-plus-circle' class="row-items"></i>    
-                    </div>
-                    <div class="student-row">
-                        <p class="row-items">Sanidu Fernando</p>
-                        <p class="row-items">9</p>
-                        <p class="row-items">Male</p>
-                        <i class='bx bx-plus-circle' class="row-items"></i>     
-                    </div>
-                    <div class="student-row">
-                        <p class="row-items">Dimuthu Fernando</p>
-                        <p class="row-items">5</p>
-                        <p class="row-items">Male</p>
-                        <i class='bx bx-plus-circle' class="row-items"></i>        
-                    </div>
-                    <div class="student-row">
-                        <p class="row-items">Nethmi Perera</p>
-                        <p class="row-items">6</p>
-                        <p class="row-items">Female</p>
-                        <i class='bx bx-plus-circle' class="row-items"></i>        
-                    </div>
-                    <div class="student-row">
-                        <p class="row-items">Rinesh Silva</p>
-                        <p class="row-items">6</p>
-                        <p class="row-items">Male</p>
-                        <i class='bx bx-plus-circle' class="row-items"></i>        
-                    </div>
-                    <div class="student-row">
-                        <p class="row-items">SAduni Gunathilake</p>
-                        <p class="row-items">14</p>
-                        <p class="row-items">Female</p>
-                        <i class='bx bx-plus-circle' class="row-items"></i>        
-                    </div>
+                    <?php if(isset($students)):?>
+                        <?php foreach($students as $student):?>
+                            <div class="student-row">
+                                <p class="row-items"><?=htmlspecialchars($student->StudentID)?></p>
+                                <p class="row-items"><?=htmlspecialchars($student->First_Name)," ",htmlspecialchars($student->Last_Name)?></p>
+                                <p class="row-items"><?=htmlspecialchars($student->Age)?></p>
+                                <div class="marks">
+                                    <FORM method="POST" action="<?=ROOT?>/Teacher/Students/addTask">
+                                        <p class="value" id="marks"></p>
+                                        <input type="text" length="2" size="2" id="input-field">
+                                        <button onclick="submitMarks(this)">Submit</button> 
+                                    </FORM>
+                                </div>                     
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                   
+                   
                 </div>
             </div>
             
@@ -233,7 +202,25 @@
 
     
     <script src="<?=JS?>/Teacher/script.js"></script>
-    <script></script>
+    <script>
+
+       
+
+        function submitMarks(button){
+
+            const row = button.closest(".marks");
+            const inputField = row.querySelector("#input-field");
+            const markDisplay = row.querySelector("#marks");
+
+            const marks = inputField.value;
+            
+            markDisplay.textContent = marks;
+
+           inputField.style.display = "none";
+            button.style.display = "none";
+
+        }
+    </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
 

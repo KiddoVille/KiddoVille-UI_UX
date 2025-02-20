@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Teacher/dash.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!--google fonts-->
@@ -32,17 +32,18 @@
                         <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="<?=ROOT?>/Main/Home" class="sidebar-list-item" id="home-link">
-                        <i class='bx bxs-home'></i>
-                        <span class="text">Home</span>
+                    <a href="<?=ROOT?>/Teacher/Funzone" class="sidebar-list-item" id="home-link">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                        <span class="text">Funzone</span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Reports" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
                         <span class="text"> Report </span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Students" class="sidebar-list-item" id="students-link">
-                        <i class="fa-solid fa-puzzle-piece"></i>
-                        <span class="text">Fun Zone</span>
+                        <!-- <i class="fa-solid fa-puzzle-piece"></i> -->
+                        <i class='bx bxs-group' ></i>
+                        <span class="text">Students</span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Leaves" class="sidebar-list-item" id="leaves-link" >
                         <i class='bx bx-calendar' ></i>
@@ -62,17 +63,14 @@
                 </div>
             </div>
         </div>
-
-
-
-        
+  
         <div class="wrapper-1">
 
 
-        <!-- ********* FUN ZONE CONTENT ADDING **********-->
+            <!-- ********* FUN ZONE CONTENT ADDING **********-->
 
 
-            <div class="funzone-popup-container" id="funzone-popup-container" >
+            <!-- <div class="funzone-popup-container" id="funzone-popup-container" >
                 <form action="#" method="post">
                 <div class="funzone-content">
                     <div class="funzone-header">
@@ -106,11 +104,11 @@
                 </div>
     
     
-            </div>
+            </div> -->
 
             <!-- ********* REQUEST LEAVES **********-->
 
-            <div class="request-leave-container" id="request-leave-container">
+            <!-- <div class="request-leave-container" id="request-leave-container">
                 <div class="leave-content">
                     <h3>Leave Request</h3>
                     <form action="#">
@@ -146,9 +144,9 @@
                     </div>
                 </form>
                 </div>
-            </div>
+            </div> -->
 
-        <!-- ********* DAILY TASK SCHEDULE **********-->
+            <!-- ********* DAILY TASK SCHEDULE **********-->
 
             <div class="kiddo-schedule-container" id="kiddo-schedule-container" >
                 <div class="kiddo-content">
@@ -167,7 +165,7 @@
                     <label htmlfor="name">Title</label>
                     <input type="text" name="Title"  required>
 
-                    <label htmlfor="name">Title</label>
+                    <label htmlfor="name">Description</label>
                     <textarea rows="4" required name="Description"></textarea>
                     
                 </div>
@@ -178,49 +176,44 @@
                     </div>
                 </form>
                 </div>
-            </div>
+            </div> 
 
             
-
+            <!-- *********  EDIT TASK  **********-->
             <div class="edit-task-popup">
-            <div class="task-edit-container" id="task-edit-container" >
-                <div class="task-content">
-                    <div class="task-edit-header">
-                        <i class='bx bx-alarm'></i>
-                        <div class="task-edit-header-cont">
-                            <h2>What Did We Learn?</h2>
-                            
+                <div class="task-edit-container" id="task-edit-container" >
+                    <div class="task-content">
+                        <div class="task-edit-header">
+                            <i class='bx bx-alarm'></i>
+                            <div class="task-edit-header-cont">
+                                <h2>What Did We Learn?</h2>
+                                
+                            </div>
+                            <img src="<?=ROOT?>/assets/images/let.png">
                         </div>
-                        <img src="<?=ROOT?>/assets/images/let.png">
+                        
+                        <form action="<?=ROOT?>/Teacher/KiddoSchedule/updateTask" method="post">
+                            <div class="task-edit-body">
+                            <input type="hidden" id="task-id" name="id">
+                        <label htmlfor="name">Title</label>
+                        <input type="text" name="Title"  id="task-title" required>
+
+                        <label htmlfor="name">Description</label>
+                        <textarea rows="4" required name="Description" id="task-description"></textarea>
+                        
                     </div>
                     
-                    <form action="<?=ROOT?>/Teacher/KiddoSchedule/updateTask" method="post">
-                        <div class="task-edit-body">
-                        <input type="hidden" id="task-id" name="id">
-                    <label htmlfor="name">Title</label>
-                    <input type="text" name="Title"  id="task-title" required>
-
-                    <label htmlfor="name">Description</label>
-                    <textarea rows="4" required name="Description" id="task-description"></textarea>
-                    
-                </div>
-                   
-                    <div class="task-edit-footer">
-                        <button class="done" type="submit">Done</button>
-                        <button class="cancel" id="close-kiddo" onclick="closeTaskEdit()">Cancel</button>
+                        <div class="task-edit-footer">
+                            <button class="done" type="submit">Done</button>
+                            <button class="cancel" id="close-kiddo" onclick="closeTaskEdit()">Cancel</button>
+                        </div>
+                    </form>
                     </div>
-                </form>
                 </div>
             </div>
-            </div>
 
-
-
-
-
-
-
-        <div class="navabr">
+             <!-- *********  NAVBAR  **********-->
+            <div class="navabr">
             <div class="navbar-left">
                 <a href="#"><h2>Hey Sara Britney</h2></a>
                 <h4>Empowering Excellence in Every Lesson!</h4>
@@ -300,260 +293,301 @@
                 </div>
             </div> 
 
-        </div>
-        <div class="content">
-           
-        <div class="card-row">
-            <div class="card" id="open-kiddo" onclick="showKiddo()">
-                <div class="card-header">
-                    <i class='bx bx-task'></i>
-                    <h3>Kiddo Schedule</h3>
-                </div>
-                <div class="card-bottom">
-                    <h2>Today's Focus</h2>
-                    <p>Ativities for the day</p>
-                </div>
+            </div>
 
-            </div>
-            <div class="card" id="open-funzone" onclick="showFunzone()">
-                <div class="card-header">
-                    <i class="fa-solid fa-mountain-sun mount"></i>
-                    <h3>Fun Zone</h3>
-                </div>
-                <div class="card-bottom">
-                    <h2>274 Views</h2>
-                    <p>47 Downlaods & 4 Uploads</p>
-                </div>
-                
-            </div>
-            <div class="card" id="open-request" onclick="openRequest()">
-                <div class="card-header">
-                    <i class='bx bxs-calendar'></i>
-                    <h3>Request a Leave</h3>
-                </div>
-                <div class="card-bottom">
-                    <h2>3 Leaves Left</h2>
-                    <p>30 Annual leaves remaining</p>
-                </div>
-                
-            </div>
-        </div> 
-
-        <!-- ACTIVITY SCHEDULE-->
-        
-        <div class="content-2">
+             <!-- *********  MAIN CONTENT **********-->
+            <div class="content">
             
-            <div class="activity-list" id="act-list">
-                <div class="activity-header">
-                    <div class="header-content">
-                        <h3 >Activity Schedule</h3>
-                        
-                        <div class="filters">
-                            <div class="date-filter">
-                            <label for="date">Date</label>
-                            <input type="date" name="date" id="date">
+                <div class="col-1">
+                    <div class="today-course">
+                        <h3>Today's Lesson</h3>
+                    </div>
+                    <div class="activity-column">
+                        <div class="activity">
+                            <div class="img-holder">
+                            <img src="<?=IMAGE?>/knowledge.png">
                             </div>
-                            <div class="age-filter">
-                            <label for="age">Age Group</label>
-                            <select name="agegroup">
-                                <option value="lower">3-5</option>
-                                <option value="middle">6-9</option>
-                                <option value="upper">9-13</option>
-                            </select>
+
+                            <div class="data-box">
+                                <h4 class="topic">Basic Learning</h4>
+                                <div class="data-1 set">
+                                    <i class='bx bx-time-five'></i>
+                                    <p class="time">3.00 PM - 4.00 PM</p>
+                                </div>
+                                <div class="data-2 set">
+                                    <i class='bx bx-group' ></i>
+                                    <p class="time">36 students</p>
+                                </div>
+                                <div class="data-3 set">
+                                    <div class="panel" id="accd-delete">
+                                        <?php if (isset($tasks)): ?>
+                                            <?php foreach ($tasks as $task): ?>
+                                            <div class="title">
+                                                <div class="content">
+                                                    <h4>Title:</h4>
+                                                    <p><?= htmlspecialchars($task->Title) ?></p>
+                                                </div>
+                                                <div class="buttons-section">
+                                                    <form method="POST" action="<?=ROOT?>/Teacher/KiddoSchedule/delete" style="display: inline;">
+                                      
+                                                        <input type="hidden" name="id" value="<?= $task->id ?>">
+                                                        <button type="submit" class="delete-btn">
+                                                            <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                    </form>
+                                                    <button class="edit-btn" onclick="showTaskEdit(<?= htmlspecialchars(json_encode($task)) ?>)">
+                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                    </button>
+                                                </div>
+                                                <!-- <form method="POST" action="#" style="display: inline;">
+                                                    Add hidden input to pass the task ID 
+                                                    <input type="hidden" name="id" value="<?= $task->id ?>">
+                                                    <button type="submit" class="delete-btn" >
+                                                        <i class="fa-regular fa-pen-to-square" onclick="showTaskEdit()"></i>
+                                                    </button>
+                                                </form> -->
+                                            </div>
+                                            <div class="description">
+                                                <h4>Description: </h4>
+                                                <p><?= htmlspecialchars($task->Description) ?></p>
+                                            </div>
+                                            <?php endforeach; ?>
+                                            <?php elseif (isset($message)): ?>
+                                                <p class="error-msg"><?= htmlspecialchars($message) ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="data-4 set">
+                                    <button class="add-task" id="open-kiddo" onclick="showKiddo()">Create</button>
+                                </div>
+                               
                             </div>
                         </div>
+
+                        <!-- <div class="activity">
+                            <div class="img-holder">
+                            <img src="<?=IMAGE?>/calculator.png">
+                            </div>
+
+                            <div class="data-box">
+                                <h4>Simple Maths</h4>
+                                <div class="data-1 set">
+                                    <i class='bx bx-time-five'></i>
+                                    <p class="time">4.00 PM - 5.00 PM</p>
+                                </div>
+                                <div class="data-2 set">
+                                <i class='bx bx-group' ></i>
+                                    <p class="time">36 students</p>
+                                </div>
+                                <div class="data-3 set">
+                                    <div class="panel" id="accd-delete">
+                                        <?php if (isset($tasks)): ?>
+                                            <?php foreach ($tasks as $task): ?>
+                                            <div class="title">
+                                                <div class="content">
+                                                    <h4>Title:</h4>
+                                                    <p><?= htmlspecialchars($task->Title) ?></p>
+                                                </div>
+                                                <form method="POST" action="<?=ROOT?>/Teacher/KiddoSchedule/delete" style="display: inline;">
+                                                  
+                                                    <input type="hidden" name="id" value="<?= $task->id ?>">
+                                                    <button type="submit" class="delete-btn">
+                                                        <i class="fa-regular fa-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                                <button class="edit-btn" onclick="showTaskEdit(<?= htmlspecialchars(json_encode($task)) ?>)">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </button>
+                                               
+                                            </div>
+                                            <div class="description">
+                                                <h4>Description: </h4>
+                                                <p><?= htmlspecialchars($task->Description) ?></p>
+                                            </div>
+                                            <?php endforeach; ?>
+                                            <?php elseif (isset($message)): ?>
+                                                <p><?= htmlspecialchars($message) ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                
+                               
+                            </div>
+                        </div> 
+                         -->
                     </div>
+                    <div class="perfomance">
+                            <div class="title">
+                                <h3>Overrall Performance</h3>
+                                <a href="#"><p>View Details ></p></a>
+                            </div>
+                            
+                            <div class="chart">
+                                <div class="skil-chart">
+                                    <canvas id="canvas-1" width="200px"></canvas>                         
+                                </div>
+                                <div class="chart-details">
+                                     <div class="section">
+                                        <div class="legend">
+                                            <div class="level-name">
+                                                <div class="circle-1"></div>
+                                                <p>Outstanding</p>
+                                            </div>
+                                            <div class="percent">
+                                                <p>55%</p>
+                                            </div>
+                                        </div>
+                                        <div class="legend">
+                                            <div class="level-name">
+                                                <div class="circle-2"></div>
+                                                <p>Satisfactory</p>
+                                            </div>
+                                            <div class="percent">
+                                                <p>20%</p>
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="section">
+                                        <div class="legend">
+                                            <div class="level-name">
+                                                <div class="circle-3"></div>
+                                                <p>Developing </p>
+                                            </div>
+                                            <div class="percent">
+                                                <p>15%</p>
+                                            </div>
+                                        </div>
+                                        <div class="legend">
+                                            <div class="level-name">
+                                                <div class="circle-4"></div>
+                                                <p>Weak </p>
+                                            </div>
+                                            <div class="percent">
+                                                <p>10%</p>
+                                            </div>
+                                        </div>
+                                     </div>             
+                                </div>                   
+                            </div>
+                            
+                    </div>                               
                     
                 </div>
-                <div class="activity-table">
-                    <div class="table-title">
-                        <h3 class="wider">Activity</h3>
-                        <h3>Start Time</h3>
-                        <h3>End Time</h3>
-                        <h3>Status</h3>
-                    </div>
-                    
-                    <div class="activity-row">
-                        <p>Creative Play</p>
-                        <p>9.00 A.M</p>
-                        <p>10.00 A.M</p>
-                        <div class="actions">
-                            <i class="fa-solid fa-pen"></i>
-                            <i class="fa-regular fa-trash-can"></i>
+
+                <div class="col-2">
+                    <div class="first-block">
+                        <div class="attendance">
+                            <h3>Attendance</h3>
+                            <div class="attend-row">
+                                <div class="details">
+                                    <div class="icon one">
+                                        <i class="fa-solid fa-clipboard-user clipone"></i>
+                                    </div>
+                                    <div class="stats">
+                                        <p class="number"><span>85</span>%</p>
+                                        <p class="group">Group: <span>3-5</span></p>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="details">
+                                    <div class="icon two">
+                                        <i class="fa-solid fa-clipboard-user cliptwo"></i>
+                                    </div>
+                                    <div class="stats">
+                                        <p class="number"><span>75</span>%</p>
+                                        <p class="group">Group: <span>6-9</span></p>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="details">
+                                    <div class="icon three">
+                                        <i class="fa-solid fa-clipboard-user clipthree"></i>
+                                    </div>
+                                    <div class="stats">
+                                        <p class="number"><span>90</span>%</p>
+                                        <p class="group">Group: <span>10-13</span></p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
+                        <!-- <div class="perfomance">
+                            <div class="title">
+                                <h3>Overrall Performance</h3>
+                                <a href="#"><p>View Details ></p></a>
+                            </div>
+                            <p class="subtitle">Subject Profeciency</p>
+                            <div class="chart">
+                                <div class="skil-chart">
+                                    <canvas id="canvas" width="200px"></canvas>                         
+                                </div>
+                                <div class="chart-details">
+                                     <div class="section">
+                                        <div class="legend">
+                                            <div class="level-name">
+                                                <div class="circle-1"></div>
+                                                <p>Outstanding</p>
+                                            </div>
+                                            <div class="percent">
+                                                <p>55%</p>
+                                            </div>
+                                        </div>
+                                        <div class="legend">
+                                            <div class="level-name">
+                                                <div class="circle-2"></div>
+                                                <p>Satisfactory</p>
+                                            </div>
+                                            <div class="percent">
+                                                <p>20%</p>
+                                            </div>
+                                        </div>
+                                     </div>
+                                     <div class="section">
+                                        <div class="legend">
+                                            <div class="level-name">
+                                                <div class="circle-3"></div>
+                                                <p>Developing </p>
+                                            </div>
+                                            <div class="percent">
+                                                <p>15%</p>
+                                            </div>
+                                        </div>
+                                        <div class="legend">
+                                            <div class="level-name">
+                                                <div class="circle-4"></div>
+                                                <p>Weak </p>
+                                            </div>
+                                            <div class="percent">
+                                                <p>10%</p>
+                                            </div>
+                                        </div>
+                                     </div>             
+                                </div>                   
+                            </div>
+                            
+                        </div> -->
                     </div>
-                    
-                    <div class="activity-row">
-                        <p>Story Time</p>
-                        <p>11.00 A.M</p>
-                        <p>12.00 A.M</p>
-                        <div class="actions">
-                            <i class="fa-solid fa-pen"></i>
-                            <i class="fa-regular fa-trash-can"></i>
+                    <div class="second-block">
+                        <h3>Subject Profeciency</h3>                                
+                        <div class="line-chart">
+                            <canvas id="canvas-2" width="600px" height="300px"></canvas>
                         </div>
-                    </div>
-                   
-                    
-                    <div class="activity-row">
-                        <p class="assign" id="day-task" >Basic Learning Activities</p>
-                        <p>2.00 A.M</p>
-                        <p>3.00 A.M</p>
-                        <div class="actions ">
-                            <i class="fa-solid fa-pen enable "></i>
-                            <i class="fa-regular fa-trash-can enable"></i>
-                        </div>
-                    </div>
-                    
-                    
-                    
                 </div>
-            </div>
-
-            <!-- ********* Pending Report Seciton **********-->
-          
-
-            <div class="pending-reports" id="pending">
-                <div class="pending-reports-head">
-                    <div class="left-pend-head">
-                        <h3>Pending Reports</h3>
-                        <p>Age Group : 6-9</p>
-                    </div>
-                    <div class="right-pend-head" id="pending-close" >
-                        <span>&times;</span>
-                    </div>
-                    
-                </div>
-                <div class="pending-title">
-                    <h4>Registration No</h4>
-                    <h4>Name</h4>
-                    <h4>Status</h4>
-                </div>
-                <div class="pending-data">
-                    <p>SDR001923</p>
-                    <p>Thilina Perera</p>
-                    <p id="done">Submitted</p>
-                </div>
-                <div class="pending-data">
-                    <p>SDR001923</p>
-                    <p>Thilina Perera</p>
-                    <p id="pnd">Pending</p>
-                </div>
-                <div class="pending-data">
-                    <p>SDR001923</p>
-                    <p>Thilina Perera</p>
-                    <p id="done">Submitted</p>
-                </div>
-                <div class="pending-data">
-                    <p>SDR001923</p>
-                    <p>Thilina Perera</p>
-                    <p id="pnd">Pending</p>
-                </div>
-                <div class="pending-data">
-                    <p>SDR001923</p>
-                    <p>Thilina Perera</p>
-                    <p id="pnd">Pending</p>
-                </div>
-                <div class="pending-data">
-                    <p>SDR001923</p>
-                    <p>Thilina Perera</p>
-                    <p id="pnd">Pending</p>
-                </div>
-                <div class="pending-data">
-                    <p>SDR001923</p>
-                    <p>Thilina Perera</p>
-                    <p id="done">Submitted</p>
-                   
-                </div>
-             
-            </div>
-            <div class="right-content">
-
-            
-            <div class="glass-box">
-                <div class="report-header">
-                    <i class="fa-regular fa-clipboard"></i>
-                    <h2>Status Report</h2>
-                </div>
-                <div class="report-body">
-                    <p class="text">Review and finalize weekly reports for all the students</p>
-                <p class="number"><span>6 </span>Reports Pending</p>
-                <button class="manage" id="manage" onclick="openPending()">Manage Reports</button>
-                </div>
-                <div class="report-footer">
-                    <p class="footer">week: <span>Feb 12-16, 2025</span></p>
-                    <p class="footer">Last Update:<span>Feb 15, 2025</span></p>
-                </div>
-                
-            </div>
-
-             <!-- ********* DAILY TASK VIEW **********-->
-
-
-
         
-
-
-<div class="my-task">
-    <button class="accordion" id="accordion" onclick="accd()">
-        <p>Basic Learning Activities</p>
-    </button>
-    <div class="panel" id="accd-delete">
-        <?php if (isset($tasks)): ?>
-            <?php foreach ($tasks as $task): ?>
-            <div class="title">
-                <div class="content">
-                    <h4>Title:</h4>
-                    <p><?= htmlspecialchars($task->Title) ?></p>
-                </div>
-                <form method="POST" action="<?=ROOT?>/Teacher/KiddoSchedule/delete" style="display: inline;">
-                    <!-- Add hidden input to pass the task ID -->
-                    <input type="hidden" name="id" value="<?= $task->id ?>">
-                    <button type="submit" class="delete-btn">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                </form>
-                <button class="edit-btn" onclick="showTaskEdit(<?= htmlspecialchars(json_encode($task)) ?>)">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-                <!-- <form method="POST" action="#" style="display: inline;">
-                    Add hidden input to pass the task ID 
-                    <input type="hidden" name="id" value="<?= $task->id ?>">
-                    <button type="submit" class="delete-btn" >
-                        <i class="fa-regular fa-pen-to-square" onclick="showTaskEdit()"></i>
-                    </button>
-                </form> -->
             </div>
-            <div class="description">
-                <h4>Description:</h4>
-                <p><?= htmlspecialchars($task->Description) ?></p>
-            </div>
-            <?php endforeach; ?>
-        <?php elseif (isset($message)): ?>
-            <p><?= htmlspecialchars($message) ?></p>
-        <?php endif; ?>
+        </div>
     </div>
-</div>
 
-
-        </div>
-        </div>
-            
-        </div>
-    </div>
-    </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="<?=JS?>/Teacher/script.js"></script>
-    <script></script>
+    <script src="<?=JS?>/Teacher/graphs.js"></script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     <script>
     
-        const notifyMenu = document.getElementById("nofity");
-        document.getElementById("notify").addEventListener('click',toggleNotify);
-
-        function toggleNotify(){
-            notify.classList.toggle("open-notify")
-        }
+     
     </script>
 
 

@@ -10,6 +10,7 @@
             $dateTime = date('Y-m-d H:i:s');
             $data['Date'] = $dateTime;
             $arr = $_POST;
+           
             $arr = array_merge($arr, $data);
         
         

@@ -35,9 +35,9 @@
                         <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="<?=ROOT?>/Main/Home" class="sidebar-list-item" id="home-link">
-                        <i class='bx bxs-home'></i>
-                        <span class="text">Home</span>
+                    <a href="<?=ROOT?>/Teacher/Funzone" class="sidebar-list-item" id="home-link">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                        <span class="text">Funzone</span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Reports" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
@@ -147,7 +147,6 @@
     
             </div>
         <div class="content" >
-            <div class="backgorund-overlay" ></div>
             <div class="report-page">
                 <div class="report-page-header">
                     <i class='bx bxs-report'></i>
@@ -169,67 +168,126 @@
 
                 </div>
                 <div class="report-section" >
-                    <div class="report-row">
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>Reg No: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
-                                
-                                    <button ><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>REG NO: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
-                                
-                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>REG NO: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
-                                
-                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
-                                </div>
-
-                            </div>
-                        </div>
-                        
-
-
+                    <div class="pending-section">
+                        <h4 class="pend">Pending Reprots</h4>
                     
-                       
+                        <div class="report-row pending">
+                            <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>Kavindu Jayawardena</h4>
+                                        <p>Reg No: SNT110923</p>
+                                    </div>
+                                
+                                    <div class="card-footer">
+                                    
+                                        <button ><a href="<?=ROOT?>/Teacher/Marks" style="color:#fff">Edit Report</a></button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>Kavindu Jayawardena</h4>
+                                        <p>REG NO: SNT110923</p>
+                                    </div>
+                                
+                                    <div class="card-footer">
+                                    
+                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>Kavindu Jayawardena</h4>
+                                        <p>REG NO: SNT110923</p>
+                                    </div>
+                                
+                                    <div class="card-footer">
+                                    
+                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                            <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>Kavindu Jayawardena</h4>
+                                        <p>REG NO: SNT110923</p>
+                                    </div>
+                                
+                                    <div class="card-footer">
+                                    
+                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>Kavindu Jayawardena</h4>
+                                        <p>REG NO: SNT110923</p>
+                                    </div>
+                                
+                                    <div class="card-footer">
+                                    
+                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>Kavindu Jayawardena</h4>
+                                        <p>REG NO: SNT110923</p>
+                                    </div>
+                                
+                                    <div class="card-footer">
+                                    
+                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        
+                        
+                        </div>
                     </div>
-                    <div class="report-row">
+                    <div class="complete-section">
+                        <h4 class="comp">Completed Reprots</h4>
+                   
+                        <div class="report-row completed">
                         <div class="report-card">
                             <div class="card-content">
                                 <div class="profile-img">
@@ -284,10 +342,63 @@
                             </div>
                         </div>
                         
+                        <div class="report-card">
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>REG NO: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
 
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>REG NO: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-content">
+                                <div class="profile-img">
+                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kavindu Jayawardena</h4>
+                                    <p>REG NO: SNT110923</p>
+                                </div>
+                               
+                                <div class="card-footer">
+                                
+                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                </div>
+
+                            </div>
+                        </div>
 
                     
                        
+                        </div>
                     </div>
                 </div>
            

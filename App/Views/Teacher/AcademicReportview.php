@@ -33,9 +33,9 @@
                         <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="<?=ROOT?>/Main/Home" class="sidebar-list-item" id="home-link">
-                        <i class='bx bxs-home'></i>
-                        <span class="text">Home</span>
+                    <a href="<?=ROOT?>/Teacher/Funzone" class="sidebar-list-item" id="home-link">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                        <span class="text">Funzone</span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Reports" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
@@ -231,14 +231,22 @@
                 <div class="social-behaviour">
                     <div class="social">
                         <div class="social-head">
-                            <h3>Social Development</h3>
+                            <h3>Fundamental Skills</h3>
                         </div>
                         <div class="skills">
-                            <p>Connecting with Peers</p>
+                            <p>Cognitive Skills</p>
                             <input type="range" min="0" max="100" value="50" step="20"> 
                         </div>
                         <div class="skills">
-                            <p>Connecting with Peers</p>
+                            <p>Communication Skills</p>
+                            <input type="range" min="0" max="100" value="50" step="20"> 
+                        </div>
+                        <div class="skills">
+                            <p>Social and Emotional Skills</p>
+                            <input type="range" min="0" max="100" value="50" step="20"> 
+                        </div>
+                        <div class="skills">
+                            <p>Creative Skills</p>
                             <input type="range" min="0" max="100" value="50" step="20"> 
                         </div>
                     </div>
@@ -249,11 +257,13 @@
                             </div>
                             <div class="behaviour-skills">
                                 <div class="text-line">
-                                <input type="checkbox" name="behaviour">Consistently calm and cooperative
+                                <i class="fas fa-circle" style="font-size: 10px; color: #3974ba;"></i>
+                                Consistently calm and cooperative
                                 </div>
                             
                             <div class="text-line">
-                                <input type="checkbox" name="behaviour">Expresses emotions freely
+                            <i class="fas fa-circle" style="font-size: 10px; color: #3974ba;"></i>
+                                Expresses emotions freely
                            </div>
                         </div>
                             

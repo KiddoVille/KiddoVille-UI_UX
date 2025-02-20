@@ -4,15 +4,17 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Task{
+    class Student{
         use Modal;
 
-        protected $table = 'daily_task';
+        protected $table = 'students';
         protected $allowedColumns = [
-            'id',
-            'Title',
-            'Description',
-            'Date'
+            'StudentID',
+            'ChildID',
+            'Last_Name',
+            'First_Name',
+            'Age',
+            'Age_Group'
         ];
 
         public function validate($data){
@@ -35,16 +37,6 @@
             return false;
         }
     
-        public function deleteTask($id, $id_column = 'id') {
-            $data[$id_column] = $id;
-            $query = "DELETE FROM $this->table WHERE $id_column = :$id_column";
     
-            // Execute the query and check the result
-            $result = $this->query($query, $data);
-    
-            // Return true if rows were affected, otherwise false
-            return $result ? true : false;
-    }
-
     }
 ?>
