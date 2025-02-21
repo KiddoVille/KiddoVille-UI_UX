@@ -96,18 +96,25 @@
             $Session = new \core\session;
             $ChildID = $Session->get("CHILDID");
         
+            $MediaModal = new \Modal\Media;
+            $TeacherModal = new \Modal\Teacher;
             $WhishlistModal = new \Modal\MediaHistory;
             $MediaModal = new \Modal\Media;
             $Data = $WhishlistModal->where_order_desc(["ChildID" => $ChildID]);
+            $Data = array_reverse($Data);
         
             $groupedData = [];
         
             foreach ($Data as &$row) {
+
                 if ($type !== 'All') {
                     $Media = $MediaModal->first(["MediaID" => $row->MediaID, "MediaType" => $type]);
                 } else {
                     $Media = $MediaModal->first(["MediaID" => $row->MediaID]);
                 }
+
+                $Teacher = $TeacherModal->first(["TeacherID" => $Media->UserID]);
+                $row->User = $Teacher->First_Name . ' ' . $Teacher->Last_Name;
         
                 if ($Media) {
                     $row->MediaType = !empty($Media->MediaType) ? $Media->MediaType : '';

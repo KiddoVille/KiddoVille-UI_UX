@@ -580,7 +580,14 @@
 
                 const watchButton = document.createElement("button");
                 watchButton.classList.add("icon-btn", "watch-btn");
-                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i>';
+                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px; cursor: pointer;"></i>';
+
+                if (item && item.MediaID) {
+                    watchButton.onclick = function() {
+                        console.log("clicked play button");
+                        window.location.href = `<?= ROOT ?>/Child/Resource?MediaID=${item.MediaID}`;
+                    };
+                }
 
                 iconContainer.appendChild(watchButton);
 

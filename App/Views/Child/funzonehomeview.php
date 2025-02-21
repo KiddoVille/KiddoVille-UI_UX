@@ -222,6 +222,11 @@
                 <div class="grid" id="trending-grid" style="overflow-y:hidden"></div>
 
                 <div class="day" style="margin-top: 20px;">
+                    <h3>New</h3>
+                </div>
+                <div class="grid" id="new-grid" style="overflow-y:hidden"></div>
+
+                <div class="day" style="margin-top: 20px;">
                     <h3>Watch It Again</h3>
                 </div>
                 <div class="grid" id="watch-again-grid" style="overflow-y:hidden"></div>
@@ -471,6 +476,7 @@
             let Trending_count = 20;
             let Popular_count = 20;
             let Recommeded_count = 20;
+            let New_count = 20;
             function removechildsession() {
                 fetch('<?= ROOT ?>/Child/Funzonehome/removechildsession', {
                         method: 'POST',
@@ -531,6 +537,7 @@
                             if (Array.isArray(Media.Popular)) createMediaItems(Media.Popular, "popular-grid" , Media.Popular_avail);
                             if (Array.isArray(Media.Recomended)) createMediaItems(Media.Recomended, "recommended-grid" , Media.Recomended_avail);
                             if (Array.isArray(Media.History)) createMediaItems(Media.History, "watch-again-grid" , Media.History_avail);
+                            if (Array.isArray(Media.New)) createMediaItems(Media.New, "new-grid", Media.New_avail);
                         } else {
                             console.error("Failed to fetch media data:", data.message);
                             alert("Error fetching media data.");
@@ -591,7 +598,7 @@
                     }
 
                     const mediaItem = `
-                        <div class="item">
+                        <div class="item" onclick="window.location.href='<?=ROOT?>/Child/Resource?MediaID=${item.MediaID}'">
                             ${mediaContent}
                             <h3>${item.Title}</h3>
                             <p>${item.Description}</p>
@@ -699,6 +706,10 @@
                                     logs = data.data.Recomended
                                     more = data.data.Recomended_avail
                                     break;
+                                case 'new-grid':
+                                    logs = data.data.New
+                                    more = data.data.New_avail
+                                    break;
                             }
 
                             updateGridWithMoreData(logs, gridType, more);
@@ -742,6 +753,14 @@
                             Recommeded_count += 20;
                         });
                     }
+
+                    const loadmorenew = document.getElementById('load-more-new-grid');
+                    if (loadmorenew) {
+                        loadmorenew.addEventListener('click', function() {
+                            fetchloadmore(typePicker.value, this.value, New_count);
+                            New_count += 20;
+                        });
+                    }
                 }
 
             document.addEventListener('DOMContentLoaded', function() {
@@ -756,15 +775,20 @@
                     let Trending_count = 0;
                     let Popular_count = 0;
                     let Recommeded_count = 0;
+                    let New_count = 0;
+
                     const grid1Container = document.getElementById('trending-grid');
                     const grid2Container = document.getElementById('watch-again-grid');
                     const grid3Container = document.getElementById('recommended-grid');
                     const grid4Container = document.getElementById('popular-grid');
+                    const grid5Container = document.getElementById('new-grid');
+
 
                     grid1Container.innerHTML = '';
                     grid2Container.innerHTML = '';
                     grid3Container.innerHTML = '';
                     grid4Container.innerHTML = '';
+                    grid5Container.innerHTML = '';
 
                     fetchMedia(typePicker.value);
                 });
@@ -805,6 +829,14 @@
                         loadmorerecommended.addEventListener('click', function() {
                             fetchloadmore(typePicker.value, this.value, Recommeded_count);
                             Recommeded_count += 20;
+                        });
+                    }
+
+                    const loadmorenew = document.getElementById('load-more-new-grid');
+                    if (loadmorenew) {
+                        loadmorenew.addEventListener('click', function() {
+                            fetchloadmore(typePicker.value, this.value, New_count);
+                            New_count += 20;
                         });
                     }
                 }

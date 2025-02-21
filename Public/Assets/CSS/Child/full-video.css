@@ -79,3 +79,85 @@ body {
     width: 15px;
     border-radius: 50%;
 }
+
+img {
+    width: 100vw;  /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    object-fit:contain; /* Ensures the image fills the entire space without distortion */
+}
+
+.minimized {
+    position: fixed; /* Stays fixed on the screen */
+    bottom: 5px; /* Distance from the bottom */
+    right: 20px; /* Distance from the right */
+    z-index: 9999; /* Ensures it stays on top of everything */
+    padding: 10px; /* Space around the icon */
+    border-radius: 50%; /* Circular button */
+    font-size: 20px; /* Adjust icon size */
+    cursor: pointer;
+    text-align: center;
+}
+
+.Book-controls {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 15px;
+    position: fixed;
+    bottom: 0;
+    left: 50%; /* Move it to the center */
+    transform: translateX(-50%); /* Shift it back by half its width */
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9); /* Optional: Add a background */
+    padding: 10px; /* Optional: Add padding for spacing */
+    border-radius: 10px; /* Optional: Rounded corners */
+}
+
+.Book-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+}
+
+.Book-button:hover {
+    background-color: #0056b3;
+}
+
+.Book-download {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.Book-download i {
+    font-size: 20px;
+}
+
+.Book-download:hover {
+    color: #0056b3;
+}
+
+#pdf-viewer {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    position: absolute; /* Ensure it fills the screen */
+    top: 0;
+    left: 0;
+    background: #f8f8f8; /* Optional: Light background */
+}
+
+#pdf-canvas {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Add shadow */
+    background: white; /* Ensure background is white */
+}

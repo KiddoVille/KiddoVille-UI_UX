@@ -135,6 +135,7 @@
                             $row->URL = $Media->URL ?? '';
                             $row->Image = $Media->Image ?? '';
                             $row->ImageType = $Media->ImageType ?? '';
+                            $row->MediaID = $Media->MediaID ?? '';
         
                             // // Convert image to base64 if it exists
                             if (!empty($row->Image) && !empty($row->ImageType)) {

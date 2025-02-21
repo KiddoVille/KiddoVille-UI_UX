@@ -102,6 +102,8 @@
                     $row->URL = !empty($Media->URL) ? $Media->URL : '';
                     $row->Image = !empty($Media->Image) ? $Media->Image : '';
                     $row->ImageType = !empty($Media->ImageType) ? $Media->ImageType : '';
+                    $row->MediaID = !empty($Media->MediaID) ? $Media->MediaID : '';
+                    $row->WhishlistID = !empty($Media->WhishlistID) ? $Media->WhishlistID : '';
 
                     $base64Image = (!empty($row->ImageData) && is_string($row->ImageData))
                         ? 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image)
@@ -123,6 +125,64 @@
                 echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
             } else {
                 echo json_encode(['success' => true, 'data' => $Data]);
+            }
+        }  
+
+        public function delete_Reminder(){
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+
+            $Session = new \core\session;
+            $ReminderModal = new \Modal\MediaReminder;
+            $WhishlistModal = new \Modal\MediaWhishlist;
+            $ChildID = $Session->get("CHILDID");
+
+            if (isset($requestData['WhishlistID'])) {
+                $WhishlistID = $requestData['WhishlistID'];
+                $Whish = $WhishlistModal->first(['WishlistID' => $WhishlistID]);
+                $Reminder = $ReminderModal->first(["MediaID" => $Whish->MediaID, "ChildID" => $ChildID]);
+                $WhishlistModal->update(["WishlistID" => $WhishlistID], ["Reminder" => 0]);
+
+
+                $ReminderModal->delete($Reminder->ReminderID, "ReminderID");
+                echo json_encode(['success' => true, 'message' => $WhishlistID]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'WishlistID not provided']);
+            }
+        }
+        
+        public function AddReminders(){
+            $Session = new \core\session;
+            $ChildID = $Session->get("CHILDID");
+
+            $WhishlistModal = new \Modal\MediaWhishlist;
+            $WhishlistModal->update(["WishlistID" => $_POST['WhishlistID']], ["Reminder" => 1]);
+
+            $Whish = $WhishlistModal->first(['WishlistID' => $_POST['WhishlistID']]);
+            $_POST['MediaID'] = $Whish->MediaID;
+            $_POST['ChildID'] = $ChildID;
+
+            $ReminderModal = new \Modal\MediaReminder;
+            unset($_POST['WhishlistID']);
+            $ReminderModal->insert($_POST);
+            redirect("Child/FunzoneWhishlist");
+        }
+        
+        public function delete_whish() {
+            header('Content-Type: application/json');
+        
+            // Read the raw POST data
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            
+            // Make sure WishlistID is received
+            if (isset($requestData['WishlistID'])) {
+                $WishlistID = $requestData['WishlistID'];
+                $WhishlistModal = new \Modal\MediaWhishlist;
+                $WhishlistModal->delete($WishlistID, "WishlistID");
+        
+                echo json_encode(['success' => true, 'message' => 'Wishlist item deleted', 'WhishlistID' => $WishlistID]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'WishlistID not provided']);
             }
         }        
 

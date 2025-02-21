@@ -4,15 +4,14 @@ namespace Modal;
 
 defined('ROOTPATH') or exit('Access Denied!');
 
-class MediaHistory {
+class MediaReminder {
     use Modal;
 
-    protected $table = 'mediahistory';
+    protected $table = 'mediareminder';
     protected $allowedColumns = [
         "MediaID",
         "ChildID",
-        "DateTime",
-        "Progress",
-        "HistoryID"
+        "Date",
+        "Time",
     ];
 }

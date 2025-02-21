@@ -584,3 +584,10 @@ body {
 html {
     scroll-behavior: smooth; /* Optional: Adds smooth scrolling behavior */
 }
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

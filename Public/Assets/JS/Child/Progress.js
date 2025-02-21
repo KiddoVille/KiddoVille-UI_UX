@@ -7,75 +7,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById('progressBar');
     const muteButton = document.getElementById('mute');
     const unmuteButton = document.getElementById('unmute');
-    
+
     function updateMuteButtons() {
-        if (video.muted) {
-            muteButton.style.display = 'none';
-            unmuteButton.style.display = 'block';
-        } else {
-            muteButton.style.display = 'block';
-            unmuteButton.style.display = 'none';
+        if (video) {
+            if (video.muted) {
+                muteButton.style.display = 'none';
+                unmuteButton.style.display = 'block';
+            } else {
+                muteButton.style.display = 'block';
+                unmuteButton.style.display = 'none';
+            }
         }
     }
 
-    muteButton.addEventListener('click', () => {
-        video.muted = true;
-        updateMuteButtons();
-    });
+    if (muteButton) {
+        muteButton.addEventListener('click', () => {
+            video.muted = true;
+            updateMuteButtons();
+        });
+    }
 
-    unmuteButton.addEventListener('click', () => {
-        video.muted = false;
-        updateMuteButtons();
-    });
+    if (unmuteButton) {
+        unmuteButton.addEventListener('click', () => {
+            video.muted = false;
+            updateMuteButtons();
+        });
+    }
 
-    video.addEventListener('volumechange', updateMuteButtons);
-    
+    if (video) {
+        video.addEventListener('volumechange', updateMuteButtons);
+    }
+
     updatePlayPauseButtons();
     updateProgressBar();
     updateMuteButtons();
 
     const customOptions = document.querySelectorAll('.custom-option');
     customOptions.forEach(option => {
-        option.addEventListener('click', function() {
+        option.addEventListener('click', function () {
             customSelectTrigger.innerHTML = `${this.innerText} <i class="fa fa-chevron-down"></i>`;
             customSelectContainer.classList.remove('active');
         });
     });
 
-    document.addEventListener('click', (event) => {
-        if (!customSelectContainer.contains(event.target) && !customSelectTrigger.contains(event.target)) {
-            customSelectContainer.classList.remove('active');
-        }
-
-        if (!customChildSelectContainer.contains(event.target) && !customChildSelectTrigger.contains(event.target)) {
-            customChildSelectContainer.classList.remove('active');
-        }
-
-        if (!profileCard.contains(event.target) && !settingsIcon.contains(event.target)) {
-            profileCard.classList.remove('show');
-        }
-
-        if (!commentSection.contains(event.target) && !commentButton.contains(event.target)) {
-            commentSection.style.display = 'none';
-        }
-    });
-
     function updatePlayPauseButtons() {
-        if (video.paused) {
-            playPauseButton.style.display = 'block';
-            pauseButton.style.display = 'none';
-        } else {
-            playPauseButton.style.display = 'none';
-            pauseButton.style.display = 'block';
-        }
+        if (video) {
+            if (video.paused) {
+                // Video is paused, so display the play icon
+                playPauseButton.classList.remove('fa-pause');
+                playPauseButton.classList.add('fa-play');
+                playPauseButton.style.marginLeft = "0px";
+            } else {
+                // Video is playing, so display the pause icon
+                playPauseButton.classList.remove('fa-play');
+                playPauseButton.classList.add('fa-pause');
+                playPauseButton.style.marginLeft = "5px";
+            }
+        }        
     }
 
     function updateProgressBar() {
-        const progress = (video.currentTime / video.duration) * 100;
-        progressBar.value = progress;
-        const minutes = Math.floor(video.currentTime / 60);
-        const seconds = Math.floor(video.currentTime % 60).toString().padStart(2, '0');
-        currentTimeElement.textContent = `${minutes}:${seconds}`;
+        if (video) {
+            const progress = (video.currentTime / video.duration) * 100;
+            progressBar.value = progress;
+            const minutes = Math.floor(video.currentTime / 60);
+            const seconds = Math.floor(video.currentTime % 60).toString().padStart(2, '0');
+            currentTimeElement.textContent = `${minutes}:${seconds}`;
+        }
     }
 
     function setVideoTime() {
@@ -85,32 +83,39 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePlayPauseButtons();
     updateProgressBar();
 
-    playPauseButton.addEventListener('click', () => {
-        if (video.paused) {
-            video.play();
-        } else {
+    if (playPauseButton) {
+        playPauseButton.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+            updatePlayPauseButtons();
+        });
+    }
+
+    if (pauseButton) {
+        pauseButton.addEventListener('click', () => {
             video.pause();
-        }
-        updatePlayPauseButtons();
-    });
+            updatePlayPauseButtons();
+        });
+    }
 
-    pauseButton.addEventListener('click', () => {
-        video.pause();
-        updatePlayPauseButtons();
-    });
+    if (video) {
+        video.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+            updatePlayPauseButtons();
+        });
 
-    video.addEventListener('click', () => {
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
-        }
-        updatePlayPauseButtons();
-    });
 
-    video.addEventListener('timeupdate', updateProgressBar);
-    progressBar.addEventListener('input', setVideoTime);
+        video.addEventListener('timeupdate', updateProgressBar);
+        progressBar.addEventListener('input', setVideoTime);
 
-    video.addEventListener('play', updatePlayPauseButtons);
-    video.addEventListener('pause', updatePlayPauseButtons);
+        video.addEventListener('play', updatePlayPauseButtons);
+        video.addEventListener('pause', updatePlayPauseButtons);
+    }
 });

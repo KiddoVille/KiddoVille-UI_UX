@@ -207,6 +207,7 @@
             </select>
         </div>
         <div class="contents" id="media-container" style="margin-top: -880px !important; z-index:1 !important ;">
+            <?php show($data['test']) ?>
             <!-- <div class="grid" id="grid">
                 <div class="filter-section" style="margin-top: 770px; z-index:1 !important ;">
                     <label for="filter-date">Filter by date: </label>
@@ -527,6 +528,9 @@
                     const itemDiv = document.createElement("div");
                     itemDiv.classList.add("item");
                     itemDiv.style.height= '200px';
+                    itemDiv.onclick = function() {
+                        window.location.href = `<?=ROOT?>/Child/Resource?MediaID=${item.MediaID}`;
+                    };
 
                     // Icon container (play button)
                     const iconContainer = document.createElement("div");
@@ -644,24 +648,30 @@
                     const dateTimeDiv = document.createElement("div");
                     dateTimeDiv.classList.add("date-time");
 
+                    const dateTimeParts = item.DateTime.split(' ');
+                    const datePart = dateTimeParts[0]; // "2025-02-21"
+                    const timePart = dateTimeParts[1]; // "15:30:00"
+
                     const reminderDateDiv = document.createElement("div");
                     reminderDateDiv.classList.add("reminder-date");
-                    reminderDateDiv.innerHTML = `<i class="fas fa-calendar-alt" style="style="margin-left: 53px !important;"></i> <span class="date-text">${item.Date}</span>`;
+                    // Removed duplicate style attribute error in icon
+                    reminderDateDiv.innerHTML = `<i class="fas fa-calendar-alt"></i> <span class="date-text">${datePart}</span>`;
                     dateTimeDiv.appendChild(reminderDateDiv);
 
                     const reminderTimeDiv = document.createElement("div");
                     reminderTimeDiv.classList.add("reminder-date");
-                    reminderTimeDiv.innerHTML = `<i class="fas fa-video" style="style="margin-left: 53px !important;"></i> <span class="time-text">${item.Time}</span>`;
+                    // Removed duplicate style attribute error in icon
+                    reminderTimeDiv.innerHTML = `<i class="fas fa-video"></i> <span class="time-text">${timePart}</span>`;
                     dateTimeDiv.appendChild(reminderTimeDiv);
 
                     const UserDiv = document.createElement("div");
                     UserDiv.classList.add("reminder-date");
-                    UserDiv.innerHTML = `<i class="fas fa-user" style="style="margin-left: 53px !important;"></i> <span class="time-text">${item.TeacherName}</span>`;
+                    UserDiv.innerHTML = `<i class="fas fa-user"></i> <span class="time-text">${item.User}</span>`;
                     dateTimeDiv.appendChild(UserDiv);
 
                     const progressDiv = document.createElement("div");
                     progressDiv.classList.add("reminder-date");
-                    progressDiv.innerHTML = `<i class="fas fa-hourglass" style="style="margin-left: 53px !important;"></i> Progress: ${item.Progress}%`;
+                    progressDiv.innerHTML = `<i class="fas fa-hourglass"></i> Progress: ${item.Progress}%`;
                     dateTimeDiv.appendChild(progressDiv);
 
                     Content.appendChild(dateTimeDiv);
