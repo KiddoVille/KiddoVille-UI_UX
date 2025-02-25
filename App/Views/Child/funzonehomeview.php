@@ -598,7 +598,7 @@
                     }
 
                     const mediaItem = `
-                        <div class="item" onclick="window.location.href='<?=ROOT?>/Child/Resource?MediaID=${item.MediaID}'">
+                        <div class="item" onclick="window.location.href='<?=ROOT?>/Child/Resource?MediaID=${item.MediaID}'" style="cursor:pointer;">
                             ${mediaContent}
                             <h3>${item.Title}</h3>
                             <p>${item.Description}</p>

@@ -527,6 +527,7 @@
                 data[dateKey].forEach(item => {
                     const itemDiv = document.createElement("div");
                     itemDiv.classList.add("item");
+                    itemDiv.style.cursor= 'pointer';
                     itemDiv.style.height= '200px';
                     itemDiv.onclick = function() {
                         window.location.href = `<?=ROOT?>/Child/Resource?MediaID=${item.MediaID}`;

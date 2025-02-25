@@ -124,7 +124,7 @@
             $ChildID = $session->get("CHILDID");
 
             $CommentModal->insert(["MediaID" => $MediaID, "ChildID" => $ChildID, "CommentText" => $Comment, "DateCommented" => date("Y-m-d H:i:s")]);
-            redirect('Child/video?MediaID='.$MediaID);
+            redirect('Child/Resource?MediaID='.$MediaID);
         }
 
         public function Edit_Comment() {
@@ -134,7 +134,7 @@
         
                 $CommentModal = new \Modal\Comment;
                 $CommentModal->update(["CommentID" => $CommentID], ["CommentText" => $CommentText]);
-                redirect('Child/video?MediaID=' . $_POST['MediaID']);
+                redirect('Child/Resource?MediaID=' . $_POST['MediaID']);
             }
         }        
 

@@ -887,7 +887,7 @@
         });
 
     function logoutUser() {
-        fetch("<?= ROOT ?>/Parent/Home/Logout", {
+        fetch("<?= ROOT ?>/Child/Home/Logout", {
                 method: "POST",
                 credentials: "same-origin"
             })
@@ -931,6 +931,7 @@
                     ChildID: ChildID
                 })
             })
+            
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -971,7 +972,8 @@
         timetableBody.innerHTML = ''; // Clear any existing rows
 
         // Get the current time as a string (HH:mm:ss)
-        const currentTime = new Date('2025-01-28T11:30:00'); // Example for testing
+        const currentTime = new Date();
+        //const currentTime = new Date('2025-01-28T11:30:00'); Example for testing
         const currentTimeString = currentTime.toTimeString().split(' ')[0]; // Get just "HH:mm:ss"
         const currentTimeInMillis = convertTimeToMillis(currentTimeString);
 

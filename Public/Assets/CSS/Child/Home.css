@@ -460,7 +460,6 @@ input[type="range"] {
     height: 500px;
     animation: popupSlideIn 0.5s ease;
     z-index: 1000;
-    backdrop-filter: blur(10px);
     justify-content: center;
     align-items: center;
     transition: all 1s ease-in-out;

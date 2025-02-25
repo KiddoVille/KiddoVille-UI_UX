@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebar = document.getElementById('sidebar');
     const chatwindow = document.getElementById('chat-window');
     const chat = document.querySelectorAll('.chat-window .messages .message');
-    const newtextbtn = document.getElementById('newtextbtn');
     const oldtext = document.getElementById('oldtext');
     const newtext = document.getElementById('newtext');
     const start = document.getElementById('start');
@@ -80,21 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
     });
-    newtextbtn.addEventListener('click', function () {
-        var img = document.getElementById('newtextimg');
-        if (lol === 0) {
-            img.src = '../../Assets/recent.svg';
-            lol = 1;
-            oldtext.style.display = 'none';
-            newtext.style.display = 'flex';
-        }
-        else {
-            img.src = '../../Assets/person-plus-fill.svg'
-            lol = 0;
-            oldtext.style.display = '';
-            newtext.style.display = 'none'
-        }
-    });
 
     chatwindow.addEventListener('click', function (event) {
         if (start && !start.contains(event.target)) {
@@ -102,19 +86,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    const settingsIcon = document.querySelector('.settings');
     const profileCard = document.getElementById('profileCard');
-    const closeProfileCard = document.getElementById('closeProfileCard');
 
     let profileCardTimeout;
-
-    settingsIcon.addEventListener('click', () => {
-        profileCard.classList.toggle('show');
-    });
-
-    closeProfileCard.addEventListener('click', () => {
-        profileCard.classList.remove('show');
-    });
 
     profileCard.addEventListener('mouseenter', () => {
         clearTimeout(profileCardTimeout);
@@ -123,24 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
     profileCard.addEventListener('mouseleave', () => {
         profileCardTimeout = setTimeout(() => {
             profileCard.classList.remove('show');
-        }, 300);
-    });
-
-    const customChildSelectTrigger = document.querySelector('.custom-child-select-trigger');
-    const customChildSelectContainer = document.querySelector('.custom-child-select-container');
-
-    customChildSelectTrigger.addEventListener('click', (event) => {
-        event.stopPropagation();
-        customChildSelectContainer.classList.toggle('active');
-    });
-
-    customChildSelectContainer.addEventListener('mouseenter', () => {
-        clearTimeout(dropdownTimeout);
-    });
-
-    customChildSelectContainer.addEventListener('mouseleave', () => {
-        dropdownTimeout = setTimeout(() => {
-            customChildSelectContainer.classList.remove('active');
         }, 300);
     });
 

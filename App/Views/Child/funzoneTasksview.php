@@ -571,6 +571,7 @@
             data.forEach(item => {
                 const itemDiv = document.createElement("div");
                 itemDiv.classList.add("item");
+                itemDiv.style.cursor= 'pointer';
                 itemDiv.style.width = '600px';
                 itemDiv.style.height = '200px';
 

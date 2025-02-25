@@ -4,15 +4,22 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Manager{
+    class Chat{
         use Modal;
 
-        protected $table = 'manager';
+        protected $table = 'chat';
         protected $allowedColumns = [
-            'Last_Name',
-            'First_Name',
-            "Image",
-            "ImageType"
+            'SenderID',
+            'ReceiverID',
+            'Message',
+            'Image',
+            'ImageType',
+            'SenderRole',
+            'ReceiverRole',
+            'DateTime',
+            'deleted',
+            'Edited',
+            'Seen'
         ];
 
         public function validate($data){

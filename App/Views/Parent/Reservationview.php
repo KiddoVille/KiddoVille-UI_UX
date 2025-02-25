@@ -138,7 +138,7 @@
                     </button>
                 </div>
             </div>
-            <div class="stats">
+            <div class="stats" style="grid-template-columns: repeat(4, 1fr);">
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance" >Accepted reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>

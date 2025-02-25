@@ -243,7 +243,7 @@
                     </div>
 
                     <div id="commentSection" style="display: none;">
-                        <form method="POST" enctype="multipart/form-data" action="<?= ROOT ?>/Child/video/Add_Comment">
+                        <form method="POST" enctype="multipart/form-data" action="<?= ROOT ?>/Child/Resource/Add_Comment">
                             <input name="MediaID" value="<?= $data['Media']->MediaID ?>" style="display: none;"> </input>
                             <textarea id="commentInput" name="Comment" rows="3" placeholder="Add a comment..."></textarea>
                             <button type="submit" id="submitCommentButton">Submit</button>
@@ -305,7 +305,7 @@
                 <!-- Sidebar for Related Videos -->
                 <div class="related-sidebar">
                     <?php foreach ($data['relevant'] as $item): if (isset($item->MediaType)): ?>
-                        <div class="related-video" onclick="window.location.href='<?=ROOT?>/Child/resource?MediaID=<?= $item->MediaID ?>'">
+                        <div class="related-video" onclick="window.location.href='<?=ROOT?>/Child/Resource?MediaID=<?= $item->MediaID ?>'">
                             <div class="thumbnail">
                                 <?php if ($item->MediaType === "Image"): ?>
                                     <img alt="<?= htmlspecialchars($item->Title) ?>" class="resource-img" height="150" src="<?= $item->URL ?>" width="150" />
@@ -450,7 +450,7 @@
                 commentDiv.remove();
 
                 // Send AJAX request to delete from database
-                fetch('<?= ROOT ?>/Child/video/Delete_Comment', {
+                fetch('<?= ROOT ?>/Child/Resource/Delete_Comment', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -476,7 +476,7 @@
 
             // Change form action to send to Edit_Comment
             const form = commentSection.querySelector('form');
-            form.action = "<?= ROOT ?>/Child/video/Edit_Comment";
+            form.action = "<?= ROOT ?>/Child/Resource/Edit_Comment";
 
             // Remove old hidden input if exists
             let oldHiddenInput = document.getElementById('editCommentID');
@@ -591,7 +591,7 @@
                     thumbsUpButton.classList.remove('liked');
                 }
 
-                fetch('<?= ROOT ?>/Child/video/like', {
+                fetch('<?= ROOT ?>/Child/Resource/like', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -618,7 +618,7 @@
                 } else {
                     heartButton.classList.add('added');
                 }
-                fetch('<?= ROOT ?>/Child/video/whishlist', {
+                fetch('<?= ROOT ?>/Child/Resource/whishlist', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
