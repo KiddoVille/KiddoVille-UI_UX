@@ -133,15 +133,21 @@
     padding: 10px;
     border-radius: 10px;
     position: relative;
+    cursor: pointer;
 }
 .chat-window .messages .message.sent .text {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #90caf9;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    border: 2px solid grey;
 }
 .chat-window .messages .message.received .text {
     margin-left: 15px;
     background-color: #e0f7fa;
     color: #000;
+    border: 2px solid grey;
 }
 .chat-window .messages .message .time2 {
     font-size: 10px;
@@ -210,8 +216,7 @@
 .upload-container {
     position: fixed;
     bottom: -100%;
-    left: 0;
-    right: 0;
+    left: 110px;
     background-color: #fff;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     transition: bottom 0.5s ease;
@@ -226,10 +231,10 @@
     height: 400px;
     justify-content: center;
 }
-.upload-container.active {
+.upload-container.active2 {
     bottom: 0;
 }
-#file-upload.active{
+#file-upload.active2{
     display: none;
 }
 .upload-header {
@@ -351,6 +356,48 @@
 }
 .upload-buttons .done:hover {
     background-color: #0056b3;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.file-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.file-item i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.file-item p {
+    font-size: 14px;
+    color: #333;
+}
+
+.file-item small {
+    font-size: 12px;
+    color: gray;
+}
+
+.file-item button {
+    font-size: 20px;
+    color: red;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
 }
 
 .blur{
@@ -488,10 +535,215 @@ h1 {
     background-color:rgb(163, 209, 237);
 }
 
-.empty-chat-message {
-    text-align: center;
-    font-size: 18px;
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    right: -10px; /* Adjust for proper alignment */
+    top: 80%;
+    display: flex;
+}
+
+.online {
+    background-color: green;
+}
+
+.offline {
+    background-color: red;
+}
+
+.last-seen-container {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Space between dot and text */
+}
+
+.message-status {
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 5px;
+    color: black;
+}
+
+/* Status styles */
+.status-sent {
+    color: black; /* Single check (sent) */
+}
+
+.status-delivered {
+    color: black; /* Double checks (delivered) */
+}
+
+.status-seen {
+    color: #34b7f1; /* Blue double checks (seen) */
+}
+
+.status-deleted {
+    color: red;
     font-weight: bold;
-    color: #666;
-    margin-top: 20px;
+}
+
+/* Deleted messages */
+.deleted-message {
+    font-style: italic;
+    color: black;
+}
+
+/* Edited messages */
+.edited {
+    font-size: 10px;
+    color: #777;
+    font-style: italic;
+    margin-left: 5px;
+}
+
+.status-seen{
+    color: black;
+}
+
+.status-seen{
+    display: flex;
+    justify-content: right;
+}
+
+.status-sent{
+    display: flex;
+    justify-content: right;
+}
+
+.time-status-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.sent .text p{
+    margin: 0px;
+    text-align: right;
+}
+
+.received .text p{
+    margin: 0px;
+    text-align: left;
+}
+
+#file-list {
+    max-height: 200px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+#file-list::-webkit-scrollbar {
+    display: none; /* Hides scrollbar for Chrome, Safari, and Edge */
+}
+
+.sent-file {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sent-download-btn {
+    display: flex;
+    align-items: center;
+}
+
+.sent-download-btn i {
+    font-size: 20px;  /* Adjust the icon size */
+    color: #007bff;
+    margin-left: 5px;
+    margin-right: 15px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Received message file container: button on the right */
+.received-file {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.received-download-btn {
+    display: flex;
+    align-items: center;
+}
+
+.received-download-btn i {
+    font-size: 20px;  /* Adjust the icon size */
+    color: #007bff;
+    margin-left: 15px;
+    margin-right: 5px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Add some styling for the download button for consistency */
+.download-btn {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-btn i {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+/* Hover effect for the download button */
+.download-btn:hover i {
+    flex-grow: 1.1;
+}
+
+/* Styling for image, audio, video */
+img, audio, video {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sent-download-btn i:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Stronger shadow on hover */
+}
+
+.received-download-btn i:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Stronger shadow on hover */
+}
+
+.popup {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 120px;
+}
+
+.popup button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+    text-align: left;
+}
+
+.popup button:hover {
+    background: #f0f0f0;
+    border-radius: 5px;
+}
+
+.popup button i {
+    font-size: 16px;
 }

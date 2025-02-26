@@ -2,6 +2,7 @@
 
     namespace Controller;
     use App\Helpers\SidebarHelper;
+    use App\Helpers\FileHelper;
     use DateTime;
 
     defined('ROOTPATH') or exit('Access denied');
@@ -66,6 +67,7 @@
 
             header('Content-Type: application/json');
             $request = json_decode(file_get_contents('php://input'), true);
+            $ReceiverName = isset($request['Name'])? $request['Name'] : null;
 
             $session = new \Core\Session;
             $assignMaidModal = new \Modal\AssignMaid;
@@ -263,10 +265,27 @@
             unset($conversation); // Avoid reference issues
             
             // Now, sort the conversations based on the most recent message (in descending order)
-            usort($conversations, function($a, $b) {
-                // Compare by lastMessageDateTime
+            usort($conversations, function ($a, $b) {
+                // Prioritize "canmessage" (true should be at the top)
+                if ($a['canmessage'] !== $b['canmessage']) {
+                    return $b['canmessage'] - $a['canmessage']; // true (1) comes first, false (0) later
+                }
+
+                // If "canmessage" is the same, sort by lastMessageDateTime in descending order
                 return strtotime($b['lastMessageDateTime']) - strtotime($a['lastMessageDateTime']);
             });
+
+            if (isset($ReceiverName) && !empty($ReceiverName)) {
+                // Filter conversations where partner name contains the search term (case-insensitive)
+                $filteredConversations = array_filter($conversations, function($conversation) use ($ReceiverName) {
+                    return stripos($conversation['partnerName'], $ReceiverName) !== false;
+                });
+                
+                // Use the filtered results if any matches were found
+                if (!empty($filteredConversations)) {
+                    $conversations = array_values($filteredConversations); // Reset array keys
+                }
+            }
 
             if (isset($conversations)) {
                 $response = ['success' => true, 'message' => $conversations];
@@ -296,13 +315,14 @@
             $ParentModal = new \Modal\ParentUser;
 
             $User = $UserModal->first(["UserID" => $UserID]);
+            $ChildID  = $session->get("CHILDID");
 
             switch ($User->Role) {
                 case 'Teacher':
                     $PartnerData = $TeacherModal->first(["UserID" => $UserID]);
                     $PartnerID = $PartnerData->TeacherID;
-                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $UserID, "ReceiverID" => $PartnerID, "SenderRole"=> "Teacher"]);
-                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $UserID, "SenderID" => $PartnerID, "ReceiverRole"=> "Teacher" ]);
+                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $ChildID, "ReceiverID" => $PartnerID,"SenderRole"=> "Child",  "ReceiverRole"=> "Teacher" ]);
+                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $ChildID, "SenderID" => $PartnerID,"ReceiverRole"=> "Child", "SenderRole"=> "Teacher" ]);
         
                     $ChatHistory = array_merge((array)$sentHistory, (array)$receivedHistory);
                     $ChatHistory = array_filter($ChatHistory, fn($message) => $message !== false);
@@ -358,6 +378,11 @@
             }
             
             // $ChatHistory = array_values($uniqueMessages);
+            if(!empty($ChatHistory)){
+                usort($ChatHistory, function ($a, $b) {
+                    return strtotime($a->DateTime) - strtotime($b->DateTime);
+                });
+            }
 
             if (isset($ChatHistory) && !empty($ChatHistory)) {
                 $response = ['success' => true, 'message' => $ChatHistory];
@@ -648,16 +673,6 @@
                     'ReceiverRole' => $ReceiverRole,
                     'DateTime'     => $DateTime,
                 ];
-
-                
-                if (isset($Image)) {
-                    $ImageTmpPath = $Image['tmp_name'];
-                    $ImageType = $Image['type'];
-                    $ImageData = file_get_contents($ImageTmpPath);
-            
-                    $data['Image'] = $ImageData;
-                    $data['ImageType'] = $ImageType;
-                }
         
                 $inserted = $MessageModal->insert($data);
         
@@ -680,7 +695,168 @@
                 ];
             }
             echo json_encode($response);
+        } 
+        
+        public function uploadFiles() {
+            $UserModal = new \Modal\User;
+            $MessageModal = new \Modal\Chat;
+            $TeacherModal = new \Modal\Teacher;
+            $MaidModal = new \Modal\Maid;
+            $ChildModal = new \Modal\Child;
+            $DoctorModal = new \Modal\Doctor;
+            $ManagerModal = new \Modal\Manager;
+            $ReceptionistModal = new \Modal\Receptionist;
+            $ParentModal = new \Modal\ParentUser;
+            $FileHelper = new FileHelper;
+        
+            // Check if files are uploaded
+            if (isset($_FILES['files']) && !empty($_FILES['files']['name'][0])) {
+                $uploadedFiles = [];
+        
+                $ChildID = $_POST['ChildID'] ?? null;
+                $ReceiverID = $_POST['ReceiverID'] ?? null;
+        
+                // Fetch receiver's role **before** the loop
+                $user = $UserModal->first(["UserID" => $ReceiverID]);
+                $ReceiverRole = $user->Role ?? "Unknown";
+        
+                switch ($ReceiverRole) {
+                    case 'Teacher':
+                        $PartnerData = $TeacherModal->first(["UserID" => $ReceiverID]);
+                        $ReceiverID = $PartnerData->TeacherID ?? $ReceiverID;
+                        break;
+                    case 'Maid':
+                        $PartnerData = $MaidModal->first(["UserID" => $ReceiverID]);
+                        $ReceiverID = $PartnerData->MaidID ?? $ReceiverID;
+                        break;
+                    case 'Doctor':
+                        $PartnerData = $DoctorModal->first(["UserID" => $ReceiverID]);
+                        $ReceiverID = $PartnerData->DoctorID ?? $ReceiverID;
+                        break;
+                    case 'Manager':
+                        $PartnerData = $ManagerModal->first(["UserID" => $ReceiverID]);
+                        $ReceiverID = $PartnerData->ManagerID ?? $ReceiverID;
+                        break;
+                    case 'Receptionist':
+                        $PartnerData = $ReceptionistModal->first(["UserID" => $ReceiverID]);
+                        $ReceiverID = $PartnerData->ReceptionistID ?? $ReceiverID;
+                        break;
+                    default:
+                        break;
+                }
+        
+                $now = new DateTime();
+                $DateTime = $now->format('Y-m-d H:i:s');
+                $SenderRole = "Child";
+        
+            //     // Loop through the uploaded files
+                foreach ($_FILES['files']['name'] as $key => $fileName) {
+                    //Store the file
+                    $fileData = $FileHelper->store_file([
+                        'name'     => $_FILES['files']['name'][$key],
+                        'type'     => $_FILES['files']['type'][$key],
+                        'tmp_name' => $_FILES['files']['tmp_name'][$key],
+                        'error'    => $_FILES['files']['error'][$key],
+                        'size'     => $_FILES['files']['size'][$key]
+                    ], 'Messager');
+        
+                    if (!$fileData) {
+                        continue; // Skip if upload failed
+                    }
+        
+                    //Get file URL & type
+                    $fileURL = $fileData['url'] ?? null;
+                    $fileName = $fileData['name'] ?? null;
+                    $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+                    $fileType = $this->getFileType($fileExtension);
+        
+                    // Prepare data to insert into the MessageModal
+                    $insertData = [
+                        'SenderID'     => $ChildID,      
+                        'ReceiverID'   => $ReceiverID, // Now it's constant
+                        'URL'          => $fileURL,
+                        'FileType'     => $fileType,
+                        'FileName'     => $fileName,
+                        'SenderRole'   => $SenderRole,
+                        'ReceiverRole' => $ReceiverRole,
+                        'DateTime'     => $DateTime,
+                    ];
+        
+                    //Insert the data into the MessageModal
+                    $MessageModal->insert($insertData);
+        
+                    // Store the file info in the uploadedFiles array (for response)
+                    $uploadedFiles[] = $fileData;
+                }
+        
+                // Return JSON response
+                echo json_encode([
+                    'success' => true,
+                    'files' => $uploadedFiles,
+                    'data' => [
+                        'ChildID' => $ChildID,
+                        'ReceiverID' => $ReceiverID,
+                        'ReceiverRole' => $ReceiverRole
+                    ]
+                ]);
+            } else {
+                // No files uploaded
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'No files uploaded.'
+                ]);
+            }
         }        
+        
+        private function getFileType($fileExtension) {
+            $imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            $videoExtensions = ['mp4', 'avi', 'mov', 'mkv'];
+            $audioExtensions = ['mp3', 'wav', 'ogg'];
+            $documentExtensions = ['pdf', 'docx', 'txt', 'html', 'cpp', 'xlsx', 'ppt'];
+        
+            // Convert extension to lowercase
+            $fileExtension = strtolower($fileExtension);
+        
+            // Check if the file extension matches known image extensions
+            if (in_array($fileExtension, $imageExtensions)) {
+                return 'image';
+            }
+        
+            // Check if the file extension matches known video extensions
+            if (in_array($fileExtension, $videoExtensions)) {
+                return 'video';
+            }
+        
+            // Check if the file extension matches known audio extensions
+            if (in_array($fileExtension, $audioExtensions)) {
+                return 'audio';
+            }
+        
+            // Check if the file extension matches known document extensions
+            if (in_array($fileExtension, $documentExtensions)) {
+                return 'document';
+            }
+        
+            // If no match found, return the extension itself (in case it's not handled)
+            return $fileExtension;
+        }
+        
+        public function deletechat(){
+            header('Content-Type: application/json');
+            $request = json_decode(file_get_contents('php://input'), true);
+
+            $ChatID = $request['ChatID'];
+
+            $ChatModal = new \Modal\Chat;
+            $ChatModal->delete($ChatID, "ChatID");
+
+            $response = [
+                'success' => true,
+                'message' => 'Message deleted successfully.',
+            ];
+
+            echo json_encode($response);
+        }
 
         public function removechildsession()
         {
