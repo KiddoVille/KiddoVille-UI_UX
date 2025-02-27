@@ -65,6 +65,11 @@
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
+                    </a>
+                </li>
                 <li class="selected" style="margin-top: 40px;">
                     <a href="<?=ROOT?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>

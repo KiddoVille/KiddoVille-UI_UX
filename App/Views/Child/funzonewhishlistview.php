@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzonewhishlist.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/deletepopup.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
@@ -67,6 +68,11 @@
                 <li class="selected" style="margin-top: 40px;">
                     <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -234,6 +240,15 @@
                 </div> -->
             </div>
         </div>
+        <div id="deletePopup" class="delete-popup-overlay" style="position: fixed;">
+            <div class="delete-popup-content" style="margin-top:340px; margin-left: 700px;">
+                <p>Are you sure you want to delete this message?</p>
+                <div class="delete-popup-buttons">
+                    <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm">Yes</button>
+                    <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel">No</button>
+                </div>
+            </div>
+        </div>
         <div id="reminder-modal" class="pickup-popup" style="display: none; width: 270px; position: fixed; margin-top:240px; margin-left: 600px;">
             <form id="ReminderForm" method="POST" action="<?=ROOT?>/child/funzonewhishlist/AddReminders">
                 <div class="top-con">
@@ -389,29 +404,51 @@
                 removeButton.classList.add("icon-btn", "remove-btn");
                 removeButton.innerHTML = '<i class="fas fa-trash" style=" cursor: pointer"></i>';
 
-                if (removeButton.onclick = function() {
-                        console.log("delete WhishlistID", item.WishlistID);
-                        fetch('<?= ROOT ?>/Child/Funzonewhishlist/delete_whish', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    WishlistID: item.WishlistID,
-                                })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    console.log("Fetched media data:", data.data);
-                                } else {
-                                    console.error("Failed to fetch media data:", data.message);
-                                }
-                            })
-                            .catch(error => console.error("Error:", error));
-                    })
+                removeButton.onclick = function() {
+                    // Show the confirmation popup
+                    const deletePopup = document.getElementById('deletePopup');
+                    deletePopup.style.display = 'block'; // Display the popup
 
-                    iconContainer.appendChild(watchButton);
+                    // Handle the "Yes" (confirm) button
+                    document.getElementById('confirmDelete').onclick = function() {
+                        console.log("delete WhishlistID", item.WishlistID);
+
+                        // Send the delete request if confirmed
+                        fetch('<?= ROOT ?>/Child/Funzonewhishlist/delete_whish', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                WishlistID: item.WishlistID,
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                const typePicker = document.getElementById('typePicker');
+                                fetchMedia(typePicker.value);  // Refresh media list after successful deletion
+                                console.log("Fetched media data:", data.data);
+                            } else {
+                                console.error("Failed to fetch media data:", data.message);
+                            }
+
+                            // Close the popup after action is completed
+                            deletePopup.style.display = 'none';
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            deletePopup.style.display = 'none'; // Hide popup on error
+                        });
+                    };
+
+                    // Handle the "No" (cancel) button
+                    document.getElementById('cancelDelete').onclick = function() {
+                        deletePopup.style.display = 'none'; // Close the popup if canceled
+                    };
+                };
+
+                iconContainer.appendChild(watchButton);
                 iconContainer.appendChild(removeButton);
 
                 // Media Content

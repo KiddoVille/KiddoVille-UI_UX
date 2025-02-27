@@ -18,7 +18,7 @@
             'SenderRole',
             'ReceiverRole',
             'DateTime',
-            'deleted',
+            'Deleted',
             'Edited',
             'Seen'
         ];

@@ -848,7 +848,25 @@
             $ChatID = $request['ChatID'];
 
             $ChatModal = new \Modal\Chat;
-            $ChatModal->delete($ChatID, "ChatID");
+            $ChatModal->update(["ChatID" => $ChatID] , ["Deleted" => true]);
+
+            $response = [
+                'success' => true,
+                'message' => 'Message deleted successfully.',
+            ];
+
+            echo json_encode($response);
+        }
+
+        public function editchat(){
+            header('Content-Type: application/json');
+            $request = json_decode(file_get_contents('php://input'), true);
+
+            $ChatID = $request['ChatID'];
+            $Message = $request['Message'];
+
+            $ChatModal = new \Modal\Chat;
+            $ChatModal->update(["ChatID" => $ChatID] , ["Edited" => true, "Message" => $Message]);
 
             $response = [
                 'success' => true,

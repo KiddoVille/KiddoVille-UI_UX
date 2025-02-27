@@ -443,10 +443,6 @@ input[type="range"] {
     color: white !important;
 }
 
-.sidebar ul li {
-    margin-top: 10px !important;
-}
-
 .View-Package {
     background-color: white;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);

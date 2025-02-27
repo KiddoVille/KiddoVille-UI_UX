@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Message.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/deletepopup.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Upload-file.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/message.js?v=<?= time() ?>"></script> -->
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"> </script>
@@ -25,7 +26,7 @@
                 <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
             </div>
             <ul>
-                <li class="selected first">
+                <li class="hover-effect unselected" style="margin-top: -20px;">
                     <a href="<?= ROOT ?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
@@ -63,6 +64,11 @@
                 <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
+                    </a>
+                </li>
+                <li class="selected" style="margin-top: 40px;">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -221,9 +227,13 @@
             </div>
             <div class="input-bar" id="input-bar">
                 <button id="paperclip-btn" style="margin-right: 10px;"><i class="fa fa-paperclip"></i></button>
+                <button id="edit-close-btn" style="margin-right: 10px; font-size: 20px; display: none;"><i class="fas fa-times"></i></button>
                 <input placeholder="Enter message" type="text" id="message-value" />
-                <button>
-                    <i class="fas fa-paper-plane" id="send-btn"></i>
+                <button id="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button style="display: none;" id="edit-send-btn">
+                    <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
             <div id="upload-container" class="upload-container">
@@ -258,6 +268,16 @@
             </div>
         </div>
 
+        <div id="deletePopup" class="delete-popup-overlay">
+            <div class="delete-popup-content">
+                <p>Are you sure you want to delete this message?</p>
+                <div class="delete-popup-buttons">
+                    <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm">Yes</button>
+                    <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel">No</button>
+                </div>
+            </div>
+        </div>
+        
         <!-- profile card -->
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
@@ -277,9 +297,15 @@
     </div>
 </body>
 <script>
-    const MyID = <?= json_encode($data['Child']); ?>
+    const MyID = <?= json_encode($data['Child']); ?>;
+    const paperclipBtn = document.getElementById('paperclip-btn');
+    const editclose = document.getElementById('edit-close-btn');
+    const editsend = document.getElementById('edit-send-btn');
+    const sendbtn = document.getElementById('send-btn');
+    const messagevalue = document.getElementById('message-value');
+    let selectedMessage = null;
 
-    function get_users(Name) {
+    function get_users(Name = '') {
         fetch("<?= ROOT ?>/Child/Message/get_users", {
                 method: "POST",
                 body: JSON.stringify({
@@ -472,6 +498,13 @@
             }
 
             console.log(partnerUserID);
+            paperclipBtn.style.display = 'flex';
+            sendbtn.style.display = 'flex';
+            editclose.style.display = 'none';
+            editsend.style.display = 'none';
+
+            messagevalue.value = '';
+            selectedMessage = null;
             senduser(partnerUserID);
         }
     });
@@ -555,8 +588,9 @@
                 textDiv.appendChild(deletedMsg);
             } 
             else if (!msg.Message && msg.FileType) {
-                textDiv.classList.add("file");
-                // File handling
+                if(isSent){
+                    textDiv.classList.add("file");
+                }
                 let mediaElement;
                 if (msg.FileType.startsWith("image") || msg.FileType.startsWith("audio") || msg.FileType.startsWith("video") || msg.FileType.startsWith("document")) {
                     // Create a wrapper for file and download button
@@ -618,7 +652,9 @@
             } 
             else {
                 // Text message
-                textDiv.classList.add("word");
+                if(isSent){
+                    textDiv.classList.add("word");
+                }
                 const messagePara = document.createElement("p");
                 messagePara.textContent = msg.Message;
                 textDiv.appendChild(messagePara);
@@ -693,10 +729,13 @@
         const person = document.getElementById('persons');
         const chat = document.getElementById('chat-window');
         const userlist = document.getElementById('sidebar');
+        const editclose = document.getElementById('edit-close-btn');
+        const editsend = document.getElementById('edit-send-btn');
 
         person.addEventListener('change' , () => {
             let Name = person.value;
             get_users(Name);
+            person.value = '';
         }) 
 
         cancel.addEventListener('click', () => {
@@ -860,8 +899,7 @@
         });
         dropArea.addEventListener('drop', handleDrop, false);
 
-        let Name = person.value;
-        get_users(Name);
+        get_users();
 
         const persons = document.querySelectorAll('.sidebar-chat');
         const chatwindow = document.getElementById('chat-window');
@@ -893,9 +931,17 @@
                 .then(response => response.json()) // Parse the JSON response
                 .then(data => {
                     if (data.success) {
-                        // Handle successful upload
-                        let Name = person.value;
-                        get_users(Name);
+                        const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
+                        console.log(activePartnerUserID);
+                        get_users();
+                        setTimeout (() => {
+                            if (activePartnerUserID) {
+                                const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
+                                if (newActiveElement) {
+                                    newActiveElement.classList.add('active');
+                                }
+                            }
+                        }, 2000);
                         senduser(activePartnerUserID);
                         const fileInput = document.querySelector('input[type="file"]'); // Make sure this targets the correct input
                         if (fileInput) {
@@ -938,8 +984,17 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    let Name = person.value;
-                    get_users(Name);
+                    const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
+                    console.log(activePartnerUserID);
+                    get_users();
+                    setTimeout (() => {
+                        if (activePartnerUserID) {
+                            const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
+                            if (newActiveElement) {
+                                newActiveElement.classList.add('active');
+                            }
+                        }
+                    }, 1000);
                     senduser(activePartnerUserID);
                     console.log('Message sent successfully:', data);
                 })
@@ -964,10 +1019,8 @@
         `;
         document.body.appendChild(popup);
 
-        let selectedMessage = null;
-
         document.addEventListener("click", (e) => {
-            const messageElement = e.target.closest(".word");  // Find the closest message div
+            const messageElement = e.target.closest(".word");
             const fileElement = e.target.closest(".file");
 
             if (fileElement) {
@@ -997,24 +1050,93 @@
         }
 
         document.getElementById("editBtn").addEventListener("click", () => {
+            paperclipBtn.style.display = 'none';
+            sendbtn.style.display = 'none';
+            editclose.style.display = 'flex';
+            editsend.style.display = 'flex';
+
             if (selectedMessage) {
-                let newText = prompt("Edit Message:", selectedMessage.innerText);
-                if (newText !== null) selectedMessage.innerText = newText;
+                // Get the message text without the "Edited" span
+                const messageText = selectedMessage.querySelector("p")?.textContent.replace(/Edited$/, ''); // Remove "Edited" text if it exists
+                
+                if (messageText) {
+                    messagevalue.value = messageText; // Set the message without the "Edited" text
+                    messagevalue.focus(); // Focus on the input field
+                    messagevalue.setSelectionRange(messagevalue.value.length, messagevalue.value.length); // Move cursor to the end
+                }
             }
-            popup.style.display = "none";
-        });
+            console.log(messagevalue.value); // Check if it logs correctly
+            });
+
+        editclose.addEventListener('click', function(){
+            paperclipBtn.style.display = 'flex';
+            sendbtn.style.display = 'flex';
+            editclose.style.display = 'none';
+            editsend.style.display = 'none';
+
+            messagevalue.value = '';
+            selectedMessage = null;
+
+        })
+
+        editsend.addEventListener('click', function(){
+            paperclipBtn.style.display = 'flex';
+            sendbtn.style.display = 'flex';
+            editclose.style.display = 'none';
+            editsend.style.display = 'none';
+
+            let Message = messagevalue.value; // Set the value
+            const ChatID = selectedMessage.getAttribute("data-chatid");
+            const  p = selectedMessage.querySelector("p");
+            console.log(Message);
+            console.log(ChatID);
+
+            if (ChatID && Message) {
+                    fetch("<?=ROOT?>/Child/Message/editchat", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            ChatID: ChatID,
+                            Message: Message
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (p) {
+                                p.textContent = Message;
+                                let span = document.createElement("span");
+                                span.classList.add("edited");
+                                span.textContent = " Edited";
+                                p.appendChild(span);
+                            }
+                        } else {
+                            alert("Failed to delete message.");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                }
+
+            messagevalue.value = '';
+            selectedMessage = null;
+            
+        })
 
         document.getElementById("deleteBtn").addEventListener("click", () => {
             if (selectedMessage) {
+                document.getElementById("deletePopup").style.display = "flex"; // Show popup
+            }
+        });
+
+        // Confirm Deletion
+        document.getElementById("confirmDelete").addEventListener("click", () => {
+            if (selectedMessage) {
                 const chatID = selectedMessage.getAttribute("data-chatid");
-                console.log(chatID);
 
                 if (chatID) {
                     fetch("<?=ROOT?>/Child/Message/deletechat", {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ ChatID: chatID })
                     })
                     .then(response => response.json())
@@ -1029,8 +1151,14 @@
                     .catch(error => console.error("Error:", error));
                 }
             }
-            popup.style.display = "none";
+            document.getElementById("deletePopup").style.display = "none"; // Hide popup
         });
+
+        // Cancel Deletion
+        document.getElementById("cancelDelete").addEventListener("click", () => {
+            document.getElementById("deletePopup").style.display = "none"; // Hide popup
+        });
+
     });
 </script>
 
