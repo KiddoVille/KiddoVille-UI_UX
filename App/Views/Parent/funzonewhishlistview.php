@@ -107,17 +107,10 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="first
-                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
-                                    echo "select-child";
-                                } ?>
-                            "
-                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                    style="margin-left: -20px;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -562,6 +555,10 @@
                 dateTimeDiv.appendChild(reminderDateDiv);
                 dateTimeDiv.appendChild(reminderTimeDiv);
 
+                const childNameDiv = document.createElement("p");
+                childNameDiv.classList.add("format");
+                childNameDiv.textContent = `child - ${item.ChildName}`; 
+
                 // Reminder Toggle
                 const reminderToggleDiv = document.createElement("div");
                 reminderToggleDiv.classList.add("reminder-toggle");
@@ -616,11 +613,13 @@
                 reminderToggleDiv.appendChild(reminderLabel);
 
                 // Append all elements to the item div
+
                 itemDiv.appendChild(mediaContent);
                 itemDiv.appendChild(title);
                 itemDiv.appendChild(description);
                 itemDiv.appendChild(format);
                 itemDiv.appendChild(dateTimeDiv);
+                itemDiv.appendChild(childNameDiv);
                 itemDiv.appendChild(reminderToggleDiv);
 
                 // Append item to grid
