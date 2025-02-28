@@ -193,7 +193,7 @@
                         <h2 style="margin-top: -10px !important; margin-bottom: 5px;"> Child Reports </h2>
                         <hr style="margin-bottom: 30px;">
                     </div>
-                    <input type="date" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
+                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
                     <select id="childPicker">
                         <option Value="All" selected> All </option>
                         <?php foreach ($data['children'] as $child): ?>

@@ -201,7 +201,7 @@
                 <div class="child-history" style="width: 760px !important; height: 430px !important; margin-top: 0px;">
                     <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Child History </h2>
                     <hr>
-                    <input type="date" id="datePicker" style="width: 200px">
+                    <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
                     <table id="historyTable">
                         <thead>
                             <tr>

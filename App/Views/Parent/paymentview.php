@@ -186,7 +186,7 @@
                         <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Payment History </h2>
                         <hr>
                         <div class="filters">
-                            <input type="date" id="datePicker" style="width: 200px">
+                            <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
                             <select id="modePicker" style="margin-right: 100px; width: 200px">
                                 <option value="All" hidden>Mode</option>
                                 <option value="All">All</option>

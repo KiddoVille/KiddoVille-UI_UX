@@ -184,8 +184,6 @@ class History
     {
         // Set the response content type to JSON
         header('Content-Type: application/json');
-
-        // Get the request data (date) from the incoming JSON request body
         $requestData = json_decode(file_get_contents("php://input"), true);
 
         // Default to today's date if no 'date' is provided, or if 'date' is 'null' or 'All'

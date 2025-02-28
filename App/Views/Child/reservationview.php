@@ -424,7 +424,7 @@
                         <hr>
                     </div>
                     <div class="filters">
-                        <input type="date" id="datePicker" style="width: 200px">
+                        <input type="date" max= "<?= date('Y-m-d') ?>" id="datePicker" style="width: 200px">
                         <select id="statusPicker" style="margin-right: 25px; width: 200px; margin-left: -70px; margin-top: 10px;">
                             <option value="">All</option>
                             <option value="Approved">Approved</option>

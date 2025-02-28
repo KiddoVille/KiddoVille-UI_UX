@@ -71,11 +71,6 @@
                 </a>
             </li>
             <li class="hover-effect unselected">
-                <a href="<?= ROOT ?>/Parent/Message">
-                    <i class="fas fa-comment"></i> <span>Messager</span>
-                </a>
-            </li>
-            <li class="hover-effect unselected">
                 <a href="<?= ROOT ?>/Parent/payment">
                     <i class="fas fa-credit-card"></i> <span>Payments</span>
                 </a>

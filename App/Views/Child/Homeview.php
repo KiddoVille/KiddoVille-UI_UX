@@ -253,7 +253,7 @@
                             <h3 style="margin-top: 0px; margin-bottom: 5px;">Subject Marks</h3>
                             <hr>
                             <div class="filters">
-                                <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                                <input type="date" max= "<?=(date('Y-m-d')); ?>" id="datePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
                             </div>
                             <table style="width: 100%;">
                                 <thead>
@@ -317,11 +317,11 @@
                             <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px; display: <?=isset($data['stat2']['nochild'])? 'none': 'flex' ?>">
                                 <div style="display: flex; flex-direction: row;">
                                     <h4> Time : </h4>
-                                    <p style="margin-top: 12px;  margin-left: 5px;"><?= isset($data['stat2']['Time'])? $data['stat2']['Time']: '' ?> </p>
+                                    <p style="margin-top: 23px;"><?= isset($data['stat2']['Time'])? $data['stat2']['Time']: '' ?> </p>
                                 </div>
                                 <div style="display: flex; flex-direction: row;">
                                     <h4 style="margin-top: -10px; white-space: nowrap;"> Person : </h4>
-                                    <p style="margin-top: -18px; margin-left: 5px;"> <?= isset($data['stat2']['Person'])? $data['stat2']['Person']: '' ?> </p>
+                                    <p style="margin-top: -8px; margin-left: 5px;"> <?= isset($data['stat2']['Person'])? $data['stat2']['Person']: '' ?> </p>
                                 </div>
                             </div>
                             <div style="display: flex; flex-direction: row; display: <?=isset($data['stat2']['nochild'])? 'none': 'flex' ?>">

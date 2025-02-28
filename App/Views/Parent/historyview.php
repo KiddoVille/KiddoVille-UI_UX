@@ -167,7 +167,7 @@
                 <div class="child-history" style="width: 760px !important; height: 420px; margin-top: 0px;">
                     <h2 style="margin-top: 10px !important; margin-bottom: 2px;">Child Attendance</h2>
                     <hr>
-                    <input type="date" id="datePicker" value="" style="width: 200px; margin-right: 20px;">
+                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" value="" style="width: 200px; margin-right: 20px;">
                     <select id="childPicker">
                         <option Value="All" selected> All </option>
                         <?php foreach ($data['children'] as $child): ?>
