@@ -26,66 +26,8 @@
                 $data = $data + $data2;
             }
 
-            $data['media'] = $this->lol();
             $this->view('Child/funzonehistory', $data);
-        }
-
-        public function lol() {
-            $Data = [];
-            $type = "All";
-        
-            $Session = new \core\session;
-            $ChildID = $Session->get("CHILDID");
-        
-            $WhishlistModal = new \Modal\MediaHistory;
-            $MediaModal = new \Modal\Media;
-            $Data = $WhishlistModal->where_order_desc(["ChildID" => $ChildID]);
-        
-            $groupedData = [];
-        
-            foreach ($Data as &$row) {
-                if ($type !== 'All') {
-                    $Media = $MediaModal->first(["MediaID" => $row->MediaID, "MediaType" => $type]);
-                } else {
-                    $Media = $MediaModal->first(["MediaID" => $row->MediaID]);
-                }
-        
-                if ($Media) {
-                    $row->MediaType = !empty($Media->MediaType) ? $Media->MediaType : '';
-                    $row->URL = !empty($Media->URL) ? $Media->URL : '';
-                    $row->Image = !empty($Media->Image) ? $Media->Image : '';
-                    $row->ImageType = !empty($Media->ImageType) ? $Media->ImageType : '';
-        
-                    // $base64Image = (!empty($row->ImageData) && is_string($row->ImageData))
-                    //     ? 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image)
-                    //     : null;
-        
-                    // if ($base64Image) {
-                    //     $row->Image = $base64Image;
-                    // }
-        
-                    // $row->Title = !empty($Media->Title) ? $Media->Title : '';
-                    // $row->Description = !empty($Media->Description) ? $Media->Description : '';
-                    // $row->Format = !empty($Media->Format) ? $Media->Format : '';
-        
-                    // Convert and format date
-                    $date = date("Y-m-d", strtotime($row->DateTime)); // Assuming `CreatedAt` is the timestamp
-        
-                    // if ($date == date("Y-m-d")) {
-                    //     $formattedDate = "Today";
-                    // } elseif ($date == date("Y-m-d", strtotime("-1 day"))) {
-                    //     $formattedDate = "Yesterday";
-                    // } elseif (date("Y", strtotime($date)) == date("Y")) {
-                    //     $formattedDate = date("M d", strtotime($date)); // Jan 02
-                    // } else {
-                    //     $formattedDate = date("Y/m/d", strtotime($date)); // 2024/12/01
-                    // }
-        
-                    // $groupedData[$formattedDate][] = $row;
-                }
-            }
-            return $Data;
-        }        
+        }    
 
         public function store_media(){
             header('Content-Type: application/json');
@@ -153,6 +95,10 @@
                     $groupedData[$formattedDate][] = $row;
                 }
             }
+
+            uksort($groupedData, function ($a, $b) {
+                return strtotime($b) - strtotime($a);
+            });        
 
             $groupedData['selected_date'] = $filterDate;
         

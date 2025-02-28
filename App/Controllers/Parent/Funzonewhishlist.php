@@ -69,6 +69,16 @@
                     }
                 }
             }
+
+            $Data = array_filter($Data);
+            $Data = array_values($Data);
+
+            usort($Data, function ($a, $b) {
+                $dateTimeA = strtotime(($a['Date'] ?? '') . ' ' . ($a['Time'] ?? ''));
+                $dateTimeB = strtotime(($b['Date'] ?? '') . ' ' . ($b['Time'] ?? ''));
+            
+                return $dateTimeB - $dateTimeA; // Sort descending (newest first)
+            });            
             
             if (empty($Data)) {
                 echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);

@@ -8,187 +8,104 @@
     class FunzoneTasks{
         use MainController;
         public function index(){
-
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child('Parent');
-            $ChildID = $session->get('CHILDID');
     
             $data = [];
             $SidebarHelper = new SidebarHelper();
             $data = $SidebarHelper->store_sidebar();
-    
-            $ChildModal = new \Modal\Child;
-            $select = $ChildModal->first(['ChildID' => $ChildID]);
-            $data['child_id'] = $ChildID;
-    
-            if (!empty($select)) {
-                $data2 = $this->selectedchild($select);
-                $data = $data + $data2;
-            }
 
-            $data['media'] = $this->lol();
             $this->view('Parent/funzonetasks',$data);
-        }
-
-        public function lol(){
-            $type = 'Book';
-
-            $Session = new \core\session;
-            $ChildID = $Session->get("CHILDID");
-        
-            $CompletionModal = new \Modal\TaskCompletion;
-            $MediaModal = new \Modal\Media;
-            $TaskModal = new \Modal\Task;
-            $TeacherModal = new \Modal\Teacher;
-        
-            $today = new \DateTime();
-            $Data = $CompletionModal->where_order_desc(["ChildID" => $ChildID]);
-        
-            foreach ($Data as $key => $row) {
-                $task = $TaskModal->first(["TaskID" => $row->TaskID]);
-        
-                if ($task) {
-                    $row->Deadline = $task->Deadline;
-                    $taskDeadline = new \DateTime($task->Deadline);
-
-                    if ($taskDeadline > $today) {
-                        $Teacher = $TeacherModal->first(["TeacherID" => $task->TeacherID]);
-                        $Media = $MediaModal->first(["MediaID" => $task->MediaID]);
-                        if ($Media) {
-                            // Check MediaType filter
-                            if ($type !== 'All' && $Media->MediaType !== $type) {
-                                unset($Data[$key]); // Skip if MediaType does not match
-                                continue;
-                            }
-        
-                            $row->MediaType = $Media->MediaType ?? '';
-                            $row->Time = $row->Time ?? '';
-                            $row->URL = $Media->URL ?? '';
-                            $row->Image = $Media->Image ?? '';
-                            $row->ImageType = $Media->ImageType ?? '';
-        
-                            // // Convert image to base64 if it exists
-                            if (!empty($row->Image) && !empty($row->ImageType)) {
-                                $row->Image = 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image);
-                            }
-        
-                            $row->Deadline = $task->Deadline?? '';
-                            $row->TeacherName = $Teacher->First_Name?? '';
-                            $row->Image = $Media->Image ?? '';
-                            $row->ImageType = $Media->ImageType ?? '';
-                            $row->Image = 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image);
-                            $row->URL = $Media->URL ?? '';
-                            $row->Title = $Media->Title ?? '';
-                            $row->Description = $Media->Description ?? '';
-                            $row->Format = $Media->Format ?? '';
-                        } else {
-                            unset($Data[$key]);
-                        }
-                    } else {
-                        unset($Data[$key]);
-                    }
-                } else {
-                    unset($Data[$key]);
-                }
-            }
-            $Data = array_values($Data);
-            return $Data;
         }
 
         public function store_tasks() {
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
             
-            $type = $requestData['type']?? 'All';
+            $type = $requestData['type'] ?? 'All';
         
             $Session = new \core\session;
-            $ChildID = $Session->get("CHILDID");
-        
+            $ChildModal = new \Modal\Child;
+            $ParentModal = new \Modal\ParentUser;
             $CompletionModal = new \Modal\TaskCompletion;
             $MediaModal = new \Modal\Media;
             $TaskModal = new \Modal\Task;
             $TeacherModal = new \Modal\Teacher;
         
             $today = new \DateTime();
-            $Data = $CompletionModal->where_order_desc(["ChildID" => $ChildID]);
         
-            foreach ($Data as $key => $row) {
-                $task = $TaskModal->first(["TaskID" => $row->TaskID]);
+            // Get the logged-in User's ID
+            $UserID = $Session->get("USERID");
         
-                if ($task) {
-                    $row->Deadline = $task->Deadline;
-                    $taskDeadline = new \DateTime($task->Deadline);
-
-                    if ($taskDeadline > $today) {
-                        $Teacher = $TeacherModal->first(["TeacherID" => $task->TeacherID]);
-                        $Media = $MediaModal->first(["MediaID" => $task->MediaID]);
-                        if ($Media) {
-                            // Check MediaType filter
-                            if ($type !== 'All' && $Media->MediaType !== $type) {
-                                unset($Data[$key]); // Skip if MediaType does not match
-                                continue;
+            // Find the Parent of the logged-in Child
+            $Parent = $ParentModal->first(["UserID" => $UserID]);
+        
+            // Fetch all children under this Parent
+            $Children = $ChildModal->where_norder(["ParentID" => $Parent->ParentID]);
+        
+            $TaskList = [];
+        
+            foreach ($Children as $Child) {
+                // Fetch all task completions for the current child
+                $Data = $CompletionModal->where_order_desc(["ChildID" => $Child->ChildID]);
+        
+                if (!empty($Data)) {
+                    foreach ($Data as $row) {
+                        $task = $TaskModal->first(["TaskID" => $row->TaskID]);
+        
+                        if ($task) {
+                            $taskDeadline = new \DateTime($task->Deadline);
+        
+                            if ($taskDeadline >= $today) { // Include tasks with today's or future deadline
+                                $Teacher = $TeacherModal->first(["TeacherID" => $task->TeacherID]);
+                                $Media = $MediaModal->first(["MediaID" => $task->MediaID]);
+        
+                                if ($Media) {
+                                    // Check MediaType filter
+                                    if ($type !== 'All' && $Media->MediaType !== $type) {
+                                        continue; // Skip if MediaType does not match
+                                    }
+        
+                                    $taskData = [
+                                        "MediaType" => $Media->MediaType ?? '',
+                                        "Time" => $row->Time ?? '',
+                                        "URL" => $Media->URL ?? '',
+                                        "Image" => $Media->Image ?? '',
+                                        "ImageType" => $Media->ImageType ?? '',
+                                        "MediaID" => $Media->MediaID ?? '',
+                                        "Deadline" => $task->Deadline ?? '',
+                                        "TeacherName" => $Teacher->First_Name ?? '',
+                                        "Title" => $Media->Title ?? '',
+                                        "Description" => $Media->Description ?? '',
+                                        "Format" => $Media->Format ?? '',
+                                        "ChildName" => $Child->First_Name // Add child's name
+                                    ];
+        
+                                    // Convert image to base64 if it exists
+                                    if (!empty($taskData["Image"]) && !empty($taskData["ImageType"])) {
+                                        $taskData["Image"] = 'data:' . $taskData["ImageType"] . ';base64,' . base64_encode($taskData["Image"]);
+                                    }
+        
+                                    // Add task entry for this child
+                                    $TaskList[] = $taskData;
+                                }
                             }
-        
-                            $row->MediaType = $Media->MediaType ?? '';
-                            $row->Time = $row->Time ?? '';
-                            $row->URL = $Media->URL ?? '';
-                            $row->Image = $Media->Image ?? '';
-                            $row->ImageType = $Media->ImageType ?? '';
-                            $row->MediaID = $Media->MediaID ?? '';
-        
-                            // // Convert image to base64 if it exists
-                            if (!empty($row->Image) && !empty($row->ImageType)) {
-                                $row->Image = 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image);
-                            }
-        
-                            $row->Deadline = $task->Deadline?? '';
-                            $row->TeacherName = $Teacher->First_Name?? '';
-                            $row->ImageType = $Media->ImageType ?? '';
-                            $row->URL = $Media->URL ?? '';
-                            $row->Title = $Media->Title ?? '';
-                            $row->Description = $Media->Description ?? '';
-                            $row->Format = $Media->Format ?? '';
-                        } else {
-                            unset($Data[$key]);
                         }
-                    } else {
-                        unset($Data[$key]);
                     }
-                } else {
-                    unset($Data[$key]);
                 }
             }
-            $Data = array_values($Data);
-            if (empty($Data)) {
+        
+            // Sort TaskList by Deadline (earliest first)
+            usort($TaskList, function ($a, $b) {
+                return strtotime($a["Deadline"]) - strtotime($b["Deadline"]);
+            });
+        
+            if (empty($TaskList)) {
                 echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
             } else {
-                echo json_encode(['success' => true, 'data' => $Data]);
+                echo json_encode(['success' => true, 'data' => $TaskList]);
             }
-        }                
-
-        private function selectedchild($selectedchild){
-            $data = [];
-
-            $imageData = $selectedchild->Image;
-            $imageType = $selectedchild->ImageType;
-
-            // If image data is available, construct the Base64 string using the correct MIME type
-            $base64Image = (!empty($imageData) && is_string($imageData))
-                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
-                : null;
-
-            $data['selectedchildren'] = [
-                'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
-                'name' => $selectedchild->First_Name,
-                'image' => $base64Image,
-                'age' => agecalculate($selectedchild->DOB),
-                'language' => $selectedchild->Language,
-                'religion' => $selectedchild->Religion,
-                'id' => str_pad($selectedchild->ChildID, 5, '0', STR_PAD_LEFT),
-            ];
-            return $data;
-        }
+        }        
 
         public function setchildsession()
         {
@@ -209,29 +126,6 @@
             }
 
             echo json_encode($response);
-            exit();
-        }
-
-        public function removechildsession()
-        {
-
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-            header('Content-Type: application/json');
-            $response = [];
-
-            $session = new \Core\Session;
-            $ChildID = $session->get("CHILDID");
-
-            if (isset($ChildID)) {
-                $session->unset("CHILDID");
-                $response = ['success' => true, 'message' => 'Child session removed.'];
-            } else {
-                $response = ['success' => false, 'message' => 'No child session to remove.'];
-            }
-
-            echo json_encode($response);  // Send JSON response
             exit();
         }
 

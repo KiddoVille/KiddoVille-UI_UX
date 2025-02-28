@@ -205,7 +205,6 @@
             </select>
         </div>
         <div class="contents" id="media-container" style="margin-top: -880px !important; z-index:1 !important ;">
-            <?php show($data['test']) ?>
             <!-- <div class="grid" id="grid">
                 <div class="filter-section" style="margin-top: 770px; z-index:1 !important ;">
                     <label for="filter-date">Filter by date: </label>
@@ -673,7 +672,12 @@
                     progressDiv.innerHTML = `<i class="fas fa-hourglass"></i> Progress: ${item.Progress}%`;
                     dateTimeDiv.appendChild(progressDiv);
 
+                    const childNameDiv = document.createElement("h4");
+                    childNameDiv.classList.add("format");
+                    childNameDiv.textContent = `Child - ${item.ChildName}`; 
+
                     Content.appendChild(dateTimeDiv);
+                    Content.appendChild(childNameDiv);
                     itemDiv.appendChild(Content);
                     itemsContainer.appendChild(itemDiv);
                 });
@@ -698,13 +702,17 @@
             // Initial fetch for media
             fetchMedia('All' , null);
 
-            typePicker.addEventListener('change', function() {
-                fetchMedia(typePicker.value, datePicker.value);
-            });
+            if(typePicker){
+                typePicker.addEventListener('change', function() {
+                    fetchMedia(typePicker.value, datePicker.value);
+                });
+            }
 
-            datePicker.addEventListener('change', function() {
-                fetchMedia(typePicker.value, datePicker.value);
-            });
+            if(datePicker){
+                datePicker.addEventListener('change', function() {
+                    fetchMedia(typePicker.value, datePicker.value);
+                });
+            }
 
         });
     </script>

@@ -10,131 +10,76 @@
         public function index(){
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child('Parent');
-            $ChildID = $session->get('CHILDID');
     
             $data = [];
             $SidebarHelper = new SidebarHelper();
             $data = $SidebarHelper->store_sidebar();
-    
-            $ChildModal = new \Modal\Child;
-            $select = $ChildModal->first(['ChildID' => $ChildID]);
-            $data['child_id'] = $ChildID;
-    
-            if (!empty($select)) {
-                $data2 = $this->selectedchild($select);
-                $data = $data + $data2;
-            }
 
-            $data['media'] = $this->lol();
+            $data['test'] = $this->lol();
             $this->view('Parent/funzonehistory', $data);
         }
 
         public function lol() {
-            $Data = [];
-            $type = "All";
-        
-            $Session = new \core\session;
-            $ChildID = $Session->get("CHILDID");
-        
-            $WhishlistModal = new \Modal\MediaHistory;
-            $MediaModal = new \Modal\Media;
-            $Data = $WhishlistModal->where_order_desc(["ChildID" => $ChildID]);
-        
-            $groupedData = [];
-        
-            foreach ($Data as &$row) {
-                if ($type !== 'All') {
-                    $Media = $MediaModal->first(["MediaID" => $row->MediaID, "MediaType" => $type]);
-                } else {
-                    $Media = $MediaModal->first(["MediaID" => $row->MediaID]);
-                }
-        
-                if ($Media) {
-                    $row->MediaType = !empty($Media->MediaType) ? $Media->MediaType : '';
-                    $row->URL = !empty($Media->URL) ? $Media->URL : '';
-                    $row->Image = !empty($Media->Image) ? $Media->Image : '';
-                    $row->ImageType = !empty($Media->ImageType) ? $Media->ImageType : '';
-        
-                    // $base64Image = (!empty($row->ImageData) && is_string($row->ImageData))
-                    //     ? 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image)
-                    //     : null;
-        
-                    // if ($base64Image) {
-                    //     $row->Image = $base64Image;
-                    // }
-        
-                    // $row->Title = !empty($Media->Title) ? $Media->Title : '';
-                    // $row->Description = !empty($Media->Description) ? $Media->Description : '';
-                    // $row->Format = !empty($Media->Format) ? $Media->Format : '';
-        
-                    // Convert and format date
-                    $date = date("Y-m-d", strtotime($row->DateTime)); // Assuming `CreatedAt` is the timestamp
-        
-                    // if ($date == date("Y-m-d")) {
-                    //     $formattedDate = "Today";
-                    // } elseif ($date == date("Y-m-d", strtotime("-1 day"))) {
-                    //     $formattedDate = "Yesterday";
-                    // } elseif (date("Y", strtotime($date)) == date("Y")) {
-                    //     $formattedDate = date("M d", strtotime($date)); // Jan 02
-                    // } else {
-                    //     $formattedDate = date("Y/m/d", strtotime($date)); // 2024/12/01
-                    // }
-        
-                    // $groupedData[$formattedDate][] = $row;
-                }
-            }
-            return $Data;
-        }        
-
-        public function store_media(){
-            header('Content-Type: application/json');
-            $requestData = json_decode(file_get_contents("php://input"), true);
-            
             $type = $requestData['type'] ?? 'All';
             $filterDate = $requestData['Date'] ?? null; // Date from request
+            
             $Session = new \core\session;
-            $ChildID = $Session->get("CHILDID");
+            $UserID = $Session->get("USERID");
         
             $MediaModal = new \Modal\Media;
             $TeacherModal = new \Modal\Teacher;
             $WhishlistModal = new \Modal\MediaHistory;
-            $MediaModal = new \Modal\Media;
-            $Data = $WhishlistModal->where_order_desc(["ChildID" => $ChildID]);
-            $Data = array_reverse($Data);
+            $ParentModal = new \Modal\ParentUser;
+            $ChildModal = new \Modal\Child;
+        
+            $parent = $ParentModal->first(["UserID"=> $UserID]);
+            $Children = $ChildModal->where_norder(["ParentID" => $parent->ParentID]);
+        
+            $Data = []; // Initialize an empty array to store all media history
+        
+            foreach ($Children as $Child) {
+                $Data2 = $WhishlistModal->where_order_desc(["ChildID" => $Child->ChildID]); 
+                if($Data2){
+                    foreach ($Data2 as &$row) {
+                        $row->ChildName = $Child->First_Name; // Add corresponding child's first name
+                    }
+                    $Data = array_merge($Data, $Data2);
+                }
+                 // Correctly merge data
+            }
+        
+            // Sort Data by DateTime (most recent first)
+            usort($Data, function ($a, $b) {
+                return strtotime($b->DateTime) - strtotime($a->DateTime); 
+            });
         
             $groupedData = [];
         
             foreach ($Data as &$row) {
-
                 if ($type !== 'All') {
                     $Media = $MediaModal->first(["MediaID" => $row->MediaID, "MediaType" => $type]);
                 } else {
                     $Media = $MediaModal->first(["MediaID" => $row->MediaID]);
                 }
-
-                $Teacher = $TeacherModal->first(["TeacherID" => $Media->UserID]);
-                $row->User = $Teacher->First_Name . ' ' . $Teacher->Last_Name;
         
                 if ($Media) {
-                    $row->MediaType = !empty($Media->MediaType) ? $Media->MediaType : '';
-                    $row->URL = !empty($Media->URL) ? $Media->URL : '';
-                    $row->ImageType = !empty($Media->ImageType) ? $Media->ImageType : '';
+                    $Teacher = $TeacherModal->first(["TeacherID" => $Media->UserID]);
+                    $row->User = $Teacher ? ($Teacher->First_Name . ' ' . $Teacher->Last_Name) : '';
         
-                    $base64Image = (!empty($Media->ImageData) && is_string($Media->ImageData))
-                        ? 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image)
-                        : null;
+                    $row->MediaType = $Media->MediaType ?? '';
+                    $row->URL = $Media->URL ?? '';
+                    $row->ImageType = $Media->ImageType ?? '';
         
-                    $row->Image = !empty($base64Image) ? $base64Image : '';
+                    $row->Image = !empty($Media->ImageData) ? 'data:' . $Media->ImageType . ';base64,' . base64_encode($Media->ImageData) : '';
         
-                    $row->Title = !empty($Media->Title) ? $Media->Title : '';
-                    $row->Description = !empty($Media->Description) ? $Media->Description : '';
-                    $row->Format = !empty($Media->Format) ? $Media->Format : '';
+                    $row->Title = $Media->Title ?? '';
+                    $row->Description = $Media->Description ?? '';
+                    $row->Format = $Media->Format ?? '';
         
-                    // Convert and format date
+                    // Extract and format date
                     $date = date("Y-m-d", strtotime($row->DateTime));
         
-                    // Apply the date filter if a filterDate is provided
+                    // Apply the date filter if provided
                     if ($filterDate && $date !== $filterDate) {
                         continue; // Skip if the date does not match
                     }
@@ -145,15 +90,102 @@
                     } elseif ($date == date("Y-m-d", strtotime("-1 day"))) {
                         $formattedDate = "Yesterday";
                     } elseif (date("Y", strtotime($date)) == date("Y")) {
-                        $formattedDate = date("M d", strtotime($date)); // Jan 02
+                        $formattedDate = date("M d", strtotime($date)); // Example: Jan 02
                     } else {
-                        $formattedDate = date("Y/m/d", strtotime($date)); // 2024/12/01
+                        $formattedDate = date("Y/m/d", strtotime($date)); // Example: 2024/12/01
                     }
         
                     $groupedData[$formattedDate][] = $row;
                 }
             }
+        
+            $groupedData['selected_date'] = $filterDate;
+            return $groupedData;
+        }        
 
+        public function store_media() {
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            
+            $type = $requestData['type'] ?? 'All';
+            $filterDate = $requestData['Date'] ?? null; // Date from request
+            
+            $Session = new \core\session;
+            $UserID = $Session->get("USERID");
+        
+            $MediaModal = new \Modal\Media;
+            $TeacherModal = new \Modal\Teacher;
+            $WhishlistModal = new \Modal\MediaHistory;
+            $ParentModal = new \Modal\ParentUser;
+            $ChildModal = new \Modal\Child;
+        
+            $parent = $ParentModal->first(["UserID"=> $UserID]);
+            $Children = $ChildModal->where_norder(["ParentID" => $parent->ParentID]);
+        
+            $Data = []; // Initialize an empty array to store all media history
+        
+            foreach ($Children as $Child) {
+                $Data2 = $WhishlistModal->where_order_desc(["ChildID" => $Child->ChildID]); 
+                if($Data2){
+                    foreach ($Data2 as &$row) {
+                        $row->ChildName = $Child->First_Name; // Add corresponding child's first name
+                    }
+                    $Data = array_merge($Data, $Data2);
+                }
+                 // Correctly merge data
+            }
+            
+            // Sort Data by DateTime (most recent first)
+            usort($Data, function ($a, $b) {
+                return strtotime($b->DateTime) - strtotime($a->DateTime); 
+            });
+        
+            $groupedData = [];
+        
+            foreach ($Data as &$row) {
+                if ($type !== 'All') {
+                    $Media = $MediaModal->first(["MediaID" => $row->MediaID, "MediaType" => $type]);
+                } else {
+                    $Media = $MediaModal->first(["MediaID" => $row->MediaID]);
+                }
+        
+                if ($Media) {
+                    $Teacher = $TeacherModal->first(["TeacherID" => $Media->UserID]);
+                    $row->User = $Teacher ? ($Teacher->First_Name . ' ' . $Teacher->Last_Name) : '';
+        
+                    $row->MediaType = $Media->MediaType ?? '';
+                    $row->URL = $Media->URL ?? '';
+                    $row->ImageType = $Media->ImageType ?? '';
+        
+                    $row->Image = !empty($Media->ImageData) ? 'data:' . $Media->ImageType . ';base64,' . base64_encode($Media->ImageData) : '';
+        
+                    $row->Title = $Media->Title ?? '';
+                    $row->Description = $Media->Description ?? '';
+                    $row->Format = $Media->Format ?? '';
+        
+                    // Extract and format date
+                    $date = date("Y-m-d", strtotime($row->DateTime));
+        
+                    // Apply the date filter if provided
+                    if ($filterDate && $date !== $filterDate) {
+                        continue; // Skip if the date does not match
+                    }
+        
+                    // Format date for grouping
+                    if ($date == date("Y-m-d")) {
+                        $formattedDate = "Today";
+                    } elseif ($date == date("Y-m-d", strtotime("-1 day"))) {
+                        $formattedDate = "Yesterday";
+                    } elseif (date("Y", strtotime($date)) == date("Y")) {
+                        $formattedDate = date("M d", strtotime($date)); // Example: Jan 02
+                    } else {
+                        $formattedDate = date("Y/m/d", strtotime($date)); // Example: 2024/12/01
+                    }
+        
+                    $groupedData[$formattedDate][] = $row;
+                }
+            }
+        
             $groupedData['selected_date'] = $filterDate;
         
             if (empty($groupedData)) {
@@ -162,30 +194,7 @@
                 echo json_encode(['success' => true, 'data' => $groupedData]);
             }
         }
-
         
-        private function selectedchild($selectedchild){
-            $data = [];
-
-            $imageData = $selectedchild->Image;
-            $imageType = $selectedchild->ImageType;
-
-            // If image data is available, construct the Base64 string using the correct MIME type
-            $base64Image = (!empty($imageData) && is_string($imageData))
-                ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
-                : null;
-
-            $data['selectedchildren'] = [
-                'fullname' => $selectedchild->First_Name . ' ' . $selectedchild->Last_Name,
-                'name' => $selectedchild->First_Name,
-                'image' => $base64Image,
-                'age' => agecalculate($selectedchild->DOB),
-                'language' => $selectedchild->Language,
-                'religion' => $selectedchild->Religion,
-                'id' => str_pad($selectedchild->ChildID, 5, '0', STR_PAD_LEFT),
-            ];
-            return $data;
-        }
 
         public function setchildsession()
         {
@@ -206,29 +215,6 @@
             }
 
             echo json_encode($response);
-            exit();
-        }
-
-        public function removechildsession()
-        {
-
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-            header('Content-Type: application/json');
-            $response = [];
-
-            $session = new \Core\Session;
-            $ChildID = $session->get("CHILDID");
-
-            if (isset($ChildID)) {
-                $session->unset("CHILDID");
-                $response = ['success' => true, 'message' => 'Child session removed.'];
-            } else {
-                $response = ['success' => false, 'message' => 'No child session to remove.'];
-            }
-
-            echo json_encode($response);  // Send JSON response
             exit();
         }
 

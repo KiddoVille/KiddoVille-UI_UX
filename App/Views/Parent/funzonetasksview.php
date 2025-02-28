@@ -687,37 +687,15 @@
                 dateTimeDiv.appendChild(assignedBySpan);
                 dateTimeDiv.appendChild(typeSpan);
 
-                // Reminder Toggle
-                const reminderToggleDiv = document.createElement("div");
-                reminderToggleDiv.classList.add("reminder-toggle");
-
-                const reminderText = document.createElement("span");
-                reminderText.classList.add("reminder-text");
-                reminderText.textContent = "Set Reminder";
-
-                const reminderLabel = document.createElement("label");
-                reminderLabel.classList.add("switch-reminder");
-
-                const reminderInput = document.createElement("input");
-                reminderInput.type = "checkbox";
-                reminderInput.id = `reminder-${item.CompletionID}-${item.MediaID}`;
-                if (item.Reminder) {
-                    reminderInput.checked = true;
-                }
-
-                const reminderSlider = document.createElement("span");
-                reminderSlider.classList.add("slider");
-
-                reminderLabel.appendChild(reminderInput);
-                reminderLabel.appendChild(reminderSlider);
-                reminderToggleDiv.appendChild(reminderText);
-                reminderToggleDiv.appendChild(reminderLabel);
+                const childNameDiv = document.createElement("h4");
+                childNameDiv.classList.add("format");
+                childNameDiv.textContent = `Child - ${item.ChildName}`; 
 
                 // Append elements to content div
                 contentDiv.appendChild(title);
                 contentDiv.appendChild(description);
                 contentDiv.appendChild(dateTimeDiv);
-                contentDiv.appendChild(reminderToggleDiv);
+                contentDiv.appendChild(childNameDiv);
 
                 // Append all elements to item div
                 itemDiv.appendChild(iconContainer);

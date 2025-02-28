@@ -27,57 +27,9 @@
             }
 
             $this->view('Child/funzonewhishlist', $data);
-        }
-
-        public function lol() {
-            $type = 'All';
-            
-            $Session = new \core\session;
-            $ChildID = $Session->get("CHILDID");
-            
-            $WhishlistModal = new \Modal\MediaWhishlist;
-            $MediaModal = new \Modal\Media;
-            $Data = $WhishlistModal->where_order_desc(["ChildID" => $ChildID]);
+        }      
         
-            foreach ($Data as &$row) {
-                if ($type !== 'All') {
-                    $Media = $MediaModal->first(["MediaID" => $row->MediaID, "MediaType" => $type]);
-                } else {
-                    $Media = $MediaModal->first(["MediaID" => $row->MediaID]);
-                }
-        
-                if ($Media) {
-                    $row->MediaType = !empty($Media->MediaType) ? $Media->MediaType : '';
-                    $row->Time = !empty($row->Time) ? $row->Time : '';
-                    $row->URL = !empty($Media->URL) ? $Media->URL : '';
-                    $row->Image = !empty($Media->Image) ? $Media->Image : '';
-                    $row->ImageType = !empty($Media->ImageType) ? $Media->ImageType : '';
-    
-                    $base64Image = (!empty($row->ImageData) && is_string($row->ImageData))
-                        ? 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image)
-                        : null
-                    ;
-
-                    if($base64Image){
-                        $row->Image = $base64Image;
-                    }
-
-                    $row->Title = !empty($Media->Title) ? $Media->Title : '';
-                    $row->Description = !empty($Media->Description) ? $Media->Description : '';
-                    $row->Format = !empty($Media->Format) ? $Media->Format : '';
-                } else {
-                    $row = null; // Mark for removal
-                }
-            }
-        
-            // Remove all null values (invalid media items)
-            $Data = array_filter($Data);
-        
-            // Re-index array to avoid missing keys
-            return array_values($Data);
-        }        
-        
-        public function store_media(){
+        public function store_media() {
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
             
@@ -104,13 +56,12 @@
                     $row->ImageType = !empty($Media->ImageType) ? $Media->ImageType : '';
                     $row->MediaID = !empty($Media->MediaID) ? $Media->MediaID : '';
                     $row->WhishlistID = !empty($Media->WhishlistID) ? $Media->WhishlistID : '';
-
+        
                     $base64Image = (!empty($row->ImageData) && is_string($row->ImageData))
                         ? 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image)
-                        : null
-                    ;
+                        : null;
                     $row->Image = $base64Image;
-
+        
                     $row->Title = !empty($Media->Title) ? $Media->Title : '';
                     $row->Description = !empty($Media->Description) ? $Media->Description : '';
                     $row->Format = !empty($Media->Format) ? $Media->Format : '';
@@ -118,15 +69,25 @@
                     $row = null; // Mark for removal
                 }
             }
+        
+            // Remove null values from the array
             $Data = array_filter($Data);
             $Data = array_values($Data);
-
+        
+            // Sort the data by Time (newest to oldest)
+            usort($Data, function ($a, $b) {
+                $dateTimeA = strtotime($a->Date . ' ' . $a->Time);
+                $dateTimeB = strtotime($b->Date . ' ' . $b->Time);
+                
+                return $dateTimeB - $dateTimeA; // Sort descending (newest first)
+            });            
+        
             if (empty($Data)) {
                 echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
             } else {
                 echo json_encode(['success' => true, 'data' => $Data]);
             }
-        }  
+        }        
 
         public function delete_Reminder(){
             header('Content-Type: application/json');

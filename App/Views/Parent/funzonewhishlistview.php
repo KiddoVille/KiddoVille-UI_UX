@@ -242,31 +242,6 @@
                 </div>
             </div>
         </div>
-        <div id="reminder-modal" class="pickup-popup" style="display: none; width: 270px; position: fixed; margin-top:240px; margin-left: 600px;">
-            <form id="ReminderForm" method="POST" action="<?=ROOT?>/Parent/funzonewhishlist/AddReminders">
-                <div class="top-con">
-                    <div class="back-con">
-                        <i class="fas fa-chevron-left" id="backforpickup"></i>
-                    </div>
-                    <div class="refresh-con">
-                        <i class="fas fa-refresh" id="pickuprefresh"
-                            style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
-                    </div>
-                </div>
-                <div class="modal-content" style="justify-content: center; display:flex; flex-direction: column;">
-                    <h2>Set Reminder</h2>
-                    <label for="reminder-date">Date</label>
-                    <input type="date" name="Date" style="margin-left: 100px;" id="reminder-date" min="<?= date('Y-m-d', strtotime('+1 day')) ?>">
-                    <label for="reminder-time">Time</label>
-                    <input type="time" name="Time" style="margin-left: 100px;" id="reminder-time" min="06:00" max="23:59">
-                    <input type="number" style="display: none;" id="WhishlistInput" name="WhishlistID">
-                </div>
-                <div class="button-popup" style="margin-top: 10px;">
-                    <button style="margin-right: 100px;" id="closeModalBtn">Cancel</button>
-                    <button >Done</button>
-                </div>
-            </form>
-        </div>
     </div>
     <script>
         function resetReminderForm() {
@@ -338,28 +313,6 @@
                     }
                 })
                 .catch(error => console.error("Error:", error));
-        }
-
-        function toggleReminderPopup(itemID) {
-            console.log("Open Reminder Modal");
-            const Media = document.getElementById("WhishlistInput");
-            const modal = document.getElementById("reminder-modal");
-            const mainContent = document.getElementById("main-content");
-
-            Media.value = itemID;
-            modal.style.display = "block";
-            // mainContent.style.filter = "blur(5px)";
-            mainContent.style.pointerEvents = "none";
-        }
-
-        // Function to close the modal and remove the blur
-        function closeReminderModal() {
-            const modal = document.getElementById("reminder-modal");
-            const mainContent = document.getElementById("main-content");
-
-            modal.style.display = "none";
-            // mainContent.style.filter = "none";
-            mainContent.style.pointerEvents = "auto";
         }
 
         function generateMediaGrid(data) {
@@ -555,62 +508,9 @@
                 dateTimeDiv.appendChild(reminderDateDiv);
                 dateTimeDiv.appendChild(reminderTimeDiv);
 
-                const childNameDiv = document.createElement("p");
+                const childNameDiv = document.createElement("h3");
                 childNameDiv.classList.add("format");
-                childNameDiv.textContent = `child - ${item.ChildName}`; 
-
-                // Reminder Toggle
-                const reminderToggleDiv = document.createElement("div");
-                reminderToggleDiv.classList.add("reminder-toggle");
-
-                const reminderText = document.createElement("span");
-                reminderText.classList.add("reminder-text");
-                reminderText.textContent = "Set Reminder";
-
-                const reminderLabel = document.createElement("label");
-                reminderLabel.classList.add("switch-reminder");
-
-                const reminderInput = document.createElement("input");
-                reminderInput.type = "checkbox";
-                reminderInput.id = `reminder-${item.MediaID}`;
-
-                if (item.Reminder) {
-                    reminderInput.checked = true;
-                }
-
-                reminderInput.addEventListener("change", function() {
-                    if (this.checked) {
-                        toggleReminderPopup(item.WishlistID);
-                    } else {
-                        console.log("Hi");
-                        fetch('<?= ROOT ?>/Parent/Funzonewhishlist/delete_Reminder', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    WhishlistID: item.WishlistID,
-                                })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                            if (data.success) {
-                                console.log("Fetched media data:", data);
-                            } else {
-                                console.error("Failed to fetch media data:", data.message);
-                            }
-                        })
-                        .catch(error => console.error("Error:", error));
-                    }
-                });
-
-                const reminderSlider = document.createElement("span");
-                reminderSlider.classList.add("slider");
-
-                reminderLabel.appendChild(reminderInput);
-                reminderLabel.appendChild(reminderSlider);
-                reminderToggleDiv.appendChild(reminderText);
-                reminderToggleDiv.appendChild(reminderLabel);
+                childNameDiv.textContent = `Child - ${item.ChildName}`; 
 
                 // Append all elements to the item div
 
@@ -620,7 +520,6 @@
                 itemDiv.appendChild(format);
                 itemDiv.appendChild(dateTimeDiv);
                 itemDiv.appendChild(childNameDiv);
-                itemDiv.appendChild(reminderToggleDiv);
 
                 // Append item to grid
                 grid.appendChild(itemDiv);
