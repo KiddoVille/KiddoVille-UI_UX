@@ -138,15 +138,7 @@
                     </button>
                 </div>
             </div>
-            <div class="chatbox">
-                <a href="<?= ROOT ?>/Parent/Message">
-                    <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                        style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                </a>
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </div>
+
             <div class="modal" id="EventModal">
                 <div class="View-Package">
                     <img src="" id="Event-img" style="width: 360px; height: 250px; position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">

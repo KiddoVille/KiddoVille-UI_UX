@@ -1,8 +1,8 @@
-# KidsCare - Daycare Management System
+# KiddoVille - Daycare Management System
 
 ## Overview
 
-KidsCare is a comprehensive daycare management system designed to streamline operations for daycare centers. The system connects parents, teachers, maids, management, receptionists, and doctors through a user-friendly interface that manages registrations, reservations, payments, activities, and communications.
+KiddoVille is a comprehensive daycare management system designed to streamline operations for daycare centers. The system connects parents, teachers, maids, management, receptionists, and doctors through a user-friendly interface that manages registrations, reservations, payments, activities, and communications.
 
 ## Core Features
 
@@ -70,22 +70,96 @@ A system for management to:
 
 ## Technical Architecture
 
+### Project Structure
+Based on the actual file system:
+
+```
+/
+├── .vscode               # VS Code configuration
+├── App                   # Main application folder
+│   ├── Controllers       # Request handlers for different entities
+│   │   ├── Child         # Child-related controllers
+│   │   ├── Doctor        # Doctor-related controllers
+│   │   ├── Main          # Core application controllers
+│   │   ├── Manager       # Management controllers
+│   │   ├── Onboarding    # User onboarding processes
+│   │   ├── Parent        # Parent portal controllers
+│   │   ├── Payments      # Payment processing controllers
+│   │   ├── Teacher       # Teacher portal controllers
+│   │   ├── Error404.php  # Error handling
+│   │   ├── Quail.php     # Quail.js integration
+│   │   ├── SMS.php       # SMS messaging functionality
+│   │   └── Whatsapp.php  # WhatsApp API integration
+│   │
+│   ├── core              # Framework core components
+│   │   ├── PHPMailer     # Email functionality
+│   │   ├── stripe        # Payment gateway
+│   │   ├── vendor_stripe # Stripe vendor files
+│   │   ├── vendor_trilio # Trilio integration files
+│   │   ├── App.php       # Main application class
+│   │   ├── config.php    # Configuration settings
+│   │   ├── Controller.php # Base controller class
+│   │   ├── Database.php  # Database connection and operations
+│   │   ├── functions.php # Helper functions
+│   │   ├── init.php      # Application initialization
+│   │   ├── Mailer.php    # Mail sending functionality
+│   │   ├── Modal.php     # Data models
+│   │   ├── Pay.php       # Payment processing
+│   │   ├── Payment.php   # Payment management
+│   │   ├── Quail.php     # Quail.js handlers
+│   │   ├── Request.php   # HTTP request handling
+│   │   ├── Session.php   # User session management
+│   │   ├── SMS.php       # SMS functionality
+│   │   ├── SQL.sql       # SQL database schema
+│   │   ├── test.php      # Testing utilities
+│   │   └── Whatsapp.php  # WhatsApp integration
+│   │
+│   ├── Helper            # Helper classes
+│   │   ├── ChildHelper.php    # Child-related helpers
+│   │   ├── FileHelper.php     # File operations
+│   │   ├── ParentHelper.php   # Parent-related helpers
+│   │   └── SidebarHelper.php  # UI sidebar helpers
+│   │
+│   ├── Modals            # Database models and table structures
+│   │
+│   └── Views             # User interface templates
+│       ├── Child         # Child-related views
+│       ├── Doctor        # Doctor portal views
+│       ├── Maid          # Maid portal views
+│       ├── Main          # Main application views
+│       ├── Manager       # Management portal views
+│       ├── Onboarding    # User onboarding views
+│       ├── Parent        # Parent portal views
+│       ├── Payments      # Payment-related views
+│       ├── Receptionist  # Receptionist portal views
+│       ├── Teacher       # Teacher portal views
+│       ├── 404view.php   # Error page
+│       ├── Error404view.php # Error handling view
+│       ├── Quailview.php # Quail integration views
+│       ├── SMSView.php   # SMS functionality views
+│       └── Whatsappview.php # WhatsApp integration views
+│
+├── Public                # Publicly accessible files
+│   ├── Assets            # Static assets (CSS, JS, images)
+│   ├── Funzone           # FunZone module public files
+│   ├── Messager          # Messaging module public files
+│   ├── Uploads           # Uploaded files storage
+│   ├── .htaccess         # Apache configuration
+│   ├── index.php         # Application entry point
+│   └── robots.txt        # Search engine instructions
+│
+├── UI                    # UI design files and assets
+├── .gitignore            # Git ignore file
+├── ideas.txt             # Project ideas and notes
+└── README.md             # Project documentation
+```
+
 ### MVC Architecture
 The system follows the Model-View-Controller (MVC) design pattern:
 
-#### Directory Structure
-```
-/App
-  /Controllers      # Handles user requests and returns responses
-  /Models           # Contains business logic and database interactions
-  /Views            # User interface templates and components
-  /Core             # Core framework functionality
-  /Helpers          # Utility functions and helper classes
-  /Config           # Configuration files 
-  /Middleware       # Request filters and middleware components
-  /Services         # External service integrations
-  /Database         # Database migrations, seeds, and stored procedures
-```
+- **Models**: Represented by the `Modals` directory, containing data structures and database interactions
+- **Views**: User interface templates in the `Views` directory, organized by user role
+- **Controllers**: Request handling logic in the `Controllers` directory, separated by functionality
 
 ### Frontend
 - Modern responsive web interface built with HTML5, CSS3, and JavaScript
@@ -96,7 +170,7 @@ The system follows the Model-View-Controller (MVC) design pattern:
 
 ### Backend
 - PHP 8.1+ for server-side processing
-- Custom MVC framework for structured development
+- Custom MVC framework with core components in the `core` directory
 - RESTful API architecture for service integrations
 - Session-based authentication with secure cookie management
 - Role-based access control (RBAC) for permissions
@@ -110,11 +184,11 @@ The system follows the Model-View-Controller (MVC) design pattern:
 - Regular database backups with point-in-time recovery
 
 ### Integrations
-- **PhpMailer**: For sending customized emails and notifications
+- **PHPMailer**: For sending customized emails and notifications
 - **WhatsApp API**: For parent notifications and quick communications
-- **SMS Messaging API**: For urgent alerts and reminders
+- **SMS API**: For urgent alerts and reminders
 - **Stripe Payment Gateway**: For secure online payments and subscriptions
-- **AWS S3**: For media storage and retrieval
+- **Trilio**: For additional functionality (as indicated in the core directory)
 
 ### Security Features
 - End-to-end encryption for sensitive communications
@@ -137,115 +211,96 @@ The system follows the Model-View-Controller (MVC) design pattern:
 ### Installation Steps
 ```bash
 # Clone the repository
-git clone https://github.com/your-organization/kidscare.git
+git clone https://github.com/your-organization/KiddoVille.git
 
 # Navigate to project directory
-cd kidscare
+cd KiddoVille
 
-# Install dependencies
-composer install
+# Configure the database settings
+# Edit App/core/config.php with your database credentials
 
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your configuration
-
-# Initialize the database
-php artisan migrate
-
-# Seed initial data
-php artisan db:seed
+# Set up the database schema
+# Import the SQL schema from App/core/SQL.sql
 
 # Set proper permissions
-chmod -R 755 storage
-chmod -R 755 bootstrap/cache
+chmod -R 755 Public/Uploads
+chmod -R 755 Public/Funzone
 
-# Start the development server
-php artisan serve
+# Configure your web server to point to the Public directory
+# For Apache, ensure mod_rewrite is enabled for .htaccess
 ```
 
 ### Configuration
-The system can be configured through environment variables in the `.env` file:
-- `DB_*`: Database connection settings
-- `MAIL_*`: Email configuration for PhpMailer
-- `WHATSAPP_*`: WhatsApp API credentials
-- `SMS_*`: SMS Gateway credentials
-- `STRIPE_*`: Stripe payment gateway keys
-- `AWS_*`: AWS S3 configuration for media storage
+The system can be configured by editing the `App/core/config.php` file:
+- Database connection settings
+- Email configuration for PHPMailer
+- WhatsApp API credentials
+- SMS Gateway credentials
+- Stripe payment gateway keys
+- Session security settings
 
-## Usage Guide
+## Module Descriptions
 
 ### Parent Portal
-Parents can:
-- Register and manage profiles for themselves and their children
-- View and download reports on their children's activities and development
-- Schedule and manage daycare reservations
-- Access the FunZone to monitor their child's digital activities
-- Communicate with staff through the messaging system
-- View the activity calendar and make suggestions
+Parents can access:
+- Child profile management
+- Daycare reservations
+- Activity calendar and suggestions
+- FunZone content monitoring
+- Real-time messaging with staff
+- Payment processing and history
+- Report viewing and downloading
 
 ### Staff Portal
-Staff members can:
-- Manage their profiles and work schedules
-- View children's profiles and update activity tracking
-- Upload resources to the FunZone
-- Communicate with parents and other staff members
-- Request leaves and shift swaps
-- Submit reports and incident notifications
+Staff members have access to:
+- Work schedule management
+- Child profiles and activity tracking
+- Resource uploading to FunZone
+- Communication tools with parents and staff
+- Leave request management
+- Report generation tools
 
 ### Management Portal
-Management can:
-- Configure system settings and manage user accounts
-- Track payments and generate financial reports
-- Manage staff schedules and leave requests
-- Update the activity calendar and food menus
-- Publish announcements and blog posts
-- Monitor inventory levels and place orders
+Management can control:
+- System configuration and user accounts
+- Financial reporting and payment tracking
+- Staff scheduling and leave approval
+- Activity and food menu planning
+- Blog post publishing and management
+- Inventory tracking and ordering
 
-## API Documentation
+### FunZone Module
+Features include:
+- Age-specific digital content library
+- Task assignment from teachers
+- History tracking and analytics
+- Wishlist functionality
+- Content recommendations
+- Parental controls
 
-### Authentication Endpoints
-- `POST /api/auth/login`: User login
-- `POST /api/auth/register`: New user registration
-- `POST /api/auth/reset-password`: Password reset request
+### Messaging System
+Provides:
+- Real-time chat between users
+- Media sharing (photos and videos)
+- WhatsApp integration for notifications
+- SMS alerts for critical information
+- Message archiving and search
 
-### Parent Endpoints
-- `GET /api/children`: Get list of registered children
-- `POST /api/reservations`: Create a new reservation
-- `GET /api/activities`: View activity calendar
+### Blog System
+Allows:
+- Content creation and management
+- Image and video embedding
+- Categorization and tagging
+- Scheduled publishing
+- User permissions management
 
-### Staff Endpoints
-- `GET /api/schedule`: View work schedule
-- `POST /api/leave-requests`: Submit leave request
-- `POST /api/activity-reports`: Submit activity reports
-
-### Management Endpoints
-- `POST /api/announcements`: Create announcements
-- `GET /api/reports/financial`: Generate financial reports
-- `POST /api/inventory/orders`: Create inventory orders
-
-## Database Structure
-
-### Key Tables
-- `users`: System users with role information
-- `children`: Child profiles with personal information
-- `reservations`: Daycare booking information
-- `payments`: Payment records and transaction logs
-- `activities`: Scheduled activities and events
-- `activity_logs`: Records of completed activities
-- `inventory_items`: Daycare supplies and their current levels
-- `inventory_orders`: Purchase orders for supplies
-- `messages`: Communication logs between users
-- `blog_posts`: CMS content for the blog system
-- `funzone_content`: Digital resources available in FunZone
-- `funzone_history`: Usage records of content by children
-- `funzone_wishlist`: Saved content for future access
-
-### Database Optimizations
-- **Triggers**: For automatic inventory updates, payment status changes
-- **Stored Procedures**: For complex reporting and data aggregation
-- **Views**: For simplified access to commonly joined data
-- **Archive Tables**: For historical data storage without impacting performance
-- **Indexing Strategy**: Optimized for common query patterns
+### Inventory System
+Manages:
+- Stock tracking and alerts
+- Purchase order processing
+- Vendor information
+- Usage analytics
+- Category management
 
 ## Future Enhancements
 
@@ -282,7 +337,7 @@ Management can:
 
 ## Contributing
 
-We welcome contributions to the KidsCare project:
+We welcome contributions to the KiddoVille project:
 1. Fork the repository
 2. Create a feature branch
 3. Submit a pull request with detailed description
@@ -294,6 +349,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Support
 
 For technical support, please contact:
-- Email: support@kidscare.com
-- Support Portal: https://support.kidscare.com
-- Documentation: https://docs.kidscare.com
+- Email: support@KiddoVille.com
+- Support Portal: https://support.KiddoVille.com
+- Documentation: https://docs.KiddoVille.com

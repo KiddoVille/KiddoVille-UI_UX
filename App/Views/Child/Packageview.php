@@ -192,15 +192,6 @@
                     </div>
                 </div>
             </div>
-            <div class="chatbox">
-                <a href="<?=ROOT?>/Child/Message">
-                    <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
-                        style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                </a>
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </div>
             <div class="fill">
                 <div style="text-align: left; display: flex; flex-direction: column; justify-content: left;">
                     <h2 style="margin-top: 0px !important; margin-bottom: 2px;">Packages</h2>
@@ -221,13 +212,6 @@
 
                 </div>
             </div>
-            <a href="<?=ROOT?>/Child/Message" class="chatbox">
-                <img src="<?=IMAGE?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">

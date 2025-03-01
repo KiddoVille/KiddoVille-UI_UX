@@ -24,8 +24,53 @@ class History
         $data['Child_Count'] = $ChildHelper->child_count();
         $session->set("Location" , 'Parent/History');
 
+        $data['graph'] = $this->store_graph();
         $this->view('Parent/history', $data);
     }
+
+    private function store_graph() {
+        $ChildHelper = new ChildHelper();
+        $children = $ChildHelper->store_child();
+    
+        // Initialize the Attendance model to fetch attendance records
+        $attendanceModel = new \Modal\Attendance;
+        $attendanceData = [];
+    
+        $currentDate = date('Y-m-d');
+        $monday = date('Y-m-d', strtotime('monday this week'));
+    
+        foreach ($children as $child) {
+            $daysAttended = 0;
+            $totalDays = 0;
+            
+            // Loop through each day from Monday to today
+            $date = $monday;
+            while ($date <= $currentDate) {
+                $attendanceRecords = $attendanceModel->where_norder([
+                    'ChildID' => $child->ChildID,
+                    'Start_Date' => $date
+                ]);
+    
+                if (!empty($attendanceRecords)) {
+                    $daysAttended++; // Count days attended
+                }
+    
+                $totalDays++; // Increment total days counted
+                $date = date('Y-m-d', strtotime($date . ' +1 day')); // Move to next day
+            }
+    
+            $attendancePercentage = ($totalDays > 0) ? ($daysAttended / $totalDays) * 100 : 0;
+    
+            $attendanceData[] = [
+                'ChildID' => $child->ChildID,
+                'ChildName' => $child->First_Name,
+                'Attendance' => round($attendancePercentage)
+            ];
+        }
+    
+        return $attendanceData;
+    }
+    
     
     public function store_history(){
         // Set the response content type to JSON

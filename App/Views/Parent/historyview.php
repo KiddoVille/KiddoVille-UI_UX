@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Parent/history.js?v=<?= time() ?>"></script> -->
@@ -192,17 +193,10 @@
                 </div>
 
                 <div class="glass-box" style="width: 200px !important; height: 400px !important;">
-
+                    <canvas id="attendanceChart"></canvas>
                 </div>
             </div>
             <!-- messager page -->
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
         </div>
         <!-- profile card -->
         <div class="profile-card" id="profileCard" style="margin-top: 0px; margin-right: 0px !important; margin-left: 0px !important; position:fixed;">
@@ -339,6 +333,71 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
+
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+
+            // Example PHP data passed as JSON (Replace with dynamic PHP data)
+            const graphData = <?= json_encode($data['graph']); ?>;
+
+            // Extract labels (child names) and attendance percentages
+            const labels = graphData.map(child => child.ChildName);
+            const attendanceData = graphData.map(child => child.Attendance);
+
+            // Define colors based on attendance
+            const barColors = "rgba(0, 115, 246, 0.78)";
+
+            // Create Chart
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Attendance Percentage',
+                        data: attendanceData,
+                        backgroundColor: barColors,
+                        borderColor: "#000",
+                        borderWidth: 1,
+                        borderRadius: 5,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function (value) {
+                                    return value + "%"; // Show percentage on Y-axis
+                                }
+                            },
+                            grid: {
+                                color: "rgba(0, 0, 0, 0.2)",
+                                borderDash: [5, 5],
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false // ❌ Hide vertical grid lines
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.raw + "% Attendance";
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
             const datePicker = document.getElementById('datePicker');
             const childPicker = document.getElementById('childPicker');
             
