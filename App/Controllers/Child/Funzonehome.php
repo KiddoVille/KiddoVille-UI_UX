@@ -101,7 +101,12 @@
             $data['Recomended'] = array_slice($Recomended, 0, 20);
             $data['Recomended_avail'] = count($Popular) > 20;
 
-            foreach (['Trending', 'History', 'Popular', 'Recomended'] as $key) {
+            $NewMedia = empty($mediaFilter) ? $MediaModal->findall_order("DateTime", "DESC") : $MediaModal->where_order_desc($mediaFilter, [], "DateTime");
+            $data['New'] = array_slice($NewMedia, 0, 20);
+            $data['New_avail'] = count($NewMedia) > 20;
+        
+            // Process images for each media type group
+            foreach (['Trending', 'History', 'Popular', 'Recomended', 'New'] as $key) {
                 foreach ($data[$key] as &$item) {
                     if ($item->MediaType !== 'Image' && !empty($item->Image)) {
                         $imageData = $item->Image;
@@ -140,7 +145,7 @@
             $MediaModal = new \Modal\Media;
             $mediaFilter = ($type !== 'All') ? ["MediaType" => $type] : [];
         
-            // Fetch data based on grid selection (Trending, Popular, Recommended, or History)
+            // Fetch data based on grid selection
             switch ($grid) {
                 case 'trending-grid':
                     $Media = empty($mediaFilter) ? $MediaModal->findall_order("Views", "DESC") : $MediaModal->where_order_desc($mediaFilter, [], "Views");
@@ -198,12 +203,19 @@
                     $data['History'] = array_slice($updatedHistory, $count, 20); // Fetch from count to count + 20
                     $data['History_avail'] = count($updatedHistory) > ($count + 20);
                     break;
+                case 'new-grid':
+                    // Fetch New media inputs (sorted by DateTime descending)
+                    $NewMedia = empty($mediaFilter) ? $MediaModal->findall_order("DateTime", "DESC") : $MediaModal->where_order_desc($mediaFilter, [], "DateTime");
+                    $data['New'] = array_slice($NewMedia, $count, 20); // Fetch from count to count + 20
+                    $data['New_avail'] = count($NewMedia) > ($count + 20);
+                    break;
                 default:
                     echo json_encode(['success' => false, 'message' => 'Invalid grid parameter']);
                     return;
             }
         
-            foreach (['Trending', 'History', 'Popular', 'Recomended'] as $key) {
+            // Process images for each media type group
+            foreach (['Trending', 'History', 'Popular', 'Recomended', 'New'] as $key) {
                 if (isset($data[$key])) {
                     foreach ($data[$key] as &$item) {
                         if ($item->MediaType !== 'Image' && !empty($item->Image)) {
@@ -226,7 +238,8 @@
             } else {
                 echo json_encode(['success' => true, 'data' => $data]);
             }
-        }        
+        }
+        
 
         private function selectedchild($selectedchild)
         {
@@ -295,6 +308,14 @@
 
             echo json_encode($response);  // Send JSON response
             exit();
+        }
+
+        public function Logout(){
+            $session = new \core\Session();
+            $session->logout();
+
+            echo json_encode(["success" => true]);
+            exit;
         }
     }
 ?>

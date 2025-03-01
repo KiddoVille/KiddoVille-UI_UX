@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Parent/history.js?v=<?= time() ?>"></script> -->
@@ -167,7 +168,7 @@
                 <div class="child-history" style="width: 760px !important; height: 420px; margin-top: 0px;">
                     <h2 style="margin-top: 10px !important; margin-bottom: 2px;">Child Attendance</h2>
                     <hr>
-                    <input type="date" id="datePicker" value="" style="width: 200px; margin-right: 20px;">
+                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" value="" style="width: 200px; margin-right: 20px;">
                     <select id="childPicker">
                         <option Value="All" selected> All </option>
                         <?php foreach ($data['children'] as $child): ?>
@@ -191,158 +192,11 @@
                     </table>
                 </div>
 
-                <!-- <div class="pickup-container">
-                    <h1>Schedule pickups</h1>
-                    <p>Review and finalize children pickup from the daycare</p>
-                    <button class="button" id="openModalBtn">Schedule pickups</button>
-                    <div class="details">
-                        <p>Date: 12-16, 2025</p>
-                        <p>Pickup person: Guardian</p>
-                        <p>Departure time: 8:00pm</p>
-                    </div>
-                    <button class="button" style="width: 189px" id="editModalBtn">Edit</button>
-                </div> -->
                 <div class="glass-box" style="width: 200px !important; height: 400px !important;">
-                    <div class="report-header">
-                        <i class="fa-regular fa-clipboard"></i>
-                        <h1>Schedule pickups</h1>
-                    </div>
-                    <div class="report-body">
-                        <p class="text">Review and finalize children pickup from the daycare</p>
-                        <button class="button" id="editModalBtn">Schedule Pickups</button>
-                    </div>
-                    <div class="report-footer">
-                        <p class="footer">Date: <span>Feb 12-16, 2025</span></p>
-                        <p class="footer">Pickup person: <span>Guardian</span></p>
-                        <p class="footer">Pickup Time:<span>8:00 PM</span></p>
-                    </div>
-                </div>
-            </div>
-            <!-- pickupModal -->
-            <div class="modal" id="pickupModal">
-                <div class="pickup-popup">
-                    <div class="top-con">
-                        <div class="back-con">
-                            <i class="fas fa-chevron-left" id="backforpickup"></i>
-                        </div>
-                        <div class="refresh-con">
-                            <i class="fas fa-refresh" id="pickuprefresh"
-                                style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
-                        </div>
-                    </div>
-                    <h1>Schedule pickup</h1>
-                    <form id="pickupForm">
-                        <div class="pickup-section">
-                            <label for="time">Select Time <span id="red-star" class="red-star"> *</span> </label>
-                            <input id="pickuptime" type="time" />
-                        </div>
-                        <div class="pickup-section">
-                            <label>Select person for pickup</label>
-                            <div class="person-section">
-                                <img alt="Person's photo" height="50" src="<?= IMAGE ?>/face.jpeg" width="50" />
-                                <div class="person-info">
-                                    <span>Abdulla</span>
-                                </div>
-                                <div class="add-person"
-                                    style="margin-left: 30px; margin-right: 2px; width: 55px; height: 50px">+</div>
-                                <div class="person-info">
-                                    <span>Add new person</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pickup-section">
-                            <label for="otp">Confirmation OTP <span id="red-star2" class="red-star"> *</span> </label>
-                            <input class="otp" id="pickupotp" type="text" maxlength="6"
-                                placeholder="000000" />
-                            <small>Enter a number and inform the pickup person</small>
-                        </div>
-                        <div class="pickup-section checkbox-section">
-                            <label>
-                                <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> Inform on
-                                pickup
-                            </label>
-                        </div>
-                        <div class="terms">
-                            <input required type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" />
-                            <label>
-                                I agree to the
-                                <a href="#">Terms of Service</a>
-                            </label>
-                        </div>
-                        <div class="button-popup">
-                            <button style="margin-right: 230px;" id="closeModalBtn">Cancel</button>
-                            <button>Done</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- edit pickup Modal -->
-            <div class="modal" id="editPickupModal">
-                <div class="pickup-popup">
-                    <div class="top-con">
-                        <div class="back-con">
-                            <i class="fas fa-chevron-left" id="backforpickupedit"></i>
-                        </div>
-                        <div class="refresh-con">
-                            <i class="fas fa-refresh" id="pickupeditrefresh"
-                                style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
-                        </div>
-                    </div>
-                    <h1>Edit Scheduled Pickup</h1>
-                    <form id="editpickupForm">
-                        <div class="pickup-section">
-                            <label for="edit-time">Select Time <span id="red-star3" class="red-star hidden"> *</span> </label>
-                            <input id="edit-time" type="time" value="20:00" />
-                        </div>
-                        <div class="pickup-section">
-                            <label>Select person for pickup</label>
-                            <div class="person-section">
-                                <img alt="Person's photo" height="50" src="<?= IMAGE ?>/face.jpeg" width="50" />
-                                <div class="person-info">
-                                    <span>Guardian</span>
-                                    <p style="margin-top: 60px; margin-left: -70px; color: #233E8D;">Selected</p>
-                                </div>
-                                <div class="add-person"
-                                    style="margin-left: 30px; margin-right: 2px; width: 55px; height: 50px">+</div>
-                                <div class="person-info">
-                                    <span>Add new person</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pickup-section">
-                            <label for="edit-otp">Confirmation OTP <span id="red-star4" class="red-star hidden"> *</span> </label>
-                            <input class="otp" id="edit-otp" type="text" maxlength="6"
-                                value="000000" />
-                            <small>Enter a number and inform the pickup person</small>
-                        </div>
-                        <div class="pickup-section checkbox-section">
-                            <label>
-                                <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> Inform on
-                                pickup
-                            </label>
-                        </div>
-                        <div class="terms">
-                            <input required type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" checked />
-                            <label>
-                                I agree to the
-                                <a href="../../../Home/Terms of Service/Terms.html">Terms of Service</a>
-                            </label>
-                        </div>
-                        <div class="button-popup">
-                            <button style="margin-right: 220px;" id="closeEditModalBtn">Cancel</button>
-                            <button style="margin-left: -60px;">Save Changes</button>
-                        </div>
-                    </form>
+                    <canvas id="attendanceChart"></canvas>
                 </div>
             </div>
             <!-- messager page -->
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
         </div>
         <!-- profile card -->
         <div class="profile-card" id="profileCard" style="margin-top: 0px; margin-right: 0px !important; margin-left: 0px !important; position:fixed;">
@@ -479,6 +333,71 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
+
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+
+            // Example PHP data passed as JSON (Replace with dynamic PHP data)
+            const graphData = <?= json_encode($data['graph']); ?>;
+
+            // Extract labels (child names) and attendance percentages
+            const labels = graphData.map(child => child.ChildName);
+            const attendanceData = graphData.map(child => child.Attendance);
+
+            // Define colors based on attendance
+            const barColors = "rgba(0, 115, 246, 0.78)";
+
+            // Create Chart
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Attendance Percentage',
+                        data: attendanceData,
+                        backgroundColor: barColors,
+                        borderColor: "#000",
+                        borderWidth: 1,
+                        borderRadius: 5,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function (value) {
+                                    return value + "%"; // Show percentage on Y-axis
+                                }
+                            },
+                            grid: {
+                                color: "rgba(0, 0, 0, 0.2)",
+                                borderDash: [5, 5],
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false // ❌ Hide vertical grid lines
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.raw + "% Attendance";
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
             const datePicker = document.getElementById('datePicker');
             const childPicker = document.getElementById('childPicker');
             

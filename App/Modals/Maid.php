@@ -9,10 +9,6 @@
 
         protected $table = 'maid';
         protected $allowedColumns = [
-<<<<<<< HEAD
-            'UserID',
-=======
->>>>>>> origin/main
             'Last_Name',
             'First_Name',
             'Phone_Number',
@@ -20,7 +16,8 @@
             'NID',
             'Last_Seen',
             'AgeGroup',
-            'ProfileImage'
+            'ProfileImage',
+            'ImageType'
         ];
 
         public function validate($data){

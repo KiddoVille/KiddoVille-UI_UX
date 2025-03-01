@@ -71,6 +71,11 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
@@ -571,6 +576,7 @@
             data.forEach(item => {
                 const itemDiv = document.createElement("div");
                 itemDiv.classList.add("item");
+                itemDiv.style.cursor= 'pointer';
                 itemDiv.style.width = '600px';
                 itemDiv.style.height = '200px';
 
@@ -580,7 +586,14 @@
 
                 const watchButton = document.createElement("button");
                 watchButton.classList.add("icon-btn", "watch-btn");
-                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i>';
+                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px; cursor: pointer;"></i>';
+
+                if (item && item.MediaID) {
+                    watchButton.onclick = function() {
+                        console.log("clicked play button");
+                        window.location.href = `<?= ROOT ?>/Child/Resource?MediaID=${item.MediaID}`;
+                    };
+                }
 
                 iconContainer.appendChild(watchButton);
 

@@ -193,7 +193,7 @@
                         <h2 style="margin-top: -10px !important; margin-bottom: 5px;"> Child Reports </h2>
                         <hr style="margin-bottom: 30px;">
                     </div>
-                    <input type="date" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
+                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
                     <select id="childPicker">
                         <option Value="All" selected> All </option>
                         <?php foreach ($data['children'] as $child): ?>
@@ -309,13 +309,7 @@
             </div>
         </div>
         <!-- messager navigation -->
-        <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-            <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-            <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                <p> 2</p>
-            </div>
-        </a>
+
     </div>
     <!-- profile card -->
     <div class="profile-card" id="profileCard" style="margin-top: -720px;">

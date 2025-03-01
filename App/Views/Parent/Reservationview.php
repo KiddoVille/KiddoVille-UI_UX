@@ -138,7 +138,7 @@
                     </button>
                 </div>
             </div>
-            <div class="stats">
+            <div class="stats" style="grid-template-columns: repeat(4, 1fr);">
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance" >Accepted reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
@@ -418,7 +418,7 @@
                         <hr>
                     </div>
                     <div class="filters">
-                        <input type="date" id="datePicker" style="width: 200px">
+                        <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
                         <select id="statusPicker" style="margin-right: 25px; width: 200px; margin-left: -70px; margin-top: 10px;">
                             <option value="">All</option>
                             <option value="Approved">Approved</option>
@@ -469,13 +469,7 @@
 
                 </div>
             </div>
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
+
         </div>
         <div id="confirmationModal" class="modal">
             <div class="modal-content">

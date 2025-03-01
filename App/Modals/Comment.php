@@ -4,15 +4,16 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Manager{
+    class Comment{
         use Modal;
 
-        protected $table = 'manager';
+        protected $table = 'comments';
         protected $allowedColumns = [
-            'Last_Name',
-            'First_Name',
-            "Image",
-            "ImageType"
+            'CommentText',
+            'DateCommented',
+            'Liked',
+            'MediaID',
+            "ChildID"
         ];
 
         public function validate($data){

@@ -4,15 +4,14 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Manager{
+    class AssignMaid{
         use Modal;
 
-        protected $table = 'manager';
+        protected $table = 'assignmaid';
         protected $allowedColumns = [
-            'Last_Name',
-            'First_Name',
-            "Image",
-            "ImageType"
+            'MaidID',
+            'ChildID',
+            'Date',
         ];
 
         public function validate($data){

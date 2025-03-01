@@ -1,7 +1,6 @@
 <?php
 
 namespace Controller;
-
 use App\Helpers\SidebarHelper;
 
 defined('ROOTPATH') or exit('Access denied');
@@ -289,33 +288,54 @@ class Home
             }
         }
 
-        $dinnerRow = new \stdClass(); // Create a new stdClass object for Dinner
-        $dinnerRow->Start_Time = '13:00:00';
-        $dinnerRow->End_Time = '14:00:00';
-        $dinnerRow->Activity = 'Dinner';
-
-        $inserted = false; // Track if the dinner row has been inserted
-        foreach ($subjects as $key => $subject) {
-            if (new \DateTime($dinnerRow->Start_Time) < new \DateTime($subject->Start_Time)) {
-                array_splice($subjects, $key, 0, [$dinnerRow]); // Insert Dinner row before this subject
-                $inserted = true;
-                break;
+        // Create a new stdClass object for Dinner
+        $dinnerRow = new \stdClass();
+        $dinnerRow->Start_Time = '13:30:00';
+        $dinnerRow->End_Time   = '14:30:00';
+        $dinnerRow->Subject    = 'Dinner';
+        
+        // Create a new stdClass object for Breakfast
+        $breakfastRow = new \stdClass();
+        $breakfastRow->Start_Time = '10:00:00';
+        $breakfastRow->End_Time   = '10:30:00';
+        $breakfastRow->Subject    = 'Breakfast';
+        
+        // Insert Breakfast and Dinner rows into the subjects array
+        $subjects[] = $breakfastRow;
+        $subjects[] = $dinnerRow;
+        
+        // Now sort the subjects array by Start_Time
+        usort($subjects, function($a, $b) {
+            $timeA = new \DateTime($a->Start_Time);
+            $timeB = new \DateTime($b->Start_Time);
+            if ($timeA == $timeB) {
+                return 0;
             }
-        }
-
+            return ($timeA < $timeB) ? -1 : 1;
+        });
+        
+        // Continue with the rest of your processing
         foreach ($subjects as $subject) {
-            if (!empty($subject->WorkID)){
+            if (!empty($subject->WorkID)) {
                 $Activity = $ActivityModal->first(["WorkID" => $subject->WorkID]);
-                if ($Activity) { // Ensure $Activity is not null // Append $Activity to the 'Activity' array
-                    $subject->Description = $Activity->Description; // Set the Description
+                if ($Activity) {
+                    $subject->Description = $Activity->Description;
                 } else {
                     $subject->Description = 'No Description Available';
                 }
             }
-        }
+        }        
 
-        if (!$inserted) {
-            $subjects[] = $dinnerRow;
+        // Now update each subject's description from ActivityModal if WorkID exists
+        foreach ($subjects as $subject) {
+            if (!empty($subject->WorkID)) {
+                $Activity = $ActivityModal->first(["WorkID" => $subject->WorkID]);
+                if ($Activity) { 
+                    $subject->Description = $Activity->Description;
+                } else {
+                    $subject->Description = 'No Description Available';
+                }
+            }
         }
 
         if (empty($subjects)) {
@@ -369,5 +389,13 @@ class Home
 
         echo json_encode($response);  // Send JSON response
         exit();
+    }
+
+    public function Logout(){
+        $session = new \core\Session();
+        $session->logout();
+
+        echo json_encode(["success" => true]);
+        exit;
     }
 }

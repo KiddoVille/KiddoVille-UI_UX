@@ -68,6 +68,11 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
@@ -248,7 +253,7 @@
                             <h3 style="margin-top: 0px; margin-bottom: 5px;">Subject Marks</h3>
                             <hr>
                             <div class="filters">
-                                <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                                <input type="date" max= "<?=(date('Y-m-d')); ?>" id="datePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
                             </div>
                             <table style="width: 100%;">
                                 <thead>
@@ -312,11 +317,11 @@
                             <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px; display: <?=isset($data['stat2']['nochild'])? 'none': 'flex' ?>">
                                 <div style="display: flex; flex-direction: row;">
                                     <h4> Time : </h4>
-                                    <p style="margin-top: 12px;  margin-left: 5px;"><?= isset($data['stat2']['Time'])? $data['stat2']['Time']: '' ?> </p>
+                                    <p style="margin-top: 23px;"><?= isset($data['stat2']['Time'])? $data['stat2']['Time']: '' ?> </p>
                                 </div>
                                 <div style="display: flex; flex-direction: row;">
                                     <h4 style="margin-top: -10px; white-space: nowrap;"> Person : </h4>
-                                    <p style="margin-top: -18px; margin-left: 5px;"> <?= isset($data['stat2']['Person'])? $data['stat2']['Person']: '' ?> </p>
+                                    <p style="margin-top: -8px; margin-left: 5px;"> <?= isset($data['stat2']['Person'])? $data['stat2']['Person']: '' ?> </p>
                                 </div>
                             </div>
                             <div style="display: flex; flex-direction: row; display: <?=isset($data['stat2']['nochild'])? 'none': 'flex' ?>">
@@ -692,13 +697,7 @@
         </div>
     </div> -->
     <!-- navigation to message page -->
-    <a href="<?= ROOT ?>/Child/Message" class="chatbox">
-        <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-            style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-        <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-            <p> 2</p>
-        </div>
-    </a>
+
     <!-- profile card -->
     <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
         <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
@@ -887,7 +886,7 @@
         });
 
     function logoutUser() {
-        fetch("<?= ROOT ?>/Parent/Home/Logout", {
+        fetch("<?= ROOT ?>/Child/Home/Logout", {
                 method: "POST",
                 credentials: "same-origin"
             })
@@ -931,6 +930,7 @@
                     ChildID: ChildID
                 })
             })
+            
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -971,7 +971,8 @@
         timetableBody.innerHTML = ''; // Clear any existing rows
 
         // Get the current time as a string (HH:mm:ss)
-        const currentTime = new Date('2025-01-28T11:30:00'); // Example for testing
+        const currentTime = new Date();
+        //const currentTime = new Date('2025-01-28T11:30:00'); Example for testing
         const currentTimeString = currentTime.toTimeString().split(' ')[0]; // Get just "HH:mm:ss"
         const currentTimeInMillis = convertTimeToMillis(currentTimeString);
 

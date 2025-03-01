@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzonewhishlist.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/deletepopup.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
@@ -67,6 +68,11 @@
                 <li class="selected" style="margin-top: 40px;">
                     <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
@@ -152,7 +158,7 @@
             </a>
         </div>
     </div> -->
-        <div class="main-content" style="background:linear-gradient(to bottom right, #f7f7f7, #eaeaea)">
+        <div class="main-content" id="main-content" style="background:linear-gradient(to bottom right, #f7f7f7, #eaeaea); overflow-x: hidden; ">
             <!-- Header -->
             <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"
@@ -234,8 +240,49 @@
                 </div> -->
             </div>
         </div>
+        <div id="deletePopup" class="delete-popup-overlay" style="position: fixed;">
+            <div class="delete-popup-content" style="margin-top:340px; margin-left: 700px;">
+                <p>Are you sure you want to delete this message?</p>
+                <div class="delete-popup-buttons">
+                    <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm">Yes</button>
+                    <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel">No</button>
+                </div>
+            </div>
+        </div>
+        <div id="reminder-modal" class="pickup-popup" style="display: none; width: 270px; position: fixed; margin-top:240px; margin-left: 600px;">
+            <form id="ReminderForm" method="POST" action="<?=ROOT?>/child/funzonewhishlist/AddReminders">
+                <div class="top-con">
+                    <div class="back-con">
+                        <i class="fas fa-chevron-left" id="backforpickup"></i>
+                    </div>
+                    <div class="refresh-con">
+                        <i class="fas fa-refresh" id="pickuprefresh"
+                            style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                    </div>
+                </div>
+                <div class="modal-content" style="justify-content: center; display:flex; flex-direction: column;">
+                    <h2>Set Reminder</h2>
+                    <label for="reminder-date">Date</label>
+                    <input type="date" name="Date" style="margin-left: 100px;" id="reminder-date" min="<?= date('Y-m-d', strtotime('+1 day')) ?>">
+                    <label for="reminder-time">Time</label>
+                    <input type="time" name="Time" style="margin-left: 100px;" id="reminder-time" min="06:00" max="23:59">
+                    <input type="number" style="display: none;" id="WhishlistInput" name="WhishlistID">
+                </div>
+                <div class="button-popup" style="margin-top: 10px;">
+                    <button style="margin-right: 100px;" id="closeModalBtn">Cancel</button>
+                    <button >Done</button>
+                </div>
+            </form>
+        </div>
     </div>
     <script>
+        function resetReminderForm() {
+            const dateInput = document.getElementById("reminder-date");
+            const timeInput = document.getElementById("reminder-time");
+            if (dateInput) dateInput.value = "";
+            if (timeInput) timeInput.value = "";
+        }
+
         function removechildsession() {
             fetch('<?= ROOT ?>/Child/Funzonewhishlist/removechildsession', {
                     method: 'POST',
@@ -300,9 +347,31 @@
                 .catch(error => console.error("Error:", error));
         }
 
+        function toggleReminderPopup(itemID) {
+            console.log("Open Reminder Modal");
+            const Media = document.getElementById("WhishlistInput");
+            const modal = document.getElementById("reminder-modal");
+            const mainContent = document.getElementById("main-content");
+
+            Media.value = itemID;
+            modal.style.display = "block";
+            // mainContent.style.filter = "blur(5px)";
+            mainContent.style.pointerEvents = "none";
+        }
+
+        // Function to close the modal and remove the blur
+        function closeReminderModal() {
+            const modal = document.getElementById("reminder-modal");
+            const mainContent = document.getElementById("main-content");
+
+            modal.style.display = "none";
+            // mainContent.style.filter = "none";
+            mainContent.style.pointerEvents = "auto";
+        }
+
         function generateMediaGrid(data) {
             const gridexist = document.getElementById('grid');
-            if(gridexist){
+            if (gridexist) {
                 gridexist.remove();
             }
             const grid = document.createElement("div");
@@ -314,6 +383,7 @@
             data.forEach(item => {
                 const itemDiv = document.createElement("div");
                 itemDiv.classList.add("item");
+                itemDiv.style.cursor= 'pointer';
 
                 // Icon container
                 const iconContainer = document.createElement("div");
@@ -321,11 +391,62 @@
 
                 const watchButton = document.createElement("button");
                 watchButton.classList.add("icon-btn", "watch-btn");
-                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i>';
+                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px; cursor: pointer"></i>';
+
+                if (item && item.MediaID) {
+                    watchButton.onclick = function() {
+                        console.log("clicked play button");
+                        window.location.href = `<?= ROOT ?>/Child/Resource?MediaID=${item.MediaID}`;
+                    };
+                }
 
                 const removeButton = document.createElement("button");
                 removeButton.classList.add("icon-btn", "remove-btn");
-                removeButton.innerHTML = '<i class="fas fa-trash"></i>';
+                removeButton.innerHTML = '<i class="fas fa-trash" style=" cursor: pointer"></i>';
+
+                removeButton.onclick = function() {
+                    // Show the confirmation popup
+                    const deletePopup = document.getElementById('deletePopup');
+                    deletePopup.style.display = 'block'; // Display the popup
+
+                    // Handle the "Yes" (confirm) button
+                    document.getElementById('confirmDelete').onclick = function() {
+                        console.log("delete WhishlistID", item.WishlistID);
+
+                        // Send the delete request if confirmed
+                        fetch('<?= ROOT ?>/Child/Funzonewhishlist/delete_whish', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                WishlistID: item.WishlistID,
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                const typePicker = document.getElementById('typePicker');
+                                fetchMedia(typePicker.value);  // Refresh media list after successful deletion
+                                console.log("Fetched media data:", data.data);
+                            } else {
+                                console.error("Failed to fetch media data:", data.message);
+                            }
+
+                            // Close the popup after action is completed
+                            deletePopup.style.display = 'none';
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            deletePopup.style.display = 'none'; // Hide popup on error
+                        });
+                    };
+
+                    // Handle the "No" (cancel) button
+                    document.getElementById('cancelDelete').onclick = function() {
+                        deletePopup.style.display = 'none'; // Close the popup if canceled
+                    };
+                };
 
                 iconContainer.appendChild(watchButton);
                 iconContainer.appendChild(removeButton);
@@ -338,8 +459,7 @@
                     mediaContent.alt = item.Title;
                     mediaContent.width = 150;
                     mediaContent.height = 150;
-                } 
-                else if (item.MediaType === "Video") {
+                } else if (item.MediaType === "Video") {
                     const videoContainer = document.createElement("div");
                     videoContainer.classList.add("video-container");
                     videoContainer.id = `video-container-${item.MediaID}`;
@@ -388,22 +508,19 @@
                             });
                         }
                     }, 0);
-                }
-                else if (item.MediaType === "Audio"){
+                } else if (item.MediaType === "Audio") {
                     mediaContent = document.createElement("img");
                     mediaContent.src = '<?= IMAGE ?>/Audio.jpeg';
                     mediaContent.alt = "Default Placeholder";
                     mediaContent.width = 150;
                     mediaContent.height = 150;
-                }
-                else if(item.MediaType === "Book"){
+                } else if (item.MediaType === "Book") {
                     mediaContent = document.createElement("img");
                     mediaContent.src = '<?= IMAGE ?>/PDF.jpeg';
                     mediaContent.alt = "Default Placeholder";
                     mediaContent.width = 150;
                     mediaContent.height = 150;
-                }
-                else{
+                } else {
                     mediaContent = document.createElement("img");
                     mediaContent.src = '<?= IMAGE ?>/PDF.';
                     mediaContent.alt = "Default Placeholder";
@@ -464,6 +581,32 @@
                     reminderInput.checked = true;
                 }
 
+                reminderInput.addEventListener("change", function() {
+                    if (this.checked) {
+                        toggleReminderPopup(item.WishlistID);
+                    } else {
+                        console.log("Hi");
+                        fetch('<?= ROOT ?>/Child/Funzonewhishlist/delete_Reminder', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    WhishlistID: item.WishlistID,
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                            if (data.success) {
+                                console.log("Fetched media data:", data);
+                            } else {
+                                console.error("Failed to fetch media data:", data.message);
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
+                    }
+                });
+
                 const reminderSlider = document.createElement("span");
                 reminderSlider.classList.add("slider");
 
@@ -480,15 +623,40 @@
                 itemDiv.appendChild(dateTimeDiv);
                 itemDiv.appendChild(reminderToggleDiv);
 
-                        // Append item to grid
-                    grid.appendChild(itemDiv);
-                });
+                // Append item to grid
+                grid.appendChild(itemDiv);
+            });
 
             document.getElementById("media-container").appendChild(grid);
         }
 
 
+
         document.addEventListener('DOMContentLoaded', function() {
+
+            const backBtn = document.getElementById("backforpickup");
+            if (backBtn) {
+                backBtn.addEventListener("click", () => {
+                    location.reload();
+                });
+            }
+
+            // Refresh button: reset form data (and optionally hide modal)
+            const refreshBtn = document.getElementById("pickuprefresh");
+            if (refreshBtn) {
+                refreshBtn.addEventListener("click", () => {
+                    resetReminderForm();
+                });
+            }
+
+            // Additionally, the Cancel button can close the modal too:
+            const closeModalBtn = document.getElementById("closeModalBtn");
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener("click", () => {
+                    location.reload();
+                });
+            }
+
             const typePicker = document.getElementById('typePicker');
             // Initial fetch for media
             fetchMedia('All');

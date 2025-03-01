@@ -66,6 +66,11 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
@@ -419,7 +424,7 @@
                         <hr>
                     </div>
                     <div class="filters">
-                        <input type="date" id="datePicker" style="width: 200px">
+                        <input type="date" max= "<?= date('Y-m-d') ?>" id="datePicker" style="width: 200px">
                         <select id="statusPicker" style="margin-right: 25px; width: 200px; margin-left: -70px; margin-top: 10px;">
                             <option value="">All</option>
                             <option value="Approved">Approved</option>
@@ -460,13 +465,7 @@
                     </table>
                 </div>
             </div>
-            <a href="<?= ROOT ?>/Child//Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
+
         </div>
         <div id="confirmationModal" class="modal">
             <div class="modal-content">

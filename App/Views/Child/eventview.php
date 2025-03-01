@@ -67,6 +67,11 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
@@ -177,7 +182,7 @@
                             style="width: 130px ; height: 130px; margin-top: -15px; border-radius: 7px 0px 0px 7px; margin-bottom: -15px;">
                         <div style="display: flex; flex-direction: column; margin-top: 10px;">
                             <h3 class="footer" style="margin-left: 5px;">Event Name: <?= $data['stat3']['EventName'] ?></h3>
-                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Date: <?= date('d/m/Y', strtotime($data['stat3']['Date'])) ?></p>
+                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Date: <?= date('d/m/Y', strtotime(isset($data['stat3']['Date'])? $data['stat3']['Date'] : '' )) ?></p>
                         </div>
                     </div>
                 </div>
@@ -199,7 +204,7 @@
                         </p>
                     <?php endif; ?>
 
-                    <span style="font-weight: 50;"><?= $data['stat1']['upcomingEvent']['Date'] ?></span>
+                    <span style="font-weight: 50;"><?= isset($data['stat1']['upcomingEvent']['Date'])? $data['stat1']['upcomingEvent']['Date']: '' ; ?> </span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
@@ -324,13 +329,7 @@
                 </div>
             </div>
             <!-- To navigate to message page -->
-            <a href="<?= ROOT ?>/Child/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
+
         </div>
         <!-- Profile card -->
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">

@@ -19,7 +19,7 @@ body {
 .main-content::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Edge */
 }
-
+/* 
 .chatbox {
     position: fixed;
     bottom: 85px;
@@ -43,7 +43,7 @@ body {
 .chatbox i {
     font-size: 24px;
     color: white;
-}
+} */
 
 #messageDropdown {
     display: none;

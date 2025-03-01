@@ -113,7 +113,7 @@
         </div>
         <div class="main-content">
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
                     <p style="color: white">Let’s do some productive activities today</p>
@@ -149,7 +149,7 @@
                     <div class="timetable" style="margin-right: 1%; width: 395px; vertical-align: top;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px; top:0;">Meal Plan</h3>
                         <hr>
-                        <input type="date" id="datePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
+                        <input type="date" id="datePicker" min="<?= (date('Y-m-d')); ?>" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
                         <table id="mealsTable" style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr>
@@ -168,7 +168,7 @@
                     <div class="timetable" style="margin-right: 1%; width: 395px;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Snack Plan</h3>
                         <hr>
-                        <input type="date" id="SnackdatePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
+                        <input type="date" id="SnackdatePicker" min="<?= (date('Y-m-d')); ?>" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
                         <table id="snackTable" style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr>
@@ -188,7 +188,7 @@
                         <hr style="width: 160px;">
                         <div class="pickup-section" style="margin-top: 20px; width: 160px;">
                             <label for="Date">Date</label>
-                            <input name="Date" required id="dateInput" type="date" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
+                            <input name="Date" required id="dateInput" type="date" min="<?= date('Y-m-d', strtotime('+1 day')); ?>" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
 
                             <label for="Meal">Meal</label>
                             <select name="Meal" required id="mealInput">
@@ -225,7 +225,7 @@
                             <hr style="width: 360px;">
                             <div class="pickup-section" style="margin-top: 20px; width: 325px;">
                                 <label for="date">Date</label>
-                                <input class="editsnack" required id="EditSnackDate" type="date">
+                                <input class="editsnack" required id="EditSnackDate" type="date" min="<?= date('Y-m-d', strtotime('+1 day')); ?>">
                                 <label for="date">Meal</label>
                                 <select class="editsnacksel" required id="EditSnackTime" name="Meal">
                                     <option>Breakfast</option>
@@ -242,7 +242,7 @@
                                 <input type="number" id="requestid" style="display: none;" name="Request"> </input>
                                 <label for="date">Snack</label>
 
-                                <select class="editsnacksel" required id="Snacksforedit" type="date" name="Snack">
+                                <select class="editsnacksel" required id="Snacksforedit" name="Snack">
                                     <option hidden> selecte snack </option>
                                 </select>
                             </div>
@@ -252,7 +252,7 @@
                     <div style="width: 3px; background-color: lightgray; margin-right: 50px;"></div>
                     <div class="timetable" style="display: flex; flex-direction: column;">
                         <div style="display: flex; flex-direction: row;">
-                            <input type="date" id="requestPicker" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
+                            <input type="date" id="requestPicker" value="<?= date('Y-m-d', strtotime('+1 day')); ?>" min="<?= date('Y-m-d', strtotime('+1 day')); ?>">
                             <select id="mealPicker">
                                 <option value="Breakfast">Breakfast</option>
                                 <option value="Lunch">Lunch</option>
@@ -275,12 +275,6 @@
                     </div>
                 </div>
             </div>
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots" style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
         </div>
 
         <div class="profile-card" id="profileCard">

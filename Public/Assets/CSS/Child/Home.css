@@ -443,10 +443,6 @@ input[type="range"] {
     color: white !important;
 }
 
-.sidebar ul li {
-    margin-top: 10px !important;
-}
-
 .View-Package {
     background-color: white;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -460,7 +456,6 @@ input[type="range"] {
     height: 500px;
     animation: popupSlideIn 0.5s ease;
     z-index: 1000;
-    backdrop-filter: blur(10px);
     justify-content: center;
     align-items: center;
     transition: all 1s ease-in-out;

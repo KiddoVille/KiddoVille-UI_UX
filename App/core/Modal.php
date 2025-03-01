@@ -244,7 +244,6 @@
             // Construct the full query
             $query = "UPDATE $this->table SET " . implode(", ", $setClauses);
             $query .= " WHERE " . implode(" AND ", $conditionKeys); // Join the conditions with AND
-        
             // Execute the query with the combined data and conditions
             return $this->query($query, $conditionValues);
         }    

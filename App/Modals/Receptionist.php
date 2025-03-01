@@ -9,12 +9,10 @@
 
         protected $table = 'receptionist';
         protected $allowedColumns = [
-<<<<<<< HEAD
-            "UserID",
-            'First_Name',
-=======
->>>>>>> origin/main
             'Last_Name',
+            'First_Name',
+            'Image',
+            'ImageType'
         ];
 
         public function validate($data){

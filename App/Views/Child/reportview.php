@@ -66,6 +66,11 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Child/Message">
+                        <i class="fas fa-comment"></i> <span>Messager</span>
+                    </a>
+                </li>
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
@@ -218,7 +223,7 @@
                         <h2 style="margin-top: -10px !important; margin-bottom: 5px;"> Child Reports </h2>
                         <hr style="margin-bottom: 30px;">
                     </div>
-                    <input type="date" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
+                    <input type="date" max="<?= date('Y-m-d') ?>" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
                     <table id="upcoming">
                         <thead>
                             <tr>
@@ -325,14 +330,7 @@
                 </div>
             </div>
         </div>
-        <!-- Messager navigation -->
-        <a href="<?= ROOT ?>/Child/Message" class="chatbox">
-            <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-            <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                <p> 2</p>
-            </div>
-        </a>
+        
     </div>
     <!-- profile card -->
     <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">

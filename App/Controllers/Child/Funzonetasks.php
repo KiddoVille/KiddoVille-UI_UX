@@ -27,73 +27,7 @@
                 $data = $data + $data2;
             }
 
-            $data['media'] = $this->lol();
             $this->view('Child/funzonetasks',$data);
-        }
-
-        public function lol(){
-            $type = 'Book';
-
-            $Session = new \core\session;
-            $ChildID = $Session->get("CHILDID");
-        
-            $CompletionModal = new \Modal\TaskCompletion;
-            $MediaModal = new \Modal\Media;
-            $TaskModal = new \Modal\Task;
-            $TeacherModal = new \Modal\Teacher;
-        
-            $today = new \DateTime();
-            $Data = $CompletionModal->where_order_desc(["ChildID" => $ChildID]);
-        
-            foreach ($Data as $key => $row) {
-                $task = $TaskModal->first(["TaskID" => $row->TaskID]);
-        
-                if ($task) {
-                    $row->Deadline = $task->Deadline;
-                    $taskDeadline = new \DateTime($task->Deadline);
-
-                    if ($taskDeadline > $today) {
-                        $Teacher = $TeacherModal->first(["TeacherID" => $task->TeacherID]);
-                        $Media = $MediaModal->first(["MediaID" => $task->MediaID]);
-                        if ($Media) {
-                            // Check MediaType filter
-                            if ($type !== 'All' && $Media->MediaType !== $type) {
-                                unset($Data[$key]); // Skip if MediaType does not match
-                                continue;
-                            }
-        
-                            $row->MediaType = $Media->MediaType ?? '';
-                            $row->Time = $row->Time ?? '';
-                            $row->URL = $Media->URL ?? '';
-                            $row->Image = $Media->Image ?? '';
-                            $row->ImageType = $Media->ImageType ?? '';
-        
-                            // // Convert image to base64 if it exists
-                            if (!empty($row->Image) && !empty($row->ImageType)) {
-                                $row->Image = 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image);
-                            }
-        
-                            $row->Deadline = $task->Deadline?? '';
-                            $row->TeacherName = $Teacher->First_Name?? '';
-                            $row->Image = $Media->Image ?? '';
-                            $row->ImageType = $Media->ImageType ?? '';
-                            $row->Image = 'data:' . $row->ImageType . ';base64,' . base64_encode($row->Image);
-                            $row->URL = $Media->URL ?? '';
-                            $row->Title = $Media->Title ?? '';
-                            $row->Description = $Media->Description ?? '';
-                            $row->Format = $Media->Format ?? '';
-                        } else {
-                            unset($Data[$key]);
-                        }
-                    } else {
-                        unset($Data[$key]);
-                    }
-                } else {
-                    unset($Data[$key]);
-                }
-            }
-            $Data = array_values($Data);
-            return $Data;
         }
 
         public function store_tasks() {
@@ -135,6 +69,7 @@
                             $row->URL = $Media->URL ?? '';
                             $row->Image = $Media->Image ?? '';
                             $row->ImageType = $Media->ImageType ?? '';
+                            $row->MediaID = $Media->MediaID ?? '';
         
                             // // Convert image to base64 if it exists
                             if (!empty($row->Image) && !empty($row->ImageType)) {
@@ -159,6 +94,11 @@
                 }
             }
             $Data = array_values($Data);
+
+            usort($Data, function ($a, $b) {
+                return strtotime($b->Deadline) - strtotime($a->Deadline); // Sort descending
+            });            
+
             if (empty($Data)) {
                 echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
             } else {
@@ -232,6 +172,14 @@
 
             echo json_encode($response);  // Send JSON response
             exit();
+        }
+
+        public function Logout(){
+            $session = new \core\Session();
+            $session->logout();
+
+            echo json_encode(["success" => true]);
+            exit;
         }
     }
 ?>

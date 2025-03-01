@@ -186,7 +186,7 @@
                         <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Payment History </h2>
                         <hr>
                         <div class="filters">
-                            <input type="date" id="datePicker" style="width: 200px">
+                            <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
                             <select id="modePicker" style="margin-right: 100px; width: 200px">
                                 <option value="All" hidden>Mode</option>
                                 <option value="All">All</option>
@@ -281,13 +281,7 @@
                 </div>
             </div>
             <!-- messager navigation -->
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
+
         </div>
         <!-- profile card -->
         <div class="profile-card" id="profileCard">
