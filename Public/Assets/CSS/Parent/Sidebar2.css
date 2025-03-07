@@ -181,3 +181,18 @@
         width: 40%;
     }
 }
+
+.explorer{
+    margin-top: 25px;
+}
+
+.explore-p{
+    margin-bottom: 20px;
+    color: white; 
+    margin-left: 5px !important;
+}
+
+.children-list img{
+    margin-left: -20px;
+}
+

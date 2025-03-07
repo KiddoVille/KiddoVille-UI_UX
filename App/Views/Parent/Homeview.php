@@ -35,7 +35,7 @@
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
-                <li class="hover-effect unselected" style="margin-top: 40px;">
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Parent/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
@@ -96,16 +96,15 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>

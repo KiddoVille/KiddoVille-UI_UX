@@ -94,6 +94,10 @@
     margin-top: 0rem;
 }
 
+.selected{
+    margin-top: 40px;
+}
+
 .sidebar ul li {
     margin-bottom: -1.875rem;
     position: relative;
@@ -159,6 +163,7 @@
     margin-bottom: -0.9375rem !important;
     padding: 0.9375rem 0.625rem;
 }
+
 .sidebar hr{
     margin-top: 2.1rem;
 }

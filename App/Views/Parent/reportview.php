@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">    
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Table1.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
@@ -38,7 +39,7 @@
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top:40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/report">
                         <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
                     </a>
@@ -74,11 +75,7 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span> </a>
-            </div>
+            <hr>
         </div>
         <!-- navigation -->
         <div class="sidebar-2" id="sidebar2">
@@ -94,16 +91,15 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -115,21 +111,21 @@
         <div class="main-content" id="main-content">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                    <p style="color: white">Let’s do some productive activities today</p>
+                    <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
                 </div>
                 <!-- message icon -->
-                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                <div class="bell-con" id="bell-container">
                     <i class="fas fa-bell bell-icon"></i>
                     <div class="message-numbers">
                         <p> 2</p>
                     </div>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -181,19 +177,19 @@
             </div>
             <!-- View Report -->
             <div class="saperate">
-                <div class="report-container" style="width: 1200px !important;">
-                    <div style="display: flex; flex-direction: column; justify-content: flex-start; margin-bottom: -20px; margin-top: 20px; margin-left: 7px;">
+                <div class="Table1">
+                    <div class="togglediv">
                         <div class="toggle">
                             <label class="background" for="toggle"></label>
-                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
-                                <label class="up-btn" id="up-btn" style="padding-left: 50px !important; padding-right: 40px;">Maid</label>
+                            <div class="up-hi">
+                                <label class="up-btn" id="up-btn">Maid</label>
                                 <label class="hi-btn" id="hi-btn">Teacher</label>
                             </div>
                         </div>
-                        <h2 style="margin-top: -10px !important; margin-bottom: 5px;"> Child Reports </h2>
-                        <hr style="margin-bottom: 30px;">
+                        <h2> Child Reports </h2>
+                        <hr>
                     </div>
-                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
+                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" id="SnackdatePicker">
                     <select id="childPicker">
                         <option Value="All" selected> All </option>
                         <?php foreach ($data['children'] as $child): ?>
@@ -217,7 +213,7 @@
 
                         </tbody>
                     </table>
-                    <table id="history" style="display: none;">
+                    <table id="history">
                         <thead>
                             <tr>
                                 <th>Child</th>
@@ -236,7 +232,7 @@
             <!-- ReportModal -->
             <div class="modal" id="ReportModal">
                 <div class="line" id="line"></div>
-                <div class="View-Report" style="display: block;" id="Medical-con">
+                <div class="View-Report" id="Medical-con">
                     <div class="top-con">
                         <div class="back-con">
                             <i class="fas fa-chevron-left" id="backforreport"></i>
@@ -250,7 +246,7 @@
                         <div class="tab active">Medical</div>
                         <div class="tab" id="behavior">Behavioural</div>
                     </div>
-                    <div class="form-group" style="margin-top: 20px;">
+                    <div class="form-group2">
                         <label for="title">Title</label>
                         <input readonly type="text" id="title">
                     </div>
@@ -271,7 +267,7 @@
                         <button class="done">Done</button>
                     </div>
                 </div>
-                <div class="View-Report" style="display: none;" id="Behavior-con">
+                <div class="View-Report" id="Behavior-con">
                     <div class="top-con">
                         <div class="back-con">
                             <i class="fas fa-chevron-left" id="backforreport"></i>
@@ -285,7 +281,7 @@
                         <div class="tab" id="medical">Medical</div>
                         <div class="tab">Behavioural</div>
                     </div>
-                    <div class="form-group" style="margin-top: 20px;">
+                    <div class="form-group2">
                         <label for="title">Type</label>
                         <input readonly type="text" id="title" value="Aggresive behaviour">
                     </div>
@@ -312,9 +308,8 @@
 
     </div>
     <!-- profile card -->
-    <div class="profile-card" id="profileCard" style="margin-top: -720px;">
-        <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-            style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+    <div class="profile-card" id="profileCard">
+        <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
         <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
             class="profile" />
         <h2>

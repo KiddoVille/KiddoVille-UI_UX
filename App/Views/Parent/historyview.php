@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Table1.css?v=<?= time() ?>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Parent/history.js?v=<?= time() ?>"></script> -->
@@ -36,7 +37,7 @@
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top: 40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
@@ -77,9 +78,9 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
+            <hr>
             <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
+                <a href="#"><i class="fas fa-question-circle"></i> <span>Help</span></a>
             </div>
         </div>
         <!-- navigation -->
@@ -96,16 +97,15 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2 class="explorer">Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -117,21 +117,21 @@
         <div class="main-content">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                    <p style="color: white">Let’s do some productive activities today</p>
+                    <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
                 </div>
                 <!-- message icon -->
-                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                <div class="bell-con" id="bell-container">
                     <i class="fas fa-bell bell-icon"></i>
                     <div class="message-numbers">
                         <p> 2</p>
                     </div>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -164,11 +164,11 @@
                     <span>Laet arrivals of all child</span>
                 </div>
             </div>
-            <div class="saperate" style="height: 520px;">
-                <div class="child-history" style="width: 760px !important; height: 420px; margin-top: 0px;">
-                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;">Child Attendance</h2>
+            <div class="saperate">
+                <div class="Table1">
+                    <h2>Child Attendance</h2>
                     <hr>
-                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" value="" style="width: 200px; margin-right: 20px;">
+                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" value="">
                     <select id="childPicker">
                         <option Value="All" selected> All </option>
                         <?php foreach ($data['children'] as $child): ?>
@@ -199,9 +199,8 @@
             <!-- messager page -->
         </div>
         <!-- profile card -->
-        <div class="profile-card" id="profileCard" style="margin-top: 0px; margin-right: 0px !important; margin-left: 0px !important; position:fixed;">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" id="back-arrow-profile"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+        <div class="profile-card" id="profileCard">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" id="back-arrow-profile" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
