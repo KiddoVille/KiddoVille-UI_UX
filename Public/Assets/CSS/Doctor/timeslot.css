@@ -13,7 +13,7 @@
 .time-slot-form {
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px var(--popup-background);
   width: 600px;
   padding: 20px;
 }

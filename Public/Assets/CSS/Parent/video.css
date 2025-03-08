@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .main-content .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -16,7 +18,7 @@
     overflow-x: hidden !important;
     overflow-y: hidden;
     margin-top: -10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     background: #dcdcdc;
     border-radius: 10px;
     margin-right: -60px;

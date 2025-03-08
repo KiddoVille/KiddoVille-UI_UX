@@ -225,28 +225,29 @@
                 <!-- Modal to view event -->
                 <div class="modal" id="EventModal">
                     <div class="View-Package">
-                        <div class="top-con">
+                        <img id="Eventimage" src="<?= IMAGE ?>/packages.png" style="width: 360px; height: 200px; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
+                        <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
                             <div class="back-con" id="back-arrow">
                                 <i class="fas fa-chevron-left" id="backformeeting"></i>
                             </div>
                         </div>
-                        <div class="back-arrow" id="back-arrow">
-                            <i class="fas fa-chevron-left" style="color: white !important; margin-left: 0px;"></i>
+                        <div class="pickup-section" style="margin-top: 190px;">
+                            <label for="package-name">Event name</label>
+                            <input id="event-name" readonly="" type="text"/>
                         </div>
-                        <h1>View Event</h1>
-                        <label for="package-name">Event name</label>
-                        <input id="package-name" readonly="" type="text" value="Basic care plan" />
-                        <label for="included-services">Activity details</label>
-                        <div class="services" id="included-services">
-                            title of the compition is on nature
-                            <br />
-                            All type of drawing methods are allowd
-                            <br />
-                            competiton is partitioned in age groups
+                        <div class="pickup-section">
+                            <label for="included-services">Activity details</label>
+                            <div class="services" id="event-description">
+                            </div>
                         </div>
-                        <label for="price">Price</label>
-                        <div class="price-container">
-                            <input id="price" readonly="" type="text" value="10:00 - 11:00 AM" />
+                        <div class="pickup-section">
+                            <label for="price">Date Time</label>
+                            <div class="price-container">
+                                <input id="datetime" readonly="" type="text"/>
+                            </div>
+                        </div>
+                        <div class="button-popup">
+                            <button id="LeaveEvent">Leave</button>
                         </div>
                     </div>
                 </div>
@@ -408,7 +409,7 @@
                     <td> ${event.ChildName} </td>
                     <td>${new Date(event.Date).toLocaleDateString()}</td>
                     <td>${event.Status}</td>
-                    <td><i class="fas fa-eye icon eventbtn" data-eventid="${event.EventID}"></i></td>
+                    <td><i class="fas fa-eye icon eventbtn" data-eventid="${event.EventID}" data-enrollmentid = "${event.EnrollmentID}"></i></td>
                 `;
                 tbody.appendChild(row);
             });
@@ -420,10 +421,98 @@
             eventbtns.forEach(function(eventbtn) {
                 eventbtn.addEventListener('click', function() {
                     const eventId = this.dataset.eventid;
+                    const EnrollmentID = this.dataset.enrollmentid;
                     console.log(eventId);
-                    fetchEventDetails(eventId);
+                    fetchEventDetails(eventId, EnrollmentID);
                 });
             });
+        }
+
+        function fetchEventDetails(eventId, EnrollmentID) {
+            const eventNameInput = document.getElementById('event-name');
+            const eventDetailsDiv = document.getElementById('event-description');
+            const eventDateTimeInput = document.getElementById('datetime');
+            const eventImage = document.getElementById('Eventimage');
+            const LeaveEvent = document.getElementById('LeaveEvent');
+
+            console.log(eventId);
+            fetch('<?=ROOT ?>/Parent/event/lol', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        EventID: eventId
+                    })
+                })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Event details:', data.data);
+                    eventNameInput.value = data.data.EventName;
+                    eventDateTimeInput.value = data.data.Date;
+                    eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
+                    LeaveEvent.dataset.EnrollmentID = EnrollmentID
+
+
+                    if (data.data.Image) {
+                        eventImage.src = data.data.Image;
+                    } else {
+                        eventImage.src = "<?= IMAGE ?>/packages.png";
+                    }
+
+                    toggleModal(EventModal, 'flex'); // Ensure EventModal is defined elsewhere
+                } else {
+                    alert(data.message || 'Failed to load event details.');
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        const LeaveEvent = document.getElementById('LeaveEvent');
+        if(LeaveEvent){
+            LeaveEvent.addEventListener('click', function () {
+                const enrollmentId = this.dataset.EnrollmentID; // Get EnrollmentID from data attribute
+
+                if (!enrollmentId) {
+                    alert("EnrollmentID is missing!");
+                    return;
+                }
+
+                console.log("Leaving event with EnrollmentID:", enrollmentId);
+
+                fetch('<?=ROOT ?>/Child/event/leaveEvent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        EnrollmentID: enrollmentId // ✅ Send EnrollmentID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Successfully left the event!");
+                        location.reload(); // ✅ Refresh the page or update UI
+                    } else {
+                        alert(data.message || "Failed to leave event.");
+                    }
+                })
+                .catch(error => console.error("Error leaving event:", error));
+            });
+        }
+
+        function toggleModal(modal, display) {
+            const mainContent = document.getElementById('main-content');
+            modal.style.display = display;
+            if (display === 'flex') {
+                document.body.classList.add('no-scroll');
+                mainContent.classList.add('blurred');
+            } else {
+                document.body.classList.remove('no-scroll');
+                mainContent.classList.remove('blurred');
+            }
         }
 
         function fetchrequest(date, status) {

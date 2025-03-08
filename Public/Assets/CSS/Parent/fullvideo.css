@@ -1,7 +1,9 @@
+@import url('../variables.css');
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     overflow: hidden; /* Prevents scrollbars */
 }
 
@@ -34,7 +36,7 @@ body {
     padding: 10px 20px;
     background-color: #94a4b4;
     border-top: 1px solid #ddd;
-    box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1); /* Optional: adds shadow to separate controls from video */
+    box-shadow: 0 -1px 10px var(--popup-background); /* Optional: adds shadow to separate controls from video */
 }
 
 .video-controls .left-controls,

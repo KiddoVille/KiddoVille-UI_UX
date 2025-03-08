@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .sidebar {
     background-color: #ffffff;
     box-shadow: 0.125rem 0 0.3125rem rgba(0,0,0,0.1);
@@ -128,7 +130,7 @@
 }
 
 .sidebar ul li a:hover {
-    color: #007bff;
+    color: var(--button-blue);
 }
 
 .sidebar ul li a::before {
@@ -138,7 +140,7 @@
     bottom: 0;
     height: 0.125rem;
     width: 100%;
-    background-color: #007bff;
+    background-color: var(--button-blue);
     transform: scaleX(0);
     transition: transform 0.3s;
 }
@@ -148,7 +150,7 @@
 }
 
 .selected {
-    background-color: #10639a;
+    background-color: var(--secondary-color);
     border-radius: 0.625rem;
     width: 90%;
 }

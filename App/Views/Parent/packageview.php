@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Packagecard.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
@@ -56,7 +57,7 @@
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top:40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
@@ -72,10 +73,7 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+            <hr>
         </div>
         <div class="sidebar-2" id="sidebar2">
             <div>
@@ -90,16 +88,15 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -110,21 +107,21 @@
         </div>
         <div class="main-content" id="main-content">
         <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                    <p style="color: white">Let’s do some productive activities today</p>
+                    <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
                 </div>
                 <!-- message icon -->
-                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                <div class="bell-con" id="bell-container">
                     <i class="fas fa-bell bell-icon"></i>
                     <div class="message-numbers">
                         <p> 2</p>
                     </div>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -150,35 +147,26 @@
                     <h1>View Package</h1>
                     <label for="package-name">Package name</label>
                     <input id="package-name" readonly="" type="text" value="Basic care plan" />
-                    <label for="included-services" style="margin-top: -10px;">Included services</label>
+                    <label for="included-services">Included services</label>
                     <div class="services" id="included-services">
                         
                     </div>
-                    <label for="price" style="margin-top: -10px;">Price</label>
+                    <label for="price">Price</label>
                     <div class="price-container">
                         <input id="price" readonly="" type="text" value="80,000" />
                         <span>RS</span>
                     </div>
-                    <label for="included-days" style="margin-top: -10px;">Included days</label>
-                    <div class="services" id="included-days" style="display: grid; grid-template-columns: repeat(2, 1fr); height: 70px;">
-                        <ul id="first-ul" style="margin-top: -10px;"></ul>
-                        <ul id="second-ul" style="margin-top: -10px;"></ul>
+                    <label for="included-days">Included days</label>
+                    <div class="services" id="included-days">
+                        <ul id="first-ul"></ul>
+                        <ul id="second-ul"></ul>
                     </div>
                 </div>
             </div>
-            <div class="chatbox">
-                <a href="../Messager/Message.html">
-                    <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                        style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                </a>
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </div>
             <div class="fill">
-                <div style="text-align: left; left: 0; display: flex; flex-direction: column; justify-content: left;">
-                    <h2 style="margin-top: 0px !important; margin-bottom: 2px;">Packages</h2>
-                    <hr style="width: 1080px;">
+                <div class="fill-head">
+                    <h2>Packages</h2>
+                    <hr>
                 </div>
                 <div class="filters" style="text-align: left;">
                     <label for="minPrice">Min Price:</label>
@@ -199,18 +187,17 @@
                         <option value="14-15"> 14-15 </option>
                     </select>
                 </div>
-                <div class="packages" style="display: grid; grid-template-columns: repeat(5, 1fr); height: 460px;">
+                <div class="packages">
 
                 </div>
-                <div class="pagination" style="margin-top: 30px; margin-bottom: -10px;">
+                <div class="pagination">
 
                 </div>
             </div>
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>

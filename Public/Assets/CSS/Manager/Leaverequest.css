@@ -34,7 +34,7 @@
     border: 1px solid #ddd;
     margin: 20px auto; /* Center horizontally in the container */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     width: 100%; /* Make the width responsive to fit smaller screens */
     max-width: 60%; /* Limit maximum width */
     padding: 3%;
@@ -42,7 +42,7 @@
   
   .viewbtn {
     padding: 10px 15px;
-    background-color: #007BFF;
+    background-color: var(--button-blue);
     color: white;
     border: none;
     border-radius: 5px;
@@ -50,7 +50,7 @@
   }
   
   .viewbtn:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
   }
   
   .overlay {
@@ -72,7 +72,7 @@
     transform: translate(-50%, -50%);
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--popup-background);
     z-index: 1000;
     padding: 20px;
     width: 90%; /* Make popup responsive */
@@ -137,7 +137,7 @@
   .close-btn {
     display: inline-block;
     margin-top: 10px;
-    color: #007BFF;
+    color: var(--button-blue);
     cursor: pointer;
   }
   
@@ -154,7 +154,7 @@
   .l_name{
     margin-left: 18%;
     margin-top: -14%;
-    color: #233E8D;
+    color: var(--heading);
   }
   
 

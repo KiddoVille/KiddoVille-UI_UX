@@ -2,7 +2,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e0f7fa;
+    background-color: var(--pickup);
 }
 .heading {
     background-color: #3b82f6;
@@ -23,7 +23,7 @@ body {
     justify-content: center;
     padding:10px 50px;
     background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px var(--popup-background);
     margin: 50px 300px;
     background-image: url('../Assets/help-background.jpeg');
     background-repeat: no-repeat;
@@ -40,7 +40,7 @@ body {
 .card {
     background-color: #e0f2ff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     margin: 20px;
     padding: 20px;
     padding-top: 30px;
@@ -59,7 +59,7 @@ body {
 .card:hover{
     background-color: #d0eaff;
     transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px var(--popup-background);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -74,7 +74,7 @@ body {
     color: black !important;
 }
 .card p {
-    color: #666;
+    color: var(--p);
     font-size: 0.9em;
     margin-bottom: auto;
 }
@@ -89,7 +89,7 @@ a.card-link {
 }
 
 .Learn {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: white;
     padding: 12px 12px;
     border: none;
@@ -98,20 +98,20 @@ a.card-link {
     font-weight: 500;
     cursor: pointer;
     margin-right: 60px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .Learn:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px var(--popup-background);
 }
 
 .Learn:active {
     background-color: #00408d; 
     transform: translateY(1px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 6px var(--popup-background);
 }
 
 .popup-container {
@@ -121,7 +121,7 @@ a.card-link {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--popup-background);
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -190,7 +190,7 @@ a.card-link {
 }
 
 .back-con {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     position: absolute;
     z-index: 10000;
     height: 40px;

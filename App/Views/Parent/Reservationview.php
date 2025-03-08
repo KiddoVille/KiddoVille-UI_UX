@@ -177,7 +177,7 @@
                                     </div>
                                 </div>
                                 <h1>Make Reservation</h1>
-                                <div class="pickup-section">
+                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
                                     <label for="time">Select Date <span id="red-star6" class="red-star"> *</span>
                                     </label>
                                     <p> May 2024
@@ -356,7 +356,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="modal" id="RatingModal">
+                <!-- <div class="modal" id="RatingModal">
                     <div class="Give-Rating">
                         <div class="top-con">
                             <div class="back-con">
@@ -387,7 +387,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="saperate">
                 <div class="Table1">
@@ -782,27 +782,27 @@
                 headingres.textContent = 'Reervation history';
             });
 
-            backformeeting.addEventListener('click', function() {
-                toggleModal(RatingModal, 'none');
-            })
+            // backformeeting.addEventListener('click', function() {
+            //     toggleModal(RatingModal, 'none');
+            // })
 
-            meetingrefresh.addEventListener('click', function() {
-                meetingform.reset();
-                stars.forEach((star) => {
-                    star.classList.remove('selectestar')
-                });
-            })
+            // meetingrefresh.addEventListener('click', function() {
+            //     meetingform.reset();
+            //     stars.forEach((star) => {
+            //         star.classList.remove('selectestar')
+            //     });
+            // })
 
-            closemeetingBtn.addEventListener('click', function() {
-                toggleModal(meetingModal, 'none');
-            })
+            // closemeetingBtn.addEventListener('click', function() {
+            //     toggleModal(meetingModal, 'none');
+            // })
 
-            feedbackbtns.forEach(element => {
-                console.log("Hi");
-                element.addEventListener('click', function() {
-                    toggleModal(RatingModal, 'flex');
-                })
-            });
+            // feedbackbtns.forEach(element => {
+            //     console.log("Hi");
+            //     element.addEventListener('click', function() {
+            //         toggleModal(RatingModal, 'flex');
+            //     })
+            // });
 
             window.addEventListener('click', function(e) {
                 if (e.target === RatingModal) {
@@ -908,9 +908,9 @@
                 toggleModal(ReservationViewModal, 'none');
             });
 
-            closeReservation.addEventListener('click', function() {
-                toggleModal(ReservationViewModal, 'none');
-            });
+            // closeReservation.addEventListener('click', function() {
+            //     toggleModal(ReservationViewModal, 'none');
+            // });
 
             const newreservationbtn = document.getElementById('newreservationbtn');
             const NewReservationForm = document.getElementById('NewReservationForm');
@@ -919,6 +919,7 @@
             const closenewReservation = document.getElementById('closenewReservation');
 
             newreservationbtn.addEventListener('click', function() {
+                console.log("New Reservation");
                 toggleModal(NewReservationModal, 'flex');
             });
             backfornewreservation.addEventListener('click', function() {
@@ -931,21 +932,21 @@
                 NewReservationForm.reset();
             });
 
-            starttime.addEventListener('input', function() {
-                if (!starttime.value) {
-                    redstar7.classList.remove('hidden');
-                } else {
-                    redstar7.classList.add('hidden');
-                }
-            })
+            // starttime.addEventListener('input', function() {
+            //     if (!starttime.value) {
+            //         redstar7.classList.remove('hidden');
+            //     } else {
+            //         redstar7.classList.add('hidden');
+            //     }
+            // })
 
-            endtime.addEventListener('input', function() {
-                if (!endtime.value) {
-                    redstar8.classList.remove('hidden');
-                } else {
-                    redstar8.classList.add('hidden');
-                }
-            })
+            // endtime.addEventListener('input', function() {
+            //     if (!endtime.value) {
+            //         redstar8.classList.remove('hidden');
+            //     } else {
+            //         redstar8.classList.add('hidden');
+            //     }
+            // })
 
         });
     </script>

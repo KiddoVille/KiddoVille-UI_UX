@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .main-content {
     padding: 20px;
     position: relative;
@@ -19,12 +21,12 @@
 }
 
 .icon {
-    color: #0288d1;
+    color: var(--icon);
     font-size: 18px;
     cursor: pointer;
 }
 .checked {
-    color: #0288d1;
+    color: var(--icon);
 }
 
 .custom-checkbox {
@@ -48,8 +50,8 @@
 }
 
 .custom-checkbox input:checked + .checkmark {
-    background-color: #0288d1; /* Background color when checked */
-    border-color: #0288d1; /* Border color when checked */
+    background-color: var(--icon); /* Background color when checked */
+    border-color: var(--icon); /* Border color when checked */
 }
 
 .checkmark::after {
@@ -103,7 +105,7 @@
 }
 .modal .header2 i {
     margin-right: 10px;
-    color: #007bff;
+    color: var(--button-blue);
 }
 .header2 h2 {
     font-size: 20px;
@@ -112,7 +114,7 @@
 }
 .tabs {
     display: flex;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--body-second);
     margin-bottom: 20px;
 }
 .tab {
@@ -121,7 +123,7 @@
     padding: 10px;
     cursor: pointer;
     font-size: 16px;
-    color: #666;
+    color: var(--p);
     transition: color 0.3s, border-bottom 0.3s;
 }
 .form-group {
@@ -140,7 +142,7 @@
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--body-second);
     border-radius: 5px;
     font-size: 14px;
     color: #333;
@@ -148,7 +150,7 @@
 }
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #007bff;
+    border-color: var(--button-blue);
     outline: none;
 }
 .form-group textarea {
@@ -165,7 +167,7 @@
 }
 .form-group .date-input i {
     font-size: 18px;
-    color: #666;
+    color: var(--p);
 }
 .buttons {
     display: flex;
@@ -181,22 +183,22 @@
 }
 .buttons .cancel {
     background-color: #fff;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--body-second);
     color: #333;
 }
 .buttons .cancel:hover {
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
 }
 .buttons .done {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: #fff;
 }
 .buttons .done:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 .View-Report{
     background-color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     padding: 20px;
     border: 1px solid #ccc;
     animation: popupSlideIn 0.5s ease;
@@ -213,10 +215,10 @@
     transition: all 1s ease-in-out;
 }
 .line{
-    background-color: #004099;
+    background-color: var(--button-blue-hover);
     width: 160px;
     height: 3px;
-    color: #004099;
+    color: var(--button-blue-hover);
     margin-top: -22px;
     position: absolute;
     z-index: 10000;

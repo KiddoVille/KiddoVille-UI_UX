@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .main-content {
     height: 90vh !important;
     width: 100%;

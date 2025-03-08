@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -22,7 +24,7 @@ body::-webkit-scrollbar {
     position: relative;
     height: 110vh !important;
     margin-left: 270px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     width: 100%;
 }
 
@@ -40,31 +42,31 @@ body::-webkit-scrollbar {
     background-color: rgba(255, 255, 255, 0.8);
     margin-top: 80px;
     border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px var(--popup-background);
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
 }
 
-.timetable {
+.foodtable {
     width: 520px;
 }
 
-.timetable .filters {
+.foodtable .filters {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.timetable .filters input {
+.foodtable .filters input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #4d4c4c16;
 }
 
-.timetable .filters input[type="date"] {
+.foodtable .filters input[type="date"] {
     width: 250px;
     text-align: center;
     padding: 10px;
@@ -72,7 +74,7 @@ body::-webkit-scrollbar {
     border-radius: 5px;
 }
 
-.timetable table {
+.foodtable table {
     width: 100%;
     border-collapse: collapse;
 }
@@ -81,7 +83,7 @@ body::-webkit-scrollbar {
     display: none;
 }
 
-.timetable table th,
+.foodtable table th,
 .activity-schedule table td {
     padding: 10px;
     border-top: none;
@@ -91,31 +93,31 @@ body::-webkit-scrollbar {
     text-align: left;
 }
 
-.timetable table th {
-    background-color: #f5f5f5;
-    color: #233E8D;
+.foodtable table th {
+    background-color: var(--input-field-background);
+    color: var(--heading);
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
-.timetable table tr {
+.foodtable table tr {
     border-bottom: 4px solid lightgray;
 }
 
-.timetable .description {
+.foodtable .description {
     margin-top: 20px;
 }
 
-.timetable .description h3 {
+.foodtable .description h3 {
     font-size: 18px;
     margin: 0 0 10px;
 }
 
-.timetable .description p {
+.foodtable .description p {
     margin: 0;
 }
 
-.timetable input[type="date"] {
+.foodtable input[type="date"] {
     width: 250px;
     text-align: center;
     padding: 10px 10px;
@@ -123,13 +125,13 @@ body::-webkit-scrollbar {
     border-radius: 5px;
     margin-right: 100px;
     margin-bottom: 10px;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
 }
 
 .pickup-section {
     border-radius: 10px;
     padding: 5px 10px;
-    border: 2px solid #b2ebf2;
+    border: 2px solid var(--pickup-border);
     position: relative;
     margin-bottom: 5px;
 }
@@ -150,7 +152,7 @@ body::-webkit-scrollbar {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 .pickup-section select {

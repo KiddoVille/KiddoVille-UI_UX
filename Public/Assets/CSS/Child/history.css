@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .main-content {
     padding: 20px;
     position: relative;
@@ -19,7 +21,7 @@
 /* child history tbale container */
 .child-history {
     background-color: white;
-    box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
+    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
     border-radius: 12px;
     padding: 10px 30px;
     max-width: 700px;
@@ -37,7 +39,7 @@
 }
 .child-history h1 {
     text-align: center;
-    color: #0056b3;
+    color: var(--secondary-color);
     margin-bottom: 20px;
     font-size: 40px;
     font-weight: bold;
@@ -52,7 +54,7 @@
     border-radius: 5px;
     margin-right: 100px;
     margin-bottom: 10px;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
 }
 .child-history .table-container {
     max-height: 270px;
@@ -64,12 +66,12 @@
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 15px var(--popup-background);
     margin-bottom: 10px !important;
 }
 
 .child-history thead {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     color: #ffffff;
 }
 
@@ -77,11 +79,11 @@
     padding: 15px;
     text-align: center;
     font-size: 15px;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--body-second);
 }
 
 .child-history th {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     color: #ffffff;
     font-weight: 800;
     white-space: nowrap;
@@ -112,11 +114,11 @@
 
 .child-history td {
     color: #333;
-    background-color: #f7f9fc;
+    background-color: var(--td);
 }
 
 .child-history tr:nth-child(even) td {
-    background-color: #eaf3fa;
+    background-color: var(--td2);
 }
 
 .child-history tbody::-webkit-scrollbar {
@@ -129,7 +131,7 @@
 }
 
 .child-history tbody::-webkit-scrollbar-thumb {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     border-radius: 8px;
 }
 
@@ -147,7 +149,7 @@
     border-radius: 20px;
     background-color: white;
     margin-top: 0px;
-    box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
+    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
 
 }
 
@@ -155,17 +157,17 @@
     background-color: white;
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--popup-background);
     text-align: center;
     margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px var(--popup-background);
 }
 
 .attendance-component h1 {
     font-size: 30px;
     margin-bottom: 10px;
     margin-top: -10px;
-    color: #0056b3;
+    color: var(--secondary-color);
 }
 
 .attendance-grid {
@@ -176,10 +178,10 @@
 }
 
 .attendance-item {
-    background-color: #e0f7fa;
+    background-color: var(--pickup);
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 4px 15px var(--popup-background);
     border: 3px solid transparent;
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -232,7 +234,7 @@
     background-color: white;
     border-radius: 10px;
     padding: 10px 20px;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 4px 15px var(--popup-background);
     text-align: left;
     margin-bottom: 0px;
     width: 300px;

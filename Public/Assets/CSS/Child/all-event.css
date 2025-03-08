@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .main-content {
     padding: 20px;
     height: 60vh !important;
@@ -79,7 +81,7 @@
 
 .View-Package {
     background-color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     padding: 20px;
     border: 1px solid #ccc;
     animation: popupSlideIn 0.5s ease;
@@ -126,7 +128,7 @@
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     margin-left: 15px;
 }
 .View-Package .services {
@@ -136,7 +138,7 @@
     margin-bottom: 20px;
     font-size: 14px;
     line-height: 1.5;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     width: 83%;
     margin-left: 15px;
     width: 288px;
@@ -177,7 +179,7 @@
     margin-bottom: -20px;
 }
 .back-con{
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -197,7 +199,7 @@
 .pickup-section {
     border-radius: 10px;
     padding: 5px 10px;
-    border: 2px solid #b2ebf2;
+    border: 2px solid var(--pickup-border);
     position: relative;
     margin-bottom: 5px;
 }
@@ -220,7 +222,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 .pickup-section input:focus {

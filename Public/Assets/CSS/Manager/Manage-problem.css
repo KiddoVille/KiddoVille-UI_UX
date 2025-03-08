@@ -54,7 +54,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     margin: 40px 100px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--popup-background);
 }
 .problem-item {
     display: flex;
@@ -62,7 +62,7 @@ body {
     align-items: center;
     padding: 10px 0;
     border-bottom: 3px solid #eee;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px var(--popup-background);
     margin-bottom: 10px;
 }
 .problem-item:last-child {

@@ -1,10 +1,12 @@
+@import url('../variables.css');
+
 .Table1 {
     background-color: white;
-    box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
+    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
     border-radius: 12px;
     padding: 10px 30px;
     width: 90%;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 15px var(--popup-background);
     transition: transform 0.3s ease;
     margin-top: 10px;
 }
@@ -16,6 +18,11 @@
     font-weight: bold;
     margin-top: 10px;
 }
+.Table1 .filters{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .Table1 input[type="date"] {
     width: 250px;
     text-align: center;
@@ -24,7 +31,7 @@
     border-radius: 5px;
     margin-right: 100px;
     margin-bottom: 10px;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
 }
 .Table1 .table-container {
     max-height: 280px;
@@ -36,11 +43,11 @@
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 15px var(--popup-background);
 }
 
 .Table1 thead {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     color: #ffffff;
 }
 
@@ -48,11 +55,11 @@
     padding: 15px;
     text-align: center;
     font-size: 15px;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--body-second);
 }
 
 .Table1 th {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     color: #ffffff;
     font-weight: 800;
     white-space: nowrap;
@@ -82,11 +89,11 @@
 
 .Table1 td {
     color: #333;
-    background-color: #f7f9fc;
+    background-color: var(--td);
 }
 
 .Table1 tr:nth-child(even) td {
-    background-color: #eaf3fa;
+    background-color: var(--td2);
 }
 
 .Table1 tbody::-webkit-scrollbar {
@@ -99,7 +106,7 @@
 }
 
 .Table1 tbody::-webkit-scrollbar-thumb {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     border-radius: 8px;
 }
 
@@ -123,7 +130,7 @@
     height: 40px;
     width: 250px;
     font-family: Arial, sans-serif;
-    background: #60a6ec;
+    background: var(--primary-color);
     border-radius: 8px;
     border: 4px solid white;
     position: relative;
@@ -143,6 +150,6 @@
     position: relative;
     font-size: 18px;
     z-index: 100;
-    background-color: #10639a;
+    background-color: var(--primary-hover);
     padding: 10px 26px;
 }

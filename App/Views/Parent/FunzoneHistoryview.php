@@ -65,7 +65,7 @@
                     <i class="fas fa-box"></i> <span>Package</span>
                 </a>
             </li>
-            <li class="selected" style="margin-top: 40px;">
+            <li class="selected">
                 <a href="<?= ROOT ?>/Parent/funzonehome">
                     <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                 </a>
@@ -76,13 +76,10 @@
                 </a>
             </li>
         </ul>
-        <hr style="margin-top: 40px;">
-        <div class="help">
-            <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-        </div>
+        <hr>
     </div>
     <!-- navigation to choose child -->
-    <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+    <div class="sidebar-2" id="sidebar2">
         <div>
             <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
             <div class="family-section" style="margin-top: 10px; margin-left: 20px;">

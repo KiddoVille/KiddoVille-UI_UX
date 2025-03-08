@@ -1,3 +1,4 @@
+@import url('../variables.css');
 .stats {
     display: grid;
     justify-content: space-between;
@@ -15,7 +16,7 @@
     border-radius: 0.625rem;
     text-align: center;
     flex: 1;
-    box-shadow: 0px 0.125rem 0.4375rem 0.01px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0.125rem 0.4375rem 0.01px var(--popup-background);
     transition: transform 0.3s, box-shadow 0.3s;
     min-width: 0; /* Prevent flex items from overflowing */
     justify-content: center;
@@ -24,13 +25,13 @@
 
 .stats .stat:hover {
     transform: translateY(-0.625rem);
-    box-shadow: 0px 0.9375rem 1.5625rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0.9375rem 1.5625rem var(--popup-background);
 }
 
 .stats .stat h3 {
     margin: 0;
     font-size: 1.125rem;
-    color: #233E8D;
+    color: var(--heading);
     margin-top: -0.625rem;
     padding-top: 0.625rem;
     display: flex;
@@ -41,13 +42,13 @@
 .stats .stat p {
     font-size: 1.5rem;
     margin: 0.625rem 0 0;
-    color: #233E8D;
+    color: var(--heading);
 }
 
 .stats .stat span {
     font-size: 1rem;
     font-weight: 50;
-    color: #233E8D;
+    color: var(--heading);
 }
 
 .stats .stat i {

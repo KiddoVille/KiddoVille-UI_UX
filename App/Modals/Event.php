@@ -9,6 +9,7 @@
 
         protected $table = 'event';
         protected $allowedColumns = [
+            'EventID',
             'EventName',
             'Date',
             'TeacherID',

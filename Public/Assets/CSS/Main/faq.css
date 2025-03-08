@@ -6,7 +6,7 @@
 }
 
 body{
-    background-color: #e0f7fa;
+    background-color: var(--pickup);
 }
 
 .wrapper {
@@ -15,7 +15,7 @@ body{
     padding: 2rem;
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px var(--popup-background);
 }
 
 .wrapper > p,
@@ -82,7 +82,7 @@ body{
 }
 
 .faq {
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--popup-background);
     margin: 10px 0;
     padding: -5px;
 }

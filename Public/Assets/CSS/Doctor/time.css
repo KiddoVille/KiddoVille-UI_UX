@@ -1,6 +1,6 @@
 .appointment-page{
     border-radius: 15px;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);;
+    box-shadow: 4px 4px 15px var(--popup-background);;
     display: flex;
     flex-direction: column;
     background-color: #f4f4f4;
@@ -12,7 +12,7 @@
 .appointment-table button{
    
     padding: 0.5rem 1rem;
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: white;
     border: none;
     border-radius: 5px;
@@ -22,7 +22,7 @@
     margin-top: 1rem;
 }
 .appointment-table button:hover{
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 .appointment-table{
     padding: 0px 20px;

@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -5,7 +7,7 @@ body {
 
 .main-content {
     margin-left: 250px;
-    background-color: #e0e0e0;
+    background-color: var(--body-second);
     height: 100vh;
     overflow-y: auto;
     background: url('../../../../Assets/funzone-backgound.png') no-repeat center center;
@@ -46,8 +48,8 @@ body {
     margin-bottom: -15px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-bottom: 4px solid #233E8D;
+    box-shadow: 0px 4px 8px var(--popup-background);
+    border-bottom: 4px solid var(--heading);
     padding: 10px 0px;
     margin-bottom: 5px;
 
@@ -57,7 +59,7 @@ body {
     font-size: 18px;
     /* Slightly larger font size for visibility */
     font-weight: bold;
-    color: #233E8D;
+    color: var(--heading);
     /* Darker blue color for text */
     margin: 0;
     /* Remove margin */
@@ -68,7 +70,7 @@ body {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     display: flex;
     /* Use flexbox to align items horizontally */
     align-items: center;
@@ -93,7 +95,7 @@ body {
 .main-content .grid .item:hover {
     transform: translateY(-10px);
     /* Move the item up */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px var(--popup-background);
     /* Increase shadow on hover */
 }
 
@@ -111,7 +113,7 @@ body {
 }
 
 .icon-btn {
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -120,16 +122,16 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px var(--popup-background);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid #196df5;
 }
 
 .icon-btn:hover {
-    background-color: #e0e0e0;
+    background-color: var(--body-second);
     transform: scale(1.2);
     /* Enlarge the button */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px var(--popup-background);
     /* Increase shadow on hover */
 }
 
@@ -188,7 +190,7 @@ body {
 .main-content .grid .item p {
     font-size: 14px;
     /* Font size for the description */
-    color: #666;
+    color: var(--p);
     margin: 0 0 10px;
     /* Remove margin from top, add margin to bottom */
 }
@@ -240,7 +242,7 @@ body {
     background-color: #8db4f3;
     border: 2px solid black;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     display: none;
     z-index: 100;
     transition: all 0.3s ease;
@@ -427,7 +429,7 @@ input:focus+.slider {
     margin-left: auto;
     margin-right: auto;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px var(--popup-background);
     background-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -449,7 +451,7 @@ input:focus+.slider {
 
 #filter-date:focus {
     outline: none;
-    border-color: #233E8D;
+    border-color: var(--heading);
     box-shadow: 0 0 0 2px rgba(35, 62, 141, 0.2);
 }
 
@@ -459,13 +461,13 @@ input:focus+.slider {
 
 #filter-date:focus {
     outline: none;
-    border-color: #233E8D;
+    border-color: var(--heading);
     box-shadow: 0 0 0 2px rgba(35, 62, 141, 0.2);
 }
 
 #filter-button {
     padding: 8px 16px;
-    background-color: #233E8D;
+    background-color: var(--heading);
     color: white;
     border: none;
     cursor: pointer;

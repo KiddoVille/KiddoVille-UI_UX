@@ -13,7 +13,7 @@ body {
 .meeting-form {
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px var(--popup-background);
     width: 460px;
     padding: 20px;
 }
@@ -80,7 +80,7 @@ textarea {
 }
 
 textarea:focus, select:focus {
-    border-color: #007BFF;
+    border-color: var(--button-blue);
     outline: none;
 }
 .data-row input[type="text"]{
@@ -118,12 +118,12 @@ textarea:focus, select:focus {
 }
 
 .sub-btn {
-    background-color: #007BFF;
+    background-color: var(--button-blue);
     color: white;
 }
 
 .sub-btn:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 
 hr {

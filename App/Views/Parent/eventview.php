@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Table1.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
@@ -54,7 +55,7 @@
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top:40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
@@ -75,10 +76,7 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+            <hr>
         </div>
         <!-- navigation -->
         <div class="sidebar-2" id="sidebar2">
@@ -94,16 +92,14 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
-                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -115,21 +111,21 @@
         <div class="main-content" id="main-content">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                    <p style="color: white">Let’s do some productive activities today</p>
+                    <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
                 </div>
                 <!-- message icon -->
-                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                <div class="bell-con" id="bell-container">
                     <i class="fas fa-bell bell-icon"></i>
                     <div class="message-numbers">
                         <p> 2</p>
                     </div>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -147,12 +143,11 @@
             </div>
             <div class="stats">
                 <div class="stat" id="NewEvent">
-                    <div style="display: flex; flex-direction: row;">
-                        <img src="<?=isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE.'/event-2.svg'; ?>" alt="Event Image"
-                            style="width: 130px ; height: 130px; margin-top: -15px; border-radius: 7px 0px 0px 7px; margin-bottom: -15px;">
-                        <div style="display: flex; flex-direction: column; margin-top: 10px;">
-                            <h3 class="footer" style="margin-left: 5px;">Event Name: <?= $data['stat3']['EventName'] ?></h3>
-                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Date: <?= date('d/m/Y', strtotime($data['stat3']['Date'])) ?></p>
+                    <div class="stat-img">
+                        <img src="<?=isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE.'/event-2.svg'; ?>" alt="Event Image">
+                        <div class="stat-event">
+                            <h3 class="footer">Event Name: <?= $data['stat3']['EventName'] ?></h3>
+                            <p class="footer">Date: <?= date('d/m/Y', strtotime($data['stat3']['Date'])) ?></p>
                         </div>
                     </div>
                 </div>
@@ -193,7 +188,7 @@
                 <!-- Event Modal -->
                 <div class="modal" id="EventModal">
                     <div class="View-Package">
-                        <img id="Eventimage" src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
+                        <img id="Eventimage" src="<?= IMAGE ?>/packages.png">
                         <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
                             <div class="back-con" id="back-arrow">
                                 <i class="fas fa-chevron-left" id="backformeeting"></i>
@@ -214,6 +209,9 @@
                                 <input id="datetime" readonly="" type="text"/>
                             </div>
                         </div>
+                        <div class="button-popup">
+                            <button id="LeaveEvent">Leave</button>
+                        </div>
                     </div>
                 </div>
                 <!-- Rating Modal -->
@@ -224,12 +222,11 @@
                                 <i class="fas fa-chevron-left" id="backforrating"></i>
                             </div>
                             <div class="refresh-con">
-                                <i class="fas fa-refresh" id="ratingrefresh"
-                                    style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                                <i class="fas fa-refresh" id="ratingrefresh"></i>
                             </div>
                         </div>
                         <form id="ratingform">
-                            <h1 style="margin-left: 20px; margin-top: 40px !important;">Review and Rating</h1>
+                            <h1 class="review">Review and Rating</h1>
                             <div class="pickup-section">
                                 <label for="package-name">Reason</label>
                                 <input id="package-name" type="text" placeholder="Reason for the review" />
@@ -249,16 +246,16 @@
                                 </div>
                             </div>
                             <div class="button-popup">
-                                <button style="margin-right: 150px;" id="closeratingBtn">Cancel</button>
+                                <button id="closeratingBtn">Cancel</button>
                                 <button type="submit">Done</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <!-- Event conatiner -->
-                <div class="event-container" style="width:750px; height: 400px; ">
-                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
-                    <hr style="margin-bottom: 15px;">
+                <div class="Table1">
+                    <h2> Events </h2>
+                    <hr>
                     <div class="filters">
                         <input type="date" id="datePicker" value="" style="width: 200px">
                         <select style="width: 200px" id="select">
@@ -292,7 +289,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="glass-box" style="width: 200px !important; height: 360px !important;">
+                <div class="glass-box">
                     <div class="report-header">
                         <i class="fa-regular fa-clipboard"></i>
                         <h1>Feedback</h1>
@@ -312,8 +309,7 @@
         </div>
         <!-- profile card -->
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
@@ -361,7 +357,7 @@
 
         function setChildSession(ChildID) {
             console.log(ChildID);
-            fetch(' <?= ROOT ?>/Parent/Event/setchildsession', {
+            fetch(' <?= ROOT ?>/Parent/event/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -374,7 +370,7 @@
                 .then(data => {
                     if (data.success) {
                         console.log("Child Id set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
+                        window.location.href = '<?= ROOT ?>/Child/Event';
                     } else {
                         console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
                     }
@@ -409,7 +405,7 @@
         }
 
         function updateEventTable(events) {
-            const tbody = document.querySelector('.event-container table tbody');
+            const tbody = document.querySelector('.Table1 table tbody');
             tbody.innerHTML = '';
 
             events.forEach(event => {
@@ -419,7 +415,7 @@
                     <td> ${event.ChildName} </td>
                     <td>${new Date(event.Date).toLocaleDateString()}</td>
                     <td>${event.Status}</td>
-                    <td><i class="fas fa-eye icon eventbtn" data-eventid="${event.EventID}"></i></td>
+                    <td><i class="fas fa-eye icon eventbtn" data-eventid="${event.EventID}" data-enrollmentid = "${event.EnrollmentID}"></i></td>
                 `;
                 tbody.appendChild(row);
             });
@@ -431,50 +427,87 @@
             eventbtns.forEach(function(eventbtn) {
                 eventbtn.addEventListener('click', function() {
                     const eventId = this.dataset.eventid;
+                    const EnrollmentID = this.dataset.enrollmentid;
                     console.log(eventId);
-                    fetchEventDetails(eventId);
+                    fetchEventDetails(eventId, EnrollmentID);
                 });
             });
         }
 
-        function fetchEventDetails(eventId) {
+        function fetchEventDetails(eventId, EnrollmentID) {
             const eventNameInput = document.getElementById('event-name');
             const eventDetailsDiv = document.getElementById('event-description');
             const eventDateTimeInput = document.getElementById('datetime');
             const eventImage = document.getElementById('Eventimage');
+            const LeaveEvent = document.getElementById('LeaveEvent');
 
-            fetch('<?= ROOT ?>/Parent/Event/Event_details', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify({
-                    EventID: eventId
+            console.log(eventId);
+            fetch('<?=ROOT ?>/Parent/event/lol', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        EventID: eventId
+                    })
                 })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Event details:', data.data);
+                    eventNameInput.value = data.data.EventName;
+                    eventDateTimeInput.value = data.data.Date;
+                    eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
+                    LeaveEvent.dataset.EnrollmentID = EnrollmentID
+
+
+                    if (data.data.Image) {
+                        eventImage.src = data.data.Image;
+                    } else {
+                        eventImage.src = "<?= IMAGE ?>/packages.png";
+                    }
+
+                    toggleModal(EventModal, 'flex'); // Ensure EventModal is defined elsewhere
+                } else {
+                    alert(data.message || 'Failed to load event details.');
+                }
             })
+            .catch(error => console.error("Error:", error));
+        }
+
+        const LeaveEvent = document.getElementById('LeaveEvent');
+        if(LeaveEvent){
+            LeaveEvent.addEventListener('click', function () {
+                const enrollmentId = this.dataset.EnrollmentID; // Get EnrollmentID from data attribute
+
+                if (!enrollmentId) {
+                    alert("EnrollmentID is missing!");
+                    return;
+                }
+
+                console.log("Leaving event with EnrollmentID:", enrollmentId);
+
+                fetch('<?=ROOT ?>/Parent/event/leaveEvent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        EnrollmentID: enrollmentId // ✅ Send EnrollmentID
+                    })
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Populate modal with event details
-                        eventNameInput.value = data.data.EventName;
-                        eventDateTimeInput.value = data.data.Date;
-                        eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
-                        if (data.data.Image) {
-                            eventImage.src = data.data.Image;
-                        } else {
-                            eventImage.src = "<?= IMAGE ?>/packages.png";
-                        }
-                        toggleModal(EventModal, 'flex');
+                        alert("Successfully left the event!");
+                        location.reload(); // ✅ Refresh the page or update UI
                     } else {
-                        alert(data.message || 'Failed to load event details.');
+                        alert(data.message || "Failed to leave event.");
                     }
                 })
-                .catch(error => {
-                    console.error('Error fetching event details:', error);
-                    alert('An error occurred while fetching event details.');
-                });
+                .catch(error => console.error("Error leaving event:", error));
+            });
         }
-
 
         function toggleModal(modal, display) {
             const mainContent = document.getElementById('main-content');

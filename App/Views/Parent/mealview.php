@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/foodtable.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
@@ -26,7 +27,7 @@
             <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
                 <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
-                <h2 style="font-size: 1.5em; white-space: nowrap; margin-left: 0px;" id="sidebar-kiddo">KIDDO VILLE </h2>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
             </div>
             <ul>
                 <li class="hover-effect unselected">
@@ -49,7 +50,7 @@
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top: 40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
@@ -75,9 +76,9 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
+            <hr>
             <div class="help">
-                <a href="#" style="text-decoration:none; color:purple"><i class="fas fa-question-circle"></i> <span>Help</span></a>
+                <a href="#"><i class="fas fa-question-circle"></i> <span>Help</span></a>
             </div>
         </div>
         <div class="sidebar-2" id="sidebar2">
@@ -93,16 +94,15 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -116,18 +116,18 @@
                 <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                    <p style="color: white">Let’s do some productive activities today</p>
+                    <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
                 </div>
                 <!-- message icon -->
-                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                <div class="bell-con" id="bell-container">
                     <i class="fas fa-bell bell-icon"></i>
                     <div class="message-numbers">
                         <p> 2</p>
                     </div>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -143,18 +143,18 @@
                     </button>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: row; width: 100%; justify-content:flex-start;">
-                <div class="container-food" style="margin-left: 20px; top:0; vertical-align: top;">
+            <div class="table-holder">
+                <div class="container-food t1">
                     <!-- Table for Food -->
-                    <div class="timetable" style="margin-right: 1%; width: 395px; vertical-align: top;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; top:0;">Meal Plan</h3>
+                    <div class="foodtable">
+                        <h3>Meal Plan</h3>
                         <hr>
                         <input type="date" id="datePicker" min="<?= (date('Y-m-d')); ?>" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
-                        <table id="mealsTable" style="width: 100%; border-collapse: collapse;">
+                        <table id="mealsTable">
                             <thead>
                                 <tr>
-                                    <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Meal</th>
-                                    <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Dish</th>
+                                    <th>Meal</th>
+                                    <th>Dish</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,17 +163,17 @@
                         </table>
                     </div>
                 </div>
-                <div class="container-food" style="margin-left: 20px;">
+                <div class="container-food t2">
                     <!-- Table for Snacks -->
-                    <div class="timetable" style="margin-right: 1%; width: 395px;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Snack Plan</h3>
+                    <div class="foodtable">
+                        <h3>Snack Plan</h3>
                         <hr>
                         <input type="date" id="SnackdatePicker" min="<?= (date('Y-m-d')); ?>" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
-                        <table id="snackTable" style="width: 100%; border-collapse: collapse;">
+                        <table id="snackTable">
                             <thead>
                                 <tr>
-                                    <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Time</th>
-                                    <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Snack</th>
+                                    <th>Time</th>
+                                    <th>Snack</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -182,11 +182,11 @@
                         </table>
                     </div>
                 </div>
-                <div class="container-food" style="margin-left: 20px; width: 180px;">
+                <div class="container-food t3">
                     <form id="Form" method="POST" id="details" enctype="multipart/form-data" action="<?= ROOT ?>/Parent/Meal/Snack_request">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Add Snack</h3>
-                        <hr style="width: 160px;">
-                        <div class="pickup-section" style="margin-top: 20px; width: 160px;">
+                        <h3>Add Snack</h3>
+                        <hr >
+                        <div class="pickup-section">
                             <label for="Date">Date</label>
                             <input name="Date" required id="dateInput" type="date" min="<?= date('Y-m-d', strtotime('+1 day')); ?>" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
 
@@ -209,21 +209,21 @@
                             <select name="Snack" required id="snackInput">
                             </select>
                         </div>
-                        <button type="submit" style="margin-top: 15px; margin-left:110px;"> Add </button>
+                        <button type="submit"> Add </button>
                     </form>
                 </div>
             </div>
 
-            <div class="container-food" style="margin-left: 40px; margin-top: 20px; align-items: left; width: 1060px; justify-content: space-between;">
-                <h3 style="margin-top: 0px !important; margin-bottom: 4px; margin-right: 900px;">Assigned Snacks</h3>
-                <hr style="width: 1070px;">
+            <div class="container-food container2 ">
+                <h3>Assigned Snacks</h3>
+                <hr>
                 <p> Please select the child and meal, then enter the snack to assign it. You can easily view and edit the assigned snacks for each child as needed. </p>
-                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div class="Snackdata">
                     <form id="Form2" method="POST" enctype="multipart/form-data" action="<?= ROOT ?>/Parent/Meal/Snack_request_edit">
-                        <div style="display: flex; flex-direction: column; margin-right: 50px;">
-                            <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Edit Snack Request</h3>
-                            <hr style="width: 360px;">
-                            <div class="pickup-section" style="margin-top: 20px; width: 325px;">
+                        <div class="edit-con">
+                            <h3>Edit Snack Request</h3>
+                            <hr>
+                            <div class="pickup-section">
                                 <label for="date">Date</label>
                                 <input class="editsnack" required id="EditSnackDate" type="date" min="<?= date('Y-m-d', strtotime('+1 day')); ?>">
                                 <label for="date">Meal</label>
@@ -246,12 +246,12 @@
                                     <option hidden> selecte snack </option>
                                 </select>
                             </div>
-                            <button style="margin-top: 15px; margin-left:200px;"> Save </button>
+                            <button> Save </button>
                         </div>
                     </form>
-                    <div style="width: 3px; background-color: lightgray; margin-right: 50px;"></div>
-                    <div class="timetable" style="display: flex; flex-direction: column;">
-                        <div style="display: flex; flex-direction: row;">
+                    <div class="verticle-line"></div>
+                    <div class="foodtable">
+                        <div class="filters">
                             <input type="date" id="requestPicker" value="<?= date('Y-m-d', strtotime('+1 day')); ?>" min="<?= date('Y-m-d', strtotime('+1 day')); ?>">
                             <select id="mealPicker">
                                 <option value="Breakfast">Breakfast</option>
@@ -259,13 +259,13 @@
                                 <option value="Dinner">Dinner</option>
                             </select>
                         </div>
-                        <table id="requestTable" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <table id="requestTable">
                             <thead>
                                 <tr>
-                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Child</th>
-                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Meal</th>
-                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Snack</th>
-                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Edit</th>
+                                    <th>Child</th>
+                                    <th>Meal</th>
+                                    <th>Snack</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
                             <tbody style="max-height: 400px; overflow-y: auto;">
@@ -278,7 +278,7 @@
         </div>
 
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100" class="profile" />
             <h2>Thilina Perera</h2>
             <p>Student    RS0110657</p>

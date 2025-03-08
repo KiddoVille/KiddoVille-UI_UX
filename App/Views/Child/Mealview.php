@@ -159,7 +159,7 @@
             <div style="display: flex; flex-direction: row; width: 100%; justify-content:flex-start;">
             <div class="container-food" style="margin-left: 20px; top:0; vertical-align: top;">
                     <!-- Table for Food -->
-                    <div class="timetable" style="margin-right: 1%; width: 395px; vertical-align: top;">
+                    <div class="foodtable" style="margin-right: 1%; width: 395px; vertical-align: top;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px; top:0;">Meal Plan</h3>
                         <hr>
                         <input type="date" id="datePicker" min="<?= (date('Y-m-d')); ?>"  value="<?= (date('Y-m-d')); ?>" style="width: 200px">
@@ -178,7 +178,7 @@
                 </div>
                 <div class="container-food" style="margin-left: 20px;">
                     <!-- Table for Snacks -->
-                    <div class="timetable" id="snackTable" style="margin-right: 1%; width: 395px; top:0; vertical-align: top;">
+                    <div class="foodtable" id="snackTable" style="margin-right: 1%; width: 395px; top:0; vertical-align: top;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px; top:0;">Snack Plan</h3>
                         <hr>
                         <input type="date" id="SnackdatePicker" min="<?= (date('Y-m-d')); ?>"  value="" style="width: 200px">
@@ -248,7 +248,7 @@
                         </div>
                     </form>
                     <div style="width: 3px; background-color: lightgray; margin-right: 50px;"></div>
-                    <div class="timetable" style="display: flex; flex-direction: column;">
+                    <div class="foodtable" style="display: flex; flex-direction: column;">
                         <div style="display: flex; flex-direction: row;">
                             <input type="date" id="requestPicker" min="<?= (date('Y-m-d', strtotime('+1 day'))); ?>" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
                         </div>

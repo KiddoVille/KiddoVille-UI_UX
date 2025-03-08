@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .main-content {
     padding: 20px;
     position: relative;
@@ -26,18 +28,18 @@
 }
 
 .icon {
-    color: #0288d1;
+    color: var(--icon);
     font-size: 18px;
     cursor: pointer;
 }
 .checked {
-    color: #0288d1;
+    color: var(--icon);
 }
 
 /* report conatiner */
 .report-container {
     background-color: white;
-    box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
+    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
     border-radius: 12px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -60,12 +62,12 @@
     border-radius: 5px;
     margin-right: 100px;
     margin-bottom: 10px;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
 }
 
 .report-container h1 {
     text-align: center;
-    color: #0056b3;
+    color: var(--secondary-color);
     margin-bottom: 20px;
     font-size: 40px;
     font-weight: bold;
@@ -83,11 +85,11 @@
     border-collapse: collapse;
     background-color: #fff;
     margin-top: 0px;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 15px var(--popup-background);
 }
 
 .report-container thead {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     color: #ffffff;
 }
 
@@ -95,11 +97,11 @@
     padding: 15px;
     text-align: center;
     font-size: 15px;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--body-second);
 }
 
 .report-container th {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     color: #ffffff;
     font-weight: 800;
     white-space: nowrap;
@@ -129,11 +131,11 @@
 
 .report-container td {
     color: #333;
-    background-color: #f7f9fc;
+    background-color: var(--td);
 }
 
 .report-container tr:nth-child(even) td {
-    background-color: #eaf3fa;
+    background-color: var(--td2);
 }
 
 /* Custom scrollbar for Webkit browsers */
@@ -147,7 +149,7 @@
 }
 
 .report-container tbody::-webkit-scrollbar-thumb {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     border-radius: 8px;
 }
 
@@ -176,8 +178,8 @@
 }
 
 .custom-checkbox input:checked + .checkmark {
-    background-color: #0288d1; /* Background color when checked */
-    border-color: #0288d1; /* Border color when checked */
+    background-color: var(--icon); /* Background color when checked */
+    border-color: var(--icon); /* Border color when checked */
 }
 
 .checkmark::after {
@@ -209,7 +211,7 @@
     height: 395px;
     text-align: center;
     position: relative;
-    box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
+    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
     margin-bottom: 20px;
     transition: transform 0.3s ease;
     margin-top: 5px;
@@ -240,12 +242,12 @@
 
 .pickup-container p {
     font-size: 20px;
-    color: #007bff;
+    color: var(--button-blue);
     margin: 10px 10px;
 }
 
 .pickup-container .button {
-    background-color: #4a90e2;
+    background-color: var(--primary-color);
     color: white;
     padding: 15px 30px;
     border: none;
@@ -253,7 +255,7 @@
     font-size: 16px;
     cursor: pointer;
     margin: 20px 0;
-    border: 2px solid #004099;
+    border: 2px solid var(--button-blue-hover);
 }
 .pickup-container .button:hover {
     transform: scale(1.1);
@@ -295,7 +297,7 @@
 }
 .modal .header2 i {
     margin-right: 10px;
-    color: #007bff;
+    color: var(--button-blue);
 }
 .header2 h2 {
     font-size: 20px;
@@ -304,7 +306,7 @@
 }
 .tabs {
     display: flex;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--body-second);
     margin-bottom: 20px;
 }
 .tab {
@@ -313,7 +315,7 @@
     padding: 10px;
     cursor: pointer;
     font-size: 16px;
-    color: #666;
+    color: var(--p);
     transition: color 0.3s, border-bottom 0.3s;
 }
 .form-group {
@@ -329,7 +331,7 @@
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--body-second);
     border-radius: 5px;
     font-size: 14px;
     color: #333;
@@ -337,7 +339,7 @@
 }
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #007bff;
+    border-color: var(--button-blue);
     outline: none;
 }
 .form-group textarea {
@@ -354,7 +356,7 @@
 }
 .form-group .date-input i {
     font-size: 18px;
-    color: #666;
+    color: var(--p);
 }
 .buttons {
     display: flex;
@@ -370,22 +372,22 @@
 }
 .buttons .cancel {
     background-color: #fff;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--body-second);
     color: #333;
 }
 .buttons .cancel:hover {
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
 }
 .buttons .done {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: #fff;
 }
 .buttons .done:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 .View-Report{
     background-color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     padding: 20px;
     border: 1px solid #ccc;
     animation: popupSlideIn 0.5s ease;
@@ -411,7 +413,7 @@
 }
 
 .back-con{
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -429,10 +431,10 @@
     color: white !important;
 }
 .line{
-    background-color: #004099;
+    background-color: var(--button-blue-hover);
     width: 160px;
     height: 3px;
-    color: #004099;
+    color: var(--button-blue-hover);
     margin-top: -22px;
     position: absolute;
     z-index: 10000;

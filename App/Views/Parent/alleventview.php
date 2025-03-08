@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Packagecard.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
 </head>
 
-<body style=" overflow: hidden;">
+<body>
     <div class="container">
         <div class="sidebar " id="sidebar1">
             <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
@@ -49,7 +50,7 @@
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top: 40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
@@ -70,10 +71,7 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+            <hr>
         </div>
         <div class="sidebar-2" id="sidebar2">
             <div>
@@ -88,16 +86,15 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -108,21 +105,21 @@
         </div>
         <div class="main-content" id="main-content">
         <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                    <p style="color: white">Let’s do some productive activities today</p>
+                    <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
                 </div>
                 <!-- message icon -->
-                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                <div class="bell-con" id="bell-container">
                     <i class="fas fa-bell bell-icon"></i>
                     <div class="message-numbers">
                         <p> 2</p>
                     </div>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -141,8 +138,8 @@
 
             <div class="modal" id="EventModal">
                 <div class="View-Package">
-                    <img src="" id="Event-img" style="width: 360px; height: 250px; position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
-                    <div class="top-con" style="margin-top: 0px; margin-left: 1px;">
+                    <img src="" id="Event-img">
+                    <div class="top-con">
                         <div class="back-con" id="back-arrow">
                             <i class="fas fa-chevron-left" id="backformeeting"></i>
                         </div>
@@ -161,13 +158,13 @@
                         <label for="price">Date Time</label>
                         <input id="datetime" readonly="" type="text" />
                     </div>
-                    <button id="Enrollbtn" value="" style="width: 150px; margin-left: 170px; margin-top: 10px;" class="eventbtn" onclick="getchildrens(this.value)"> Enroll Children </button>
+                    <button id="Enrollbtn" class="eventbtn" onclick="getchildrens(this.value)"> Enroll Children </button>
                 </div>
             </div>
             <div class="modal" id="EnrollModal">
-                <div class="View-Package" style="height: 440px;">
-                    <img src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
-                    <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
+                <div class="View-Package">
+                    <img src="<?= IMAGE ?>/packages.png" >
+                    <div class="top-con">
                         <div class="back-con" id="Eback-arrow">
                             <i class="fas fa-chevron-left" id="backforenroll"></i>
                         </div>
@@ -178,16 +175,15 @@
 
                         </div>
                     </div>
-                    <button style="width: 150px; margin-left: 170px" id="Enrollmodel"> Enroll </button>
+                    <button id="Enrollmodel"> Enroll </button>
                 </div>
             </div>
-            <div class="fill" style="margin-left: 30px; width: 1180px;">
+            <div class="fill">
                 <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                    style="width: 24px; height: 24px; fill: #233E8D !important; margin-left: -1120px; cursor: pointer;"
                     class="back" onclick="window.location.href='<?= ROOT ?>/Parent/event'">
-                <h2 style="margin-top: -10px !important; margin-bottom: 2px; margin-right: 980px;"> Events </h2>
-                <hr style="width: 1070px;">
-                <div class="filters" style="margin-left: 330px !important;">
+                <h2> Events </h2>
+                <hr>
+                <div class="filters">
                     <input type="date" id="datePicker" value="" style="width: 200px; margin-left: 70px;">
                     <select id="age">
                         <option value="All" selected> All </option>
@@ -200,25 +196,17 @@
                         <option value="14-15"> 14-15 </option>
                     </select>
                 </div>
-                <div class="packages" style="display: grid; grid-template-columns: repeat(5, 1fr); height: 460px;">
+                <div class="packages">
 
                 </div>
-                <div class="pagination" style="margin-top: 30px; margin-bottom: -10px;">
+                <div class="pagination">
 
                 </div>
             </div>
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>

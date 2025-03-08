@@ -144,27 +144,48 @@ class Event
         return $stats;
     }
 
-
-    public function Event_details(){
+    public function lol(){
         header('Content-Type: application/json');
 
         // Parse incoming JSON request
         $requestData = json_decode(file_get_contents("php://input"), true);
         $EventID = isset($requestData['EventID']) ? $requestData['EventID'] : null;
 
-        $event = [];
         if ($EventID) {
             $EventModal = new \Modal\Event;
             $event = $EventModal->first(['EventID' => $EventID]);
-    
+
+            if($event->Image != null){
+                $imageData = $event->Image;
+                $imageType = $event->ImageType;
+                $base64Image = (!empty($imageData) && is_string($imageData))
+                    ? 'data:image/jpeg;base64,' . base64_encode($imageData)
+                    : null;
+
+                $event->Image = $base64Image;
+            }
         }
 
         if (empty($event)) {
-            echo json_encode(['success' => true, 'message' => 'No events found for the selected filters']);
+            echo json_encode(['success' => false, 'message' => 'No events found for the selected filters']);
         } else {
             echo json_encode(['success' => true, 'data' => $event]);
         }
+    }
 
+    public function leaveEvent(){
+        header('Content-Type: application/json');
+
+        // Parse incoming JSON request
+        $requestData = json_decode(file_get_contents("php://input"), true);
+        $EnrollmentID = isset($requestData['EnrollmentID']) ? $requestData['EnrollmentID'] : null;
+
+        if ($EnrollmentID) {
+            $EventModal = new \Modal\EventEnrollment;
+            $event = $EventModal->delete($EnrollmentID, "EnrollmentID");
+
+        }
+        echo json_encode(['success' => true, 'data' => $event]);
     }
 
     public function store_data() {

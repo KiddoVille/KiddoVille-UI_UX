@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -39,17 +41,17 @@ body {
     background-color: white;
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--popup-background);
     text-align: center;
     margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px var(--popup-background);
 }
 
 .attendance-component h1 {
     font-size: 40px;
     margin-bottom: 0px;
     margin-top: -10px;
-    color: #0056b3;
+    color: var(--secondary-color);
 }
 
 .attendance-grid {
@@ -60,10 +62,10 @@ body {
 }
 
 .attendance-item {
-    background-color: #e0f7fa;
+    background-color: var(--pickup);
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px var(--popup-background);
     border: 3px solid transparent;
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -124,7 +126,7 @@ body {
     background-color: white;
     border-radius: 10px;
     padding: 10px 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px var(--popup-background);
     text-align: left;
     margin-bottom: 0px;
     width: 300px;
@@ -191,28 +193,28 @@ body {
 }
 
 .holiday-contain h1 {
-    color: #0056b3;
+    color: var(--secondary-color);
     font-size: 25px;
     margin: 0;
     text-align: left;
 }
 
 .holiday-contain h2 {
-    color: #0056b3;
+    color: var(--secondary-color);
     font-size: 35px;
     margin: 10px 0;
     text-align: left;
 }
 
 .holiday-contain h3 {
-    color: #0056b3;
+    color: var(--secondary-color);
     font-size: 30px;
     margin: 10px 0;
     text-align: left;
 }
 
 .holiday-contain h4 {
-    color: #0056b3;
+    color: var(--secondary-color);
     font-size: 30px;
     margin: 10px 0;
     text-align: left;
@@ -250,7 +252,7 @@ body {
     width: 40px;
     height: auto;
     margin-left: 20px;
-    fill: #0056b3;
+    fill: var(--secondary-color);
 }
 
 .icon:hover {

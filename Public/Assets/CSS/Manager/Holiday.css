@@ -3,7 +3,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px var(--popup-background);
   width: 35%;
   margin-top: 7.5%;
   margin-left: 20%;
@@ -11,7 +11,7 @@
 
 .leave-form {
   width: 100%;
-  color:#233E8D;
+  color:var(--heading);
 }
 
 .form-group {
@@ -51,13 +51,13 @@ textarea.form-control {
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: var(--button-blue);
   color: white;
   border: none;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: var(--secondary-color);
 }
 
 .btn-secondary {
@@ -96,7 +96,7 @@ textarea.form-control {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px var(--popup-background);
   margin-top: 5%;
 }
 
@@ -105,7 +105,7 @@ textarea.form-control {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--popup-background);
 }
 
 .holiday-item h3 {
@@ -121,7 +121,7 @@ textarea.form-control {
 .calendar {
   background-color: #b3d4fc;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px var(--popup-background);
   overflow: hidden;
   width:35%;
   color: #023e8a;
@@ -147,7 +147,7 @@ textarea.form-control {
   font-size: 18px;
   padding: 5px 10px;
   color: white;
-  background-color: #0056b3;
+  background-color: var(--secondary-color);
   border-radius: 5px;
 }
 
@@ -190,7 +190,7 @@ textarea.form-control {
 }
 
 .days div:hover {
-  background-color: #007bff;
+  background-color: var(--button-blue);
   color: white;
 }
 
@@ -209,7 +209,7 @@ textarea.form-control {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px var(--popup-background);
   margin-top: 5%;
 }
 .published-holidays h2{
@@ -228,7 +228,7 @@ textarea.form-control {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--popup-background);
 }
 
 
@@ -261,7 +261,7 @@ textarea.form-control {
 }
 
 .holiday-list::-webkit-scrollbar-thumb:hover {
-  background-color: #0056b3; /* Darker color on hover */
+  background-color: var(--secondary-color); /* Darker color on hover */
 }
 
 .del-btn{
@@ -279,7 +279,7 @@ textarea.form-control {
 }
 
 .btn-primary {
-  background-color: #233E8D;
+  background-color: var(--heading);
   color: white;
   padding: 10px 20px;
   border: none;
@@ -318,7 +318,7 @@ textarea.form-control {
   border-radius: 10px;
   text-align: center;
   width: 300px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px var(--popup-background);
 }
 
 /* Modal Buttons */

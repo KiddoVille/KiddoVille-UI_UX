@@ -1,9 +1,11 @@
+@import url('../variables.css');
+
 .main-content {
     padding: 20px;
     position: relative;
     height: 90vh !important;
     margin-left: 270px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     width: 100%;
 }
 
@@ -28,7 +30,7 @@
     border-radius: 12px;
     padding: 30px;
     width: 80%;
-    box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
+    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
     transition: transform 0.3s ease;
 }
 
@@ -38,7 +40,7 @@
 
 .reservation-container h1 {
     text-align: center;
-    color: #0056b3;
+    color: var(--secondary-color);
     margin-bottom: 20px;
     font-size: 40px;
     font-weight: bold;
@@ -57,7 +59,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
 }
 
 .reservation-container .filters input[type="date"] {
@@ -95,7 +97,7 @@
 }
 
 .reservation-container thead {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     color: #ffffff;
 }
 
@@ -104,11 +106,11 @@
     padding: 15px;
     text-align: center;
     font-size: 15px;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--body-second);
 }
 
 .reservation-container th {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     color: #ffffff;
     font-weight: 800;
     white-space: nowrap;
@@ -140,11 +142,11 @@
 
 .reservation-container td {
     color: #333;
-    background-color: #f7f9fc;
+    background-color: var(--td);
 }
 
 .reservation-container tr:nth-child(even) td {
-    background-color: #eaf3fa;
+    background-color: var(--td2);
 }
 
 /* Custom scrollbar for Webkit browsers */
@@ -159,7 +161,7 @@
 }
 
 .reservation-container tbody::-webkit-scrollbar-thumb {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     border-radius: 8px;
 }
 
@@ -168,7 +170,7 @@
 }
 
 .icon {
-    color: #0288d1;
+    color: var(--icon);
     font-size: 18px;
     cursor: pointer;
 }
@@ -200,9 +202,9 @@
 }
 
 .custom-checkbox input:checked+.checkmark {
-    background-color: #0288d1;
+    background-color: var(--icon);
     /* Background color when checked */
-    border-color: #0288d1;
+    border-color: var(--icon);
     /* Border color when checked */
 }
 
@@ -275,7 +277,7 @@
 .edit i {
     margin-right: 10px;
     margin-left: 10px;
-    color: #0056b3;
+    color: var(--secondary-color);
     font-size: 20px;
     cursor: pointer;
 }
@@ -305,7 +307,7 @@
 
 .Give-Rating {
     background-color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     padding: 20px;
     border: 1px solid #ccc;
     animation: popupSlideIn 0.5s ease;
@@ -356,7 +358,7 @@
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     margin-left: 15px;
 }
 
@@ -367,7 +369,7 @@
     margin-bottom: 20px;
     font-size: 14px;
     line-height: 1.5;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     width: 83%;
     margin-left: 15px;
     width: 288px;
@@ -411,7 +413,7 @@
 }
 
 .back-con {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -424,7 +426,7 @@
 }
 
 .refresh-con {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -464,7 +466,7 @@
 }
 
 .selectestar {
-    color: #0056b3;
+    color: var(--secondary-color);
 }
 
 #rating-value {
@@ -506,7 +508,7 @@
     position: relative;
     width: 76.5%;
     margin-left: 25px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px var(--popup-background);
 }
 
 .dates {
@@ -527,7 +529,7 @@
     margin-left: 10px;
     border-radius: 5px;
     margin: 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
     justify-content: center;
     align-items: center;
     transition: transform 0.3s, z-index 0s;
@@ -541,12 +543,12 @@
 }
 
 .selectperson {
-    background-color: #b2ebf2 !important;
+    background-color: var(--pickup-border) !important;
 }
 
 .select-person {
-    background-color: #b2ebf2 !important;
-    color: #b2ebf2 !important;
+    background-color: var(--pickup-border) !important;
+    color: var(--pickup-border) !important;
 }
 
 
@@ -594,7 +596,7 @@
     padding: 2px 3px;
     background-color: white;
     transition: transform 0.3s, z-index 0s;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
     cursor: pointer;
 }
 
@@ -630,7 +632,7 @@
     padding: 2px 3px;
     background-color: white;
     transition: transform 0.3s, z-index 0s;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
     cursor: pointer;
 }
 
@@ -647,7 +649,7 @@
 .pickup-popup {
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     padding: 20px;
     width: 400px;
     border: 1px solid #ccc;
@@ -699,7 +701,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 .pickup-section input:focus {
@@ -716,7 +718,7 @@
     padding: 10px;
     position: relative;
     transition: background-color 0.3s;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 .person-section:hover {
@@ -794,7 +796,7 @@
     padding: -10px 10px;
     position: relative;
     transition: background-color 0.3s;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 .person-section:hover {
@@ -829,18 +831,18 @@
 .lol {
     padding: 10px 10px;
     background-color: white;
-    color: #004099;
+    color: var(--button-blue-hover);
     width: 60%;
     justify-content: center;
     align-items: center;
-    border: 2px solid #004099;
+    border: 2px solid var(--button-blue-hover);
     border-radius: 10px;
     margin-left: 35px;
     padding-top: 0px !important;
 }
 
 .lol p {
-    color: #004099;
+    color: var(--button-blue-hover);
 }
 
 .toggle{
@@ -851,7 +853,7 @@
     height: 40px;
     width: 250px;
     font-family: Arial, sans-serif;
-    background: #60a6ec;
+    background: var(--primary-color);
     border-radius: 8px;
     border: 4px solid white;
     position: relative;
@@ -871,7 +873,7 @@
     position: relative;
     font-size: 18px;
     z-index: 100;
-    background-color: #10639a;
+    background-color: var(--secondary-color);
     padding: 10px 26px;
 }
 
@@ -959,7 +961,7 @@
 
 /* Modal content box */
 .modal-content {
-    background-color: #b2ebf2;
+    background-color: var(--pickup-border);
     /* Light blue background */
     border: 3px solid #00FFFF !important;
     /* Aqua border */
@@ -969,13 +971,13 @@
     /* Padding inside the box */
     text-align: center;
     width: 300px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 8px var(--popup-background);
     /* Soft shadow for a lifted effect */
 }
 
 /* Button styling */
 .modal button {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     /* Darker blue background for buttons */
     color: white;
     /* White text color */
@@ -996,7 +998,7 @@
 
 /* Button hover effect */
 .modal button:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
     /* Darker blue on hover */
 }
 
@@ -1010,8 +1012,8 @@
     background-color: #ffffff;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border: 4px solid #0056b3;
+    box-shadow: 0 0 10px var(--popup-background);
+    border: 4px solid var(--secondary-color);
     z-index: 1000000;
     backdrop-filter: blur(5px) !important;
 }
@@ -1125,7 +1127,7 @@
 
 /* Modal content box */
 .modal-content {
-    background-color: #b2ebf2;
+    background-color: var(--pickup-border);
     /* Light blue background */
     border: 3px solid #00FFFF !important;
     /* Aqua border */
@@ -1135,13 +1137,13 @@
     /* Padding inside the box */
     text-align: center;
     width: 300px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 8px var(--popup-background);
     /* Soft shadow for a lifted effect */
 }
 
 /* Button styling */
 .modal button {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     /* Darker blue background for buttons */
     color: white;
     /* White text color */
@@ -1162,7 +1164,7 @@
 
 /* Button hover effect */
 .modal button:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
     /* Darker blue on hover */
 }
 .showl{
@@ -1171,7 +1173,7 @@
     transform: translate(-40px, 210px);
 }
 .select{
-    background-color: #b2ebf2;
+    background-color: var(--pickup-border);
 }
 .select-child{
     margin-left: 10px !important;

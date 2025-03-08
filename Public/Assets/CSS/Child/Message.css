@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .sidebar3 {
     height: 100vh;
     position: fixed;
@@ -12,7 +14,7 @@
     padding: 10px;
     display: flex;
     align-items: center;
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     height: 40px;
 }
 .sidebar3 .search-bar input {
@@ -83,7 +85,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background: linear-gradient(135deg, #60a6ec, #10639a);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: #fff;
     margin-left: -20px;
 }
@@ -145,7 +147,7 @@
 }
 .chat-window .messages .message.received .text {
     margin-left: 15px;
-    background-color: #e0f7fa;
+    background-color: var(--pickup);
     color: #000;
     border: 2px solid grey;
 }
@@ -175,7 +177,7 @@
     margin-bottom: 0px;
 }
 .chat-window .input-bar button {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     border: none;
     color: #fff;
     padding: 10px;
@@ -204,11 +206,11 @@
     color: #888;
     font-weight: bold;
     padding: 10px 5px;
-    border: 2px solid #007bff;
+    border: 2px solid var(--button-blue);
     border-radius: 8px;
     background-color: #f0f8ff;
     width: 80%; /* Adjust as needed */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -218,7 +220,7 @@
     bottom: -100%;
     left: 110px;
     background-color: #fff;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 10px var(--popup-background);
     transition: bottom 0.5s ease;
     padding: 20px;
     border-radius: 20px 20px 0 0;
@@ -272,7 +274,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -280,15 +282,15 @@
 }
 .upload-box .icon-container i {
     font-size: 30px;
-    color: #666;
+    color: var(--p);
 }
 .upload-box p {
     margin: 10px 0;
     font-size: 16px;
-    color: #666;
+    color: var(--p);
 }
 .upload-box button {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -297,7 +299,7 @@
     font-size: 16px;
 }
 .upload-box button:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 .upload-box small {
     display: block;
@@ -337,8 +339,8 @@
 }
 .upload-buttons button {
     background-color: #fff;
-    color: #007bff;
-    border: 1px solid #007bff;
+    color: var(--button-blue);
+    border: 1px solid var(--button-blue);
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -346,16 +348,16 @@
     margin-top: 0px;
 }
 .upload-buttons button:hover {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: #fff;
 }
 .upload-buttons .done {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: #fff;
     border: none;
 }
 .upload-buttons .done:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 
 .file-item {
@@ -365,7 +367,7 @@
     padding: 8px 10px;
     border-radius: 8px;
     margin-bottom: 8px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 4px var(--popup-background);
 }
 
 .file-item img {
@@ -460,26 +462,26 @@ section .loader span::before {
     height: 15px;
     background: #001F3F;
     box-shadow: 
-        0 0 10px #007BFF,
-        0 0 20px #007BFF,
-        0 0 40px #007BFF,
-        0 0 60px #007BFF,
-        0 0 80px #007BFF,
-        0 0 100px #007BFF;
+        0 0 10px var(--button-blue),
+        0 0 20px var(--button-blue),
+        0 0 40px var(--button-blue),
+        0 0 60px var(--button-blue),
+        0 0 80px var(--button-blue),
+        0 0 100px var(--button-blue);
     animation: animate 2s linear infinite;
     animation-delay: calc(0.1s * var(--i));
 }
 @keyframes animate {
     0% {
         transform: scale(1);
-        background: #007BFF;
+        background: var(--button-blue);
     }
     50% {
         background: #00BFFF;
     }
     100% {
         transform: scale(0);
-        background: #007BFF;
+        background: var(--button-blue);
     }
 } */
 .sidebar .chat-list .chat-item2 {
@@ -508,7 +510,7 @@ section .loader span::before {
 h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
-    color: #007bff
+    color: var(--button-blue)
 }
 #input-place{
     display: flex;
@@ -528,7 +530,7 @@ h1 {
     padding: 6px 12px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 2px var(--popup-background);
 }
 
 .active {
@@ -650,13 +652,13 @@ h1 {
 
 .sent-download-btn i {
     font-size: 20px;  /* Adjust the icon size */
-    color: #007bff;
+    color: var(--button-blue);
     margin-left: 5px;
     margin-right: 15px;
     background-color: white;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px var(--popup-background);
 }
 
 /* Received message file container: button on the right */
@@ -673,13 +675,13 @@ h1 {
 
 .received-download-btn i {
     font-size: 20px;  /* Adjust the icon size */
-    color: #007bff;
+    color: var(--button-blue);
     margin-left: 15px;
     margin-right: 5px;
     background-color: white;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px var(--popup-background);
 }
 
 /* Add some styling for the download button for consistency */
@@ -703,22 +705,22 @@ h1 {
 /* Styling for image, audio, video */
 img, audio, video {
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--popup-background);
 }
 
 .sent-download-btn i:hover {
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Stronger shadow on hover */
+    box-shadow: 4px 4px 10px var(--popup-background);  /* Stronger shadow on hover */
 }
 
 .received-download-btn i:hover {
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);  /* Stronger shadow on hover */
+    box-shadow: 4px 4px 10px var(--popup-background);  /* Stronger shadow on hover */
 }
 
 .popup {
     position: absolute;
     background: white;
     border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 6px var(--popup-background);
     padding: 10px;
     display: none;
     flex-direction: column;
@@ -740,7 +742,7 @@ img, audio, video {
 }
 
 .popup button:hover {
-    background: #f0f0f0;
+    background: var(--body-first);
     border-radius: 5px;
 }
 

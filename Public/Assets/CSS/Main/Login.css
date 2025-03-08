@@ -13,14 +13,14 @@ body {
 .box {
     background-color: #fff;
     padding: 40px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 20px var(--popup-background);
     transition: box-shadow 0.3s ease;
     width: 400px;
     height: 500px;
 }
 
 .box:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 30px var(--popup-background);
 }
 
 .logo {
@@ -86,7 +86,7 @@ a:visited{
 }
 
 button {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -98,9 +98,9 @@ button {
 }
 
 button:hover{
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2)
+    box-shadow: 0 4px 15px var(--popup-background)
 }
 
 button img {
@@ -141,13 +141,13 @@ input {
 }
 
 input:focus {
-    border-color: #007bff;
+    border-color: var(--button-blue);
     box-shadow: 0 0 10px 1px rgba(0, 123, 255, 0.5);
 }
 
 h2{
     padding-top: 60px;
-    color: #007bff;
+    color: var(--button-blue);
     font-size: 40px;
 }
 
@@ -181,14 +181,14 @@ p{
     right: 10px;
     top: calc(50% - 10px);
     cursor: pointer;
-    color: #007bff;
+    color: var(--button-blue);
     transition: color 0.3s ease;
 }
 
 .password-group i:hover{
     position: absolute;
     transform: scale(1.2);
-    color: #0056b3;
+    color: var(--secondary-color);
 }
 
 .code-inputs {
@@ -250,7 +250,7 @@ p{
     gap: 380px;
     display: inline-flex;
     display: inline-flex;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--popup-background);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -290,7 +290,7 @@ p{
 .google-button:hover {
     background-color: #f1f1f1;
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a shadow to create depth */
+    box-shadow: 0 4px 15px var(--popup-background); /* Adds a shadow to create depth */
     z-index: 1; /* Bring the button to the front */
 }
 
@@ -354,8 +354,8 @@ p{
     background-color: #ffffff;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border: 4px solid #0056b3;
+    box-shadow: 0 0 10px var(--popup-background);
+    border: 4px solid var(--secondary-color);
     z-index: 1000000;
     backdrop-filter: blur(5px) !important;
 }
