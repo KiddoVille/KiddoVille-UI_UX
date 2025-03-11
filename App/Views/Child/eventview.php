@@ -10,6 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Child/event.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Stats.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Table1.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
@@ -77,28 +82,24 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+            <hr>
         </div>
         <!-- To navigate through childrens -->
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -108,8 +109,7 @@
                             " 
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -121,21 +121,21 @@
         <div class="main-content" id="main-content" style="overflow:hidden;">
             <!-- Header of the page -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1>Hey Thilina</h1>
                     <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
                 <!-- messaging icon and it's dropdown -->
-                <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                <div class="bell-con" id="bell-container">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <div class="message-numbers">
+                        <p> 2</p>
+                    </div>
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -164,19 +164,16 @@
                         </ul>
                     </div>
                 </div>
-                <div class="message-numbers">
-                    <p> 2</p>
-                </div>
                 <!-- Profile icon and btn to view image -->
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
             <!-- stats on events -->
             <div class="stats">
-                <div class="stat" id="NewEvent" style="width: 60px !important; display: flex; flex-direction: row !important;">
+                <div class="stat" id="NewEvent">
                     <div style="display: flex; flex-direction: row;">
                         <img src="<?=isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE.'/event-2.svg'; ?>" alt="Event Image"
                             style="width: 130px ; height: 130px; margin-top: -15px; border-radius: 7px 0px 0px 7px; margin-bottom: -15px;">
@@ -259,8 +256,7 @@
                                 <i class="fas fa-chevron-left" id="backforrating"></i>
                             </div>
                             <div class="refresh-con">
-                                <i class="fas fa-refresh" id="ratingrefresh"
-                                    style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                                <i class="fas fa-refresh" id="ratingrefresh"></i>
                             </div>
                         </div>
                         <form id="ratingform">
@@ -279,19 +275,19 @@
                                 <i class="star-rate fas fa-star" data-value="1"></i>
                             </div>
                             <div class="button-popup">
-                                <button style="margin-right: 120px;" id="closeratingBtn">Cancel</button>
-                                <button style="margin-right: 15px;" type="submit">Done</button>
+                                <button id="closeratingBtn">Cancel</button>
+                                <button type="submit">Done</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <!-- table on events -->
-                <div class="event-container" style="width: 750px; height: 400px;" >
-                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
+                <div class="Table1">
+                    <h2> Events </h2>
                     <hr>
                     <div class="filters">
                         <input type="date" id="datePicker" value="" style="width: 200px">
-                        <select style="width: 200px">
+                        <select style="width: 200px; margin-right: 400px; margin-left: 0px;">
                             <option value="" hidden>Status</option>
                             <option value="NULL">All</option>
                             <option value="Upcoming">Upcoming</option>
@@ -314,7 +310,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="glass-box" style="width: 200px !important; height: 360px !important;">
+                <div class="glass-box">
                     <div class="report-header">
                         <i class="fa-regular fa-clipboard"></i>
                         <h1>Feedback</h1>
@@ -333,9 +329,8 @@
 
         </div>
         <!-- Profile card -->
-        <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+        <div class="profile-card" id="profileCard">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
                 <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
             class="profile" />
         <h2><?=$data['selectedchildren']['fullname'] ?></h2>
@@ -399,7 +394,7 @@
         }
 
         function updateEventTable(events) {
-            const tbody = document.querySelector('.event-container table tbody');
+            const tbody = document.querySelector('.Table1 table tbody');
             tbody.innerHTML = '';
 
             events.forEach(event => {

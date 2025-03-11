@@ -6,7 +6,7 @@ body{
 }
 
 .main-content {
-    margin-left: 250px;
+    margin-left: 293px;
     background-color: var(--body-second);
     height: 100vh;
     overflow-y: auto;
@@ -16,6 +16,7 @@ body{
     padding: 0;
     box-sizing: content-box;
     position: relative;
+    margin-top: 26px;
 }
 
 .main-content .grid {
@@ -483,4 +484,8 @@ input:focus+.slider {
 
 #filter-button:active {
     transform: translateY(1px);
+}
+
+.settings{
+    margin-left: -20px;
 }

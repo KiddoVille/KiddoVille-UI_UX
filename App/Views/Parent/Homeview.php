@@ -116,7 +116,7 @@
         <div class="main-content" style="overflow-y: scroll; overflow-x: hidden;">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
                     <p style="color: white">Let’s do some productive activities today</p>

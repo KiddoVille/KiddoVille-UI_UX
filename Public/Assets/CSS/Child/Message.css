@@ -1,5 +1,31 @@
 @import url('../variables.css');
 
+.header2 img{
+    display: none;
+}
+
+#paperclip-btn{
+    margin-right: 10px;
+}
+
+#edit-close-btn{
+    margin-right: 10px; 
+    font-size: 20px; 
+    display: none;
+}
+
+#edit-send-btn{
+    display: none;
+}
+
+#file-input{
+    display: none;
+}
+
+#files{
+    margin-right: 100px !important;
+}
+
 .sidebar3 {
     height: 100vh;
     position: fixed;
@@ -96,6 +122,8 @@
     margin-right: 10px;
 }
 .chat-window .header2 .user-info {
+    display: flex; 
+    flex-direction: column;
     flex-grow: 1;
 }
 .chat-window .header2 .user-info .name {
@@ -748,4 +776,8 @@ img, audio, video {
 
 .popup button i {
     font-size: 16px;
+}
+
+.fa-sync{
+    font-size: 25px;
 }

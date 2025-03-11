@@ -10,13 +10,6 @@
     overflow: hidden;
 }
 
-.minimized ul{
-    margin-top: -30px !important;
-}
-.sidebar ul{
-    margin-top: -20px !important;
-}
-
 .saperate{
     display: flex;
     flex-direction: row;
@@ -34,127 +27,6 @@
 }
 .checked {
     color: var(--icon);
-}
-
-/* report conatiner */
-.report-container {
-    background-color: white;
-    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
-    border-radius: 12px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left:20px;
-    padding-right: 20px;
-    width: 90%;
-    transition: transform 0.3s ease;
-    margin-top: 0px !important;
-}
-
-.report-container:hover {
-    transform: translateY(-10px);
-}
-
-.report-container input[type="date"] {
-    width: 250px;
-    text-align: center;
-    padding: 10px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 100px;
-    margin-bottom: 10px;
-    background-color: var(--body-first);
-}
-
-.report-container h1 {
-    text-align: center;
-    color: var(--secondary-color);
-    margin-bottom: 20px;
-    font-size: 40px;
-    font-weight: bold;
-    margin-top: 0px;
-}
-
-.report-container .table-container {
-    max-height: 300px;
-    overflow: hidden; /* Hide the scrollbar initially */
-    position: relative;
-}
-
-.report-container table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    margin-top: 0px;
-    box-shadow: 4px 4px 15px var(--popup-background);
-}
-
-.report-container thead {
-    background-color: var(--primary-color);
-    color: #ffffff;
-}
-
-.report-container th, .report-container td {
-    padding: 15px;
-    text-align: center;
-    font-size: 15px;
-    border-right: 1px solid var(--body-second);
-}
-
-.report-container th {
-    background-color: var(--primary-color);
-    color: #ffffff;
-    font-weight: 800;
-    white-space: nowrap;
-    padding: 10px;
-    text-transform: uppercase;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
-.report-container tbody {
-    display: block;
-    max-height: 270px;
-    overflow-y: hidden; /* Initially hidden */
-    overflow-x: hidden;
-}
-
-.report-container tbody:hover {
-    overflow-y: auto; /* Enable scrolling on hover */
-}
-
-.report-container tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.report-container td {
-    color: #333;
-    background-color: var(--td);
-}
-
-.report-container tr:nth-child(even) td {
-    background-color: var(--td2);
-}
-
-/* Custom scrollbar for Webkit browsers */
-.report-container tbody::-webkit-scrollbar {
-    width: 8px;
-    background: transparent; /* Initially hidden */
-}
-
-.report-container tbody:hover::-webkit-scrollbar {
-    background: transparent;
-}
-
-.report-container tbody::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-    border-radius: 8px;
-}
-
-.report-container tbody::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
 }
 
 .custom-checkbox {
@@ -202,76 +74,12 @@
     transform: rotate(45deg); /* Rotate to form a checkmark */
 }
 
-/* modals */
-.pickup-container {
-    background-color:white;
-    border-radius: 10px;
-    padding: 20px;
-    width: 350px;
-    height: 395px;
-    text-align: center;
-    position: relative;
-    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-    margin-top: 5px;
-}
-.pickup-container:hover {
-    transform: translateY(-10px);
-}
-.pickup-container::before {
-    content: '';
-    background-size: cover;
-    opacity: 0.1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 10px;
-    z-index: -1;
-}
-.pickup-container h1 {
-    font-size: 40px;
-    margin-top: 50px !important;
-    color: #000;
-    margin: 0;
-    white-space: nowrap;
-    margin-bottom: 40px;
-}
-
-.pickup-container p {
-    font-size: 20px;
-    color: var(--button-blue);
-    margin: 10px 10px;
-}
-
-.pickup-container .button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 20px 0;
-    border: 2px solid var(--button-blue-hover);
-}
-.pickup-container .button:hover {
-    transform: scale(1.1);
-}
-.details p{
-    font-size: 20px;
-    color: black;
-    text-align: left;
-}
-
 .sidebar ul{
-    margin-top: -10px !important;
+    margin-top: -16px !important;
 }
 
 .sidebar.minimized ul {
-    margin-top: -19px !important;
+    margin-top: -35px !important;
 }
 
 .modal {
@@ -320,6 +128,9 @@
 }
 .form-group {
     margin-bottom: 20px;
+}
+.form-group2 {
+    margin-top: 20px;
 }
 .form-group label {
     display: block;
@@ -403,33 +214,6 @@
     align-items: center;
     transition: all 1s ease-in-out;
 }
-.top-con {
-    color: black;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: -20px;
-}
-
-.back-con{
-    background-color: var(--button-blue);
-    z-index: 10000;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60px;
-    margin-left: -21px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.fa-chevron-left{
-    margin-left: 40px;
-    cursor: pointer;
-    color: white !important;
-}
 .line{
     background-color: var(--button-blue-hover);
     width: 160px;
@@ -444,4 +228,48 @@
 }
 .Behavioural{
     display: none;
+}
+#history{
+    display: none;
+}
+#datePicker{
+    width: 200px;
+    margin-right: 20px;
+}
+.report-container hr{
+    margin-bottom: 30px;
+}
+.report-container h2{
+    margin-top: -10px !important;
+    margin-bottom: 5px;
+}
+.Table1{
+    width: 1200px !important;
+}
+.togglediv{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start; 
+    margin-bottom: 7px; 
+    margin-top: 20px;
+    margin-left: 7px;
+}
+.togglediv h2{
+    margin-top: -10px;
+}
+.togglediv hr{
+    margin-top: -20px;
+}
+.profile-cartd{
+    margin-top: -720px;
+}
+#Bahavior-con{
+    display: none;
+}
+#Mediacl-con{
+    display: block;
+}
+.up-btn{
+    padding-left: 50px !important; 
+    padding-right: 40px !important;
 }

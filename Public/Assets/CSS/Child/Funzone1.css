@@ -593,3 +593,23 @@ html {
     align-items: center;
     justify-content: center;
 }
+
+.search-bar{
+    margin-left: -600px; 
+    margin-right: 200px; 
+    margin-top:0px;
+}
+
+.profile-card{
+    margin-top: 200px;
+}
+
+.header2 img{
+    width: 40px; 
+    height: 40px; 
+    margin-left: 20px;
+}
+.header2 p {
+    color: white; 
+    font-size: 17px;
+}

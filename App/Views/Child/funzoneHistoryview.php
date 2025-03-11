@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="<?=CSS?>/child/funzonehistory.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    
     <script src="<?=JS?>/child/Setting.js?v=<?= time() ?>"></script>
     <script src="<?=JS?>/child/Parental-lock.js?v=<?= time() ?>"></script>
     <!-- <script src="<?=JS?>/child/Select-child.js?v=<?= time() ?>"></script>
@@ -81,28 +85,24 @@
                 </a>
             </li>
         </ul>
-        <hr style="margin-top: 40px;">
-        <div class="help">
-            <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-        </div>
+        <hr>
     </div>
     <!-- navigation to choose child -->
-    <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+    <div class="sidebar-2" id="sidebar2">
         <div>
-            <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
-            <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+            <h2>Familty Ties</h2>
+            <div class="family-section">
                 <ul>
                     <li class="hover-effect first"
                         onclick="removechildsession();">
-                        <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                            style="width: 60px; height:60px; border-radius: 30px;">
+                        <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                         <h2>Family</h2>
                     </li>
                 </ul>
             </div>
             <div>
-                <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
-                <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
+                <h2>Little Explorers</h2>
+                <p>
                     Explore your children's activities and progress!
                 </p>
                 <ul class="children-list">
@@ -114,10 +114,7 @@
                             "
                             onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
                             <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                alt="Child Profile Image"
-                                style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                            echo "margin-left: -20px !important";
-                                                                                        } ?>">
+                                alt="Child Profile Image">
                             <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                         </li>
                         <hr>
@@ -158,12 +155,11 @@
             </a>
         </div>
     </div> -->
-    <div class="main-content" style="background:linear-gradient(to bottom right, #f7f7f7,#eaeaea)">
+    <div class="main-content">
         <!-- Header -->
-        <div class="header" style="z-index: 100 !important;">
-        <i class="fa fa-bars" id="minimize-btn"
-        style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
-            <div class="nav-buttons" style="margin-left: 50px;">
+        <div class="header">
+        <i class="fa fa-bars" id="minimize-btn"></i>
+            <div class="nav-buttons">
                 <div class="circle">
                     <i class="fas fa-chevron-left" onclick="window.location.href='<?=ROOT?>/Child/funzonetasks'"></i>
                 </div>
@@ -176,8 +172,7 @@
             </h2>
             <i class="fas fa-cog settings"></i>
             <div class="profile-card" id="profileCard">
-                <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
-                    style="width: 24px; height: 24px; fill:#233E8D !important;" class="back" id="closeProfileCard">
+                <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow" class="back" id="closeProfileCard">
                 <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png"
                     width="100" class="profile" />
                 <h2 class="child-name">Thilina Perera</h2>
@@ -197,8 +192,8 @@
             </div>
         </div>
         <div class="header2">
-            <img src="<?=IMAGE?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
-            <p style="color: white; font-size: 17px;">Funzone </p>
+            <img src="<?=IMAGE?>/funzone-logo.png">
+            <p>Funzone </p>
             <a href="<?=ROOT?>/child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
             <a href="<?=ROOT?>/child/funzonewhishlist" class="hover-effect">Whishlist</a>
             <a href="<?=ROOT?>/child/funzonetasks" class="hover-effect">Task</a>

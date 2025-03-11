@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="<?= CSS ?>/Child/all-event.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Packagecard.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
@@ -75,26 +79,22 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
         </div>
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -105,11 +105,7 @@
                                 } ?>
                             "
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>" alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -120,19 +116,19 @@
         </div>
         <div class="main-content" id="main-content">
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1>Hey Thilina</h1>
                     <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
                 <div class="bell-con" style="cursor: pointer;" id="bell-container">
                     <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
+                    <div class="message-numbers">
+                        <p> 2</p>
+                    </div>
                     <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
                             <li>
@@ -162,19 +158,16 @@
                         </ul>
                     </div>
                 </div>
-                <div class="message-numbers">
-                    <p> 2</p>
-                </div>
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
-            <div class="modal" id="EventModal" style="z-index: 10000000;">
+            <div class="modal" id="EventModal">
                 <div class="View-Package">
-                    <img src="" id="Event-img" style="width: 360px; height: 250px; position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
-                    <div class="top-con" style="margin-top: 0px; margin-left: 1px;">
+                    <img src="" id="Event-img">
+                    <div class="top-con">
                         <div class="back-con" id="back-arrow">
                             <i class="fas fa-chevron-left" id="backformeeting"></i>
                         </div>
@@ -185,30 +178,29 @@
                     </div>
                     <div class="pickup-section">
                         <label for="included-services">Activity details</label>
-                        <div class="services" id="description" style="height: 30px; width:250px;">
+                        <div class="services" id="description">
 
                         </div>
                     </div>
                     <div class="pickup-section">
                         <label for="price">Date Time</label>
-                        <input id="datetime" readonly="" type="text" style="width: 270px;" />
+                        <input id="datetime" readonly type="text" />
                     </div>
-                    <button id="Enrollbtn" style="width: 100px; margin-left: 220px; margin-top: 0px" class="btn" onclick="getchildrens(this.value)">Enroll</button>
+                    <button id="Enrollbtn" class="btn" onclick="getchildrens(this.value)">Enroll</button>
                 </div>
             </div>
             <div class="fill" style="margin-left: -20px; width: 1180px;">
                 <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                    style="width: 24px; height: 24px; fill: #233E8D !important; margin-left: -1080px; cursor: pointer;"
-                    class="back" onclick="window.location.href='<?= ROOT ?>/Parent/event'">
-                <h2 style="margin-top: -10px !important; margin-bottom: 2px; margin-right: 950px;"> Events </h2>
-                <hr style="width: 1070px;">
+                    class="back" onclick="window.location.href='<?= ROOT ?>/Child/event'">
+                <h2> Events </h2>
+                <hr>
                 <div class="filters" style="margin-left: 30px !important;">
                     <input type="date" id="datePicker" value="" style="width: 200px; margin-left: 70px;">
                 </div>
-                <div class="packages" style="display: grid; grid-template-columns: repeat(5, 1fr); height: 460px;">
+                <div class="packages">
 
                 </div>
-                <div class="pagination" style="margin-top: 30px; margin-bottom: -10px;">
+                <div class="pagination">
 
                 </div>
             </div>
@@ -216,8 +208,7 @@
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
                 class="profile" />
             <h2><?= $data['selectedchildren']['fullname'] ?></h2>

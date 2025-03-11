@@ -7,6 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?=CSS?>/Child/package.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Packagecard.css?v=<?= time() ?>">
     <script src="<?=JS?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?=JS?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?=JS?>/Child/Navbar.js?v=<?= time() ?>"></script>
@@ -73,27 +77,23 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+            <hr>
         </div>
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -103,8 +103,7 @@
                             " 
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if($child['name'] !== $data['selectedchildren']['name']){ echo"margin-left: -20px !important"; } ?>">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -115,20 +114,20 @@
         </div>
         <div class="main-content" id="main-content">
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1>Hey Thilina</h1>
                     <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
                 <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <div class="message-numbers">
+                        <p> 2</p>
+                    </div>
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -157,12 +156,9 @@
                         </ul>
                     </div>
                 </div>
-                <div class="message-numbers">
-                    <p> 2</p>
-                </div>
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
@@ -175,27 +171,27 @@
                     </div>
                     <h1>View Package</h1>
                     <label for="package-name">Package name</label>
-                    <input id="package-name" readonly="" type="text" value="Basic care plan" style="margin-left: 15px; width: 300px;"/>
-                    <label for="included-services" style="margin-top: -10px;">Included services</label>
+                    <input id="package-name" readonly="" type="text" value="Basic care plan" />
+                    <label for="included-services">Included services</label>
                     <div class="services" id="included-services" style="width: 280px;">
                         
                     </div>
-                    <label for="price" style="margin-top: -10px;">Price</label>
+                    <label for="price">Price</label>
                     <div class="price-container">
-                        <input id="price" readonly="" type="text" value="80,000" style="width: 400px !important; margin-left: 15px;"/>
+                        <input id="price" readonly="" type="text" value="80,000"/>
                         <span>RS</span>
                     </div>
-                    <label for="included-days" style="margin-top: -10px;">Included days</label>
-                    <div class="services" id="included-days" style="display: grid; grid-template-columns: repeat(2, 1fr); height: 70px; width: 280px;">
-                        <ul id="first-ul" style="margin-top: -10px;"></ul>
-                        <ul id="second-ul" style="margin-top: -10px;"></ul>
+                    <label for="included-days">Included days</label>
+                    <div class="services" id="included-days">
+                        <ul id="first-ul"></ul>
+                        <ul id="second-ul"></ul>
                     </div>
                 </div>
             </div>
             <div class="fill">
-                <div style="text-align: left; display: flex; flex-direction: column; justify-content: left;">
-                    <h2 style="margin-top: 0px !important; margin-bottom: 2px;">Packages</h2>
-                    <hr style="width: 1080px;">
+                <div class="fill-head">
+                    <h2>Packages</h2>
+                    <hr>
                 </div>
                 <div class="filters" style="text-align: left;">
                     <label for="minPrice">Min Price:</label>
@@ -205,18 +201,17 @@
                     <input type="text" id="max_price" class="price" maxlength="7" placeholder="Max Price"
                         style="width: 100px;">
                 </div>
-                <div class="packages" style="display: grid; grid-template-columns: repeat(5, 1fr); height: 460px;">
+                <div class="packages">
 
                 </div>
-                <div class="pagination" style="margin-top: 30px; margin-bottom: -10px;">
+                <div class="pagination">
 
                 </div>
             </div>
         </div>
         <!-- onclick function -->
-        <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
-            <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+        <div class="profile-card" id="profileCard">
+            <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow" class="back">
                 <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
             class="profile" />
         <h2><?=$data['selectedchildren']['fullname'] ?></h2>

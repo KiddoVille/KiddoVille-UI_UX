@@ -19,124 +19,11 @@
     margin-bottom: -30px;
 }
 /* child history tbale container */
-.child-history {
-    background-color: white;
-    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
-    border-radius: 12px;
-    padding: 10px 30px;
-    max-width: 700px;
-    width: 90%;
-    transition: transform 0.3s ease;
-    margin-top: 30px;
-    height: 450px;
-    border-radius: 12px !important;
-}
 .minimized ul{
     margin-top: -30px !important;
 }
 .sidebar ul{
     margin-top: -20px !important;
-}
-.child-history h1 {
-    text-align: center;
-    color: var(--secondary-color);
-    margin-bottom: 20px;
-    font-size: 40px;
-    font-weight: bold;
-    margin-top: 10px;
-    font-size: 30px;
-}
-.child-history input[type="date"] {
-    width: 250px;
-    text-align: center;
-    padding: 10px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 100px;
-    margin-bottom: 10px;
-    background-color: var(--body-first);
-}
-.child-history .table-container {
-    max-height: 270px;
-    overflow: hidden;
-    position: relative;
-}
-
-.child-history table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 4px 4px 15px var(--popup-background);
-    margin-bottom: 10px !important;
-}
-
-.child-history thead {
-    background-color: var(--primary-color);
-    color: #ffffff;
-}
-
-.child-history th, .child-history td {
-    padding: 15px;
-    text-align: center;
-    font-size: 15px;
-    border-right: 1px solid var(--body-second);
-}
-
-.child-history th {
-    background-color: var(--primary-color);
-    color: #ffffff;
-    font-weight: 800;
-    white-space: nowrap;
-    padding: 10px;
-    text-transform: uppercase;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
-.child-history tbody {
-    display: block;
-    max-height: 250px;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    margin-bottom: 10px;
-}
-
-.child-history tbody:hover {
-    overflow-y: auto;
-}
-
-.child-history tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.child-history td {
-    color: #333;
-    background-color: var(--td);
-}
-
-.child-history tr:nth-child(even) td {
-    background-color: var(--td2);
-}
-
-.child-history tbody::-webkit-scrollbar {
-    width: 8px;
-    background: transparent; 
-}
-
-.child-history tbody:hover::-webkit-scrollbar {
-    background: transparent;
-}
-
-.child-history tbody::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-    border-radius: 8px;
-}
-
-.child-history tbody::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
 }
 
 .attendance-component {
@@ -289,3 +176,20 @@
 .bar2::before {
     background-color: #9c27b0;
 }
+
+.Table1{
+    width: 800px !important; 
+    height: 450px !important; 
+    margin-top: -5px !important;
+}
+
+.Table1 h2{
+    margin-top: 10px !important;
+    margin-bottom: 10px;
+}
+
+#datePicker{
+    width: 200px; 
+    margin-right: 20px;
+}
+

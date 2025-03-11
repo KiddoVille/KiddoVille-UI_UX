@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Message.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/deletepopup.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Upload-file.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/message.js?v=<?= time() ?>"></script> -->
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"> </script>
@@ -66,7 +69,7 @@
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top: 40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Child/Message">
                         <i class="fas fa-comment"></i> <span>Messager</span>
                     </a>
@@ -77,29 +80,24 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span></a>
-            </div>
+            <hr>
         </div>
         <!-- navigation to choose child -->
         <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: -70px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -111,10 +109,7 @@
                             "
                                 onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -125,21 +120,21 @@
         </div>
         <!-- Header -->
         <div class="header">
-            <i class="fa fa-bars" id="minimize-btn"
-                style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+            <i class="fa fa-bars" id="minimize-btn"></i>
             <div class="name">
-                <h1 style="color: white;"><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                <p style="color: white">Let’s do some productive activities today</p>
+                <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
+                <p>Let’s do some productive activities today</p>
             </div>
             <div class="search-bar">
                 <input type="text" placeholder="Search">
-                <i class="fas fa-search"></i>
-                <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
             </div>
             <!-- message icon -->
-            <div class="bell-con" id="bell-container" style="cursor: pointer;">
-                <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                <div class="message-dropdown" id="messageDropdown" style="display: none;">
+            <div class="bell-con" id="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <div class="message-numbers">
+                    <p> 2</p>
+                </div>
+                <div class="message-dropdown" id="messageDropdown">
                     <ul>
                         <li>
                             <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -168,13 +163,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="message-numbers">
-                <p> 2</p>
-            </div>
             <!-- Prodile btn -->
             <div class="profile">
                 <button class="profilebtn">
-                    <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                    <i class="fas fa-user-circle"></i>
                 </button>
             </div>
         </div>
@@ -211,28 +203,28 @@
         </div>
         <div class="chat-window">
             <div class="header2" style="height: 40px;">
-                <img alt="Profile picture of Deepti manohar" style="display: none;" height="40" src=" " width="40" />
-                <div class="user-info" style="display: flex; flex-direction: column;">
+                <img alt="Profile picture of Deepti manohar" height="40" src=" " width="40" />
+                <div class="user-info">
                     <span class="name">
                     </span>
                     <span class="status">
                     </span>
                 </div>
                 <div class="icons">
-                    <i class="fas fa-sync" style="font-size: 25px;" id="refresh"></i>
+                    <i class="fas fa-sync" id="refresh"></i>
                 </div>
             </div>
             <div class="messages" id="chat-window">
                 <div id="scroll-anchor"></div>
             </div>
             <div class="input-bar" id="input-bar">
-                <button id="paperclip-btn" style="margin-right: 10px;"><i class="fa fa-paperclip"></i></button>
-                <button id="edit-close-btn" style="margin-right: 10px; font-size: 20px; display: none;"><i class="fas fa-times"></i></button>
+                <button id="paperclip-btn" ><i class="fa fa-paperclip"></i></button>
+                <button id="edit-close-btn"><i class="fas fa-times"></i></button>
                 <input placeholder="Enter message" type="text" id="message-value" />
                 <button id="send-btn">
                     <i class="fas fa-paper-plane"></i>
                 </button>
-                <button style="display: none;" id="edit-send-btn">
+                <button id="edit-send-btn">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
@@ -259,11 +251,11 @@
                         <button id="upload-btn">Browse</button>
                         <small>Supported Files: JPEG, PNG, PDF, DOCX</small>
                     </div>
-                    <input type="file" id="file-input" style="display: none;" multiple>
+                    <input type="file" id="file-input" multiple>
                 </div>
                 <div class="upload-buttons">
                     <button id="cancel-btn">Cancel</button>
-                    <button class="done" id="files" style="margin-right: 100px !important;">Done</button>
+                    <button class="done" id="files" >Done</button>
                 </div>
             </div>
         </div>
@@ -280,8 +272,7 @@
         
         <!-- profile card -->
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
                 class="profile" />
             <h2><?= $data['selectedchildren']['fullname'] ?></h2>
