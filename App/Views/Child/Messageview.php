@@ -512,6 +512,13 @@
             .then(data => {
                 if (data.success) {
                     console.log(data);
+                    if (partnerUserID) {
+                        console.log(partnerUserID)
+                        const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${partnerUserID}"]`);
+                        console.log(newActiveElement)
+                        console.log('lol');
+                        newActiveElement.classList.add('active');
+                    }
                     loadChat(data.message)
                 } else {
                     alert("Error in loading Chat");
@@ -925,14 +932,6 @@
                         const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
                         console.log(activePartnerUserID);
                         get_users();
-                        setTimeout (() => {
-                            if (activePartnerUserID) {
-                                const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
-                                if (newActiveElement) {
-                                    newActiveElement.classList.add('active');
-                                }
-                            }
-                        }, 2000);
                         senduser(activePartnerUserID);
                         const fileInput = document.querySelector('input[type="file"]'); // Make sure this targets the correct input
                         if (fileInput) {
@@ -942,6 +941,14 @@
                         uploadContent.style.display = 'block';
                         fileList.innerHTML = '';
                         
+                        setTimeout (() => {
+                            if (activePartnerUserID) {
+                                const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
+                                if (newActiveElement) {
+                                    newActiveElement.classList.add('active');
+                                }
+                            }
+                        }, 2000);
                         console.log(data);
                         // You can do additional work here like clearing the file list or updating UI.
                     } else {
@@ -980,12 +987,13 @@
                     get_users();
                     setTimeout (() => {
                         if (activePartnerUserID) {
+                            console.log(activePartnerUserID)
                             const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
-                            if (newActiveElement) {
-                                newActiveElement.classList.add('active');
-                            }
+                            console.log(newActiveElement)
+                            console.log('lol');
+                            newActiveElement.classList.add('active');
                         }
-                    }, 1000);
+                    }, 1500);
                     senduser(activePartnerUserID);
                     console.log('Message sent successfully:', data);
                 })

@@ -607,6 +607,9 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ManageChildren'">
+                Manage Children
+            </button>
             <?php if ($data['Child_Count'] < 5) { ?>
                 <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
                     Add Children
