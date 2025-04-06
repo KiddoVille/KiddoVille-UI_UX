@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="<?=CSS?>/child/funzonehistory.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <script src="<?=JS?>/child/Setting.js?v=<?= time() ?>"></script>
     <script src="<?=JS?>/child/Parental-lock.js?v=<?= time() ?>"></script>
     <!-- <script src="<?=JS?>/child/Select-child.js?v=<?= time() ?>"></script>
@@ -442,7 +445,7 @@
                 .then(data => {
                     if (data.success) {
                         console.log("Child id set in session.");
-                        window.location.href = '<?= ROOT ?>/Parent/Home';
+                        window.location.href = '<?= ROOT ?>/Parent/Funzonehistory';
                     } else {
                         console.error("Failed to set child id from session.", data.message);
                     }

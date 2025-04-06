@@ -820,8 +820,11 @@
 
                 // Update upcoming reservations
                 const upcomingReservations = document.getElementById('upcomingreservations');
-                if (upcomingReservations) {
+                console.log(upcomingReservations.innerHTML = selectedChild.upcomingreservations)
+                if (selectedChild.upcomingreservations !== undefined && selectedChild.upcomingreservations !== null) {
                     upcomingReservations.innerHTML = selectedChild.upcomingreservations;
+                } else {
+                    upcomingReservations.innerHTML = "No Reservations";
                 }
 
                 // Set the child ID in the view button

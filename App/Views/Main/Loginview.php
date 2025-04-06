@@ -41,7 +41,7 @@
                         <div class="checkbox-remember-me">
                             <input type="checkbox" id="remember-me" style="margin-bottom: 7px;">
                             <label class="label" for="remember-me">Remember me</label>
-                            <a class="forgot-password" href="./Reset-password-email.html" style="margin-bottom: 5px;">Forgot your Password?</a>
+                            <a class="forgot-password" href="<?=ROOT?>/Main/EmailLogin" style="margin-bottom: 5px;">Forgot your Password?</a>
                         </div>
                         <button type="submit">Login</button>
                         <div style="display: flex;align-items: center; margin-bottom: 0px; margin-top: -20px">

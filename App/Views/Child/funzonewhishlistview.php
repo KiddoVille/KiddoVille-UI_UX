@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/deletepopup.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
@@ -194,7 +197,7 @@
                     </div>
                 </div>
             </div>
-            <div class="header2">
+            <div class="header2" style="margin-left: 23px; margin-top: 85px;">
                 <img src="<?= IMAGE ?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
                 <p style="color: white; font-size: 17px;">Funzone </p>
                 <a href="<?= ROOT ?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
@@ -209,7 +212,7 @@
                     <option value="Audio"> Songs </option>
                 </select>
             </div>
-            <div id="media-container">
+            <div id="media-container" style="margin-top: 50px;">
                 <!-- <div class="item">
                     <div class="icon-container">
                         <button class="icon-btn watch-btn"><i class="fas fa-play"
@@ -376,7 +379,7 @@
             }
             const grid = document.createElement("div");
             grid.classList.add("grid");
-            grid.style.marginTop = "120px";
+            grid.style.marginTop = "140px";
             grid.style.marginLeft = "20px";
             grid.id = "grid";
 
