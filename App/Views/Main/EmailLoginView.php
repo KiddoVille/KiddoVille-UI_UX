@@ -23,10 +23,9 @@
                 <i onclick="window.location.href='<?=ROOT?>/Main/Landing'" class="fa fa-home"></i>
             </div>
             <div class="filter-box">
-                <h2>Hello, user</h2>
-                <p>Can't access your email</p>
-                <p style="margin-top: -10px;">click to login using mobile</p>
-                <button onclick="window.location.href='<?=ROOT?>/Main/NumberLogin'" type="button" style="width:200px;margin-top: 20px;">Direct</button>
+                <h2>Hello, User</h2>
+                <p>Verify your Email</p>
+                <p style="margin-top: -10px;">Continue securely with email verification</p>
             </div>
         </div>
         <!-- email verfication -->
@@ -42,17 +41,16 @@
                         <strong><?=$data['Email'] ?></strong> Enter code to authorize login</p>
                     <form id="otp-form" style="margin-top: 40px; margin-bottom: 40px;">
                         <div class="code-inputs">
-                            <input type="text" id="code1" maxlength="1" value="2">
-                            <input type="text" id="code2" maxlength="1" value="5">
-                            <input type="text" id="code3" maxlength="1" value="8">
-                            <input type="text" id="code4" maxlength="1">
+                            <input type="text" name="code1" id="code1" maxlength="2" placeholder="2" required>
+                            <input type="text" id="code2" name="code2" maxlength="2" placeholder="5" required>
+                            <input type="text" id="code3" name="code3" maxlength="2" placeholder="8" required>
+                            <input type="text" id="code4" name="code4" maxlength="2" required>
                         </div>
-                        <p class="error" id="otp-error"></p>
-                        <button style="margin-top: 20px;" type="submit">Continue</button>
-                        <p style="margin-top: -10px; font-size: 13px; padding: 0px 22px; text-align: center;">didn't
-                            receive the code <a class="forgot-password" style="margin: 0px 0px;" href="#"><strong>click
-                                    here</strong></a> to resend code</p>
-                        <a class="forgot-password" style="padding: 0px 0px;margin-left: 120px; color:#8136F3" id="email"><strong>Change Email</strong></a>
+                            <p class="error" id="otp-error" style="margin-bottom: -10px;"></p>
+                            <button style="margin-top: 20px;" type="submit">Continue</button>
+                            <p style="margin-top: -10px; font-size: 13px; padding: 0px 22px; text-align: center;">didn't
+                                receive the code <a class="forgot-password" style="margin: 0px 0px;" href="#" onclick="window.location.reload();"><strong>click here</strong></a> to resend code</p>
+                            <a class="forgot-password" style="padding: 0px 0px;margin-left: 120px; color:#8136F3" id="email"><strong>Change Email</strong></a>
                     </form>
                 </div>
             </div>
@@ -112,10 +110,51 @@
                 });
             });
 
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                if (code1.value !== '1' || code2.value !== '2' || code3.value !== '3' || code4.value !== '4') {
-                    otp.textContent = 'OTP doesn\'t match';
+            document.getElementById('otp-form').addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent the form from submitting the normal way
+
+                // Get the OTP values from the input fields
+                const code1 = document.getElementById('code1').value.trim();
+                const code2 = document.getElementById('code2').value.trim();
+                const code3 = document.getElementById('code3').value.trim();
+                const code4 = document.getElementById('code4').value.trim();
+                
+                // Concatenate the OTP values
+                const otpEntered = code1 + code2 + code3 + code4;
+                console.log(otpEntered);
+
+                // Check if all input fields are filled
+                if (otpEntered.length === 4) {
+                    // Send the OTP to the backend via AJAX using fetch
+                    fetch('<?=ROOT?>/Main/EmailLogin/verify', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            otp: otpEntered // Send the OTP entered by the user
+                        })
+                    })
+                    .then(response => response.json()) // Parse the JSON response
+                    .then(data => {
+                        if (data.success) {
+                            // OTP is correct, proceed further
+                            window.location.href = '<?=ROOT?>/Main/ResetPassword'; // Redirect to dashboard or next page
+                        } else {
+                            // OTP is incorrect, show error
+                            document.getElementById('otp-error').innerText = data.message;
+                            document.getElementById('otp-error').style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('otp-error').innerText = 'An error occurred. Please try again later.';
+                        document.getElementById('otp-error').style.display = 'block';
+                    });
+                } else {
+                    // Show error if OTP is not complete
+                    document.getElementById('otp-error').innerText = 'Please enter a valid 4-digit OTP.';
+                    document.getElementById('otp-error').style.display = 'block';
                 }
             });
         });

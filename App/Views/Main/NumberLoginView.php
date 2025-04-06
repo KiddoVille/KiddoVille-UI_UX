@@ -23,10 +23,8 @@
                 <i onclick="window.location.href='<?=ROOT?>/Main/Login'" class="fa fa-home" style=""></i>
             </div>
             <div class="filter-box">
-                <h2>Hello, user</h2>
-                <p>Don't have your mobile with you</p>
-                <p style="margin-top: -10px;">click to login using email</p>
-                <button  onclick="window.location.href='<?=ROOT?>/Main/EmailLogin'" type="button" style="width:200px;margin-top: 20px;">Direct</button>
+                <h2>Hello, User</h2>
+                <p>Verify Your Phone Number to Access Your Account Securely!</p>
             </div>
         </div>
         <!-- mobile authentication -->
@@ -111,10 +109,52 @@
                 });
             });
 
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                if (code1.value !== '1' || code2.value !== '2' || code3.value !== '3' || code4.value !== '4') {
-                    otp.textContent = 'OTP doesn\'t match';
+            document.getElementById('otp-form').addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent the form from submitting the normal way
+
+                // Get the OTP values from the input fields
+                const code1 = document.getElementById('code1').value.trim();
+                const code2 = document.getElementById('code2').value.trim();
+                const code3 = document.getElementById('code3').value.trim();
+                const code4 = document.getElementById('code4').value.trim();
+                
+                // Concatenate the OTP values
+                const otpEntered = code1 + code2 + code3 + code4;
+                otpEntered = '1234';
+                console.log(otpEntered);
+
+                // Check if all input fields are filled
+                if (otpEntered.length === 4) {
+                    // Send the OTP to the backend via AJAX using fetch
+                    fetch('<?=ROOT?>/Main/NumberLogin/verify', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            otp: otpEntered // Send the OTP entered by the user
+                        })
+                    })
+                    .then(response => response.json()) // Parse the JSON response
+                    .then(data => {
+                        if (data.success) {
+                            // OTP is correct, proceed further
+                            window.location.href = '<?=ROOT?>/Main/ResetPassword'; // Redirect to dashboard or next page
+                        } else {
+                            // OTP is incorrect, show error
+                            document.getElementById('otp-error').innerText = data.message;
+                            document.getElementById('otp-error').style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('otp-error').innerText = 'An error occurred. Please try again later.';
+                        document.getElementById('otp-error').style.display = 'block';
+                    });
+                } else {
+                    // Show error if OTP is not complete
+                    document.getElementById('otp-error').innerText = 'Please enter a valid 4-digit OTP.';
+                    document.getElementById('otp-error').style.display = 'block';
                 }
             });
         });

@@ -8,6 +8,9 @@
         use MainController;
         public function index()
         {
+            $session = new \Core\Session;
+            $session->check_login();
+
             $this->view('Main/ResetPasswordNown');
         }
 

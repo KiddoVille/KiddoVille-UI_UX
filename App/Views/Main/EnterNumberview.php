@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Email Verification</title>
+  <title>Phone Verification</title>
   <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
   <link rel="stylesheet" href="<?= CSS ?>/Main/Change.css?v=<?= time() ?>" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
@@ -20,17 +20,17 @@
       </div>
       <div class="container-border">
         <div class="container-content">
-          <h1>Email Verification</h1>
-          <form style="margin-top: 50px;" id="email-form">
+          <h1>Phone Verification</h1>
+          <form style="margin-top: 50px;" id="phone-form">
             <div class="input-box">
-              <label class="label" for="email">Email Address<span id="red-star" class="red-star">*</span></label>
-              <input id="email" placeholder="Enter Your Email"  required type="email" />
-              <p class="error" id="email-error"></p>
+              <label class="label" for="phone">Phone Number<span id="red-star" class="red-star">*</span></label>
+              <input id="phone" placeholder="Enter Your Phone Number" required type="tel" maxlength="10" />
+              <p class="error" id="phone-error"></p>
             </div>
             <p style="color:grey; text-align: center; margin-bottom: 0px; margin-top: 30px; font-size: 14px;">
-              Please enter the email associated with your account to verify your identity.
+              Please enter the 10-digit phone number linked with your account.
             </p>
-            <button style="margin-top: 20px;" type="submit">Verify Email</button>
+            <button style="margin-top: 20px;" type="submit">Verify Number</button>
           </form>
           <a class="forgot-password" href="<?=ROOT?>/Main/Login" style="padding: 0px 0px;margin-left: 120px;">
             <i class="fas fa-arrow-left"></i><strong>Back to Profile</strong>
@@ -46,24 +46,24 @@
         <i onclick="window.location.href='<?= ROOT ?>/Main/Home'" class="fa fa-home"></i>
       </div>
       <div class="filter-box">
-        <h2>Hello, user</h2>
-        <p>Can't access your email</p>
-        <p style="margin-top: -10px;">click to login using mobile</p>
-        <button onclick="window.location.href='<?=ROOT?>/Main/EnterNumber'" type="button" style="width:200px;margin-top: 20px;">Direct</button>
-      </div>
+                <h2>Hello, user</h2>
+                <p>Don't have your mobile with you</p>
+                <p style="margin-top: -10px;">click to login using email</p>
+                <button  onclick="window.location.href='<?=ROOT?>/Main/EnterEmail'" type="button" style="width:200px;margin-top: 20px;">Direct</button>
+            </div>
     </div>
   </div>
 
   <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const Email = document.getElementById('email');
-      const form = document.getElementById('email-form');
-      const EmailError = document.getElementById('email-error');
+      const phoneInput = document.getElementById('phone');
+      const form = document.getElementById('phone-form');
+      const phoneError = document.getElementById('phone-error');
       const redstar = document.getElementById('red-star');
 
-      Email.addEventListener("input", function () {
-        if (Email.value.length === 0) {
+      phoneInput.addEventListener("input", function () {
+        if (phoneInput.value.length === 0) {
           redstar.classList.remove('hidden');
         } else {
           redstar.classList.add('hidden');
@@ -74,41 +74,42 @@
         event.preventDefault();
         let valid = true;
 
-        // Simple email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phone = phoneInput.value.trim();
+        const phoneRegex = /^0\d{9}$/; // allows 10 digits starting with 0
 
-        if (!emailRegex.test(Email.value)) {
-          EmailError.textContent = 'Please enter a valid email address';
+        if (!phoneRegex.test(phone)) {
+          phoneError.textContent = 'Please enter a valid 10-digit phone number starting with 0.';
           valid = false;
         }
 
         if (!valid) return;
 
-        fetch('<?= ROOT ?>/Main/EnterEmail/StoreEmail', {
+        fetch('<?= ROOT ?>/Main/EnterNumber/StorePhone', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            email: Email.value
+            phoneNumber: phone
           })
         })
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-              window.location.href = '<?= ROOT ?>/Main/EmailLogin';
+            console.log(data);
+            window.location.href = '<?= ROOT ?>/Main/NumberLogin';
           } else {
+            console.log(data);
             if (data.errors && data.errors.length > 0) {
-              EmailError.textContent = data.errors[0];
+              phoneError.textContent = data.errors[0];
             } else {
-              console.error('Unknown error:', data);
-              EmailError.textContent = 'An unknown error occurred.';
+              phoneError.textContent = 'An unknown error occurred.';
             }
           }
         })
         .catch(error => {
           console.error('Error:', error);
-          EmailError.textContent = 'Network or server error occurred.';
+          phoneError.textContent = 'Network or server error occurred.';
         });
       });
     });
