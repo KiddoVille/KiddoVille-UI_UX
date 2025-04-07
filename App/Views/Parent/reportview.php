@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">    
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Table1.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
@@ -189,7 +189,7 @@
                         <h2> Child Reports </h2>
                         <hr>
                     </div>
-                    <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" id="SnackdatePicker">
+                    <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker" id="SnackdatePicker">
                     <select id="childPicker">
                         <option Value="All" selected> All </option>
                         <?php foreach ($data['children'] as $child): ?>
@@ -325,32 +325,45 @@
             Guardian profile
         </button>
         <?php if ($data['Child_Count'] < 5) { ?>
-                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
-                    Add Children
-                </button>
-            <?php } ?>
+            <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                Add Children
+            </button>
+        <?php } ?>
         <button class="logout-button" onclick="logoutUser()">
             LogOut
         </button>
     </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
 
         function logoutUser() {
             fetch("<?= ROOT ?>/Parent/report/Logout", {
-                method: "POST", 
-                credentials: "same-origin"
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
-                } else {
-                    alert("Logout failed. Try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
+
         function fetchReports(date, child) {
             fetch('<?= ROOT ?>/Parent/Report/store_reports', {
                     method: 'POST',
@@ -462,6 +475,7 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
+
             const upbtn = document.getElementById('up-btn');
             const hibtn = document.getElementById('hi-btn');
             const maidStats = document.getElementById('maid-stats');

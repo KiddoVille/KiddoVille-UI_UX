@@ -2,67 +2,67 @@
 
 <head>
     <title>Package</title>
-    <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Child/package.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/package.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Packagecard.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Profile.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Navbar.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Price.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Price.js?v=<?= time() ?>"></script>
 </head>
 
 <body style="overflow: hidden;">
     <div class="container">
         <div class="sidebar" id="sidebar1">
-            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
-                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
                 <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
             </div>
             <ul>
                 <li class="hover-effect unselected first">
-                    <a href="<?=ROOT?>/Child/Home">
+                    <a href="<?= ROOT ?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/history">
+                    <a href="<?= ROOT ?>/Child/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/report">
+                    <a href="<?= ROOT ?>/Child/report">
                         <i class="fa fa-user-shield"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/reservation">
+                    <a href="<?= ROOT ?>/Child/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/meal">
+                    <a href="<?= ROOT ?>/Child/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/event">
+                    <a href="<?= ROOT ?>/Child/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="selected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Child/package">
+                    <a href="<?= ROOT ?>/Child/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/funzonehome">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/payment">
+                    <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
@@ -99,8 +99,10 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="first
-                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
-                            " 
+                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
+                                    echo "select-child";
+                                } ?>
+                            "
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image">
@@ -174,11 +176,11 @@
                     <input id="package-name" readonly="" type="text" value="Basic care plan" />
                     <label for="included-services">Included services</label>
                     <div class="services" id="included-services" style="width: 280px;">
-                        
+
                     </div>
                     <label for="price">Price</label>
                     <div class="price-container">
-                        <input id="price" readonly="" type="text" value="80,000"/>
+                        <input id="price" readonly="" type="text" value="80,000" />
                         <span>RS</span>
                     </div>
                     <label for="included-days">Included days</label>
@@ -211,28 +213,40 @@
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard">
-            <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow" class="back">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
-            class="profile" />
-        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
-            <button class="profile-button" onclick="window.location.href ='<?=ROOT?>/Child/ChildProfile'">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+                class="profile" />
+            <h2><?= $data['selectedchildren']['fullname'] ?></h2>
+            <p>SRD<?= $data['selectedchildren']['id'] ?></p>
+            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
                 Profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/ParentProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">
                 Parent profile
             </button>
-            <button class="secondary-button" onclick="window.location.href ='<?=ROOT?>/Child/GuardianProfile'">
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/GuardianProfile'">
                 Guardian profile
             </button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildPackage'">Package</button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildID'">Id Card</button>
-            <button class="logout-button" onclick="window.location.href ='<?=ROOT?>/Main/Home'">
+            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
                 LogOut
             </button>
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
 
         function fetchrequest(max, min) {
             fetch('<?= ROOT ?>/Child/package/store_package', {
@@ -437,7 +451,7 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             fetchrequest(null, null);
 
@@ -459,18 +473,18 @@
             const mainContent = document.getElementById('main-content');
             const packageback = document.getElementById('back-arrow');
 
-            packageback.addEventListener('click', function () {
+            packageback.addEventListener('click', function() {
                 toggleModal(PackageModal, 'none');
             })
 
-            packagebtns.forEach(function (eventbtn) {
+            packagebtns.forEach(function(eventbtn) {
                 console.log("Hi");
-                eventbtn.addEventListener('click', function () {
+                eventbtn.addEventListener('click', function() {
                     toggleModal(PackageModal, 'flex');
                 })
             });
 
-            window.addEventListener('click', function (e) {
+            window.addEventListener('click', function(e) {
                 if (e.target === PackageModal) {
                     toggleModal(PackageModal, 'none');
                 }

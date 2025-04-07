@@ -624,6 +624,20 @@
         </div>
     </div>
     <script>
+
+            const minimizeBtn = document.getElementById('minimize-btn');
+            const sidebar = document.getElementById('sidebar1');
+            const starImage = document.getElementById('starImage');
+            const logo = document.getElementById('sidebar-logo');
+            const kiddo = document.getElementById('sidebar-kiddo');
+
+            <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+                sidebar.classList.add('minimized');
+                starImage.classList.add('show');
+                logo.classList.add('hidden');
+                kiddo.classList.add('hidden');
+            <?php endif; ?>
+        
             let selectedPerson = "Guardian"; // Default selection
             const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
             const newPersonContainer = document.getElementById("newPersonContainer");
@@ -678,6 +692,24 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
+
+
+            // minimizeBtn.addEventListener('click', function() {
+            //     fetch("<?=ROOT?>/Parent/Home/minimize", {
+            //         method: "POST",
+            //         credentials: "same-origin"
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.success) {
+            //             console.log("Sidebar minimized state saved successfully.");
+            //         } else {
+            //             console.log("Failed to save sidebar minimized state.");
+            //         }
+            //     })
+            //     .catch(error => console.error("Error:", error));
+            // });
+
             let selectedPerson = "Guardian"; // Default selection
             const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
             const newPersonContainer = document.getElementById("newPersonContainer");

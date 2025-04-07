@@ -77,9 +77,7 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+
         </div>
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
@@ -424,7 +422,7 @@
                         <hr>
                     </div>
                     <div class="filters">
-                        <input type="date" max= "<?= date('Y-m-d') ?>" id="datePicker" style="width: 200px">
+                        <input type="date" max="<?= date('Y-m-d') ?>" id="datePicker" style="width: 200px">
                         <select id="statusPicker" style="margin-right: 25px; width: 200px; margin-left: -70px; margin-top: 10px;">
                             <option value="">All</option>
                             <option value="Approved">Approved</option>
@@ -486,10 +484,10 @@
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
-            class="profile" />
-        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+                class="profile" />
+            <h2><?= $data['selectedchildren']['fullname'] ?></h2>
+            <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button" onclick="window.location.href='<?= ROOT ?>/Child/ChildProfile'">
                 Profile
             </button>
@@ -508,6 +506,19 @@
     </div>
 </body>
 <script>
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const sidebar = document.getElementById('sidebar1');
+    const starImage = document.getElementById('starImage');
+    const logo = document.getElementById('sidebar-logo');
+    const kiddo = document.getElementById('sidebar-kiddo');
+
+    <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+        sidebar.classList.add('minimized');
+        starImage.classList.add('show');
+        logo.classList.add('hidden');
+        kiddo.classList.add('hidden');
+    <?php endif; ?>
+
     <?php if (isset($_SESSION['success']) && $_SESSION['success'] === true): ?>
         document.getElementById('alert').classList.add('showl');
         setTimeout(function() {
@@ -639,42 +650,42 @@
     }
 
     function fetchReservation(date = null, status = null) {
-            console.log(date, status)
-            fetch('<?= ROOT ?>/Child/Reservation/store_reservations', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        date: date,
-                        status: status
-                    })
+        console.log(date, status)
+        fetch('<?= ROOT ?>/Child/Reservation/store_reservations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: date,
+                    status: status
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("data:", data.data);
-                        updaterReservationTable(data.data);
-                    } else {
-                        console.error("Failed to fetch meal plan:", data.message);
-                        alert(data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("data:", data.data);
+                    updaterReservationTable(data.data);
+                } else {
+                    console.error("Failed to fetch meal plan:", data.message);
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
 
-        function updaterReservationTable(data) {
-            const upcomingTableBody = document.querySelector('#upcoming tbody');
-            const historyTableBody = document.querySelector('#history tbody');
+    function updaterReservationTable(data) {
+        const upcomingTableBody = document.querySelector('#upcoming tbody');
+        const historyTableBody = document.querySelector('#history tbody');
 
-            // Clear existing rows
-            upcomingTableBody.innerHTML = '';
-            historyTableBody.innerHTML = '';
+        // Clear existing rows
+        upcomingTableBody.innerHTML = '';
+        historyTableBody.innerHTML = '';
 
-            // Populate upcoming reservations
-            data.upcoming.forEach(res => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+        // Populate upcoming reservations
+        data.upcoming.forEach(res => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
             <td>${res?.ResID ?? "No res set"}</td>
             <td>${res.First_Name ?? "No res set"}</td>
             <td>${res?.Date ?? "No res set"}</td>
@@ -693,13 +704,13 @@
                 ${res?.Status === 'Pending' ? `<i class="fas fa-trash" onclick="deleteReservation(${res.ResID})"></i>` : ''}
             </td>
         `;
-                upcomingTableBody.appendChild(row);
-            });
+            upcomingTableBody.appendChild(row);
+        });
 
-            // Populate history reservations
-            data.history.forEach(res => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+        // Populate history reservations
+        data.history.forEach(res => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
             <td>${res.First_Name ?? "No res set"}</td>
             <td>${res?.Date ?? "No res set"}</td>
             <td>${res?.Start_Time ?? "No res set"}</td>
@@ -717,451 +728,452 @@
                 <i class="fas fa-star feedbackbtn" style="display: ${res?.Status === 'Canceled' ? "none" : ""}"></i>
             </td>
         `;
-                historyTableBody.appendChild(row);
-            });
-        }
+            historyTableBody.appendChild(row);
+        });
+    }
 
-        function setChildSession(childName, childId) {
-            fetch('<?= ROOT ?>/Child/Reservation/setchildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        childName: childName,
-                        childId: childId
-                    })
+    function setChildSession(childName, childId) {
+        fetch('<?= ROOT ?>/Child/Reservation/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    childName: childName,
+                    childId: childId
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child name set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Reservation';
-                    } else {
-                        console.error("Failed to set child name in session.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        function removechildsession() {
-            fetch('<?= ROOT ?>/Child/Reservation/removechildsession', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Child name removed from session.");
-                        window.location.href = '<?= ROOT ?>/Parent/Reservation';
-                    } else {
-                        console.error("Failed to remove child name from session.", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
-
-        function highlightSelectedDate() {
-            const selectedDate = document.getElementById('modal-Date').value; // Get the value from the date input
-
-            if (selectedDate !== '') { // Proceed only if the value is not empty
-                const selectedDay = parseInt(selectedDate.split('-')[2], 10); // Extract the day part as an integer
-
-                const dateElements = document.querySelectorAll('.date'); // Select all date elements
-
-                dateElements.forEach(dateElement => {
-                    console.log("Checking date match...");
-                    const dayText = parseInt(dateElement.querySelector('.day').textContent, 10); // Get the day text as an integer
-
-                    // Compare the selected day with the dayText
-                    if (selectedDay === dayText) {
-                        dateElement.classList.add('select'); // Add the 'select' class
-                        selectDate(selectedDay);
-                    } else {
-                        dateElement.classList.remove('select'); // Remove the 'select' class if no match
-                    }
-                });
-            } else {
-                console.warn("modal-Date value is empty. No action taken.");
-            }
-        }
-
-        function selectDate(date) {
-            var dateInput = document.getElementById('date-inputforpost2');
-            dateInput.value = '2024-11-' + date;
-        }
-
-        function reviewformsubmit() {
-            const form = document.getElementById('myform'); // Get the form element by ID
-            const formData = new FormData(form); // Create a FormData object using the form element
-
-            fetch('<?= ROOT ?>/Child/Reservation/Review', {
-                    method: 'POST', // e.g., 'POST'
-                    body: formData
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json(); // Parse the JSON response
-                    }
-                    throw new Error('Network response was not ok');
-                })
-                .then(data => {
-                    if (data.success) {
-                        console.log('Success:', data.message);
-                        document.getElementById('RatingModal').style.display = 'none';
-                        // Optionally redirect or update UI
-                    } else {
-                        console.error(data.post_data)
-                        console.error('Failure:', data.message);
-                        // Optionally display error to the user
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // Handle error (e.g., show an error message)
-                });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-
-            const datePicker = document.getElementById('datePicker');
-            const statusPicker = document.getElementById('statusPicker');
-
-            // Initial fetch with 'null' values (or a default option like 'All')
-            fetchReservation( null , null);
-
-            datePicker.addEventListener('change', function() {
-                const dateValue = datePicker.value || null; // Use null if empty
-                const statusValue = statusPicker.value || null; // Use null if empty
-                fetchReservation(dateValue, statusValue);
-            });
-
-            statusPicker.addEventListener('change', function() {
-                const dateValue = datePicker.value || null;
-                const statusValue = statusPicker.value || null;
-                fetchReservation(dateValue, statusValue);
-            });
-
-            const stars = document.querySelectorAll('.star-rate');
-            let rating = 0;
-            let i = 0;
-
-            stars.forEach((star, index) => {
-                star.addEventListener('click', () => {
-                    if (star.classList.contains('selectestar') && index === rating - 1) {
-                        for (let j = index; j < stars.length; j++) {
-                            stars[j].classList.remove('selectestar');
-                        }
-                        rating -= 1;
-                        i -= 1;
-                    } else if (index === rating) {
-                        stars[index].classList.add('selectestar');
-                        rating += 1;
-                        i += 1;
-                    }
-                    document.getElementById('starnumber').value = rating;
-                });
-            });
-
-            const NewReservationModal = document.getElementById('NewReservationModal');
-            const newreservationrefresh = document.getElementById('newreservationrefresh');
-            const newreservationbtn = document.getElementById('newreservationbtn');
-            const backfornewreservation = document.getElementById('backfornewreservation');
-            const mainContent = document.getElementById('main-content');
-            const closenewReservation = document.getElementById('closenewReservation');
-            const redstar7 = document.getElementById('red-star7');
-            const redstar8 = document.getElementById('red-star8');
-            const starttime = document.getElementById('customtime1');
-            const endtime = document.getElementById('customtime2');
-            const notes = document.getElementById('notes');
-
-            newreservationrefresh.addEventListener('click', function() {
-                clearSelectedDates();
-                NewReservationForm.reset();
-                starttime.value = ''; // Clear Start Time input
-                endtime.value = '';
-                notes.value = '';
-                document.querySelectorAll('.error').forEach(errorElement => {
-                    errorElement.textContent = ''; // Clear the text content of all error elements
-                });
-            });
-
-            closenewReservation.addEventListener('click', function() {
-                window.location.href = '<?= ROOT ?>/Child/Reservation';
-            });
-
-            newreservationbtn.addEventListener('click', function() {
-                toggleModal(NewReservationModal, 'flex');
-            });
-
-            backfornewreservation.addEventListener('click', function() {
-                window.location.href = '<?= ROOT ?>/Child/Reservation';
-            });
-
-            starttime.addEventListener('input', function() {
-                if (!starttime.value) {
-                    redstar7.classList.remove('hidden');
-                } else {
-                    redstar7.classList.add('hidden');
-                }
             })
-
-            endtime.addEventListener('input', function() {
-                if (!endtime.value) {
-                    redstar8.classList.remove('hidden');
-                } else {
-                    redstar8.classList.add('hidden');
-                }
-            })
-
-            const reservationeditbtn = document.querySelectorAll('.reservation-edit');
-            const backforreservationedit = document.getElementById('backforreservationedit');
-            const reservationeditrefresh = document.getElementById('reservationeditrefresh');
-            const closeReservationedit = document.getElementById('closeReservationedit');
-            const ReservationEditForm = document.getElementById('ReservationEditForm');
-            const redstar4 = document.getElementById('red-star4');
-            const redstar5 = document.getElementById('red-star5');
-            const settime = document.getElementById('settime');
-            const ReservationEditModal = document.getElementById('ReservationModal');
-
-            reservationeditrefresh.addEventListener('click', function() {
-                clearSelectedDates();
-                ReservationEditForm.reset();
-                document.querySelectorAll('.error').forEach(errorElement => {
-                    errorElement.textContent = ''; // Clear the text content of all error elements
-                });
-            });
-
-            reservationeditbtn.forEach(button => {
-                button.addEventListener('click', function() {
-                    toggleModal(ReservationEditModal, 'flex');
-                });
-            });
-
-            backforreservationedit.addEventListener('click', function() {
-                window.location.href = '<?= ROOT ?>/Child/Reservation';
-            });
-
-            closeReservationedit.addEventListener('click', function() {
-                window.location.href = '<?= ROOT ?>/Child/Reservation';
-            });
-
-            let originalDate = null;
-
-            // reservationeditrefresh.addEventListener('click', function () {
-            //     clearSelectedDates();
-            //     ReservationEditForm.reset();
-            //     dateElements.forEach(date => {
-            //         if (date.textContent === originalDate) {
-            //             date.classList.add('select');
-            //         }
-            //     })
-            // })
-
-            function toggleModal(modal, display) {
-                modal.style.display = display;
-                if (display === 'flex') {
-                    document.body.classList.add('no-scroll');
-                    mainContent.classList.add('blurred');
-                } else {
-                    document.body.classList.remove('no-scroll');
-                    mainContent.classList.remove('blurred');
-                }
-            }
-
-            const dateElements = document.querySelectorAll('.date');
-            const redstar3 = document.getElementById('red-star3');
-            const redstar6 = document.getElementById('red-star6');
-            let selectedDate = null;
-
-            dateElements.forEach(function(date) {
-                date.addEventListener('click', function(event) {
-                    const dayNumber = date.querySelector('h1').textContent;
-
-                    if (date.classList.contains('select')) {
-                        date.classList.remove('select');
-                        redstar3.classList.remove('hidden');
-                        redstar6.classList.remove('hidden');
-                        selectedDate = null;
-                    } else {
-                        selectedDate = dayNumber;
-                        redstar3.classList.add('hidden');
-                        redstar6.classList.add('hidden');
-                        clearSelectedDates();
-                        date.classList.add('select');
-                        selectDate(selectedDate);
-                        selectDate2(selectedDate);
-                    }
-                });
-            });
-
-            function selectDate(date) {
-                console.log("Selected date:", date);
-                var dateInput = document.getElementById('date-inputforpost');
-                dateInput.value = '2024-11-' + date;
-                console.log(dateInput.value);
-
-                var allDates = document.querySelectorAll('.date');
-                allDates.forEach(function(element) {
-                    element.classList.remove('select');
-                });
-
-                event.target.closest('.date').classList.add('select');
-            }
-
-            function selectDate2(date) {
-                console.log("Selected date:", date);
-                var dateInput = document.getElementById('date-inputforpost2');
-                dateInput.value = '2024-11-' + date;
-                console.log(dateInput.value);
-
-                var allDates = document.querySelectorAll('.date');
-                allDates.forEach(function(element) {
-                    element.classList.remove('select');
-                });
-
-                event.target.closest('.date').classList.add('select');
-            }
-
-            function clearSelectedDates() {
-                dateElements.forEach(function(date) {
-                    date.classList.remove('select');
-                });
-            }
-
-            if (<?= (isset($data['displayModal']) && ($data['displayModal'] === true) && ($data['Entered'] === true))  ? 'true' : 'false' ?>) {
-                NewReservationModal.style.display = 'flex';
-            }
-
-            const ReservationModal = document.getElementById('ReservationModal');
-
-            if (<?= (isset($data['editdisplayModal']) && ($data['editdisplayModal'] === true) && ($data['editEntered'] === true))  ? 'true' : 'false' ?>) {
-                ReservationModal.style.display = 'flex';
-            }
-
-            document.getElementById("customtime1").addEventListener('change', function(event) {
-                const timeInput = event.target;
-                const [hours, minutes] = timeInput.value.split(":").map(Number);
-
-                const roundedMinutes = Math.round(minutes / 15) * 15;
-                let adjustedHours = hours;
-                let adjustedMinutes = roundedMinutes;
-                if (roundedMinutes === 60) {
-                    adjustedHours += 1;
-                    adjustedMinutes = 0;
-                }
-                if (adjustedHours < 8) {
-                    adjustedHours = 8;
-                    adjustedMinutes = 0;
-                } else if (adjustedHours >= 17 && adjustedMinutes > 0) {
-                    adjustedHours = 17;
-                    adjustedMinutes = 0;
-                }
-                const formattedHours = String(adjustedHours).padStart(2, '0');
-                const formattedMinutes = String(adjustedMinutes).padStart(2, '0');
-                timeInput.value = `${formattedHours}:${formattedMinutes}`;
-            });
-
-            document.getElementById("customtime2").addEventListener('change', function(event) {
-                const timeInput = event.target;
-                const [hours, minutes] = timeInput.value.split(":").map(Number);
-
-                const roundedMinutes = Math.round(minutes / 15) * 15;
-                let adjustedHours = hours;
-                let adjustedMinutes = roundedMinutes;
-                if (roundedMinutes === 60) {
-                    adjustedHours += 1;
-                    adjustedMinutes = 0;
-                }
-                if (adjustedHours < 8) {
-                    adjustedHours = 8;
-                    adjustedMinutes = 0;
-                } else if (adjustedHours >= 17 && adjustedMinutes > 0) {
-                    adjustedHours = 17;
-                    adjustedMinutes = 0;
-                }
-                const formattedHours = String(adjustedHours).padStart(2, '0');
-                const formattedMinutes = String(adjustedMinutes).padStart(2, '0');
-                timeInput.value = `${formattedHours}:${formattedMinutes}`;
-            })
-
-            window.addEventListener('click', function(e) {
-                if (e.target === RatingModal) {
-                    toggleModal(RatingModal, 'none');
-                }
-                if (e.target === ReservationEditModal) {
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name set in session.");
                     window.location.href = '<?= ROOT ?>/Child/Reservation';
-                    toggleModal(ReservationEditModal, 'none');
+                } else {
+                    console.error("Failed to set child name in session.", data.message);
                 }
-                if (e.target === ReservationViewModal) {
-                    toggleModal(ReservationViewModal, 'none');
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    function removechildsession() {
+        fetch('<?= ROOT ?>/Child/Reservation/removechildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child name removed from session.");
+                    window.location.href = '<?= ROOT ?>/Parent/Reservation';
+                } else {
+                    console.error("Failed to remove child name from session.", data.message);
                 }
-                if (e.target === NewReservationModal) {
-                    window.location.href = '<?= ROOT ?>/Child/Reservation';
-                    toggleModal(NewReservationModal, 'none');
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    function highlightSelectedDate() {
+        const selectedDate = document.getElementById('modal-Date').value; // Get the value from the date input
+
+        if (selectedDate !== '') { // Proceed only if the value is not empty
+            const selectedDay = parseInt(selectedDate.split('-')[2], 10); // Extract the day part as an integer
+
+            const dateElements = document.querySelectorAll('.date'); // Select all date elements
+
+            dateElements.forEach(dateElement => {
+                console.log("Checking date match...");
+                const dayText = parseInt(dateElement.querySelector('.day').textContent, 10); // Get the day text as an integer
+
+                // Compare the selected day with the dayText
+                if (selectedDay === dayText) {
+                    dateElement.classList.add('select'); // Add the 'select' class
+                    selectDate(selectedDay);
+                } else {
+                    dateElement.classList.remove('select'); // Remove the 'select' class if no match
                 }
             });
+        } else {
+            console.warn("modal-Date value is empty. No action taken.");
+        }
+    }
 
-            const ReservationViewModal = document.getElementById('ReservationViewModal');
-            const backvieweservation = document.getElementById('backvieweservation');
+    function selectDate(date) {
+        var dateInput = document.getElementById('date-inputforpost2');
+        dateInput.value = '2024-11-' + date;
+    }
 
-            backvieweservation.addEventListener('click', function() {
-                toggleModal(ReservationViewModal, 'none');
+    function reviewformsubmit() {
+        const form = document.getElementById('myform'); // Get the form element by ID
+        const formData = new FormData(form); // Create a FormData object using the form element
+
+        fetch('<?= ROOT ?>/Child/Reservation/Review', {
+                method: 'POST', // e.g., 'POST'
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Parse the JSON response
+                }
+                throw new Error('Network response was not ok');
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log('Success:', data.message);
+                    document.getElementById('RatingModal').style.display = 'none';
+                    // Optionally redirect or update UI
+                } else {
+                    console.error(data.post_data)
+                    console.error('Failure:', data.message);
+                    // Optionally display error to the user
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error (e.g., show an error message)
             });
+    }
 
-            const backforrating = document.getElementById('backforrating');
-            const closeratingBtn = document.getElementById('closeratingBtn');
-            const ratingrefresh = document.getElementById('ratingrefresh');
+    document.addEventListener('DOMContentLoaded', function() {
 
-            backforrating.addEventListener('click', function() {
-                document.getElementById('RatingModal').style.display = 'none';
-                document.getElementById('myform').reset();
-                stars.forEach((star) => {
-                    star.classList.remove('selectestar')
-                });
-            });
+        const datePicker = document.getElementById('datePicker');
+        const statusPicker = document.getElementById('statusPicker');
 
-            ratingrefresh.addEventListener('click', function() {
-                document.getElementById('myform').reset();
-                stars.forEach((star) => {
-                    star.classList.remove('selectestar')
-                });
-            });
+        // Initial fetch with 'null' values (or a default option like 'All')
+        fetchReservation(null, null);
 
-            closeratingBtn.addEventListener('click', function() {
-                document.getElementById('myform').reset();
-                stars.forEach((star) => {
-                    star.classList.remove('selectestar')
-                });
-            });
+        datePicker.addEventListener('change', function() {
+            const dateValue = datePicker.value || null; // Use null if empty
+            const statusValue = statusPicker.value || null; // Use null if empty
+            fetchReservation(dateValue, statusValue);
+        });
 
-            const upbtn = document.getElementById('up-btn');
-            const hibtn = document.getElementById('hi-btn');
-            const upcoming = document.getElementById('upcoming');
-            const history = document.getElementById('history');
-            const headingres = document.getElementById('heading-res');
+        statusPicker.addEventListener('change', function() {
+            const dateValue = datePicker.value || null;
+            const statusValue = statusPicker.value || null;
+            fetchReservation(dateValue, statusValue);
+        });
 
-            upbtn.addEventListener('click', function() {
-                upbtn.style.color = 'white';
-                upbtn.style.backgroundColor = '#10639a';
-                hibtn.style.backgroundColor = '#60a6ec';
-                upcoming.style.display = 'block';
-                history.style.display = 'none';
-                headingres.style.marginLeft = '180px';
-                headingres.textContent = 'Reervation';
-            });
+        const stars = document.querySelectorAll('.star-rate');
+        let rating = 0;
+        let i = 0;
 
-            hibtn.addEventListener('click', function() {
-                hibtn.style.color = 'white';
-                hibtn.style.backgroundColor = '#10639a';
-                upbtn.style.backgroundColor = '#60a6ec';
-                upcoming.style.display = 'none';
-                history.style.display = 'block';
-                headingres.style.marginLeft = '140px';
-                headingres.textContent = 'Reervation history';
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                if (star.classList.contains('selectestar') && index === rating - 1) {
+                    for (let j = index; j < stars.length; j++) {
+                        stars[j].classList.remove('selectestar');
+                    }
+                    rating -= 1;
+                    i -= 1;
+                } else if (index === rating) {
+                    stars[index].classList.add('selectestar');
+                    rating += 1;
+                    i += 1;
+                }
+                document.getElementById('starnumber').value = rating;
             });
         });
-    </script>
+
+        const NewReservationModal = document.getElementById('NewReservationModal');
+        const newreservationrefresh = document.getElementById('newreservationrefresh');
+        const newreservationbtn = document.getElementById('newreservationbtn');
+        const backfornewreservation = document.getElementById('backfornewreservation');
+        const mainContent = document.getElementById('main-content');
+        const closenewReservation = document.getElementById('closenewReservation');
+        const redstar7 = document.getElementById('red-star7');
+        const redstar8 = document.getElementById('red-star8');
+        const starttime = document.getElementById('customtime1');
+        const endtime = document.getElementById('customtime2');
+        const notes = document.getElementById('notes');
+
+        newreservationrefresh.addEventListener('click', function() {
+            clearSelectedDates();
+            NewReservationForm.reset();
+            starttime.value = ''; // Clear Start Time input
+            endtime.value = '';
+            notes.value = '';
+            document.querySelectorAll('.error').forEach(errorElement => {
+                errorElement.textContent = ''; // Clear the text content of all error elements
+            });
+        });
+
+        closenewReservation.addEventListener('click', function() {
+            window.location.href = '<?= ROOT ?>/Child/Reservation';
+        });
+
+        newreservationbtn.addEventListener('click', function() {
+            toggleModal(NewReservationModal, 'flex');
+        });
+
+        backfornewreservation.addEventListener('click', function() {
+            window.location.href = '<?= ROOT ?>/Child/Reservation';
+        });
+
+        starttime.addEventListener('input', function() {
+            if (!starttime.value) {
+                redstar7.classList.remove('hidden');
+            } else {
+                redstar7.classList.add('hidden');
+            }
+        })
+
+        endtime.addEventListener('input', function() {
+            if (!endtime.value) {
+                redstar8.classList.remove('hidden');
+            } else {
+                redstar8.classList.add('hidden');
+            }
+        })
+
+        const reservationeditbtn = document.querySelectorAll('.reservation-edit');
+        const backforreservationedit = document.getElementById('backforreservationedit');
+        const reservationeditrefresh = document.getElementById('reservationeditrefresh');
+        const closeReservationedit = document.getElementById('closeReservationedit');
+        const ReservationEditForm = document.getElementById('ReservationEditForm');
+        const redstar4 = document.getElementById('red-star4');
+        const redstar5 = document.getElementById('red-star5');
+        const settime = document.getElementById('settime');
+        const ReservationEditModal = document.getElementById('ReservationModal');
+
+        reservationeditrefresh.addEventListener('click', function() {
+            clearSelectedDates();
+            ReservationEditForm.reset();
+            document.querySelectorAll('.error').forEach(errorElement => {
+                errorElement.textContent = ''; // Clear the text content of all error elements
+            });
+        });
+
+        reservationeditbtn.forEach(button => {
+            button.addEventListener('click', function() {
+                toggleModal(ReservationEditModal, 'flex');
+            });
+        });
+
+        backforreservationedit.addEventListener('click', function() {
+            window.location.href = '<?= ROOT ?>/Child/Reservation';
+        });
+
+        closeReservationedit.addEventListener('click', function() {
+            window.location.href = '<?= ROOT ?>/Child/Reservation';
+        });
+
+        let originalDate = null;
+
+        // reservationeditrefresh.addEventListener('click', function () {
+        //     clearSelectedDates();
+        //     ReservationEditForm.reset();
+        //     dateElements.forEach(date => {
+        //         if (date.textContent === originalDate) {
+        //             date.classList.add('select');
+        //         }
+        //     })
+        // })
+
+        function toggleModal(modal, display) {
+            modal.style.display = display;
+            if (display === 'flex') {
+                document.body.classList.add('no-scroll');
+                mainContent.classList.add('blurred');
+            } else {
+                document.body.classList.remove('no-scroll');
+                mainContent.classList.remove('blurred');
+            }
+        }
+
+        const dateElements = document.querySelectorAll('.date');
+        const redstar3 = document.getElementById('red-star3');
+        const redstar6 = document.getElementById('red-star6');
+        let selectedDate = null;
+
+        dateElements.forEach(function(date) {
+            date.addEventListener('click', function(event) {
+                const dayNumber = date.querySelector('h1').textContent;
+
+                if (date.classList.contains('select')) {
+                    date.classList.remove('select');
+                    redstar3.classList.remove('hidden');
+                    redstar6.classList.remove('hidden');
+                    selectedDate = null;
+                } else {
+                    selectedDate = dayNumber;
+                    redstar3.classList.add('hidden');
+                    redstar6.classList.add('hidden');
+                    clearSelectedDates();
+                    date.classList.add('select');
+                    selectDate(selectedDate);
+                    selectDate2(selectedDate);
+                }
+            });
+        });
+
+        function selectDate(date) {
+            console.log("Selected date:", date);
+            var dateInput = document.getElementById('date-inputforpost');
+            dateInput.value = '2024-11-' + date;
+            console.log(dateInput.value);
+
+            var allDates = document.querySelectorAll('.date');
+            allDates.forEach(function(element) {
+                element.classList.remove('select');
+            });
+
+            event.target.closest('.date').classList.add('select');
+        }
+
+        function selectDate2(date) {
+            console.log("Selected date:", date);
+            var dateInput = document.getElementById('date-inputforpost2');
+            dateInput.value = '2024-11-' + date;
+            console.log(dateInput.value);
+
+            var allDates = document.querySelectorAll('.date');
+            allDates.forEach(function(element) {
+                element.classList.remove('select');
+            });
+
+            event.target.closest('.date').classList.add('select');
+        }
+
+        function clearSelectedDates() {
+            dateElements.forEach(function(date) {
+                date.classList.remove('select');
+            });
+        }
+
+        if (<?= (isset($data['displayModal']) && ($data['displayModal'] === true) && ($data['Entered'] === true))  ? 'true' : 'false' ?>) {
+            NewReservationModal.style.display = 'flex';
+        }
+
+        const ReservationModal = document.getElementById('ReservationModal');
+
+        if (<?= (isset($data['editdisplayModal']) && ($data['editdisplayModal'] === true) && ($data['editEntered'] === true))  ? 'true' : 'false' ?>) {
+            ReservationModal.style.display = 'flex';
+        }
+
+        document.getElementById("customtime1").addEventListener('change', function(event) {
+            const timeInput = event.target;
+            const [hours, minutes] = timeInput.value.split(":").map(Number);
+
+            const roundedMinutes = Math.round(minutes / 15) * 15;
+            let adjustedHours = hours;
+            let adjustedMinutes = roundedMinutes;
+            if (roundedMinutes === 60) {
+                adjustedHours += 1;
+                adjustedMinutes = 0;
+            }
+            if (adjustedHours < 8) {
+                adjustedHours = 8;
+                adjustedMinutes = 0;
+            } else if (adjustedHours >= 17 && adjustedMinutes > 0) {
+                adjustedHours = 17;
+                adjustedMinutes = 0;
+            }
+            const formattedHours = String(adjustedHours).padStart(2, '0');
+            const formattedMinutes = String(adjustedMinutes).padStart(2, '0');
+            timeInput.value = `${formattedHours}:${formattedMinutes}`;
+        });
+
+        document.getElementById("customtime2").addEventListener('change', function(event) {
+            const timeInput = event.target;
+            const [hours, minutes] = timeInput.value.split(":").map(Number);
+
+            const roundedMinutes = Math.round(minutes / 15) * 15;
+            let adjustedHours = hours;
+            let adjustedMinutes = roundedMinutes;
+            if (roundedMinutes === 60) {
+                adjustedHours += 1;
+                adjustedMinutes = 0;
+            }
+            if (adjustedHours < 8) {
+                adjustedHours = 8;
+                adjustedMinutes = 0;
+            } else if (adjustedHours >= 17 && adjustedMinutes > 0) {
+                adjustedHours = 17;
+                adjustedMinutes = 0;
+            }
+            const formattedHours = String(adjustedHours).padStart(2, '0');
+            const formattedMinutes = String(adjustedMinutes).padStart(2, '0');
+            timeInput.value = `${formattedHours}:${formattedMinutes}`;
+        })
+
+        window.addEventListener('click', function(e) {
+            if (e.target === RatingModal) {
+                toggleModal(RatingModal, 'none');
+            }
+            if (e.target === ReservationEditModal) {
+                window.location.href = '<?= ROOT ?>/Child/Reservation';
+                toggleModal(ReservationEditModal, 'none');
+            }
+            if (e.target === ReservationViewModal) {
+                toggleModal(ReservationViewModal, 'none');
+            }
+            if (e.target === NewReservationModal) {
+                window.location.href = '<?= ROOT ?>/Child/Reservation';
+                toggleModal(NewReservationModal, 'none');
+            }
+        });
+
+        const ReservationViewModal = document.getElementById('ReservationViewModal');
+        const backvieweservation = document.getElementById('backvieweservation');
+
+        backvieweservation.addEventListener('click', function() {
+            toggleModal(ReservationViewModal, 'none');
+        });
+
+        const backforrating = document.getElementById('backforrating');
+        const closeratingBtn = document.getElementById('closeratingBtn');
+        const ratingrefresh = document.getElementById('ratingrefresh');
+
+        backforrating.addEventListener('click', function() {
+            document.getElementById('RatingModal').style.display = 'none';
+            document.getElementById('myform').reset();
+            stars.forEach((star) => {
+                star.classList.remove('selectestar')
+            });
+        });
+
+        ratingrefresh.addEventListener('click', function() {
+            document.getElementById('myform').reset();
+            stars.forEach((star) => {
+                star.classList.remove('selectestar')
+            });
+        });
+
+        closeratingBtn.addEventListener('click', function() {
+            document.getElementById('myform').reset();
+            stars.forEach((star) => {
+                star.classList.remove('selectestar')
+            });
+        });
+
+        const upbtn = document.getElementById('up-btn');
+        const hibtn = document.getElementById('hi-btn');
+        const upcoming = document.getElementById('upcoming');
+        const history = document.getElementById('history');
+        const headingres = document.getElementById('heading-res');
+
+        upbtn.addEventListener('click', function() {
+            upbtn.style.color = 'white';
+            upbtn.style.backgroundColor = '#10639a';
+            hibtn.style.backgroundColor = '#60a6ec';
+            upcoming.style.display = 'block';
+            history.style.display = 'none';
+            headingres.style.marginLeft = '180px';
+            headingres.textContent = 'Reervation';
+        });
+
+        hibtn.addEventListener('click', function() {
+            hibtn.style.color = 'white';
+            hibtn.style.backgroundColor = '#10639a';
+            upbtn.style.backgroundColor = '#60a6ec';
+            upcoming.style.display = 'none';
+            history.style.display = 'block';
+            headingres.style.marginLeft = '140px';
+            headingres.textContent = 'Reervation history';
+        });
+    });
+</script>
+
 </html>

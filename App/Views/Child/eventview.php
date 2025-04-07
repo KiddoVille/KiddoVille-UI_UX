@@ -25,9 +25,9 @@
     <div class="container">
         <!-- sidebar to navigate to pages -->
         <div class="sidebar" id="sidebar1">
-            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
-                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
                 <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
             </div>
             <ul>
@@ -105,8 +105,10 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="first
-                                <?php if($child['name'] === $data['selectedchildren']['name']){ echo"select-child"; } ?>
-                            " 
+                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
+                                    echo "select-child";
+                                } ?>
+                            "
                                 onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image">
@@ -175,11 +177,11 @@
             <div class="stats">
                 <div class="stat" id="NewEvent">
                     <div style="display: flex; flex-direction: row;">
-                        <img src="<?=isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE.'/event-2.svg'; ?>" alt="Event Image"
+                        <img src="<?= isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE . '/event-2.svg'; ?>" alt="Event Image"
                             style="width: 130px ; height: 130px; margin-top: -15px; border-radius: 7px 0px 0px 7px; margin-bottom: -15px;">
                         <div style="display: flex; flex-direction: column; margin-top: 10px;">
                             <h3 class="footer" style="margin-left: 5px;">Event Name: <?= $data['stat3']['EventName'] ?></h3>
-                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Date: <?= date('d/m/Y', strtotime(isset($data['stat3']['Date'])? $data['stat3']['Date'] : '' )) ?></p>
+                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Date: <?= date('d/m/Y', strtotime(isset($data['stat3']['Date']) ? $data['stat3']['Date'] : '')) ?></p>
                         </div>
                     </div>
                 </div>
@@ -201,7 +203,7 @@
                         </p>
                     <?php endif; ?>
 
-                    <span style="font-weight: 50;"><?= isset($data['stat1']['upcomingEvent']['Date'])? $data['stat1']['upcomingEvent']['Date']: '' ; ?> </span>
+                    <span style="font-weight: 50;"><?= isset($data['stat1']['upcomingEvent']['Date']) ? $data['stat1']['upcomingEvent']['Date'] : ''; ?> </span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
@@ -230,7 +232,7 @@
                         </div>
                         <div class="pickup-section" style="margin-top: 190px;">
                             <label for="package-name">Event name</label>
-                            <input id="event-name" readonly="" type="text"/>
+                            <input id="event-name" readonly="" type="text" />
                         </div>
                         <div class="pickup-section">
                             <label for="included-services">Activity details</label>
@@ -240,7 +242,7 @@
                         <div class="pickup-section">
                             <label for="price">Date Time</label>
                             <div class="price-container">
-                                <input id="datetime" readonly="" type="text"/>
+                                <input id="datetime" readonly="" type="text" />
                             </div>
                         </div>
                         <div class="button-popup">
@@ -306,7 +308,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -331,10 +333,10 @@
         <!-- Profile card -->
         <div class="profile-card" id="profileCard">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
-            class="profile" />
-        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+                class="profile" />
+            <h2><?= $data['selectedchildren']['fullname'] ?></h2>
+            <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
                 Profile
             </button>
@@ -352,6 +354,19 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         function setChildSession(childName) {
             fetch('<?= ROOT ?>/Child/Home/setchildsession', {
                     method: 'POST',
@@ -431,7 +446,7 @@
             const LeaveEvent = document.getElementById('LeaveEvent');
 
             console.log(eventId);
-            fetch('<?=ROOT ?>/Parent/event/lol', {
+            fetch('<?= ROOT ?>/Parent/event/lol', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -440,33 +455,33 @@
                         EventID: eventId
                     })
                 })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Event details:', data.data);
-                    eventNameInput.value = data.data.EventName;
-                    eventDateTimeInput.value = data.data.Date;
-                    eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
-                    LeaveEvent.dataset.EnrollmentID = EnrollmentID
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Event details:', data.data);
+                        eventNameInput.value = data.data.EventName;
+                        eventDateTimeInput.value = data.data.Date;
+                        eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
+                        LeaveEvent.dataset.EnrollmentID = EnrollmentID
 
 
-                    if (data.data.Image) {
-                        eventImage.src = data.data.Image;
+                        if (data.data.Image) {
+                            eventImage.src = data.data.Image;
+                        } else {
+                            eventImage.src = "<?= IMAGE ?>/packages.png";
+                        }
+
+                        toggleModal(EventModal, 'flex'); // Ensure EventModal is defined elsewhere
                     } else {
-                        eventImage.src = "<?= IMAGE ?>/packages.png";
+                        alert(data.message || 'Failed to load event details.');
                     }
-
-                    toggleModal(EventModal, 'flex'); // Ensure EventModal is defined elsewhere
-                } else {
-                    alert(data.message || 'Failed to load event details.');
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                })
+                .catch(error => console.error("Error:", error));
         }
 
         const LeaveEvent = document.getElementById('LeaveEvent');
-        if(LeaveEvent){
-            LeaveEvent.addEventListener('click', function () {
+        if (LeaveEvent) {
+            LeaveEvent.addEventListener('click', function() {
                 const enrollmentId = this.dataset.EnrollmentID; // Get EnrollmentID from data attribute
 
                 if (!enrollmentId) {
@@ -476,25 +491,25 @@
 
                 console.log("Leaving event with EnrollmentID:", enrollmentId);
 
-                fetch('<?=ROOT ?>/Child/event/leaveEvent', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        EnrollmentID: enrollmentId // ✅ Send EnrollmentID
+                fetch('<?= ROOT ?>/Child/event/leaveEvent', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            EnrollmentID: enrollmentId // ✅ Send EnrollmentID
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Successfully left the event!");
-                        location.reload(); // ✅ Refresh the page or update UI
-                    } else {
-                        alert(data.message || "Failed to leave event.");
-                    }
-                })
-                .catch(error => console.error("Error leaving event:", error));
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Successfully left the event!");
+                            location.reload(); // ✅ Refresh the page or update UI
+                        } else {
+                            alert(data.message || "Failed to leave event.");
+                        }
+                    })
+                    .catch(error => console.error("Error leaving event:", error));
             });
         }
 

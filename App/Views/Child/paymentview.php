@@ -19,49 +19,49 @@
     <div class="container">
         <!-- minimized sidebar -->
         <div class="sidebar" id="sidebar1">
-            <img src="<?=IMAGE?>/logo_light.png" class="star" id="starImage">
+            <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
-                <img src="<?=IMAGE?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
+                <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
                 <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
             </div>
             <ul>
                 <li class="hover-effect unselected first">
-                    <a href="<?=ROOT?>/Child/Home">
+                    <a href="<?= ROOT ?>/Child/Home">
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/history">
+                    <a href="<?= ROOT ?>/Child/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/report">
+                    <a href="<?= ROOT ?>/Child/report">
                         <i class="fa fa-user-shield"></i> <span>Report</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/reservation">
+                    <a href="<?= ROOT ?>/Child/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/meal">
+                    <a href="<?= ROOT ?>/Child/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/event">
+                    <a href="<?= ROOT ?>/Child/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/package">
+                    <a href="<?= ROOT ?>/Child/package">
                         <i class="fas fa-box"></i> <span>Package</span>
                     </a>
                 </li>
                 <li class="hover-effect unselected">
-                    <a href="<?=ROOT?>/Child/funzonehome">
+                    <a href="<?= ROOT ?>/Child/funzonehome">
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
@@ -71,15 +71,13 @@
                     </a>
                 </li>
                 <li class="selected" style="margin-top: 40px;">
-                    <a href="<?=ROOT?>/Child/payment">
+                    <a href="<?= ROOT ?>/Child/payment">
                         <i class="fas fa-credit-card"></i> <span>Payments</span>
                     </a>
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+
         </div>
         <!-- navigation -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
@@ -199,7 +197,7 @@
                     <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Last bill amount</h3>
                     <div class="lol" style="cursor: pointer; margin-top: 10px;">
-                        <p><?= isset($data['totalAmountPaid'])? $data['totalAmountPaid'] : '0' ;?></p>
+                        <p><?= isset($data['totalAmountPaid']) ? $data['totalAmountPaid'] : '0'; ?></p>
                     </div>
                 </div>
             </div>
@@ -217,7 +215,7 @@
                         <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Payment History </h2>
                         <hr>
                         <div class="filters">
-                        <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
+                            <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
                             <select id="modePicker" style="margin-right: 100px; width: 200px">
                                 <option value="All" hidden>Mode</option>
                                 <option value="All">All</option>
@@ -245,7 +243,7 @@
                         <button class="pay"> Make payment </button>
                     </div>
                     <div id="upcoming" style="display: flex; flex-direction: row; align-items: flex-start;">
-                    <canvas id="paymentChart" width="500" height="200" style="max-width: 600px; max-height: 400px; margin-top:-10px;"></canvas>
+                        <canvas id="paymentChart" width="500" height="200" style="max-width: 600px; max-height: 400px; margin-top:-10px;"></canvas>
                         <div>
                             <html>
                             <div class="payment-description">
@@ -291,10 +289,10 @@
                                     Total Amount: $950
                                 </div>
                                 <div style=" display: flex;justify-content: space-between; ">
-                                    <button class="btn" onclick="window.location.href='<?=ROOT?>/Child/PaymentSheet'">
+                                    <button class="btn" onclick="window.location.href='<?= ROOT ?>/Child/PaymentSheet'">
                                         View Details
                                     </button>
-                                    <!-- <button class="btn" onclick="window.location.href='<?=ROOT?>/Parent/Pay'">
+                                    <!-- <button class="btn" onclick="window.location.href='<?= ROOT ?>/Parent/Pay'">
                                         Pay Now
                                     </button> -->
                                 </div>
@@ -309,10 +307,10 @@
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
-            class="profile" />
-        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+                class="profile" />
+            <h2><?= $data['selectedchildren']['fullname'] ?></h2>
+            <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">
                 Profile
             </button>
@@ -330,47 +328,60 @@
         </div>
     </div>
     <script>
-        function removechildsession() {
-        fetch('<?= ROOT ?>/Child/Payment/removechildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Child id removed from session.");
-                    window.location.href = '<?= ROOT ?>/Parent/Payment';
-                } else {
-                    console.error("Failed to remove child id from session.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:", error));
-    }
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
 
-    function setChildSession(ChildID) {
-        console.log(ChildID);
-        fetch('<?= ROOT ?>/Child/Payment/setchildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ChildID: ChildID
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
+        function removechildsession() {
+            fetch('<?= ROOT ?>/Child/Payment/removechildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Child id set in session.");
-                    window.location.href = '<?= ROOT ?>/Child/Payment';
-                } else {
-                    console.error("Failed to set child id from session.", data.message);
-                }
-            })
-            .catch(error => console.error("Error:", error));
-    }
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child id removed from session.");
+                        window.location.href = '<?= ROOT ?>/Parent/Payment';
+                    } else {
+                        console.error("Failed to remove child id from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function setChildSession(ChildID) {
+            console.log(ChildID);
+            fetch('<?= ROOT ?>/Child/Payment/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ChildID: ChildID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child id set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Payment';
+                    } else {
+                        console.error("Failed to set child id from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
 
         function fetchPayments(date = null, mode = null) {
             fetch('<?= ROOT ?>/Child/Payment/store_history', {
@@ -419,7 +430,7 @@
             const datePicker = document.getElementById('datePicker');
             const modePicker = document.getElementById('modePicker');
 
-            fetchPayments( null , null);
+            fetchPayments(null, null);
 
             datePicker.addEventListener('change', function() {
                 const dateValue = datePicker.value || null; // Use null if empty
@@ -458,67 +469,67 @@
             });
         });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const ctx = document.getElementById('paymentChart').getContext('2d');
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('paymentChart').getContext('2d');
 
-    var chartData = <?php echo($data['graph']); ?>;
+            var chartData = <?php echo ($data['graph']); ?>;
 
-    // Destroy existing chart instance if it exists
-    if (window.inventoryChart instanceof Chart) {
-        window.inventoryChart.destroy();
-    }
-
-    // Create the new line chart
-    window.inventoryChart = new Chart(ctx, {
-        type: 'line',
-        data: chartData, // Use the PHP-injected data
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        font: {
-                            size: 14,
-                            weight: 'bold'
-                        }
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Monthly Fees for <?=$data['selectedchildren']['name'] ?>',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Months',
-                        font: {
-                            size: 14,
-                            weight: 'bold'
-                        }
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Income (LKR)',
-                        font: {
-                            size: 14,
-                            weight: 'bold'
-                        }
-                    }
-                }
+            // Destroy existing chart instance if it exists
+            if (window.inventoryChart instanceof Chart) {
+                window.inventoryChart.destroy();
             }
-        }
-    });
-});
+
+            // Create the new line chart
+            window.inventoryChart = new Chart(ctx, {
+                type: 'line',
+                data: chartData, // Use the PHP-injected data
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Monthly Fees for <?= $data['selectedchildren']['name'] ?>',
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Months',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Income (LKR)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
 
 
         // const data = {

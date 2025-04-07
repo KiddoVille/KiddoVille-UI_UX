@@ -173,7 +173,7 @@
 
         <div class="sidebar3">
             <div class="search-bar">
-                <input placeholder="Search" type="text" id="persons"/>
+                <input placeholder="Search" type="text" id="persons" />
             </div>
             <div class="chat-list" id="sidebar" style="height: 580px;">
                 <div id="newtext" class="newtext">
@@ -218,7 +218,7 @@
                 <div id="scroll-anchor"></div>
             </div>
             <div class="input-bar" id="input-bar">
-                <button id="paperclip-btn" ><i class="fa fa-paperclip"></i></button>
+                <button id="paperclip-btn"><i class="fa fa-paperclip"></i></button>
                 <button id="edit-close-btn"><i class="fas fa-times"></i></button>
                 <input placeholder="Enter message" type="text" id="message-value" />
                 <button id="send-btn">
@@ -255,7 +255,7 @@
                 </div>
                 <div class="upload-buttons">
                     <button id="cancel-btn">Cancel</button>
-                    <button class="done" id="files" >Done</button>
+                    <button class="done" id="files">Done</button>
                 </div>
             </div>
         </div>
@@ -269,7 +269,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- profile card -->
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile" class="back">
@@ -288,6 +288,19 @@
     </div>
 </body>
 <script>
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const sidebar = document.getElementById('sidebar1');
+    const starImage = document.getElementById('starImage');
+    const logo = document.getElementById('sidebar-logo');
+    const kiddo = document.getElementById('sidebar-kiddo');
+
+    <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+        sidebar.classList.add('minimized');
+        starImage.classList.add('show');
+        logo.classList.add('hidden');
+        kiddo.classList.add('hidden');
+    <?php endif; ?>
+
     const MyID = <?= json_encode($data['Child']); ?>;
     const paperclipBtn = document.getElementById('paperclip-btn');
     const editclose = document.getElementById('edit-close-btn');
@@ -584,16 +597,15 @@
                 deletedMsg.textContent = "This message was deleted";
                 deletedMsg.classList.add("deleted-message");
                 textDiv.appendChild(deletedMsg);
-            } 
-            else if (!msg.Message && msg.FileType) {
-                if(isSent){
+            } else if (!msg.Message && msg.FileType) {
+                if (isSent) {
                     textDiv.classList.add("file");
                 }
                 let mediaElement;
                 if (msg.FileType.startsWith("image") || msg.FileType.startsWith("audio") || msg.FileType.startsWith("video") || msg.FileType.startsWith("document")) {
                     // Create a wrapper for file and download button
                     mediaElement = document.createElement("div");
-                    mediaElement.classList.add("file-container");  // Add a wrapper for media + download button
+                    mediaElement.classList.add("file-container"); // Add a wrapper for media + download button
 
                     let fileMedia;
 
@@ -603,20 +615,17 @@
                         fileMedia.src = msg.URL;
                         fileMedia.alt = "Image file";
                         fileMedia.style.maxWidth = "250px";
-                    } 
-                    else if (msg.FileType.startsWith("audio")) {
+                    } else if (msg.FileType.startsWith("audio")) {
                         fileMedia = document.createElement("audio");
                         fileMedia.controls = true;
                         fileMedia.src = msg.URL;
-                    } 
-                    else if (msg.FileType.startsWith("video")) {
+                    } else if (msg.FileType.startsWith("video")) {
                         fileMedia = document.createElement("video");
                         fileMedia.controls = true;
                         fileMedia.style.maxWidth = "300px";
                         fileMedia.src = msg.URL;
-                        fileMedia.setAttribute("preload", "metadata");  // Load metadata only for video
-                    } 
-                    else if (msg.FileType.startsWith("document")) {
+                        fileMedia.setAttribute("preload", "metadata"); // Load metadata only for video
+                    } else if (msg.FileType.startsWith("document")) {
                         fileMedia = document.createElement("p");
                         // Display document filename
                         const fileNameText = document.createTextNode(msg.FileName);
@@ -628,29 +637,28 @@
                     downloadBtn.href = msg.URL;
                     downloadBtn.download = msg.URL.split('/').pop(); // Extract filename
                     const downloadIcon = document.createElement("i");
-                    downloadIcon.classList.add("fas", "fa-download");  // Font Awesome icon class for download
+                    downloadIcon.classList.add("fas", "fa-download"); // Font Awesome icon class for download
 
                     // Position the download button based on message type (sent or received)
                     if (isSent) {
                         mediaElement.appendChild(downloadBtn);
                         downloadBtn.appendChild(downloadIcon);
                         mediaElement.appendChild(fileMedia);
-                        mediaElement.classList.add("sent-file");  // For styling sent files
+                        mediaElement.classList.add("sent-file"); // For styling sent files
                         downloadBtn.classList.add("sent-download-btn");
                     } else {
                         mediaElement.appendChild(fileMedia);
                         downloadBtn.appendChild(downloadIcon);
                         mediaElement.appendChild(downloadBtn);
-                        mediaElement.classList.add("received-file");  // For styling received files
+                        mediaElement.classList.add("received-file"); // For styling received files
                         downloadBtn.classList.add("received-download-btn");
                     }
                     downloadBtn.classList.add("download-btn");
                     textDiv.appendChild(mediaElement);
                 }
-            } 
-            else {
+            } else {
                 // Text message
-                if(isSent){
+                if (isSent) {
                     textDiv.classList.add("word");
                 }
                 const messagePara = document.createElement("p");
@@ -730,16 +738,16 @@
         const editclose = document.getElementById('edit-close-btn');
         const editsend = document.getElementById('edit-send-btn');
 
-        person.addEventListener('change' , () => {
+        person.addEventListener('change', () => {
             let Name = person.value;
             get_users(Name);
             person.value = '';
-        }) 
+        })
 
         cancel.addEventListener('click', () => {
             const fileInput = document.querySelector('input[type="file"]'); // Make sure this targets the correct input
             if (fileInput) {
-                fileInput.value = ''; 
+                fileInput.value = '';
             }
             uploadContainer.classList.toggle('active2');
             uploadContent.style.display = 'block';
@@ -831,11 +839,9 @@
                         fileIcon.classList.add('fas', 'fa-file-pdf');
                     } else if (file.type.includes('word')) {
                         fileIcon.classList.add('fas', 'fa-file-word');
-                    }
-                    else if (file.type.includes('audio')){
+                    } else if (file.type.includes('audio')) {
                         fileIcon.classList.add('fas', 'fa-file-audio');
-                    }
-                    else if (file.type.includes('video')){
+                    } else if (file.type.includes('video')) {
                         fileIcon.classList.add('fas', 'fa-file-video');
                     } else {
                         fileIcon.classList.add('fas', 'fa-file');
@@ -935,13 +941,13 @@
                         senduser(activePartnerUserID);
                         const fileInput = document.querySelector('input[type="file"]'); // Make sure this targets the correct input
                         if (fileInput) {
-                            fileInput.value = ''; 
+                            fileInput.value = '';
                         }
                         uploadContainer.classList.toggle('active2');
                         uploadContent.style.display = 'block';
                         fileList.innerHTML = '';
-                        
-                        setTimeout (() => {
+
+                        setTimeout(() => {
                             if (activePartnerUserID) {
                                 const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
                                 if (newActiveElement) {
@@ -985,7 +991,7 @@
                     const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
                     console.log(activePartnerUserID);
                     get_users();
-                    setTimeout (() => {
+                    setTimeout(() => {
                         if (activePartnerUserID) {
                             console.log(activePartnerUserID)
                             const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
@@ -1028,7 +1034,7 @@
             } else if (messageElement) {
                 selectedMessage = messageElement;
                 showPopup(e.pageX, e.pageY);
-            }else {
+            } else {
                 popup.style.display = "none";
             }
         });
@@ -1057,7 +1063,7 @@
             if (selectedMessage) {
                 // Get the message text without the "Edited" span
                 const messageText = selectedMessage.querySelector("p")?.textContent.replace(/Edited$/, ''); // Remove "Edited" text if it exists
-                
+
                 if (messageText) {
                     messagevalue.value = messageText; // Set the message without the "Edited" text
                     messagevalue.focus(); // Focus on the input field
@@ -1065,9 +1071,9 @@
                 }
             }
             console.log(messagevalue.value); // Check if it logs correctly
-            });
+        });
 
-        editclose.addEventListener('click', function(){
+        editclose.addEventListener('click', function() {
             paperclipBtn.style.display = 'flex';
             sendbtn.style.display = 'flex';
             editclose.style.display = 'none';
@@ -1078,7 +1084,7 @@
 
         })
 
-        editsend.addEventListener('click', function(){
+        editsend.addEventListener('click', function() {
             paperclipBtn.style.display = 'flex';
             sendbtn.style.display = 'flex';
             editclose.style.display = 'none';
@@ -1086,15 +1092,17 @@
 
             let Message = messagevalue.value; // Set the value
             const ChatID = selectedMessage.getAttribute("data-chatid");
-            const  p = selectedMessage.querySelector("p");
+            const p = selectedMessage.querySelector("p");
             console.log(Message);
             console.log(ChatID);
 
             if (ChatID && Message) {
-                    fetch("<?=ROOT?>/Child/Message/editchat", {
+                fetch("<?= ROOT ?>/Child/Message/editchat", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ 
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
                             ChatID: ChatID,
                             Message: Message
                         })
@@ -1114,11 +1122,11 @@
                         }
                     })
                     .catch(error => console.error("Error:", error));
-                }
+            }
 
             messagevalue.value = '';
             selectedMessage = null;
-            
+
         })
 
         document.getElementById("deleteBtn").addEventListener("click", () => {
@@ -1133,21 +1141,25 @@
                 const chatID = selectedMessage.getAttribute("data-chatid");
 
                 if (chatID) {
-                    fetch("<?=ROOT?>/Child/Message/deletechat", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ ChatID: chatID })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
-                            senduser(activePartnerUserID);
-                        } else {
-                            alert("Failed to delete message.");
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
+                    fetch("<?= ROOT ?>/Child/Message/deletechat", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                ChatID: chatID
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
+                                senduser(activePartnerUserID);
+                            } else {
+                                alert("Failed to delete message.");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
                 }
             }
             document.getElementById("deletePopup").style.display = "none"; // Hide popup

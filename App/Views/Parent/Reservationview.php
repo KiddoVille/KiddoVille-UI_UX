@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="main-content" id="main-content">
-        <div class="header">
+            <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
@@ -141,18 +141,18 @@
             </div>
             <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance" >Accepted reservation</h3>
+                    <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance">Accepted reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">Reservations been scheduled</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/pending.svg?v=<?= time() ?>" alt="Attendance" >Pending reservation</h3>
+                    <h3><img src="<?= IMAGE ?>/pending.svg?v=<?= time() ?>" alt="Attendance">Pending reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Pending']) ? $data['Pending'] : '0'; ?> reservation</p>
                     <span style="font-weight: 50;">The reservation has not been accepted by maid
                         yet</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg?v=<?= time() ?>" alt="Attendance" >Canceled reservation</h3>
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg?v=<?= time() ?>" alt="Attendance">Canceled reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">The reservation has not been canceled</span>
                 </div>
@@ -403,7 +403,7 @@
                         <hr>
                     </div>
                     <div class="filters">
-                        <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker">
+                        <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker">
                         <select id="statusPicker">
                             <option value="">All</option>
                             <option value="Approved">Approved</option>
@@ -499,21 +499,35 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         function logoutUser() {
             fetch("<?= ROOT ?>/Parent/resevation/Logout", {
-                method: "POST", 
-                credentials: "same-origin"
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
-                } else {
-                    alert("Logout failed. Try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
+
         function setChildSession(ChildID) {
             fetch(' <?= ROOT ?>/Parent/Reservation/setchildsession', {
                     method: 'POST',
@@ -671,13 +685,13 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            
+
             const datePicker = document.getElementById('datePicker');
             const childPicker = document.getElementById('childPicker');
             const statusPicker = document.getElementById('statusPicker');
 
             // Initial fetch with 'null' values (or a default option like 'All')
-            fetchReservation( null , null, null);
+            fetchReservation(null, null, null);
 
             datePicker.addEventListener('change', function() {
                 const dateValue = datePicker.value || null; // Use null if empty

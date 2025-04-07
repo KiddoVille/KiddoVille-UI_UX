@@ -266,7 +266,7 @@
                     style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
                 <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
                     class="profile" />
-                <h2><?=$data['selectedchildren']['fullname'] ?></h2>
+                <h2><?= $data['selectedchildren']['fullname'] ?></h2>
                 <p>SRD<?= $data['selectedchildren']['id'] ?></p>
                 <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
                     Profile
@@ -286,6 +286,19 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         function setChildSession(ChildID) {
             console.log(ChildID);
             fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {

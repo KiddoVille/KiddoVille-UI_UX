@@ -102,7 +102,7 @@
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
-                    <?php foreach ($data['children'] as $child): ?>
+                        <?php foreach ($data['children'] as $child): ?>
                             <li class="first
                                 <?php if ($child['name'] === $data['selectedchildren']['name']) {
                                     echo "select-child";
@@ -150,12 +150,12 @@
                 </div>
             </div>
             <div class="table-holder">
-            <div class="container-food t1">
+                <div class="container-food t1">
                     <!-- Table for Food -->
                     <div class="foodtable">
                         <h3>Meal Plan</h3>
                         <hr>
-                        <input type="date" id="datePicker" min="<?= (date('Y-m-d')); ?>"  value="<?= (date('Y-m-d')); ?>" style="width: 200px">
+                        <input type="date" id="datePicker" min="<?= (date('Y-m-d')); ?>" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
                         <table id="mealsTable">
                             <thead>
                                 <tr>
@@ -174,7 +174,7 @@
                     <div class="foodtable" id="snackTable">
                         <h3>Snack Plan</h3>
                         <hr>
-                        <input type="date" id="SnackdatePicker" min="<?= (date('Y-m-d')); ?>"  value="" style="width: 200px">
+                        <input type="date" id="SnackdatePicker" min="<?= (date('Y-m-d')); ?>" value="" style="width: 200px">
                         <table id="snacksTable">
                             <thead>
                                 <tr>
@@ -217,7 +217,7 @@
                 <hr>
                 <p> Please select the child and meal, then enter the snack to assign it. You can easily view and edit the assigned snacks for each child as needed. </p>
                 <div class="Snackdata">
-                <form id="Form2" method="POST" enctype="multipart/form-data" action="<?= ROOT ?>/Child/Meal/Snack_request_edit">
+                    <form id="Form2" method="POST" enctype="multipart/form-data" action="<?= ROOT ?>/Child/Meal/Snack_request_edit">
                         <div>
                             <h3 style="white-space:nowrap;">Edit Snack Request</h3>
                             <hr>
@@ -265,10 +265,10 @@
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
-            class="profile" />
-        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+                class="profile" />
+            <h2><?= $data['selectedchildren']['fullname'] ?></h2>
+            <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button"
                 onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">Profile</button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">Parent profile</button>
@@ -279,6 +279,18 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
 
         const dateInput = document.getElementById("dateInput");
         const mealInput = document.getElementById("mealInput");
@@ -556,60 +568,63 @@
         }
 
         function updateSnackrequestTables(snackRequestData) {
-    const tableBody = document.querySelector("#requestTable tbody");
-    tableBody.innerHTML = "";
+            const tableBody = document.querySelector("#requestTable tbody");
+            tableBody.innerHTML = "";
 
-    for (const childName in snackRequestData) {
-        const meals = snackRequestData[childName];
-        let firstRowForChild = true;
+            for (const childName in snackRequestData) {
+                const meals = snackRequestData[childName];
+                let firstRowForChild = true;
 
-        for (const meal in meals) {
-            const snacks = meals[meal];
-            let firstRowForMeal = true;
+                for (const meal in meals) {
+                    const snacks = meals[meal];
+                    let firstRowForMeal = true;
 
-            for (const snackName in snacks) {
-                const { quantity, requestID } = snacks[snackName];
+                    for (const snackName in snacks) {
+                        const {
+                            quantity,
+                            requestID
+                        } = snacks[snackName];
 
-                const row = document.createElement("tr");
+                        const row = document.createElement("tr");
 
-                if (firstRowForChild) {
-                    const childCell = document.createElement("td");
-                    childCell.textContent = childName;
-                    childCell.style.padding = "10px 15px";
-                    childCell.rowSpan = Object.values(meals).reduce((sum, mealSnacks) => sum + Object.keys(mealSnacks).length, 0);
-                    row.appendChild(childCell);
-                    firstRowForChild = false;
-                }
+                        if (firstRowForChild) {
+                            const childCell = document.createElement("td");
+                            childCell.textContent = childName;
+                            childCell.style.padding = "10px 15px";
+                            childCell.rowSpan = Object.values(meals).reduce((sum, mealSnacks) => sum + Object.keys(mealSnacks).length, 0);
+                            row.appendChild(childCell);
+                            firstRowForChild = false;
+                        }
 
-                if (firstRowForMeal) {
-                    const mealCell = document.createElement("td");
-                    mealCell.textContent = meal;
-                    mealCell.style.padding = "10px 15px";
-                    mealCell.rowSpan = Object.keys(snacks).length;
-                    row.appendChild(mealCell);
-                    firstRowForMeal = false;
-                }
+                        if (firstRowForMeal) {
+                            const mealCell = document.createElement("td");
+                            mealCell.textContent = meal;
+                            mealCell.style.padding = "10px 15px";
+                            mealCell.rowSpan = Object.keys(snacks).length;
+                            row.appendChild(mealCell);
+                            firstRowForMeal = false;
+                        }
 
-                const snackCell = document.createElement("td");
-                snackCell.textContent = `${snackName} (${quantity})`;
-                snackCell.style.padding = "10px 15px";
-                row.appendChild(snackCell);
+                        const snackCell = document.createElement("td");
+                        snackCell.textContent = `${snackName} (${quantity})`;
+                        snackCell.style.padding = "10px 15px";
+                        row.appendChild(snackCell);
 
-                const editCell = document.createElement("td");
-                editCell.className = "edit";
-                editCell.style.padding = "10px 15px";
-                editCell.innerHTML = `
+                        const editCell = document.createElement("td");
+                        editCell.className = "edit";
+                        editCell.style.padding = "10px 15px";
+                        editCell.innerHTML = `
                     <i class="fas fa-pen reservation-edit" 
                         style="margin-right: 15px; cursor: pointer;" 
                         data-request-id="${requestID}"></i>
                     <i class="fas fa-trash" style="cursor: pointer;" data-request-id="${requestID}"></i>`;
-                row.appendChild(editCell);
+                        row.appendChild(editCell);
 
-                tableBody.appendChild(row);
+                        tableBody.appendChild(row);
+                    }
+                }
             }
         }
-    }
-}
 
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -650,7 +665,7 @@
                 }, 100);
             }
 
-            document.querySelector("#requestTable tbody").addEventListener("click", function (event) {
+            document.querySelector("#requestTable tbody").addEventListener("click", function(event) {
                 if (event.target.classList.contains("fa-trash")) {
                     const requestID = event.target.getAttribute("data-request-id");
 
@@ -666,22 +681,24 @@
 
                     // Send delete request to the server
                     fetch("<?= ROOT ?>/Parent/meal/delete_snack_request", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ ID: requestID })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Remove the row from the table
-                            event.target.closest("tr").remove();
-                        } else {
-                            alert("Failed to delete the request. Try again.");
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                ID: requestID
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Remove the row from the table
+                                event.target.closest("tr").remove();
+                            } else {
+                                alert("Failed to delete the request. Try again.");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
                 }
             });
 
@@ -768,7 +785,7 @@
                 console.log(selectedDate);
                 fetchSnackPlan(selectedDate);
             });
-            });
+        });
     </script>
 </body>
 

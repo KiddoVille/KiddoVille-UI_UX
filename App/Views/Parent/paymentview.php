@@ -77,9 +77,7 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+
         </div>
         <!-- navigation -->
         <div class="sidebar-2" id="sidebar2">
@@ -187,7 +185,7 @@
                         <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Payment History </h2>
                         <hr>
                         <div class="filters">
-                            <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
+                            <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
                             <select id="modePicker" style="margin-right: 100px; width: 200px">
                                 <option value="All" hidden>Mode</option>
                                 <option value="All">All</option>
@@ -313,6 +311,19 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         function logoutUser() {
             fetch("<?= ROOT ?>/Parent/payment/Logout", {
                     method: "POST",
@@ -398,6 +409,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+
             const datePicker = document.getElementById('datePicker');
             const childPicker = document.getElementById('childPicker');
             const modePicker = document.getElementById('modePicker');
@@ -451,7 +463,7 @@
             });
         });
 
-        var chartData = <?php echo($data['graph']); ?>;
+        var chartData = <?php echo ($data['graph']); ?>;
 
         const ctx = document.getElementById('paymentsChart').getContext('2d');
 

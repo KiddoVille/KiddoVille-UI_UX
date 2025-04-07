@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="main-content" id="main-content">
-        <div class="header">
+            <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
@@ -149,7 +149,7 @@
                     <input id="package-name" readonly="" type="text" value="Basic care plan" />
                     <label for="included-services">Included services</label>
                     <div class="services" id="included-services">
-                        
+
                     </div>
                     <label for="price">Price</label>
                     <div class="price-container">
@@ -223,21 +223,33 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
 
         function logoutUser() {
             fetch("<?= ROOT ?>/Parent/package/Logout", {
-                method: "POST", 
-                credentials: "same-origin"
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
-                } else {
-                    alert("Logout failed. Try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
 
         function setChildSession(ChildID) {

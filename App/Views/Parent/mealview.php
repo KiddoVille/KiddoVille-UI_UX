@@ -185,7 +185,7 @@
                 <div class="container-food t3">
                     <form id="Form" method="POST" id="details" enctype="multipart/form-data" action="<?= ROOT ?>/Parent/Meal/Snack_request">
                         <h3>Add Snack</h3>
-                        <hr >
+                        <hr>
                         <div class="pickup-section">
                             <label for="Date">Date</label>
                             <input name="Date" required id="dateInput" type="date" min="<?= date('Y-m-d', strtotime('+1 day')); ?>" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
@@ -293,6 +293,19 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         const dateInput = document.getElementById("dateInput");
         const mealInput = document.getElementById("mealInput");
         const snackInput = document.getElementById("snackInput");
@@ -647,6 +660,7 @@
 
         // Add event listener for date picker
         document.addEventListener("DOMContentLoaded", function() {
+
             const editSnackDate = document.getElementById("EditSnackDate");
             const editSnackTime = document.getElementById("EditSnackTime");
             const editChild = document.getElementById("EditChild");
@@ -680,7 +694,7 @@
                 }
             }
 
-            document.querySelector("#requestTable tbody").addEventListener("click", function (event) {
+            document.querySelector("#requestTable tbody").addEventListener("click", function(event) {
                 if (event.target.classList.contains("fa-trash")) {
                     const requestID = event.target.getAttribute("data-request-id");
 
@@ -696,22 +710,24 @@
 
                     // Send delete request to the server
                     fetch("<?= ROOT ?>/Parent/meal/delete_snack_request", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ ID: requestID })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Remove the row from the table
-                            event.target.closest("tr").remove();
-                        } else {
-                            alert("Failed to delete the request. Try again.");
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                ID: requestID
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Remove the row from the table
+                                event.target.closest("tr").remove();
+                            } else {
+                                alert("Failed to delete the request. Try again.");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
                 }
             });
 

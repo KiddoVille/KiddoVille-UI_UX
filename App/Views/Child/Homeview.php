@@ -104,7 +104,9 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="first
-                                <?php if ($child['name'] === $data['selectedchildren']['name']) {echo "select-child";} ?>"
+                                <?php if ($child['name'] === $data['selectedchildren']['name']) {
+                                    echo "select-child";
+                                } ?>"
                                 onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>" alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
@@ -241,7 +243,7 @@
                             <h3 style="margin-top: 0px; margin-bottom: 5px;">Subject Marks</h3>
                             <hr>
                             <div class="filters">
-                                <input type="date" max= "<?=(date('Y-m-d')); ?>" id="datePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
+                                <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
                             </div>
                             <table style="width: 100%;">
                                 <thead>
@@ -299,20 +301,20 @@
                         <div class="profile" style="width: 275px;">
                             <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Pickup </h3>
                             <hr>
-                            <div class="overdue-payment card" style="margin-top: 10px; justify-content:center; align-items: center; text-align: center; padding: 5px 20px; display: <?=isset($data['stat2']['nochild'])? 'flex': 'none' ?>">
+                            <div class="overdue-payment card" style="margin-top: 10px; justify-content:center; align-items: center; text-align: center; padding: 5px 20px; display: <?= isset($data['stat2']['nochild']) ? 'flex' : 'none' ?>">
                                 <h4> No child In daycare </h4>
                             </div>
-                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px; display: <?=isset($data['stat2']['nochild'])? 'none': 'flex' ?>">
+                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px; display: <?= isset($data['stat2']['nochild']) ? 'none' : 'flex' ?>">
                                 <div style="display: flex; flex-direction: row;">
                                     <h4> Time : </h4>
-                                    <p style="margin-top: 23px;"><?= isset($data['stat2']['Time'])? $data['stat2']['Time']: '' ?> </p>
+                                    <p style="margin-top: 23px;"><?= isset($data['stat2']['Time']) ? $data['stat2']['Time'] : '' ?> </p>
                                 </div>
                                 <div style="display: flex; flex-direction: row;">
                                     <h4 style="margin-top: -10px; white-space: nowrap;"> Person : </h4>
-                                    <p style="margin-top: -8px; margin-left: 5px;"> <?= isset($data['stat2']['Person'])? $data['stat2']['Person']: '' ?> </p>
+                                    <p style="margin-top: -8px; margin-left: 5px;"> <?= isset($data['stat2']['Person']) ? $data['stat2']['Person'] : '' ?> </p>
                                 </div>
                             </div>
-                            <div style="display: flex; flex-direction: row; display: <?=isset($data['stat2']['nochild'])? 'none': 'flex' ?>">
+                            <div style="display: flex; flex-direction: row; display: <?= isset($data['stat2']['nochild']) ? 'none' : 'flex' ?>">
                                 <button class="button" id="openPickupModal" style="width: 100%; margin: 10px;"> Customize </button>
                                 <?php if (($data['stat2']['Time'] !== '8:00PM' && $data['stat2']['Person'] !== 'Parent')): ?>
                                     <button class="button" id="ResetPickupBtn" style="width: 100%; margin: 10px;"> Reset </button>
@@ -706,44 +708,111 @@
         <i class="fas fa-chevron-left" id="taskicon"></i>
     </div>
 </body>
-    <script>
-        const fixedSlider = document.getElementById('fixedSlider');
-        const initialValue = fixedSlider.value;
+<script>
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const sidebar = document.getElementById('sidebar1');
+    const starImage = document.getElementById('starImage');
+    const logo = document.getElementById('sidebar-logo');
+    const kiddo = document.getElementById('sidebar-kiddo');
 
-        fixedSlider.addEventListener('input', () => {
-            fixedSlider.value = initialValue;
-        });
+    <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+        sidebar.classList.add('minimized');
+        starImage.classList.add('show');
+        logo.classList.add('hidden');
+        kiddo.classList.add('hidden');
+    <?php endif; ?>
 
-        // function setChildSession(ChildID) {
-        //     fetch('<?= ROOT ?>/Parent/Home/setchildsession', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             ChildID: ChildID
-        //         })
-        //     })
-        //     .then(response => {
-        //         if (!response.ok) {
-        //             // If the response status is not OK (e.g., 404, 500), throw an error
-        //             throw new Error(`HTTP error! Status: ${response.status}`);
-        //         }
-        //         return response.json(); // Parse the response as JSON
-        //     })
-        //     .then(data => {
-        //         if (data.success) {
-        //             console.log("Child ID set in session.");
-        //             window.location.href = '<?= ROOT ?>/Child/Home';
-        //         } else {
-        //             console.error("Failed to set child name in session:", data.message);
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error("Error in setChildSession:", error);
-        //     });
-        // }
+    const fixedSlider = document.getElementById('fixedSlider');
+    const initialValue = fixedSlider.value;
 
+    fixedSlider.addEventListener('input', () => {
+        fixedSlider.value = initialValue;
+    });
+
+    // function setChildSession(ChildID) {
+    //     fetch('<?= ROOT ?>/Parent/Home/setchildsession', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             ChildID: ChildID
+    //         })
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             // If the response status is not OK (e.g., 404, 500), throw an error
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+    //         return response.json(); // Parse the response as JSON
+    //     })
+    //     .then(data => {
+    //         if (data.success) {
+    //             console.log("Child ID set in session.");
+    //             window.location.href = '<?= ROOT ?>/Child/Home';
+    //         } else {
+    //             console.error("Failed to set child name in session:", data.message);
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error("Error in setChildSession:", error);
+    //     });
+    // }
+
+    let selectedPerson = "Guardian"; // Default selection
+    const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
+    const newPersonContainer = document.getElementById("newPersonContainer");
+    const addPersonSection = document.getElementById("add-person");
+    const selectedPersonTypeInput = document.getElementById("selectedPersonType");
+    const guardianRadio = document.getElementById("guardianRadio");
+    const newPersonRadio = document.getElementById("newPersonRadio");
+
+    function selectPerson(personType) {
+        if (personType === "Guardian") {
+            selectedPerson = "Guardian";
+
+            // ✅ Highlight Guardian
+            guardianContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+            newPersonContainer.style.backgroundColor = "transparent"; // Reset new person background
+
+            // ✅ Update selected person
+            guardianRadio.checked = true;
+            newPersonRadio.checked = false;
+            selectedPersonTypeInput.value = "Guardian";
+        } else if (personType === "New") {
+            selectedPerson = "New";
+
+            // ✅ Highlight New Person
+            newPersonContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+            guardianContainer.style.backgroundColor = "transparent"; // Reset guardian background
+
+            // ✅ Hide "Add New Person" section
+            addPersonSection.style.display = "none";
+
+            // ✅ Update selected person
+            newPersonRadio.checked = true;
+            guardianRadio.checked = false;
+            selectedPersonTypeInput.value = "New";
+        }
+    }
+
+    function previewNewPersonImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("newPersonImage").src = e.target.result;
+                document.getElementById("newPersonContainer").style.display = "flex";
+                document.getElementById("add-person").style.display = "none";
+                newPersonContainer.style.backgroundColor = "#ADD8E6";
+                guardianContainer.style.backgroundColor = "transparent";
+                selectPerson("New");
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
         let selectedPerson = "Guardian"; // Default selection
         const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
         const newPersonContainer = document.getElementById("newPersonContainer");
@@ -759,6 +828,9 @@
                 // ✅ Highlight Guardian
                 guardianContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
                 newPersonContainer.style.backgroundColor = "transparent"; // Reset new person background
+
+                // ✅ Show "Add New Person" option
+                addPersonSection.style.display = "flex";
 
                 // ✅ Update selected person
                 guardianRadio.checked = true;
@@ -781,83 +853,28 @@
             }
         }
 
-        function previewNewPersonImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    document.getElementById("newPersonImage").src = e.target.result;
-                    document.getElementById("newPersonContainer").style.display = "flex";
-                    document.getElementById("add-person").style.display = "none";
-                    newPersonContainer.style.backgroundColor = "#ADD8E6";
-                    guardianContainer.style.backgroundColor = "transparent";
-                    selectPerson("New");
-                };
-                reader.readAsDataURL(file);
+        let savedPerson = "<?= isset($data['stat2']['Person']) ? $data['stat2']['Person'] : 'Guardian' ?>";
+        if (savedPerson === "New") {
+            selectPerson("New");
+
+            let newPersonImage = "<?= isset($data['stat2']['Image']) ? $data['stat2']['Image'] : '' ?>";
+            if (newPersonImage) {
+                document.getElementById("newPersonImage").src = newPersonImage;
+                newPersonContainer.style.display = "flex";
             }
+        } else {
+            selectPerson("Guardian");
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            let selectedPerson = "Guardian"; // Default selection
-            const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
-            const newPersonContainer = document.getElementById("newPersonContainer");
-            const addPersonSection = document.getElementById("add-person");
-            const selectedPersonTypeInput = document.getElementById("selectedPersonType");
-            const guardianRadio = document.getElementById("guardianRadio");
-            const newPersonRadio = document.getElementById("newPersonRadio");
-
-            function selectPerson(personType) {
-                if (personType === "Guardian") {
-                    selectedPerson = "Guardian";
-
-                    // ✅ Highlight Guardian
-                    guardianContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
-                    newPersonContainer.style.backgroundColor = "transparent"; // Reset new person background
-
-                    // ✅ Show "Add New Person" option
-                    addPersonSection.style.display = "flex";
-
-                    // ✅ Update selected person
-                    guardianRadio.checked = true;
-                    newPersonRadio.checked = false;
-                    selectedPersonTypeInput.value = "Guardian";
-                } else if (personType === "New") {
-                    selectedPerson = "New";
-
-                    // ✅ Highlight New Person
-                    newPersonContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
-                    guardianContainer.style.backgroundColor = "transparent"; // Reset guardian background
-
-                    // ✅ Hide "Add New Person" section
-                    addPersonSection.style.display = "none";
-
-                    // ✅ Update selected person
-                    newPersonRadio.checked = true;
-                    guardianRadio.checked = false;
-                    selectedPersonTypeInput.value = "New";
-                }
-            }
-
-            let savedPerson = "<?= isset($data['stat2']['Person']) ? $data['stat2']['Person'] : 'Guardian' ?>";
-            if (savedPerson === "New") {
-                selectPerson("New");
-
-                let newPersonImage = "<?= isset($data['stat2']['Image']) ? $data['stat2']['Image'] : '' ?>";
-                if (newPersonImage) {
-                    document.getElementById("newPersonImage").src = newPersonImage;
-                    newPersonContainer.style.display = "flex";
-                }
-            } else {
-                selectPerson("Guardian");
-            }
-
-            const ResetPickup = document.getElementById("ResetPickupBtn")
-            if(ResetPickup){
-                ResetPickup.addEventListener("click", function () {
-                    if (confirm("Are you sure you want to reset this pickup?")) {
-                        fetch("<?= ROOT ?>/child/home/deletePickup", {
+        const ResetPickup = document.getElementById("ResetPickupBtn")
+        if (ResetPickup) {
+            ResetPickup.addEventListener("click", function() {
+                if (confirm("Are you sure you want to reset this pickup?")) {
+                    fetch("<?= ROOT ?>/child/home/deletePickup", {
                             method: "POST",
-                            headers: { "Content-Type": "application/json" },
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
                             body: JSON.stringify({})
                         })
                         .then(response => response.json())
@@ -867,11 +884,11 @@
                             }
                         })
                         .catch(error => console.error("Error:", error));
-                    }
-                });
-            }
+                }
+            });
+        }
 
-        });
+    });
 
     function logoutUser() {
         fetch("<?= ROOT ?>/Child/Home/Logout", {
@@ -918,7 +935,7 @@
                     ChildID: ChildID
                 })
             })
-            
+
             .then(response => response.json())
             .then(data => {
                 if (data.success) {

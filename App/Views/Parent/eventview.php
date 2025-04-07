@@ -99,7 +99,7 @@
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
-                                <img src="<?php echo htmlspecialchars($child['image']); ?>"alt="Child Profile Image">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>" alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -144,7 +144,7 @@
             <div class="stats">
                 <div class="stat" id="NewEvent">
                     <div class="stat-img">
-                        <img src="<?=isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE.'/event-2.svg'; ?>" alt="Event Image">
+                        <img src="<?= isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE . '/event-2.svg'; ?>" alt="Event Image">
                         <div class="stat-event">
                             <h3 class="footer">Event Name: <?= $data['stat3']['EventName'] ?></h3>
                             <p class="footer">Date: <?= date('d/m/Y', strtotime($data['stat3']['Date'])) ?></p>
@@ -169,7 +169,7 @@
                         </p>
                     <?php endif; ?>
 
-                    <span style="font-weight: 50;"><?= isset($data['stat1']['upcomingEvent']['Date'])? $data['stat1']['upcomingEvent']['Date']: '' ;?></span>
+                    <span style="font-weight: 50;"><?= isset($data['stat1']['upcomingEvent']['Date']) ? $data['stat1']['upcomingEvent']['Date'] : ''; ?></span>
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance">Enroll to events</h3>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="pickup-section" style="margin-top: 190px;">
                             <label for="package-name">Event name</label>
-                            <input id="event-name" readonly="" type="text"/>
+                            <input id="event-name" readonly="" type="text" />
                         </div>
                         <div class="pickup-section">
                             <label for="included-services">Activity details</label>
@@ -206,7 +206,7 @@
                         <div class="pickup-section">
                             <label for="price">Date Time</label>
                             <div class="price-container">
-                                <input id="datetime" readonly="" type="text"/>
+                                <input id="datetime" readonly="" type="text" />
                             </div>
                         </div>
                         <div class="button-popup">
@@ -338,21 +338,33 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
 
         function logoutUser() {
             fetch("<?= ROOT ?>/Parent/event/Logout", {
-                method: "POST", 
-                credentials: "same-origin"
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
-                } else {
-                    alert("Logout failed. Try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
 
         function setChildSession(ChildID) {
@@ -442,7 +454,7 @@
             const LeaveEvent = document.getElementById('LeaveEvent');
 
             console.log(eventId);
-            fetch('<?=ROOT ?>/Parent/event/lol', {
+            fetch('<?= ROOT ?>/Parent/event/lol', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -451,33 +463,33 @@
                         EventID: eventId
                     })
                 })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Event details:', data.data);
-                    eventNameInput.value = data.data.EventName;
-                    eventDateTimeInput.value = data.data.Date;
-                    eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
-                    LeaveEvent.dataset.EnrollmentID = EnrollmentID
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Event details:', data.data);
+                        eventNameInput.value = data.data.EventName;
+                        eventDateTimeInput.value = data.data.Date;
+                        eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
+                        LeaveEvent.dataset.EnrollmentID = EnrollmentID
 
 
-                    if (data.data.Image) {
-                        eventImage.src = data.data.Image;
+                        if (data.data.Image) {
+                            eventImage.src = data.data.Image;
+                        } else {
+                            eventImage.src = "<?= IMAGE ?>/packages.png";
+                        }
+
+                        toggleModal(EventModal, 'flex'); // Ensure EventModal is defined elsewhere
                     } else {
-                        eventImage.src = "<?= IMAGE ?>/packages.png";
+                        alert(data.message || 'Failed to load event details.');
                     }
-
-                    toggleModal(EventModal, 'flex'); // Ensure EventModal is defined elsewhere
-                } else {
-                    alert(data.message || 'Failed to load event details.');
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                })
+                .catch(error => console.error("Error:", error));
         }
 
         const LeaveEvent = document.getElementById('LeaveEvent');
-        if(LeaveEvent){
-            LeaveEvent.addEventListener('click', function () {
+        if (LeaveEvent) {
+            LeaveEvent.addEventListener('click', function() {
                 const enrollmentId = this.dataset.EnrollmentID; // Get EnrollmentID from data attribute
 
                 if (!enrollmentId) {
@@ -487,25 +499,25 @@
 
                 console.log("Leaving event with EnrollmentID:", enrollmentId);
 
-                fetch('<?=ROOT ?>/Parent/event/leaveEvent', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        EnrollmentID: enrollmentId // ✅ Send EnrollmentID
+                fetch('<?= ROOT ?>/Parent/event/leaveEvent', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            EnrollmentID: enrollmentId // ✅ Send EnrollmentID
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Successfully left the event!");
-                        location.reload(); // ✅ Refresh the page or update UI
-                    } else {
-                        alert(data.message || "Failed to leave event.");
-                    }
-                })
-                .catch(error => console.error("Error leaving event:", error));
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Successfully left the event!");
+                            location.reload(); // ✅ Refresh the page or update UI
+                        } else {
+                            alert(data.message || "Failed to leave event.");
+                        }
+                    })
+                    .catch(error => console.error("Error leaving event:", error));
             });
         }
 
@@ -522,6 +534,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+
             fetchrequest(null, null, null);
 
             const datePicker = document.getElementById('datePicker');
