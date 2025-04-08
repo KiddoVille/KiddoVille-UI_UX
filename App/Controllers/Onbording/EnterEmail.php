@@ -12,11 +12,9 @@ class EnterEmail
         $this->view('Onbording/EnterEmail', $data);
     }
 
-    public function StoreEmail()
-    {
+    public function StoreEmail(){
         defined('ROOTPATH') or define('ROOTPATH', __DIR__);
     
-        // Start session and prepare JSON response
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -33,9 +31,7 @@ class EnterEmail
     
         if (isset($request['email'])) {
             $email = trim($request['email']);
-
-            $found = false;
-            $session = new \Core\Session;
+            $emailExists = false;
     
             $roles = [
                 ['model' => \Modal\ParentUser::class, 'field' => 'Email'],
@@ -51,16 +47,18 @@ class EnterEmail
                 $result = $modal->first([$role['field'] => $email]);
     
                 if ($result) {
-                    $found = true;
-                    $session->set('VERIFIED_EMAIL', $email);
-                    $response['success'] = true;
-                    $response['message'] = 'Email found and verified successfully.';
+                    $emailExists = true;
                     break;
                 }
             }
     
-            if ($found) {
-                $response['errors'][] = 'Email not found in the system.';
+            if ($emailExists) {
+                $response['errors'][] = 'Email already exists in the system.';
+            } else {
+                $session = new \Core\Session;
+                $session->set('EMAIL', $email);
+                $response['success'] = true;
+                $response['message'] = 'Email is available for registration.';
             }
     
         } else {
@@ -68,7 +66,7 @@ class EnterEmail
         }
     
         echo json_encode($response);
-    }
+    }    
 }
 
 ?>

@@ -70,7 +70,7 @@
                     <div class="datacon">
                         <div class="data">
                             <label>Last Name <span id="red-star3" class="red-star"> *</span> </label>
-                            <input name="Last_Name" style="width: 200px;" required placeholder="Aurad" type="text" id="lastname"
+                            <input name="Last_Name" style="width: 200px;" placeholder="Aurad" type="text" id="lastname"
                                 value="<?php if (!empty($data['values']['Last_Name'])) {
                                             echo $data['values']['Last_Name'];
                                         } ?>">
@@ -82,10 +82,19 @@
                         </div>
                         <div class="data">
                             <label>Phone Number <span id="red-star4" class="red-star"> *</span></label>
-                            <input name="Phone_Number" style="width: 200px;" required class="number" placeholder="071-4810928" type="text" id="number" maxlength="12"
+                            <input name="Phone_Number" style="width: 200px;" class="number"
+                            placeholder="<?php 
+                                echo htmlspecialchars(
+                                    $_SESSION['APP']['CONTACT_VARIFIED'] 
+                                        ? $_SESSION['APP']['NUMBER'] 
+                                        : '0712345678'
+                                ); 
+                            ?>"
+                            type="text" id="number" maxlength="12"
                                 value="<?php if (!empty($data['values']['Phone_Number'])) {
                                             echo $data['values']['Phone_Number'];
                                         } ?>">
+                            <p class="edit" id="verifyEmail" onclick="window.location.href='<?=ROOT?>/Onbording/EnterNumber'" style="cursor: pointer; margin-left: 160px; margin-top: 75px;"> Verify</p>
                         </div>
                     </div>
                     <span id="red-star5" class="red-star" style="margin-right: -40px;"> *</span>
@@ -118,10 +127,16 @@
                     </div>
                     <div class="data">
                         <label>Email <span id="red-star8" class="red-star"> *</span></label>
-                        <input name="Email" style="width: 308px;" required placeholder="abdullaaurad@gmail.com" type="text" id="email"
-                            value="<?php if (!empty($data['values']['Email'])) {
-                                        echo $data['values']['Email'];
-                                    } ?>">
+                        <input name="Email" style="width: 308px;" required 
+                            placeholder="<?php 
+                                echo htmlspecialchars(
+                                    $_SESSION['APP']['EMAIL_VARIFIED'] 
+                                        ? $_SESSION['APP']['EMAIL'] 
+                                        : 'lol@gmail.com'
+                                ); 
+                            ?>"
+                            type="text" id="email">
+                        <p class="edit" id="verifyEmail" onclick="window.location.href='<?=ROOT?>/Onbording/EnterEmail'" style="cursor: pointer; margin-left: 270px; margin-top: 75px;"> Verify</p>
                         <?php if (!empty($data['errors']['Email'])): ?>
                             <p class="errorl" id="email-error">
                                 <?php echo $data['errors']['Email']; ?>

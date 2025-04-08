@@ -32,21 +32,18 @@
                         <div class="data">
                             <label>Password</label>
                             <input readonly placeholder="*******" style="width: 627.5px;" type="password">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/ResetPasswordNown'" style="cursor: pointer;"> Change Password</p>
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>User Name</label>
                             <input readonly placeholder="<?= isset($data['Username'])? $data['Username'] : '' ?>" style="width: 627.5px;" type="text">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/changeusername'" style="cursor: pointer;"> Change UserName</p>
                         </div>
                     </div>
                     <div class="datacon">
                         <div class="data">
                             <label>Email</label>
                             <input readonly placeholder="<?= isset($data['Email'])? $data['Email'] : '' ?>" style="width: 627.5px;" type="text">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/VerificationEmail'" style="cursor: pointer;"> Change Email</p>
                         </div>
                     </div>
                 </form>
@@ -58,7 +55,6 @@
                         <div class="data">
                             <label>Contact Number</label>
                             <input readonly placeholder="<?= isset($data['Phone_Number'])? $data['Phone_Number'] : '' ?>" style="width: 627.5px;" type="text">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/change-number'" style="cursor: pointer; margin-left: 420px;" > Change Mobile Number</p>
                         </div>
                     </div>
                     <div class="datacon">

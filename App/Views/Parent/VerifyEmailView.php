@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2-Step Verification</title>
+    <title>Verify New Email</title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="<?=CSS?>/Main/Change.css?v=<?= time() ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,6 @@
 </head>
 
 <body>
-    <!-- verfication for contact -->
     <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
         <div class="box" id="move"
             style="width: 400px; height: 500px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; background-image: url('<?=IMAGE?>/side2.png'); transition: transform 1s ease;">
@@ -24,11 +23,10 @@
             </div>
             <div class="filter-box">
                 <h2>Hello, User</h2>
-                <p>Verify your Email</p>
-                <p style="margin-top: -10px;">Continue securely with email verification</p>
+                <p>Confirm your new email</p>
+                <p style="margin-top: -10px;">Enter the code sent to your new email address</p>
             </div>
         </div>
-        <!-- email verfication -->
         <div class="box fade-out" id="fade"
             style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;width: 400px;height: 500px; transition: opacity 1s ease,transform 1s ease;">
             <div class="logo">
@@ -36,22 +34,20 @@
             </div>
             <div class="container-border">
                 <div class="container-content">
-                    <h1>2-Step Verification</h1>
-                    <p style="text-align: center; padding: 0px 28px ">We sent a code to
-                        <strong><?=$data['Email'] ?></strong> Enter code to authorize login</p>
+                    <h1>Email Verification</h1>
+                    <p style="text-align: center; padding: 0px 28px ">
+                        Please enter the code <strong><?=$data['Email'] ?></strong>. to verify your email change.</p>
                     <form id="otp-form" style="margin-top: 40px; margin-bottom: 40px;">
-                    <div class="code-inputs">
-                        <input type="text" id="code1" maxlength="1">
-                        <input type="text" id="code2" maxlength="1" placeholder="5">
-                        <input type="text" id="code3" maxlength="1" placeholder="8">
-                        <input type="text" id="code4" maxlength="1" placeholder="•">
-                    </div>
-                        <p class="error" id="otp-error"></p>
-                        <button style="margin-top: 20px;" type="submit">Continue</button>
-                        <p style="margin-top: -10px; font-size: 13px; padding: 0px 22px; text-align: center;">didn't
-                            receive the code <a class="forgot-password" style="margin: 0px 0px;" href="#"><strong>click
-                                    here</strong></a> to resend code</p>
-                        <a class="forgot-password" style="padding: 0px 0px;margin-left: 120px; color:#8136F3" id="email"><strong>Change Email</strong></a>
+                        <div class="code-inputs">
+                            <input type="text" name="code1" id="code1" maxlength="2" placeholder="2" required>
+                            <input type="text" id="code2" name="code2" maxlength="2" placeholder="5" required>
+                            <input type="text" id="code3" name="code3" maxlength="2" placeholder="8" required>
+                            <input type="text" id="code4" name="code4" maxlength="2" required>
+                        </div>
+                        <p class="error" id="otp-error" style="margin-bottom: -10px;"></p>
+                        <button style="margin-top: 20px;" type="submit">Verify Email</button>
+                        <p style="margin-top: -10px; font-size: 13px; padding: 0px 22px; text-align: center;">Didn't receive the code? <a class="forgot-password" style="margin: 0px 0px;" href="#" onclick="window.location.reload();"><strong>Click here</strong></a> to resend</p>
+                        <a class="forgot-password" style="padding: 0px 0px;margin-left: 100px; color:#8136F3" href="<?=ROOT?>/Parent/ParentEditProfile"><strong>Use Different Email</strong></a>
                     </form>
                 </div>
             </div>
@@ -111,10 +107,51 @@
                 });
             });
 
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                if (code1.value !== '1' || code2.value !== '2' || code3.value !== '3' || code4.value !== '4') {
-                    otp.textContent = 'OTP doesn\'t match';
+            document.getElementById('otp-form').addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent the form from submitting the normal way
+
+                // Get the OTP values from the input fields
+                const code1 = document.getElementById('code1').value.trim();
+                const code2 = document.getElementById('code2').value.trim();
+                const code3 = document.getElementById('code3').value.trim();
+                const code4 = document.getElementById('code4').value.trim();
+                
+                // Concatenate the OTP values
+                const otpEntered = code1 + code2 + code3 + code4;
+                console.log(otpEntered);
+
+                // Check if all input fields are filled
+                if (otpEntered.length === 4) {
+                    // Send the OTP to the backend via AJAX using fetch
+                    fetch('<?=ROOT?>/Parent/VerifyEmail/verify', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            otp: otpEntered // Send the OTP entered by the user
+                        })
+                    })
+                    .then(response => response.json()) // Parse the JSON response
+                    .then(data => {
+                        if (data.success) {
+                            // OTP is correct, proceed further
+                            window.location.href = '<?=ROOT?>/Parent/ParentProfile'; // Redirect to dashboard or next page
+                        } else {
+                            // OTP is incorrect, show error
+                            document.getElementById('otp-error').innerText = data.message;
+                            document.getElementById('otp-error').style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('otp-error').innerText = 'An error occurred. Please try again later.';
+                        document.getElementById('otp-error').style.display = 'block';
+                    });
+                } else {
+                    // Show error if OTP is not complete
+                    document.getElementById('otp-error').innerText = 'Please enter a valid 4-digit OTP.';
+                    document.getElementById('otp-error').style.display = 'block';
                 }
             });
         });

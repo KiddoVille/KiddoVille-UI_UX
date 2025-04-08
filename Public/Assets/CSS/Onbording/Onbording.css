@@ -1,3 +1,6 @@
+@import url('../variables.css');
+
+
 body {
     margin: 0;
     padding: 0;
@@ -147,14 +150,7 @@ label{
     height: 40px;
     padding: 5px 20px;
 }
-.edit{
-    position: absolute;
-    margin-top: 40px;
-    margin-right: -200px;
-    margin-left: 450px;
-    color:  var(--secondary-color);
-    font-weight: 600;
-}
+
 .divider {
     height: auto;
     width: 2px;
@@ -286,17 +282,6 @@ h2{
     background-color:  var(--secondary-color) !important;
     color: white !important;
 }
-
-.edit{
-    position: absolute;
-    margin-top: 40px;
-    margin-right: -200px;
-    margin-left: 450px;
-    color:  var(--secondary-color);
-    font-weight: 600;
-    cursor: pointer;
-}
-
 
 /* prescription */
 .prescription-view{
@@ -525,4 +510,13 @@ h2{
 .home-contain:hover{
     transform: scale(1.05);
     z-index: 1;
+}
+
+.edit{
+    position: absolute;
+    margin-top: 40px;
+    margin-right: -200px;
+    margin-left: 200px;
+    color: rgb(2, 77, 205);
+    font-weight: 600;
 }
