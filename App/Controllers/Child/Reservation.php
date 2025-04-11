@@ -2,6 +2,7 @@
 
     namespace Controller;
 
+    use App\Helpers\ChildHelper;
     use App\Helpers\SidebarHelper;
 
     defined('ROOTPATH') or exit('Access denied');
@@ -30,22 +31,101 @@
             $data2 = $this->set_stats();
             $data = $data + $data2;
 
-            $data2['dates'] = $this->set_dates();
-            $data = $data + $data2;
-
-            // $data2 = $this->makereservation();
-            // if(!empty($data2)){
-            //     $data = $data + $data2;
-            // }
-
-            // $data2 = $this->editreservation();
-            // if(!empty($data2)){
-            //     $data = $data + $data2;
-            // }
+            $data3 = $this->set_dates();
+            $data = $data + $data3;
 
             $session->set("Location" , 'Child/Reservation');
             $this->view('Child/reservation', $data);
         }
+
+        private function set_dates() {
+            $session = new \core\Session;
+            $ChildID = $session->get("CHILDID");
+        
+            $ChildModal = new \Modal\Child;
+            $PackageModal = new \Modal\Package;
+            $HolidayModal = new \Modal\Holiday;
+            $ReservationModal = new \Modal\Reservation;
+        
+            $Child = $ChildModal->first(['ChildID' => $ChildID]);
+            $Package = $PackageModal->first(['PackageID' => $Child->PackageID]);
+        
+            $today = new \DateTime();
+            $today->modify('+1 day');
+            $nextweek = clone $today;
+            $nextweek->modify('+14 days');
+        
+            $Reservation = $ReservationModal->findFutureDates($today, $nextweek);
+            $Holidays = $HolidayModal->findFutureDates($today, $nextweek);
+        
+            // Convert holiday dates to string list for easy comparison
+            $holidayDates = array_map(fn($h) => (new \DateTime($h->Date))->format('Y-m-d'), $Holidays);
+            $ReservationDates = array_map(fn($h) => (new \DateTime($h->Date))->format('Y-m-d'), $Reservation);
+        
+            $dates = [];
+            $editdates = [];
+            $edithours = [];
+            $hours = [];
+            for ($i = 0; $i < 14; $i++) {
+                $dateStr = $today->format('Y-m-d');
+                $dayName = $today->format('l'); // Full day name e.g., Monday
+        
+                // Check if date is a holiday
+                $isHoliday = in_array($dateStr, $holidayDates);
+                $isReservation = in_array($dateStr, $ReservationDates);
+        
+                // Check if the day is allowed by the package (0 = not allowed)
+                $isAllowedByPackage = property_exists($Package, $dayName) && $Package->$dayName == 0;
+        
+                // Only include if it's NOT a holiday and the day is allowed by the package
+                if (!$isHoliday && $isAllowedByPackage && !$isReservation) {
+                    $dates[] = [
+                        'date' => $dateStr,
+                        'dayName' => $today->format('D'),
+                        'day' => $today->format('d')
+                    ];
+                }
+
+                if(!$isHoliday && $Package->AllHours == 0 && !$isReservation){
+                    $hours[] = [
+                        'date' => $dateStr,
+                        'dayName' => $today->format('D'),
+                        'day' => $today->format('d')
+                    ];
+                }
+
+                if (!$isHoliday && $isAllowedByPackage) {
+                    $editdates[] = [
+                        'date' => $dateStr,
+                        'dayName' => $today->format('D'),
+                        'day' => $today->format('d')
+                    ];
+                }
+
+                if(!$isHoliday && $Package->AllHours == 0){
+                    $edithours[] = [
+                        'date' => $dateStr,
+                        'dayName' => $today->format('D'),
+                        'day' => $today->format('d')
+                    ];
+                }
+        
+                $today->modify('+1 day');
+            }
+
+            $data['dates'] = $dates;
+            $data['editdates'] = $editdates;
+
+            if($Package->AllHours == 1){
+                $data['hours'] = $dates;
+                $data['edithours'] = $dates;
+            }
+            else{
+                $data['hours'] = $hours;
+                $data['edithours'] = $edithours;
+            }
+            return $data;
+        }        
 
         public function store_reservations() {
             header('Content-Type: application/json');
@@ -116,35 +196,43 @@
             }
         }
 
-        private function makereservation() {
-            $requiredFields = ['Date', 'Start_Time', 'End_Time'];
+        public function makereservation() {
+            show($_POST);
+            $session = new \core\Session;
+            $requiredFields = ['Date', 'Start_Time'];
         
-            $data['values'] = [];
+            $data = [];
         
             // Initialize form values
             $data['values']['Date'] = $_POST['Date'] ?? '';
             $data['values']['Start_Time'] = $_POST['Start_Time'] ?? '';
             $data['values']['End_Time'] = $_POST['End_Time'] ?? '';
-            $data['values']['Notes'] = $_POST['Notes'] ?? '';  // Ensure Notes is set if provided
+            $data['values']['Notes'] = $_POST['Notes'] ?? '';
+            $data['values']['full-day'] = $_POST['full-day']?? '';
         
             // Check if all required fields are filled in
-            if (checkRequiredFields($requiredFields, $_POST) && isset($_POST['makereservation']) && $_POST['makereservation'] == 'new-reservation') {
+            if (checkRequiredFields($requiredFields, $_POST)){
         
-                // Initialize error array
                 $data['errors'] = [];
                 $data['displayModal'] = false;
         
-                // Validate Date - must be after today + 2 days
                 $today = new \DateTime();
                 $today->modify('+1 days');
                 $date = new \DateTime($_POST['Date']);
                 
-                // if ($date < $today) {
-                //     $data['errors']['Date'] = 'Not a valid date';
-                //     $data['values']['Date'] = '';
-                //     $data['displayModal'] = true;
-                //     $data['Entered'] = true;
-                // }
+                if ($date < $today) {
+                    $data['errors']['Date'] = 'Not a valid date';
+                    $data['values']['Date'] = '';
+                    $data['displayModal'] = true;
+                    $data['Entered'] = true;
+                }
+                
+                if ($date < $today) {
+                    $data['errors']['Date'] = 'Not a valid date';
+                    $data['values']['Date'] = '';
+                    $data['displayModal'] = true;
+                    $data['Entered'] = true;
+                }
         
                 // Validate Start Time - must be between 8:00 AM and 8:00 PM
                 $startTime = $_POST['Start_Time'];
@@ -155,162 +243,316 @@
                     $data['Entered'] = true;
                 }
         
-                // Validate End Time - must be between 8:00 AM and 8:00 PM, and after the start time
-                $endTime = $_POST['End_Time'];
-                if ($endTime < '08:00' || $endTime > '20:00') {
-                    $data['errors']['End_Time'] = 'Not a valid time';
-                    $data['values']['End_Time'] = '';
-                    $data['displayModal'] = true;
-                    $data['Entered'] = true;
-                }
-        
-                $startTimeObj = new \DateTime($startTime);
-                $endTimeObj = new \DateTime($endTime);
-        
-                // Check if Start Time is less than End Time
-                if ($startTimeObj >= $endTimeObj) {
-                    $data['errors']['Time'] = 'Start time must be earlier than end time.';
-                    $data['values']['End_Time'] = ''; // Clear invalid end time
-                    $data['displayModal'] = true;
-                    $data['Entered'] = true;
-                } else {
-                    // Check for at least 4-hour gap
-                    $minEndTime = (clone $startTimeObj)->modify('+4 hours');
-                    if ($endTimeObj < $minEndTime) {
-                        $data['errors']['Time'] = 'There must be at least a 4-hour gap between start and end time.';
-                        $data['values']['End_Time'] = $minEndTime->format('H:i'); // Suggest a valid end time
-                        $data['values']['Start_Time'] = $startTime; // Ensure Start_Time remains valid
+                if (isset($_POST['End_Time']) && !empty($_POST['End_Time'])) {
+                    $endTime = $_POST['End_Time'];
+                    if ($endTime < '08:00' || $endTime > '20:00') {
+                        $data['errors']['End_Time'] = 'Not a valid time';
+                        $data['values']['End_Time'] = '';
                         $data['displayModal'] = true;
                         $data['Entered'] = true;
                     }
+                }                
+        
+                if(!isset($_POST['full-day'])){
+                    $startTimeObj = new \DateTime($startTime);
+                    $endTimeObj = new \DateTime($endTime);
+            
+                    // Check if Start Time is less than End Time
+                    if ($startTimeObj >= $endTimeObj) {
+                        $data['errors']['Time'] = 'Start time must be earlier than end time.';
+                        $data['values']['End_Time'] = ''; // Clear invalid end time
+                        $data['displayModal'] = true;
+                        $data['Entered'] = true;
+                    } else {
+                        // Check for at least 4-hour gap
+                        $minEndTime = (clone $startTimeObj)->modify('+4 hours');
+                        if ($endTimeObj < $minEndTime) {
+                            $data['errors']['Time'] = 'There must be at least a 4-hour gap between start and end time.';
+                            $data['values']['End_Time'] = $minEndTime->format('H:i'); // Suggest a valid end time
+                            $data['values']['Start_Time'] = $startTime; // Ensure Start_Time remains valid
+                            $data['displayModal'] = true;
+                            $data['Entered'] = true;
+                        }
+                    }
                 }
         
-                // Proceed with saving if no errors
-                $_POST['Child_Id'] = $_SESSION['CHILD_ID'];    
-                $res = new \Modal\Reservation;
-                $_SESSION['success'] = false;
+                $ChildID = $session->get("CHILDID");
+                $_POST['ChildID'] = $ChildID;    
+
+                $ReservationModal = new \Modal\Reservation;
+                $session ->set('success', true);
                 if ($data['displayModal'] === false) {
-                    $res->insert($_POST);
-                    $_SESSION['success'] = true;
+                    $session->set('success', true);
+                    if(isset($_POST['full-day']) && $_POST['full-day'] == 'on'){
+                        $_POST['Is_24_Hour'] = 1;
+                        show($_POST);
+                    }
+                    $session->set('success', true);
+                    $session->unset('Page');
+
+                    $ChildModal = new \Modal\Child;
+                    $ChildHelper = new ChildHelper;
+                    $AssignMaidModal = new \Modal\AssignMaid;
+                    $MaidModal = new \Modal\Maid;
+                    $LeaveModal = new \Modal\MaidLeave;
+
+                    $Child = $ChildModal->first(["ChildID"=>$ChildID]);
+                    $AgeGroup = $ChildHelper->getAgeGroup($Child->DOB);
+
+                    $AvailableMaids = $AssignMaidModal->countGroupByJoin("ChildID", "MaidID", "<", 5, [ 'table' => 'Maid', 'on' => 'Maid.MaidID = Assignmaid.MaidID'], ["AgeGroup" => '2-3', "Date" => $_POST['Date']]);
+                    $UsedMaids = [];
+                    if(empty($AvailableMaids)){
+                        $UsedMaids = $AssignMaidModal->countGroupByJoin("ChildID", "MaidID", "=", 5, [ 'table' => 'Maid', 'on' => 'Maid.MaidID = Assignmaid.MaidID'], ["AgeGroup" => $AgeGroup, "Date" => $_POST['Date']]);
+                        $AllMaids = $MaidModal->where_norder(["AgeGroup" => $AgeGroup]);
+                        if(!empty($UsedMaids)){
+                            $allMaidIDs = array_map(fn($maid) => $maid->MaidID, $AllMaids);
+                            $usedMaidIDs = array_map(fn($maid) => $maid->MaidID, $UsedMaids);
+
+                            // Get available IDs
+                            $availableMaidIDs = array_diff($allMaidIDs, $usedMaidIDs);
+
+                            // Filter original $AllMaids to only include the available ones
+                            $AvailableMaids = array_filter($AllMaids, function ($maid) use ($availableMaidIDs) {
+                                return in_array($maid->MaidID, $availableMaidIDs);
+                            });
+                        }
+                        else{
+                            $AvailableMaids = $AllMaids;
+                        }
+                    }
+
+                    foreach ($AvailableMaids as $Persons){
+                        $Leave = $LeaveModal->first(["MaidID" => $Persons->MaidID, "Date" => $_POST['Date']]);
+                        if(!empty($Leave)){
+                            $AvailableMaids = array_filter($AvailableMaids, function ($maid) use ($Leave) {
+                                return $maid->MaidID != $Leave->MaidID;
+                            });
+                        }
+                    }
+                    
+                    if(!empty($AvailableMaids)){
+                        $AssignMaidModal->insert([
+                            'ChildID' => $ChildID,
+                            'MaidID' => $AvailableMaids[0]->MaidID,
+                            'Date' => $_POST['Date'],
+                            'Is_24_hour' => isset($_POST['Is_24_Hour']) && $_POST['Is_24_Hour'] ? 1 : 0
+                        ]);
+
+                        $_POST['Status'] = "Approved";
+                    }
+                    else{
+                        $_POST['Status'] = "Pending";
+                    }
+
+                    $ReservationModal->insert($_POST);
+                    redirect('Child\Reservation');
+                }
+                else{
+                    $session->set('Page', $data);
                     redirect('Child\Reservation');
                 }
                 return $data;
         
             } else {
                 $data['errors'] = 'Please fill in all required fields.';
-                $_SESSION['success'] = false;
+                $session->set('success', false);
                 $data['displayModal'] = false;
-                return $data;
+                $session->set('Page', $data);
+                redirect('Child\Reservation');
             }
         }             
 
-        private function editreservation() {
-            $requiredFields = ['Res_Id','Date', 'Start_Time', 'End_Time'];
-            
-            // Initialize an array to hold the form values
-            $data['editvalues']['Date'] = $_POST['Date'] ?? '';
-            $data['editvalues']['Start_Time'] = $_POST['Start_Time'] ?? '';
-            $data['editvalues']['End_Time'] = $_POST['End_Time'] ?? '';
-            $data['editvalues']['Notes'] = $_POST['Notes'] ?? '';
-            
+        public function editreservation() {
+            $session = new \core\Session;
+            $requiredFields = ['Date', 'Start_Time'];
+        
+            $data = [];
+        
+            // Initialize form values
+            $data['values']['Date'] = $_POST['Date'] ?? '';
+            $data['values']['Start_Time'] = $_POST['Start_Time'] ?? '';
+            $data['values']['End_Time'] = $_POST['End_Time'] ?? '';
+            $data['values']['Notes'] = $_POST['Notes'] ?? '';
+            $data['values']['full-day'] = $_POST['full-day'] ?? '';
+        
             // Check if all required fields are filled in
-            if (checkRequiredFields($requiredFields, $_POST) && isset($_POST['editreservation']) && $_POST['editreservation'] == 'edited-reservation') {
-
-                $data['editerrors'] = [];
-                $data['editdisplayModal'] = false;
-                // Validate Date - must be after today + 1 days
+            if (checkRequiredFields($requiredFields, $_POST)) {
+        
+                $data['errors'] = [];
+                $data['displayModal'] = false;
+        
                 $today = new \DateTime();
                 $today->modify('+1 days');
                 $date = new \DateTime($_POST['Date']);
-                
+        
                 if ($date < $today) {
-                    $data['editerrors']['Date'] = 'Not a valid date';
-                    $data['editdisplayModal'] = true;
-                    $data['editEntered'] = true;
+                    $data['errors']['Date'] = 'Not a valid date';
+                    $data['values']['Date'] = '';
+                    $data['displayModal'] = true;
+                    $data['Entered'] = true;
                 }
-                
+        
                 // Validate Start Time - must be between 8:00 AM and 8:00 PM
                 $startTime = $_POST['Start_Time'];
                 if ($startTime < '08:00' || $startTime > '20:00') {
-                    $data['editerrors']['Start_Time'] = 'Not a valid time';
-                    $data['editvalues']['Start_Time'] = '';
-                    $data['editdisplayModal'] = true;
-                    $date['editEntered'] = true;
+                    $data['errors']['Start_Time'] = 'Not a valid time';
+                    $data['values']['Start_Time'] = '';
+                    $data['displayModal'] = true;
+                    $data['Entered'] = true;
                 }
-                
-                // Validate End Time - must be between 8:00 AM and 8:00 PM, and after the start time
-                $endTime = $_POST['End_Time'];
-                if ($endTime < '08:00' || $endTime > '20:00') {
-                    $data['editerrors']['End_Time'] = 'Not a valid time';
-                    $data['editvalues']['End_Time'] = '';
-                    $data['editdisplayModal'] = true;
-                    $data['editEntered'] = true;
+
+                if (isset($_POST['full-day'])) {
+                    $_POST['Is_24_Hour'] = 1;
+                    unset($_POST['full-day']);
+                    unset($_POST['End_Time']);
                 }
-        
-                // Check 4-hour minimum difference between Start and End Time
-                $startTimeObj = new \DateTime($startTime);
-                $endTimeObj = new \DateTime($endTime);
-        
-                // Check if Start Time is less than End Time
-                if ($startTimeObj >= $endTimeObj) {
-                    $data['editerrors']['Time'] = 'Start time must be earlier than end time.';
-                    $data['editvalues']['End_Time'] = ''; // Clear invalid end time
-                    $data['editdisplayModal'] = true;
-                    $data['editEntered'] = true;
-                } else {
-                    // Check for at least 4-hour gap
-                    $minEndTime = (clone $startTimeObj)->modify('+4 hours');
-                    if ($endTimeObj < $minEndTime) {
-                        $data['editerrors']['Time'] = 'There must be at least a 4-hour gap between start and end time.';
-                        $data['editvalues']['End_Time'] = $minEndTime->format('H:i'); // Suggest a valid end time
-                        $data['editvalues']['Start_Time'] = $startTime; // Ensure Start_Time remains valid
-                        $data['editdisplayModal'] = true;
-                        $data['editEntered'] = true;
+                else{
+                    $_POST['Is_24_Hour'] = 0;
+                }
+
+                if (isset($_POST['End_Time']) && !empty($_POST['End_Time'])) {
+                    $endTime = $_POST['End_Time'];
+                    if ($endTime < '08:00' || $endTime > '20:00') {
+                        $data['errors']['End_Time'] = 'Not a valid time';
+                        $data['values']['End_Time'] = '';
+                        $data['displayModal'] = true;
+                        $data['Entered'] = true;
                     }
+
+                    $startTimeObj = new \DateTime($startTime);
+                    $endTimeObj = new \DateTime($_POST['End_Time'] ?? '');
+        
+                    // Check if Start Time is less than End Time
+                    if ($startTimeObj >= $endTimeObj) {
+                        $data['errors']['Time'] = 'Start time must be earlier than end time.';
+                        $data['values']['End_Time'] = ''; // Clear invalid end time
+                        $data['displayModal'] = true;
+                        $data['Entered'] = true;
+                    } else {
+                        // Check for at least 4-hour gap
+                        $minEndTime = (clone $startTimeObj)->modify('+4 hours');
+                        if ($endTimeObj < $minEndTime) {
+                            $data['errors']['Time'] = 'There must be at least a 4-hour gap between start and end time.';
+                            $data['values']['End_Time'] = $minEndTime->format('H:i'); // Suggest a valid end time
+                            $data['values']['Start_Time'] = $startTime;
+                            $data['displayModal'] = true;
+                            $data['Entered'] = true;
+                        }
+                    }
+                }else{
+                    $_POST['End_Time'] = null;
                 }
         
-                // Proceed with saving if no errors
-                $_POST['Child_Id'] = $_SESSION['CHILD_ID'];
-                $_POST['Start_Time'] = $startTimeObj->format('H:i');
-                $_POST['End_Time'] = $endTimeObj->format('H:i');
-                
-                $res = new \Modal\Reservation;
-                $_SESSION['success'] = false;
-                $Res_Id = $_POST['Res_Id'];
-                unset($_POST['Res_Id']);
-                unset($_POST['Child_Id']);
-                if($data['editdisplayModal'] === false){
-                    $res->update(['Res_Id' => $Res_Id], $_POST);
-                    $_SESSION['success'] = true;
+                $_POST['ChildID'] = $session->get("CHILDID");
+                $_POST['Start_Time'] = $startTime;
+        
+                $ReservationModal = new \Modal\Reservation;
+                $ResID = $_POST['ResID'];
+                unset($_POST['ResID']);
+                $session->set('success', false);
+        
+                if ($data['displayModal'] === false) {
+                    show($data);                   
+                    show($_POST);
+
+                    $OldReservation = $ReservationModal->first(["ResID" => $ResID]);
+                    show($OldReservation);
+
+                    show("Hi");
+                    if($OldReservation->Date !== $_POST['Date']){
+                        show("lol");
+                        $AssignMaidModal = new \Modal\AssignMaid;
+                        $AssignedMaid = $AssignMaidModal->first(["ChildID" => $_POST['ChildID'], "Date" => $OldReservation->Date]);
+                        show($AssignedMaid);
+
+                        if(!empty($AssignedMaid)){
+                            show($AssignedMaid->WorkID);
+                            $AssignMaidModal->delete($AssignedMaid->WorkID, "WorkID");
+
+                            $ChildModal = new \Modal\Child;
+                            $ChildHelper = new ChildHelper;
+                            $AssignMaidModal = new \Modal\AssignMaid;
+                            $MaidModal = new \Modal\Maid;
+                            $LeaveModal = new \Modal\MaidLeave;
+                            $ChildID = $_POST['ChildID'];
+        
+                            $Child = $ChildModal->first(["ChildID"=>$ChildID]);
+                            $AgeGroup = $ChildHelper->getAgeGroup($Child->DOB);
+        
+                            $AvailableMaids = $AssignMaidModal->countGroupByJoin("ChildID", "MaidID", "<", 5, [ 'table' => 'Maid', 'on' => 'Maid.MaidID = Assignmaid.MaidID'], ["AgeGroup" => '2-3', "Date" => $_POST['Date']]);
+                            $UsedMaids = [];
+                            if(empty($AvailableMaids)){
+                                $UsedMaids = $AssignMaidModal->countGroupByJoin("ChildID", "MaidID", "=", 5, [ 'table' => 'Maid', 'on' => 'Maid.MaidID = Assignmaid.MaidID'], ["AgeGroup" => $AgeGroup, "Date" => $_POST['Date']]);
+                                $AllMaids = $MaidModal->where_norder(["AgeGroup" => $AgeGroup]);
+                                if(!empty($UsedMaids)){
+                                    $allMaidIDs = array_map(fn($maid) => $maid->MaidID, $AllMaids);
+                                    $usedMaidIDs = array_map(fn($maid) => $maid->MaidID, $UsedMaids);
+        
+                                    // Get available IDs
+                                    $availableMaidIDs = array_diff($allMaidIDs, $usedMaidIDs);
+        
+                                    // Filter original $AllMaids to only include the available ones
+                                    $AvailableMaids = array_filter($AllMaids, function ($maid) use ($availableMaidIDs) {
+                                        return in_array($maid->MaidID, $availableMaidIDs);
+                                    });
+                                }
+                                else{
+                                    $AvailableMaids = $AllMaids;
+                                }
+                            }
+        
+                            foreach ($AvailableMaids as $Persons){
+                                show($_POST);
+                                $Leave = $LeaveModal->first(["MaidID" => $Persons->MaidID, "Date" => $_POST['Date']]);
+                                if(!empty($Leave)){
+                                    $AvailableMaids = array_filter($AvailableMaids, function ($maid) use ($Leave) {
+                                        return $maid->MaidID != $Leave->MaidID;
+                                    });
+                                }
+                            }
+
+                            show('Available Maids');
+                            show($AvailableMaids);
+                            
+                            if(!empty($AvailableMaids)){
+                                $AssignMaidModal->insert([
+                                    'ChildID' => $ChildID,
+                                    'MaidID' => $AvailableMaids[0]->MaidID,
+                                    'Date' => $_POST['Date'],
+                                    'Is_24_hour' => isset($_POST['Is_24_Hour']) && $_POST['Is_24_Hour'] ? 1 : 0
+                                ]);
+        
+                                $_POST['Status'] = "Approved";
+                            }
+                            else{
+                                $_POST['Status'] = "Pending";
+                            }
+                        }
+                    }
+
+                    $ReservationModal->update(["ResID" => $ResID],$_POST);
+
+                    show($_POST);
+                    $session->set('success', true);
+                    $session->unset('Edit');
+                    redirect('Child\Reservation');
+                } else {
+                    $session->set('Edit', $data);
+                    show($_POST);
+                    $session->unset('Edit');
                     redirect('Child\Reservation');
                 }
-            
+        
+                return $data;
+        
             } else {
-                $data['editerrors'] = 'Please fill in all required fields.';
-                $data['editdisplayModal'] = false;
-                $_SESSION['success'] = false;
+                $data['errors'] = 'Please fill in all required fields.';
+                $session->set('success', false);
+                $data['displayModal'] = false;
+                $session->set('Edit', $data);
+                // redirect('Child\Reservation');
             }
-            return $data;
-        }
-
-        private function set_dates(){
-            $today = new \DateTime();
-            // Start from the day after tomorrow
-            $today->modify('+2 days');
-        
-            // Generate the next 7 days
-            $dates = [];
-            for ($i = 0; $i < 7; $i++) {
-                $dates[] = [
-                    'dayName' => $today->format('D'),  // Day of the week (e.g., Mon, Tue)
-                    'day' => $today->format('d')       // Day of the month (e.g., 14)
-                ];
-                $today->modify('+1 day'); // Move to the next day
-            }
-        
-            return $dates;  // Return the dates array
-        }
-        
+        }        
 
         private function set_stats() {
             $session = new \core\Session;
@@ -420,72 +662,64 @@
         }
 
         public function GeteditReservation() {
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
             header('Content-Type: application/json');
-            
+            $request = json_decode(file_get_contents('php://input'), true);
             $response = [];
-            
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // Check if Res_Id is provided
-                if (isset($_POST['Res_Id'])) {
-                    $Res_Id = $_POST['Res_Id'];
-                
-                    $reservation = new \Modal\Reservation;
+
+            if (isset($request['ResID'])) {
+                $ResID = $request['ResID'];
+                $reservation = new \Modal\Reservation;
                     
-                    // Query the reservation by Res_Id
-                    $res = $reservation->first(["Res_Id"=>$Res_Id]);
+                // Query the reservation by Res_Id
+                $res = $reservation->first(["ResID"=>$ResID]);
                     
-                    if ($res) {
-                        // Reservation found, return the reservation details
-                        $response = [
-                            'success' => true,
-                            'message' => "Reservation details fetched successfully",
-                            'data' => [
-                                'Res_Id' => $res->Res_Id,       // Res_Id
-                                'Date' => $res->Date,           // Date
-                                'Start_Time' => $res->Start_Time, // Start Time
-                                'End_Time' => $res->End_Time,   // End Time
-                                'Notes' => $res->Notes          // Notes (null if no notes)
-                            ]
-                        ];
-                    } else {
-                        // Reservation not found
-                        $response = [
-                            'success' => false,
-                            'message' => "Reservation ID $Res_Id not found"
-                        ];
-                    }
+                if ($res) {
+                    // Reservation found, return the reservation details
+                    $response = [
+                        'success' => true,
+                        'message' => "Reservation details fetched successfully",
+                        'data' => [
+                            'ResID' => $res->ResID,       // Res_Id
+                            'Date' => $res->Date,           // Date
+                            'Start_Time' => $res->Start_Time, // Start Time
+                            'End_Time' => $res->End_Time,   // End Time
+                            'Notes' => $res->Notes,          // Notes (null if no notes)
+                            'Is_24_Hour' => $res->Is_24_Hour // Is_24_Hour
+                        ]
+                    ];
                 } else {
-                    // No Res_Id provided in the request
+                    // Reservation not found
                     $response = [
                         'success' => false,
-                        'message' => "Reservation ID not provided"
+                        'message' => "Reservation ID $ResID not found"
                     ];
                 }
             } else {
-                // Invalid request method
+                // No Res_Id provided in the request
                 $response = [
                     'success' => false,
-                    'message' => "Invalid request method"
+                    'message' => "Reservation ID not provided"
                 ];
             }
-        
-            // Return the response as JSON
             echo json_encode($response);
             exit();
-        }
+        } 
+    
 
         public function GetviewReservation() {
             header('Content-Type: application/json');
-            
             $response = [];
             
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Check if Res_Id is provided
-                if (isset($_POST['Res_Id'])) {
-                    $Res_Id = $_POST['Res_Id'];
+                if (isset($_POST['ResID'])) {
+                    $ResID = $_POST['ResID'];
                     
                     $reservation = new \Modal\Reservation;
-                    $res = $reservation->first(["Res_Id"=>$Res_Id]);
+                    $res = $reservation->first(["ResID"=>$ResID]);
                     
                     if ($res) {
                         // Reservation found, return the reservation details
@@ -494,18 +728,19 @@
                             'message' => "Reservation details fetched successfully",
                             'data' => [
                                 'Status' => $res->Status,
-                                'Res_Id' => $res->Res_Id,       // Res_Id
+                                'ResID' => $res->ResID,       // Res_Id
                                 'Date' => $res->Date,           // Date
                                 'Start_Time' => $res->Start_Time, // Start Time
                                 'End_Time' => $res->End_Time,   // End Time
-                                'Notes' => $res->Notes          // Notes (null if no notes)
+                                'Notes' => $res->Notes,         // Notes (null if no notes)
+                                'Is_24_Hour' => $res->Is_24_Hour, // Is_24_Hour
                             ]
                         ];
                     } else {
                         // Reservation not found
                         $response = [
                             'success' => false,
-                            'message' => "Reservation ID $Res_Id not found"
+                            'message' => "Reservation ID $ResID not found"
                         ];
                     }
                 } else {
@@ -559,6 +794,28 @@
         
             // Send JSON response
             echo json_encode($response);
+        }
+
+        public function RemoveReservation(){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            header('Content-Type: application/json');
+            $request = json_decode(file_get_contents('php://input'), true);
+            $response = [];
+
+            if (isset($request['ResID'])) {
+                $ResID = $request['ResID'];
+
+                $ReservationModal = new \Modal\Reservation;
+                $ReservationModal->delete($ResID, "ResID");
+                $response = ['success' => true, 'message' => 'Reservation removed successfully.'];
+                echo json_encode($response);
+            }
+            else{
+                $response = ['success' => false, 'message' => 'No reservation ID provided.'];
+                echo json_encode($response);
+            }
         }
         
         public function Logout(){

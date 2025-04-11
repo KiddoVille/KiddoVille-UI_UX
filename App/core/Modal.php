@@ -247,5 +247,146 @@
             // Execute the query with the combined data and conditions
             return $this->query($query, $conditionValues);
         }    
+
+        public function findFutureDates($firstdate, $lastdate) {
+            // Convert DateTime objects to strings
+            if ($firstdate instanceof \DateTime) {
+                $firstdate = $firstdate->format('Y-m-d');
+            }
+            if ($lastdate instanceof \DateTime) {
+                $lastdate = $lastdate->format('Y-m-d');
+            }
+        
+            // Optional: validate date strings
+            if (!strtotime($firstdate) || !strtotime($lastdate)) {
+                return false;
+            }
+        
+            $query = "SELECT * FROM $this->table WHERE `Date` > :firstdate AND `Date` < :lastdate";
+            $params = ['firstdate' => $firstdate, 'lastdate' => $lastdate];
+        
+            return $this->query($query, $params);
+        }  
+
+        public function groupByCount($columnToCount, $groupByColumn, $where = []) {
+            // Sanitize allowed columns
+            if (!empty($this->allowedColumns)) {
+                if (!in_array($columnToCount, $this->allowedColumns) || !in_array($groupByColumn, $this->allowedColumns)) {
+                    return false;
+                }
+            }
+        
+            // Prepare WHERE clause
+            $whereClause = "";
+            $params = [];
+        
+            if (!empty($where)) {
+                $whereParts = [];
+                foreach ($where as $key => $value) {
+                    $whereParts[] = "`$key` = :$key";
+                    $params[$key] = $value;
+                }
+                $whereClause = "WHERE " . implode(" AND ", $whereParts);
+            }
+        
+            // Build query without HAVING
+            $query = "SELECT {$this->table}.*, COUNT(`$columnToCount`) as count 
+                        FROM $this->table 
+                        $whereClause 
+                        GROUP BY `$groupByColumn`";
+        
+            return $this->query($query, $params);
+        }        
+        
+        public function countGroupBy($columnToCount, $groupByColumn, $havingOperator = '>', $havingCount = 0, $where = []) {
+            // Sanitize allowed columns
+            if (!empty($this->allowedColumns)) {
+                if (!in_array($columnToCount, $this->allowedColumns) || !in_array($groupByColumn, $this->allowedColumns)) {
+                    return false;
+                }
+            }
+        
+            // Validate operator
+            $validOperators = ['=', '>', '<', '>=', '<=', '!='];
+            if (!in_array($havingOperator, $validOperators)) {
+                $havingOperator = '>'; // Default to '>'
+            }
+        
+            // Prepare WHERE clause
+            $whereClause = "";
+            $params = [];
+        
+            if (!empty($where)) {
+                $whereParts = [];
+                foreach ($where as $key => $value) {
+                    $whereParts[] = "`$key` = :$key";
+                    $params[$key] = $value;
+                }
+                $whereClause = "WHERE " . implode(" AND ", $whereParts);
+            }
+        
+            $query = "SELECT {$this->table}.*, COUNT(`$columnToCount`) as count 
+                        FROM $this->table 
+                        $whereClause 
+                        GROUP BY `$groupByColumn`
+                        HAVING count $havingOperator :havingCount";
+        
+            $params['havingCount'] = $havingCount;
+            return $this->query($query, $params);
+        }  
+        
+        public function countGroupByJoin(
+            $columnToCount,
+            $groupByColumn,
+            $havingOperator = '>',
+            $havingCount = 0,
+            $join, // [ 'table' => 'users', 'on' => 'users.UserID = reservations.UserID' ]
+            $where = []
+        ) {
+            // Sanitize allowed columns if needed
+            if (!empty($this->allowedColumns)) {
+                if (!in_array($columnToCount, $this->allowedColumns) || !in_array($groupByColumn, $this->allowedColumns)) {
+                    return false;
+                }
+            }
+        
+            // Validate HAVING operator
+            $validOperators = ['=', '>', '<', '>=', '<=', '!='];
+            if (!in_array($havingOperator, $validOperators)) {
+                $havingOperator = '>';
+            }
+        
+            // Prepare JOIN clause
+            $joinClause = '';
+            if ($join && isset($join['table'], $join['on'])) {
+                $joinClause = "JOIN {$join['table']} ON {$join['on']}";
+            }
+        
+            // Prepare WHERE clause
+            $whereClause = '';
+            $params = [];
+        
+            if (!empty($where)) {
+                $whereParts = [];
+                foreach ($where as $key => $value) {
+                    $paramKey = str_replace('.', '_', $key); // Prevent issues with aliases in param keys
+                    $whereParts[] = "`$key` = :$paramKey";
+                    $params[$paramKey] = $value;
+                }
+                $whereClause = "WHERE " . implode(" AND ", $whereParts);
+            }
+        
+            // Final SQL query
+            $query = "SELECT {$this->table}.* , COUNT(`$columnToCount`) as count
+                        FROM $this->table
+                        $joinClause
+                        $whereClause
+                        GROUP BY `$groupByColumn`
+                        HAVING count $havingOperator :havingCount";
+        
+            $params['havingCount'] = $havingCount;
+            return $this->query($query, $params);
+        }        
+        
     }
 ?>

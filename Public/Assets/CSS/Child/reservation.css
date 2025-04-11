@@ -3,7 +3,7 @@
 .main-content {
     padding: 20px;
     position: relative;
-    height: 90vh !important;
+    height: 100vh !important;
     margin-left: 270px;
     box-shadow: 0 4px 8px var(--popup-background);
     width: 100%;
@@ -503,12 +503,38 @@
 
 .pickup-section {
     border-radius: 10px;
-    padding: 10px 20px;
+    padding: 15px 25px;
     margin-bottom: 20px;
     position: relative;
     width: 76.5%;
     margin-left: 25px;
     box-shadow: 0 4px 8px var(--popup-background);
+}
+
+.pickup-section label {
+    display: block;
+    font-size: 16px;
+    color: #1e88e5;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.pickup-section input[type="text"],
+.pickup-section input[type="number"],
+.pickup-section input[type="date"],
+.pickup-section textarea,
+.pickup-section input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 15px var(--popup-background);
+}
+
+.pickup-section input:focus {
+    border-color: #1e88e5;
+    outline: none;
 }
 
 .dates {
@@ -674,39 +700,6 @@
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
-}
-
-.pickup-section {
-    border-radius: 10px;
-    padding: 5px 20px;
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.pickup-section label {
-    display: block;
-    font-size: 16px;
-    color: #1e88e5;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.pickup-section input[type="text"],
-.pickup-section input[type="number"],
-.pickup-section input[type="date"],
-.pickup-section textarea,
-.pickup-section input[type="time"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    box-shadow: 0 0 15px var(--popup-background);
-}
-
-.pickup-section input:focus {
-    border-color: #1e88e5;
-    outline: none;
 }
 
 .person-section {

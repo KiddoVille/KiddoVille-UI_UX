@@ -4,18 +4,15 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Reservation{
+    class MaidLeave{
         use Modal;
 
-        protected $table = 'reservation';
+        protected $table = 'MaidLeave';
         protected $allowedColumns = [
-            'ChildID',
-            'Start_Time',
+            'MaidID',
             'Date',
-            'End_Time',
-            'Status',
-            'Notes',
-            'Is_24_Hour'
+            'Emergency',
+            'LeaveType'
         ];
 
         public function validate($data){
