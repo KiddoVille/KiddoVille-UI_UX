@@ -610,10 +610,6 @@ body{
     transform: translate(-40px, 210px);
 }
 
-.stats{
-    grid-template-columns: repeat(4, 1fr) !important;
-}
-
 #NewReservationForm .fa-refresh,
 #reservationeditrefresh,
 #reservationrefresh

@@ -336,7 +336,7 @@
                                             </div>
                                             <div style="margin-left: -60px;" id="editenddiv">
                                                 <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($_SESSION['APP']['Edit']['values']['End_Time']) ? 'hidden' : '' ?>"> *</span></label>
-                                                <input name="End_Time" type="time" style="width: 130px" id="editEndtime" required step="900" min="08:00" max="20:00" id="modal-End_Time"
+                                                <input name="End_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00" id="modal-End_Time"
                                                     value="<?= isset($_SESSION['APP']['Edit']['values']['End_Time']) ? $_SESSION['APP']['Edit']['values']['End_Time'] : '' ?>">
                                                 <p class="error"><?= isset($data['editerrors']['End_Time']) ? $data['editerrors']['End_Time'] : '' ?></p>
                                             </div>
@@ -565,7 +565,6 @@
     }
 
     const enddiv2 = document.getElementById('editenddiv');
-    const editEndtime = document.getElementById('editEndtime');
 
     function toggleFullDay2() {
         console.log("Why");
@@ -573,10 +572,10 @@
             enddiv2.style.display = 'block';
             datesforreservation2.style.display = 'flex';
             datesfor24reservation2.style.display = 'none';
-            editEndtime.setAttribute('required', 'required');
+            document.getElementById('modal-End_Time').setAttribute('required', 'required');
         } else {
             enddiv2.style.display = 'none';
-            editEndtime.removeAttribute('required');
+            document.getElementById('modal-End_Time').removeAttribute('required');
             datesforreservation2.style.display = 'none';
             datesfor24reservation2.style.display = 'flex';
         }
@@ -672,13 +671,88 @@
                         document.getElementById('modal-Res_Id').value = data.data.ResID;
                         document.getElementById('modal-Date').value = data.data.Date;
                         document.getElementById('modal-Start_Time').value = data.data.Start_Time;
+                        // Prepend the new date to the existing list
+
                         if (data.data.End_Time !== null && data.data.End_Time !== undefined) {
                             document.getElementById('modal-End_Time').value = data.data.End_Time;
+                            const datesContainer = document.getElementById('datesforreservation2');
+                            const existingDatesHTML = datesContainer.innerHTML;
+
+                            // Extract date values
+                            const dateOb = new Date(data.data.Date);
+                            const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' }); // e.g., "Tue"
+                            const dayNumber = dateOb.getDate(); // e.g., 8
+
+                            // Create new HTML for the selected date
+                            const newDateHTML = `
+                                <div class="date select">
+                                    <p class="whichday">${dayName}</p>
+                                    <h1 class="day">${dayNumber}</h1>
+                                </div>
+                            `;
+
+                            datesContainer.innerHTML = newDateHTML + existingDatesHTML;
+
+                            const datesContainer2 = document.getElementById('datesfor24reservation2');
+                            const existingDatesHTML2 = datesContainer2.innerHTML;
+
+                            // Extract date values
+                            const dateOb2 = new Date(data.data.Date);
+                            const dayName2 = dateOb2.toLocaleString('en-US', { weekday: 'short' });
+                            const dayNumber2 = dateOb2.getDate(); // e.g., 8
+
+                            // Create new HTML for the selected date
+                            const newDateHTML2 = `
+                                <div class="date select">
+                                    <p class="whichday">${dayName}</p>
+                                    <h1 class="day">${dayNumber}</h1>
+                                </div>
+                            `;
+
+                            datesContainer2.innerHTML = newDateHTML2 + existingDatesHTML2;
                         }
                         else{
                             document.getElementById('datesforreservation2').style.display= 'none';
                             document.getElementById('datesfor24reservation2').style.display= 'flex';
-                            editEndtime.removeAttribute('required');
+                            document.getElementById('modal-End_Time').removeAttribute('required');
+                            document.getElementById('modal-End_Time').value = data.data.End_Time;
+                            const datesContainer = document.getElementById('datesfor24reservation2');
+                            const existingDatesHTML = datesContainer.innerHTML;
+
+                            // Extract date values
+                            const dateOb = new Date(data.data.Date);
+                            const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' });
+                            const dayNumber = dateOb.getDate(); // e.g., 8
+
+                            // Create new HTML for the selected date
+                            const newDateHTML = `
+                                <div class="date select">
+                                    <p class="whichday">${dayName}</p>
+                                    <h1 class="day">${dayNumber}</h1>
+                                </div>
+                            `;
+
+                            datesContainer.innerHTML = newDateHTML + existingDatesHTML;
+
+                            if(data.data.Allow){
+                                const datesContainer = document.getElementById('datesforreservation2');
+                                const existingDatesHTML = datesContainer.innerHTML;
+
+                                // Extract date values
+                                const dateOb = new Date(data.data.Date);
+                                const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' }); // e.g., "Tue"
+                                const dayNumber = dateOb.getDate(); // e.g., 8
+
+                                // Create new HTML for the selected date
+                                const newDateHTML = `
+                                    <div class="date select">
+                                        <p class="whichday">${dayName}</p>
+                                        <h1 class="day">${dayNumber}</h1>
+                                    </div>
+                                `;
+
+                                datesContainer.innerHTML = newDateHTML + existingDatesHTML;
+                            }
                         }
                         const dateString = data.data.Date; // e.g., "2025-04-08"
                         const dateObj = new Date(dateString);

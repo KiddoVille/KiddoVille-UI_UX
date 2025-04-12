@@ -94,7 +94,7 @@
                     ];
                 }
 
-                if (!$isHoliday && $isAllowedByPackage) {
+                if (!$isHoliday && !$isReservation) {
                     $editdates[] = [
                         'date' => $dateStr,
                         'dayName' => $today->format('D'),
@@ -102,7 +102,7 @@
                     ];
                 }
 
-                if(!$isHoliday && $Package->AllHours == 0){
+                if(!$isHoliday && !$isReservation){
                     $edithours[] = [
                         'date' => $dateStr,
                         'dayName' => $today->format('D'),
@@ -677,7 +677,26 @@
                 $res = $reservation->first(["ResID"=>$ResID]);
                     
                 if ($res) {
-                    // Reservation found, return the reservation details
+                    $allow = 0;
+                    if ($res->Is_24_Hour == 1) {
+                        $session = new \core\Session;
+                        $ChildID = $session->get("CHILDID");
+        
+                        $ChildModal = new \Modal\Child;
+                        $PackageModal = new \Modal\Package;
+        
+                        $Child = $ChildModal->first(['ChildID' => $ChildID]);
+                        $Package = $PackageModal->first(['PackageID' => $Child->PackageID]);
+        
+                        // Get the day name from the reservation date (e.g., 'Tuesday')
+                        $dayName = date('l', strtotime($res->Date));
+        
+                        // Check if that day is allowed in the package (assuming $Package->$dayName is 1 or 0)
+                        if (!isset($Package->$dayName) || $Package->$dayName == 0) {
+                            $allow = 1; // Not allowed for normal reservation
+                        }
+                    }
+
                     $response = [
                         'success' => true,
                         'message' => "Reservation details fetched successfully",
@@ -687,7 +706,8 @@
                             'Start_Time' => $res->Start_Time, // Start Time
                             'End_Time' => $res->End_Time,   // End Time
                             'Notes' => $res->Notes,          // Notes (null if no notes)
-                            'Is_24_Hour' => $res->Is_24_Hour // Is_24_Hour
+                            'Is_24_Hour' => $res->Is_24_Hour, // Is_24_Hour
+                            'Allow' => $allow, // Allow for normal reservation
                         ]
                     ];
                 } else {

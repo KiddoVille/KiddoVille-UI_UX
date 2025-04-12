@@ -9,6 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/child/payment.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/stats.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
@@ -82,20 +86,19 @@
         <!-- navigation -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -107,8 +110,7 @@
                             "
                                 onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -120,20 +122,20 @@
         <div class="main-content">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1>Hey Thilina</h1>
                     <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
                 <!-- notoifcation icona and dropdown -->
                 <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
+                    <i class="fas fa-bell bell-icon"></i>
+                    <div class="message-numbers">
+                        <p>2</p>
+                    </div>
                     <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
                             <li>
@@ -163,12 +165,9 @@
                         </ul>
                     </div>
                 </div>
-                <div class="message-numbers">
-                    <p> 2</p>
-                </div>
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
@@ -176,28 +175,48 @@
                 <div class="stat" style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
                     <div class="overdue-payment" style="justify-content: center; display: flex;">
                         <div style="margin-left: 20px; margin-right: 20px;">
-                            <h3 style="color: red;">Overdue Payment</h3>
-                            <p>Due Date: <strong>2023-11-01</strong></p>
-                            <p>Amount: <strong>$120</strong></p>
-                            <button class="pay-now" style="padding: 10px 15px; border-bottom-right-radius: 10px; white-space: nowrap; margin-bottom: -15px !important; margin-top: -10px; margin-left: 290px;">Pay Now</button>
+                            <?php if (isset($data['Due'])): ?>
+                                <h2 style="color: red; margin-top: -5px; margin-bottom: -5px;">Overdue Payment</h2>
+                                <p>Due Date: <strong><?= $data['Due']['Date'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Due']['Amount'] ?></strong></p>
+                                <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
+                                    <input type="hidden" name="total" id="total-input" value="<?= $data['Due']['Amount']*100 ?>" />
+                                    <button type="submit" class="pay-now">Pay Now</button>
+                                </form>
+                            <?php else: ?>
+                                <h2 style="color: red;">No Overdue Payment</h2>
+                            <?php endif; ?>
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="stat" style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
                     <div class="upcoming-payment" style="justify-content: center; display: flex;">
                         <div style="margin-left: -10px; margin-right: 20px;">
-                            <h3 style="color: green;">Upcoming Payment</h3>
-                            <p>Due Date: <strong>2023-12-15</strong></p>
-                            <p>Amount: <strong>$150</strong></p>
+                            <?php if (isset($data['Expenses'])): ?>
+                                <h2 style="color: green; margin-top: -5px; margin-bottom: -5px;">Upcoming Payment</h2>
+                                <p>Due Date: <strong><?= $data['Expenses']['Date'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Expenses']['Amount'] ?></strong></p>
+                            <?php else: ?>
+                                <h2 style="color: red;"> No Expenses </h2>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
-                <div class="stat"
-                    style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Last bill amount</h3>
-                    <div class="lol" style="cursor: pointer; margin-top: 10px;">
-                        <p><?= isset($data['totalAmountPaid']) ? $data['totalAmountPaid'] : '0'; ?></p>
+                <div class="stat">
+                    <div style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
+                        <?php if (isset($data['LastBill'])): ?>
+                            <h3 style="margin-top: 5px;">
+                                <img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-top: -15px;">
+                                Last bill amount
+                            </h3>
+                            <p style="margin-top: 15px;"><?= isset($data['LastBill']['Amount']) ? $data['LastBill']['Amount'] : '0'; ?></p>
+                        <?php else: ?>
+                            <h3 style="margin-top: -12px;">
+                                <img src="<?= IMAGE ?>/mountain.svg" alt="Welcome" style="width: 40px; margin-right: 10px; margin-bottom: -15px;">
+                                Welcome aboard!
+                            </h3>
+                            <p style="text-align: center;">Looks like you haven’t been billed yet. Enjoy the journey — your first invoice will show up here soon!</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -244,13 +263,17 @@
                     </div>
                     <div id="upcoming" style="display: flex; flex-direction: row; align-items: flex-start;">
                         <canvas id="paymentChart" width="500" height="200" style="max-width: 600px; max-height: 400px; margin-top:-10px;"></canvas>
-                        <div>
-                            <html>
+                        <div style="margin-top: -10px;">
                             <div class="payment-description">
                                 <h3>
                                     Payment Description
                                 </h3>
-                                <hr>
+                                <hr style="margin-top: -17px;">
+                                <div id="month-switcher" class="month-switcher">
+                                    <button id="prev-month" class="month-nav">&lt;</button>
+                                    <span id="current-month" class="month-label">April 2025</span>
+                                    <button id="next-month" class="month-nav">&gt;</button>
+                                </div>
                                 <ul>
                                     <li>
                                         <span>
@@ -448,15 +471,12 @@
             const hibtn = document.getElementById('hi-btn');
             const upcoming = document.getElementById('upcoming');
             const history = document.getElementById('history');
-            const headingres = document.getElementById('heading-res');
 
             upbtn.addEventListener('click', function() {
                 upbtn.style.backgroundColor = '#10639a';
                 hibtn.style.backgroundColor = '#60a6ec';
                 upcoming.style.display = 'flex';
                 history.style.display = 'none';
-                headingres.style.marginLeft = '180px';
-                headingres.textContent = 'Reervation';
             });
 
             hibtn.addEventListener('click', function() {
@@ -464,34 +484,71 @@
                 upbtn.style.backgroundColor = '#60a6ec';
                 upcoming.style.display = 'none';
                 history.style.display = 'block';
-                headingres.style.marginLeft = '140px';
-                headingres.textContent = 'Reervation history';
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('paymentChart').getContext('2d');
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById("pay-form");
 
+            if(form){
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const total = document.getElementById("total-input").value;
+                    const purpose = "Overdue Pyament";
+
+                    fetch("<?=ROOT?>/Child/Payment/AmountPurpose", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ total, purpose })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.success) {
+                            form.submit();
+                        } else {
+                            alert("Something went wrong while setting session!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+                });
+            }
+
+            const ctx = document.getElementById('paymentChart').getContext('2d');
             var chartData = <?php echo ($data['graph']); ?>;
 
-            // Destroy existing chart instance if it exists
+            // Calculate suggested max (20% higher than highest value)
+            const maxValue = Math.max(...chartData.datasets[0].data);
+            const suggestedMax = Math.ceil(maxValue * 1.2);
+
             if (window.inventoryChart instanceof Chart) {
                 window.inventoryChart.destroy();
             }
 
-            // Create the new line chart
             window.inventoryChart = new Chart(ctx, {
                 type: 'line',
-                data: chartData, // Use the PHP-injected data
+                data: chartData,
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            right: 30
+                        }
+                    },
                     plugins: {
-                        legend: {
-                            display: true,
-                            labels: {
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
+                        tooltip: {
+                            enabled: true,
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function (context) {
+                                    return 'Amount: $' + context.formattedValue;
                                 }
                             }
                         },
@@ -502,6 +559,27 @@
                                 size: 18,
                                 weight: 'bold'
                             }
+                        },
+                        legend: {
+                            display: true,
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    elements: {
+                        point: {
+                            radius: 5,
+                            hitRadius: 10,
+                            hoverRadius: 7
                         }
                     },
                     scales: {
@@ -513,16 +591,27 @@
                                     size: 14,
                                     weight: 'bold'
                                 }
+                            },
+                            ticks: {
+                                autoSkip: false, // show all 4 months clearly
+                                maxRotation: 0,
+                                minRotation: 0
                             }
                         },
                         y: {
                             beginAtZero: true,
+                            suggestedMax: suggestedMax,
                             title: {
                                 display: true,
-                                text: 'Income (LKR)',
+                                text: 'Fees',
                                 font: {
                                     size: 14,
                                     weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return '$' + value;
                                 }
                             }
                         }
@@ -530,7 +619,6 @@
                 }
             });
         });
-
 
         // const data = {
         //     labels: ['October', 'November', 'December'], // Months
@@ -626,6 +714,68 @@
         // Render the chart
         // const ctx = document.getElementById('paymentsChart').getContext('2d');
         // new Chart(ctx, config);
+
+        const paymentData = <?= json_encode($data['description']) ?>;
+        
+        let currentMonthIndex = 0;
+        const months = Object.keys(paymentData);
+        let currentMonth = months[currentMonthIndex];
+
+        const currentMonthLabel = document.getElementById('current-month');
+        const paymentList = document.querySelector('.payment-description ul');
+        const totalAmountElement = document.querySelector('.payment-description .total');
+
+        function renderMonth(month) {
+            let data = paymentData[month] || [];
+            console.log(data);
+            let total = 0;
+
+            // Update month label
+            currentMonthLabel.textContent = month;
+            paymentList.innerHTML = '';
+
+            if (!Array.isArray(data)) {
+                data = Object.entries(data).map(([service, amount]) => ({
+                    service,
+                    amount
+                }));
+            }
+
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>Service: ${item.service}</span>
+                    <span class="amount">Amount: $${item.amount}</span>
+                `;
+                paymentList.appendChild(li);
+                total += parseFloat(item.amount);
+            });
+
+            totalAmountElement.textContent = `Total Amount: $${total}`;
+        }
+
+        // Initial render
+        renderMonth(currentMonth);
+
+        const prevmonth = document.getElementById('prev-month');
+        const nextmonth =  document.getElementById('next-month');
+
+        prevmonth.addEventListener('click', () => {
+            if (currentMonthIndex < months.length - 1) {
+                currentMonthIndex++;
+                currentMonth = months[currentMonthIndex];
+                renderMonth(currentMonth);
+            }
+        });
+
+        nextmonth.addEventListener('click', () => {
+            if (currentMonthIndex > 0) {
+                currentMonthIndex--;
+                currentMonth = months[currentMonthIndex];
+                renderMonth(currentMonth);
+            }
+        });
+
     </script>
 </body>
 

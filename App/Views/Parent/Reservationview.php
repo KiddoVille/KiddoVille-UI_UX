@@ -156,12 +156,12 @@
                     <p style="margin-bottom: 3px;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">The reservation has not been canceled</span>
                 </div>
-                <div class="stat">
+                <!-- <div class="stat">
                     <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/calendar-plus-solid.svg?v=<?= time() ?>" alt="Attendance">Make reservation</h3>
                     <div class="lol" id="newreservationbtn" style="cursor: pointer; margin-bottom: -100px; margin-top: 20px;">
                         <p>Create</p>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="saperate">
                 <div class="modal" id="NewReservationModal">
@@ -643,8 +643,8 @@
             <td>${res?.Date ?? "No res set"}</td>
             <td>${res?.Start_Time ?? "No res set"}</td>
             <td>
-                ${res?.End_Time ?? "No res set"}
-                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> (24-hour)</span>' : ''}
+                ${res?.End_Time ?? ""}
+                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> 24-hour</span>' : ''}
             </td>
             <td>
                 <div class="${res?.Status ?? "cancel"}">

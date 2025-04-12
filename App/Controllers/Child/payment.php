@@ -31,7 +31,25 @@
 
             $data =$data + $this->store_states();
             $data['graph'] = $this->graph();
+            $data['description'] = $this->description();
             $this->view('Child/Payment', $data);
+        }
+
+        public function AmountPurpose(){
+            $input = json_decode(file_get_contents('php://input'), true);
+            if (isset($input['total']) && isset($input['purpose'])) {
+
+                $session = new \Core\Session;
+                $session->set("total", $input['total']);
+                $session->set("purpose", $input['purpose']);
+
+                echo json_encode(['success' => true]);
+            } else {
+                $session = new \Core\Session;
+                $session->unset("total");
+                $session->unset("purpose");
+                echo json_encode(['success' => false]);
+            }
         }
 
         private function store($children, $pre){
@@ -56,72 +74,126 @@
             return $data;
         }
 
+        
+        private function description() {
+            $session = new \core\Session;
+            $ChildID = $session->get("CHILDID");
+        
+            $ExpensesModal = new \Modal\Expense;
+            $AllExpenses = $ExpensesModal->where_order_desc(["ChildID" => $ChildID], [], "Date");
+        
+            $groupedExpenses = [];
+        
+            foreach ($AllExpenses as $expense) {
+                // Format month and year (e.g., "April 2025")
+                $monthYear = date('F Y', strtotime($expense->Date));
+        
+                // Initialize if not already
+                if (!isset($groupedExpenses[$monthYear])) {
+                    $groupedExpenses[$monthYear] = [
+                        'Meal' => 0,
+                        'Activity' => 0,
+                        'Reservations' => 0,
+                        'Package' => 0
+                    ];
+                }
+        
+                // Add amount to the corresponding category
+                $desc = $expense->Description;
+                if (isset($groupedExpenses[$monthYear][$desc])) {
+                    $groupedExpenses[$monthYear][$desc] += $expense->Amount;
+                }
+            }
+            
+            return $groupedExpenses;
+        }
+
         public function graph() {
-            $PaymentModal = new \Modal\Payment;
+            $FeesModal = new \Modal\Fees;
             $session = new \core\Session;
             $ChildModal = new \Modal\Child;
         
             $ChildID = $session->get("CHILDID");
-            $child = $ChildModal->first(["ChildID" => $ChildID]);
-        
             $childPayments = [];
             $Day = new \DateTime();
             $Day->modify('first day of last month'); // Start from the previous month
         
-            for ($i = 0; $i < 3; $i++) { // Loop for the last 3 months (same as parent)
-                $formattedDate = $Day->format('Y-m-01'); // Format as YYYY-MM-01
+            // Fetch last 3 months (excluding current)
+            for ($i = 0; $i < 3; $i++) {
+                $lastDayOfMonth = clone $Day;
+                $lastDayOfMonth->modify('last day of this month');
+                $formattedDate = $lastDayOfMonth->format('Y-m-d');
         
-                // Fetch payments for the child and month
-                $payments = $PaymentModal->where_norder([
+                $payments = $FeesModal->where_norder([
                     'ChildID' => $ChildID,
-                    'Month' => $formattedDate
+                    'DueDate' => $formattedDate
                 ]);
         
-                // Store in array
                 $childPayments[$formattedDate] = $payments;
-        
-                // Move to the previous month
                 $Day->modify('-1 month');
             }
         
-            // Convert to Chart.js format for line chart (monthly mapping)
+            // Convert to Chart.js format
             $chartData = [
                 'labels' => [],
                 'datasets' => []
             ];
         
-            if (!empty($childPayments)) {
-                // Get all unique months
-                $months = array_keys($childPayments);
-                sort($months);
-                $chartData['labels'] = array_map(function ($month) {
-                    return date('F', strtotime($month)); // Convert "YYYY-MM-01" to "January"
-                }, $months);
+            $incomeData = [];
+            $months = array_keys($childPayments);
+            sort($months);
         
-                $incomeData = [];
-        
-                foreach ($months as $month) {
-                    $amount = 0;
-                    if (!empty($childPayments[$month])) {
-                        foreach ($childPayments[$month] as $payment) {
-                            $amount += $payment->Amount; // Sum all payments for the month
-                        }
+            // Add last 3 months data
+            foreach ($months as $month) {
+                $chartData['labels'][] = date('F', strtotime($month)); // e.g. January
+                $amount = 0;
+                if (!empty($childPayments[$month])) {
+                    foreach ($childPayments[$month] as $payment) {
+                        $amount += $payment->Amount;
                     }
-                    $incomeData[] = $amount;
                 }
+                $incomeData[] = $amount;
+            }
         
-                $chartData['datasets'][] = [
-                    'label' => 'Fees in LKR',
-                    'data' => $incomeData,
-                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
-                    'borderColor' => 'rgb(72, 151, 207)',
-                    'borderWidth' => 1
+            // 👉 Now handle the current month's bill from Expense table
+            $ExpensesModal = new \Modal\Expense;
+            $firstDayOfMonth = date('Y-m-01');
+        
+            $childExpenses = $ExpensesModal->where_order_desc([
+                "ChildID" => $ChildID,
+                "Date" => $firstDayOfMonth
+            ], [], "Date");
+        
+            $currentMonthAmount = 0;
+            if ($childExpenses) {
+                foreach ($childExpenses as $expense) {
+                    $currentMonthAmount += $expense->Amount;
+                }
+            }
+        
+            // Add current month to chart
+            $chartData['labels'][] = date('F'); // current month label
+            $incomeData[] = $currentMonthAmount;
+        
+            // Assign dataset
+            $chartData['datasets'][] = [
+                'label' => 'Fees in LKR',
+                'data' => $incomeData,
+                'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                'borderColor' => 'rgb(72, 151, 207)',
+                'borderWidth' => 1
+            ];
+        
+            // Optionally include this data elsewhere
+            if ($currentMonthAmount > 0) {
+                $data['Expenses'] = [
+                    'Amount' => $currentMonthAmount,
+                    'Date' => date('Y-m-d', strtotime($firstDayOfMonth)),
                 ];
             }
         
             return json_encode($chartData);
-        }
-        
+        }        
 
         private function selectedchild($selectedchild){
             $data = [];
@@ -151,41 +223,49 @@
 
         private function store_states(){
             $data = [];
-            $PaymentsModal = new \Modal\Payment;
+            $FeesModal = new \Modal\Fees;
 
             $session = new \Core\Session;
             $ChildID = $session->get("CHILDID");
 
-            $allPayments = [];
+            $childPayments = $FeesModal->where_order_desc(["ChildID" => $ChildID, "Status" => "Unpaid"], [], "DueDate");
 
-            $childPayments = $PaymentsModal->where_order_desc(["ChildID" => $ChildID], [], "DateTime");
+            $Amount = 0;
+            $DueDate = null;
+    
             if(!empty($childPayments)){
-                $allPayments = array_merge($allPayments, $childPayments);
+                foreach ($childPayments as $payment) {
+                    $Amount += $payment->Amount;
+                }
+                $DueDate = $childPayments[0]->DueDate;
+
+                $data['Due'] = [
+                    'Amount' => $Amount,
+                    'Date' => date('Y-m-d', strtotime($DueDate)),
+                ];
             }
             
-            // Find the most recent month
-            $latestMonth = null;
-            $groupedPayments = [];
-            
-            foreach ($allPayments as $payment) {
-                $paymentDate = new \DateTime($payment->DateTime);
-                $monthYear = $paymentDate->format("Y-m"); // Format as YYYY-MM
-            
-                if ($latestMonth === null) {
-                    $latestMonth = $monthYear; // Set first month as latest
-                }
-            
-                if ($monthYear === $latestMonth) {
-                    if (!isset($groupedPayments[$monthYear])) {
-                        $groupedPayments[$monthYear] = 0;
-                    }
-                    $groupedPayments[$monthYear] += $payment->Amount;
-                }
+            $LastBill = $FeesModal->where_order_desc(["ChildID" => $ChildID], [], "DueDate");
+            if (!empty($LastBill)) {
+                $data['LastBill'] = [
+                    'Amount' => $LastBill[0]->Amount,
+                ];
             }
-            
-            // Get the total for the latest month
-            $totalAmountPaid = $groupedPayments[$latestMonth] ?? 0;
-            $data['totalAmountPaid'] = $totalAmountPaid;
+
+            $ExpensesModal = new \Modal\Expense;
+            $firstDayOfMonth = date('Y-m-01');
+            $childExpenses = $ExpensesModal->where_order_desc(["ChildID" => $ChildID, "Date" => $firstDayOfMonth ], [], "Date");
+            if($childExpenses){
+                $Amount = 0;
+                foreach ($childExpenses as $expense) {
+                    $Amount += $expense->Amount;
+                }
+                $data['Expenses'] = [
+                    'Amount' => $Amount,
+                    'Date' => date('Y-m-d', strtotime($firstDayOfMonth)),
+                ];
+            }
+
             return $data;
         }
 

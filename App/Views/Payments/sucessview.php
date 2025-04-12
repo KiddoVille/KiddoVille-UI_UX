@@ -67,13 +67,13 @@
         </div>
         <h1>Payment Successful!</h1>
         <p>Thank you for your purchase. Your transaction has been completed successfully.</p>
-        <p>We have sent you an email with the details of your order.</p>
+        <p>We have sent you an email with the details of your</p>
         <div class="details">
-            <h2>Payment Details</h2>
-            <p><strong>Transaction ID:</strong> 1234567890</p>
-            <p><strong>Amount Paid:</strong> $99.99</p>
-            <p><strong>Payment Method:</strong> Credit Card (Visa)</p>
-            <p><strong>Date:</strong> October 1, 2023</p>
+            <h2>Payment Details</h2>    
+            <p><strong>Transaction ID:</strong>    <?= $data['Payment']->PaymentID ?></p>
+            <p><strong>Amount Paid:</strong> <?=$data['Payment']->Amount ?></p>
+            <p><strong>Payment Method:</strong>    <?=$data['Payment']->Mode?></p>
+            <p><strong>Date:</strong><?=$data['Payment']->DateTime ?></p>
         </div>
         <a href="/" class="btn">Go to Homepage</a>
     </div>
