@@ -73,7 +73,7 @@
 
 
             <div class="funzone-popup-container" id="funzone-popup-container" >
-                <form action="" method="post">
+                <form action="<?=ROOT?>/Teacher/Funzone/addMedia" method="post" enctype="multipart/form-data">
                 <div class="funzone-content">
                     <div class="funzone-header">
                         <i class="fa-solid fa-upload"></i>
@@ -81,6 +81,37 @@
                         <img src="<?=ROOT?>/assets/images/logo.png">
                     </div>
                     
+                    <div class="selects">
+                        <div class="age">
+                            <label for="date">Age Group</label>
+                            <select name="age-group">
+                                <option value="3-5">3-5</option>
+                                <option value="6-9">6-9</option>
+                                <option value="10-13">10-13</option>
+                            </select>
+                        </div>
+                        <div class="type">
+                            <label for="type">Media Type</label>
+                            <select name="media-type">
+                                <option value="Audio">Audio</option>
+                                <option value="Video">Video</option>
+                                <option value="Image">Image</option>
+                                <option value="Text">Text</option>
+                            </select>
+                        </div>
+                            
+                    </div>
+                    <div class="title">
+                        <h4>Title</h4>
+                        <input type="text" name="name" placeholder="Add file URL"/>
+                       
+                    </div>
+
+                    <div class="funzone-footer">
+                        <h4>Description</h4>
+                        <input type="textarea" name="description" placeholder="Add file URL"/>
+                        <p>You will be notified once the import is successful</p>
+                    </div>
 
                     <div class="drag-and-drop">
                         <div class="foramts">
@@ -90,17 +121,16 @@
     
                         </div>
                         <h3>Drag and drop files to upload or </h3>
-                        <button class="browse">Browse</button>
+                        <div class="file-select">
+                             <input type="file" name="file" id="file">
+                        </div>
+                        
                         <p>Supported Files: JPG, PNG, PDF, DOCX</p>
                     </div>
-                    <div class="funzone-footer">
-                        <h3>Import from URL</h3>
-                        <input type="text" name="url" placeholder="Add file URL"/>
-                        <p>You will be notified once the import is successful</p>
-                    </div>
+                   
                     <div class="funzone-buttons">
                         <button class="cancel"  onclick="closeFunZone()">Cancel</button>
-                        <button class="done" id="close-funzone" type="submit">Done</button>
+                        <button class="done" id="" type="submit">Done</button>
                     </div>
                 </form>
                 </div>
@@ -215,180 +245,55 @@
                     
                     <div class="student-table-title">
                         <h4 class="file-name"><i class="fa-solid fa-file"></i>File Name</h4>
-                        <h4 class="status"><i class="fa-solid fa-check"></i>Status</h4>
-                        <h4 class="last-md"><i class="fa-solid fa-clock"></i>Last Modified</h4>
+                        <h4 class="status"><i class="fa-solid fa-check"></i>Description</h4>
+                        <h4 class="last-md"><i class="fa-solid fa-clock"></i>Date Created</h4>
                         <h4 class="up"><i class="fa-solid fa-user"></i>Uploaded By</h4>
                         <h4 class="actions"><i class="fa-regular fa-circle-check"></i>Actions</h4>
                     </div>
                     <div class="table-rows">
+
+                        <?php if (isset($message)): ?>
+                        <div class="success-message">
+                            <p><?= $message ?></p>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if(isset($media)):?>
+                            <?php foreach($media as $item):?>
                         <div class="student-row">
                         <div class="first-row">
-                        <img src="<?=IMAGE?>/mp4.png">
-                        <p class="row-items name">Forest Poem</p></div>
-                        <p class="row-items center small">34 Views</p>
-                        <p class="row-items center opacity">2025-03-14</p>
-                        <div class="upload">
-                            <img src="<?=IMAGE?>/profilePic.png">
-                            <div class="upld-person">
-                                <p class="name">Jane Strovert</p>
-                                <p class="email">janestr567@gmail.com</p>    
+                            <img src="<?=IMAGE?>/mp4.png">
+                            <p class="row-items name"><?= $item->Title ?></p></div>
+                            <p class="row-items center small"><?=$item->Description?></p>
+                            <p class="row-items center opacity"><?=$item->DateTime?></p>
+
+                           
+                            <div class="upload">
+                                <img src="<?=IMAGE?>/profilePic.png">
+                                <div class="upld-person">
+                                    <p class="name">Jane Strovert</p>
+                                    <p class="email">janestr567@gmail.com</p>    
+                                </div>
                             </div>
-                        </div>
                         
                        
-                        <div class="actions center">
-                            <a href="#"><button type="button" class="edit-btn">Edit
-                            <i class='bx bxs-edit-alt' ></i>
-                            </button></a>
-                            <button type="button" class="dlt-btn">Delete
-                            <i class='bx bx-trash-alt' ></i>
-                            </button>
-                        </div>                      
+                            <div class="actions center">
+                                <a href="#"><button type="button" class="edit-btn">Edit
+                                <i class='bx bxs-edit-alt' ></i>
+                                </button></a>
+                                <form action="<?=ROOT?>/Teacher/Funzone/removeMedia" method = "POST">
+                                    <input type="hidden" name="id" value="<?= $item->MediaID?>">
+                                    <button type="submit" class="dlt-btn">Delete
+                                    <i class='bx bx-trash-alt' ></i>
+                                    </button>
+                                </form>
+                                
+                            </div>                      
                         </div>
-                        <div class="student-row">
-                        <div class="first-row">
-                        <img src="<?=IMAGE?>/pdf.png">
-                        <p class="row-items name">Forest Poem</p></div>
-                        <p class="row-items center small">12 Views</p>
-                        <p class="row-items center opacity">2025-02-20</p>
-                        <div class="upload">
-                            <img src="<?=IMAGE?>/profilePic.png">
-                            <div class="upld-person">
-                                <p class="name">Jane Strovert</p>
-                                <p class="email">janestr567@gmail.com</p>    
-                            </div>
-                        </div>
+                        <?php endforeach;?>
+                        <?php endif; ?>  
                         
-                       
-                        <div class="actions center">
-                            <a href="#"><button type="button" class="edit-btn">Edit
-                            <i class='bx bxs-edit-alt' ></i>
-                            </button></a>
-                            <button type="button" class="dlt-btn">Delete
-                            <i class='bx bx-trash-alt' ></i>
-                            </button>
-                        </div>                        
-                        </div>
-                        <div class="student-row">
-                        <div class="first-row">
-                        <img src="<?=IMAGE?>/pdf.png">
-                        <p class="row-items name">Reading the Rabbit</p></div>
-                        <p class="row-items center small">6 Views</p>
-                        <p class="row-items center opacity">2025-02-10</p>
-                        <div class="upload">
-                            <img src="<?=IMAGE?>/profilePic.png">
-                            <div class="upld-person">
-                                <p class="name">Jane Strovert</p>
-                                <p class="email">janestr567@gmail.com</p>    
-                            </div>
-                        </div>
-                        
-                       
-                        <div class="actions center">
-                            <a href="#"><button type="button" class="edit-btn">Edit
-                            <i class='bx bxs-edit-alt' ></i>
-                            </button></a>
-                            <button type="button" class="dlt-btn">Delete
-                            <i class='bx bx-trash-alt' ></i>
-                            </button>
-                        </div>                        
-                        </div>
-                        <div class="student-row">
-                        <div class="first-row">
-                        <img src="<?=IMAGE?>/mp4.png">
-                        <p class="row-items name">Farmer's Village</p></div>
-                        <p class="row-items center small">31 Views</p>
-                        <p class="row-items center opacity">2025-01-21</p>
-                        <div class="upload">
-                            <img src="<?=IMAGE?>/profilePic.png">
-                            <div class="upld-person">
-                                <p class="name">Jane Strovert</p>
-                                <p class="email">janestr567@gmail.com</p>    
-                            </div>
-                        </div>
-                        
-                       
-                        <div class="actions center">
-                            <a href="#"><button type="button" class="edit-btn">Edit
-                            <i class='bx bxs-edit-alt' ></i>
-                            </button></a>
-                            <button type="button" class="dlt-btn">Delete
-                            <i class='bx bx-trash-alt' ></i>
-                            </button>
-                        </div>                       
-                        </div>
-                        <div class="student-row">
-                        <div class="first-row">
-                        <img src="<?=IMAGE?>/jpg.png">
-                        <p class="row-items name">Princess the Isebella</p></div>
-                        <p class="row-items center small">45 Views</p>
-                        <p class="row-items center opacity">2025-01-6</p>
-                        <div class="upload">
-                            <img src="<?=IMAGE?>/profilePic.png">
-                            <div class="upld-person">
-                                <p class="name">Jane Strovert</p>
-                                <p class="email">janestr567@gmail.com</p>    
-                            </div>
-                        </div>
-                        
-                       
-                        <div class="actions center">
-                            <a href="#"><button type="button" class="edit-btn">Edit
-                            <i class='bx bxs-edit-alt' ></i>
-                            </button></a>
-                            <button type="button" class="dlt-btn">Delete
-                            <i class='bx bx-trash-alt' ></i>
-                            </button>
-                        </div>                        
-                        </div>
-                        <div class="student-row">
-                        <div class="first-row">
-                        <img src="<?=IMAGE?>/mp4.png">
-                        <p class="row-items name">Math with Fun</p></div>
-                        <p class="row-items center small">60 Views</p>
-                        <p class="row-items center opacity">2024-12-15</p>
-                        <div class="upload">
-                            <img src="<?=IMAGE?>/profilePic.png">
-                            <div class="upld-person">
-                                <p class="name">Jane Strovert</p>
-                                <p class="email">janestr567@gmail.com</p>    
-                            </div>
-                        </div>
-                        
-                       
-                        <div class="actions center">
-                            <a href="#"><button type="button" class="edit-btn">Edit
-                            <i class='bx bxs-edit-alt' ></i>
-                            </button></a>
-                            <button type="button" class="dlt-btn">Delete
-                            <i class='bx bx-trash-alt' ></i>
-                            </button>
-                        </div>                        
-                        </div>
-                        <div class="student-row">
-                        <div class="first-row">
-                        <img src="<?=IMAGE?>/mp3.png">
-                        <p class="row-items name">Speaking the simple english</p></div>
-                        <p class="row-items center small">14 Views</p>
-                        <p class="row-items center opacity">2024-11-15</p>
-                        <div class="upload">
-                            <img src="<?=IMAGE?>/profilePic.png">
-                            <div class="upld-person">
-                                <p class="name">Jane Strovert</p>
-                                <p class="email">janestr567@gmail.com</p>    
-                            </div>
-                        </div>
-                        
-                       
-                        <div class="actions center">
-                            <a href="#"><button type="button" class="edit-btn">Edit
-                            <i class='bx bxs-edit-alt' ></i>
-                            </button></a>
-                            <button type="button" class="dlt-btn">Delete
-                            <i class='bx bx-trash-alt' ></i>    
-                            </button>
-                        </div>                     
-                        </div>
+
                     </div>
                    
                 </div>

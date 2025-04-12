@@ -44,10 +44,30 @@
                             }
                             if($result->Role === "Teacher"){
                                 $teacher = new \Modal\Teacher;
-                                $lastseen = date('Y-m-d H:i:s');
-                                $teacher->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
+                                $pre = $teacher->first(['UserID' => $result -> UserID]);
+                                if(!empty($pre)){
+                                    $lastseen = date('Y-m-d H:i:s');
+                                    $teacher->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
+                                    redirect('Teacher/Dashboard');
+                                    $teacher_data = $teacher->first(['Username' => $result->Username]); 
+                                    
+                                }
+                                else{
+                                    redirect('Main/Login');
+                                }
+                               
 
-                                redirect('Teacher/Home');
+                                // if(!empty($teacher_data)){
+                                //     $session->set(['TEACHERID' => $teacher_data->TeacherID]); // Save Teacher ID
+                                //     $session_id = session_id(); // Get the Session ID
+                                //     $session->set(['SESSIONID' => $session_id]); // Save Session ID to session
+                            
+                                    
+                                // } else {
+                                //     redirect('Main/Login');
+                                // }
+
+                                // redirect('Teacher/Dashboard');
                             }
                             if($result->Role === "Maid"){
                                 $maid = new \Modal\Maid;

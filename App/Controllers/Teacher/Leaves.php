@@ -7,33 +7,11 @@
 
 
         public function index(){
-
-        // $session = new \Core\Session;
-        // $session->check_login();
-        // $session->check_teacher();
-
-        // $TeacherID = $session->get('TEACHERID');
-      
-        // if (!isset($_SESSION['teacher_id'])) {
-        //     $this->view('Teacher/Leaves', ['message' => 'Please log in to view your leaves.']);
-        //     return;
-        // }
     
        
-        //show($teacher_id);
         $leave = new \Modal\TeacherLeave;
-        //$remleave = new \Modal\TeacherRem;
-    
-        // Fetch all leaves for the teacher
-        // $leaves = $leave->where(['TeacherID'=>$teacher_id]);
-    
-        // // Fetch remaining leaves for the teacher
-        // $remleaves = $remleave->where('TeacherID', $teacher_id);
-        // show($leaves);
-      
-    
-        // Check if any data exists and pass it to the view
-        // if (!empty($leaves) || !empty($remleaves)) {
+       
+       
             
         $leaves = $leave->findall();
 
@@ -50,13 +28,19 @@
 
     public function addLeave(){
         $leave = new \Modal\TeacherLeave;
+        $session = new \Core\Session;
 
-        // $session = new \Core\Session();
-        // $data['TeacherID'] = $session->get('TEACHERID');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $arr = $_POST;
+            $TeacherID = $this->findID();
+
+            if (!$TeacherID) {
+                // Redirect to login page if TeacherID is not found
+                $this->view('Teacher/Leaves', ['message' => 'Please log in to request a leave.']);
+                return;
+            }
             // $arr = array_merge($arr, $data);
             // Validate form data
             if ($leave->validate($arr)) {
@@ -78,7 +62,25 @@
         }
         
     }
+
+
+    public function findID(){
+
+        $teacher = new \Modal\Teacher;
+        $session = new \Core\Session;
+
+        $userID = $session->get('USERID'); 
+
+        $row = $teacher->first(['UserID' => $userID]);
+        $result = $row->TeacherID;
+
+        return $result;
+
+
+    }
 }
+
+
 ?>
 
 

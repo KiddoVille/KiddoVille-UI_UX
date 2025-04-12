@@ -13,9 +13,18 @@ const showFunzone = ()=>{
 // CLOSE FUNZONE POPUP
 
 const closeFunZone =()=>{
+
+  
+    
     const closeBtn = document.getElementById("close-funzone");
     const popupContainer = document.getElementById("funzone-popup-container");
     popupContainer.classList.remove("show-funzone");
+
+    closeBtn.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent form submission
+        // Add your desired actions here, e.g., redirect to another page
+        window.location.href = '/another-page.html'; // Redirect to another page
+      });
 }
 
 //OPNE REQUEST LEAVES
