@@ -15,7 +15,8 @@
             'TeacherID',
             'Descrption',
             'Image',
-            'BlogID'
+            'BlogID',
+            'Fee'
         ];
 
         public function validate($data){

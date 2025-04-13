@@ -248,7 +248,7 @@
             return $this->query($query, $conditionValues);
         }    
 
-        public function findFutureDates($firstdate, $lastdate) {
+        public function findFutureDates($firstdate, $lastdate, $column = 'Date') {
             // Convert DateTime objects to strings
             if ($firstdate instanceof \DateTime) {
                 $firstdate = $firstdate->format('Y-m-d');
@@ -257,16 +257,59 @@
                 $lastdate = $lastdate->format('Y-m-d');
             }
         
-            // Optional: validate date strings
+            // Validate date strings
             if (!strtotime($firstdate) || !strtotime($lastdate)) {
                 return false;
             }
         
-            $query = "SELECT * FROM $this->table WHERE `Date` > :firstdate AND `Date` < :lastdate";
-            $params = ['firstdate' => $firstdate, 'lastdate' => $lastdate];
+            // Sanitize column name to prevent SQL injection (only allow certain characters)
+            if (!preg_match('/^[a-zA-Z0-9_]+$/', $column)) {
+                return false;
+            }
         
+            // Build the query with the dynamic column
+            $query = "SELECT * FROM $this->table WHERE `$column` >= :firstdate AND `$column` <= :lastdate";
+            $params = ['firstdate' => $firstdate, 'lastdate' => $lastdate];
             return $this->query($query, $params);
-        }  
+        }
+        
+        public function findFutureDatesWithConditions($firstdate, $lastdate, $where = [], $column = 'Date') {
+            // Convert DateTime objects to strings
+            if ($firstdate instanceof \DateTime) {
+                $firstdate = $firstdate->format('Y-m-d');
+            }
+            if ($lastdate instanceof \DateTime) {
+                $lastdate = $lastdate->format('Y-m-d');
+            }
+        
+            // Validate date strings
+            if (!strtotime($firstdate) || !strtotime($lastdate)) {
+                return false;
+            }
+        
+            // Sanitize column name to prevent SQL injection
+            if (!preg_match('/^[a-zA-Z0-9_]+$/', $column)) {
+                return false;
+            }
+        
+            // Start building WHERE clause
+            $whereClause = "`$column` >= :firstdate AND `$column` <= :lastdate";
+            $params = [
+                'firstdate' => $firstdate,
+                'lastdate' => $lastdate
+            ];
+        
+            // Add additional WHERE conditions
+            foreach ($where as $key => $value) {
+                if (preg_match('/^[a-zA-Z0-9_]+$/', $key)) {
+                    $whereClause .= " AND `$key` = :$key";
+                    $params[$key] = $value;
+                }
+            }
+        
+            $query = "SELECT * FROM $this->table WHERE $whereClause";
+            return $this->query($query, $params);
+        }        
 
         public function groupByCount($columnToCount, $groupByColumn, $where = []) {
             // Sanitize allowed columns

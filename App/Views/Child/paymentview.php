@@ -312,7 +312,7 @@
                                     Total Amount: $950
                                 </div>
                                 <div style=" display: flex;justify-content: space-between; ">
-                                    <button class="btn" onclick="window.location.href='<?= ROOT ?>/Child/PaymentSheet'">
+                                    <button class="btn" id="view-details-btn">
                                         View Details
                                     </button>
                                     <!-- <button class="btn" onclick="window.location.href='<?= ROOT ?>/Parent/Pay'">
@@ -450,6 +450,28 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+
+            document.getElementById('view-details-btn').addEventListener('click', function () {
+                const monthText = document.getElementById('current-month').textContent.trim(); // e.g., "April 2025"
+                const [monthName, year] = monthText.split(' ');
+                
+                const monthMap = {
+                    January: '01', February: '02', March: '03',
+                    April: '04', May: '05', June: '06',
+                    July: '07', August: '08', September: '09',
+                    October: '10', November: '11', December: '12'
+                };
+
+                const month = monthMap[monthName];
+
+                if (month && year) {
+                    const targetUrl = `<?= ROOT ?>/Child/PaymentSheet?month=${month}&year=${year}`;
+                    window.location.href = targetUrl;
+                } else {
+                    alert("Invalid month format.");
+                }
+            });
+
             const datePicker = document.getElementById('datePicker');
             const modePicker = document.getElementById('modePicker');
 
