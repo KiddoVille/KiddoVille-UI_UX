@@ -182,7 +182,9 @@ use DateTime;
                         $Package = $PackageModal->first(["PackageID" => $Child->PackageID]);
         
                         $Expenses = $ExpensesModal->first(["ChildID"=> $child->ChildID,"Date" => $firstdate, "Description" => "Package"]);
-                        $ExpensesModal->update(["ExpenseID" => $Expenses->ExpenseID], ["UpdatedDate" => $currentDate]);
+                        if(!empty($Expenses)){
+                            $ExpensesModal->update(["ExpenseID" => $Expenses->ExpenseID], ["UpdatedDate" => $currentDate]);
+                        }
         
                         $validDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
                         $allowedDays = json_decode($Package->allowed_days ?? '[]');

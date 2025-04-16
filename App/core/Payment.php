@@ -2,8 +2,8 @@
 require 'vendor_stripe/autoload.php';
 session_start();
 
-$stripe_secret_key = "sk_test_51RD2unQOOFsMErLWPkP0F9LZFoKNK2BkOoIGwWwQQ7x1wZpPrJpl6cs5pIVZgdjwCk3JlocGMVF3X3s75CWYaWz400wG3iIVEK"; // your key
-$webhook_secret = "whsec_Wz8aNJZ5OlTgUQIpYVe6LLDtLRATa0OM"; // from Stripe CLI or dashboard
+$stripe_secret_key = $GLOBALS['env']['stripe_secret_key']; // your key
+$webhook_secret = $GLOBALS['env']['webhook_secret']; // from Stripe CLI or dashboard
 
 \Stripe\Stripe::setApiKey($stripe_secret_key);
 
