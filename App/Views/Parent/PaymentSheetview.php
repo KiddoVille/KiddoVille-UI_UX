@@ -111,7 +111,7 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
-            margin-bottom: -25px;
+            margin-bottom: -5px;
             margin-left: 163px;
             margin-right: -20px;
         }
@@ -196,6 +196,14 @@
             color: #333;
         }
 
+        .cost-details .name {
+            flex: 1;
+            text-align: left;
+            font-weight: bold;
+            color: #333;
+        }
+
+
         .cost-details .child {
             flex: 2;
             text-align: center;
@@ -210,9 +218,49 @@
             font-weight: bold;
         }
 
-        .red{
+        .red {
             color: red !important;
         }
+
+        @media print {
+
+            /* Hide all buttons and interactive elements */
+            .button-container,
+            .card-buttons {
+                display: none !important;
+            }
+
+            /* Remove unnecessary shadows, margins, and padding */
+            body {
+                background-color: #fff;
+            }
+
+            .container {
+                box-shadow: none;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .footer-total {
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr 1fr;
+                /* 2 columns instead of 3 for readability */
+            }
+
+            /* Optional: Reduce font size for compact layout */
+            body,
+            .container,
+            .card,
+            .cost-details {
+                font-size: 12px;
+            }
+        }
+
 
         @media (max-width: 768px) {
             .card {
@@ -232,122 +280,77 @@
     <div class="container">
         <div class="header">
             <div class="details">
-                <h1>Parent Name: John Doe</h1>
-                <p>Week: 1st - 7th January 2023</p>
+                <h1>Parent Name: <?= htmlspecialchars($data['Parent']['fullname']) ?></h1>
+                <p>Week: <?= htmlspecialchars($data['Parent']['month']) ?></p>
                 <p>Details: Payment for childcare services</p>
             </div>
-            <img src="https://storage.googleapis.com/a1aa/image/D0WU9tZEHUY4JJuPgtzrYENJ7MLboQMmofkEUVQo9alsJieTA.jpg" alt="Photo of John Doe" />
+            <img src="<?= htmlspecialchars($data['Parent']['image']) ?>" alt="Photo of John Doe" />
         </div>
 
         <div class="cards-container">
-            <!-- Card Template -->
-            <div class="card">
-                <img src="https://storage.googleapis.com/a1aa/image/CZPxUXerpEUIBiJLs3egevwGpVz03VENO8e2TYQfAzNHciofE.jpg" alt="Photo of Alex Doe" />
-                <div class="child-details">
-                    <h2>Child Name: Alex Doe</h2>
-                    <p>Childcare: $50</p>
-                    <p>Food: $30</p>
-                    <p>Snacks: $20</p>
-                    <p>Total for Alex: <strong>$100</strong></p>
-                    <div class="card-buttons">
-                        <button onclick="window.location.href='<?=ROOT?>/Child/PaymentSheet'">View Report</button>
+            <?php foreach (array_slice($data['Expenses'], 0, -1) as $expense): ?>
+                <div class="card">
+                    <img src="<?= htmlspecialchars($expense['Image']) ?>" alt="Photo of <?= htmlspecialchars($expense['Name']) ?>" />
+                    <div class="child-details">
+                        <h2>Child Name: <?= htmlspecialchars($expense['Name']) ?></h2>
+                        <p>Childcare:<?= number_format($expense['Package'], 2) ?>Rs</p>
+                        <p>Food: <?= number_format($expense['Meal'], 2) ?>Rs</p>
+                        <p>Activity: <?= number_format($expense['Activity'], 2) ?>Rs</p>
+                        <p>Reservation: <?= number_format($expense['Activity'], 2) ?>Rs</p>
+                        <p>Total for <?= htmlspecialchars($expense['Name']) ?>: <strong><?= number_format($expense['Total'], 0) ?>Rs</strong></p>
+                        <div class="card-buttons">
+                            <button onclick="window.location.href='<?= ROOT ?>/Child/PaymentSheet?month=<?= urlencode($_GET['month']) ?>&year=<?= urlencode($_GET['year']) ?>&ChildID=<?= urlencode($expense['ChildID']) ?>'">View Report</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <img src="https://storage.googleapis.com/a1aa/image/CZPxUXerpEUIBiJLs3egevwGpVz03VENO8e2TYQfAzNHciofE.jpg" alt="Photo of Alex Doe" />
-                <div class="child-details">
-                    <h2>Child Name: Alex Doe</h2>
-                    <p>Childcare: $50</p>
-                    <p>Food: $30</p>
-                    <p>Snacks: $20</p>
-                    <p>Total for Alex: <strong>$100</strong></p>
-                    <div class="card-buttons">
-                        <button onclick="window.location.href='<?=ROOT?>/Child/PaymentSheet'">View Report</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://storage.googleapis.com/a1aa/image/CZPxUXerpEUIBiJLs3egevwGpVz03VENO8e2TYQfAzNHciofE.jpg" alt="Photo of Alex Doe" />
-                <div class="child-details">
-                    <h2>Child Name: Alex Doe</h2>
-                    <p>Childcare: $50</p>
-                    <p>Food: $30</p>
-                    <p>Snacks: $20</p>
-                    <p>Total for Alex: <strong>$100</strong></p>
-                    <div class="card-buttons">
-                        <button onclick="window.location.href='<?=ROOT?>/Child/PaymentSheet'">View Report</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://storage.googleapis.com/a1aa/image/CZPxUXerpEUIBiJLs3egevwGpVz03VENO8e2TYQfAzNHciofE.jpg" alt="Photo of Alex Doe" />
-                <div class="child-details">
-                    <h2>Child Name: Alex Doe</h2>
-                    <p>Childcare: $50</p>
-                    <p>Food: $30</p>
-                    <p>Snacks: $20</p>
-                    <p>Total for Alex: <strong>$100</strong></p>
-                    <div class="card-buttons">
-                        <button onclick="window.location.href='<?=ROOT?>/Child/PaymentSheet'">View Report</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://storage.googleapis.com/a1aa/image/CZPxUXerpEUIBiJLs3egevwGpVz03VENO8e2TYQfAzNHciofE.jpg" alt="Photo of Alex Doe" />
-                <div class="child-details">
-                    <h2>Child Name: Alex Doe</h2>
-                    <p>Childcare: $50</p>
-                    <p>Food: $30</p>
-                    <p>Snacks: $20</p>
-                    <p>Total for Alex: <strong>$100</strong></p>
-                    <div class="card-buttons">
-                        <button onclick="window.location.href='<?=ROOT?>/Child/PaymentSheet'">View Report</button>
-                    </div>
-                </div>
-            </div>
-            <!-- End of Card Template -->
+            <?php endforeach; ?>
         </div>
-
         <div class="cost-details">
             <h3>Cost Breakdown:</h3>
             <ul>
-                <li>
-                    <span class="date">12/12/2024</span>
-                    <span class="child"> Child</span>
-                    <span class="description"> Reservation</span>
-                    <span class="amount">$50</span>
-                </li>
-                <li>
-                    <span class="date">12/12/2024</span>
-                    <span class="child"> Child</span>
-                    <span class="description">Food charge</span>
-                    <span class="amount">$30</span>
-                </li>
-                <li>
-                    <span class="date">12/12/2024</span>
-                    <span class="child"> Child</span>
-                    <span class="description">Snacks charge</span>
-                    <span class="amount">$20</span>
-                </li>
-                <li>
-                    <span class="date">12/12/2024</span>
-                    <span class="child"> Child</span>
-                    <span class="description">Reservation Cancelation</span>
-                    <span class="amount red">$20</span>
-                </li>
+                <?php if (!empty($data['CostBreakdown'])): ?>
+                    <?php foreach ($data['CostBreakdown'] as $item): ?>
+                        <li>
+                            <span class="date"><?= date('d/m/Y', strtotime($item['date'])) ?></span>
+                            <span class="name"><?= htmlspecialchars($item['name']) ?></span>
+                            <span class="description"><?= htmlspecialchars($item['reason']) ?></span>
+                            <span class="amount <?= (isset($item['Fine']) && $item['Fine'] == 1) ? 'red' : '' ?>">
+                                $<?= number_format(abs($item['amount']), 2) ?>
+                            </span>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>No cost breakdown available.</li>
+                <?php endif; ?>
             </ul>
         </div>
 
         <div class="footer-total" style="margin-right: 300px;">
-            Final Total: <strong>$550</strong>
+            Final Total: <strong><?= $data['Expenses']['Total'] ?> Rs</strong>
         </div>
 
         <div class="button-container">
-            <button> Download </button>
-            <button>Pay Now</button>
+            <button id="download-btn"> Download </button>
         </div>
     </div>
+    <script>
+        document.getElementById("download-btn").addEventListener("click", function() {
+            const btn2 = document.getElementById("download-btn");
+            const reportButtons = document.querySelectorAll(".report-btn");
+
+            btn2.style.display = 'none';
+            reportButtons.forEach(btn => btn.style.display = "none");
+            window.print();
+            setTimeout(() => {
+                downloadBtn.style.display = "inline-block";
+                reportButtons.forEach(btn => btn.style.display = "inline-block");
+            }, 1000);
+        });
+
+        document.getElementById('back').addEventListener("click", function() {
+            window.location.href = '<?= ROOT ?>/Parent/Payment';
+        })
+    </script>
 </body>
 
 </html>

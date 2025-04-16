@@ -1,3 +1,9 @@
+@import url('../variables.css');
+
+body{
+    overflow: hidden;
+}
+
 .main-content {
     padding: 20px;
     height: 60vh !important;
@@ -12,7 +18,7 @@
 .pickup-section {
     border-radius: 10px;
     padding: 5px 10px;
-    border: 2px solid #b2ebf2;
+    border: 2px solid var(--pickup-border);
     position: relative;
     margin-bottom: 10px;
 }
@@ -35,7 +41,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 .pickup-section input:focus {
@@ -106,7 +112,7 @@
 
 .View-Package {
     background-color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     padding: 20px;
     border: 1px solid #ccc;
     animation: popupSlideIn 0.5s ease;
@@ -146,28 +152,62 @@ button {
     transition: background-color 0.3s ease;
     margin-bottom: 20px;
 }
-.top-con {
-    color: black;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: -20px;
+#Event-img{
+    width: 360px; 
+    height: 250px; 
+    position: fixed; 
+    margin-left: -20px; 
+    margin-top: -20px; 
+    border-radius: 7px 0px 7px 0px;
 }
-.back-con{
-    background-color: #007bff;
-    z-index: 10000;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60px;
-    margin-left: -21px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+#Enrollbtn{
+    width: 150px; 
+    margin-left: 170px; 
+    margin-top: 10px;
 }
-.fa-chevron-left{
-    margin-left: 40px;
+#EnrollModal .View-Package{
+    height: 440px;
+}
+#EnrollModal .View-Package img{
+    width: 360px; 
+    height: auto;
+    margin-left: -20px; 
+    margin-top: -20px; 
+    border-radius: 7px 0px 7px 0px;
+}
+#EnrollModal .View-Package .top-con{
+    margin-top: -190px; 
+    margin-left: 1px;
+}
+#Enrollmodel{
+    width: 150px; 
+    margin-left: 170px
+}
+.fill{
+    margin-left: 30px; 
+    width: 1180px;
+}
+.fill .back{
+    width: 24px; 
+    height: 24px; 
+    fill: var(--heading) !important; 
+    margin-left: -1100px;
     cursor: pointer;
-    color: white !important;
+}
+.fill h2{
+    margin-top: -10px !important; 
+    margin-bottom: 2px; 
+    margin-right: 980px;
+}
+.fill hr{
+    width: 1070px;
+}
+.fill .filters{
+    margin-left: 330px !important;
+}
+.package-card .eventbtn{
+    margin-top: -10px !important;
+}
+.package-card{
+    height: 220px !important; 
 }

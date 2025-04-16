@@ -3,27 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>
-    Change Username
-  </title>
-  <link rel="icon" href="../../Assets/logo_light-remove.png" type="image/x-icon">
-  <link rel="icon" href="../../Assets/logo_light-remove.png" type="image/x-icon">
-  <link rel="stylesheet" href="./Main.css">
+  <title> Change Username </title>
+  <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
+  <link rel="stylesheet" href="<?= CSS ?>/Main/Change.css?v=<?= time() ?>" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&amp;display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&amp;display=swap" rel="stylesheet" />
 </head>
 
 <body>
   <!-- left side of continer -->
   <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
     <div class="box"
-      style="width: 400px; height: 500px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; background-image: url('../Assets/side2.png');">
+      style="width: 400px; height: 500px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; background-image: url('<?= IMAGE ?>/side2.png');">
       <div class="home-contain">
-        <i onclick="window.location.href='../../Home/Landing/Landing.html'" class="fa fa-home" style=""></i>
+        <i onclick="window.location.href='<?= ROOT ?>/Main/Home'" class="fa fa-home" style=""></i>
       </div>
       <div class="filter-box">
         <h2>Hello, user</h2>
@@ -33,7 +28,7 @@
     <div class="box"
       style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;width: 400px;height: 500px;">
       <div class="logo">
-        <img alt="Kiddoville Logo" height="40" src="../Assets/logo_light.png" width="40" />
+        <img alt="Kiddoville Logo" height="40" src="<?= IMAGE ?>/logo_light.png" width="40" />
       </div>
       <!-- form to change username -->
       <div class="container-border">
@@ -59,13 +54,13 @@
   </div>
   <script>
     // check username
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const Username = document.getElementById('username');
       const form = document.getElementById('login-form');
       const UsernameError = document.getElementById('username-error');
       const redstar = document.getElementById('red-star');
 
-      Username.addEventListener("input", function () {
+      Username.addEventListener("input", function() {
         if (Username.value.length === 0) {
           redstar.classList.remove('hidden');
         } else {
@@ -74,8 +69,9 @@
       });
 
       // username validation
-      form.addEventListener('submit', function (event) {
+      form.addEventListener('submit', function(event) {
         event.preventDefault();
+        valid = true;
 
         const invalidCharsRegex = /[^a-zA-Z0-9_-]/;
 
@@ -87,14 +83,40 @@
           UsernameError.textContent = 'Can\'t use special characters other than \'-\' or \'_\'';
           valid = false;
         }
-        if (Username.value === 'Abdulla') {
-          UsernameError.textContent = 'Username already exist choose another name';
-        }
+        if (!valid) return;
+
+        // Send data to PHP controller
+        fetch('<?= ROOT ?>/Main/changeUsername/changename', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: Username.value
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+              setTimeout(() => {
+                window.location.href = '<?=ROOT?>/Main/Login';
+              }, 2000);
+            } else {
+              if (data.errors && data.errors.length > 0) {
+                UsernameError.textContent = data.errors[0];
+              } else {
+                UsernameError.textContent = 'An unknown error occurred.';
+              }
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            UsernameError.textContent = 'Network or server error occurred.';
+          });
       });
 
     });
-
-
   </script>
 </body>
 

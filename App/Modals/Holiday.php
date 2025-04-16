@@ -10,9 +10,10 @@ class  Holiday{
     protected $table = 'holiday';   
     protected $allowedColumns = [
         'HolidayID',
-        'Leave_Type',
-        'Date_of_Holiday',
-        'About'
+        'Date',
+        'Name',
+        'Details',
+        'IsPublicHoliday'
     ];
 
     public function validate($data) {
@@ -29,11 +30,5 @@ class  Holiday{
         }
 
         return empty($this->errors);
-    }
-
-    public function delete($id){
-        $query = "DELETE FROM holiday WHERE HolidayID = :HolidayID";
-        $params = [':HolidayID' => $id];
-        return $this->query($query,$params);
     }
 }

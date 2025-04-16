@@ -32,13 +32,20 @@
             $this->view('Child/report', $data);
         }
 
+        // public function test(){
+
+
+        //     return $data;
+        // }
+
         public function store_reports() {
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
         
             // Default to today's date if no 'date' is provided
-            $date = $requestData['date'] ?? date('Y-m-d');
-            if ($date === 'null' || $date === 'All') {
+            $date = $requestData['date'];
+            $date = null;
+            if ($date === null || $date === 'All') {
                 $date = null;  // Treat 'null' or 'All' as no date filter (fetch all records)
             }
 
@@ -82,9 +89,8 @@
         
                 // Fetch teacher reports
             $TeacherReports = $date ? 
-                $TeacherReportModel->where_order(['ChildID' => $ChildID, 'Date' => $date], [] , "Date") : 
-                $TeacherReportModel->where_order(['ChildID' => $ChildID], [] , "
-                'Date");
+                $TeacherReportModel->where_order(['ChildID' => $ChildID, 'Start_Date' => $date], [] , "Start_Date") : 
+                $TeacherReportModel->where_order(['ChildID' => $ChildID], [] , "Date");
         
             if (!empty($TeacherReports)) {
                 foreach ($TeacherReports as $report) {

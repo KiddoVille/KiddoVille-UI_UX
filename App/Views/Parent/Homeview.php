@@ -35,7 +35,7 @@
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
-                <li class="hover-effect unselected" style="margin-top: 40px;">
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Parent/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
@@ -96,16 +96,15 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -117,7 +116,7 @@
         <div class="main-content" style="overflow-y: scroll; overflow-x: hidden;">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
                     <p style="color: white">Let’s do some productive activities today</p>
@@ -608,6 +607,9 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ManageChildren'">
+                Manage Children
+            </button>
             <?php if ($data['Child_Count'] < 5) { ?>
                 <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
                     Add Children
@@ -622,6 +624,20 @@
         </div>
     </div>
     <script>
+
+            const minimizeBtn = document.getElementById('minimize-btn');
+            const sidebar = document.getElementById('sidebar1');
+            const starImage = document.getElementById('starImage');
+            const logo = document.getElementById('sidebar-logo');
+            const kiddo = document.getElementById('sidebar-kiddo');
+
+            <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+                sidebar.classList.add('minimized');
+                starImage.classList.add('show');
+                logo.classList.add('hidden');
+                kiddo.classList.add('hidden');
+            <?php endif; ?>
+        
             let selectedPerson = "Guardian"; // Default selection
             const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
             const newPersonContainer = document.getElementById("newPersonContainer");
@@ -676,6 +692,24 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
+
+
+            // minimizeBtn.addEventListener('click', function() {
+            //     fetch("<?=ROOT?>/Parent/Home/minimize", {
+            //         method: "POST",
+            //         credentials: "same-origin"
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.success) {
+            //             console.log("Sidebar minimized state saved successfully.");
+            //         } else {
+            //             console.log("Failed to save sidebar minimized state.");
+            //         }
+            //     })
+            //     .catch(error => console.error("Error:", error));
+            // });
+
             let selectedPerson = "Guardian"; // Default selection
             const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
             const newPersonContainer = document.getElementById("newPersonContainer");
@@ -818,8 +852,11 @@
 
                 // Update upcoming reservations
                 const upcomingReservations = document.getElementById('upcomingreservations');
-                if (upcomingReservations) {
+                console.log(upcomingReservations.innerHTML = selectedChild.upcomingreservations)
+                if (selectedChild.upcomingreservations !== undefined && selectedChild.upcomingreservations !== null) {
                     upcomingReservations.innerHTML = selectedChild.upcomingreservations;
+                } else {
+                    upcomingReservations.innerHTML = "No Reservations";
                 }
 
                 // Set the child ID in the view button

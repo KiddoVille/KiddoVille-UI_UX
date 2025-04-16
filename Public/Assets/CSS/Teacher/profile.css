@@ -14,7 +14,7 @@
     margin: 5px 10px;
     border-radius: 20px;
     display: flex;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 4px 15px var(--popup-background);
 
  
   
@@ -60,14 +60,14 @@
     gap: 5px;
 }
 .data input[type="text"]{
-    background-color: #F5F5F5;
+    background-color: var(--input-field-background);
     outline: none;
     padding: 10px 15px;
     border-radius: 10px;
     border: 1px solid #d5d5d5;
 }
 .data textarea{
-    background-color: #F5F5F5;
+    background-color: var(--input-field-background);
     outline: none;
     padding: 10px 15px;
     border-radius: 10px;
@@ -75,7 +75,7 @@
     margin-left: -5px;
 }
 .data button{
-    background-color: #F5F5F5;
+    background-color: var(--input-field-background);
     outline: none;
     padding: 10px 15px;
     border-radius: 5px;

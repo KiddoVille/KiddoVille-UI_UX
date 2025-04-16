@@ -15,6 +15,7 @@
             'End_Time',
             'Status',
             'Notes',
+            'Is_24_Hour'
         ];
 
         public function validate($data){

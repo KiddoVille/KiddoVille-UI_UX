@@ -13,6 +13,7 @@
             'SnackID',
             'Quantity',
             "Time",
+            "Provide"
         ];
 
         public function validate($data){

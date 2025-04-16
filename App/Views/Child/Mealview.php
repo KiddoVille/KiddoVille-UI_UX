@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= CSS ?>/Parent/meal.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/meal.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/foodtable.css?v=<?= time() ?>">
     <script src="<?= JS ?>/child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/child/MessageDropdown.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/child/meal.js?v=<?= time() ?>"></script> -->
@@ -81,32 +82,27 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span></a>
-            </div>
+            <hr>
         </div>
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
+                <h2>Familty Ties</h2>
                 <div class="family-section" style="margin-top: 10px;">
                     <ul>
                         <li class="hover-effect first"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
-                    <?php foreach ($data['children'] as $child): ?>
+                        <?php foreach ($data['children'] as $child): ?>
                             <li class="first
                                 <?php if ($child['name'] === $data['selectedchildren']['name']) {
                                     echo "select-child";
@@ -114,10 +110,7 @@
                             "
                                 onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -131,7 +124,7 @@
                 <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                    <p style="color: white">Let’s do some productive activities today</p>
+                    <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
@@ -156,14 +149,14 @@
                     </button>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: row; width: 100%; justify-content:flex-start;">
-            <div class="container-food" style="margin-left: 20px; top:0; vertical-align: top;">
+            <div class="table-holder">
+                <div class="container-food t1">
                     <!-- Table for Food -->
-                    <div class="timetable" style="margin-right: 1%; width: 395px; vertical-align: top;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; top:0;">Meal Plan</h3>
+                    <div class="foodtable">
+                        <h3>Meal Plan</h3>
                         <hr>
-                        <input type="date" id="datePicker" min="<?= (date('Y-m-d')); ?>"  value="<?= (date('Y-m-d')); ?>" style="width: 200px">
-                        <table id="mealsTable" style="width: 100%; border-collapse: collapse;">
+                        <input type="date" id="datePicker" min="<?= (date('Y-m-d')); ?>" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
+                        <table id="mealsTable">
                             <thead>
                                 <tr>
                                     <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Meal</th>
@@ -176,13 +169,13 @@
                         </table>
                     </div>
                 </div>
-                <div class="container-food" style="margin-left: 20px;">
+                <div class="container-food t2">
                     <!-- Table for Snacks -->
-                    <div class="timetable" id="snackTable" style="margin-right: 1%; width: 395px; top:0; vertical-align: top;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; top:0;">Snack Plan</h3>
+                    <div class="foodtable" id="snackTable">
+                        <h3>Snack Plan</h3>
                         <hr>
-                        <input type="date" id="SnackdatePicker" min="<?= (date('Y-m-d')); ?>"  value="" style="width: 200px">
-                        <table id="snacksTable" style="width: 100%; border-collapse: collapse;">
+                        <input type="date" id="SnackdatePicker" min="<?= (date('Y-m-d')); ?>" value="" style="width: 200px">
+                        <table id="snacksTable">
                             <thead>
                                 <tr>
                                     <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Time</th>
@@ -195,11 +188,11 @@
                         </table>
                     </div>
                 </div>
-                <div class="container-food" style="margin-left: 20px; width: 180px;">
+                <div class="container-food t3">
                     <form id="Form" method="POST" id="details" enctype="multipart/form-data" action="<?= ROOT ?>/Child/Meal/Snack_request">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px; top:0;">Add Snack</h3>
-                        <hr style="width: 160px;">
-                        <div class="pickup-section" style="margin-top: 20px; width: 160px;">
+                        <h3>Add Snack</h3>
+                        <hr>
+                        <div class="pickup-section">
                             <label for="Date">Date</label>
                             <input name="Date" required id="dateInput" min="<?= (date('Y-m-d', strtotime('+1 day'))); ?>" type="date" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
 
@@ -214,21 +207,21 @@
                             <select name="Snack" required id="snackInput">
                             </select>
                         </div>
-                        <button type="submit" style="margin-top: 15px; margin-left:110px;"> Add </button>
+                        <button type="submit" style="margin-left: 80px; width: 100px;"> Add </button>
                     </form>
                 </div>
             </div>
 
-            <div class="container-food" style="margin-left: 40px; margin-top: 20px; align-items: left; width: 1060px; justify-content: space-between;">
-                <h3 style="margin-top: 0px !important; margin-bottom: 4px; margin-right: 900px;">Assigned Snacks</h3>
-                <hr style="width: 1070px;">
-                <p style="margin-left: -60px !important;"> Please select the child and meal, then enter the snack to assign it. You can easily view and edit the assigned snacks for each child as needed. </p>
-                <div style="display: flex; flex-direction: row; justify-content:space-around;">
-                <form id="Form2" method="POST" enctype="multipart/form-data" action="<?= ROOT ?>/Child/Meal/Snack_request_edit">
-                        <div style="display: flex; flex-direction: column; margin-right: 50px;">
-                            <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Edit Snack Request</h3>
-                            <hr style="width: 360px;">
-                            <div class="pickup-section" style="margin-top: 20px; width: 325px;">
+            <div class="container-food container2">
+                <h3>Assigned Snacks</h3>
+                <hr>
+                <p> Please select the child and meal, then enter the snack to assign it. You can easily view and edit the assigned snacks for each child as needed. </p>
+                <div class="Snackdata">
+                    <form id="Form2" method="POST" enctype="multipart/form-data" action="<?= ROOT ?>/Child/Meal/Snack_request_edit">
+                        <div>
+                            <h3 style="white-space:nowrap;">Edit Snack Request</h3>
+                            <hr>
+                            <div class="pickup-section" style="width: 340px;">
                                 <label for="date">Date</label>
                                 <input class="editsnack" required id="EditSnackDate" type="date" min="<?= (date('Y-m-d', strtotime('+1 day'))); ?>">
                                 <label for="date">Meal</label>
@@ -244,15 +237,15 @@
                                     <option hidden> selecte snack </option>
                                 </select>
                             </div>
-                            <button style="margin-top: 15px; margin-left:200px;"> Save </button>
+                            <button style="margin-top: 15px; margin-left:285px;"> Save </button>
                         </div>
                     </form>
-                    <div style="width: 3px; background-color: lightgray; margin-right: 50px;"></div>
-                    <div class="timetable" style="display: flex; flex-direction: column;">
-                        <div style="display: flex; flex-direction: row;">
+                    <div class="verticle-line"></div>
+                    <div class="foodtable">
+                        <div class="filters">
                             <input type="date" id="requestPicker" min="<?= (date('Y-m-d', strtotime('+1 day'))); ?>" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
                         </div>
-                        <table id="requestTable" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <table id="requestTable">
                             <thead>
                                 <tr>
                                     <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Child</th>
@@ -272,10 +265,10 @@
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
-            class="profile" />
-        <h2><?=$data['selectedchildren']['fullname'] ?></h2>
-        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
+                class="profile" />
+            <h2><?= $data['selectedchildren']['fullname'] ?></h2>
+            <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button"
                 onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">Profile</button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Child/ParentProfile'">Parent profile</button>
@@ -286,6 +279,18 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
 
         const dateInput = document.getElementById("dateInput");
         const mealInput = document.getElementById("mealInput");
@@ -563,60 +568,63 @@
         }
 
         function updateSnackrequestTables(snackRequestData) {
-    const tableBody = document.querySelector("#requestTable tbody");
-    tableBody.innerHTML = "";
+            const tableBody = document.querySelector("#requestTable tbody");
+            tableBody.innerHTML = "";
 
-    for (const childName in snackRequestData) {
-        const meals = snackRequestData[childName];
-        let firstRowForChild = true;
+            for (const childName in snackRequestData) {
+                const meals = snackRequestData[childName];
+                let firstRowForChild = true;
 
-        for (const meal in meals) {
-            const snacks = meals[meal];
-            let firstRowForMeal = true;
+                for (const meal in meals) {
+                    const snacks = meals[meal];
+                    let firstRowForMeal = true;
 
-            for (const snackName in snacks) {
-                const { quantity, requestID } = snacks[snackName];
+                    for (const snackName in snacks) {
+                        const {
+                            quantity,
+                            requestID
+                        } = snacks[snackName];
 
-                const row = document.createElement("tr");
+                        const row = document.createElement("tr");
 
-                if (firstRowForChild) {
-                    const childCell = document.createElement("td");
-                    childCell.textContent = childName;
-                    childCell.style.padding = "10px 15px";
-                    childCell.rowSpan = Object.values(meals).reduce((sum, mealSnacks) => sum + Object.keys(mealSnacks).length, 0);
-                    row.appendChild(childCell);
-                    firstRowForChild = false;
-                }
+                        if (firstRowForChild) {
+                            const childCell = document.createElement("td");
+                            childCell.textContent = childName;
+                            childCell.style.padding = "10px 15px";
+                            childCell.rowSpan = Object.values(meals).reduce((sum, mealSnacks) => sum + Object.keys(mealSnacks).length, 0);
+                            row.appendChild(childCell);
+                            firstRowForChild = false;
+                        }
 
-                if (firstRowForMeal) {
-                    const mealCell = document.createElement("td");
-                    mealCell.textContent = meal;
-                    mealCell.style.padding = "10px 15px";
-                    mealCell.rowSpan = Object.keys(snacks).length;
-                    row.appendChild(mealCell);
-                    firstRowForMeal = false;
-                }
+                        if (firstRowForMeal) {
+                            const mealCell = document.createElement("td");
+                            mealCell.textContent = meal;
+                            mealCell.style.padding = "10px 15px";
+                            mealCell.rowSpan = Object.keys(snacks).length;
+                            row.appendChild(mealCell);
+                            firstRowForMeal = false;
+                        }
 
-                const snackCell = document.createElement("td");
-                snackCell.textContent = `${snackName} (${quantity})`;
-                snackCell.style.padding = "10px 15px";
-                row.appendChild(snackCell);
+                        const snackCell = document.createElement("td");
+                        snackCell.textContent = `${snackName} (${quantity})`;
+                        snackCell.style.padding = "10px 15px";
+                        row.appendChild(snackCell);
 
-                const editCell = document.createElement("td");
-                editCell.className = "edit";
-                editCell.style.padding = "10px 15px";
-                editCell.innerHTML = `
+                        const editCell = document.createElement("td");
+                        editCell.className = "edit";
+                        editCell.style.padding = "10px 15px";
+                        editCell.innerHTML = `
                     <i class="fas fa-pen reservation-edit" 
                         style="margin-right: 15px; cursor: pointer;" 
                         data-request-id="${requestID}"></i>
                     <i class="fas fa-trash" style="cursor: pointer;" data-request-id="${requestID}"></i>`;
-                row.appendChild(editCell);
+                        row.appendChild(editCell);
 
-                tableBody.appendChild(row);
+                        tableBody.appendChild(row);
+                    }
+                }
             }
         }
-    }
-}
 
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -657,7 +665,7 @@
                 }, 100);
             }
 
-            document.querySelector("#requestTable tbody").addEventListener("click", function (event) {
+            document.querySelector("#requestTable tbody").addEventListener("click", function(event) {
                 if (event.target.classList.contains("fa-trash")) {
                     const requestID = event.target.getAttribute("data-request-id");
 
@@ -673,22 +681,24 @@
 
                     // Send delete request to the server
                     fetch("<?= ROOT ?>/Parent/meal/delete_snack_request", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ ID: requestID })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Remove the row from the table
-                            event.target.closest("tr").remove();
-                        } else {
-                            alert("Failed to delete the request. Try again.");
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                ID: requestID
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Remove the row from the table
+                                event.target.closest("tr").remove();
+                            } else {
+                                alert("Failed to delete the request. Try again.");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
                 }
             });
 
@@ -775,7 +785,7 @@
                 console.log(selectedDate);
                 fetchSnackPlan(selectedDate);
             });
-            });
+        });
     </script>
 </body>
 

@@ -209,7 +209,7 @@ body {
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--popup-background);
     border: solid 1px black;
 }
 .section h2 {
@@ -254,7 +254,7 @@ body {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--popup-background);
     text-align: center;
     width: 45%;
     border: solid 1px black;

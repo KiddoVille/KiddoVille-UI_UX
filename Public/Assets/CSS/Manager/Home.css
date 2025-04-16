@@ -63,7 +63,7 @@ body {
 }
 
 .sidebar ul li a:hover {
-    color: #007bff;
+    color: var(--button-blue);
 }
 
 
@@ -74,7 +74,7 @@ body {
     bottom: 0;
     height: 2px;
     width: 100%;
-    background-color: #007bff;
+    background-color: var(--button-blue);
     transform: scaleX(0);
     transition: transform 0.3s;
 }
@@ -125,7 +125,7 @@ body {
 
 .dropdown li:hover {
     background-color: #ddd;
-    color: #0056b3;
+    color: var(--secondary-color);
     border-radius: 3px;
 }
 
@@ -157,7 +157,7 @@ li:hover .dropdown {
 .header {
     position: fixed;
     left: 280px;
-    background: linear-gradient(135deg, #60a6ec, #10639a);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: #fff;
     padding: 20px;
     display: flex;
@@ -277,7 +277,7 @@ li:hover .dropdown {
 }
 .stats .stat:hover {
     transform: scale(1.05);
-    box-shadow: 0px 2px 7px 0.001px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 7px 0.001px var(--popup-background);
 }
 .stats .stat {
     background-color:white;
@@ -288,13 +288,13 @@ li:hover .dropdown {
     text-align: center;
     flex-grow: 2;
     margin-right: 50px;
-    box-shadow: 0px 2px 7px 0.001px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 2px 7px 0.001px var(--popup-background);
     width: 540px;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 .stats .stat:hover {
     transform: translateY(-10px);
-    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 15px 25px var(--popup-background);
 }
 .stats .stat:last-child {
     margin-right: 0;
@@ -348,7 +348,7 @@ li:hover .dropdown {
         width: 280px;
         padding: 20px;
         background-color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 8px var(--popup-background);
         transition: right 0.7s ease;
         display: flex;
         flex-direction: column;
@@ -379,7 +379,7 @@ li:hover .dropdown {
         margin: 10px 0 5px;
     }
     .profile-card p {
-        color: #666;
+        color: var(--p);
         font-size: 14px;
         margin: 5px 0;
     }
@@ -452,7 +452,7 @@ li:hover .dropdown {
         background-color: white;
         border: 1px solid #00C7F4;
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 8px var(--popup-background);
         transition: opacity 0.7s ease, visibility 0.3s ease;
         opacity: 0;
         visibility: hidden;
@@ -488,7 +488,7 @@ li:hover .dropdown {
     }
 
     .message-dropdown ul li:hover {
-        background-color: #60a6ec;
+        background-color: var(--primary-color);
         border-radius: 15px;
     }
 
@@ -503,7 +503,7 @@ li:hover .dropdown {
 
     .fa-paper-plane {
         margin-left: 10px;
-        border: 2px solid #0056b3;
+        border: 2px solid var(--secondary-color);
         background-color: #f0f4fb;
         border-radius: 10px;
         padding: 6px;
@@ -564,7 +564,7 @@ li:hover .dropdown {
     max-width: 1200px;
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px var(--popup-background);
     overflow: hidden;
     margin-left: 0.25%;
     margin-top: 1%;
@@ -575,7 +575,7 @@ li:hover .dropdown {
 
 .today_visitors_header {
     background-color: white;
-    color:#233E8D;
+    color:var(--heading);
     padding: 15px 20px;
     font-size: 1.2em;
     text-transform: uppercase;

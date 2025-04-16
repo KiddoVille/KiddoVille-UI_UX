@@ -2,6 +2,7 @@
 
 namespace Controller;
 use App\Helpers\SidebarHelper;
+use DateTime;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -32,9 +33,134 @@ class Home
 
         $data = $data + $this->store_attendance();
         $data = $data + $this->store_stats();
-
+        $data['holiday'] = $this->holidays();
+        $data['Notification'] = $this->Notifications();
         $session->set("Location" , 'Child/Home');
+
         $this->view('Child/home', $data);
+    }
+
+    public function SeenNotification(){
+        header('Content-Type: application/json');
+        $NotificationModal = new \Modal\ChildNotification;
+
+        $Notifications = $this->Notifications();
+        if(!empty($Notifications['data'])){
+            foreach ($Notifications['data'] as $Note){
+                $NotificationModal->update(["NotificationID"=>$Note->NotificationID], ["Seen" => 1]);
+            }
+        }
+
+        echo json_encode(['success' => true, 'message' => 'Notification is seen by user']);
+    }
+
+    private function Notifications() {
+        $NotificationModal = new \Modal\ChildNotification;
+        $session = new \Core\Session;
+        $ChildID = $session->get("CHILDID");
+    
+        $currentDate = date('Y-m-d');
+        $currentTime = date('H:i:s');
+        $Notifications = [];       
+        
+        if ($currentTime >= '08:00:00' && $currentTime < '12:00:00') {
+            $Notifications['data'] = $NotificationModal->findFutureDatesWithConditions("08:00:00", "12:00:00", ["ChildID" => $ChildID,"Date" => $currentDate], "Time");
+        }
+        elseif ($currentTime >= '12:00:00' && $currentTime < '20:00:00') {
+            $Notifications['data'] = $NotificationModal->findFutureDatesWithConditions("11:59:00", "20:00:00", ["ChildID" => $ChildID,"Date" => $currentDate], "Time");
+        }
+
+        $Count = 0;
+        foreach ($Notifications['data'] as $Note){
+            if($Note->Seen == 0){
+                $Count ++;
+            }
+        }
+
+        $Notifications['Seen'] = $Count;
+        return $Notifications;
+    }    
+
+    private function holidays() {
+        $HolidayModal = new \Modal\Holiday;
+        $firstDate = new DateTime();
+        $lastDate = (clone $firstDate)->modify('+30 days');
+        $Holidays = $HolidayModal->findFutureDates($firstDate, $lastDate);
+
+        return($Holidays);
+    }    
+
+    public function GetCalendar(){
+        // Get raw JSON from POST
+        $raw = file_get_contents("php://input");
+        $body = json_decode($raw, true);
+
+        $year = isset($body['Year']) ? (int)$body['Year'] : date('Y');
+        $month = isset($body['Month']) ? (int)$body['Month'] : date('n');
+
+        $firstDay = new DateTime("$year-$month-01");
+        $startDayOfWeek = (int)$firstDay->format('N'); // 1 = Mon, 7 = Sun
+        $totalDays = (int)$firstDay->format('t');
+        $monthName = $firstDay->format('F');
+
+        $days = [];
+        for ($i = 1; $i <= $totalDays; $i++) {
+            $date = new DateTime("$year-$month-$i");
+            $days[] = [
+                'day' => $i,
+                'date' => $date->format('Y-m-d'),
+                'dayOfWeek' => (int)$date->format('N') // 1 = Mon
+            ];
+        }
+
+        $firstdate = date("Y-m-01", strtotime("$year-$month-01"));
+        $lastdate = date("Y-m-t", strtotime("$year-$month-01"));
+        $AttendanceModal = new \Modal\Attendance;
+        $session = new \Core\Session;
+        $ChildID = $session->get("CHILDID");
+        
+        $AttendanceModal = new \Modal\Attendance;
+        $session = new \Core\Session;
+        $ChildID = $session->get("CHILDID");
+        
+        $records = $AttendanceModal->findFutureDatesWithConditions($firstdate, $lastdate, ["ChildID" => $ChildID], "Start_Date");
+        $Attendance = [];
+        if(!empty($records)){
+            foreach ($records as $record) {
+                if (!empty($record->Start_Date)) {
+                    $day = date('j', strtotime($record->Start_Date));
+                    $Attendance[] = (int)$day;
+                }
+            }
+        }
+        
+        $HolidayDates = [];
+        $HolidayModal = new \Modal\Holiday;
+        $Holidays = $HolidayModal->findFutureDates($firstdate, $lastdate);
+        
+        if(!empty($Holidays)){
+            foreach ($Holidays as $Holiday) {
+                if (!empty($Holiday->Date)) {
+                    $day = date('j', strtotime($Holiday->Date));
+                    $HolidayDates[] = (int)$day;
+                }
+            }
+        }
+
+        $response = [
+            'success' => true,
+            'year' => $year,
+            'month' => $month,
+            'monthName' => $monthName,
+            'startDay' => $startDayOfWeek-1,
+            'totalDays' => $totalDays,
+            'days' => $days,
+            'Attendance' => $Attendance,
+            'Holiday' => $HolidayDates,
+        ];
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 
     private function store_stats(){
@@ -398,4 +524,12 @@ class Home
         echo json_encode(["success" => true]);
         exit;
     }
+
+    public function minimize() {
+        $session = new \Core\Session();
+        $minimized = $session->get("MINIMIZE");
+        $session->set("MINIMIZE", !$minimized);
+        echo json_encode(["success" => true, "minimize" => !$minimized]);
+        exit;
+    }  
 }

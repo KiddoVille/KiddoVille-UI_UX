@@ -1,7 +1,9 @@
+@import url('../variables.css');
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     overflow: hidden; /* Prevents scrollbars */
 }
 
@@ -35,7 +37,7 @@ body {
     padding: 10px 20px;
     background-color: #94a4b4;
     border-top: 1px solid #ddd;
-    box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1); /* Optional: adds shadow to separate controls from video */
+    box-shadow: 0 -1px 10px var(--popup-background); /* Optional: adds shadow to separate controls from video */
 }
 
 .video-controls .left-controls,
@@ -114,7 +116,7 @@ img {
 }
 
 .Book-button {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -125,14 +127,14 @@ img {
 }
 
 .Book-button:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 
 .Book-download {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #007bff;
+    color: var(--button-blue);
     text-decoration: none;
     font-size: 18px;
 }
@@ -142,7 +144,7 @@ img {
 }
 
 .Book-download:hover {
-    color: #0056b3;
+    color: var(--secondary-color);
 }
 
 #pdf-viewer {
@@ -158,6 +160,6 @@ img {
 }
 
 #pdf-canvas {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Add shadow */
+    box-shadow: 0px 4px 10px var(--popup-background); /* Optional: Add shadow */
     background: white; /* Ensure background is white */
 }

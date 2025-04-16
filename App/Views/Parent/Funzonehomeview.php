@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzonehome.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
@@ -80,9 +83,7 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+
         </div>
         <!-- navigation to choose child -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
@@ -464,11 +465,25 @@
         </div>
         </div>
         <script>
+            const minimizeBtn = document.getElementById('minimize-btn');
+            const sidebar = document.getElementById('sidebar1');
+            const starImage = document.getElementById('starImage');
+            const logo = document.getElementById('sidebar-logo');
+            const kiddo = document.getElementById('sidebar-kiddo');
+
+            <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+                sidebar.classList.add('minimized');
+                starImage.classList.add('show');
+                logo.classList.add('hidden');
+                kiddo.classList.add('hidden');
+            <?php endif; ?>
+
             let History_count = 20;
             let Trending_count = 20;
             let Popular_count = 20;
             let Recommeded_count = 20;
             let New_count = 20;
+
             function removechildsession() {
                 fetch('<?= ROOT ?>/Parent/Funzonehome/removechildsession', {
                         method: 'POST',
@@ -502,7 +517,7 @@
                     .then(data => {
                         if (data.success) {
                             console.log("Child id set in session.");
-                            window.location.href = '<?= ROOT ?>/Parent/Home';
+                            window.location.href = '<?= ROOT ?>/Parent/Funzonehome';
                         } else {
                             console.error("Failed to set child id from session.", data.message);
                         }
@@ -526,9 +541,9 @@
                             console.log("Fetched media data:", data.data);
                             Media = data.data;
                             if (Array.isArray(Media.Trending)) createMediaItems(Media.Trending, "trending-grid", Media.Trending_avail);
-                            if (Array.isArray(Media.Popular)) createMediaItems(Media.Popular, "popular-grid" , Media.Popular_avail);
-                            if (Array.isArray(Media.Recomended)) createMediaItems(Media.Recomended, "recommended-grid" , Media.Recomended_avail);
-                            if (Array.isArray(Media.History)) createMediaItems(Media.History, "watch-again-grid" , Media.History_avail);
+                            if (Array.isArray(Media.Popular)) createMediaItems(Media.Popular, "popular-grid", Media.Popular_avail);
+                            if (Array.isArray(Media.Recomended)) createMediaItems(Media.Recomended, "recommended-grid", Media.Recomended_avail);
+                            if (Array.isArray(Media.History)) createMediaItems(Media.History, "watch-again-grid", Media.History_avail);
                             if (Array.isArray(Media.New)) createMediaItems(Media.New, "new-grid", Media.New_avail);
                         } else {
                             console.error("Failed to fetch media data:", data.message);
@@ -590,7 +605,7 @@
                     }
 
                     const mediaItem = `
-                        <div class="item" onclick="window.location.href='<?=ROOT?>/Parent/Resource?MediaID=${item.MediaID}'" style="cursor:pointer;">
+                        <div class="item" onclick="window.location.href='<?= ROOT ?>/Parent/Resource?MediaID=${item.MediaID}'" style="cursor:pointer;">
                             ${mediaContent}
                             <h3>${item.Title}</h3>
                             <p>${item.Description}</p>
@@ -714,48 +729,49 @@
             }
 
             function addEventListeners() {
-                    const loadmoretrending = document.getElementById('load-more-trending-grid');
-                    if (loadmoretrending) {
-                        loadmoretrending.addEventListener('click', function() {
-                            fetchloadmore(typePicker.value, this.value, Trending_count);
-                            Trending_count += 20;
-                        });
-                    }
-
-                    const loadmorehistory = document.getElementById('load-more-watch-again-grid');
-                    if (loadmorehistory) {
-                        loadmorehistory.addEventListener('click', function() {
-                            fetchloadmore(typePicker.value, this.value, History_count);
-                            History_count += 20;
-                        });
-                    }
-
-                    const loadmorepopular = document.getElementById('load-more-popular-grid');
-                    if (loadmorepopular) {
-                        loadmorepopular.addEventListener('click', function() {
-                            fetchloadmore(typePicker.value, this.value, Popular_count);
-                            Popular_count += 20;
-                        });
-                    }
-
-                    const loadmorerecommended = document.getElementById('load-more-recommended-grid');
-                    if (loadmorerecommended) {
-                        loadmorerecommended.addEventListener('click', function() {
-                            fetchloadmore(typePicker.value, this.value, Recommeded_count);
-                            Recommeded_count += 20;
-                        });
-                    }
-
-                    const loadmorenew = document.getElementById('load-more-new-grid');
-                    if (loadmorenew) {
-                        loadmorenew.addEventListener('click', function() {
-                            fetchloadmore(typePicker.value, this.value, New_count);
-                            New_count += 20;
-                        });
-                    }
+                const loadmoretrending = document.getElementById('load-more-trending-grid');
+                if (loadmoretrending) {
+                    loadmoretrending.addEventListener('click', function() {
+                        fetchloadmore(typePicker.value, this.value, Trending_count);
+                        Trending_count += 20;
+                    });
                 }
 
+                const loadmorehistory = document.getElementById('load-more-watch-again-grid');
+                if (loadmorehistory) {
+                    loadmorehistory.addEventListener('click', function() {
+                        fetchloadmore(typePicker.value, this.value, History_count);
+                        History_count += 20;
+                    });
+                }
+
+                const loadmorepopular = document.getElementById('load-more-popular-grid');
+                if (loadmorepopular) {
+                    loadmorepopular.addEventListener('click', function() {
+                        fetchloadmore(typePicker.value, this.value, Popular_count);
+                        Popular_count += 20;
+                    });
+                }
+
+                const loadmorerecommended = document.getElementById('load-more-recommended-grid');
+                if (loadmorerecommended) {
+                    loadmorerecommended.addEventListener('click', function() {
+                        fetchloadmore(typePicker.value, this.value, Recommeded_count);
+                        Recommeded_count += 20;
+                    });
+                }
+
+                const loadmorenew = document.getElementById('load-more-new-grid');
+                if (loadmorenew) {
+                    loadmorenew.addEventListener('click', function() {
+                        fetchloadmore(typePicker.value, this.value, New_count);
+                        New_count += 20;
+                    });
+                }
+            }
+
             document.addEventListener('DOMContentLoaded', function() {
+
                 const typePicker = document.getElementById('typePicker');
 
                 // Initial fetch for media

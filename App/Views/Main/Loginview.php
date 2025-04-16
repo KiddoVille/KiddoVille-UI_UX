@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
-    <link rel="stylesheet" href="<?=CSS?>/Main/Login.css">
+    <link rel="stylesheet" href="<?=CSS?>/Main/Login.css?v=<?= time() ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -41,7 +41,7 @@
                         <div class="checkbox-remember-me">
                             <input type="checkbox" id="remember-me" style="margin-bottom: 7px;">
                             <label class="label" for="remember-me">Remember me</label>
-                            <a class="forgot-password" href="./Reset-password-email.html" style="margin-bottom: 5px;">Forgot your Password?</a>
+                            <a class="forgot-password" href="<?=ROOT?>/Main/EnterEmail" style="margin-bottom: 5px;">Forgot your Password?</a>
                         </div>
                         <button type="submit">Login</button>
                         <div style="display: flex;align-items: center; margin-bottom: 0px; margin-top: -20px">

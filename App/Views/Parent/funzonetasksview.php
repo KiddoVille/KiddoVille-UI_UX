@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzonetasks.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
@@ -77,9 +80,7 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+
         </div>
         <!-- navigation to choose child -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
@@ -185,7 +186,7 @@
                     </div>
                 </div>
             </div>
-            <div class="header2">
+            <div class="header2" style="margin-left: 23px; margin-top: 85px;">
                 <img src="<?= IMAGE ?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
                 <p style="color: white; font-size: 17px;">Funzone </p>
                 <a href="<?= ROOT ?>/Parent/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
@@ -486,6 +487,19 @@
     </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         function removechildsession() {
             fetch('<?= ROOT ?>/Parent/Funzonetask/removechildsession', {
                     method: 'POST',
@@ -519,7 +533,7 @@
                 .then(data => {
                     if (data.success) {
                         console.log("Child id set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
+                        window.location.href = '<?= ROOT ?>/Child/Funzonetask';
                     } else {
                         console.error("Failed to set child id from session.", data.message);
                     }
@@ -558,13 +572,14 @@
 
             const grid = document.createElement("div");
             grid.classList.add("grid");
-            grid.style.marginTop = "130px";
+            grid.style.marginTop = "150px";
+            grid.style.marginLeft = "20px";
             grid.id = "grid";
 
             data.forEach(item => {
                 const itemDiv = document.createElement("div");
                 itemDiv.classList.add("item");
-                itemDiv.style.cursor= 'pointer';
+                itemDiv.style.cursor = 'pointer';
                 itemDiv.style.width = '600px';
                 itemDiv.style.height = '200px';
 
@@ -684,7 +699,7 @@
 
                 const childNameDiv = document.createElement("h4");
                 childNameDiv.classList.add("format");
-                childNameDiv.textContent = `Child - ${item.ChildName}`; 
+                childNameDiv.textContent = `Child - ${item.ChildName}`;
 
                 // Append elements to content div
                 contentDiv.appendChild(title);
@@ -706,6 +721,7 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
+
             const typePicker = document.getElementById('typePicker');
             // Initial fetch for media
             fetchMedia('All');

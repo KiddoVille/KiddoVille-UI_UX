@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Message.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/deletepopup.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Upload-file.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/message.js?v=<?= time() ?>"></script> -->
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"> </script>
@@ -66,7 +69,7 @@
                         <i class="fas fa-gamepad"></i> <span>Fun Zone</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top: 40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Child/Message">
                         <i class="fas fa-comment"></i> <span>Messager</span>
                     </a>
@@ -77,29 +80,24 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span></a>
-            </div>
+            <hr>
         </div>
         <!-- navigation to choose child -->
         <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: -70px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -111,10 +109,7 @@
                             "
                                 onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -125,21 +120,21 @@
         </div>
         <!-- Header -->
         <div class="header">
-            <i class="fa fa-bars" id="minimize-btn"
-                style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+            <i class="fa fa-bars" id="minimize-btn"></i>
             <div class="name">
-                <h1 style="color: white;"><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                <p style="color: white">Let’s do some productive activities today</p>
+                <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
+                <p>Let’s do some productive activities today</p>
             </div>
             <div class="search-bar">
                 <input type="text" placeholder="Search">
-                <i class="fas fa-search"></i>
-                <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
             </div>
             <!-- message icon -->
-            <div class="bell-con" id="bell-container" style="cursor: pointer;">
-                <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                <div class="message-dropdown" id="messageDropdown" style="display: none;">
+            <div class="bell-con" id="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <div class="message-numbers">
+                    <p> 2</p>
+                </div>
+                <div class="message-dropdown" id="messageDropdown">
                     <ul>
                         <li>
                             <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -168,20 +163,17 @@
                     </ul>
                 </div>
             </div>
-            <div class="message-numbers">
-                <p> 2</p>
-            </div>
             <!-- Prodile btn -->
             <div class="profile">
                 <button class="profilebtn">
-                    <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                    <i class="fas fa-user-circle"></i>
                 </button>
             </div>
         </div>
 
         <div class="sidebar3">
             <div class="search-bar">
-                <input placeholder="Search" type="text" id="persons"/>
+                <input placeholder="Search" type="text" id="persons" />
             </div>
             <div class="chat-list" id="sidebar" style="height: 580px;">
                 <div id="newtext" class="newtext">
@@ -211,28 +203,28 @@
         </div>
         <div class="chat-window">
             <div class="header2" style="height: 40px;">
-                <img alt="Profile picture of Deepti manohar" style="display: none;" height="40" src=" " width="40" />
-                <div class="user-info" style="display: flex; flex-direction: column;">
+                <img alt="Profile picture of Deepti manohar" height="40" src=" " width="40" />
+                <div class="user-info">
                     <span class="name">
                     </span>
                     <span class="status">
                     </span>
                 </div>
                 <div class="icons">
-                    <i class="fas fa-sync" style="font-size: 25px;" id="refresh"></i>
+                    <i class="fas fa-sync" id="refresh"></i>
                 </div>
             </div>
             <div class="messages" id="chat-window">
                 <div id="scroll-anchor"></div>
             </div>
             <div class="input-bar" id="input-bar">
-                <button id="paperclip-btn" style="margin-right: 10px;"><i class="fa fa-paperclip"></i></button>
-                <button id="edit-close-btn" style="margin-right: 10px; font-size: 20px; display: none;"><i class="fas fa-times"></i></button>
+                <button id="paperclip-btn"><i class="fa fa-paperclip"></i></button>
+                <button id="edit-close-btn"><i class="fas fa-times"></i></button>
                 <input placeholder="Enter message" type="text" id="message-value" />
                 <button id="send-btn">
                     <i class="fas fa-paper-plane"></i>
                 </button>
-                <button style="display: none;" id="edit-send-btn">
+                <button id="edit-send-btn">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
@@ -259,11 +251,11 @@
                         <button id="upload-btn">Browse</button>
                         <small>Supported Files: JPEG, PNG, PDF, DOCX</small>
                     </div>
-                    <input type="file" id="file-input" style="display: none;" multiple>
+                    <input type="file" id="file-input" multiple>
                 </div>
                 <div class="upload-buttons">
                     <button id="cancel-btn">Cancel</button>
-                    <button class="done" id="files" style="margin-right: 100px !important;">Done</button>
+                    <button class="done" id="files">Done</button>
                 </div>
             </div>
         </div>
@@ -277,11 +269,10 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- profile card -->
         <div class="profile-card" id="profileCard" style="top: 0 !important; position: fixed !important; z-index: 1000000;">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
                 class="profile" />
             <h2><?= $data['selectedchildren']['fullname'] ?></h2>
@@ -297,6 +288,19 @@
     </div>
 </body>
 <script>
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const sidebar = document.getElementById('sidebar1');
+    const starImage = document.getElementById('starImage');
+    const logo = document.getElementById('sidebar-logo');
+    const kiddo = document.getElementById('sidebar-kiddo');
+
+    <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+        sidebar.classList.add('minimized');
+        starImage.classList.add('show');
+        logo.classList.add('hidden');
+        kiddo.classList.add('hidden');
+    <?php endif; ?>
+
     const MyID = <?= json_encode($data['Child']); ?>;
     const paperclipBtn = document.getElementById('paperclip-btn');
     const editclose = document.getElementById('edit-close-btn');
@@ -521,6 +525,13 @@
             .then(data => {
                 if (data.success) {
                     console.log(data);
+                    if (partnerUserID) {
+                        console.log(partnerUserID)
+                        const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${partnerUserID}"]`);
+                        console.log(newActiveElement)
+                        console.log('lol');
+                        newActiveElement.classList.add('active');
+                    }
                     loadChat(data.message)
                 } else {
                     alert("Error in loading Chat");
@@ -586,16 +597,15 @@
                 deletedMsg.textContent = "This message was deleted";
                 deletedMsg.classList.add("deleted-message");
                 textDiv.appendChild(deletedMsg);
-            } 
-            else if (!msg.Message && msg.FileType) {
-                if(isSent){
+            } else if (!msg.Message && msg.FileType) {
+                if (isSent) {
                     textDiv.classList.add("file");
                 }
                 let mediaElement;
                 if (msg.FileType.startsWith("image") || msg.FileType.startsWith("audio") || msg.FileType.startsWith("video") || msg.FileType.startsWith("document")) {
                     // Create a wrapper for file and download button
                     mediaElement = document.createElement("div");
-                    mediaElement.classList.add("file-container");  // Add a wrapper for media + download button
+                    mediaElement.classList.add("file-container"); // Add a wrapper for media + download button
 
                     let fileMedia;
 
@@ -605,20 +615,17 @@
                         fileMedia.src = msg.URL;
                         fileMedia.alt = "Image file";
                         fileMedia.style.maxWidth = "250px";
-                    } 
-                    else if (msg.FileType.startsWith("audio")) {
+                    } else if (msg.FileType.startsWith("audio")) {
                         fileMedia = document.createElement("audio");
                         fileMedia.controls = true;
                         fileMedia.src = msg.URL;
-                    } 
-                    else if (msg.FileType.startsWith("video")) {
+                    } else if (msg.FileType.startsWith("video")) {
                         fileMedia = document.createElement("video");
                         fileMedia.controls = true;
                         fileMedia.style.maxWidth = "300px";
                         fileMedia.src = msg.URL;
-                        fileMedia.setAttribute("preload", "metadata");  // Load metadata only for video
-                    } 
-                    else if (msg.FileType.startsWith("document")) {
+                        fileMedia.setAttribute("preload", "metadata"); // Load metadata only for video
+                    } else if (msg.FileType.startsWith("document")) {
                         fileMedia = document.createElement("p");
                         // Display document filename
                         const fileNameText = document.createTextNode(msg.FileName);
@@ -630,29 +637,28 @@
                     downloadBtn.href = msg.URL;
                     downloadBtn.download = msg.URL.split('/').pop(); // Extract filename
                     const downloadIcon = document.createElement("i");
-                    downloadIcon.classList.add("fas", "fa-download");  // Font Awesome icon class for download
+                    downloadIcon.classList.add("fas", "fa-download"); // Font Awesome icon class for download
 
                     // Position the download button based on message type (sent or received)
                     if (isSent) {
                         mediaElement.appendChild(downloadBtn);
                         downloadBtn.appendChild(downloadIcon);
                         mediaElement.appendChild(fileMedia);
-                        mediaElement.classList.add("sent-file");  // For styling sent files
+                        mediaElement.classList.add("sent-file"); // For styling sent files
                         downloadBtn.classList.add("sent-download-btn");
                     } else {
                         mediaElement.appendChild(fileMedia);
                         downloadBtn.appendChild(downloadIcon);
                         mediaElement.appendChild(downloadBtn);
-                        mediaElement.classList.add("received-file");  // For styling received files
+                        mediaElement.classList.add("received-file"); // For styling received files
                         downloadBtn.classList.add("received-download-btn");
                     }
                     downloadBtn.classList.add("download-btn");
                     textDiv.appendChild(mediaElement);
                 }
-            } 
-            else {
+            } else {
                 // Text message
-                if(isSent){
+                if (isSent) {
                     textDiv.classList.add("word");
                 }
                 const messagePara = document.createElement("p");
@@ -732,16 +738,16 @@
         const editclose = document.getElementById('edit-close-btn');
         const editsend = document.getElementById('edit-send-btn');
 
-        person.addEventListener('change' , () => {
+        person.addEventListener('change', () => {
             let Name = person.value;
             get_users(Name);
             person.value = '';
-        }) 
+        })
 
         cancel.addEventListener('click', () => {
             const fileInput = document.querySelector('input[type="file"]'); // Make sure this targets the correct input
             if (fileInput) {
-                fileInput.value = ''; 
+                fileInput.value = '';
             }
             uploadContainer.classList.toggle('active2');
             uploadContent.style.display = 'block';
@@ -833,11 +839,9 @@
                         fileIcon.classList.add('fas', 'fa-file-pdf');
                     } else if (file.type.includes('word')) {
                         fileIcon.classList.add('fas', 'fa-file-word');
-                    }
-                    else if (file.type.includes('audio')){
+                    } else if (file.type.includes('audio')) {
                         fileIcon.classList.add('fas', 'fa-file-audio');
-                    }
-                    else if (file.type.includes('video')){
+                    } else if (file.type.includes('video')) {
                         fileIcon.classList.add('fas', 'fa-file-video');
                     } else {
                         fileIcon.classList.add('fas', 'fa-file');
@@ -934,7 +938,16 @@
                         const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
                         console.log(activePartnerUserID);
                         get_users();
-                        setTimeout (() => {
+                        senduser(activePartnerUserID);
+                        const fileInput = document.querySelector('input[type="file"]'); // Make sure this targets the correct input
+                        if (fileInput) {
+                            fileInput.value = '';
+                        }
+                        uploadContainer.classList.toggle('active2');
+                        uploadContent.style.display = 'block';
+                        fileList.innerHTML = '';
+
+                        setTimeout(() => {
                             if (activePartnerUserID) {
                                 const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
                                 if (newActiveElement) {
@@ -942,15 +955,6 @@
                                 }
                             }
                         }, 2000);
-                        senduser(activePartnerUserID);
-                        const fileInput = document.querySelector('input[type="file"]'); // Make sure this targets the correct input
-                        if (fileInput) {
-                            fileInput.value = ''; 
-                        }
-                        uploadContainer.classList.toggle('active2');
-                        uploadContent.style.display = 'block';
-                        fileList.innerHTML = '';
-                        
                         console.log(data);
                         // You can do additional work here like clearing the file list or updating UI.
                     } else {
@@ -987,14 +991,15 @@
                     const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
                     console.log(activePartnerUserID);
                     get_users();
-                    setTimeout (() => {
+                    setTimeout(() => {
                         if (activePartnerUserID) {
+                            console.log(activePartnerUserID)
                             const newActiveElement = document.querySelector(`.sidebar-chat[data-partneruserid="${activePartnerUserID}"]`);
-                            if (newActiveElement) {
-                                newActiveElement.classList.add('active');
-                            }
+                            console.log(newActiveElement)
+                            console.log('lol');
+                            newActiveElement.classList.add('active');
                         }
-                    }, 1000);
+                    }, 1500);
                     senduser(activePartnerUserID);
                     console.log('Message sent successfully:', data);
                 })
@@ -1029,7 +1034,7 @@
             } else if (messageElement) {
                 selectedMessage = messageElement;
                 showPopup(e.pageX, e.pageY);
-            }else {
+            } else {
                 popup.style.display = "none";
             }
         });
@@ -1058,7 +1063,7 @@
             if (selectedMessage) {
                 // Get the message text without the "Edited" span
                 const messageText = selectedMessage.querySelector("p")?.textContent.replace(/Edited$/, ''); // Remove "Edited" text if it exists
-                
+
                 if (messageText) {
                     messagevalue.value = messageText; // Set the message without the "Edited" text
                     messagevalue.focus(); // Focus on the input field
@@ -1066,9 +1071,9 @@
                 }
             }
             console.log(messagevalue.value); // Check if it logs correctly
-            });
+        });
 
-        editclose.addEventListener('click', function(){
+        editclose.addEventListener('click', function() {
             paperclipBtn.style.display = 'flex';
             sendbtn.style.display = 'flex';
             editclose.style.display = 'none';
@@ -1079,7 +1084,7 @@
 
         })
 
-        editsend.addEventListener('click', function(){
+        editsend.addEventListener('click', function() {
             paperclipBtn.style.display = 'flex';
             sendbtn.style.display = 'flex';
             editclose.style.display = 'none';
@@ -1087,15 +1092,17 @@
 
             let Message = messagevalue.value; // Set the value
             const ChatID = selectedMessage.getAttribute("data-chatid");
-            const  p = selectedMessage.querySelector("p");
+            const p = selectedMessage.querySelector("p");
             console.log(Message);
             console.log(ChatID);
 
             if (ChatID && Message) {
-                    fetch("<?=ROOT?>/Child/Message/editchat", {
+                fetch("<?= ROOT ?>/Child/Message/editchat", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ 
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
                             ChatID: ChatID,
                             Message: Message
                         })
@@ -1115,11 +1122,11 @@
                         }
                     })
                     .catch(error => console.error("Error:", error));
-                }
+            }
 
             messagevalue.value = '';
             selectedMessage = null;
-            
+
         })
 
         document.getElementById("deleteBtn").addEventListener("click", () => {
@@ -1134,21 +1141,25 @@
                 const chatID = selectedMessage.getAttribute("data-chatid");
 
                 if (chatID) {
-                    fetch("<?=ROOT?>/Child/Message/deletechat", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ ChatID: chatID })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
-                            senduser(activePartnerUserID);
-                        } else {
-                            alert("Failed to delete message.");
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
+                    fetch("<?= ROOT ?>/Child/Message/deletechat", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                ChatID: chatID
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                const activePartnerUserID = document.querySelector('.sidebar-chat.active')?.getAttribute('data-partneruserid');
+                                senduser(activePartnerUserID);
+                            } else {
+                                alert("Failed to delete message.");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
                 }
             }
             document.getElementById("deletePopup").style.display = "none"; // Hide popup

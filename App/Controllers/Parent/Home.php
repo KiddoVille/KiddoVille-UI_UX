@@ -431,5 +431,13 @@
             echo json_encode(["success" => true]);
             exit;
         }
+
+        public function minimize() {
+            $session = new \Core\Session();
+            $minimized = $session->get("MINIMIZE");
+            $session->set("MINIMIZE", !$minimized);
+            echo json_encode(["success" => true, "minimize" => !$minimized]);
+            exit;
+        }        
     }  
 ?>

@@ -14,6 +14,7 @@
 
             $Data = [];
             $UserID = $session->get('USERID');
+            $session->unset('OTP');
 
             $parent = new \Modal\ParentUser;
             $result = $parent->where_norder(["UserID" => $UserID]);
@@ -21,7 +22,7 @@
                 redirect('Parent/Home');
             }
 
-            $requiredFields = ['First_Name', 'Last_Name', 'Phone_Number', 'Address', 'NID', 'Email', 'Gender', 'Language'];
+            $requiredFields = ['First_Name', 'Last_Name', 'Address', 'NID', 'Gender', 'Language'];
 
             if(($_SERVER['REQUEST_METHOD'] === 'POST') && $_FILES['profile_image'] && checkRequiredFields($requiredFields, $_POST)){
                 if (empty($errors)) {
@@ -40,9 +41,18 @@
                             } else {
                                 $_POST['Image'] = $imageBlob;
                                 $_POST['ImageType'] = $imageType;
+                                $_POST['Email'] = $session->get('EMAIL');
+                                $_POST['Phone_Number'] = $session->get('NUMBER');
                                 $parent = new \Modal\ParentUser;
                                 $parent->insert($_POST);
                                 
+                                $session->unset('NUMBER');
+                                $session->unset('EMAIL');
+                                $session->unset('EMAIL_VARIFIED');
+                                $session->unset('CONTACT_VARIFIED');
+                                $session->unset('OTP');
+                                $session->unset('VERIFIED_PHONE');
+
                                 redirect('Onbording/Child');
                             }
                         } else {

@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .main-content .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -16,7 +18,7 @@
     overflow-x: hidden !important;
     overflow-y: hidden;
     margin-top: -10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     background: #dcdcdc;
     border-radius: 10px;
     align-items: left;
@@ -45,7 +47,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
 }
 
 
@@ -117,7 +119,7 @@ body {
     width: 70%;
     background-color: #fff;
     padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--popup-background);
     border-radius: 10px;
     overflow-x: hidden;
 }
@@ -216,7 +218,7 @@ body {
 
 .video-details .description {
     font-size: 16px;
-    color: #666;
+    color: var(--p);
 }
 
 .comments {
@@ -267,7 +269,7 @@ body {
     background-color: #fff;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--popup-background);
 }
 
 .related-video .thumbnail {
@@ -312,7 +314,7 @@ body {
 
 .related-video .details .description {
     font-size: 14px;
-    color: #666;
+    color: var(--p);
 }
 
 .video-player .play-button {
@@ -371,7 +373,7 @@ body {
 
 .action-button:hover {
     background-color: #155a9e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--popup-background);
 }
 
 .action-button:focus {
@@ -391,7 +393,7 @@ body {
     /* Optional: background color */
     border-radius: 8px;
     /* Optional: rounded corners */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px var(--popup-background);
     /* Optional: shadow */
     background-color: #94a4b4;
     padding: 10px 10px;
@@ -489,7 +491,7 @@ body {
 }
 
 .Book-button {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -500,14 +502,14 @@ body {
 }
 
 .Book-button:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
 }
 
 .Book-download {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #007bff;
+    color: var(--button-blue);
     text-decoration: none;
     font-size: 18px;
 }
@@ -517,5 +519,5 @@ body {
 }
 
 .Book-download:hover {
-    color: #0056b3;
+    color: var(--secondary-color);
 }

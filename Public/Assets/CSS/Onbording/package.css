@@ -66,7 +66,7 @@
 }
 
 .selectday {
-    background-color: #60a6ec;
+    background-color: var(--primary-color);
     border: 2px solid darkblue;
     color: white;
 }
@@ -125,7 +125,7 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px var(--popup-background);
 }
 
 .package::-webkit-scrollbar {
@@ -169,7 +169,7 @@ span {
     height: 40px;
     width: 220px;
     font-family: Arial, sans-serif;
-    background: #60a6ec;
+    background: var(--primary-color);
     border-radius: 0px 8px 8px 0px;
     position: relative;
     overflow: hidden;
@@ -188,6 +188,6 @@ span {
     position: relative;
     font-size: 18px;
     z-index: 100;
-    background-color: #10639a;
+    background-color: var(--secondary-color);
     padding: 10px 27px;
 }

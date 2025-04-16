@@ -30,4 +30,5 @@
     require 'Controller.php';
     require 'App.php';
     require 'Mailer.php';
+    $GLOBALS['env'] = require '../env.php';
 ?>

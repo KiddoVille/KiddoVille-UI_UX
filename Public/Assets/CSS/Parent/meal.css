@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -22,7 +24,7 @@ body::-webkit-scrollbar {
     position: relative;
     height: 110vh !important;
     margin-left: 270px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     width: 100%;
 }
 
@@ -31,8 +33,11 @@ body::-webkit-scrollbar {
     margin-top: -37px !important;
 }
 
-.message-dropdown ul li:hover .content {
-    color: black !important;
+.table-holder{
+    display: flex; 
+    flex-direction: row; 
+    width: 100%; 
+    justify-content:flex-start;
 }
 
 .container-food {
@@ -40,97 +45,128 @@ body::-webkit-scrollbar {
     background-color: rgba(255, 255, 255, 0.8);
     margin-top: 80px;
     border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px var(--popup-background);
     align-items: center;
     display: flex;
     flex-direction: column;
 }
 
-.timetable {
-    width: 520px;
+.t1{
+    margin-left: 20px; 
+    top:0; 
+    vertical-align: top;
 }
 
-.timetable .filters {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+.t2{
+    margin-left: 20px;
 }
 
-.timetable .filters input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #4d4c4c16;
+.t3{
+    margin-left: 20px; 
+    width: 180px;
 }
 
-.timetable .filters input[type="date"] {
-    width: 250px;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.t3 h3{
+    margin-top: 10px !important; 
+    margin-bottom: 4px; 
+    margin-right: 60px;
 }
 
-.timetable table {
-    width: 100%;
-    border-collapse: collapse;
+.t3 hr{
+    width: 190px;
 }
 
-.table-body-container::-webkit-scrollbar {
-    display: none;
-}
-
-.timetable table th,
-.activity-schedule table td {
-    padding: 10px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid #ccc;
-    text-align: left;
-}
-
-.timetable table th {
-    background-color: #f5f5f5;
-    color: #233E8D;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.timetable table tr {
-    border-bottom: 4px solid lightgray;
-}
-
-.timetable .description {
+.t3 button{
     margin-top: 20px;
-}
-
-.timetable .description h3 {
-    font-size: 18px;
-    margin: 0 0 10px;
-}
-
-.timetable .description p {
-    margin: 0;
-}
-
-.timetable input[type="date"] {
-    width: 250px;
-    text-align: center;
-    padding: 10px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 100px;
-    margin-bottom: 10px;
-    background-color: #f0f0f0;
+    width: 160px;
 }
 
 .pickup-section {
     border-radius: 10px;
     padding: 5px 10px;
-    border: 2px solid #b2ebf2;
+    border: 2px solid var(--pickup-border);
     position: relative;
     margin-bottom: 5px;
+    margin-top: 20px; 
+    width: 160px;
+}
+
+.container2{
+    margin-left: 40px; 
+    margin-top: 20px; 
+    align-items: left; 
+    width: 1060px; 
+    justify-content: space-between;
+}
+
+.container2 h3{
+    margin-top: 0px !important; 
+    margin-bottom: 4px; 
+    margin-right: 900px;
+}
+
+.container2 p{
+    margin-left: -50px;
+    margin-top: 0px;
+}
+
+.conatiner2 hr{
+    width: 1070px;
+}
+
+.Snackdata{
+    width: 1070px;
+    margin-left: 0px;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#Form2{
+    width: 360px; 
+    margin-left: 50px;
+}
+
+.edit-con{
+    display: flex; 
+    flex-direction: column; 
+    margin-right: 50px;
+}
+
+.edit-con h3{
+    white-space: nowrap;
+}
+
+.edit-con hr{
+    width: 360px;
+}
+
+.edit-con .pickup-section{
+    margin-top: 20px;
+    width: 325px;
+}
+
+.edit-con button{
+    margin-top: 15px; margin-left:200px;
+    width: 150px;   
+}
+
+.verticle-line{
+    width: 3px; 
+    background-color: lightgray; 
+    margin-left: -30px;
+    margin-right: -30px;
+}
+
+.foodtable .filters{
+    justify-content:flex-start !important;
+    align-items: left;
+}
+
+.Snackdata .foodtable{
+    margin-left: -40px;
+    margin-right: 50px;
 }
 
 .pickup-section label {
@@ -149,7 +185,7 @@ body::-webkit-scrollbar {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 .pickup-section select {

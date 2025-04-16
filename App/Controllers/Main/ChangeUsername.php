@@ -38,6 +38,8 @@ class ChangeUsername
     
         // Handle AJAX request and set the child session
         $request = json_decode(file_get_contents('php://input'), true);
+        $session = new \Core\Session;
+        $userid = $session->get('USERID');
     
         if (isset($request['name'])) {
             $name = $request['name'];
@@ -47,38 +49,19 @@ class ChangeUsername
             $result = $user->first(['Username' => $name]);
     
             if (!$result) {
-                $session = new \Core\Session;
-                $username = $session->get('USERNAME');
     
                 // Validate the new username
                 $validationResult = $this->validateUsername($name);
                 if ($validationResult === true) {
                     try {
                         // Update username across tables
-                        $user->update(["Username" => $username], ["Username" => $name]);
+                        $user->update(["UserID" => $userid], ["Username" => $name]);
     
                         // Update sessions
                         $session->unset("CHILDNAME");
                         $session->unset("Logged_In");
                         $session->unset("CHILD_ID");
                         $session->unset('USERNAME');
-    
-                        // Update related tables
-                        $parent = new \Modal\ParentUser;
-                        $parent->update(["Username" => $username], ["Username" => $name]);
-    
-                        $child = new \Modal\Child;
-                        $child->update(["Parent_Name" => $username], ["Parent_Name" => $name]);
-    
-                        $guardian = new \Modal\Guardian;
-                        $guardian->update(["Parent_Name" => $username], ["Parent_Name" => $name]);
-    
-                        // Rename user directory if it exists
-                        if (!renameDirectory($username, $name)) {
-                            $response['errors'][] = "Failed to rename directory.";
-                            echo json_encode($response);
-                            return; // Stop execution on failure
-                        }
 
                         // All success actions, set response
                         $response['success'] = true;
@@ -106,13 +89,12 @@ class ChangeUsername
         // If no errors, return success response
         if (empty($response['errors'])) {
             $response['success'] = true;
-            $response['message'] = 'Child name updated successfully.';
+            $response['message'] = 'Username Updated Successfully.';
         }
     
         // Send the response as JSON
         echo json_encode($response);
     }
-    
 
 
     private function validateUsername($username)

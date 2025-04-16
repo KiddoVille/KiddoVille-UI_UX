@@ -55,7 +55,7 @@ body {
 }
 
 .add-content {
-    color: #007bff;
+    color: var(--button-blue);
     cursor: pointer;
     display: block;
     margin-top: 10px;
@@ -94,7 +94,7 @@ body {
 }
 
 .upload-box button {
-    background: #007bff;
+    background: var(--button-blue);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -121,7 +121,7 @@ body {
 
 
 .buttons button {
-    background: #007bff;
+    background: var(--button-blue);
     color: #fff;
     border: none;
     font-size: 14px; /* Smaller font size */
@@ -152,7 +152,7 @@ body {
 .custom-file-label {
     display: inline-block;
     padding: 10px 20px;
-    background-color:#007bff;
+    background-color:var(--button-blue);
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -161,7 +161,7 @@ body {
 }
 
 .custom-file-label:hover {
-    background-color: #007bff;
+    background-color: var(--button-blue);
 }
 /* .toggle {
     position: absolute; 
@@ -192,7 +192,7 @@ body {
     transition: all 0.3s;
 }
 input:checked + .slider {
-    background-color: #007bff;
+    background-color: var(--button-blue);
 }
 input:checked + .slider:before {
     transform: translateX(20px);

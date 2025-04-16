@@ -63,8 +63,8 @@
                     <div class="datacon">
                         <div class="data">
                             <label>Email</label>
-                            <input readonly placeholder="<?= isset($data['Email'])? $data['Email'] : '' ?>" style="width: 634.5px;" type="email">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/change-username'" style="cursor: pointer;"> Change Email</p>
+                            <input id="emailInput" placeholder="<?= isset($data['Email'])? $data['Email'] : '' ?>" style="width: 634.5px;" type="email">
+                            <p class="edit" id="verifyEmail" onclick="window.location.href='<?=ROOT?>/Main/change-username'" style="cursor: pointer;"> Verify Email</p>
                         </div>
                     </div>
             </div>
@@ -73,8 +73,8 @@
                 <div class="datacon">
                         <div class="data">
                             <label>Contact Number</label>
-                            <input readonly placeholder="<?= isset($data['Phone_Number'])? $data['Phone_Number'] : '' ?>" style="width: 627.5px;" type="text">
-                            <p class="edit" onclick="window.location.href='<?=ROOT?>/Main/change-number'" style="cursor: pointer; margin-left: 420px;" > Change Mobile Number</p>
+                            <input id="numberInput" maxlength="10" placeholder="<?= isset($data['Phone_Number'])? $data['Phone_Number'] : '' ?>" style="width: 627.5px;" type="text">
+                            <p class="edit" id="verifyNumber" onclick="window.location.href='<?=ROOT?>/Main/change-number'" style="cursor: pointer; margin-left: 420px;" > Verify Contact</p>
                         </div>
                     </div>
                     <div class="datacon">
@@ -151,6 +151,27 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+            document.getElementById("verifyEmail").addEventListener("click", function () {
+                const email = document.getElementById("emailInput").value;
+                if (email) {
+                    const encodedEmail = encodeURIComponent(email);
+                    window.location.href = "<?= ROOT ?>/Parent/VerifyEmail?email=" + encodedEmail;
+                } else {
+                    alert("Please enter a valid email before verifying.");
+                }
+            });
+
+            document.getElementById("verifyNumber").addEventListener("click", function () {
+                const number = document.getElementById("numberInput").value;
+                if (number) {
+                    const encodedNumber = encodeURIComponent(number);
+                    window.location.href = "<?= ROOT ?>/Parent/VerifyNumber?number=" + encodedNumber;
+                } else {
+                    alert("Please enter a valid email before verifying.");
+                }
+            });
+
             const profilerefresh = document.getElementById('profilerefresh');
             const editprofileleft = document.getElementById('editprofileleft');
             const editprofileright = document.getElementById('editprofileright');

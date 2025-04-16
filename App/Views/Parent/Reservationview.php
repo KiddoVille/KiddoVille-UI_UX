@@ -13,12 +13,14 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Table1.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Alert.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
 </head>
 
-<body style="overflow: hidden;">
+<body>
     <div class="container">
         <div class="sidebar" id="sidebar1">
             <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
@@ -32,7 +34,7 @@
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
-                <li class="hover-effect unselected" style="margin-top: 40px;">
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Parent/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
@@ -42,7 +44,7 @@
                         <i class="fa fa-user-shield" aria-hidden="true"></i> <span>Report</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top: 40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/reservation">
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
@@ -73,7 +75,7 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
+            <hr>
         </div>
         <div class="sidebar-2" id="sidebar2">
             <div>
@@ -88,16 +90,15 @@
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="margin-left: -20px;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -107,22 +108,22 @@
             </div>
         </div>
         <div class="main-content" id="main-content">
-        <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style=""></i>
+            <div class="header">
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
-                    <p style="color: white">Let’s do some productive activities today</p>
+                    <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
                 </div>
                 <!-- message icon -->
-                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                <div class="bell-con" id="bell-container">
                     <i class="fas fa-bell bell-icon"></i>
                     <div class="message-numbers">
                         <p> 2</p>
                     </div>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <div class="message-dropdown" id="messageDropdown">
                         <ul>
                             <li>
                                 <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
@@ -138,29 +139,29 @@
                     </button>
                 </div>
             </div>
-            <div class="stats" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="stats">
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance" >Accepted reservation</h3>
+                    <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance">Accepted reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Approved']) ? $data['Approved'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">Reservations been scheduled</span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/pending.svg?v=<?= time() ?>" alt="Attendance" >Pending reservation</h3>
+                    <h3><img src="<?= IMAGE ?>/pending.svg?v=<?= time() ?>" alt="Attendance">Pending reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Pending']) ? $data['Pending'] : '0'; ?> reservation</p>
                     <span style="font-weight: 50;">The reservation has not been accepted by maid
                         yet</span>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg?v=<?= time() ?>" alt="Attendance" >Canceled reservation</h3>
+                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/cancel.svg?v=<?= time() ?>" alt="Attendance">Canceled reservation</h3>
                     <p style="margin-bottom: 3px;"><?= isset($data['Canceled']) ? $data['Canceled'] : '0'; ?> reservations</p>
                     <span style="font-weight: 50;">The reservation has not been canceled</span>
                 </div>
-                <div class="stat">
+                <!-- <div class="stat">
                     <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/calendar-plus-solid.svg?v=<?= time() ?>" alt="Attendance">Make reservation</h3>
                     <div class="lol" id="newreservationbtn" style="cursor: pointer; margin-bottom: -100px; margin-top: 20px;">
                         <p>Create</p>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="saperate">
                 <div class="modal" id="NewReservationModal">
@@ -172,15 +173,14 @@
                                         <i class="fas fa-chevron-left" id="backfornewreservation"></i>
                                     </div>
                                     <div class="refresh-con">
-                                        <i class="fas fa-refresh" id="newreservationrefresh"
-                                            style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                                        <i class="fas fa-refresh" id="newreservationrefresh"></i>
                                     </div>
                                 </div>
                                 <h1>Make Reservation</h1>
-                                <div class="pickup-section" style="margin-bottom: 10px;">
+                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
                                     <label for="time">Select Date <span id="red-star6" class="red-star"> *</span>
                                     </label>
-                                    <p style="color: lightgray; margin-top: -28px; margin-left: 100px;"> May 2024
+                                    <p> May 2024
                                     </p>
                                     <div class="dates">
                                         <?php foreach ($data['dates'] as $date): ?>
@@ -191,34 +191,32 @@
                                         <?php endforeach ?>
                                         <input type="hidden" name="Date" id="date-inputforpost" required />
                                     </div>
-                                    <i class="fa fa-chevron-right"
-                                        style="font-size: 30px; margin-top: -65px; margin-left: 350px; color: #233E8D;"></i>
                                     <p class="error"> <?= isset($data['errors']['Date']) ? $data['errors']['Date'] : '' ?> </p>
                                 </div>
-                                <div class="pickup-section" style="margin-bottom:10px; display: flex; flex-direction: column; justify-content:space-between; text-align:center;">
+                                <div class="pickup-section Time">
                                     <div style="display: flex; flex-direction: row; justify-content:space-between;">
                                         <div>
-                                            <label style="margin-top: 5px;">Start Time :<span id="red-star7" class="red-star"> *</span></label>
-                                            <input name="Start_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00"
+                                            <label>Start Time :<span id="red-star7" class="red-star"> *</span></label>
+                                            <input name="Start_Time" type="time" required step="900" min="08:00" max="20:00"
                                                 value="<?= isset($data['values']['Start_Time']) ? $data['values']['Start_Time'] : '' ?>" id="customtime1">
                                             <p class="error"><?= isset($data['errors']['Start_Time']) ? $data['errors']['Start_Time'] : '' ?></p>
                                         </div>
                                         <div>
-                                            <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star"> *</span></label>
-                                            <input name="End_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00"
+                                            <label>End Time :<span id="red-star8" class="red-star"> *</span></label>
+                                            <input name="End_Time" type="time" required step="900" min="08:00" max="20:00"
                                                 value="<?= isset($data['values']['End_Time']) ? $data['values']['End_Time'] : '' ?>" id="customtime1">
                                             <p class="error"><?= isset($data['errors']['End_Time']) ? $data['errors']['End_Time'] : '' ?></p>
                                         </div>
                                     </div>
                                     <p class="error"><?= isset($data['errors']['Time']) ? $data['errors']['Time'] : '' ?></p>
                                 </div>
-                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
-                                    <label style="margin-top: 5px;">Special notes</label>
+                                <div class="pickup-section">
+                                    <label>Special notes</label>
                                     <input type="text" placeholder="put to sleep at 8:00 PM" name="Notes"
                                         value="<?= isset($data['values']['Notes']) ? $data['values']['Notes'] : '' ?>">
                                 </div>
                                 <div class="button-popup">
-                                    <button style="margin-right: 230px;" id="closenewReservation">Cancel</button>
+                                    <button id="closenewReservation">Cancel</button>
                                     <button type="submit" name="makereservation" value="new-reservation">Done</button>
                                 </div>
                             </div>
@@ -234,8 +232,7 @@
                                         <i class="fas fa-chevron-left" id="backforreservationedit"></i>
                                     </div>
                                     <div class="refresh-con">
-                                        <i class="fas fa-refresh" id="reservationeditrefresh"
-                                            style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                                        <i class="fas fa-refresh" id="reservationeditrefresh"></i>
                                     </div>
                                 </div>
                                 <h1>Edit Reservation</h1>
@@ -243,7 +240,7 @@
                                     <div class="pickup-section">
                                         <label for="time">Select Date <span id="red-star3" class="red-star" style="display: none;"> *</span>
                                         </label>
-                                        <p style="color: lightgray; margin-top: -28px; margin-left: 100px;"> May 2024
+                                        <p> May 2024
                                         </p>
                                         <div class="dates">
                                             <div class="date select">
@@ -275,8 +272,6 @@
                                                 <h1 class="day">20</h1>
                                             </div>
                                         </div>
-                                        <i class="fa fa-chevron-right"
-                                            style="font-size: 30px; margin-top: -65px; margin-left: 350px; color: #233E8D;"></i>
                                     </div>
                                     <div class="pickup-section" style="display: flex; flex-direction: column;">
                                         <label for="time">Select Time <span id="red-star4" class="red-star" style="display: none;">
@@ -288,16 +283,8 @@
                                         <input class="text" id="text" placeholder="some notes" type="text"
                                             maxlength="12" />
                                     </div>
-                                    <div class="terms" style="margin-left: 15px;">
-                                        <input required type="checkbox"
-                                            style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" />
-                                        <label for="number">
-                                            I agree to the
-                                            <a href="#">Terms of Service</a>
-                                        </label>
-                                    </div>
                                     <div class="button-popup">
-                                        <button style="margin-right: 230px;" id="closeReservationedit">Cancel</button>
+                                        <button id="closeReservationedit">Cancel</button>
                                         <button type="submit">Done</button>
                                     </div>
                                 </form>
@@ -314,42 +301,41 @@
                                         <i class="fas fa-chevron-left" id="backforreservation"></i>
                                     </div>
                                     <div class="refresh-con">
-                                        <i class="fas fa-refresh" id="reservationrefresh"
-                                            style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                                        <i class="fas fa-refresh" id="reservationrefresh"></i>
                                     </div>
                                 </div>
                                 <h1>View Reservation</h1>
-                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                <div class="pickup-section">
                                     <div>
-                                        <label style="margin-top: 5px;">Status :<span style="color: black">Approved</span></label>
+                                        <label>Status :<span style="color: black">Approved</span></label>
                                     </div>
                                     <div>
-                                        <label style="margin-top: 5px;">Child :<span style="color: black">Abdulla</span></label>
+                                        <label>Child :<span style="color: black">Abdulla</span></label>
                                     </div>
                                 </div>
-                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                <div class="pickup-section">
                                     <div>
-                                        <label style="margin-top: 5px;">Date :</label>
+                                        <label>Date :</label>
                                         <input readonly type="date" value="2024-08-18">
                                     </div>
                                     <div>
-                                        <label style="margin-top: 5px;">End Date :</label>
+                                        <label>End Date :</label>
                                         <input readonly type="date" value="2024-08-19">
                                     </div>
                                 </div>
-                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                <div class="pickup-section">
                                     <div>
-                                        <label style="margin-top: 5px;">Start Time :</label>
+                                        <label>Start Time :</label>
                                         <input readonly type="time" value="08:00" style="width: 130px">
                                     </div>
                                     <div>
-                                        <label style="margin-top: 5px;">End Time :</label>
+                                        <label>End Time :</label>
                                         <input readonly type="time" value="20:00" style="width: 130px">
                                     </div>
                                 </div>
-                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                <div class="pickup-section">
                                     <div>
-                                        <label style="margin-top: 5px;">Maid</label>
+                                        <label>Maid</label>
                                         <div class="person-section" style="width: 130px">
                                             <img alt="Person's photo" height="50" src="<?= IMAGE ?>/face.jpeg" width="50" />
                                             <div class="person-info">
@@ -358,27 +344,26 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label style="margin-top: 5px;">Special notes</label>
-                                        <textarea readonly type="text" style="width:140px; height: 75px; resize: none;"> put to sleep at 8:00 PM</textarea>
+                                        <label>Special notes</label>
+                                        <textarea readonly class="resize" type="text"> put to sleep at 8:00 PM</textarea>
                                     </div>
                                 </div>
                                 <div class="button-popup">
-                                    <button style="margin-right: 230px;" id="closeReservation">Cancel</button>
+                                    <button id="">Cancel</button>
                                     <button type="submit">Done</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="modal" id="RatingModal">
+                <!-- <div class="modal" id="RatingModal">
                     <div class="Give-Rating">
                         <div class="top-con">
                             <div class="back-con">
                                 <i class="fas fa-chevron-left" id="backforrating"></i>
                             </div>
                             <div class="refresh-con">
-                                <i class="fas fa-refresh" id="ratingrefresh"
-                                    style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                                <i class="fas fa-refresh" id="ratingrefresh"></i>
                             </div>
                         </div>
                         <form id="ratingform">
@@ -397,35 +382,35 @@
                                 <i class="star-rate fas fa-star" data-value="1"></i>
                             </div>
                             <div class="button-popup">
-                                <button style="margin-right: 120px;" id="closeratingBtn">Cancel</button>
-                                <button style="margin-right: 15px;" type="submit">Done</button>
+                                <button id="closeratingBtn">Cancel</button>
+                                <button class="Ratingsubmit" type="submit">Done</button>
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="saperate">
-                <div class="reservation-container" style="margin-top: -30px;">
-                    <div style="display: flex; flex-direction: column; justify-content: flex-start; ">
+                <div class="Table1">
+                    <div class="togglediv">
                         <div class="toggle">
                             <label class="background" for="toggle"></label>
-                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                            <div class="up-hi">
                                 <label class="up-btn" id="up-btn">Upcoming</label>
                                 <label class="hi-btn" id="hi-btn">History</label>
                             </div>
                         </div>
-                        <h2 style="margin-top: -10px !important; margin-bottom: 2px;"> Reservations </h2>
+                        <h2> Reservations </h2>
                         <hr>
                     </div>
                     <div class="filters">
-                        <input type="date" max = "<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
-                        <select id="statusPicker" style="margin-right: 25px; width: 200px; margin-left: -70px; margin-top: 10px;">
+                        <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker">
+                        <select id="statusPicker">
                             <option value="">All</option>
                             <option value="Approved">Approved</option>
                             <option value="Pending">Pending</option>
                             <option value="Canceled">Canceled</option>
                         </select>
-                        <select id="childPicker" style="margin-right: 200px; margin-top: 10px;">
+                        <select id="childPicker">
                             <option Value="" selected> All </option>
                             <?php foreach ($data['children'] as $child): ?>
                                 <option value="<?= $child['name']; ?>">
@@ -480,7 +465,7 @@
         </div>
         <div class="verification-alert" id="alert">
             <div class="alert-icon">
-                <img src="<?= IMAGE ?>/success.svg" style="width: 64px; height: 64px; filter: invert(43%) sepia(85%) saturate(542%) hue-rotate(83deg); align-items: center;" alt="success icon">
+                <img src="<?= IMAGE ?>/success.svg" alt="success icon">
             </div>
             <div class="alert-message">
                 <h1>Success</h1>
@@ -488,8 +473,7 @@
         </div>
         <!-- onclick function -->
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
@@ -515,21 +499,35 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         function logoutUser() {
             fetch("<?= ROOT ?>/Parent/resevation/Logout", {
-                method: "POST", 
-                credentials: "same-origin"
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
-                } else {
-                    alert("Logout failed. Try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
+
         function setChildSession(ChildID) {
             fetch(' <?= ROOT ?>/Parent/Reservation/setchildsession', {
                     method: 'POST',
@@ -645,8 +643,8 @@
             <td>${res?.Date ?? "No res set"}</td>
             <td>${res?.Start_Time ?? "No res set"}</td>
             <td>
-                ${res?.End_Time ?? "No res set"}
-                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> (24-hour)</span>' : ''}
+                ${res?.End_Time ?? ""}
+                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> 24-hour</span>' : ''}
             </td>
             <td>
                 <div class="${res?.Status ?? "cancel"}">
@@ -687,13 +685,13 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            
+
             const datePicker = document.getElementById('datePicker');
             const childPicker = document.getElementById('childPicker');
             const statusPicker = document.getElementById('statusPicker');
 
             // Initial fetch with 'null' values (or a default option like 'All')
-            fetchReservation( null , null, null);
+            fetchReservation(null, null, null);
 
             datePicker.addEventListener('change', function() {
                 const dateValue = datePicker.value || null; // Use null if empty
@@ -798,27 +796,27 @@
                 headingres.textContent = 'Reervation history';
             });
 
-            backformeeting.addEventListener('click', function() {
-                toggleModal(RatingModal, 'none');
-            })
+            // backformeeting.addEventListener('click', function() {
+            //     toggleModal(RatingModal, 'none');
+            // })
 
-            meetingrefresh.addEventListener('click', function() {
-                meetingform.reset();
-                stars.forEach((star) => {
-                    star.classList.remove('selectestar')
-                });
-            })
+            // meetingrefresh.addEventListener('click', function() {
+            //     meetingform.reset();
+            //     stars.forEach((star) => {
+            //         star.classList.remove('selectestar')
+            //     });
+            // })
 
-            closemeetingBtn.addEventListener('click', function() {
-                toggleModal(meetingModal, 'none');
-            })
+            // closemeetingBtn.addEventListener('click', function() {
+            //     toggleModal(meetingModal, 'none');
+            // })
 
-            feedbackbtns.forEach(element => {
-                console.log("Hi");
-                element.addEventListener('click', function() {
-                    toggleModal(RatingModal, 'flex');
-                })
-            });
+            // feedbackbtns.forEach(element => {
+            //     console.log("Hi");
+            //     element.addEventListener('click', function() {
+            //         toggleModal(RatingModal, 'flex');
+            //     })
+            // });
 
             window.addEventListener('click', function(e) {
                 if (e.target === RatingModal) {
@@ -924,9 +922,9 @@
                 toggleModal(ReservationViewModal, 'none');
             });
 
-            closeReservation.addEventListener('click', function() {
-                toggleModal(ReservationViewModal, 'none');
-            });
+            // closeReservation.addEventListener('click', function() {
+            //     toggleModal(ReservationViewModal, 'none');
+            // });
 
             const newreservationbtn = document.getElementById('newreservationbtn');
             const NewReservationForm = document.getElementById('NewReservationForm');
@@ -935,6 +933,7 @@
             const closenewReservation = document.getElementById('closenewReservation');
 
             newreservationbtn.addEventListener('click', function() {
+                console.log("New Reservation");
                 toggleModal(NewReservationModal, 'flex');
             });
             backfornewreservation.addEventListener('click', function() {
@@ -947,21 +946,21 @@
                 NewReservationForm.reset();
             });
 
-            starttime.addEventListener('input', function() {
-                if (!starttime.value) {
-                    redstar7.classList.remove('hidden');
-                } else {
-                    redstar7.classList.add('hidden');
-                }
-            })
+            // starttime.addEventListener('input', function() {
+            //     if (!starttime.value) {
+            //         redstar7.classList.remove('hidden');
+            //     } else {
+            //         redstar7.classList.add('hidden');
+            //     }
+            // })
 
-            endtime.addEventListener('input', function() {
-                if (!endtime.value) {
-                    redstar8.classList.remove('hidden');
-                } else {
-                    redstar8.classList.add('hidden');
-                }
-            })
+            // endtime.addEventListener('input', function() {
+            //     if (!endtime.value) {
+            //         redstar8.classList.remove('hidden');
+            //     } else {
+            //         redstar8.classList.add('hidden');
+            //     }
+            // })
 
         });
     </script>

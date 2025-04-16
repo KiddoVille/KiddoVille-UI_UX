@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e0f7fa;
+    background-color: var(--pickup);
 }
 
 .main-content{
@@ -27,7 +27,7 @@ body {
 .container {
     position: relative; /* Positioning relative to contain the pseudo-element */
     padding: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--popup-background);
     width: 500px;
     border-radius: 10px;
     text-align: left;
@@ -85,7 +85,7 @@ input, select, textarea {
 }
 
 .info-link {
-    color: #007bff;
+    color: var(--button-blue);
     text-decoration: none;
     font-size: 14px;
 }
@@ -109,13 +109,13 @@ input, select, textarea {
 }
 
 .cancel-btn {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: white;
     margin-right: 50px;
 }
 
 .submit-btn {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: #fff;
     margin-left: 50px;
 }
@@ -136,7 +136,7 @@ input, select, textarea {
 }
 
 .back-con{
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -149,7 +149,7 @@ input, select, textarea {
 }
 
 .refresh-con{
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;

@@ -8,21 +8,20 @@
         use MainController;
         public function index()
         {
+            $session = new \Core\Session;
+            $session->check_login();
+
             $this->view('Main/ResetPasswordNown');
         }
 
         public function changepassword()
         {
             defined('ROOTPATH') or define('ROOTPATH', __DIR__); // Define the root if not already defined
-
-            // Session and JSON response settings
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
 
             header('Content-Type: application/json');
-
-            // Disable error reporting for clean JSON output in production
             ini_set('display_errors', 1);
             error_reporting(E_ALL);
 
@@ -39,11 +38,11 @@
                 $new = $request['new'];
 
                 $session = new \Core\Session;
-                $username = $session->get('USERNAME');
+                $userid = $session->get('USERID');
 
                 // Retrieve user data from the database
                 $user = new \Modal\User;
-                $result = $user->first(['Username' => $username]);
+                $result = $user->first(['UserID' => $userid]);
 
                 // Validate old and new passwords
                 $oldpassworderror = $this->validatePassword($old);
@@ -68,7 +67,7 @@
                     // If validation passes, update the password
                     try {
                         // Update the password in the database (change 'Password' field)
-                        $user->update(["Username" => $username], ["Password" => hashpassword($new)]);
+                        $user->update(["UserID" => $userid], ["Password" => hashpassword($new)]);
 
                         // Update sessions (optional)
                         $session->unset("Logged_In");

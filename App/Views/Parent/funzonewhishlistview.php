@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/deletepopup.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
     <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
@@ -77,9 +80,7 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+
         </div>
         <!-- navigation to choose child -->
         <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
@@ -182,7 +183,7 @@
                     </div>
                 </div>
             </div>
-            <div class="header2">
+            <div class="header2" style="margin-left: 23px; margin-top: 85px;">
                 <img src="<?= IMAGE ?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
                 <p style="color: white; font-size: 17px;">Funzone </p>
                 <a href="<?= ROOT ?>/Parent/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
@@ -239,6 +240,19 @@
         </div>
     </div>
     <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         function resetReminderForm() {
             const dateInput = document.getElementById("reminder-date");
             const timeInput = document.getElementById("reminder-time");
@@ -279,7 +293,7 @@
                 .then(data => {
                     if (data.success) {
                         console.log("Child id set in session.");
-                        window.location.href = '<?= ROOT ?>/Parent/Home';
+                        window.location.href = '<?= ROOT ?>/Parent/Funzonewhishlist';
                     } else {
                         console.error("Failed to set child id from session.", data.message);
                     }
@@ -317,14 +331,14 @@
             }
             const grid = document.createElement("div");
             grid.classList.add("grid");
-            grid.style.marginTop = "120px";
+            grid.style.marginTop = "140px";
             grid.style.marginLeft = "20px";
             grid.id = "grid";
 
             data.forEach(item => {
                 const itemDiv = document.createElement("div");
                 itemDiv.classList.add("item");
-                itemDiv.style.cursor= 'pointer';
+                itemDiv.style.cursor = 'pointer';
 
                 // Icon container
                 const iconContainer = document.createElement("div");
@@ -356,31 +370,31 @@
 
                         // Send the delete request if confirmed
                         fetch('<?= ROOT ?>/Parent/Funzonewhishlist/delete_whish', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                WishlistID: item.WishlistID,
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    WishlistID: item.WishlistID,
+                                })
                             })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                const typePicker = document.getElementById('typePicker');
-                                fetchMedia(typePicker.value);  // Refresh media list after successful deletion
-                                console.log("Fetched media data:", data.data);
-                            } else {
-                                console.error("Failed to fetch media data:", data.message);
-                            }
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    const typePicker = document.getElementById('typePicker');
+                                    fetchMedia(typePicker.value); // Refresh media list after successful deletion
+                                    console.log("Fetched media data:", data.data);
+                                } else {
+                                    console.error("Failed to fetch media data:", data.message);
+                                }
 
-                            // Close the popup after action is completed
-                            deletePopup.style.display = 'none';
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                            deletePopup.style.display = 'none'; // Hide popup on error
-                        });
+                                // Close the popup after action is completed
+                                deletePopup.style.display = 'none';
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                deletePopup.style.display = 'none'; // Hide popup on error
+                            });
                     };
 
                     // Handle the "No" (cancel) button
@@ -505,7 +519,7 @@
 
                 const childNameDiv = document.createElement("h3");
                 childNameDiv.classList.add("format");
-                childNameDiv.textContent = `Child - ${item.ChildName}`; 
+                childNameDiv.textContent = `Child - ${item.ChildName}`;
 
                 // Append all elements to the item div
 
@@ -522,8 +536,6 @@
 
             document.getElementById("media-container").appendChild(grid);
         }
-
-
 
         document.addEventListener('DOMContentLoaded', function() {
 
