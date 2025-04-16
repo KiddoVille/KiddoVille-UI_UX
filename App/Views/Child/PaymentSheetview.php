@@ -100,7 +100,7 @@
         });
 
         document.getElementById('back').addEventListener("click", function (){
-            window.location.href = '<?=ROOT?>/Child/Payment';
+            window.location.href = '<?=ROOT?>/Child/<?= $_SESSION['APP']['Location'] ?>';
         })
     </script>
 </body>

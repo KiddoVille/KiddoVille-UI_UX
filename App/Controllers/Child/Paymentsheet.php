@@ -9,7 +9,6 @@
         public function index(){
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child();
 
             if(isset($_GET['ChildID'])){
                 $ChildID = $_GET['ChildID'];
@@ -22,7 +21,6 @@
 
             $month = isset($_GET['month']) ? $_GET['month'] : null;
             $year = isset($_GET['year']) ? $_GET['year'] : null;
-            $ChildID = isset($_GET['ChildID']) ? $_GET['ChildID'] : null;
             $data['CostBreakdown'] = $this->CostBreakdown($month, $year, $ChildID);
             $data['Expenses'] = $this->description($month, $year, $ChildID);
             $this->view('Child/PaymentSheet', $data);

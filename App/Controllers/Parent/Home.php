@@ -29,6 +29,62 @@
             $this->view('Parent/home',$data);
         }
 
+        public function SeenNotification(){
+            header('Content-Type: application/json');
+            $NotificationModal = new \Modal\ChildNotification;
+    
+            $Notifications = $this->Notifications();
+            if(!empty($Notifications['data'])){
+                foreach ($Notifications['data'] as $Note){
+                    $NotificationModal->update(["NotificationID"=>$Note->NotificationID], ["Seen" => 1]);
+                }
+            }
+    
+            echo json_encode(['success' => true, 'message' => 'Notification is seen by user']);
+        }
+    
+        private function Notifications() {
+            $NotificationModal = new \Modal\ChildNotification;
+            $ChildHelper = new ChildHelper();
+            $Children = $ChildHelper->store_child();
+        
+            $currentDate = date('Y-m-d');
+            $currentTime = date('H:i:s');
+            $Notifications = ['data' => []];
+        
+            foreach ($Children as $Child) {
+                if ($currentTime >= '08:00:00' && $currentTime < '12:00:00') {
+                    $result = $NotificationModal->findFutureDatesWithConditions(
+                        "08:00:00", "12:00:00",
+                        ["ChildID" => $Child->ChildID, "Date" => $currentDate],
+                        "Time"
+                    );
+                } elseif ($currentTime >= '12:00:00' && $currentTime < '20:00:00') {
+                    $result = $NotificationModal->findFutureDatesWithConditions(
+                        "11:59:00", "20:00:00",
+                        ["ChildID" => $Child->ChildID, "Date" => $currentDate],
+                        "Time"
+                    );
+                } else {
+                    $result = [];
+                }
+        
+                if (!empty($result)) {
+                    $Notifications['data'] = array_merge($Notifications['data'], $result);
+                }
+            }
+        
+            $Count = 0;
+            foreach ($Notifications['data'] as $Note) {
+                if ($Note->Seen == 0) {
+                    $Count++;
+                }
+            }
+        
+            $Notifications['Seen'] = $Count;
+            return $Notifications;
+        }
+
         private function store_stats(){
 
             $today = new \DateTime();

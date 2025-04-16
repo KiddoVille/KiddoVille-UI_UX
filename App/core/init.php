@@ -30,5 +30,5 @@
     require 'Controller.php';
     require 'App.php';
     require 'Mailer.php';
-    $GLOBALS['env'] = require '../env.php';
+    $GLOBALS['env'] = require 'C:\xampp\htdocs\KiddoVille-UI_UX\App\env.php';
 ?>

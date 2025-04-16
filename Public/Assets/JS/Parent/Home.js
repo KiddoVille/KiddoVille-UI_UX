@@ -120,11 +120,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    messageDropdown.addEventListener('mouseleave', function () {
-        messageDropdownTimeout = setTimeout(function () {
-            messageDropdown.style.display = 'none';
-        }, 300);
-    });
+    if(messageDropdown){
+        messageDropdown.addEventListener('mouseleave', function () {
+            messageDropdownTimeout = setTimeout(function () {
+                messageDropdown.style.display = 'none';
+            }, 300);
+        });
+    }
 
     // Function to clear selected dates
     function clearSelectedDates() {
