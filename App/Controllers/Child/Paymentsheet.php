@@ -1,7 +1,6 @@
 <?php
 
     namespace Controller;
-    use App\Helpers\ChildHelper;
 
     defined('ROOTPATH') or exit('Access denied');
 
@@ -11,14 +10,21 @@
             $session = new \Core\Session;
             $session->check_login();
             $session->check_child();
-            $ChildID = $session->get("CHILDID");
+
+            if(isset($_GET['ChildID'])){
+                $ChildID = $_GET['ChildID'];
+            }
+            else{
+                $ChildID = $session->get("CHILDID");
+            }
 
             $data = $this->selectedchild($ChildID);
 
             $month = isset($_GET['month']) ? $_GET['month'] : null;
             $year = isset($_GET['year']) ? $_GET['year'] : null;
-            $data['Expenses'] = $this->description($month, $year); 
-            $data['CostBreakdown'] = $this->CostBreakdown($month, $year);
+            $ChildID = isset($_GET['ChildID']) ? $_GET['ChildID'] : null;
+            $data['CostBreakdown'] = $this->CostBreakdown($month, $year, $ChildID);
+            $data['Expenses'] = $this->description($month, $year, $ChildID);
             $this->view('Child/PaymentSheet', $data);
         }
 
@@ -48,9 +54,7 @@
             return $data;
         }
 
-        private function CostBreakdown($month, $year) {
-            $session = new \core\Session;
-            $ChildID = $session->get("CHILDID");
+        private function CostBreakdown($month, $year, $ChildID) {
         
             $AttendanceModal = new \Modal\Attendance;
             $ReservationsModal = new \Modal\Reservation;
@@ -215,9 +219,7 @@
             return $CostBreakdown;
         }                  
 
-        private function description($month, $year) {
-            $session = new \core\Session;
-            $ChildID = $session->get("CHILDID");
+        private function description($month, $year, $ChildID) {
             
             $ExpensesModal = new \Modal\Expense;
             $Day = sprintf("%s-%02d-01", $year, $month);

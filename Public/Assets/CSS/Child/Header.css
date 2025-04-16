@@ -89,7 +89,7 @@
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 1.25rem;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     margin-left: 1.7rem;
     margin-top: -3.3rem;
 }
@@ -148,6 +148,8 @@
     padding: 0;
     border-bottom: 2px solid #bdbcbc;
     transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: row;
 }
 
 .message-dropdown ul li:last-child {
@@ -171,6 +173,7 @@
     border-radius: 0;
     padding-bottom: 5px;
     margin-top: 0px;
+    width: 210px;
 }
 
 .message-dropdown ul li:hover p{
@@ -183,7 +186,8 @@
 }
 
 .fa-paper-plane {
-    margin-left: 110px;
+    right: 10px;
+    position: fixed;
     border: 2px solid var(--secondary-color);
     background-color: #f0f4fb;
     border-radius: 10px;
@@ -192,6 +196,8 @@
     transition: background-color 0.3s ease, color 0.3s ease;
     justify-content: center;
     cursor: pointer;
+    padding: 10px;
+    margin: 10px;
 }
 
 .header .profile {

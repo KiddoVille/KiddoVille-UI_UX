@@ -75,7 +75,7 @@
             <p><strong>Payment Method:</strong>    <?=$data['Payment']->Mode?></p>
             <p><strong>Date:</strong><?=$data['Payment']->DateTime ?></p>
         </div>
-        <a href="/" class="btn">Go to Homepage</a>
+        <a href="<?=ROOT . '/' . $_SESSION['APP']['Location']?>" class="btn">Go to Homepage</a>
     </div>
 </body>
 </html>

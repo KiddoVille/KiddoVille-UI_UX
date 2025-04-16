@@ -215,7 +215,7 @@
                                 <img src="<?= IMAGE ?>/mountain.svg" alt="Welcome" style="width: 40px; margin-right: 10px; margin-bottom: -15px;">
                                 Welcome aboard!
                             </h3>
-                            <p style="text-align: center;">Looks like you haven’t been billed yet. Enjoy the journey — your first invoice will show up here soon!</p>
+                            <p style="text-align: center;">Enjoy the journey — your first invoice will show up here soon!</p>
                         <?php endif; ?>
                     </div>
                 </div>

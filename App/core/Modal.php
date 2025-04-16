@@ -307,9 +307,11 @@
                 }
             }
         
-            $query = "SELECT * FROM $this->table WHERE $whereClause";
+            // Build the final query with ORDER BY
+            $query = "SELECT * FROM $this->table WHERE $whereClause ORDER BY `$column` ASC";
+        
             return $this->query($query, $params);
-        }        
+        }            
 
         public function groupByCount($columnToCount, $groupByColumn, $where = []) {
             // Sanitize allowed columns

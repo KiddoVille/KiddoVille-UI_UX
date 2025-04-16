@@ -145,29 +145,50 @@
                 </div>
             </div>
             <div class="stats">
-                <div class="stat">
+                <div class="stat" style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
                     <div class="overdue-payment" style="justify-content: center; display: flex;">
                         <div style="margin-left: 20px; margin-right: 20px;">
-                            <h3 style="color: red;">Overdue Payment</h3>
-                            <p>Due Date: <strong>2023-11-01</strong></p>
-                            <p>Amount: <strong>$120</strong></p>
-                            <button class="pay-now" style="padding: 10px 15px; border-bottom-right-radius: 10px; white-space: nowrap; margin-bottom: -15px !important; margin-top: -10px; margin-left: 290px;">Pay Now</button>
+                            <?php if (isset($data['Due'])): ?>
+                                <h2 style="color: red; margin-top: -5px; margin-bottom: -5px;">Overdue Payment</h2>
+                                <p>Due Date: <strong><?= $data['Due']['Date'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Due']['Amount'] ?></strong></p>
+                                <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
+                                    <input type="hidden" name="total" id="total-input" value="<?= $data['Due']['Amount']*100 ?>" />
+                                    <button type="submit" class="pay-now">Pay Now</button>
+                                </form>
+                            <?php else: ?>
+                                <h2 style="color: red;">No Overdue Payment</h2>
+                            <?php endif; ?>
                         </div>
-                    </div>
+                    </div> 
                 </div>
-                <div class="stat">
+                <div class="stat" style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
                     <div class="upcoming-payment" style="justify-content: center; display: flex;">
                         <div style="margin-left: -10px; margin-right: 20px;">
-                            <h3 style="color: green;">Upcoming Payment</h3>
-                            <p>Due Date: <strong>2023-12-15</strong></p>
-                            <p>Amount: <strong>$150</strong></p>
+                            <?php if (isset($data['Expenses'])): ?>
+                                <h2 style="color: green; margin-top: -5px; margin-bottom: -5px;">Upcoming Payment</h2>
+                                <p>Due Date: <strong><?= $data['Expenses']['Date'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Expenses']['Amount'] ?></strong></p>
+                            <?php else: ?>
+                                <h2 style="color: green;"> No Expenses </h2>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
                 <div class="stat">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg" alt="Attendance">Last bill amount</h3>
-                    <div class="lol" style="cursor: pointer; margin-top: 10px; margin-left: 4rem;">
-                        <p><?= isset($data['totalAmountPaid']) ? $data['totalAmountPaid'] : '0'; ?> Rs</p>
+                    <div style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
+                        <?php if (isset($data['LastBill'])): ?>
+                            <h3 style="margin-top: 5px;">
+                                <img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-top: -15px;">
+                                Last bill amount
+                            </h3>
+                            <p style="margin-top: 15px;"><?= isset($data['LastBill']['Amount']) ? $data['LastBill']['Amount'] : '0'; ?></p>
+                        <?php else: ?>
+                            <h3 style="margin-top: 5px;">
+                                <img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-top: -15px;">
+                                Enjoy the journey — your first invoice will show up here soon!
+                            </h3>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -221,14 +242,20 @@
                         </table>
                     </div>
                     <div id="upcoming" style="display: flex; flex-direction: row; align-items: flex-start;">
-                        <canvas id="paymentsChart" width="500" height="200"></canvas>
-                        <div>
-                            <html>
+                        <div style="width: 600px; height: 400px;">
+                            <canvas id="paymentsChart" width="500" height="200"></canvas>
+                        </div>
+                        <div style="margin-top: -10px;">
                             <div class="payment-description">
                                 <h3>
                                     Payment Description
                                 </h3>
-                                <hr>
+                                <hr style="margin-top: -17px;">
+                                <div id="month-switcher" class="month-switcher">
+                                    <button id="prev-month" class="month-nav">&lt;</button>
+                                    <span id="current-month" class="month-label">April 2025</span>
+                                    <button id="next-month" class="month-nav">&gt;</button>
+                                </div>
                                 <ul>
                                     <li>
                                         <span>
@@ -267,12 +294,12 @@
                                     Total Amount: $950
                                 </div>
                                 <div style=" display: flex;justify-content: space-between; ">
-                                    <button class="btn" onclick="window.location.href='<?= ROOT ?>/Parent/PaymentSheet'">
+                                    <button class="btn" id="view-details-btn">
                                         View Details
                                     </button>
-                                    <button class="btn" onclick="window.location.href='<?= ROOT ?>/Parent/Pay'">
+                                    <!-- <button class="btn" onclick="window.location.href='<?= ROOT ?>/Parent/Pay'">
                                         Pay Now
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -410,6 +437,119 @@
 
         document.addEventListener('DOMContentLoaded', function() {
 
+            const form = document.getElementById("pay-form");
+
+            if(form){
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const total = document.getElementById("total-input").value;
+                    const purpose = "Overdue Pyament Parent";
+
+                    fetch("<?=ROOT?>/Parent/Payment/AmountPurpose", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ total, purpose })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.success) {
+                            form.submit();
+                        } else {
+                            alert("Something went wrong while setting session!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+                });
+            }
+
+            document.getElementById('view-details-btn').addEventListener('click', function () {
+                const monthText = document.getElementById('current-month').textContent.trim(); // e.g., "April 2025"
+                const [monthName, year] = monthText.split(' ');
+                
+                const monthMap = {
+                    January: '01', February: '02', March: '03',
+                    April: '04', May: '05', June: '06',
+                    July: '07', August: '08', September: '09',
+                    October: '10', November: '11', December: '12'
+                };
+
+                const month = monthMap[monthName];
+
+                if (month && year) {
+                    const targetUrl = `<?= ROOT ?>/Parent/PaymentSheet?month=${month}&year=${year}`;
+                    window.location.href = targetUrl;
+                } else {
+                    alert("Invalid month format.");
+                }
+            });
+
+        const paymentData = <?= json_encode($data['description']) ?>;
+        
+        let currentMonthIndex = 0;
+        const months = Object.keys(paymentData);
+        let currentMonth = months[currentMonthIndex];
+
+        const currentMonthLabel = document.getElementById('current-month');
+        const paymentList = document.querySelector('.payment-description ul');
+        const totalAmountElement = document.querySelector('.payment-description .total');
+
+        function renderMonth(month) {
+            let data = paymentData[month] || [];
+            console.log(data);
+            let total = 0;
+
+            // Update month label
+            currentMonthLabel.textContent = month;
+            paymentList.innerHTML = '';
+
+            if (!Array.isArray(data)) {
+                data = Object.entries(data).map(([service, amount]) => ({
+                    service,
+                    amount
+                }));
+            }
+
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>Service: ${item.service}</span>
+                    <span class="amount">Amount: $${item.amount}</span>
+                `;
+                paymentList.appendChild(li);
+                total += parseFloat(item.amount);
+            });
+
+            totalAmountElement.textContent = `Total Amount: $${total}`;
+        }
+
+        // Initial render
+        renderMonth(currentMonth);
+
+        const prevmonth = document.getElementById('prev-month');
+        const nextmonth =  document.getElementById('next-month');
+
+        prevmonth.addEventListener('click', () => {
+            if (currentMonthIndex < months.length - 1) {
+                currentMonthIndex++;
+                currentMonth = months[currentMonthIndex];
+                renderMonth(currentMonth);
+            }
+        });
+
+        nextmonth.addEventListener('click', () => {
+            if (currentMonthIndex > 0) {
+                currentMonthIndex--;
+                currentMonth = months[currentMonthIndex];
+                renderMonth(currentMonth);
+            }
+        });
+
             const datePicker = document.getElementById('datePicker');
             const childPicker = document.getElementById('childPicker');
             const modePicker = document.getElementById('modePicker');
@@ -464,7 +604,6 @@
         });
 
         var chartData = <?php echo ($data['graph']); ?>;
-
         const ctx = document.getElementById('paymentsChart').getContext('2d');
 
         // Destroy existing chart instance if it exists
@@ -478,6 +617,12 @@
             data: chartData, // Directly use the PHP-injected JSON data
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                responsive: true,
                 plugins: {
                     legend: {
                         display: true,
@@ -490,10 +635,20 @@
                             size: 20,
                             weight: 'bold'
                         }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const childName = context.dataset.label;
+                                const amount = context.parsed.y;
+                                return `${childName}: $${amount}`;
+                            }
+                        }
                     }
                 },
                 scales: {
                     x: {
+                        stacked: false,
                         title: {
                             display: true,
                             text: 'Month',
@@ -504,10 +659,11 @@
                         }
                     },
                     y: {
+                        stacked: false,
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Payments (RS)',
+                            text: 'Fees',
                             font: {
                                 size: 16,
                                 weight: 'bold'

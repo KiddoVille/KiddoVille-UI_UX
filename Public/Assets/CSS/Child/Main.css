@@ -184,20 +184,20 @@ input[type="submit"]:hover {
     transform: scale(1.1);
 }
 .task-container {
-    width: 320px;
+    width: 500px;
     max-width: 100%;
-    margin-top: 65px;
+    margin-top: 87px;
     background-color: #f9f9f9;
     overflow-y: scroll;
     justify-content: center;
     align-items: center;
     text-align: center;
-    z-index: 10000;
     display: none;
     transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
     opacity: 0;
-    margin-right: -10px; /* Reduced side margins */
+    margin-right: -10px;
     margin-left: -20px;
+    box-shadow: -6px 0 12px rgba(0, 0, 0, 0.2);
 }
 
 .task-container::-webkit-scrollbar {
@@ -259,6 +259,8 @@ input[type="submit"]:hover {
     padding: 6px; /* Reduced cell padding */
     font-size: 12px; /* Reduced font size */
     color: #555;
+    text-align: center;
+    justify-content: center;
 }
 
 .calendar-table th {
@@ -266,14 +268,24 @@ input[type="submit"]:hover {
     color: var(--p);
 }
 
+
+
 .calendar-table .today {
-    background-color: var(--button-blue);
-    color: #fff;
-    border-radius: 50%;
-    width: 24px; /* Reduced size */
-    height: 24px;
-    display: inline-block;
-    line-height: 24px;
+    border: 2px solid var(--button-blue);
+    height: 15px;
+    line-height: 20px;
+}
+
+.calendar-table .present {
+    border: 2px solid green;
+    height: 15px;
+    line-height: 20px;
+}
+
+.calendar-table .holiday {
+    border: 2px solid red;
+    height: 15px;
+    line-height: 20px;
 }
 
 .calendar-footer {
@@ -625,4 +637,42 @@ input {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+#holiday-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.holiday-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.holiday-item:hover {
+    background: #eaeaea;
+}
+
+.holiday-header {
+    display: flex;
+    gap: 10px;
+}
+
+.holiday-details {
+    margin-top: 8px;
+    display: none;
+    font-size: 0.95em;
+    color: #333;
+}
+
+.holiday-icon {
+    margin-right: 8px;
+    color: #007bff;
+    font-size: 1.2em;
 }

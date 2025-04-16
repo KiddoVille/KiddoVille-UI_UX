@@ -131,37 +131,27 @@
                 <!-- message icon -->
                 <div class="bell-con" id="bell-container" style="cursor: pointer;">
                     <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-numbers">
-                        <p> 2</p>
-                    </div>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <?php if(!empty($data['Notification'])): ?>
+                        <?php if($data['Notification']['Seen'] != 0): ?>
+                            <div class="message-numbers" id="message-number">
+                                <p><?= $data['Notification']['Seen'] != 0 ? $data['Notification']['Seen'] : '' ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
-                            <li>
-                                <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
+                            <?php foreach($data['Notification']['data'] as $row): ?>
+                                <li data-id="<?= $row->NotificationID ?>">
+                                    <p><?= htmlspecialchars($row->Description) ?></p>
+                                    <?php if($row->Location != NULL): ?>
+                                        <a href="<?= ROOT ?>/Child/<?= $row->Location ?>">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <!-- Prodile btn -->
                 <div class="profile">
@@ -175,8 +165,8 @@
                     <h1 style="color: #233E8D; margin-left: 15px;">
                         <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
                     <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our family! </p>
-                    <div class="report-header">
-                        <div class="profile" id="profile" style="max-height: 350px; margin-right: 2%; width: 200px !important;">
+                    <div class="report-header" id="report-header1">
+                        <div class="profile" id="profile" style="max-height: 350px; margin-right: 2%; width: 250px !important;">
                             <h3 style="margin-top: 0px; margin-bottom: 2px;">Child Profile</h3>
                             <hr>
                             <div class="first-row">
@@ -202,18 +192,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="attendence-bar" style="margin-right: 2%; width: 220px;" id="attendance">
-                            <h3 style="margin-top: 0px;">Child Attendence </h3>
-                            <hr>
-                            <div class="progress" style="margin-left: -10px;">
-                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba <?= $data['graph'] ?>%, rgba(204, 204, 204, 0.56) 0);">
-                                    <?= $data['graph'] ?>%
-                                </div>
-                            </div>
-                            <p style="margin-top: 18px;"> Completed Tasks</p>
-                            <input style="margin-top: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
-                        </div>
-                        <div class="timetable" id="timetable">
+                        <div class="timetable" id="timetable" style="width: 450px;">
                             <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
                             <hr>
                             <div class="filters">
@@ -229,7 +208,7 @@
                                 </thead>
                             </table>
                             <!-- childs activity for the day -->
-                            <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
+                            <div class="table-body-container" style=" max-height: 150px; overflow-y: auto; padding: 10px;">
                                 <table style="width: 100%; border-collapse: collapse;">
                                     <tbody>
 
@@ -237,9 +216,76 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="attendence-bar" style=" width: 250px;" id="attendance">
+                            <h3 style="margin-top: 0px;">Child Attendence </h3>
+                            <hr>
+                            <div class="progress" style="margin-left: -10px;">
+                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba <?= $data['graph'] ?>%, rgba(204, 204, 204, 0.56) 0);">
+                                    <?= $data['graph'] ?>%
+                                </div>
+                            </div>
+                            <p style="margin-top: 18px;"> Completed Tasks</p>
+                            <input style="margin-top: -10px; margin-bottom: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
+                        </div>
                     </div>
-                    <div class="report-header" style="display: flex; flex-direction: row;">
-                        <div class="timetable">
+                    <div class="report-header" id="report-header2">
+                        <div class="attendence-bar" style=" width: 250px; display: none;" id="attendance2">
+                            <h3 style="margin-top: 0px;">Child Attendence </h3>
+                            <hr>
+                            <div class="progress" style="margin-left: -10px;">
+                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba <?= $data['graph'] ?>%, rgba(204, 204, 204, 0.56) 0);">
+                                    <?= $data['graph'] ?>%
+                                </div>
+                            </div>
+                            <p style="margin-top: 18px;"> Completed Tasks</p>
+                            <input style="margin-top: -10px; margin-bottom: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
+                        </div>
+                        <div class="social" style="margin-left: 0px; width: 300px;" id="social">
+                            <!-- <div class="social-head">
+                                <h3 style="display: inline;">Social Development</h3>
+                            </div>
+                            <div class="skills">
+                                <span style="display: inline;">Connecting with Peers</span>
+                                <input type="range" min="0" max="100" value="50" step="20" readonly>
+                            </div>
+                            <div class="skills">
+                                <span style="display: inline;">Connecting with Peers</span>
+                                <input type="range" min="0" max="100" value="50" step="20" readonly>
+                            </div>
+                            <div class="behaviour-skills" style="margin-top: 0px;">
+                                <div class="text-line">
+                                    <input type="checkbox" name="behaviour">Consistently calm and cooperative
+                                </div>
+
+                                <div class="text-line">
+                                    <input type="checkbox" name="behaviour">Expresses emotions freely
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="profile" style="width: 200px;" id="pickup">
+                            <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Pickup </h3>
+                            <hr>
+                            <div class="overdue-payment card" style="margin-top: 10px; justify-content:center; align-items: center; text-align: center; padding: 5px 20px; display: <?= isset($data['stat2']['nochild']) ? 'flex' : 'none' ?>">
+                                <h4> No child In daycare </h4>
+                            </div>
+                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px; display: <?= isset($data['stat2']['nochild']) ? 'none' : 'flex' ?>">
+                                <div style="display: flex; flex-direction: row;">
+                                    <h4> Time : </h4>
+                                    <p style="margin: 23 0 0 auto;"><?= isset($data['stat2']['Time']) ? $data['stat2']['Time'] : '' ?> </p>
+                                </div>
+                                <div style="display: flex; flex-direction: row;">
+                                    <h4 style="margin-top: -10px; white-space: nowrap;"> Person : </h4>
+                                    <p style="margin: -8 5 0 auto;"> <?= isset($data['stat2']['Person']) ? $data['stat2']['Person'] : '' ?> </p>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: row; display: <?= isset($data['stat2']['nochild']) ? 'none' : 'flex' ?>">
+                                <button class="button" id="openPickupModal" style="width: 100%; margin: 10px;"> Customize </button>
+                                <?php if (($data['stat2']['Time'] !== '8:00PM' && $data['stat2']['Person'] !== 'Parent')): ?>
+                                    <button class="button" id="ResetPickupBtn" style="width: 100%; margin: 10px;"> Reset </button>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="timetable" style="width: 450px;">
                             <h3 style="margin-top: 0px; margin-bottom: 5px;">Subject Marks</h3>
                             <hr>
                             <div class="filters">
@@ -276,61 +322,16 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="social" style="margin-left: 0px; width: 50%;">
-                            <div class="social-head">
-                                <h3 style="display: inline;">Social Development</h3>
-                            </div>
-                            <div class="skills">
-                                <span style="display: inline;">Connecting with Peers</span>
-                                <input type="range" min="0" max="100" value="50" step="20" readonly>
-                            </div>
-                            <div class="skills">
-                                <span style="display: inline;">Connecting with Peers</span>
-                                <input type="range" min="0" max="100" value="50" step="20" readonly>
-                            </div>
-                            <div class="behaviour-skills" style="margin-top: 0px;">
-                                <div class="text-line">
-                                    <input type="checkbox" name="behaviour">Consistently calm and cooperative
-                                </div>
-
-                                <div class="text-line">
-                                    <input type="checkbox" name="behaviour">Expresses emotions freely
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profile" style="width: 275px;">
-                            <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Pickup </h3>
-                            <hr>
-                            <div class="overdue-payment card" style="margin-top: 10px; justify-content:center; align-items: center; text-align: center; padding: 5px 20px; display: <?= isset($data['stat2']['nochild']) ? 'flex' : 'none' ?>">
-                                <h4> No child In daycare </h4>
-                            </div>
-                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px; display: <?= isset($data['stat2']['nochild']) ? 'none' : 'flex' ?>">
-                                <div style="display: flex; flex-direction: row;">
-                                    <h4> Time : </h4>
-                                    <p style="margin-top: 23px;"><?= isset($data['stat2']['Time']) ? $data['stat2']['Time'] : '' ?> </p>
-                                </div>
-                                <div style="display: flex; flex-direction: row;">
-                                    <h4 style="margin-top: -10px; white-space: nowrap;"> Person : </h4>
-                                    <p style="margin-top: -8px; margin-left: 5px;"> <?= isset($data['stat2']['Person']) ? $data['stat2']['Person'] : '' ?> </p>
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: row; display: <?= isset($data['stat2']['nochild']) ? 'none' : 'flex' ?>">
-                                <button class="button" id="openPickupModal" style="width: 100%; margin: 10px;"> Customize </button>
-                                <?php if (($data['stat2']['Time'] !== '8:00PM' && $data['stat2']['Person'] !== 'Parent')): ?>
-                                    <button class="button" id="ResetPickupBtn" style="width: 100%; margin: 10px;"> Reset </button>
-                                <?php endif; ?>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- tasks right navbar -->
-                <div class="task-container" id="tasknavbar" style="top: 0; margin-bottom: -20px; margin-left: -50px; position: sticky; height: 770px; overflow-y: auto;">
+                <div class="task-container" id="tasknavbar" style="top: 0; margin-bottom: -20px; margin-left: -200px; position: sticky; height: 770px; overflow-y: auto;">
                     <h2 style="margin-top: 30px;"> Quick Tasks Hub </h2>
                     <div class="card">
-                        <h2 style="margin-top: 15px;">November</h2>
+                        <h2 style="margin-top: 15px;" id="calendar-title">November</h2>
                         <div class="calendar-header">
-                            <a href="#">&lt;October</a>
-                            <a href="#">December&gt;</a>
+                            <a href="#" id="prev-month">&lt;October</a>
+                            <a href="#" id="next-month">December&gt;</a>
                         </div>
                         <table class="calendar-table" style="margin-bottom: 15px;">
                             <thead>
@@ -344,7 +345,7 @@
                                     <th>Sun</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="calendar-body">
                                 <tr>
                                     <td></td>
                                     <td></td>
@@ -394,36 +395,16 @@
                         </table>
                     </div>
                     <div class="card">
-                        <h2>Upcoming Tasks</h2>
-                        <div class="task-item">
-                            <div class="task-info">
-                                <p class="task-title">Math Homework</p>
-                                <span class="task-deadline">Due: Nov 5, 2024</span>
-                            </div>
-                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                        </div>
-                        <div class="task-item">
-                            <div class="task-info">
-                                <p class="task-title">History Essay</p>
-                                <span class="task-deadline">Due: Nov 10, 2024</span>
-                            </div>
-                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                        </div>
-                        <div class="task-item">
-                            <div class="task-info">
-                                <p class="task-title">Science Project</p>
-                                <span class="task-deadline">Due: Nov 15, 2024</span>
-                            </div>
-                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
+                        <?php if(!empty($data['holiday'])): ?>
+                            <h2>Upcoming Holidays</h2>
+                            <div id="holiday-list"></div>
+                        <?php endif ?>
                         <h2>Main menu</h2>
                         <a href="#" class="main-menu-item">
                             <i class="fas fa-bullhorn icon-announcements"></i>
                             <span>Site announcements</span>
                         </a>
-                        <a href="#" class="main-menu-item">
+                        <a href="<?=ROOT?>/Child/Funzonehome" class="main-menu-item">
                             <i class="fas fa-globe icon-library"></i>
                             <span>KIDDOVILLE Funzone</span>
                         </a>
@@ -709,6 +690,210 @@
     </div>
 </body>
 <script>
+
+    const messageDropdown = document.getElementById('messageDropdown');
+    const bellIcon = document.getElementById('bell-container');
+    const messagenumber = document.getElementById('message-number')
+
+    let messageDropdownTimeout;
+
+    function toggleBellDropdown() {
+        if(messageDropdown){
+            if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                messageDropdown.style.display = "block";
+                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Seen the notifications");
+                        messagenumber.style.display = 'none';
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+                
+            } else {
+                messageDropdown.style.display = "none";
+            }
+        }
+    }
+
+const holidays = <?php echo(json_encode($data['holiday'])); ?>
+
+if(Array.isArray(holidays) && holidays.length > 0){
+    function renderHolidays(data) {
+        const container = document.getElementById("holiday-list");
+        container.innerHTML = "";
+
+        data.forEach((holiday, index) => {
+            const item = document.createElement("div");
+            item.className = "holiday-item";
+
+            const header = document.createElement("div");
+            header.className = "holiday-header";
+            header.innerHTML = `
+                <i class="fas fa-calendar-alt holiday-icon"></i>
+                <span>${holiday.Date}</span>
+                <span>${holiday.Name}</span>
+            `;
+
+            const details = document.createElement("div");
+            details.className = "holiday-details";
+            details.textContent = holiday.Details;
+
+            item.appendChild(header);
+            item.appendChild(details);
+
+            // Toggle on click
+            item.addEventListener("click", () => {
+                details.style.display = details.style.display === "none" || !details.style.display
+                    ? "block"
+                    : "none";
+            });
+
+            container.appendChild(item);
+        });
+    }
+}
+
+    let currentMonth = new Date().getMonth() + 1;
+    let currentYear = new Date().getFullYear();
+    let Month = 0;
+    let Year = 0;
+
+    function fetchCalendar(Month, Year) {
+        fetch("<?= ROOT ?>/Child/Home/GetCalendar", {
+                method: "POST",
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    Month: Month,
+                    Year: Year
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(data);
+                    renderCalendar(data);
+                } else {
+                    alert("Logout failed. Try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    function renderCalendar(data) {
+        if (!data.success) return;
+
+        const calendarTitle = document.getElementById("calendar-title");
+        const calendarBody = document.getElementById("calendar-body");
+        const prev_month = document.getElementById("prev-month");
+        const next_month = document.getElementById("next-month");
+        Month = data.month;
+        Year = data.year;
+
+        let prevMonth = data.month - 1;
+        const date = new Date(2000, prevMonth - 1, 1);
+        prevMonth = date.toLocaleString('default', { month: 'long' });
+        prev_month.textContent = prevMonth;
+
+        let nextMonth = data.month + 1;
+        const date2 = new Date(2000, nextMonth - 1, 1);
+        nextMonth = date2.toLocaleString('default', { month: 'long' });
+        next_month.textContent = nextMonth;
+
+        calendarTitle.textContent = data.monthName + ' ' + data.year ;
+        calendarBody.innerHTML = "";
+
+        const startDay = data.startDay;
+        const totalDays = data.totalDays;
+
+        let dayCounter = 1;
+        let AttendanceCounter = 0;
+        let HolidayCounter = 0;
+        let row = document.createElement("tr");
+
+        // Fill leading empty cells
+        for (let i = 0; i < startDay; i++) {
+            const emptyCell = document.createElement("td");
+            emptyCell.textContent = "  ";
+            emptyCell.style.marginRight = "10px";
+            row.appendChild(emptyCell);
+        }
+
+        for (let i = startDay; i < 7; i++) {
+            const cell = document.createElement("td");
+            cell.textContent = dayCounter++;
+
+            const today = new Date();
+            if (Month === today.getMonth() + 1 && Year === today.getFullYear() && dayCounter === today.getDate()){
+                cell.classList.add('today');
+            }
+            console.log((dayCounter-1) + "=" + data.Attendance[AttendanceCounter]);
+            if((dayCounter-1) == data.Attendance[AttendanceCounter]){
+                cell.classList.add('present');
+                AttendanceCounter ++;
+            }
+            if(dayCounter == data.Holiday[HolidayCounter]){
+                cell.classList.add('holiday');
+                HolidayCounter ++;
+            }
+            row.appendChild(cell);
+        }
+
+        calendarBody.appendChild(row);
+
+        // Remaining weeks
+        while (dayCounter <= totalDays) {
+            let newRow = document.createElement("tr");
+            for (let i = 0; i < 7; i++) {
+                const cell = document.createElement("td");
+                if (dayCounter <= totalDays) {
+                    const today = new Date();
+                    if (Month === today.getMonth() + 1 && Year === today.getFullYear() && dayCounter === today.getDate()){
+                        cell.classList.add('today');
+                    }
+                    console.log(dayCounter + "=" + data.Attendance[AttendanceCounter]);
+                    if(dayCounter == data.Attendance[AttendanceCounter]){
+                        cell.classList.add('present');
+                        AttendanceCounter ++;
+                    }
+                    if(dayCounter == data.Holiday[HolidayCounter]){
+                        cell.classList.add('holiday');
+                        HolidayCounter ++;
+                    }
+                    cell.textContent = dayCounter++;
+                }
+                newRow.appendChild(cell);
+            }
+            calendarBody.appendChild(newRow);
+        }
+    }
+
+    document.getElementById('prev-month').addEventListener('click', function (e) {
+        e.preventDefault();
+        Month--;
+        if(Month == 0){
+            Year--;
+            Month = 12;
+        }
+        fetchCalendar(Month, Year);
+    });
+
+    document.getElementById('next-month').addEventListener('click', function (e) {
+        e.preventDefault();
+        Month++;
+        if(Month == 13){
+            Year++;
+            Month = 1;
+        }
+        fetchCalendar(Month, Year);
+    });
+
     const minimizeBtn = document.getElementById('minimize-btn');
     const sidebar = document.getElementById('sidebar1');
     const starImage = document.getElementById('starImage');
@@ -813,6 +998,10 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+
+        renderHolidays(holidays)
+        fetchCalendar(currentMonth, currentYear);
+
         let selectedPerson = "Guardian"; // Default selection
         const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
         const newPersonContainer = document.getElementById("newPersonContainer");
