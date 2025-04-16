@@ -11,7 +11,6 @@
         public function index(){
             $session = new \Core\Session;
             $session->check_login();
-            $session->check_child();
             $SidebarHelper = new SidebarHelper;
             $data = $SidebarHelper->store_sidebar();
 

@@ -695,8 +695,6 @@
     const bellIcon = document.getElementById('bell-container');
     const messagenumber = document.getElementById('message-number')
 
-    let messageDropdownTimeout;
-
     function toggleBellDropdown() {
         if(messageDropdown){
             if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {

@@ -21,7 +21,7 @@ use DateTime;
             $SidebarHelper = new SidebarHelper();
             $data = $SidebarHelper->store_sidebar();
 
-            $session->set("Location" , 'Parent/Payments');
+            $session->set("Location" , 'Parent/Payment');
             $Childhelper = new ChildHelper();
             $children = $Childhelper->store_child();
 

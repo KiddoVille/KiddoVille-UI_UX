@@ -470,7 +470,7 @@
             </div> -->
         </div>
         </div>
-        <script>
+        <script>    
             const minimizeBtn = document.getElementById('minimize-btn');
             const sidebar = document.getElementById('sidebar1');
             const starImage = document.getElementById('starImage');

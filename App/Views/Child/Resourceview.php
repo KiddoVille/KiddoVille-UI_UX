@@ -382,6 +382,38 @@
         </div>
     </div>
     <script>
+
+        const messageDropdown = document.getElementById('messageDropdown');
+        const bellIcon = document.getElementById('bell-container');
+        const messagenumber = document.getElementById('message-number')
+
+        let messageDropdownTimeout;
+
+        function toggleBellDropdown() {
+            if(messageDropdown){
+                if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                    messageDropdown.style.display = "block";
+                    fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                        method: "POST",
+                        credentials: "same-origin"
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log("Seen the notifications");
+                            messagenumber.style.display = 'none';
+                        } else {
+                            alert("Logout failed. Try again.");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                    
+                } else {
+                    messageDropdown.style.display = "none";
+                }
+            }
+        }
+
         const minimizeBtn = document.getElementById('minimize-btn');
         const sidebar = document.getElementById('sidebar1');
         const starImage = document.getElementById('starImage');
