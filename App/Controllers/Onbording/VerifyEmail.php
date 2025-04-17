@@ -17,7 +17,7 @@ class VerifyEmail
 
         $Email = $session->get('EMAIL');
         $data['Email'] = $Email;
-        $MailerModal = new \core\Mailer;
+        $Mailer = new \core\Mailer;
 
         $body = '
             <!DOCTYPE html>
@@ -245,7 +245,7 @@ class VerifyEmail
             </body>
             </html>';
 
-        $MailerModal->send(
+        $Mailer->send(
             $Email,
             'Email Verification - OTP Code',
             $body,
