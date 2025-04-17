@@ -22,13 +22,13 @@
                 <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
             </div>
             <ul style=" margin-top: 10%;">
-                <li class="selected">
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
                 <ul>
-                    <li class="hover-effect unselected">
+                    <li class="selected">
                         <a href="<?= ROOT ?>/Manager/Viewprofile" style="font-size: 18px;">
                             <i class="fas fa-user-check"></i>Accounts
                         </a>
@@ -77,20 +77,6 @@
                             <i class="fas fa-hand-paper"></i>Request</a>
                     </li>
                 </ul>
-                <!-- <ul>
-                    <li class="hover-effect unselected">
-                        <a href="#" style="font-size: 18px;">
-                            <i class="fas fa-info-circle"></i>Info
-                        </a>
-                        <ul class="dropdown">
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Blog"><i class="fas fa-blog"></i>Blog</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Aboutus"><i class="fas fa-info-circle"></i>About Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Contactus"><i class="fas fa-envelope"></i>Contact Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Profile"><i class="fas fa-user-circle"></i>Home</a></li>
-
-                        </ul>
-                    </li>
-                </ul> -->
             </ul>
         </div>
 
@@ -204,48 +190,48 @@
                     <hr>
                     <?php if (!empty($data['allemergency'])): ?>
                         <?php foreach ($data['allemergency'] as $emergency): ?>
-                                <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
-                                <p class="Description" style="margin-left:30%;margin-top:-24%;"><strong><?= htmlspecialchars($emergency->Description); ?></strong><br>Teacher</p>
-                                <p>Reason:Today do not come to the class.be...</p>
-                                <button>Delete</button>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>No Emergency alert found.</p>
-                    <?php endif; ?>
-                </div>   
-            </div>
-
-            <div class="today_visitors" style="padding-bottom: 2%;">
-                <div class="today_visitors_header">
-                    <span style="white-space: nowrap;">
-                        <i class="fas fa-door-open" style="margin-right: 5%;"></i>Visitors Summary
-                    </span>
-                    <input type="Date" class="visitorsdate">
+                            <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
+                            <p class="Description" style="margin-left:30%;margin-top:-24%;"><strong><?= htmlspecialchars($emergency->Description); ?></strong><br>Teacher</p>
+                            <p>Reason:Today do not come to the class.be...</p>
+                            <button>Delete</button>
                 </div>
-                <div class="visitor-table-topics">
-                    <div class="visitorname"><span>NAME</span></div>
-                    <div class="visitorposition"><span>Role</span></div>
-                    <div class="visitorpurpose"><span>PURPOSE</span></div>
-                    <div class="visitorstarttime"><span>Start Time</span></div>
-                    <div class="visitorendtime"><span>End Time</span></div>
-                </div>
-                <?php if (!empty($data['visitorsummary'])): ?>
-                    <?php foreach ($data['visitorsummary'] as $visitor): ?>
-                        <div class="detailed-lines">
-                            <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
-                            <div class="visitorposition"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
-                            <div class="visitorpurpose"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
-                            <div class="visitorstarttime"><span><?= htmlspecialchars($visitor->Start_Time); ?></span></div>
-                            <div class="visitorendtime"><span><?= htmlspecialchars($visitor->End_Time); ?></span></div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No visitors found.</p>
-                <?php endif; ?>
-
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No Emergency alert found.</p>
+        <?php endif; ?>
             </div>
         </div>
+
+        <div class="today_visitors" style="padding-bottom: 2%;">
+            <div class="today_visitors_header">
+                <span style="white-space: nowrap;">
+                    <i class="fas fa-door-open" style="margin-right: 5%;"></i>Visitors Summary
+                </span>
+                <input type="Date" class="visitorsdate">
+            </div>
+            <div class="visitor-table-topics">
+                <div class="visitorname"><span>NAME</span></div>
+                <div class="visitorposition"><span>Role</span></div>
+                <div class="visitorpurpose"><span>PURPOSE</span></div>
+                <div class="visitorstarttime"><span>Start Time</span></div>
+                <div class="visitorendtime"><span>End Time</span></div>
+            </div>
+            <?php if (!empty($data['visitorsummary'])): ?>
+                <?php foreach ($data['visitorsummary'] as $visitor): ?>
+                    <div class="detailed-lines">
+                        <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
+                        <div class="visitorposition"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
+                        <div class="visitorpurpose"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
+                        <div class="visitorstarttime"><span><?= htmlspecialchars($visitor->Start_Time); ?></span></div>
+                        <div class="visitorendtime"><span><?= htmlspecialchars($visitor->End_Time); ?></span></div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No visitors found.</p>
+            <?php endif; ?>
+
+        </div>
+    </div>
     </div>
 
     <script>
