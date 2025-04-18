@@ -105,9 +105,9 @@
             $Category = $requestData['Category'] ?? null;
 
             $StockModal = new \Modal\Stock;
-            $Item = $StockModal->first(["Item" => $Item, "Category" => $Category]);
+            $Stock = $StockModal->first(["Item" => $Item, "Category" => $Category]);
 
-            if(!empty($Item)){
+            if(!empty($Stock)){
                 $response = [
                     'success' => false,
                     'data' => "Item already exists in stock"
@@ -131,12 +131,9 @@
             $ItemID = $requestData['ItemID'] ?? null;
 
             $StockModal = new \Modal\Stock;
-            $Item = $StockModal->first(["Item" => $Item, "Category" => $Category, "ItemID" => $ItemID]);
-            $Another = $StockModal->where_norder(["Item" => $Item, "Category" => $Category]);
+            $Stock = $StockModal->first(["Item" => $Item, "Category" => $Category]);
 
-            
-
-            if(!empty($Item)){
+            if(!empty($Stock) && $Stock->ItemID != $ItemID){
                 $response = [
                     'success' => false,
                     'data' => "Item already exists in stock"
