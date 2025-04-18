@@ -76,7 +76,7 @@
                     </ul>
                 </ul>
             </div>
-            <div class="header" style="margin-top:78.35%">
+            <div class="header" style="margin-top:-1%">
                 <div class="name">
                     <h1>Hey Namal</h1>
                     <p style="color: white;">Let’s do some productive activities today</p>
@@ -106,7 +106,7 @@
                     </button>
                 </div>
             </div>
-            <div class="fill" style="margin-left: 300px;margin-top:92%">
+            <div class="fill" style="margin-left: 300px;margin-top:10%">
                 <h1 style=" margin-left: 20px;color:#233E8D ;width:75%;margin-top:20px;">Packages</h1>
                 <hr>
                 <div class="packages">
@@ -162,11 +162,10 @@
                         <label for="FoodAddons">Food Addons:</label>
                         <select name="features" id="foodaddons" class="form-control" required>
                             <option value="" selected hidden>Select Features</option>
-                            <option value="AllHours">Egg with Noodles</option>
-                            <option value="FoodAddons">Marmite with Bread</option>
-                            <option value="Everything">Yourgurt</option>
+                            <option value="AllHours">All Hours</option>
+                            <option value="FoodAddons">Food Addons</option>
+                            <option value="Everything">Everything</option>
                         </select>
-
                         <!-- Days -->
 
                         <?php
@@ -213,7 +212,7 @@
                     <h2>Confirm Deletion</h2>
                     <p>Are you sure you want to delete this Package?</p>
                     <div class="modal-buttons">
-                        <button id="confirmDelete" class="confirm-btn">Yes, Delete</button>
+                        <button id="confirmDelete" class="confirm-btn">Delete</button>
                         <button id="cancelDelete" class="cancel-btn" id="closePopup">Cancel</button>
                     </div>
                 </div>
@@ -221,6 +220,8 @@
 
         </div>
         </div>
+
+        
 
         <script>
             function deletepackage(PackageID) {
@@ -279,11 +280,10 @@
 
                 // Close when clicking outside the popup
                 popupOverlay.addEventListener("click", () => {
-                    popupOverlay.style.display = "none"; 
+                    popupOverlay.style.display = "none";
                     popupBox.style.display = "none";
                 });
             });
-    
         </script>
 
     </body>

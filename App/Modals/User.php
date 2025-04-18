@@ -9,9 +9,12 @@
 
         protected $table = 'user';
         protected $allowedColumns = [
+            'UserID',
             'Username',
             'Password',
-            'Role'
+            'Role',
+            'Other',
+            "Block"
         ];
 
         public function validate($data){
