@@ -12,6 +12,7 @@ class Home
 
         $data = $this->store_stats();
         $data = $data + $this->visitors_log();
+        $data = $data + $this->show_emergency();
         $this->view('Manager/Home', $data);
     }
 
@@ -56,7 +57,7 @@ class Home
             $Enrollrecords = $EnrollModal->where_norder(['EnrollDate' => $currentDate]);
 
             // Step 4: Add to the total count
-            if(!empty($Enrollrecords)){            
+            if (!empty($Enrollrecords)) {
                 $totalEnrollments += count($Enrollrecords);
             }
         }
@@ -66,18 +67,49 @@ class Home
         return $data;
     }
 
+    public function show_emergency()
+    {
+        $emodel = new \Modal\Emergency;
+        $today = new \DateTime();
+        $formattedDate = $today->format('Y-m-d');
+        $rows = $emodel->where_norder(["Date" => $formattedDate]);
 
-    private function visitors_log(){
+        // Check if $rows is an iterable object and not empty
+        if (!empty($rows) && is_iterable($rows)) {
+            foreach ($rows as $row) {
+                $MaidModal = new \Modal\Maid;
+                $maid = $MaidModal->first(["MaidID" => $row->AssigneeID]);
+        
+                if ($maid) { // Ensure $maid is not null
+                    $row->Name = $maid->First_Name . ' ' . $maid->Last_Name;
+                    $row->MaidID = $maid->MaidID;
+                }
+            }
+        }
+
+        $data['emergency'] = $rows;
+        return $data;
+    }
+
+    public function emergency_delete($EmergencyID)
+    {
+        $emodel = new \Modal\Emergency;
+
+        $emodel->delete($EmergencyID, 'EmergencyID');
+
+        $this->index();
+    }
+
+
+    private function visitors_log()
+    {
         $data = [];
-
-        $VisitorModal = new \Modal\Visitorlog;
-
+        $VisitorModal = new \Modal\Visitorlog;  
         $Visitorrecords = $VisitorModal->findall();
         $data['visitorsummary'] = $Visitorrecords;
         return $data;
-
     }
-
+    
     public function Packages()
     {
         $this->view('Manager/Packages');

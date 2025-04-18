@@ -25,7 +25,7 @@ body {
     width: 400px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 0 10px var(--popup-background);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transform: scale(1);
     animation: popupAnimation 0.3s ease-in-out;
@@ -48,7 +48,7 @@ body {
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-    border-bottom: 1px solid var(--body-second);
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .form-group {
@@ -89,7 +89,7 @@ body {
 }
 
 .buttons  .cancel {
-    background-color: var(--body-second);  
+    background-color: #e0e0e0;  
     width: 80px;
     height: 35px;
     text-decoration: none;
@@ -101,7 +101,7 @@ body {
 
 
 .buttons  .publish {
-    background-color: var(--button-blue);
+    background-color: #007bff;
     width: 80px;
     height: 35px;
     text-decoration: none;

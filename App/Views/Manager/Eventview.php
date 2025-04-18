@@ -143,11 +143,14 @@
                 <div class="event-list">
                     <?php if (!empty($data['allevents'])): ?>
                         <?php foreach ($data['allevents'] as $event): ?>
-                            <div class="lists">
+                            <div class="event-item">
                                 <h3><?= htmlspecialchars($event->EName) ?></h3>
                                 <p>Date: <?= htmlspecialchars($event->EDate) ?></p>
                                 <p>Description: <?= htmlspecialchars($event->Edescription) ?></p>
-                                <button class="del-btn" onclick="deleteEvent(<?= $event->EventID ?>)">Delete</button>
+                                <div class="buttons">
+                                    <button class="update-btn" data-id="<?= $event->EventID ?>">Update</button>
+                                    <button class="del-btn" onclick="deleteEvent(<?= $event->EventID ?>)">Delete</button>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -168,6 +171,40 @@
 
                 </div>
             </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Update Event Popup -->
+    <div id="popupContainer" class="popup-container">
+        <div class="popup">
+            <button id="closePopup" class="close-btn">×</button>
+            <h1 style="color: #233E8D;">Publish Event</h1>
+            <form action="<?= ROOT ?>/Manager/Event/updateEvent" method="post" class="leave-form">
+                <div class="form-group">
+                    <label for="EName">Event Type <span class="required">*</span></label>
+                    <select name="EName" id="EName" class="form-control">
+                        <option value="">Select Event Type</option>
+                        <option value="Annual Event" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Annual Event") echo 'selected'; ?>>Annual Event</option>
+                        <option value="Sports day" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Sports day") echo 'selected'; ?>>Sports Day</option>
+                        <option value="Cultural Leave" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Cultural Leave") echo 'selected'; ?>>Cultural Leave</option>
+                        <option value="Eid Festival" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Eid Festival") echo 'selected'; ?>>Eid Festival</option>
+                        <option value="Other" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Other") echo 'selected'; ?>>Other</option>
+                    </select>
+
+                    <label for="Date">Date <span class="required">*</span></label>
+                    <input type="date" id="Edate" name="EDate" class="form-control" value="<?= isset($_POST['EDate']) ? htmlspecialchars($_POST['EDate']) : ''; ?>" required>
+
+                    <label for="Edescription">Description</label>
+                    <textarea id="Edescription" name="Edescription" placeholder="Include comments for Event type" class="form-control" required><?= isset($_POST['Edescription']) ? htmlspecialchars($_POST['Edescription']) : ''; ?></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="update-btn" style="margin-right: 20%;">Update</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -197,6 +234,93 @@
                 }
             };
         }
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all update buttons by class instead of ID
+            const updateButtons = document.querySelectorAll('.update-btn');
+            const closeBtn = document.getElementById('closePopup');
+            const popupContainer = document.getElementById('popupContainer');
+
+            // Add click event to all update buttons
+            updateButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const holidayItem = this.closest('.event-item');
+                    const holidayId = this.getAttribute('data-id');
+
+                    // Get the text content of leave type, date, and about
+                    const leaveType = holidayItem.querySelector('h3').textContent;
+                    const dateText = holidayItem.querySelector('p:nth-of-type(1)').textContent;
+                    const aboutText = holidayItem.querySelector('p:nth-of-type(2)').textContent;
+
+                    // Extract just the date value from "Date: 2023-04-16" format
+                    const dateValue = dateText.replace('Date: ', '').trim();
+                    // Extract just the about text from "Description: Some text" format
+                    const aboutValue = aboutText.replace('Description: ', '').trim();
+
+                    // Set form action to point to the update endpoint with the correct ID
+                    const form = document.querySelector('#popupContainer form');
+                    form.action = `<?= ROOT ?>/Manager/Event/updateEvent/${holidayId}`; // Use holidayId here
+
+                    // Add hidden input for holiday ID if needed
+                    let hiddenInput = form.querySelector('input[name="EventID"]');
+                    if (!hiddenInput) {
+                        hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = 'EventID';
+                        form.appendChild(hiddenInput);
+                    }
+                    hiddenInput.value = holidayId;
+
+                    // Populate form fields with the holiday data
+                    const leaveTypeSelect = form.querySelector('select[name="EName"]');
+                    const dateInput = form.querySelector('input[name="EDate"]');
+                    const aboutTextarea = form.querySelector('textarea[name="Edescription"]');
+
+                    // Set the selected option in the dropdown
+                    for (let i = 0; i < leaveTypeSelect.options.length; i++) {
+                        if (leaveTypeSelect.options[i].value === leaveType) {
+                            leaveTypeSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+
+                    // Set the date and about values
+                    dateInput.value = dateValue;
+                    aboutTextarea.value = aboutValue;
+
+                    // Show the popup
+                    popupContainer.style.display = 'flex';
+                });
+            });
+
+            // Close popup function
+            function closePopup() {
+                popupContainer.style.display = 'none';
+            }
+
+            // Event listener for close button
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closePopup);
+            }
+
+            // Close popup when clicking outside
+            popupContainer.addEventListener('click', function(event) {
+                if (event.target === popupContainer) {
+                    closePopup();
+                }
+            });
+
+            // Close popup with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closePopup();
+                }
+            });
+        });
     </script>
 </body>
 

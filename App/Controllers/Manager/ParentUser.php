@@ -7,14 +7,16 @@
     class User{
         use Modal;
 
-        protected $table = 'user';
+        protected $table = 'parent';
         protected $allowedColumns = [
             'UserID',
-            'Username',
-            'Password',
-            'Role',
-            'Other',
-            "Block"
+            'Firstname',
+            'Lastname',
+            'Phone_Number',
+            'Address',
+            'Email',
+            'NID',
+            'Image'
         ];
 
         public function validate($data){

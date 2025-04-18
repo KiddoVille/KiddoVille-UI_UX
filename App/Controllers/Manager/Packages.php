@@ -58,7 +58,7 @@ class Packages
     public function deletepackage($PackageID)
     {
         $model = new \Modal\Package;
-        if ($model->delete($PackageID)) {
+        if ($model->delete($PackageID,"PackageID")) {
             echo "Succecfully deleted";
         } else {
             echo "Failed to delete";

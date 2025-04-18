@@ -8,7 +8,6 @@
     <link rel="icon" href="<?= IMAGE ?>/KIDDOVILLE_LOGO.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="<?= JS ?>/Manager/profileview.js"></script>
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Leaverequest.css?<?= time() ?>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -186,7 +185,7 @@
                     <script src="inventoryGraph.js"></script>
                 </div>
                 <div class="emergency">
-                    <h2 style="color: #233E8D;margin-left:5%;margin-top:5%;">Emergency Alerts</h2>
+                    <h2 style="color: #233E8D; margin-left:5%; margin-top:5%;">Emergency Alerts</h2>
                     <hr>
                     <?php if (!empty($data['allemergency'])): ?>
                         <?php foreach ($data['allemergency'] as $emergency): ?>
@@ -233,6 +232,7 @@
         </div>
     </div>
     </div>
+
 
     <script>
         // Get the canvas element
@@ -298,6 +298,37 @@
                 }
             }
         });
+
+
+        const filterByDate = () => {
+            const searchDate = document.getElementById('search-date').value; // Get input date
+            const visitors = document.querySelectorAll('.detailed-lines'); // Select all visitor records
+            const noResultsMessage = document.getElementById('no-results');
+
+            let found = false; // Track if any match is found
+            noResultsMessage.style.display = "none"; // Hide "Date Not Found" initially
+
+            for (let i = 0; i < visitors.length; i++) {
+                let visitorDateElement = visitors[i].querySelector('.visitordate span'); // Get the date span inside each visitor record
+
+                if (visitorDateElement) {
+                    let visitorDate = visitorDateElement.textContent.trim(); // Get the text content (date)
+
+                    // Compare the selected date with the visitor's date
+                    if (searchDate === visitorDate) {
+                        visitors[i].style.display = ""; // Show matching record
+                        found = true;
+                    } else {
+                        visitors[i].style.display = "none"; // Hide non-matching records
+                    }
+                }
+            }
+
+            // If no match is found, show the "Date Not Found" message
+            if (!found && searchDate !== "") {
+                noResultsMessage.style.display = "block";
+            }
+        };
     </script>
 </body>
 

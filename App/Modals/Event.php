@@ -13,7 +13,7 @@
             'EventName',
             'Date',
             'TeacherID',
-            'Descrption',
+            'Description',
             'Image',
             'BlogID',
             'Fee'
