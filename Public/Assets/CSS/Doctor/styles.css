@@ -110,7 +110,7 @@ body{
 /*NAVBAR*/
 .navabr{
     height: 80px;
-    background: linear-gradient(135deg, #60a6ec, #10639a);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -247,7 +247,7 @@ body{
     height: 150px;
     background-color: var(--secondary-color);
     backdrop-filter: blur(3px);
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 4px 15px var(--popup-background);
     transition: 0.3s ease-in;
     color: #fff;
 }
@@ -414,7 +414,7 @@ body{
 .activity-list{
     flex:2;
     background-color: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px var(--popup-background);
     border-radius: 25px;
     padding: 20px;
 }
@@ -514,7 +514,7 @@ body{
     display: none;
     flex:2;
     background-color: #edeeef7d;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px var(--popup-background);
     border-radius: 25px;
     padding: 20px;
     backdrop-filter: blur(5px);
@@ -565,7 +565,7 @@ body{
     padding: 8px 10px;
     margin: 8px 10px;
     background-color: #f6f6f69b;
-    box-shadow:0 2px 6px rgba(0, 0, 0, 0.1); ;
+    box-shadow:0 2px 6px var(--popup-background); ;
     transition: 0.3s;
     cursor: pointer;
 }
@@ -598,7 +598,7 @@ body{
     flex-direction: column;
     flex:1;
     background-color: rgba(255, 255, 255, 0.178);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px var(--popup-background);
     border-radius: 25px;
     padding: 20px 20px;
     justify-content: center;
@@ -717,7 +717,7 @@ body{
 .report-body button:hover{
     background-color: #135ab0;
     transform: scale(1.05);
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 5px var(--popup-background);
 }
 .report-footer{
     justify-content: left;

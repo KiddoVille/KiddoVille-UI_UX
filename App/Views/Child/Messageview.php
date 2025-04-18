@@ -161,7 +161,7 @@
             </div>
         </div>
 
-        <div class="sidebar3">
+        <div class="sidebar3" id="sidebar3">
             <div class="search-bar">
                 <input placeholder="Search" type="text" id="persons" />
             </div>
@@ -476,11 +476,11 @@
     const chatUserName = chatHeader.querySelector('.user-info .name');
     const chatUserStatus = chatHeader.querySelector('.user-info .status');
     const chatUserImage = chatHeader.querySelector('.header2 img');
-    const sidebar = document.getElementById('sidebar');
+    const sidebar3 = document.getElementById('sidebar3');
     const inputbar = document.getElementById('input-bar');
 
     // Attach the event listener to the parent container (event delegation)
-    sidebar.addEventListener('click', function(e) {
+    sidebar3.addEventListener('click', function(e) {
         // Check if the clicked element is a .sidebar-chat element
         if (e.target && e.target.closest('.sidebar-chat')) {
             const person = e.target.closest('.sidebar-chat'); // Get the closest .sidebar-chat element

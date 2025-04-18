@@ -12,7 +12,7 @@ class Foodtable
     public function index()
     {
         $data['Meal'] = $this->food_items();
-        $this->view('Manager/Foodtable', $data);
+        // $this->view('Manager/Foodtable', $data);
     }
 
     private function getRandomMeals($array, $count = 3) {
@@ -136,6 +136,7 @@ class Foodtable
     public function food_items() {
         $Modal = new \Modal\FoodPlan;
         $Foodtable = $Modal->findall_order("Date", "DESC");
+    
         $today = date('Y-m-d');
         $tomorrow = date('Y-m-d', strtotime('+1 day'));
         $dayafter = date('Y-m-d', strtotime('+2 days'));
@@ -230,7 +231,7 @@ class Foodtable
         $tomorrow = date('Y-m-d', strtotime('+1 day'));
         $dayafter = date('Y-m-d', strtotime('+2 day'));
         $data['today'] = $SnackModal->where_norder(["Date" => $today]);
-        $data['tomorrow'] = $SnackModal->where_norder(["Date" =>$tomorrow]);
+        $data['tomorrow'] = $SnackModal->where_norder(["Date" => $tomorrow]);
         $data['dayafter'] = $SnackModal->where_norder(["Date" =>$dayafter]);
         return $data;
     }
