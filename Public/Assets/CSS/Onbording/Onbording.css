@@ -1,7 +1,9 @@
+@import url('../variables.css');
+
+
 body {
     margin: 0;
     padding: 0;
-    background-image: url('http://127.0.0.1/MVC/Public/Assets/Images/profile-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     font-size: 20px;
@@ -15,7 +17,7 @@ body {
     margin: 50px;
     justify-content: center;
     border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--popup-background);
     border: 3px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: row;
@@ -42,7 +44,7 @@ body {
     width: 150px;
     height: 150px;
     border-radius: 100%;
-    border: 5px solid rgba(27, 54, 101, 1);
+    border: 5px solid  var(--secondary-color);
     box-shadow: 0px 0px 12px rgba(72, 99, 180, 0.5);
     transition: box-shadow 0.3s;
     margin-top: 10px;
@@ -62,7 +64,7 @@ body {
 .add{
     cursor: pointer;
     font-size: 40px;
-    color: rgba(27, 54, 101, 1); 
+    color:  var(--secondary-color); 
 }
 
 .leftcon {
@@ -100,6 +102,7 @@ label{
 .data input[type='password'],
 .data input[type='email'],
 .data input[type='date'],
+.data textarea,
 .add-btn
 {
     background-color: #dcdcdc;
@@ -108,7 +111,7 @@ label{
     width: 300px;
     height: 35px;
     font-size: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px var(--popup-background);
     transition: box-shadow 0.3s ease;
     padding-left: 10px;
 }
@@ -117,8 +120,9 @@ label{
 .data input[type='password']:hover,
 .data input[type='email']:hover,
 .data input[type='date']:hover,
+.data textarea:hover,
 .data select:hover {
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 12px var(--popup-background);
 }
 
 .data select {
@@ -146,14 +150,7 @@ label{
     height: 40px;
     padding: 5px 20px;
 }
-.edit{
-    position: absolute;
-    margin-top: 40px;
-    margin-right: -200px;
-    margin-left: 450px;
-    color: rgb(2, 77, 205);
-    font-weight: 600;
-}
+
 .divider {
     height: auto;
     width: 2px;
@@ -164,7 +161,7 @@ label{
     margin-right: 10px;
 }
 .refresh-con{
-    background-color: #007bff;
+    background-color:  var(--secondary-color);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -223,7 +220,7 @@ p{
 
 .circle:hover{
     transform: scale(1.2);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 6px 12px var(--popup-background);
 }
 
 .select{
@@ -242,7 +239,7 @@ p{
 }
 
 h2{
-    color: #2524E8;
+    color:  var(--secondary-color);
     margin-left: 30px;
     font-size: 30px;
     margin-top: 10px;
@@ -261,7 +258,7 @@ h2{
     margin-right: 20px;
     padding: 0px !important; 
     background-size: cover; 
-    border: 5px solid #2524E8;
+    border: 5px solid  var(--secondary-color);
     border-radius: 90px; 
     width: 150px; 
     height: 150px; 
@@ -282,20 +279,9 @@ h2{
 }
 
 .add-btn{
-    background-color:  #2524E8 !important;
+    background-color:  var(--secondary-color) !important;
     color: white !important;
 }
-
-.edit{
-    position: absolute;
-    margin-top: 40px;
-    margin-right: -200px;
-    margin-left: 450px;
-    color: rgb(2, 77, 205);
-    font-weight: 600;
-    cursor: pointer;
-}
-
 
 /* prescription */
 .prescription-view{
@@ -307,7 +293,7 @@ h2{
     padding: 20px;
     margin: 50px;
     border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--popup-background);
     border: 3px solid rgba(255, 255, 255, 0.2);
     display: none;
     position: absolute;
@@ -331,7 +317,7 @@ h2{
 }
 .move:hover{
     transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px var(--popup-background);
 }
 
 
@@ -348,7 +334,7 @@ h2{
 }
 
 .back-con{
-    background-color: #007bff;
+    background-color:  var(--secondary-color);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -361,7 +347,7 @@ h2{
 }
 
 .refresh-con{
-    background-color: #007bff;
+    background-color:  var(--secondary-color);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -441,7 +427,7 @@ h2{
     position: fixed;
     display: none;
     background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--popup-background);
     border: 3px solid rgba(255, 255, 255, 0.2);
     z-index: 10000;
     max-height: 300px;
@@ -480,13 +466,13 @@ h2{
     border: none;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
-    border-top: 2px solid darkblue;
-    border-left: 2px solid darkblue;
-    border-right: 2px solid darkblue;
+    border-top: 2px solid  var(--secondary-color);
+    border-left: 2px solid  var(--secondary-color);
+    border-right: 2px solid  var(--secondary-color);
 }
 .selectday{
     background-color: rgba(58, 99, 223, 0.8);
-    border: 2px solid darkblue;
+    border: 2px solid  var(--secondary-color);
     color: white;
 }
 
@@ -500,3 +486,37 @@ h2{
     margin-left: -25px;
 }
 
+.home-contain {
+    margin-top: -30px; 
+    color: black;
+    z-index: 10000;
+    display: flex;
+    position: absolute; 
+    background-color:  var(--secondary-color);
+    padding: 12px;
+    border-radius: 0px 19px 0px 0px;
+    margin-left: 644px ;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.fa-home {
+    margin: 0px; 
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.home-contain:hover{
+    transform: scale(1.05);
+    z-index: 1;
+}
+
+.edit{
+    position: absolute;
+    margin-top: 40px;
+    margin-right: -200px;
+    margin-left: 200px;
+    color: rgb(2, 77, 205);
+    font-weight: 600;
+}
