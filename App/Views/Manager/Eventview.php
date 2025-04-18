@@ -142,7 +142,7 @@
                 <h2>Published Events</h2>
                 <div class="event-list">
                     <?php if (!empty($data['allevents'])): ?>
-                        <?php foreach ($data['allevents'] as $event): ?>
+                        <?php foreach (array_reverse($data['allevents']) as $event): ?>
                             <div class="event-item">
                                 <h3><?= htmlspecialchars($event->EventName) ?></h3>
                                 <p>Date: <?= htmlspecialchars($event->Date) ?></p>
@@ -152,7 +152,7 @@
                                     <button class="del-btn" onclick="deleteEvent(<?= $event->EventID ?>)">Delete</button>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
                     <?php else: ?>
                         <p>No events published yet.</p>
                     <?php endif ?>
@@ -168,7 +168,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
