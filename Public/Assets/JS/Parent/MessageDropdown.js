@@ -4,16 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let messageDropdownTimeout;
 
+    function toggleBellDropdown() {
+        if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+            messageDropdown.style.display = "block";
+        } else {
+            messageDropdown.style.display = "none";
+        }
+    }
+
     bellIcon.addEventListener('click', function(event) {
         event.stopPropagation();
         toggleBellDropdown();
     });
 
-    if(messageDropdown){
-        messageDropdown.addEventListener('mouseenter', function() {
-            clearTimeout(messageDropdownTimeout);
-        });
-    }
+    messageDropdown.addEventListener('mouseenter', function() {
+        clearTimeout(messageDropdownTimeout);
+    });
 
     document.addEventListener('click', function(event) {
         if (!messageDropdown.contains(event.target) && !bellIcon.contains(event.target)) {

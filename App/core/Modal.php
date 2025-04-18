@@ -239,6 +239,8 @@
             $this->query($query, $data);
 
         }
+         
+        
 
         public function update($condition, $data) {
             // Initialize arrays for the condition part of the query
@@ -258,6 +260,12 @@
                         unset($data[$key]); // Remove data that is not in allowed columns
                     }
                 }
+            }
+
+             // ✅ Check if there's anything to update
+             if (empty($data)) {
+                // Optionally log or throw an error
+                return false;
             }
         
             // Prepare the SET clause for the query
