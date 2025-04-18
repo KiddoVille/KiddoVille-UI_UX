@@ -13,6 +13,9 @@
             'Item',
             'Category',
             'Quantity',
-            'MinQuantity'
+            'MinQuantity',
+            'Stock',
+            'Image',
+            'ImageType'
         ];
     }
