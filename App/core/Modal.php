@@ -41,6 +41,32 @@
             return $this->query($query);
         }
 
+        public function getSortedData($orderBy = [], $defaultDirection = "ASC") {
+            $query = "SELECT * FROM $this->table";
+
+            if (is_string($orderBy)) {
+                $orderBy = [$orderBy => $defaultDirection];
+            }
+        
+            // Build ORDER BY clause
+            if (!empty($orderBy)) {
+                $orderParts = [];
+        
+                foreach ($orderBy as $column => $direction) {
+                    $dir = strtoupper($direction);
+                    if (!in_array($dir, ["ASC", "DESC"])) {
+                        $dir = strtoupper($defaultDirection);
+                    }
+                    $orderParts[] = "$column $dir";
+                }
+        
+                $query .= " ORDER BY " . implode(", ", $orderParts);
+            }
+
+            return $this->query($query);
+        }
+        
+
         public function where_norder($data, $data_not = []){
             $keys = array_keys($data);
             $keys_not = array_keys($data_not);
