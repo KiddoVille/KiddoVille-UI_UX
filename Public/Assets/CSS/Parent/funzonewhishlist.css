@@ -1,14 +1,12 @@
-@import url('../variables.css');
-
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: var(--body-first);
+    background-color: #f0f0f0;
 }
 
 .main-content {
     margin-left: 250px;
-    background-color: var(--body-second);
+    background-color: #e0e0e0;
     height: 100vh;
     overflow-y: auto;
     background: url('../../../../Assets/funzone-backgound.png') no-repeat center center;
@@ -30,16 +28,12 @@ body {
     max-height: 80%;
 }
 
-.grid::-webkit-scrollbar {
-    display: none; /* For Chrome, Safari, and Edge */
-}
-
 .main-content .grid .item {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
     text-align: center;
-    box-shadow: 0 4px 8px var(--popup-background);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px 10px;
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -48,7 +42,7 @@ body {
 .main-content .grid .item:hover {
     transform: translateY(-10px);
     /* Move the item up */
-    box-shadow: 0 8px 16px var(--popup-background);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     /* Increase shadow on hover */
 }
 
@@ -63,7 +57,7 @@ body {
 }
 
 .icon-btn {
-    background-color: var(--body-first);
+    background-color: #f0f0f0;
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -72,16 +66,16 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 4px var(--popup-background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid #196df5;
 }
 
 .icon-btn:hover {
-    background-color: var(--body-second);
+    background-color: #e0e0e0;
     transform: scale(1.2);
     /* Enlarge the button */
-    box-shadow: 0 8px 16px var(--popup-background);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     /* Increase shadow on hover */
 }
 
@@ -190,7 +184,7 @@ body {
     background-color: #8db4f3;
     border: 2px solid black;
     border-radius: 10px;
-    box-shadow: 0 4px 8px var(--popup-background);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
     z-index: 100;
     transition: all 0.3s ease;

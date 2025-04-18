@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
     <style type="text/css">
-        .st0 { fill:#233E8D; }
+        .st0 { fill: none; }
     </style>
     <g id="XMLID_74_">
         <path id="XMLID_170_" class="st0" d="M355.9 128h52L345 67.2v51.3c0 5 5.1 9.5 10.9 9.5z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
