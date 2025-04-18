@@ -1,6 +1,6 @@
 .press-page{
     border-radius: 15px;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);;
+    box-shadow: 4px 4px 15px var(--popup-background);;
     display: flex;
     flex-direction: column;
     background-color: #f4f4f4;
@@ -15,7 +15,7 @@
     max-width: 900px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px var(--popup-background);
     overflow: hidden;
   }
   
@@ -58,7 +58,7 @@
   }
   
   input:focus, select:focus {
-    border-color: #007bff;
+    border-color: var(--button-blue);
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
@@ -81,12 +81,12 @@
   }
   
   .submit-btn {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     color: white;
   }
   
   .submit-btn:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
   }
   
   .reset-btn {

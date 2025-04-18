@@ -1,6 +1,6 @@
 .profile-page{
     border-radius: 15px;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);;
+    box-shadow: 4px 4px 15px var(--popup-background);;
     display: flex;
     flex-direction: column;
     background-color: #fff;

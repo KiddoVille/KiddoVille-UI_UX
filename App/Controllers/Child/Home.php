@@ -71,9 +71,12 @@ class Home
         }
 
         $Count = 0;
-        foreach ($Notifications['data'] as $Note){
-            if($Note->Seen == 0){
-                $Count ++;
+
+        if(!empty($Notifications['data'])){
+            foreach ($Notifications['data'] as $Note){
+                if($Note->Seen == 0){
+                    $Count ++;
+                }
             }
         }
 

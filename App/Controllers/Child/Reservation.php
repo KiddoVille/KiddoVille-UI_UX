@@ -59,8 +59,12 @@
             $Holidays = $HolidayModal->findFutureDates($today, $nextweek);
         
             // Convert holiday dates to string list for easy comparison
-            $holidayDates = array_map(fn($h) => (new \DateTime($h->Date))->format('Y-m-d'), $Holidays);
-            $ReservationDates = array_map(fn($h) => (new \DateTime($h->Date))->format('Y-m-d'), $Reservation);
+            if(!empty($Reservation)){
+                $ReservationDates = array_map(fn($h) => (new \DateTime($h->Date))->format('Y-m-d'), $Reservation);
+            }
+            if(!empty($Holidays)){
+                $holidayDates = array_map(fn($h) => (new \DateTime($h->Date))->format('Y-m-d'), $Holidays);
+            }
         
             $dates = [];
             $editdates = [];
