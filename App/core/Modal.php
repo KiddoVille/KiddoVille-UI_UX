@@ -237,7 +237,6 @@
             $data[$id_column] = $id;
             $query = "delete from $this->table where $id_column = :$id_column";
             $this->query($query, $data);
-
         }
 
         public function update($condition, $data) {

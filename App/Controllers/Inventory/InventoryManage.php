@@ -13,6 +13,54 @@
             $this->view('Inventory/InventoryManage', $data);
         }
 
+        public function AddItems()
+        {
+            $StockModal = new \Modal\Stock;
+            if (!empty($_FILES['Image']['tmp_name'])) {
+                $binaryImage = file_get_contents($_FILES['Image']['tmp_name']);
+            }
+            $imageType = $_FILES['Image']['type'];
+
+            $_POST['Image'] = $binaryImage;
+            $_POST['ImageType'] = $imageType;
+        
+            $StockModal->insert($_POST);
+            redirect("Inventory/InventoryManage");
+        }
+
+        public function ViewItem(){
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+
+            $ItemID = $requestData['ItemID'] ?? null;
+            $StockModal = new \Modal\Stock;
+            $Item = $StockModal->first(["ItemID" => $ItemID]);
+
+            if(!empty($Item)){
+                $imageData = $Item->Image;
+                $imageType = $Item->ImageType;
+
+                // If image data is available, construct the Base64 string using the correct MIME type
+                $base64Image = (!empty($imageData) && is_string($imageData)) 
+                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData) 
+                    : null
+                ;
+                $Item->Image = $base64Image;
+
+                $response = [
+                    'success' => true,
+                    'data' => $Item
+                ];
+            }
+            else{
+                $response = [
+                    'success' => false,
+                    'data' => "The Item is not in stock"
+                ];
+            }
+            echo json_encode($response);
+        }
+
         private function store_stats(){
             $data = [
                 "RestockDate" => 0,
@@ -49,6 +97,60 @@
             return $data;
         }
 
+        public function NameError(){
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+
+            $Item = $requestData['Item'] ?? null;
+            $Category = $requestData['Category'] ?? null;
+
+            $StockModal = new \Modal\Stock;
+            $Item = $StockModal->first(["Item" => $Item, "Category" => $Category]);
+
+            if(!empty($Item)){
+                $response = [
+                    'success' => false,
+                    'data' => "Item already exists in stock"
+                ];
+            }
+            else{
+                $response = [
+                    'success' => true,
+                    'data' => "Item can be added"
+                ];
+            }
+            echo json_encode($response);   
+        }
+
+        public function EditNameError(){
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+
+            $Item = $requestData['Item'] ?? null;
+            $Category = $requestData['Category'] ?? null;
+            $ItemID = $requestData['ItemID'] ?? null;
+
+            $StockModal = new \Modal\Stock;
+            $Item = $StockModal->first(["Item" => $Item, "Category" => $Category, "ItemID" => $ItemID]);
+            $Another = $StockModal->where_norder(["Item" => $Item, "Category" => $Category]);
+
+            
+
+            if(!empty($Item)){
+                $response = [
+                    'success' => false,
+                    'data' => "Item already exists in stock"
+                ];
+            }
+            else{
+                $response = [
+                    'success' => true,
+                    'data' => "Item can be added"
+                ];
+            }
+            echo json_encode($response);
+        }
+
         public function StoreInventory() {
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
@@ -70,6 +172,9 @@
             $filteredStock = [];
         
             foreach ($allStock as $row) {
+                unset($row->Image);
+                unset($row->ImageType);
+
                 if ($Category && $row->Category !== $Category) {
                     continue;
                 }
@@ -93,6 +198,8 @@
                 if (!empty($Stocked)) {
                     $dateObj = new \DateTime($Stocked->Date);
                     $row->Date = $dateObj->format('M d, Y');
+                }else{
+                    $row->Date = null;
                 }
         
                 // Get issued quantity for the current month
@@ -113,7 +220,7 @@
                     }
                 }
 
-                $row->ItemID = "IT-" . str_pad($row->ItemID, 4, "0", STR_PAD_LEFT);
+                $row->ItemIDmodified = "IT-" . str_pad($row->ItemID, 4, "0", STR_PAD_LEFT);
         
                 $filteredStock[] = $row;
             }
