@@ -3,43 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restocking - Inventory System</title>
-    <link rel="stylesheet" href="./Base.css">
+    <link rel="stylesheet" href="<?=CSS?>/Parent/deletepopup.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Parent/Alert.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Inventory.css?v=<?= time() ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h3>Inventory System</h3>
-            <p>Manager Portal</p>
-        </div>
-        <div class="sidebar-menu">
-            <ul>
-                <li><a href="./Manager-activity.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                <li><a href="./Manager-inventory.html"><i class="fas fa-boxes"></i> <span>Inventory</span></a></li>
-                <li><a href="./Manager-Usagereport.html"><i class="fas fa-chart-bar"></i> <span>Usage Reports</span></a></li>
-                <li><a href="./Manager-restock.html" class="active"><i class="fas fa-truck-loading"></i> <span>Restocking</span></a></li>
-                <li><a href="audit-log.html"><i class="fas fa-history"></i> <span>Audit Log</span></a></li>
-                <li><a href="user-profile.html"><i class="fas fa-user-cog"></i> <span>Profile</span></a></li>
-                <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
-            </ul>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <h1>Inventory Restocking</h1>
-            <div class="user-info">
-                <img src="/api/placeholder/40/40" alt="User Avatar">
-                <div class="user-info-text">
-                    <h4>John Smith</h4>
-                    <p>Inventory Manager</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Stats -->
         <div class="stats-container">
             <div class="stat-card">
@@ -80,9 +51,6 @@
         <div class="card">
             <div class="card-header">
                 <h2>Low Stock Items</h2>
-                <div>
-                    <button class="btn btn-secondary"><i class="fas fa-file-excel"></i> Export List</button>
-                </div>
             </div>
             <div class="card-body">
                 <div class="search-bar">
@@ -245,29 +213,32 @@
             </div>
             <div class="card-body">
                 <form>
-                    <div class="form-row">
+                <div class="form-row" style="display: flex; flex-direction: row; justify-content: center;">
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="supplier">Supplier</label>
-                                <select id="supplier" class="form-control" required>
-                                    <option value="">Select Supplier</option>
-                                    <option>Office Depot</option>
-                                    <option>School Supplies Inc.</option>
-                                    <option>Electronics Wholesale</option>
-                                    <option>Janitorial Supplies Co.</option>
+                            <label for="orderDate">Category</label>
+                                <select class="form-control" id="Category" style="max-width: 150px;">
+                                    <option value="All" selected>All Categories</option>
+                                    <option value="Stationery">Stationery</option>
+                                    <option value="Toys">Toys</option>
+                                    <option value="Books">Books</option>
+                                    <option value="Cleaning">Cleaning</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Snacks">Snacks</option>
+                                    <option value="Crafts">Crafts</option>
+                                    <option value="Clothing">Clothing</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="orderDate">Order Date</label>
-                                <input type="date" id="orderDate" class="form-control" value="2025-03-02" required>
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="expectedDelivery">Expected Delivery</label>
-                                <input type="date" id="expectedDelivery" class="form-control" value="2025-03-09" required>
+                                <label for="orderDate">Status</label>
+                                <select class="form-control" id="Status" style="max-width: 150px; margin-left: 50px;">
+                                    <option value="All">All Status</option>
+                                    <option value="Available">Available</option>
+                                    <option value="Low Stock">Low Stock</option>
+                                    <option value="Out of Stock">Out of Stock</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -278,7 +249,6 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox" id="selectAll"></th>
                                         <th>Item Name</th>
                                         <th>Category</th>
                                         <th>Current Stock</th>
@@ -289,34 +259,6 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="checkbox" name="restock_items[]" value="ITM001"></td>
-                                        <td>Whiteboard Markers</td>
-                                        <td>Classroom Supplies</td>
-                                        <td>0</td>
-                                        <td>50</td>
-                                        <td><span class="status status-out">Out of Stock</span></td>
-                                        <td><input type="number" class="form-control" value="100" min="1"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="restock_items[]" value="ITM012"></td>
-                                        <td>A4 Paper Reams</td>
-                                        <td>Office Supplies</td>
-                                        <td>0</td>
-                                        <td>20</td>
-                                        <td><span class="status status-out">Out of Stock</span></td>
-                                        <td><input type="number" class="form-control" value="40" min="1"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="restock_items[]" value="ITM023"></td>
-                                        <td>Science Lab Kit</td>
-                                        <td>Classroom Supplies</td>
-                                        <td>0</td>
-                                        <td>5</td>
-                                        <td><span class="status status-out">Out of Stock</span></td>
-                                        <td><input type="number" class="form-control" value="10" min="1"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="restock_items[]" value="ITM078"></td>
                                         <td>Projector Bulbs</td>
                                         <td>Electronics</td>
                                         <td>0</td>
@@ -325,7 +267,6 @@
                                         <td><input type="number" class="form-control" value="8" min="1"></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="checkbox" name="restock_items[]" value="ITM092"></td>
                                         <td>Sticky Notes</td>
                                         <td>Office Supplies</td>
                                         <td>0</td>
@@ -344,73 +285,9 @@
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                        <button type="button" class="btn btn-secondary">Save as Draft</button>
-                        <button type="submit" class="btn btn-primary">Submit Order</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
-            </div>
-        </div>
-
-        <!-- Past Orders -->
-        <div class="card">
-            <div class="card-header">
-                <h2>Recent Restock Orders</h2>
-            </div>
-            <div class="card-body">
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Date Ordered</th>
-                                <th>Supplier</th>
-                                <th>Items</th>
-                                <th>Total Cost</th>
-                                <th>Status</th>
-                                <th>Expected Delivery</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ORD-2025-056</td>
-                                <td>Feb 25, 2025</td>
-                                <td>Office Depot</td>
-                                <td>5</td>
-                                <td>$485.50</td>
-                                <td><span class="status status-available">In Transit</span></td>
-                                <td>Mar 05, 2025</td>
-                                <td>
-                                    <button class="btn btn-sm btn-secondary">Details</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>ORD-2025-051</td>
-                                <td>Feb 20, 2025</td>
-                                <td>School Supplies Inc.</td>
-                                <td>8</td>
-                                <td>$720.75</td>
-                                <td><span class="status status-available">In Transit</span></td>
-                                <td>Mar 03, 2025</td>
-                                <td>
-                                    <button class="btn btn-sm btn-secondary">Details</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>ORD-2025-048</td>
-                                <td>Feb 18, 2025</td>
-                                <td>Electronics Wholesale</td>
-                                <td>3</td>
-                                <td>$1,250.00</td>
-                                <td><span class="status status-available">Delivered</span></td>
-                                <td>Feb 28, 2025</td>
-                                <td>
-                                    <button class="btn btn-sm btn-secondary">Details</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>
@@ -430,30 +307,6 @@
                         <input type="number" id="restockQuantity" class="form-control" min="1" value="1" required>
                     </div>
                     <div class="form-group">
-                        <label for="modalSupplier">Supplier</label>
-                        <select id="modalSupplier" class="form-control" required>
-                            <option value="">Select Supplier</option>
-                            <option>Office Depot</option>
-                            <option>School Supplies Inc.</option>
-                            <option>Electronics Wholesale</option>
-                            <option>Janitorial Supplies Co.</option>
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="modalOrderDate">Order Date</label>
-                                <input type="date" id="modalOrderDate" class="form-control" value="2025-03-02" required>
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="modalExpectedDelivery">Expected Delivery</label>
-                                <input type="date" id="modalExpectedDelivery" class="form-control" value="2025-03-09" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="modalNotes">Notes</label>
                         <textarea id="modalNotes" class="form-control" rows="2"></textarea>
                     </div>
@@ -461,7 +314,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeRestockModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="submitRestockForm()">Submit Order</button>
+                <button class="btn btn-primary" onclick="submitRestockForm()">Restock</button>
             </div>
         </div>
     </div>
