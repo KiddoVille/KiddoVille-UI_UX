@@ -1,369 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usage Reports - Inventory System</title>
-    <link rel="stylesheet" href="./Base.css">
+    <title>Usage Reports</title>
+    <link rel="stylesheet" href="<?= CSS ?>/Inventory.css?v=<?= time() ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
+<style>
+    @media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #main-content, #main-content * {
+        visibility: visible;
+    }
+
+    #main-content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0 !important;
+        padding: 0;
+    }
+
+    #usagePagination {
+        display: none !important;
+    }
+}
+</style>
+
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h3>Inventory System</h3>
-            <p>Manager Portal</p>
-        </div>
-        <div class="sidebar-menu">
-            <ul>
-                <li><a href="./Manager-activity.html"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                <li><a href="./Manager-inventory.html"><i class="fas fa-boxes"></i> <span>Inventory</span></a></li>
-                <li><a href="./Manager-Usagereport.html" class="active"><i class="fas fa-chart-bar"></i> <span>Usage Reports</span></a></li>
-                <li><a href="manager-restocking.html"><i class="fas fa-truck-loading"></i> <span>Restocking</span></a></li>
-                <li><a href="audit-log.html"><i class="fas fa-history"></i> <span>Audit Log</span></a></li>
-                <li><a href="user-profile.html"><i class="fas fa-user-cog"></i> <span>Profile</span></a></li>
-                <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <h1>Inventory Usage Reports</h1>
-            <div class="user-info">
-                <img src="/api/placeholder/40/40" alt="User Avatar">
-                <div class="user-info-text">
-                    <h4>John Smith</h4>
-                    <p>Inventory Manager</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>156</h3>
-                    <p>Items Issued This Month</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-undo-alt"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>94</h3>
-                    <p>Items Returned This Month</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-friends"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>28</h3>
-                    <p>Active Users</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Usage Report Filters -->
-        <div class="card">
-            <div class="card-header">
-                <h2>Usage Report Filters</h2>
-            </div>
-            <div class="card-body">
-                <form>
-                    <div class="form-row">
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="dateFrom">From Date</label>
-                                <input type="date" id="dateFrom" class="form-control" value="2025-02-01">
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="dateTo">To Date</label>
-                                <input type="date" id="dateTo" class="form-control" value="2025-03-01">
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="userFilter">User</label>
-                                <select id="userFilter" class="form-control">
-                                    <option value="">All Users</option>
-                                    <option>Sarah Johnson</option>
-                                    <option>Michael Brown</option>
-                                    <option>Robert Davis</option>
-                                    <option>Lisa Wong</option>
-                                    <option>James Wilson</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="categoryFilter">Category</label>
-                                <select id="categoryFilter" class="form-control">
-                                    <option value="">All Categories</option>
-                                    <option>Office Supplies</option>
-                                    <option>Classroom Supplies</option>
-                                    <option>Electronics</option>
-                                    <option>Furniture</option>
-                                    <option>Cleaning Supplies</option>
-                                </select>
-                            </div>
-                        </div>
+    <div class="main-content" id="main-content">
+            <!-- Stats -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-exchange-alt"></i>
                     </div>
-                    <div style="display: flex; justify-content: flex-end;">
-                        <button type="submit" class="btn btn-primary">Generate Report</button>
+                    <div class="stat-info">
+                        <h3><?= $data['Issued'] ?></h3>
+                        <p>Items Issued This Month</p>
                     </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Usage Report Results -->
-        <div class="card">
-            <div class="card-header">
-                <h2>Usage Report</h2>
-                <div>
-                    <button class="btn btn-secondary"><i class="fas fa-file-excel"></i> Export to Excel</button>
-                    <button class="btn btn-secondary"><i class="fas fa-print"></i> Print</button>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Item</th>
-                                <th>Category</th>
-                                <th>Quantity</th>
-                                <th>Status</th>
-                                <th>User</th>
-                                <th>Role</th>
-                                <th>Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Mar 01, 2025</td>
-                                <td>Whiteboard Markers</td>
-                                <td>Classroom Supplies</td>
-                                <td>10</td>
-                                <td>Issued</td>
-                                <td>Sarah Johnson</td>
-                                <td>Teacher</td>
-                                <td>For Math Department</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 28, 2025</td>
-                                <td>Science Lab Kit</td>
-                                <td>Classroom Supplies</td>
-                                <td>5</td>
-                                <td>Returned</td>
-                                <td>Michael Brown</td>
-                                <td>Teacher</td>
-                                <td>After Science Fair</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 28, 2025</td>
-                                <td>Printing Paper A4</td>
-                                <td>Office Supplies</td>
-                                <td>50</td>
-                                <td>Restocked</td>
-                                <td>Lisa Wong</td>
-                                <td>Receptionist</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Feb 27, 2025</td>
-                                <td>Projector</td>
-                                <td>Electronics</td>
-                                <td>1</td>
-                                <td>Issued</td>
-                                <td>Robert Davis</td>
-                                <td>Teacher</td>
-                                <td>For Staff Meeting</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 26, 2025</td>
-                                <td>Blue Pens</td>
-                                <td>Office Supplies</td>
-                                <td>20</td>
-                                <td>Issued</td>
-                                <td>James Wilson</td>
-                                <td>Teacher</td>
-                                <td>For English Department</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 25, 2025</td>
-                                <td>HDMI Cables</td>
-                                <td>Electronics</td>
-                                <td>3</td>
-                                <td>Issued</td>
-                                <td>Sarah Johnson</td>
-                                <td>Teacher</td>
-                                <td>For Computer Lab</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 24, 2025</td>
-                                <td>Science Lab Kit</td>
-                                <td>Classroom Supplies</td>
-                                <td>5</td>
-                                <td>Issued</td>
-                                <td>Michael Brown</td>
-                                <td>Teacher</td>
-                                <td>For Science Fair</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 22, 2025</td>
-                                <td>Scissors</td>
-                                <td>Office Supplies</td>
-                                <td>15</td>
-                                <td>Issued</td>
-                                <td>Lisa Wong</td>
-                                <td>Receptionist</td>
-                                <td>For Art Project</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 20, 2025</td>
-                                <td>A4 Paper Reams</td>
-                                <td>Office Supplies</td>
-                                <td>20</td>
-                                <td>Restocked</td>
-                                <td>Lisa Wong</td>
-                                <td>Receptionist</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Feb 18, 2025</td>
-                                <td>Projector</td>
-                                <td>Electronics</td>
-                                <td>1</td>
-                                <td>Returned</td>
-                                <td>Robert Davis</td>
-                                <td>Teacher</td>
-                                <td>After Presentation</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination">
-                    <a href="#">&laquo;</a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">&raquo;</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Usage Summary -->
-        <div class="card">
-            <div class="card-header">
-                <h2>Usage Summary</h2>
-            </div>
-            <div class="card-body">
-                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-                    <!-- Top Users -->
-                    <div style="flex: 1; min-width: 300px;">
-                        <h3 style="margin-bottom: 15px; color: var(--primary-color);">Top Users</h3>
-                        <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>Items Issued</th>
-                                        <th>Items Returned</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Sarah Johnson</td>
-                                        <td>45</td>
-                                        <td>32</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Michael Brown</td>
-                                        <td>38</td>
-                                        <td>29</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Robert Davis</td>
-                                        <td>27</td>
-                                        <td>19</td>
-                                    </tr>
-                                    <tr>
-                                        <td>James Wilson</td>
-                                        <td>25</td>
-                                        <td>14</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lisa Wong</td>
-                                        <td>21</td>
-                                        <td>0</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-undo-alt"></i>
                     </div>
+                    <div class="stat-info">
+                        <h3><?= $data['Returned'] ?></h3>
+                        <p>Items Returned This Month</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3><?= $data['Active'] ?></h3>
+                        <p>Active Users</p>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Most Used Items -->
-                    <div style="flex: 1; min-width: 300px;">
-                        <h3 style="margin-bottom: 15px; color: var(--primary-color);">Most Used Items</h3>
-                        <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Item</th>
-                                        <th>Category</th>
-                                        <th>Times Issued</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Whiteboard Markers</td>
-                                        <td>Classroom Supplies</td>
-                                        <td>42</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Blue Pens</td>
-                                        <td>Office Supplies</td>
-                                        <td>35</td>
-                                    </tr>
-                                    <tr>
-                                        <td>A4 Paper Reams</td>
-                                        <td>Office Supplies</td>
-                                        <td>30</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Science Lab Kit</td>
-                                        <td>Classroom Supplies</td>
-                                        <td>25</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <tr>
-                                                <td>Projector</td>
-                                                <td>Electronics</td>
-                                                <td>18</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+            <!-- Usage Report Filters -->
+            <div class="card" id="filters">
+                <div class="card-header">
+                    <h2>Usage Report Filters</h2>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="dateFrom">From Date</label>
+                                    <input type="date" id="dateFrom" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="dateTo">To Date</label>
+                                    <input type="date" id="dateTo" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="userFilter">User</label>
+                                    <select id="userFilter" class="form-control">
+                                        <option value="All" selected> All </option>
+                                        <?php foreach ($data['Users'] as $row): ?>
+                                            <option value="<?= $row['UserID'] ?>"> <?= $row['Name'] ?> </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="categoryFilter">Category</label>
+                                    <select id="categoryFilter" class="form-control">
+                                        <option value="All" selected>All Categories</option>
+                                        <option value="Stationery">Stationery</option>
+                                        <option value="Toys">Toys</option>
+                                        <option value="Books">Books</option>
+                                        <option value="Cleaning">Cleaning</option>
+                                        <option value="Health">Health</option>
+                                        <option value="Snacks">Snacks</option>
+                                        <option value="Crafts">Crafts</option>
+                                        <option value="Clothing">Clothing</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Usage Report Results -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Usage Report</h2>
+                    <div>
+                        <button class="btn btn-secondary btn-excel"><i class="fas fa-file-excel"></i> Export to Excel</button>
+                        <button class="btn btn-secondary btn-print"><i class="fas fa-print"></i> Print</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Item</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>User</th>
+                                    <th>Role</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usageTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="usagePagination">
+
                     </div>
                 </div>
             </div>
-        </body>
-        </html>
-        
+
+            <!-- Usage Summary -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Usage Summary</h2>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                        <!-- Top Users -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <h3 style="margin-bottom: 15px; color: var(--primary-color);">Top Users</h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Items Issued</th>
+                                            <th>Items Returned</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($data['Top'] as $row): ?>
+                                            <tr>
+                                                <td><?= $row['Name'] ?></td>
+                                                <td><?= $row['Issued'] ?></td>
+                                                <td><?= $row['Returned'] ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Most Used Items -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <h3 style="margin-bottom: 15px; color: var(--primary-color);">Most Used Items</h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Category</th>
+                                            <th>Times Issued</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($data['Used'] as $row): ?>
+                                            <tr>
+                                                <td><?= $row['Name'] ?></td>
+                                                <td><?= $row['Category'] ?></td>
+                                                <td><?= $row['Issued'] ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function GeneratePagination(res) {
+            const paginationContainer = document.querySelector(".pagination");
+            const dateFrom = document.getElementById('dateFrom');
+            const dateTo = document.getElementById('dateTo');
+            const userFilter = document.getElementById('userFilter');
+            const categoryFilter = document.getElementById('categoryFilter');
+
+            const firstdate = dateFrom.value;
+            const lastdate = dateTo.value;
+            const user = userFilter.value;
+            const category = categoryFilter.value;
+
+            paginationContainer.innerHTML = '';
+
+            const totalPages = res.Count; // Total number of pages from the server
+            const currentPage = Number(res.Pagination); // Current page
+            const maxVisiblePages = 5;
+
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = startPage + maxVisiblePages - 1;
+
+            // Adjust if we go past the total pages
+            if (endPage > totalPages) {
+                endPage = totalPages;
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            // < Arrow
+            if (currentPage > 1) {
+                const prev = document.createElement('a');
+                prev.textContent = '<';
+                prev.href = '#';
+                prev.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(firstdate, lastdate, user, category, currentPage - 1);
+                };
+                paginationContainer.appendChild(prev);
+            }
+
+            // Page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                const a = document.createElement('a');
+                a.textContent = i;
+                a.href = '#';
+                if (i === currentPage) {
+                    a.classList.add('active');
+                }
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(firstdate, lastdate, user, category, i);
+                };
+                paginationContainer.appendChild(a);
+            }
+
+            // > Arrow
+            if (currentPage < totalPages) {
+                const next = document.createElement('a');
+                next.textContent = '>';
+                next.href = '#';
+                next.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(firstdate, lastdate, user, category, currentPage + 1);
+                };
+                paginationContainer.appendChild(next);
+            }
+        }
+
+        function GenerateTable(res) {
+            const tableBody = document.querySelector("tbody");
+            tableBody.innerHTML = '';
+
+            // Fill rows
+            res.data.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td style="white-space: nowrap;">${row.Date}</td>
+                    <td>${row.Item}</td>
+                    <td>${row.Category}</td>
+                    <td>${row.Quantity}</td>
+                    <td>${row.Activity}</td>
+                    <td>${row.Name}</td>
+                    <td>${row.Role}</td>
+                    <td>${row.Notes || ''}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function GetUsageReport(firstdate, lastdate, user, category, page = 1) {
+            console.log(page);
+            fetch('<?= ROOT ?>/Inventory/UsageReport/Usage_Report', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstDate: firstdate,
+                        lastDate: lastdate,
+                        UserID: user,
+                        Category: category,
+                        Pagination: page
+                    })
+                })
+                .then(response => response.json())
+                .then(res => {
+                    if (!res || !res.data) return;
+                    console.log(res);
+                    GenerateTable(res);
+                    GeneratePagination(res);
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function GetAll(firstdate, lastdate, user, category) {
+            return fetch('<?= ROOT ?>/Inventory/UsageReport/Get_All', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstDate: firstdate,
+                        lastDate: lastdate,
+                        UserID: user,
+                        Category: category,
+                    })
+                })
+                .then(response => response.json())
+                .then(res => {
+                    if (!res || !res.data) return;
+                    console.log(res);
+                    GenerateTable(res); // your table-rendering function
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const dateFrom = document.getElementById('dateFrom');
+            const dateTo = document.getElementById('dateTo');
+            const userFilter = document.getElementById('userFilter');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const printpage = document.getElementById('main-content');
+            const filters = document.getElementById('filters');
+
+            document.querySelector(".btn-print").addEventListener("click", () => {
+                usagePagination.style.display = 'none'; // hide pagination for print
+                filters.style.display = 'none'; 
+
+                GetAll(dateFrom.value, dateTo.value, userFilter.value, categoryFilter.value)
+                    .then(() => {
+                        
+                        window.print();
+                        location.reload();
+                    });
+            });
+
+            document.querySelector(".btn-excel").addEventListener("click", () => {
+
+
+                GetAll(dateFrom.value, dateTo.value, userFilter.value, categoryFilter.value)
+                    .then(() => {
+                        const table = document.getElementById("myTable"); // make sure table is freshly selected
+                        const workbook = XLSX.utils.table_to_book(table, {
+                            sheet: "Sheet1"
+                        });
+                        XLSX.writeFile(workbook, "UsageReport.xlsx");
+                    });
+                GetUsageReport(null, null, null, null);
+            });
+
+            dateFrom.addEventListener("change", function() {
+                GetUsageReport(dateFrom.value, dateTo.value, userFilter.value, categoryFilter.value);
+            });
+
+            dateTo.addEventListener("change", function() {
+                GetUsageReport(dateFrom.value, dateTo.value, userFilter.value, categoryFilter.value);
+            });
+
+            categoryFilter.addEventListener("change", function() {
+                GetUsageReport(dateFrom.value, dateTo.value, userFilter.value, categoryFilter.value);
+            });
+
+            userFilter.addEventListener("change", function() {
+                GetUsageReport(dateFrom.value, dateTo.value, userFilter.value, categoryFilter.value);
+            });
+
+            GetUsageReport(null, null, null, null);
+        });
+    </script>
+</body>
+
+</html>

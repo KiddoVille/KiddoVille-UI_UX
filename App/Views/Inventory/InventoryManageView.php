@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Management - Inventory System</title>
+    <title>Inventory Management</title>
     <link rel="stylesheet" href="<?=CSS?>/Parent/deletepopup.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Parent/Alert.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Inventory.css?v=<?= time() ?>">
