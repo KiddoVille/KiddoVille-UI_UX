@@ -18,9 +18,9 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 180%; /* Takes full column width */
-    max-width: 500px; /* Prevents overflow */
-    margin-left: 95%;
+    width: 100%; /* Takes full column width */
+    max-width: 400px; /* Prevents overflow */
+    margin-left: 70%;
     margin-top: 25%;
     height: 78%;
 }
@@ -76,7 +76,7 @@ textarea.form-control {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition:  0.3s ease, transform 0.2s ease;
 }
 
 .btn-primary:hover {
@@ -90,8 +90,8 @@ textarea.form-control {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     width: 180%; /* Takes full column width */
-    max-width: 500px; /* Prevents overflow */
-    margin-left: 160%;
+    max-width: 400px; /* Prevents overflow */
+    margin-left: 70%;
     margin-top: 25%;
     height: 78%;
 }
@@ -110,7 +110,7 @@ textarea.form-control {
 .lists{
     background-color:#f0f8ff;
     border-radius: 10px;
-    width: 75%;
+    background: 75%;
     padding-left: 2%;
     padding-bottom: 2%;
     margin-left: 10%;

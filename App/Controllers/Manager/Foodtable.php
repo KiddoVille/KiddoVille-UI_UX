@@ -155,17 +155,17 @@ class Foodtable
             $data['tomorrow'] = $this->ganerateMeal();
             $data['dayafter'] = $this->ganerateMeal();
 
-            $this->insertfood($data['today']['Breakfast'], "Breakfast", "today");
-            $this->insertfood($data['today']['Lunch'], "Lunch", 'today');
-            $this->insertfood($data['today']['Dinner'], "Dinner", "today");
+            $this->insertfood($data['today']['Breakfast'], "Breakfast", $today);
+            $this->insertfood($data['today']['Lunch'], "Lunch", $today);
+            $this->insertfood($data['today']['Dinner'], "Dinner", $today);
     
-            $this->insertfood($data['tomorrow']['Breakfast'], "Breakfast", "tomorrow");
-            $this->insertfood($data['tomorrow']['Lunch'], "Lunch", "tomorrow");
-            $this->insertfood($data['tomorrow']['Dinner'], "Dinner", "tomorrow");
+            $this->insertfood($data['tomorrow']['Breakfast'], "Breakfast", $tomorrow);
+            $this->insertfood($data['tomorrow']['Lunch'], "Lunch", $tomorrow);
+            $this->insertfood($data['tomorrow']['Dinner'], "Dinner", $tomorrow);
     
-            $this->insertfood($data['dayafter']['Breakfast'], "Breakfast", "dayafter");
-            $this->insertfood($data['dayafter']['Lunch'], "Lunch", "dayafter");
-            $this->insertfood($data['dayafter']['Dinner'], "Dinner", "dayafter");
+            $this->insertfood($data['dayafter']['Breakfast'], "Breakfast", $dayafter);
+            $this->insertfood($data['dayafter']['Lunch'], "Lunch", $dayafter);
+            $this->insertfood($data['dayafter']['Dinner'], "Dinner", $dayafter);
         } 
         elseif ($latestDateInTable == $today) {
             $data['today'] = [

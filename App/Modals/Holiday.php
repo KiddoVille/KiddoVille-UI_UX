@@ -10,9 +10,9 @@ class  Holiday{
     protected $table = 'holiday';   
     protected $allowedColumns = [
         'HolidayID',
-        'Date',
-        'Name',
-        'Details',
+        'Date_of_Holiday',
+        'Leave_Type',
+        'About',
         'IsPublicHoliday'
     ];
 
