@@ -140,7 +140,7 @@
                     <h2>Published Holidays</h2>
                     <div class="holiday-list">
                         <?php if (!empty($data['allholidays'])): ?>
-                            <?php foreach ($data['allholidays'] as $holiday): ?>
+                            <?php foreach (array_reverse($data['allholidays']) as $holiday): ?>
                                 <div class="holiday-item">
                                     <h3><?= htmlspecialchars($holiday->Leave_Type) ?></h3>
                                     <p>Date: <?= htmlspecialchars($holiday->Date_of_Holiday) ?></p>

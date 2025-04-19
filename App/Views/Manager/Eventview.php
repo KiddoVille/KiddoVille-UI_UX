@@ -116,21 +116,21 @@
                 <h1 style="color: #233E8D;">Publish Event</h1>
                 <form action="<?= ROOT ?>/Manager/Event/addEvent" method="post" class="leave-form">
                     <div class="form-group">
-                        <label for="EName">Event Type <span class="required">*</span></label>
-                        <select name="EName" id="EName" class="form-control">
+                        <label for="EventName">Event Type <span class="required">*</span></label>
+                        <select name="EventName" id="EventName" class="form-control">
                             <option value="">Select Event Type</option>
-                            <option value="Annual Event" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Annual Event") echo 'selected'; ?>>Annual Event</option>
-                            <option value="Sports day" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Sports day") echo 'selected'; ?>>Sports Day</option>
-                            <option value="Cultural Leave" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Cultural Leave") echo 'selected'; ?>>Cultural Leave</option>
-                            <option value="Eid Festival" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Eid Festival") echo 'selected'; ?>>Eid Festival</option>
-                            <option value="Other" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Other") echo 'selected'; ?>>Other</option>
+                            <option value="Annual Event" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Annual Event") echo 'selected'; ?>>Annual Event</option>
+                            <option value="Sports day" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Sports day") echo 'selected'; ?>>Sports Day</option>
+                            <option value="Cultural Leave" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Cultural Leave") echo 'selected'; ?>>Cultural Leave</option>
+                            <option value="Eid Festival" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Eid Festival") echo 'selected'; ?>>Eid Festival</option>
+                            <option value="Other" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Other") echo 'selected'; ?>>Other</option>
                         </select>
 
                         <label for="Date">Date <span class="required">*</span></label>
-                        <input type="date" id="Edate" name="EDate" class="form-control" value="<?= isset($_POST['EDate']) ? htmlspecialchars($_POST['EDate']) : ''; ?>" required>
+                        <input type="date" id="Date" name="Date" class="form-control" value="<?= isset($_POST['Date']) ? htmlspecialchars($_POST['Date']) : ''; ?>" required>
 
-                        <label for="Edescription">Description</label>
-                        <textarea id="Edescription" name="Edescription" placeholder="Include comments for Event type" class="form-control" required><?= isset($_POST['Edescription']) ? htmlspecialchars($_POST['Edescription']) : ''; ?></textarea>
+                        <label for="Description">Description</label>
+                        <textarea id="Description" name="Description" placeholder="Include comments for Event type" class="form-control" required><?= isset($_POST['Description']) ? htmlspecialchars($_POST['Description']) : ''; ?></textarea>
                     </div>
 
                     <div class="button-group">
@@ -142,17 +142,17 @@
                 <h2>Published Events</h2>
                 <div class="event-list">
                     <?php if (!empty($data['allevents'])): ?>
-                        <?php foreach ($data['allevents'] as $event): ?>
+                        <?php foreach (array_reverse($data['allevents']) as $event): ?>
                             <div class="event-item">
-                                <h3><?= htmlspecialchars($event->EName) ?></h3>
-                                <p>Date: <?= htmlspecialchars($event->EDate) ?></p>
-                                <p>Description: <?= htmlspecialchars($event->Edescription) ?></p>
+                                <h3><?= htmlspecialchars($event->EventName) ?></h3>
+                                <p>Date: <?= htmlspecialchars($event->Date) ?></p>
+                                <p>Description: <?= htmlspecialchars($event->Description) ?></p>
                                 <div class="buttons">
                                     <button class="update-btn" data-id="<?= $event->EventID ?>">Update</button>
                                     <button class="del-btn" onclick="deleteEvent(<?= $event->EventID ?>)">Delete</button>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
                     <?php else: ?>
                         <p>No events published yet.</p>
                     <?php endif ?>
@@ -168,7 +168,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -184,21 +183,21 @@
             <h1 style="color: #233E8D;">Publish Event</h1>
             <form action="<?= ROOT ?>/Manager/Event/updateEvent" method="post" class="leave-form">
                 <div class="form-group">
-                    <label for="EName">Event Type <span class="required">*</span></label>
-                    <select name="EName" id="EName" class="form-control">
+                    <label for="EventName">Event Type <span class="required">*</span></label>
+                    <select name="EventName" id="EventName" class="form-control">
                         <option value="">Select Event Type</option>
-                        <option value="Annual Event" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Annual Event") echo 'selected'; ?>>Annual Event</option>
-                        <option value="Sports day" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Sports day") echo 'selected'; ?>>Sports Day</option>
-                        <option value="Cultural Leave" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Cultural Leave") echo 'selected'; ?>>Cultural Leave</option>
-                        <option value="Eid Festival" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Eid Festival") echo 'selected'; ?>>Eid Festival</option>
-                        <option value="Other" <?php if (isset($_POST['EName']) && $_POST['EName'] == "Other") echo 'selected'; ?>>Other</option>
+                        <option value="Annual Event" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Annual Event") echo 'selected'; ?>>Annual Event</option>
+                        <option value="Sports day" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Sports day") echo 'selected'; ?>>Sports Day</option>
+                        <option value="Cultural Leave" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Cultural Leave") echo 'selected'; ?>>Cultural Leave</option>
+                        <option value="Eid Festival" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Eid Festival") echo 'selected'; ?>>Eid Festival</option>
+                        <option value="Other" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Other") echo 'selected'; ?>>Other</option>
                     </select>
 
                     <label for="Date">Date <span class="required">*</span></label>
-                    <input type="date" id="Edate" name="EDate" class="form-control" value="<?= isset($_POST['EDate']) ? htmlspecialchars($_POST['EDate']) : ''; ?>" required>
+                    <input type="date" id="Date" name="Date" class="form-control" value="<?= isset($_POST['Date']) ? htmlspecialchars($_POST['Date']) : ''; ?>" required>
 
-                    <label for="Edescription">Description</label>
-                    <textarea id="Edescription" name="Edescription" placeholder="Include comments for Event type" class="form-control" required><?= isset($_POST['Edescription']) ? htmlspecialchars($_POST['Edescription']) : ''; ?></textarea>
+                    <label for="Description">Description</label>
+                    <textarea id="Description" name="Description" placeholder="Include comments for Event type" class="form-control" required><?= isset($_POST['Description']) ? htmlspecialchars($_POST['Description']) : ''; ?></textarea>
                 </div>
 
                 <div class="button-group">
@@ -234,10 +233,6 @@
                 }
             };
         }
-
-
-
-
 
         document.addEventListener('DOMContentLoaded', function() {
             // Get all update buttons by class instead of ID
@@ -276,9 +271,9 @@
                     hiddenInput.value = holidayId;
 
                     // Populate form fields with the holiday data
-                    const leaveTypeSelect = form.querySelector('select[name="EName"]');
-                    const dateInput = form.querySelector('input[name="EDate"]');
-                    const aboutTextarea = form.querySelector('textarea[name="Edescription"]');
+                    const leaveTypeSelect = form.querySelector('select[name="EventName"]');
+                    const dateInput = form.querySelector('input[name="Date"]');
+                    const aboutTextarea = form.querySelector('textarea[name="Description"]');
 
                     // Set the selected option in the dropdown
                     for (let i = 0; i < leaveTypeSelect.options.length; i++) {
