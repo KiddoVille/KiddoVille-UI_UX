@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Alert.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/deletepopup.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
@@ -633,7 +635,64 @@
             <i class="fas fa-chevron-left" id="taskicon"></i>
         </div>
     </div>
+
+    <div class="verification-alert" id="alert" style="display: none; top: 5%;">
+        <div class="alert-icon">
+            <img src="<?= IMAGE ?>/success.svg" id="alert-img" alt="success icon">
+        </div>
+        <div class="alert-message">
+            <h1 id="alert-message">Success</h1>
+        </div>
+    </div>
+    
+    <div id="deletePopup" class="delete-popup-overlay" style="position: fixed;">
+        <div class="delete-popup-content">
+            <p>Are you sure you want to Cancel meeting?</p>
+            <div class="delete-popup-buttons">
+                <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm" onclick=" DeleteMeeting()  ">Yes</button>
+                <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel" onclick="document.getElementById('deletePopup').style.display='none'">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deletePopup1" class="delete-popup-overlay" style="position: fixed;">
+        <div class="delete-popup-content">
+            <p>Are you sure you want to Reset Pickup details?</p>
+            <div class="delete-popup-buttons">
+                <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm" onclick=" ResetPickup()">Yes</button>
+                <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel" onclick="document.getElementById('deletePopup').style.display='none'">No</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+
+    const meetingform = document.getElementById('meeting-form');
+    const alert = document.getElementById('alert');
+    const MeetingModal = document.getElementById('MeetingModal');
+
+    meetingform.addEventListener("submit", function(event){
+        event.preventDefault();
+        MeetingModal.style.display = 'none';
+        alert.style.display = 'flex';
+        setTimeout (() => {
+            meetingform.submit();
+            alert.style.display = 'none'; 
+        }, 2000);
+    })
+
+    const pickupModal = document.getElementById('pickupModal');
+    const pickupForm = document.getElementById('pickupForm');
+
+    pickupForm.addEventListener("submit", function(event){
+        event.preventDefault();
+        pickupModal.style.display = 'none';
+        alert.style.display = 'flex';
+        setTimeout (() => {
+            pickupForm.submit();
+            alert.style.display = 'none'; 
+        }, 2000);
+    })
 
     const messageDropdown = document.getElementById('messageDropdown');
     const bellIcon = document.getElementById('bell-container');
@@ -906,47 +965,84 @@
             }
         }
 
-        
+        const deletePopup = document.getElementById('deletePopup');
+        const alertimg =  document.getElementById('alert-img');
+        const alertmessage = document.getElementById('alert-message');
+
+        function DeleteMeeting(){
+            deletePopup.style.display = 'none';
+            fetch("<?= ROOT ?>/parent/home/deleteMeeting", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert.style.display = 'flex';
+                    setTimeout (() => {
+                        meetingform.submit();
+                        alert.style.display = 'none'; 
+                        location.reload();
+                        alertimg.src = '<?=IMAGE?>/success.svg';
+                        alertmessage.textContent = "Success";
+                    }, 2000);
+                }
+                else{
+                    alert.style.display = 'flex';
+                    alertimg.src = '<?=IMAGE?>/faile.svg';
+                    alertmessage.textContent = "Failed";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        const deletePopup1 = document.getElementById('deletePopup1');
+        function ResetPickup(){
+            deletePopup1.style.display = 'none';
+            fetch("<?= ROOT ?>/parent/home/deletePickup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                if (data.success) {
+                    alert.style.display = 'flex';
+                    setTimeout (() => {
+                        pickupForm.submit();
+                        alert.style.display = 'none'; 
+                        location.reload();
+                        alertimg.src = '<?=IMAGE?>/success.svg';
+                        alertmessage.textContent = "Success";
+                    }, 2000);
+                }else{
+                    alert.style.display = 'flex';
+                    alertimg.src = '<?=IMAGE?>/faile.svg';
+                    alertmessage.textContent = "Failed";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
 
-            const ResetPickup = document.getElementById("ResetPickupBtn")
+            const ResetPickup = document.getElementById("ResetPickupBtn");
+            const deletePopup1 = document.getElementById('deletePopup1');
             if(ResetPickup){
                 ResetPickup.addEventListener("click", function () {
-                    if (confirm("Are you sure you want to reset this pickup?")) {
-                        fetch("<?= ROOT ?>/parent/home/deletePickup", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({})
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                location.reload();
-                            }
-                        })
-                        .catch(error => console.error("Error:", error));
-                    }
+                    console.log("Deleting the pickup");
+                    deletePopup1.style.display = 'flex';
                 });
             }
 
-            const ResetMeeting = document.getElementById("ResetMeeting")
+            const ResetMeeting = document.getElementById("ResetMeeting");
+            const deletePopup = document.getElementById('deletePopup');
+
             if(ResetMeeting){
                 ResetMeeting.addEventListener("click", function () {
-                    if (confirm("Are you sure you want to reset this pickup?")) {
-                        fetch("<?= ROOT ?>/parent/home/deleteMeeting", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({})
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                location.reload();
-                            }
-                        })
-                        .catch(error => console.error("Error:", error));
-                    }
+                    console.log("Deleting the meeting");
+                    deletePopup.style.display = 'flex';
                 });
             }
 

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    const mainContent = document.getElementById('main-content');
     const profilebtn = document.querySelector('.profilebtn');
     const pickupForm = document.getElementById('pickupForm');
     const refreshIcon = document.getElementById('pickuprefresh');
