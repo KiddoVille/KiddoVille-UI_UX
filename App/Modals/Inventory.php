@@ -16,5 +16,6 @@
             'Notes',
             'Date',
             'Time',
+            'Activity'
         ];
     }
