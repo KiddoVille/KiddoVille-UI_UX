@@ -94,7 +94,7 @@ use PDO;
             }
 
             $Data['data'] = $data;
-            $Data['Count'] = count($data)/5;
+            $Data['Count'] = ceil(count($data)/5);
             $Data['data'] = array_slice($data, $offset, $itemsPerPage);
             if($Data['Count'] < $Pagination ){
                 $Data['Pagination'] = 1;
@@ -194,7 +194,7 @@ use PDO;
                     'Issued'   => 0
                 ];
 
-                $Transactions = $InventoryModal->where_norder(["ItemID" => $unique, "Activity"=> "Issued"]);
+                $Transactions = $InventoryModal->where_order_desc(["ItemID" => $unique, "Activity"=> "Issued"],[], "Date");
                 foreach($Transactions as $tr){
                     $ItemData['Issued'] += $tr->Quantity;
                 }

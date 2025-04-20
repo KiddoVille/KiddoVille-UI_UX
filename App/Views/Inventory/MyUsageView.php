@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <title>My Usage Summary - Inventory System</title>
     <link rel="stylesheet" href="<?=CSS?>/Parent/deletepopup.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Parent/Alert.css?v=<?= time() ?>">
@@ -44,7 +45,7 @@
         </div>
 
         <!-- Alerts -->
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-header">
                 <h2><i class="fas fa-exclamation-circle"></i> Alerts</h2>
             </div>
@@ -56,7 +57,7 @@
                     <strong>Low Stock Alert:</strong> Whiteboard Markers are running low. Only 8 remaining in inventory.
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Current Items -->
         <div class="card">
@@ -80,36 +81,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><input type="checkbox" name="returnItem"></td>
-                                <td>Whiteboard Markers</td>
-                                <td>Classroom Supplies</td>
-                                <td>10</td>
-                                <td>Mar 01, 2025</td>
-                                <td>May 31, 2025</td>
-                                <td><span class="status status-available">Current</span></td>
-                                <td>For Math Department</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="returnItem"></td>
-                                <td>HDMI Cables</td>
-                                <td>Electronics</td>
-                                <td>3</td>
-                                <td>Feb 25, 2025</td>
-                                <td>Mar 10, 2025</td>
-                                <td><span class="status status-warning">Due Soon</span></td>
-                                <td>For Computer Lab</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="returnItem"></td>
-                                <td>Science Lab Kit</td>
-                                <td>Classroom Supplies</td>
-                                <td>1</td>
-                                <td>Feb 15, 2025</td>
-                                <td>Mar 03, 2025</td>
-                                <td><span class="status status-danger">Overdue</span></td>
-                                <td>For Science Demonstration</td>
-                            </tr>
+                            <?php foreach($data['Borrowed'] as $row): ?>
+                                <tr>
+                                    <td><input type="checkbox" name="returnItem"></td>
+                                    <td data-id="<?=$row->ActivityID ?>"><?= $row->Name ?></td>
+                                    <td><?= $row->Category ?></td>
+                                    <td><?= $row->Quantity ?></td>
+                                    <td><?= $row->Date ?></td>
+                                    <td><?= $row->ReturnDate ?></td>
+                                    <td><span class="<?=$row->class?>"><?=$row->Status?> </span></td>
+                                    <td><?= $row->Notes ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -126,24 +109,28 @@
                     <div class="form-col">
                         <div class="form-group">
                             <label for="historyDateFrom">From Date</label>
-                            <input type="date" id="historyDateFrom" class="form-control" value="2025-01-01">
+                            <input type="date" id="dateFrom" class="form-control">
                         </div>
                     </div>
                     <div class="form-col">
                         <div class="form-group">
                             <label for="historyDateTo">To Date</label>
-                            <input type="date" id="historyDateTo" class="form-control" value="2025-03-01">
+                            <input type="date" id="dateTo" class="form-control">
                         </div>
                     </div>
                     <div class="form-col">
                         <div class="form-group">
                             <label for="historyStatus">Status</label>
-                            <select id="historyStatus" class="form-control">
-                                <option value="">All Status</option>
-                                <option>Borrowed</option>
-                                <option>Returned</option>
-                                <option>Requested</option>
-                                <option>Denied</option>
+                            <select id="categoryFilter" class="form-control">
+                                <option value="All" selected>All Categories</option>
+                                <option value="Stationery">Stationery</option>
+                                <option value="Toys">Toys</option>
+                                <option value="Books">Books</option>
+                                <option value="Cleaning">Cleaning</option>
+                                <option value="Health">Health</option>
+                                <option value="Snacks">Snacks</option>
+                                <option value="Crafts">Crafts</option>
+                                <option value="Clothing">Clothing</option>
                             </select>
                         </div>
                     </div>
@@ -162,7 +149,7 @@
                                 <th>Notes</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="Usagetbody">
                             <tr>
                                 <td>Mar 01, 2025</td>
                                 <td>Whiteboard Markers</td>
@@ -171,87 +158,6 @@
                                 <td>Borrowed</td>
                                 <td>-</td>
                                 <td>For Math Department</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 28, 2025</td>
-                                <td>Graphing Calculators</td>
-                                <td>Classroom Supplies</td>
-                                <td>10</td>
-                                <td>Requested</td>
-                                <td>-</td>
-                                <td>For Calculus Class</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 25, 2025</td>
-                                <td>HDMI Cables</td>
-                                <td>Electronics</td>
-                                <td>3</td>
-                                <td>Borrowed</td>
-                                <td>-</td>
-                                <td>For Computer Lab</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 20, 2025</td>
-                                <td>Projector</td>
-                                <td>Electronics</td>
-                                <td>1</td>
-                                <td>Returned</td>
-                                <td>Feb 22, 2025</td>
-                                <td>For Parent-Teacher Meeting</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 15, 2025</td>
-                                <td>Science Lab Kit</td>
-                                <td>Classroom Supplies</td>
-                                <td>1</td>
-                                <td>Borrowed</td>
-                                <td>-</td>
-                                <td>For Science Demonstration</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 10, 2025</td>
-                                <td>Wireless Presenter</td>
-                                <td>Electronics</td>
-                                <td>1</td>
-                                <td>Returned</td>
-                                <td>Feb 12, 2025</td>
-                                <td>For Staff Meeting</td>
-                            </tr>
-                            <tr>
-                                <td>Feb 01, 2025</td>
-                                <td>Whiteboard Markers</td>
-                                <td>Classroom Supplies</td>
-                                <td>5</td>
-                                <td>Returned</td>
-                                <td>Feb 28, 2025</td>
-                                <td>For Math Class</td>
-                            </tr>
-                            <tr>
-                                <td>Jan 25, 2025</td>
-                                <td>USB Drives</td>
-                                <td>Electronics</td>
-                                <td>10</td>
-                                <td>Returned</td>
-                                <td>Feb 05, 2025</td>
-                                <td>For Student Projects</td>
-                            </tr>
-                            <tr>
-                                <td>Jan 18, 2025</td>
-                                <td>Math Manipulatives</td>
-                                <td>Classroom Supplies</td>
-                                <td>1 set</td>
-                                <td>Returned</td>
-                                <td>Jan 30, 2025</td>
-                                <td>For Geometry Class</td>
-                            </tr>
-                            <tr>
-                                <td>Jan 10, 2025</td>
-                                <td>Projector</td>
-                                <td>Electronics</td>
-                                <td>1</td>
-                                <td>Returned</td>
-                                <td>Jan 11, 2025</td>
-                                <td>For Professional Development</td>
                             </tr>
                         </tbody>
                     </table>
@@ -269,7 +175,7 @@
         </div>
 
         <!-- Pending Requests -->
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-header">
                 <h2>Pending Requests</h2>
             </div>
@@ -317,36 +223,166 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Return Items Modal -->
         <div class="modal-backdrop" id="returnModal">
-            <div class="modal">
-                <div class="modal-header">
-                    <h3>Return Items</h3>
-                    <button class="modal-close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>You are about to return the following items:</p>
-                    <ul id="returnItemsList" style="margin: 15px 0; padding-left: 20px;">
-                        <!-- Items will be populated by JavaScript -->
-                    </ul>
-                    <div class="form-group">
-                        <label for="returnNotes">Notes (Optional)</label>
-                        <textarea id="returnNotes" class="form-control" rows="3" placeholder="Add any comments about the condition of the items or other notes"></textarea>
+            <form id="returnForm" method="POST" enctype="multipart/form-data" action = "<?=ROOT?>/Inventory/MyUsage/ReturnBorrowed">
+                <input type="hidden" name="activityIDs" id="activityIDsInput">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Return Items</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>You are about to return the following items:</p>
+                        <ul id="returnItemsList" style="margin: 15px 0; padding-left: 20px;">
+                            <!-- Items will be populated by JavaScript -->
+                        </ul>
+                        <div class="form-group">
+                            <label for="returnNotes">Notes (Optional)</label>
+                            <textarea id="returnNotes" class="form-control" rows="3" placeholder="Add any comments about the condition of the items or other notes"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary modal-close">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="confirmReturn">Confirm Return</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary modal-close">Cancel</button>
-                    <button class="btn btn-primary" id="confirmReturn">Confirm Return</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
     <script>
-        // Simple JavaScript for the return items functionality
+
+        function GeneratePagination(res) {
+            const paginationContainer = document.querySelector(".pagination");
+            const dateFrom = document.getElementById('dateFrom');
+            const dateTo = document.getElementById('dateTo');
+            const categoryFilter = document.getElementById('categoryFilter');
+
+            const firstdate = dateFrom.value;
+            const lastdate = dateTo.value;
+            const category = categoryFilter.value;
+
+            paginationContainer.innerHTML = '';
+
+            const totalPages = res.Count; // Total number of pages from the server
+            const currentPage = Number(res.Pagination); // Current page
+            const maxVisiblePages = 5;
+
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = startPage + maxVisiblePages - 1;
+
+            // Adjust if we go past the total pages
+            if (endPage > totalPages) {
+                endPage = totalPages;
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            // < Arrow
+            if (currentPage > 1) {
+                const prev = document.createElement('a');
+                prev.textContent = '<';
+                prev.href = '#';
+                prev.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(firstdate, lastdate, category, currentPage - 1);
+                };
+                paginationContainer.appendChild(prev);
+            }
+
+            // Page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                const a = document.createElement('a');
+                a.textContent = i;
+                a.href = '#';
+                if (i === currentPage) {
+                    a.classList.add('active');
+                }
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(firstdate, lastdate, category, i);
+                };
+                paginationContainer.appendChild(a);
+            }
+
+            // > Arrow
+            if (currentPage < totalPages) {
+                const next = document.createElement('a');
+                next.textContent = '>';
+                next.href = '#';
+                next.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(firstdate, lastdate, category, currentPage + 1);
+                };
+                paginationContainer.appendChild(next);
+            }
+        }
+
+        function GenerateTable(res) {
+            const tableBody = document.getElementById("Usagetbody");
+            tableBody.innerHTML = '';
+
+            // Fill rows
+            res.data.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td style="white-space: nowrap;">${row.Date}</td>
+                    <td>${row.Item}</td>
+                    <td>${row.Category}</td>
+                    <td>${row.Quantity}</td>
+                    <td>${row.Activity}</td>
+                    <td>${row.Notes || ''}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function GetUsageReport(firstdate, lastdate, category, page = 1) {
+            console.log(page);
+            fetch('<?= ROOT ?>/Inventory/MyUsage/Usage_Report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstDate: firstdate,
+                    lastDate: lastdate,
+                    Category: category,
+                    Pagination: page
+                })
+            })
+            .then(response => response.json())
+            .then(res => {
+                if (!res || !res.data) return;
+                console.log(res);
+                GenerateTable(res);
+                GeneratePagination(res);
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+
+            const dateFrom = document.getElementById('dateFrom');
+            const dateTo = document.getElementById('dateTo');
+            const categoryFilter = document.getElementById('categoryFilter');
+
+            dateFrom.addEventListener("change", function() {
+                GetUsageReport(dateFrom.value, dateTo.value, categoryFilter.value);
+            });
+
+            dateTo.addEventListener("change", function() {
+                GetUsageReport(dateFrom.value, dateTo.value, categoryFilter.value);
+            });
+
+            categoryFilter.addEventListener("change", function() {
+                GetUsageReport(dateFrom.value, dateTo.value, categoryFilter.value);
+            });
+
+            GetUsageReport(null, null, null);
+
             const returnItemsBtn = document.getElementById('returnItemsBtn');
             const returnModal = document.getElementById('returnModal');
             const returnItemsList = document.getElementById('returnItemsList');
@@ -396,26 +432,37 @@
                 });
             });
             
-            // Handle confirm return
-            confirmReturnBtn.addEventListener('click', function() {
-                // Here you would normally send the data to the server
-                alert('Items have been marked as returned.');
-                returnModal.style.display = 'none';
-                
-                // Remove checked items from the table (just for demo)
+            confirmReturnBtn.addEventListener('click', function () {
+                const selectedItems = [];
+                const activityIDs = [];
+
                 document.querySelectorAll('input[name="returnItem"]:checked').forEach(checkbox => {
-                    checkbox.closest('tr').remove();
+                    const row = checkbox.closest('tr');
+                    const itemName = row.cells[1].textContent;
+                    const quantity = row.cells[3].textContent;
+                    const activityId = row.querySelector('td[data-id]').getAttribute('data-id');
+
+                    selectedItems.push(`${itemName} (${quantity})`);
+                    activityIDs.push(activityId);
                 });
-                
-                // Uncheck select all
-                selectAllCheckbox.checked = false;
-            });
-            
-            // Close modal when clicking outside
-            returnModal.addEventListener('click', function(event) {
-                if (event.target === returnModal) {
-                    returnModal.style.display = 'none';
+
+                // Fill the return items list
+                returnItemsList.innerHTML = '';
+                if (selectedItems.length === 0) {
+                    returnItemsList.innerHTML = '<li>No items selected</li>';
+                } else {
+                    selectedItems.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        returnItemsList.appendChild(li);
+                    });
                 }
+
+                // Fill the hidden input with comma-separated IDs
+                document.getElementById('activityIDsInput').value = activityIDs.join(',');
+
+                // Show the modal
+                returnModal.style.display = 'flex';
             });
         });
     </script>
