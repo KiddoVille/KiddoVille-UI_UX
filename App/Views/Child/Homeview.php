@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Alert.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/deletepopup.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
@@ -117,7 +119,7 @@
                 </div>
             </div>
         </div>
-        <div class="main-content" style="margin-left: 150px; height: 100%; width: 90%;">
+        <div class="main-content" id="main-content" style="margin-left: 150px; height: 100%; width: 90%;">
             <!-- Header -->
             <div class="header">
                 <i class="fa fa-bars" id="minimize-btn"></i>
@@ -688,8 +690,43 @@
     <div class="tasks" id="taskbtn" style="position: fixed;">
         <i class="fas fa-chevron-left" id="taskicon"></i>
     </div>
+
+    <div class="verification-alert" id="alert" style="display: none; top: 5%;">
+        <div class="alert-icon">
+            <img src="<?= IMAGE ?>/success.svg" id="alert-img" alt="success icon">
+        </div>
+        <div class="alert-message">
+            <h1 id="alert-message">Success</h1>
+        </div>
+    </div>
+
+    <div id="deletePopup1" class="delete-popup-overlay" style="position: fixed;">
+        <div class="delete-popup-content">
+            <p>Are you sure you want to Reset Pickup details?</p>
+            <div class="delete-popup-buttons">
+                <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm" onclick="ResetPickup()">Yes</button>
+                <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel" onclick="document.getElementById('deletePopup').style.display='none'">No</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
+
+
+    const pickupModal = document.getElementById('pickupModal');
+    const pickupForm = document.getElementById('pickupForm');
+    const alert = document.getElementById('alert');
+
+    pickupForm.addEventListener("submit", function(event){
+        event.preventDefault();
+        pickupModal.style.display = 'none';
+        alert.style.display = 'flex';
+        setTimeout (() => {
+            pickupForm.submit();
+            alert.style.display = 'none'; 
+        }, 2000);
+    })
 
     const messageDropdown = document.getElementById('messageDropdown');
     const bellIcon = document.getElementById('bell-container');
@@ -995,7 +1032,47 @@ if(Array.isArray(holidays) && holidays.length > 0){
         }
     }
 
+    const deletePopup1 = document.getElementById('deletePopup1');
+    const alertimg =  document.getElementById('alert-img');
+    const alertmessage = document.getElementById('alert-message');
+        function ResetPickup(){
+            deletePopup1.style.display = 'none';
+            fetch("<?= ROOT ?>/Child/home/deletePickup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                if (data.success) {
+                    console.log("Pickup deleted Successfully");
+                    alert.style.display = 'flex';
+                    setTimeout (() => {
+                        pickupForm.submit();
+                        alert.style.display = 'none'; 
+                        location.reload();
+                        alertimg.src = '<?=IMAGE?>/success.svg';
+                        alertmessage.textContent = "Success";
+                    }, 2000);
+                }else{
+                    alert.style.display = 'flex';
+                    alertimg.src = '<?=IMAGE?>/faile.svg';
+                    alertmessage.textContent = "Failed";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
     document.addEventListener("DOMContentLoaded", function() {
+
+        const ResetPickup = document.getElementById("ResetPickupBtn");
+        const deletePopup1 = document.getElementById('deletePopup1');
+        if(ResetPickup){
+            ResetPickup.addEventListener("click", function () {
+                console.log("Deleting the pickup");
+                deletePopup1.style.display = 'flex';
+            });
+        }
 
         renderHolidays(holidays)
         fetchCalendar(currentMonth, currentYear);
@@ -1051,28 +1128,6 @@ if(Array.isArray(holidays) && holidays.length > 0){
             }
         } else {
             selectPerson("Guardian");
-        }
-
-        const ResetPickup = document.getElementById("ResetPickupBtn")
-        if (ResetPickup) {
-            ResetPickup.addEventListener("click", function() {
-                if (confirm("Are you sure you want to reset this pickup?")) {
-                    fetch("<?= ROOT ?>/child/home/deletePickup", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({})
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                location.reload();
-                            }
-                        })
-                        .catch(error => console.error("Error:", error));
-                }
-            });
         }
 
     });

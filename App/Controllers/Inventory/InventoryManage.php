@@ -24,8 +24,34 @@
             $_POST['Image'] = $binaryImage;
             $_POST['ImageType'] = $imageType;
         
-            $StockModal->insert($_POST);
+            $Errors = $StockModal->validate($_POST);
+            if(empty($Errors)){
+                $StockModal->insert($_POST);
+            }
             redirect("Inventory/InventoryManage");
+        }
+
+        public function DeleteStock(){
+            header('Content-Type: application/json');
+            $requestData = json_decode(file_get_contents("php://input"), true);
+            $StockModal = new \Modal\Stock;
+
+            $ItemID = $requestData['ItemID'] ?? null;
+            $ItemExists = $StockModal->first(["ItemID" => $ItemID]);
+            if(!empty($ItemExists)){
+                $StockModal->delete($ItemID, "ItemID");
+                $ItemID = "IT-" . str_pad($ItemID, 4, "0", STR_PAD_LEFT);
+                $response = [
+                    "succcess" => true,
+                    "message" => "Deleted Item " . $ItemID . " From Stock"
+                ];
+            }else{
+                $response = [
+                    "success" => false,
+                    "Item doesn't exists in Stock"
+                ];
+            }
+            echo json_encode($response);
         }
 
         public function ViewItem(){
@@ -35,6 +61,7 @@
             $ItemID = $requestData['ItemID'] ?? null;
             $StockModal = new \Modal\Stock;
             $Item = $StockModal->first(["ItemID" => $ItemID]);
+            $Item->ItemIDmodified = "IT-" . str_pad($Item->ItemID, 4, "0", STR_PAD_LEFT);
 
             if(!empty($Item)){
                 $imageData = $Item->Image;
@@ -120,6 +147,31 @@
                 ];
             }
             echo json_encode($response);   
+        }
+
+        public function EditItem(){
+
+            $StockModal = new \Modal\Stock;
+            if (!empty($_FILES['Image']['tmp_name'])) {
+                $binaryImage = file_get_contents($_FILES['Image']['tmp_name']);
+                $imageType = $_FILES['Image']['type'];
+
+                $_POST['Image'] = $binaryImage;
+                $_POST['ImageType'] = $imageType;
+            }
+            $Errors = $StockModal->validate($_POST);
+            if(empty($Errors)){
+                unset($_SESSION['errors']);
+                unset($_SESSION['old']);
+                unset($_SESSION ['Edit']);
+                $StockModal->update(["ItemID" => $_POST['ItemID']], $_POST);
+                redirect('Inventory/InventoryManage');
+            }
+            else{
+                $_SESSION['errors'] = $StockModal->errors;
+                $_SESSION['old'] = $_POST;
+                $_SESSION ['Edit'] = 'EditError';
+            }
         }
 
         public function EditNameError(){

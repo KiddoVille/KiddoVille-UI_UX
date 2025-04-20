@@ -16,5 +16,7 @@
             'Notes',
             'Date',
             'Time',
+            'Activity',
+            'Returned'
         ];
     }
