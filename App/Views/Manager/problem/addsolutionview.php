@@ -189,7 +189,6 @@
                     <button type="submit" class="publish">Send</button>
                     <button type="button" class="cancel" onclick="location.href='<?= ROOT ?>/Manager/Problem'">Cancel</button>
                 </div>
-
             </form>
         </div>
     </div>

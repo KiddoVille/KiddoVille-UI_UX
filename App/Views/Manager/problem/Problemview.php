@@ -113,8 +113,8 @@
             <h1 style="color:#233E8D;font-size:24px;margin-left:8%;"><i class="fas fa-exclamation-circle"></i>
                 Manage Problems</h1>
             <hr>
-            <div class="filter-container" >
-                <select id="problem-type"style="background: white;">
+            <div class="filter-container">
+                <select id="problem-type" style="background: white;">
                     <option value="" disabled selected>Select problem type</option>
                     <option value="Maid-Issue">Maid Issue</option>
                     <option value="Meal-Issue">Meal Issue</option>
@@ -219,47 +219,111 @@
                                 Muhammad Ewais
                             </span>
                         </div>
-                        <a class="add-solution" href="<?= ROOT ?>/Manager/Problem/solution">
-                            +add solution
-                        </a>
+                        <button class="add-solution" id="addbtn">+add Solution</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- add solution popup -->
+    <div class="popup">
+        <form action="Manage-problem.html" style="height:300px;" method="post">
+            <div class="solution-container">
+                <label for="solution">Solution</label>
+                <textarea id="solution" class="solution-textarea" placeholder="Write your solution here..." required></textarea>
+            </div>
+            <div style="display: flex;" class="but">
+                <button type="submit" class="publish" id="sendbtn">Send</button>
+                <button type="button" class="cancel" id="cancelbtn" onclick="location.href='<?= ROOT ?>/Manager/Problem'">Cancel</button>
+            </div>
+        </form>
+    </div>
 
-    <script>
-        function resetSelects() {
-            // Select all <select> elements within both tables
-            const selects = document.querySelectorAll("#foodtable select, #snacktable select");
-            // Reset each <select> to its default (first) option
-            selects.forEach(select => select.selectedIndex = 0);
+   <!-- Add this HTML for the custom alert box -->
+<div id="custom-alert" class="custom-alert">
+    <div class="custom-alert-content">
+        <div class="custom-alert-header">
+            <span class="custom-alert-title">Success</span>
+            <span class="custom-alert-close">&times;</span>
+        </div>
+        <div class="custom-alert-body">
+            <p>Solution submitted successfully!</p>
+        </div>
+        <div class="custom-alert-footer">
+            <button class="custom-alert-button">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- CSS for the custom alert box -->
+<style>
+   
+</style>
+
+<!-- Modified JavaScript for handling the custom alert -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the elements
+        const addBtn = document.getElementById('addbtn');
+        const popup = document.querySelector('.popup');
+        const cancelBtn = document.getElementById('cancelbtn');
+        const customAlert = document.getElementById('custom-alert');
+        const closeAlertBtn = document.querySelector('.custom-alert-close');
+        const okAlertBtn = document.querySelector('.custom-alert-button');
+        
+        // Function to open popup
+        function openPopup() {
+            popup.style.display = 'flex';
         }
-
-        function handleClick() {
-            var profileCard = document.getElementById('profileCard');
-            profileCard.classList.toggle('show');
+        
+        // Function to close popup
+        function closePopup() {
+            popup.style.display = 'none';
         }
-
-        function handleHide() {
-            var profileCard = document.getElementById('profileCard');
-            profileCard.classList.remove('show');
+        
+        // Function to show custom alert
+        function showCustomAlert() {
+            customAlert.style.display = 'flex';
         }
-
-        function handlenotify() {
-            var messageDropdown = document.getElementById('notification');
-            messageDropdown.classList.toggle('show');
+        
+        // Function to hide custom alert
+        function hideCustomAlert() {
+            customAlert.style.display = 'none';
         }
-        const today = new Date();
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        }; // Customize date format
-
-        // Format and display the date
-        document.getElementById("current-date").textContent = today.toLocaleDateString(undefined, options);
-    </script>
+        
+        // Add event listeners
+        addBtn.addEventListener('click', openPopup);
+        cancelBtn.addEventListener('click', closePopup);
+        
+        // Close alert on button click
+        closeAlertBtn.addEventListener('click', hideCustomAlert);
+        okAlertBtn.addEventListener('click', hideCustomAlert);
+        
+        // Close alert when clicking outside
+        customAlert.addEventListener('click', function(event) {
+            if (event.target === customAlert) {
+                hideCustomAlert();
+            }
+        });
+        
+        // Handle form submission with custom alert
+        const form = document.querySelector('.popup form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showCustomAlert(); // Show custom alert instead of default alert
+            document.getElementById('solution').value = '';
+            closePopup();
+        });
+        
+        // Close when clicking outside popup
+        window.addEventListener('click', function(event) {
+            if (event.target === popup) {
+                closePopup();
+            }
+        });
+    });
+</script>
 </body>
 
-</html> 
+</html>

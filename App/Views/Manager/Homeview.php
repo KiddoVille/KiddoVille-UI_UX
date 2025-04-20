@@ -181,7 +181,7 @@
                 <div class="stat">
                     <h3 style="color: #233E8D;">Total Enrollment</h3>
                     <h2 style="margin-bottom: 3px;color: #233E8D;"><?= $data['Totalenroll'] ?></h2>
-                    <p style="color: #233E8D;">Dec-2024</p>
+                    <p style="color: #233E8D;"><?=date('F Y')?></p>
                 </div>
             </div>
 
@@ -226,6 +226,8 @@
                         <i class="fas fa-door-open" style="margin-right: 5%;"></i>Visitors Summary
                     </span>
                     <input type="date" class="visitorsdate" id="search-date" oninput="filterByDate();">
+                    <input type="text" class="visitorsrole" id="search-role" oninput="filterByRole();" placeholder="Search by Role">
+
                 </div>
 
                 <div class="visitor-table-topics">
@@ -242,13 +244,13 @@
                         <?php foreach ($data['visitorsummary'] as $visitor): ?>
                             <div class="detailed-lines">
                                 <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
-                                <div class="visitorposition" style="margin-left: 120px;"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
-                                <div class="visitorpurpose" style="margin-left: 120px;"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
-                                <div class="visitordate" style="margin-left: 120px;">
+                                <div class="visitorposition" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
+                                <div class="visitorpurpose" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
+                                <div class="visitordate" style="margin-left: 0.5%;">
                                     <span><?= htmlspecialchars(date('Y-m-d', strtotime($visitor->Date))); ?></span>
                                 </div>
-                                <div class="visitorstarttime" style="margin-left: 120px;"><span><?= htmlspecialchars($visitor->Start_Time); ?></span></div>
-                                <div class="visitorendtime" style="margin-left: 120px;"><span><?= htmlspecialchars($visitor->End_Time); ?></span></div>
+                                <div class="visitorstarttime" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Start_Time); ?></span></div>
+                                <div class="visitorendtime" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->End_Time); ?></span></div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -360,6 +362,35 @@
                 noResultsMessage.style.display = "block";
             }
         };
+
+        const filterByRole = () => {
+    const searchRole = document.getElementById('search-role').value.toLowerCase().trim();
+    const visitors = document.querySelectorAll('.detailed-lines');
+    const noResultsMessage = document.getElementById('no-results');
+
+    let found = false;
+    noResultsMessage.style.display = "none";
+
+    for (let i = 0; i < visitors.length; i++) {
+        let visitorRoleElement = visitors[i].querySelector('.visitorposition span');
+
+        if (visitorRoleElement) {
+            let visitorRole = visitorRoleElement.textContent.toLowerCase().trim();
+
+            if (visitorRole.includes(searchRole)) {
+                visitors[i].style.display = "";
+                found = true;
+            } else {
+                visitors[i].style.display = "none";
+            }
+        }
+    }
+
+    if (!found && searchRole !== "") {
+        noResultsMessage.style.display = "block";
+    }
+};
+
     </script>
 </body>
 </html>

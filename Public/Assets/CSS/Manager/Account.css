@@ -484,3 +484,49 @@ button:hover {
 .cancel-btn:hover {
   background-color: #31b0d5;
 }
+
+
+/* CSS for blocked users */
+.blocked-user {
+  opacity: 0.8;
+  position: relative;
+  border: 1px solid #ff4d4d !important;
+  background-color: #fff5f5;
+}
+
+.blocked-status {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.unblock-btn {
+  background-color: #4CAF50 !important;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.unblock-btn:hover {
+  background-color: #45a049 !important;
+}
+
+.del-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.del-btn:hover {
+  background-color: #ff3333;
+}

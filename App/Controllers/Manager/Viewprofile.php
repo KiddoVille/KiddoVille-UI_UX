@@ -65,15 +65,14 @@ class Viewprofile
                     $Data = null;
                     break;
             }
-    
+
             if ($Data && !empty($Data->Image)) {
                 $imageData = $Data->Image;
                 $imageType = $Data->ImageType;
                 $base64Image = (!empty($imageData) && is_string($imageData))
                     ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
-                    : null
-                ;
-            }else{
+                    : null;
+            } else {
                 $base64Image = IMAGE . "/ProfilePic.png";
             }
             $User->Image = $base64Image;
@@ -120,7 +119,7 @@ class Viewprofile
             } elseif (!empty($_POST['Age']) && $_POST['Role'] == 'Maid') {
                 $otherValue = trim($_POST['Age']);
             }
-        
+
             // Prepare user data
             $dataInsert = [
                 'Username' => trim($_POST['Username']),
@@ -142,17 +141,18 @@ class Viewprofile
                 // Insert user
                 $model->insert($dataInsert);
 
-                    $subject = "Welcome to KiddoVille Daycare";
-                    $body = $this->getWelcomeEmailTemplate($data);
+                $subject = "Welcome to KiddoVille Daycare";
+                $body = $this->getWelcomeEmailTemplate($data);
 
-                    // Send email
-                    $emailResult = $mailer->send($data['email'], $subject, $body);
+                // Send email
+                $emailResult = $mailer->send($data['email'], $subject, $body);
 
-                    if ($emailResult) {
-                        message("User added successfully. Welcome email sent!");
-                    } else {
-                        message("User added but email failed Sending ");
-                    }
+                if ($emailResult) {
+                    message("User added successfully. Welcome email sent!");
+                } else {
+                    message("User added but email failed Sending ");
+                }
+
 
                 redirect('Manager/Viewprofile');
             }
@@ -390,37 +390,53 @@ class Viewprofile
 </html>';
     }
 
-    public function handleusername(){
+    public function handleusername()
+    {
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
 
-        $Username = isset($requestData['Username']) ? $requestData['Username'] : null ;
+        $Username = isset($requestData['Username']) ? $requestData['Username'] : null;
 
-        if(!empty($Username)){
+        if (!empty($Username)) {
             $model = new \Modal\User;
             $result = $model->first(["Username" => $Username]);
 
-            if($result){
+            if ($result) {
                 echo json_encode(['success' => false, 'message' => 'Username already exists']);
-            }else{
+            } else {
                 echo json_encode(['success' => true, 'message' => 'Username is available']);
             }
         }
     }
 
-    public function deleteuser()
+    public function blockuser()
     {
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
 
-        $UserID = isset($requestData['UserID']) ? $requestData['UserID'] : null ;
+        $UserID = isset($requestData['UserID']) ? $requestData['UserID'] : null;
         $model = new \Modal\User;
-        if(!empty($UserID)){
+        if (!empty($UserID)) {
             $model->update_withid($UserID, ["Block" => 1], "UserID");
-            echo json_encode(['success' => true, 'message' => 'Deleted User Successfully']);
-        }else{
-            echo json_encode(['success' => false, 'message' => 'Error in deleting user']);
+            echo json_encode(['success' => true, 'message' => 'Blocked User Successfully']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error in blocking user']);
         }
+    }
 
+    public function unblockuser()
+    {
+        header('Content-Type: application/json');
+        $requestData = json_decode(file_get_contents("php://input"), true);
+
+        $UserID = isset($requestData['UserID']) ? $requestData['UserID'] : null;
+        $model = new \Modal\User;
+
+        if (!empty($UserID)) {
+            $model->update_withid($UserID, ["Block" => 0], "UserID");
+            echo json_encode(['success' => true, 'message' => 'Unblocked User Successfully']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error in unblocking user']);
+        }
     }
 }

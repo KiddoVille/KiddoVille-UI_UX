@@ -613,13 +613,15 @@ li:hover .dropdown {
 }
 
 .detailed-lines {
-    display: flex;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Aligning the data into the same column structure */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; /* Match the header */
     padding: 10px 15px;
     border-bottom: 1px solid #e0e6eb;
     background-color: #ffffff;
     transition: background-color 0.3s ease-in-out;
+    align-items: center;
 }
+
 
 .detailed-lines:hover {
     background-color: #f9f9f9;
