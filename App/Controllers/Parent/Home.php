@@ -229,71 +229,129 @@
         }
 
         public function handlemeetings(){
+            header('Content-Type: application/json'); // Important for AJAX
+        
             $session = new \Core\Session;
             $UserID = $session->get("USERID");
             $ParentModal = new \Modal\ParentUser;
             $MeetingModal = new \Modal\Meeting;
-
+        
             $Parent = $ParentModal->first(["UserID" => $UserID]);
-            $selectedmeeting = $MeetingModal->first(["ParentID" => $Parent->ParentID]);
-            if($selectedmeeting){
-                $MeetingModal->update(["MeetingID" => $selectedmeeting->MeetingID], ["ParentID" => NULL, "Scheduled" => false]);
+            if (!$Parent) {
+                echo json_encode([
+                    'success' => false,
+                    'error' => 'User not found.'
+                ]);
+                exit;
             }
-            $MeetingModal->update(["MeetingID" => $_POST['meeting_slot']], ["ParentID" => $Parent->ParentID, "Scheduled" => true]);
-            redirect("Parent/Home");
+        
+            $meetingID = $_POST['meeting_slot'] ?? null;
+        
+            if (!$meetingID) {
+                echo json_encode([
+                    'success' => false,
+                    'error' => 'Please select a meeting slot.'
+                ]);
+                exit;
+            }
+        
+            // Get valid slots
+            $data = $this->store_meeting_times();
+            $validSlots = array_column($data['Meetingslots'], 'MeetingID');
+        
+            if (!in_array($meetingID, $validSlots)) {
+                echo json_encode([
+                    'success' => false,
+                    'error' => 'Invalid meeting slot selected. Please choose a valid date and time.'
+                ]);
+                exit;
+            }
+        
+            // Unschedule previous meeting if any
+            $selectedmeeting = $MeetingModal->first(["ParentID" => $Parent->ParentID]);
+            if ($selectedmeeting) {
+                $MeetingModal->update(
+                    ["MeetingID" => $selectedmeeting->MeetingID],
+                    ["ParentID" => null, "Scheduled" => false]
+                );
+            }
+        
+            // Schedule new meeting
+            $MeetingModal->update(
+                ["MeetingID" => $meetingID],
+                ["ParentID" => $Parent->ParentID, "Scheduled" => true]
+            );
+        
+            echo json_encode([
+                'success' => true,
+                'message' => 'Meeting scheduled successfully.'
+            ]);
+            exit;
         }
-
+        
         public function handlePickups(){
-
+            header('Content-Type: application/json');
+        
             $session = new \Core\Session;
             $ChildHelper = new ChildHelper();
             $PickupModal = new \Modal\Pickup;
             $Children = $ChildHelper->store_child();
-            
-            $today = new \DateTime();
-            $today = $today->format("Y-m-d");
-            $_POST['Person'] = $_POST['PersonType'];
+            $Pickup = new \Modal\Pickup;
+        
+            $today = (new \DateTime())->format("Y-m-d");
+        
+            $_POST['Person'] = $_POST['PersonType'] ?? null;
             $_POST['AllChild'] = 1;
             $_POST['OTP'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
-            unset($_POST['PersonType']);
-            unset($_POST['selectedPerson']);
-            unset($_POST['inform']);
-
             $_POST['Date'] = $today;
-            if(isset($_FILES['newPersonImage']) && ($_FILES['newPersonImage']['error'] === UPLOAD_ERR_OK) && ($_POST['Person'] == 'New') ){
+        
+            unset($_POST['PersonType'], $_POST['selectedPerson'], $_POST['inform']);
+        
+            // Handle image
+            if (
+                isset($_FILES['newPersonImage']) &&
+                $_FILES['newPersonImage']['error'] === UPLOAD_ERR_OK &&
+                ($_POST['Person'] === 'New')
+            ) {
                 $imageFile = $_FILES['newPersonImage'];
                 $imageType = mime_content_type($imageFile['tmp_name']);
-
                 $imageBlob = file_get_contents($imageFile['tmp_name']);
+        
                 if ($imageBlob !== false) {
                     $_POST['Image'] = $imageBlob;
                     $_POST['ImageType'] = $imageType;
                 } else {
-                    $errors['Image'] = "Failed to read the image file.";
+                    echo json_encode(['success' => false, 'error' => "Failed to read the image file."]);
+                    exit;
                 }
             }
-
+        
+            // Validate
+            if (!$Pickup->validate($_POST)) {
+                echo json_encode(['success' => false, 'error' => $Pickup->errors['Time'] ?? "Validation failed."]);
+                exit;
+            }
+        
             foreach ($Children as $child) {
                 $row = $PickupModal->first(['ChildID' => $child->ChildID, 'Date' => $today, "AllChild" => 1]);
                 if ($row) {
                     $PickupModal->delete($row->PickupID , "PickupID");
                 }
             }
-
-            // show($_FILES);
+        
             foreach ($Children as $Child){
-                // show($_POST);
                 $_POST['ChildID'] = $Child->ChildID;
                 $AttendanceModal = new \Modal\Attendance;
                 $attendanceRow = $AttendanceModal->first(["ChildID" => $Child->ChildID, "Status" => "Present"]);
-                
+        
                 if ($attendanceRow) {
                     $PickupModal->insert($_POST);
                 }
             }
-
-            redirect('Parent/Home');
-        }
+        
+            echo json_encode(['success' => true, 'message' => "Pickup scheduled successfully!"]);
+            exit;
+        }        
 
         private function store_reminders() {
             $reminderModal = new \Modal\Reminder;
