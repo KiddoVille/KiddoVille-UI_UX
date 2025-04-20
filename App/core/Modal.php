@@ -212,7 +212,6 @@
 
         //$id_column specifies the columns name we are going to use
         public function update_withid($id, $data,$id_column = 'id' ){
-
             if(!empty($this->allowedColumns)){
                 foreach ($data as $key => $value){
                     if(!in_array($key, $this->allowedColumns)){
