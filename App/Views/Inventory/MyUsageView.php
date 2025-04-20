@@ -20,7 +20,7 @@
                     <i class="fas fa-box-open"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>14</h3>
+                    <h3><?=$data['Use'] ?></h3>
                     <p>Items Currently In Use</p>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <i class="fas fa-clock"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>3</h3>
+                    <h3><?=$data['Overdue'] ?></h3>
                     <p>Items Due for Return</p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <i class="fas fa-hourglass-half"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>2</h3>
+                    <h3><?=$data['Request'] ?></h3>
                     <p>Pending Requests</p>
                 </div>
             </div>

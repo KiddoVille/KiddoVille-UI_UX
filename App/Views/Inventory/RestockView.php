@@ -18,7 +18,7 @@
                     <i class="fas fa-exclamation-triangle"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>12</h3>
+                    <h3><?= $data['Low'] ?></h3>
                     <p>Items Low in Stock</p>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     <i class="fas fa-times-circle"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>5</h3>
+                    <h3><?= $data['Out'] ?></h3>
                     <p>Out of Stock Items</p>
                 </div>
             </div>
@@ -36,8 +36,8 @@
                     <i class="fas fa-truck"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>3</h3>
-                    <p>Pending Orders</p>
+                    <h3><?= $data['Full'] ?></h3>
+                    <p>Available Items</p>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
             </div>
             <div class="card-body">
                 <div class="search-bar">
-                    <input type="text" placeholder="Search items...">
+                    <input type="text" id="Filter" placeholder="Search items...">
                     <button><i class="fas fa-search"></i></button>
                 </div>
                 <div class="table-container">
@@ -71,7 +71,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="lowstocktbody">
                             <tr>
                                 <td>ITM001</td>
                                 <td>Whiteboard Markers</td>
@@ -205,121 +205,142 @@
                 </div>
             </div>
         </div>
-
-        <!-- Bulk Restock Form -->
-        <div class="card">
-            <div class="card-header">
-                <h2>Bulk Restock Items</h2>
-            </div>
-            <div class="card-body">
-                <form>
-                <div class="form-row" style="display: flex; flex-direction: row; justify-content: center;">
-                        <div class="form-col">
-                            <div class="form-group">
-                            <label for="orderDate">Category</label>
-                                <select class="form-control" id="Category" style="max-width: 150px;">
-                                    <option value="All" selected>All Categories</option>
-                                    <option value="Stationery">Stationery</option>
-                                    <option value="Toys">Toys</option>
-                                    <option value="Books">Books</option>
-                                    <option value="Cleaning">Cleaning</option>
-                                    <option value="Health">Health</option>
-                                    <option value="Snacks">Snacks</option>
-                                    <option value="Crafts">Crafts</option>
-                                    <option value="Clothing">Clothing</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label for="orderDate">Status</label>
-                                <select class="form-control" id="Status" style="max-width: 150px; margin-left: 50px;">
-                                    <option value="All">All Status</option>
-                                    <option value="Available">Available</option>
-                                    <option value="Low Stock">Low Stock</option>
-                                    <option value="Out of Stock">Out of Stock</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Select Items to Restock</label>
-                        <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Item Name</th>
-                                        <th>Category</th>
-                                        <th>Current Stock</th>
-                                        <th>Min. Required</th>
-                                        <th>Status</th>
-                                        <th>Restock Quantity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Projector Bulbs</td>
-                                        <td>Electronics</td>
-                                        <td>0</td>
-                                        <td>5</td>
-                                        <td><span class="status status-out">Out of Stock</span></td>
-                                        <td><input type="number" class="form-control" value="8" min="1"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sticky Notes</td>
-                                        <td>Office Supplies</td>
-                                        <td>0</td>
-                                        <td>20</td>
-                                        <td><span class="status status-out">Out of Stock</span></td>
-                                        <td><input type="number" class="form-control" value="40" min="1"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="notes">Order Notes</label>
-                        <textarea id="notes" class="form-control" rows="3" placeholder="Add any special instructions or notes for this order..."></textarea>
-                    </div>
-
-                    <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 
     <!-- Restock Modal -->
     <div class="modal-backdrop" id="restockModal">
         <div class="modal">
-            <div class="modal-header">
-                <h3>Restock Item: <span id="modalItemName">Item Name</span></h3>
-                <button class="modal-close" onclick="closeRestockModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="restockForm">
-                    <input type="hidden" id="itemId" value="">
+            <form id="restockForm" method="POST" enctype="multipart/form-data" action = "<?=ROOT?>/Inventory/Restock/RestockItem">
+                <div class="modal-header">
+                    <h3>Restock Item: <span id="modalItemName">Item Name</span></h3>
+                    <button class="modal-close" onclick="closeRestockModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="ItemID" id="itemId" value="">
                     <div class="form-group">
-                        <label for="restockQuantity">Quantity to Order</label>
-                        <input type="number" id="restockQuantity" class="form-control" min="1" value="1" required>
+                        <label for="restockQuantity">Quantity of Restock</label>
+                        <input type="number" name="Quantity" id="restockQuantity" class="form-control" min="1" placeholder="10" required>
                     </div>
                     <div class="form-group">
                         <label for="modalNotes">Notes</label>
-                        <textarea id="modalNotes" class="form-control" rows="2"></textarea>
+                        <textarea id="modalNotes" name="Notes" class="form-control" placeholder="We are restocking the item" rows="2"></textarea>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeRestockModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="submitRestockForm()">Restock</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeRestockModal()">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Restock</button>
+                </div>
+            </form>
         </div>
     </div>
 
     <script>
+
+        function GeneratePagination(res) {
+            const paginationContainer = document.querySelector(".pagination");
+            const Filter = document.getElementById('Filter');
+            const category = Filter.value;
+
+            paginationContainer.innerHTML = '';
+
+            const totalPages = res.Count; // Total number of pages from the server
+            const currentPage = Number(res.Pagination); // Current page
+            const maxVisiblePages = 5;
+
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = startPage + maxVisiblePages - 1;
+
+            // Adjust if we go past the total pages
+            if (endPage > totalPages) {
+                endPage = totalPages;
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            // < Arrow
+            if (currentPage > 1) {
+                const prev = document.createElement('a');
+                prev.textContent = '<';
+                prev.href = '#';
+                prev.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(category, currentPage - 1);
+                };
+                paginationContainer.appendChild(prev);
+            }
+
+            // Page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                const a = document.createElement('a');
+                a.textContent = i;
+                a.href = '#';
+                if (i === currentPage) {
+                    a.classList.add('active');
+                }
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(category, i);
+                };
+                paginationContainer.appendChild(a);
+            }
+
+            // > Arrow
+            if (currentPage < totalPages) {
+                const next = document.createElement('a');
+                next.textContent = '>';
+                next.href = '#';
+                next.onclick = (e) => {
+                    e.preventDefault();
+                    GetUsageReport(category, currentPage + 1);
+                };
+                paginationContainer.appendChild(next);
+            }
+        }
+
+        function GenerateTable(res) {
+            const tableBody = document.getElementById("lowstocktbody");
+            tableBody.innerHTML = '';
+
+            // Fill rows
+            res.data.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${row.ItemIDmodified}</td>
+                    <td>${row.Item}</td>
+                    <td>${row.Category}</td>
+                    <td>${row.Quantity}</td>
+                    <td>${row.MinQuantity}</td>
+                    <td> <span class="${row.class}">${row.Status}</span></td>
+                    <td>${row.RestockDate ?? '-'}</td>
+                    <td>
+                        <button data-id="${row.ItemID}" class="btn btn-sm btn-primary" onclick="openRestockModal(${row.ItemID}, '${row.Item}')">Restock</button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function GetUsageReport(category, page = 1) {
+            console.log(category);
+            fetch('<?= ROOT ?>/Inventory/Restock/Low_Stock', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Filter: category,
+                    Pagination: page
+                })
+            })
+            .then(response => response.json())
+            .then(res => {
+                if (!res || !res.data) return;
+                console.log(res);
+                GenerateTable(res);
+                GeneratePagination(res);
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
         // Function to open restock modal
         function openRestockModal(itemId, itemName) {
             document.getElementById('modalItemName').textContent = itemName;
@@ -332,21 +353,19 @@
             document.getElementById('restockModal').style.display = 'none';
         }
 
-        // Function to submit restock form
-        function submitRestockForm() {
-            // Here you would normally handle the form submission via AJAX
-            // For this demo, we'll just show an alert and close the modal
-            alert('Restock order submitted successfully!');
-            closeRestockModal();
-        }
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // Function to handle select all checkbox
-        document.getElementById('selectAll').addEventListener('change', function() {
-            const checkboxes = document.querySelectorAll('input[name="restock_items[]"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
+            const Filter = document.getElementById('Filter');
+
+            Filter.addEventListener("change", function() {
+                console.log(Filter.value);
+                GetUsageReport(Filter.value);
             });
+
+            GetUsageReport(null);
+
         });
+
     </script>
 </body>
 </html>
