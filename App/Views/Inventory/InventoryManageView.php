@@ -140,24 +140,28 @@
                             <div class="form-group">
                                 <label for="itemQuantity">Quantity</label>
                                 <input name="Quantity" type="number" id="itemQuantity" placeholder="20" class="form-control" min="0">
+                                <p id="QuantityError" style="display: none; color: red;"></p>
                             </div>
                         </div>
                         <div class="form-col">
                             <div class="form-group">
                                 <label for="itemMinStock">Minimum Stock Level</label>
                                 <input name="MinQuantity" type="number" id="itemMinStock" placeholder="50" class="form-control" min="0">
+                                <p id="MinQuantityError" style="display: none; color: red;"></p>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="itemDescription">Description</label>
                         <textarea name="Description" id="itemDescription" class="form-control" rows="3" placeholder="Enter item description"></textarea>
+                        <p id="DescriptionError" style="display: none; color: red;"></p>
                     </div>
                     <div class="form-row">
                         <div class="form-col">
                             <div class="form-group">
                                 <label for="itemPrice">Unit Price</label>
                                 <input name="Price" type="number" id="itemPrice" class="form-control" min="0" step="0.01" placeholder="100.00">
+                                <p id="PriceError" style="display: none; color: red;"></p>
                             </div>
                         </div>
                         <div class="form-col">
@@ -175,7 +179,7 @@
             </form>
         </div>
     </div>
-
+w
     <div id="viewItemModal" class="modal-backdrop">
         <div class="modal">
             <div class="modal-header">
@@ -382,13 +386,64 @@
         const AddForm = document.getElementById('Add');
         const ItemError = document.getElementById('ItemError');
         const editItemError = document.getElementById('editItemError');
+        const alert = document.getElementById('alert');
+        const alertmessage = document.getElementById('alert-message'); // assume this exists
+        const timeError = document.getElementById('timeError'); // error span below time input
+        const alertimg =  document.getElementById('alert-img');
 
+        function clearErrors() {
+            const errorTags = AddForm.querySelectorAll("p[id$='Error']");
+            errorTags.forEach(p => {
+                p.style.display = 'none';
+                p.textContent = '';
+            });
+        }
+
+        // Handle form submission
         AddForm.addEventListener("submit", function(event){
-            if(ItemError.style.display == 'flex'){
-                event.preventDefault();
-            }else{
-                AddForm.submit();
+            event.preventDefault();
+            clearErrors();
+            const formData = new FormData(AddForm);
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
             }
+
+            fetch('<?= ROOT ?>/Inventory/InventoryManage/AddItems', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success){
+                    alertmessage.textContent = data.message || "Pickup scheduled successfully!";
+                    alertimg.src = '<?=IMAGE?>/Success.svg';
+                    alert.style.display = 'flex';
+                    location.reload();
+                } else {
+                    console.log(data);
+                    if (data.errors) {
+                        for (const [key, msg] of Object.entries(data.errors)) {
+                            const errorTag = document.getElementById(key + 'Error');
+                            if (errorTag) {
+                                errorTag.textContent = msg;
+                                errorTag.style.display = 'block';
+                            }
+                        }
+                    } else {
+                        alert("An unexpected error occurred.");
+                    }
+                    alertmessage.textContent = data.message;
+                    alertimg.src = '<?=IMAGE?>/Faile.svg';
+                    alert.style.display = 'flex';
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Something went wrong while adding item.");
+            });
         });
 
         const editForm = document.getElementById('editForm');
