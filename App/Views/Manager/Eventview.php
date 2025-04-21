@@ -163,7 +163,7 @@
                             <h2>Confirm Deletion</h2>
                             <p>Are you sure you want to delete this Event?</p>
                             <div class="modal-buttons">
-                                <button id="confirmDelete" class="confirm-btn">Yes, Delete</button>
+                                <button id="confirmDelete" class="confirm-btn">Delete</button>
                                 <button id="cancelDelete" class="cancel-btn">Cancel</button>
                             </div>
                         </div>
@@ -172,8 +172,6 @@
             </div>
         </div>
     </div>
-
-
 
 
     <!-- Update Event Popup -->
@@ -186,18 +184,18 @@
                     <label for="EventName">Event Type <span class="required">*</span></label>
                     <select name="EventName" id="EventName" class="form-control">
                         <option value="">Select Event Type</option>
-                        <option value="Annual Event" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Annual Event") echo 'selected'; ?>>Annual Event</option>
-                        <option value="Sports day" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Sports day") echo 'selected'; ?>>Sports Day</option>
-                        <option value="Cultural Leave" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Cultural Leave") echo 'selected'; ?>>Cultural Leave</option>
-                        <option value="Eid Festival" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Eid Festival") echo 'selected'; ?>>Eid Festival</option>
-                        <option value="Other" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Other") echo 'selected'; ?>>Other</option>
+                        <option value="Annual Event" >Annual Event</option>
+                        <option value="Sports day">Sports Day</option>
+                        <option value="Cultural Leave">Cultural Leave</option>
+                        <option value="Eid Festival"]>Eid Festival</option>
+                        <option value="Other">Other</option>
                     </select>
 
                     <label for="Date">Date <span class="required">*</span></label>
-                    <input type="date" id="Date" name="Date" class="form-control" value="<?= isset($_POST['Date']) ? htmlspecialchars($_POST['Date']) : ''; ?>" required>
+                    <input type="date" id="Date" name="Date" class="form-control" required>
 
                     <label for="Description">Description</label>
-                    <textarea id="Description" name="Description" placeholder="Include comments for Event type" class="form-control" required><?= isset($_POST['Description']) ? htmlspecialchars($_POST['Description']) : ''; ?></textarea>
+                    <textarea id="Description" name="Description" placeholder="Include comments for Event type" class="form-control" required></textarea>
                 </div>
 
                 <div class="button-group">
