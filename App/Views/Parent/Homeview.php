@@ -415,6 +415,7 @@
                                 <?php endif; ?>
                             </table>
                         </div>
+                        <p id="meeting-error" style="color: red; display: none;"> </p>
                         <div class="button-popup" style="margin-top: 15px;">
                             <button style="margin-right: 230px;" type="button" id="closemeetingBtn">Cancel</button>
                             <button type="submit">Done</button>
@@ -469,6 +470,7 @@
                         <div class="pickup-section">
                             <label for="time">Select Time <span id="red-star" class="red-star"> *</span></label>
                             <input name="Time" style="width: 330px;" id="pickuptime" required class="time" type="time" value="<?= isset($data['stat2']['Time'])? $data['stat2']['Time'] : '' ?>" min="08:00" max="20:00"/>
+                            <p id="timeError" style="color: red; display: none;"></p>
                         </div>
                         <div class="pickup-section">
                             <label>Select person for pickup</label>
@@ -669,30 +671,98 @@
 
     const meetingform = document.getElementById('meeting-form');
     const alert = document.getElementById('alert');
+    const alertmessage = document.getElementById('alert-message');
     const MeetingModal = document.getElementById('MeetingModal');
+    const alertimg =  document.getElementById('alert-img');
+    const meetingerror = document.getElementById('meeting-error');
 
-    meetingform.addEventListener("submit", function(event){
+    meetingform.addEventListener("submit", function(event) {
         event.preventDefault();
-        MeetingModal.style.display = 'none';
-        alert.style.display = 'flex';
-        setTimeout (() => {
-            meetingform.submit();
-            alert.style.display = 'none'; 
-        }, 2000);
-    })
+        const formData = new FormData(meetingform);
+
+        fetch(meetingform.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                MeetingModal.style.display = 'none';
+                alertmessage.textContent = data.message || "Meeting scheduled successfully!";
+                alert.style.display = 'flex';
+                meetingerror.style.display = 'none';
+
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                    location.reload();
+                }, 2000);
+            } else {
+                // Determine error type
+                const errorText = data.error?.toLowerCase() || "";
+
+                if (errorText.includes("meeting slot")) {
+                    // Show in meetingerror div
+                    meetingerror.style.display = 'flex';
+                    meetingerror.textContent = data.error;
+                    alert.style.display = 'none';
+                } else {
+                    // Show in alert box
+                    alertmessage.textContent = data.error || "Something went wrong.";
+                    alert.style.display = 'flex';
+                    meetingerror.style.display = 'none';
+                }
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alertmessage.textContent = "An unexpected error occurred.";
+            alert.style.display = 'flex';
+            meetingerror.style.display = 'none';
+        });
+    });
 
     const pickupModal = document.getElementById('pickupModal');
     const pickupForm = document.getElementById('pickupForm');
 
     pickupForm.addEventListener("submit", function(event){
         event.preventDefault();
-        pickupModal.style.display = 'none';
-        alert.style.display = 'flex';
-        setTimeout (() => {
-            pickupForm.submit();
-            alert.style.display = 'none'; 
-        }, 2000);
-    })
+
+        const formData = new FormData(pickupForm);
+
+        fetch(pickupForm.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alertmessage.textContent = data.message || "Pickup scheduled successfully!";
+                alert.style.display = 'flex';
+                pickupModal.style.display = 'none';
+
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                    location.reload();
+                }, 2000);
+            } else {
+                // Handle validation error (e.g., time)
+                pickupModal.style.display = 'block';
+                const timeError = document.getElementById("timeError");
+                if (timeError) {
+                    timeError.textContent = data.error;
+                    timeError.style.display = 'block';
+                }
+
+                alertmessage.textContent = "Failed to schedule pickup.";
+                alert.style.display = 'flex';
+            }
+        })
+        .catch(error => {
+            console.error("AJAX Error:", error);
+            alertmessage.textContent = "Unexpected error occurred.";
+            alert.style.display = 'flex';
+        });
+    });
 
     const messageDropdown = document.getElementById('messageDropdown');
     const bellIcon = document.getElementById('bell-container');
@@ -966,8 +1036,6 @@
         }
 
         const deletePopup = document.getElementById('deletePopup');
-        const alertimg =  document.getElementById('alert-img');
-        const alertmessage = document.getElementById('alert-message');
 
         function DeleteMeeting(){
             deletePopup.style.display = 'none';

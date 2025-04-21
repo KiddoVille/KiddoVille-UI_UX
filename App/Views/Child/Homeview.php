@@ -532,6 +532,7 @@
                         <div class="pickup-section">
                             <label for="time">Select Time <span id="red-star" class="red-star"> *</span></label>
                             <input name="Time" style="width: 330px;" id="pickuptime" required class="time" type="time" value="<?= isset($data['stat2']['Time']) ? $data['stat2']['Time'] : '' ?>" min="08:00" max="20:00" />
+                            <p id="timeError" style="color: red; display: none;"></p>
                         </div>
                         <div class="pickup-section">
                             <label>Select person for pickup</label>
@@ -713,20 +714,60 @@
 </body>
 <script>
 
-
     const pickupModal = document.getElementById('pickupModal');
     const pickupForm = document.getElementById('pickupForm');
     const alert = document.getElementById('alert');
+    const alertmessage = document.getElementById('alert-message'); // assume this exists
+    const timeError = document.getElementById('timeError'); // error span below time input
+    const alertimg =  document.getElementById('alert-img');
 
     pickupForm.addEventListener("submit", function(event){
         event.preventDefault();
-        pickupModal.style.display = 'none';
-        alert.style.display = 'flex';
-        setTimeout (() => {
-            pickupForm.submit();
-            alert.style.display = 'none'; 
-        }, 2000);
-    })
+        
+        const formData = new FormData(pickupForm);
+
+        fetch(pickupForm.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alertmessage.textContent = data.message || "Pickup scheduled successfully!";
+                alertimg.src = '<?=IMAGE?>/Success.svg';
+                alert.style.display = 'flex';
+                pickupModal.style.display = 'none';
+
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                    location.reload();
+                }, 2000);
+            } else {
+                // Show form again if there was an error
+                pickupModal.style.display = 'block';
+
+                // Display error under time input
+                if (timeError) {
+                    timeError.textContent = data.error || "Validation failed.";
+                    timeError.style.display = 'block';
+                }
+
+                alertmessage.textContent = "Failed to schedule pickup.";
+                alert.style.display = 'flex';
+                alertimg.src = '<?=IMAGE?>/Faile.svg';
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alertmessage.textContent = "An unexpected error occurred.";
+            alert.style.display = 'flex';
+        });
+    });
+
+    document.getElementById('pickuptime').addEventListener("input", () => {
+        timeError.style.display = 'none';
+        timeError.textContent = '';
+    });
 
     const messageDropdown = document.getElementById('messageDropdown');
     const bellIcon = document.getElementById('bell-container');
@@ -1033,8 +1074,7 @@ if(Array.isArray(holidays) && holidays.length > 0){
     }
 
     const deletePopup1 = document.getElementById('deletePopup1');
-    const alertimg =  document.getElementById('alert-img');
-    const alertmessage = document.getElementById('alert-message');
+
         function ResetPickup(){
             deletePopup1.style.display = 'none';
             fetch("<?= ROOT ?>/Child/home/deletePickup", {

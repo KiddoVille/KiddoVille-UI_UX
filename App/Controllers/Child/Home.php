@@ -254,51 +254,65 @@ class Home
     }
 
     public function handlePickups(){
-
+        header('Content-Type: application/json');
+    
         $session = new \Core\Session;
         $PickupModal = new \Modal\Pickup;
+        $Pickup = new \Modal\Pickup;
         $ChildID = $session->get("CHILDID");
-        
-        $today = new \DateTime();
-        $today = $today->format("Y-m-d");
-        $_POST['Person'] = $_POST['PersonType'];
+    
+        $today = (new \DateTime())->format("Y-m-d");
+    
+        $_POST['Person'] = $_POST['PersonType'] ?? null;
         $_POST['AllChild'] = 0;
         $_POST['OTP'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
-        unset($_POST['PersonType']);
-        unset($_POST['selectedPerson']);
-        unset($_POST['inform']);
-
         $_POST['Date'] = $today;
-        if(isset($_FILES['newPersonImage']) && ($_FILES['newPersonImage']['error'] === UPLOAD_ERR_OK) && ($_POST['Person'] == 'New') ){
+    
+        unset($_POST['PersonType'], $_POST['selectedPerson'], $_POST['inform']);
+    
+        // Handle image
+        if (
+            isset($_FILES['newPersonImage']) &&
+            $_FILES['newPersonImage']['error'] === UPLOAD_ERR_OK &&
+            ($_POST['Person'] === 'New')
+        ) {
             $imageFile = $_FILES['newPersonImage'];
             $imageType = mime_content_type($imageFile['tmp_name']);
-
             $imageBlob = file_get_contents($imageFile['tmp_name']);
+    
             if ($imageBlob !== false) {
                 $_POST['Image'] = $imageBlob;
                 $_POST['ImageType'] = $imageType;
             } else {
-                $errors['Image'] = "Failed to read the image file.";
+                echo json_encode(['success' => false, 'error' => "Failed to read the image file."]);
+                exit;
             }
         }
-
+    
+        // ✅ Validate time
+        if (!$Pickup->validate($_POST)) {
+            echo json_encode(['success' => false, 'error' => $Pickup->errors['Time'] ?? "Validation failed."]);
+            exit;
+        }
+    
         $row = $PickupModal->first(['ChildID' => $ChildID, 'Date' => $today, "AllChild" => 0]);
         if ($row) {
             $PickupModal->delete($row->PickupID , "PickupID");
         }
-
-        // show($_POST);
+    
         $_POST['ChildID'] = $ChildID;
         $AttendanceModal = new \Modal\Attendance;
         $attendanceRow = $AttendanceModal->first(["ChildID" => $ChildID, "Status" => "Present"]);
-        
+    
         if ($attendanceRow) {
             $PickupModal->insert($_POST);
+            echo json_encode(['success' => true, 'message' => "Pickup scheduled successfully!"]);
+            exit;
         }
-
-        redirect('Child/Home');
-    }
-
+    
+        echo json_encode(['success' => false, 'error' => "Child is not marked as present."]);
+        exit;
+    }    
 
     private function store_attendance() {
         $session = new \core\session;
