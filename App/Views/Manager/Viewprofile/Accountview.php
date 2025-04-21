@@ -96,7 +96,7 @@
                 Thilina Perera
             </h2>
             <p>
-                ID    RS0110657
+                ID RS0110657
             </p>
             <button class="profile-button">
                 Personal info
@@ -153,7 +153,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <button id="userview" class="view-btn" onclick="viewUser(<?= $user->UserID ?>)">View</button>
-                                        <button id="deleteuser" class="del-btn" onclick="deleteUser(<?= $user->UserID ?>)">Delete</button>
+                                        <button id="blockuser" class="del-btn" onclick="blockUser(<?= $user->UserID ?>)">Block</button>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +164,7 @@
                 </div>
 
                 <a href="#" id="addUserBtn" style="margin-left:85%;text-decoration:none;font-size:20px;color:blue">+Add User</a>
-                
+
                 <!-- Overlay -->
                 <div class="overlay" id="overlay" style="display: none;"></div>
 
@@ -173,7 +173,7 @@
                     <div class="popup-content">
                         <span class="close-btn" onclick="togglePopup()">&times;</span>
                         <h2>Add User</h2>
-                        <form id="userForm" method="post" action="<?=ROOT?>/Manager/Viewprofile/adduser">
+                        <form id="userForm" method="post" action="<?= ROOT ?>/Manager/Viewprofile/adduser">
                             <label for="role" class="labeltag">Select Role:</label>
                             <select id="Role" name="Role" required>
                                 <option value="">-- Select --</option>
@@ -205,7 +205,8 @@
                                     <option value="2-3">2-3</option>
                                     <option value="4-5">4-5</option>
                                     <option value="6-7">6-7</option>
-                                    <option value="8-9">8-9</option></option>
+                                    <option value="8-9">8-9</option>
+                                    </option>
                                     <option value="10-15">10-15</option>
                                 </select>
 
@@ -246,7 +247,7 @@
             }
 
             function updateProfileCards(users) {
-                const cardsContainer = document.querySelector('.cards'); // Select the container
+                const cardsContainer = document.querySelector('.cards');
 
                 // Clear previous content
                 cardsContainer.innerHTML = '';
@@ -256,40 +257,99 @@
                     return;
                 }
 
-                let allCardsHTML = ''; // Step 1: Create an empty string to hold all the cards
+                let allCardsHTML = '';
 
                 users.forEach(user => {
                     const Role = user?.Role === "User" ? "Parent" : user?.Role;
+                    const isBlocked = user.Block == 1; // Check if user is blocked
+
                     allCardsHTML += `
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="${user.Image}" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>${user.Username}</h4>
-                                    <p>UserID: ${user.UserID}</p>
-                                    <p>Role: ${Role}</p>
-                                </div>
-                                <div class="card-footer">
-                                    <button onclick="viewUser(${user.UserID})">View</button>
-                                    <button class="del" onclick="deleteUser(${user.UserID})">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+            <div class="report-card ${isBlocked ? 'blocked-user' : ''}">
+                <div class="card-content">
+                    <div class="profile-img">
+                        <img src="${user.Image}" class="face" width="70px">
+                    </div>
+                    <div class="card-details">
+                        <h4>${user.Username}</h4>
+                        <p>UserID: ${user.UserID}</p>
+                        <p>Role: ${Role}</p>
+                        ${isBlocked ? '<p class="blocked-status">BLOCKED</p>' : ''}
+                    </div>
+                    <div class="card-footer">
+                        <button onclick="viewUser(${user.UserID})">View</button>
+                        ${!isBlocked ? 
+                          `<button class="del-btn" onclick="blockUser(${user.UserID})">Block</button>` : 
+                          `<button class="unblock-btn" onclick="unblockUser(${user.UserID})">Unblock</button>`
+                        }
+                    </div>
+                </div>
+            </div>
+        `;
                 });
 
-                // Step 2: Set innerHTML once
-                cardsContainer.innerHTML = '';
                 cardsContainer.innerHTML = allCardsHTML;
+            }
+
+
+            function unblockUser(userId) {
+                console.log("Unblocking user with ID:", userId);
+
+                Swal.fire({
+                    title: 'Unblock User?',
+                    text: "Are you sure you want to unblock this user?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Unblock'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Make unblock request
+                        fetch(`<?= ROOT ?>/Manager/Viewprofile/unblockuser`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    UserID: userId,
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    Swal.fire(
+                                        'Unblocked!',
+                                        'User has been unblocked.',
+                                        'success'
+                                    );
+                                    // Refresh user list
+                                    fetchProfile(document.getElementById('rolefilter').value,
+                                        document.getElementById('Idpicker').value);
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        data.message || 'Failed to unblock user.',
+                                        'error'
+                                    );
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                Swal.fire(
+                                    'Error!',
+                                    'An error occurred while unblocking the user.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
             }
 
             // Toggle popup function
             function togglePopup() {
                 const popup = document.getElementById('popup');
                 const overlay = document.getElementById('overlay');
-                
+
                 // Toggle visibility
                 if (popup.style.display === 'block') {
                     popup.style.display = 'none';
@@ -318,58 +378,58 @@
                 window.location.href = `<?= ROOT ?>/Manager/Viewprofile/view/${userId}`;
             }
 
-            // Function to delete user
-            function deleteUser(userId) {
-                console.log("Deleting user with ID:", userId);
-                
+            // Function to block user
+            function blockUser(userId) {
+                console.log("Blocking user with ID:", userId);
+
                 Swal.fire({
-                    title: 'Confirm Deletion?',
-                    text: "Are you sure you want to delete this user?",
+                    title: 'Block User?',
+                    text: "Are you sure you want to Block this user?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Delete'
+                    confirmButtonText: 'BLock'
                 }).then((result) => {
                     console.log("Confirmed");
                     if (result.isConfirmed) {
-                        // Make delete request
-                        fetch(`<?= ROOT ?>/Manager/Viewprofile/deleteuser`, {
-                            method: 'POST',
-                            headers: {
-                            'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                UserID: userId,
+                        // Make block request
+                        fetch(`<?= ROOT ?>/Manager/Viewprofile/blockuser`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    UserID: userId,
+                                })
                             })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'User has been deleted.',
-                                    'success'
-                                );
-                                // Refresh user list
-                                fetchProfile(document.getElementById('rolefilter').value, 
-                                             document.getElementById('Idpicker').value);
-                            } else {
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    Swal.fire(
+                                        'Blocked!',
+                                        'User has been Blocked.',
+                                        'success'
+                                    );
+                                    // Refresh user list
+                                    fetchProfile(document.getElementById('rolefilter').value,
+                                        document.getElementById('Idpicker').value);
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        data.message || 'Failed to block user.',
+                                        'error'
+                                    );
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
                                 Swal.fire(
                                     'Error!',
-                                    data.message || 'Failed to delete user.',
+                                    'An error occurred while blocking the user.',
                                     'error'
                                 );
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                            Swal.fire(
-                                'Error!',
-                                'An error occurred while deleting the user.',
-                                'error'
-                            );
-                        });
+                            });
                     }
                 });
             }
@@ -383,7 +443,7 @@
                 // Password validation regex
                 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
-                passwordInput.addEventListener('input', function () {
+                passwordInput.addEventListener('input', function() {
                     const password = passwordInput.value;
 
                     const errors = [];
@@ -415,7 +475,7 @@
 
                 const Form = document.getElementById('userForm');
 
-                Form.addEventListener('submit', function (e) {
+                Form.addEventListener('submit', function(e) {
                     console.log("Submission of form inside function");
                     const password = passwordInput.value;
                     let haserror = false;
@@ -437,7 +497,7 @@
                 });
 
                 const name = document.getElementById('name');
-                
+
                 name.addEventListener('change', handleUsernameChange);
 
                 function handleUsernameChange() {
@@ -445,26 +505,26 @@
                     usererror.style.display = 'none';
 
                     fetch('<?= ROOT ?>/Manager/Viewprofile/handleusername', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            Username:  Username,
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                Username: Username,
+                            })
                         })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            console.log("Username is allowed");
-                            usererror.style.display = 'none';
-                            usererror.innerHTML = "";
-                        } else {
-                            usererror.style.display = 'block';
-                            usererror.innerHTML = data.message;
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log("Username is allowed");
+                                usererror.style.display = 'none';
+                                usererror.innerHTML = "";
+                            } else {
+                                usererror.style.display = 'block';
+                                usererror.innerHTML = data.message;
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
                 }
 
                 const roleSelect = document.getElementById('Role');
@@ -484,7 +544,7 @@
                         SubjectInput.required = true;
                         SubjectLabel.style.display = 'block';
                         SubjectInput.style.display = 'block';
-                    }else if(selectedRole === 'Maid'){
+                    } else if (selectedRole === 'Maid') {
                         SubjectInput.required = false;
                         AgeLabel.style.display = 'block';
                         SubjectInput.style.display = 'none';

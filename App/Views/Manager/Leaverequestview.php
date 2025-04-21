@@ -114,8 +114,8 @@
     <div class="container" id="container" style="margin-top:22%;margin-left:20.5%;">
         <div class="leaverequest">
             <div id="leave-requests" class="scroll-container">
-            <h1 style="margin-top: 2%; color:#233E8D; font-size:24px;display:flex;gap:2%"><i class="fa-solid fa-calendar-check"></i>Leave requests</h1>
-            <hr style="margin-left: -4%;">
+                <h1 style="margin-top: 2%; color:#233E8D; font-size:24px;display:flex;gap:2%"><i class="fa-solid fa-calendar-check"></i>Leave requests</h1>
+                <hr style="margin-left: -4%;">
                 <!-- Leave Requests -->
                 <div class="request" data-name="John Doe" data-role="Teacher" data-dates="2024-12-20 to 2024-12-22" data-reason="Flu">
                     <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
@@ -130,37 +130,37 @@
                     <p>Reason: Family Trip</p>
                     <button class="viewbtn">View</button>
                 </div>
-
-                <!-- Overlay -->
-                <div class="overlay" id="overlay"></div>
-
-                <!-- Popup -->
-                <div class="popup" id="popup">
-                    <h3>Personal Leave</h3>
-                    <div class="form-field">
-                        <label>Employee Name</label>
-                        <input type="text" id="popup-name" readonly>
-                    </div>
-                    <div class="form-field">
-                        <label>Application Type</label>
-                        <input type="text" value="Leave Request" readonly>
-                    </div>
-                    <div class="form-field">
-                        <label>Leave</label>
-                        <input type="text" id="popup-dates" readonly>
-                    </div>
-                    <div class="form-field">
-                        <label>Reason</label>
-                        <input type="text" id="popup-reason" readonly>
-                    </div>
-                    <div class="buttons">
-                        <button class="approve-btn">Approve</button>
-                        <button class="reject-btn">Reject</button>
-                    </div>
-                    <span class="close-btn" id="closePopup" style="text-decoration: none;">Close</span>
-                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Popup -->
+    <div class="popup" id="popup">
+        <h3>Personal Leave</h3>
+        <div class="form-field">
+            <label>Employee Name</label>
+            <input type="text" id="popup-name" readonly>
+        </div>
+        <div class="form-field">
+            <label>Application Type</label>
+            <input type="text" value="Leave Request" readonly>
+        </div>
+        <div class="form-field">
+            <label>Leave</label>
+            <input type="text" id="popup-dates" readonly>
+        </div>
+        <div class="form-field">
+            <label>Reason</label>
+            <input type="text" id="popup-reason" readonly>
+        </div>
+        <div class="buttons">
+            <button class="approve-btn" type="submit">Approve</button>
+            <button class="reject-btn" type="submit">Reject</button>
+        </div>
+        <span class="close-btn" id="closePopup" style="text-decoration: none;">Close</span>
     </div>
 
 
