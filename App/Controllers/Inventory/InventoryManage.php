@@ -15,21 +15,34 @@
 
         public function AddItems()
         {
+            header('Content-Type: application/json');
             $StockModal = new \Modal\Stock;
+        
+            $binaryImage = null;
+            $imageType = null;
+        
             if (!empty($_FILES['Image']['tmp_name'])) {
                 $binaryImage = file_get_contents($_FILES['Image']['tmp_name']);
+                $imageType = $_FILES['Image']['type'];
             }
-            $imageType = $_FILES['Image']['type'];
-
+        
             $_POST['Image'] = $binaryImage;
             $_POST['ImageType'] = $imageType;
+            $_POST['Quantity'] = isset($_POST['Quantity']) ? (int) $_POST['Quantity'] : 0;
+            $_POST['MinQuantity'] = isset($_POST['MinQuantity']) ? (int) $_POST['MinQuantity'] : 0;
+            $_POST['Price'] = isset($_POST['Price']) ? (float) $_POST['Price'] : 0.0;
+            $_POST['ItemID'] = isset($_POST['ItemID']) ? (int) $_POST['ItemID'] : 0.0;
         
-            $Errors = $StockModal->validate($_POST);
-            if(empty($Errors)){
+            if ($StockModal->validate($_POST)) {
                 $StockModal->insert($_POST);
+                echo json_encode(['success' => true, 'message' => 'Item added successfully.']);
+                exit;
             }
-            redirect("Inventory/InventoryManage");
+        
+            echo json_encode(['success' => false, 'errors' => $StockModal->errors]);
+            exit;
         }
+        
 
         public function DeleteStock(){
             header('Content-Type: application/json');
