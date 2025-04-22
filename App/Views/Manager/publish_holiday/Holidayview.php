@@ -222,14 +222,14 @@
                     </form>
                 </div>
             </div>
-
+<!-- 
             <script>
                 // Convert PHP holidays array to JavaScript with explicit formatting
                 const holidays = <?php echo json_encode(!empty($data['allholidays']) ? $data['allholidays'] : []); ?>;
 
                 // Debug - check if holidays are correctly loaded
                 console.log("Holidays loaded:", holidays);
-            </script>
+            </script> -->
 
             <script>
                 function deleteholiday(HolidayID) {

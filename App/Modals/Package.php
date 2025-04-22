@@ -9,6 +9,7 @@
 
         protected $table = 'package';
         protected $allowedColumns = [
+            'PackageID',
             'Name',
             'Price',
             'Description',
@@ -30,6 +31,16 @@
 
             if(empty($this->errors)){
                 return true;
+            }
+            return false;
+        }
+        public function findById($id) {
+            $sql = "SELECT * FROM packages WHERE PackageID = :id LIMIT 1";
+            $data = ['id' => $id];
+            
+            $result = $this->query($sql, $data);
+            if ($result) {
+                return $result[0]; // Return the first row
             }
             return false;
         }
