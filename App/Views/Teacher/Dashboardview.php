@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,85 +69,6 @@
         <div class="wrapper-1">
 
 
-            <!-- ********* FUN ZONE CONTENT ADDING **********-->
-
-
-            <!-- <div class="funzone-popup-container" id="funzone-popup-container" >
-                <form action="#" method="post">
-                <div class="funzone-content">
-                    <div class="funzone-header">
-                        <i class="fa-solid fa-upload"></i>
-                        <h3>Upload Resources</h3>
-                        <img src="<?=ROOT?>/assets/images/logo.png">
-                    </div>
-                    
-
-                    <div class="drag-and-drop">
-                        <div class="foramts">
-                            <i class="fa-regular fa-file"></i>
-                            <i class="fa-regular fa-image"></i>
-                            <i class="fa-regular fa-file-lines"></i>
-    
-                        </div>
-                        <h3>Drag and drop files to upload or </h3>
-                        <button class="browse">Browse</button>
-                        <p>Supported Files: JPG, PNG, PDF, DOCX</p>
-                    </div>
-                    <div class="funzone-footer">
-                        <h3>Import from URL</h3>
-                        <input type="text" name="url" placeholder="Add file URL"/>
-                        <p>You will be notified once the import is successful</p>
-                    </div>
-                    <div class="funzone-buttons">
-                        <button class="cancel"  onclick="closeFunZone()">Cancel</button>
-                        <button class="done" id="close-funzone" type="submit">Done</button>
-                    </div>
-                </form>
-                </div>
-    
-    
-            </div> -->
-
-            <!-- ********* REQUEST LEAVES **********-->
-
-            <!-- <div class="request-leave-container" id="request-leave-container">
-                <div class="leave-content">
-                    <h3>Leave Request</h3>
-                    <form action="#">
-                    <div class="leave-body">
-                        <div class="body-left">
-                            <label for="leave-type">Leave Type<span>*</span></label>
-                            <select name="leave-type" required>
-                                <option value="Annual Leave">Annual Leave</option>
-                                <option value="Sick Leave">Sick Leave</option>
-                                <option value="Compassionate">Compassionate</option>
-                            </select>
-                            <label for="fromdate">From</label>
-                            <input type="date" name="fromdate" id="fromdate" required> 
-                            <label for="todate">To</label>
-                            <input type="date" name="todate" id="todate" required>
-                            <label for="about">About</label>
-                            <textarea name="about" id="about" placeholder="Inlcude comments for your approver" rows="5" required></textarea>
-                            
-                        </div>
-                        <div class="body-right">
-                            <img src="<?=ROOT?>/assets/images/leave.png">
-                            <div class="leave-info">
-                                <h4>Your Request Includes</h4>
-                                <hr>
-                                <b><p class="para-1"><span>10 </span>days of annual leave</p></b>
-                                <p class="para-2"><span>26</span> days remaining</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="leave-footer">
-                        <button class="request" type="submit">Request Now</button>
-                        <button class="cancel" id="close-request" onclick="closeRequest()">Cancel</button>
-                    </div>
-                </form>
-                </div>
-            </div> -->
-
             <!-- ********* DAILY TASK SCHEDULE **********-->
 
             <div class="kiddo-schedule-container" id="kiddo-schedule-container" >
@@ -160,10 +83,12 @@
                     </div>
                     
                     <form action="<?=ROOT?>/Teacher/KiddoSchedule/addTask" method="post">
+                    <input type="hidden" id="today-task-id" name="WorkID">
+                    <input type="hidden" id="today-teacher-id" name="TeacherID">
                         <div class="kiddo-body">
-    
+<!--     
                     <label htmlfor="name">Title</label>
-                    <input type="text" name="Title"  required>
+                    <input type="text" name="Title"  required> -->
 
                     <label htmlfor="name">Description</label>
                     <textarea rows="4" required name="Description"></textarea>
@@ -193,10 +118,11 @@
                         </div>
                         
                         <form action="<?=ROOT?>/Teacher/KiddoSchedule/updateTask" method="post">
+                        <input type="hidden" id="edit-task-id" name="ActivityID">
                             <div class="task-edit-body">
-                            <input type="hidden" id="task-id" name="id">
-                        <label htmlfor="name">Title</label>
-                        <input type="text" name="Title"  id="task-title" required>
+                            
+                        <!-- <label htmlfor="name">Title</label>
+                        <input type="text" name="Title"  id="task-title" required> -->
 
                         <label htmlfor="name">Description</label>
                         <textarea rows="4" required name="Description" id="task-description"></textarea>
@@ -219,11 +145,11 @@
                 <h4>Empowering Excellence in Every Lesson!</h4>
             </div>
             <div class="navbar-right">
-            <div class="search-bar">
+            <!-- <div class="search-bar">
                     <input type="text" placeholder="Search">
                     <i class="fas fa-search search-btn"></i>
                     
-                </div>
+                </div> -->
 
             <div class="alter-icon"></div>
             <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
@@ -301,120 +227,19 @@
                 <div class="col-1">
                     <div class="today-course">
                         <h3>Today's Lesson</h3>
+
+                        <select name="task" id="value">
+                            <option disabled selected value="">Select</option>
+                            <option value="6-9">6 - 9</option>
+                            <option value="10-13">10 - 13</option>
+                           
+                        </select>
                     </div>
-                    <div class="activity-column">
-                        <div class="activity">
-                            <div class="img-holder">
-                            <img src="<?=IMAGE?>/knowledge.png">
-                            </div>
+                    
+                    <div class="activity-column" id="activity-column">
 
-                            <div class="data-box">
-                                <h4 class="topic">Basic Learning</h4>
-                                <div class="data-1 set">
-                                    <i class='bx bx-time-five'></i>
-                                    <p class="time">3.00 PM - 4.00 PM</p>
-                                </div>
-                                <div class="data-2 set">
-                                    <i class='bx bx-group' ></i>
-                                    <p class="time">36 students</p>
-                                </div>
-                                <div class="data-3 set">
-                                    <div class="panel" id="accd-delete">
-                                        <?php if (isset($tasks)): ?>
-                                            <?php foreach ($tasks as $task): ?>
-                                            <div class="title">
-                                                <div class="content">
-                                                    <h4>Title:</h4>
-                                                    <p><?= htmlspecialchars($task->Title) ?></p>
-                                                </div>
-                                                <div class="buttons-section">
-                                                    <form method="POST" action="<?=ROOT?>/Teacher/KiddoSchedule/delete" style="display: inline;">
-                                      
-                                                        <input type="hidden" name="id" value="<?= $task->id ?>">
-                                                        <button type="submit" class="delete-btn">
-                                                            <i class="fa-regular fa-trash-can"></i>
-                                                        </button>
-                                                    </form>
-                                                    <button class="edit-btn" onclick="showTaskEdit(<?= htmlspecialchars(json_encode($task)) ?>)">
-                                                        <i class="fa-regular fa-pen-to-square"></i>
-                                                    </button>
-                                                </div>
-                                                <!-- <form method="POST" action="#" style="display: inline;">
-                                                    Add hidden input to pass the task ID 
-                                                    <input type="hidden" name="id" value="<?= $task->id ?>">
-                                                    <button type="submit" class="delete-btn" >
-                                                        <i class="fa-regular fa-pen-to-square" onclick="showTaskEdit()"></i>
-                                                    </button>
-                                                </form> -->
-                                            </div>
-                                            <div class="description">
-                                                <h4>Description: </h4>
-                                                <p><?= htmlspecialchars($task->Description) ?></p>
-                                            </div>
-                                            <?php endforeach; ?>
-                                            <?php elseif (isset($message)): ?>
-                                                <p class="error-msg"><?= htmlspecialchars($message) ?></p>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                                <div class="data-4 set">
-                                    <button class="add-task" id="open-kiddo" onclick="showKiddo()">Create</button>
-                                </div>
-                               
-                            </div>
-                        </div>
-
-                        <!-- <div class="activity">
-                            <div class="img-holder">
-                            <img src="<?=IMAGE?>/calculator.png">
-                            </div>
-
-                            <div class="data-box">
-                                <h4>Simple Maths</h4>
-                                <div class="data-1 set">
-                                    <i class='bx bx-time-five'></i>
-                                    <p class="time">4.00 PM - 5.00 PM</p>
-                                </div>
-                                <div class="data-2 set">
-                                <i class='bx bx-group' ></i>
-                                    <p class="time">36 students</p>
-                                </div>
-                                <div class="data-3 set">
-                                    <div class="panel" id="accd-delete">
-                                        <?php if (isset($tasks)): ?>
-                                            <?php foreach ($tasks as $task): ?>
-                                            <div class="title">
-                                                <div class="content">
-                                                    <h4>Title:</h4>
-                                                    <p><?= htmlspecialchars($task->Title) ?></p>
-                                                </div>
-                                                <form method="POST" action="<?=ROOT?>/Teacher/KiddoSchedule/delete" style="display: inline;">
-                                                  
-                                                    <input type="hidden" name="id" value="<?= $task->id ?>">
-                                                    <button type="submit" class="delete-btn">
-                                                        <i class="fa-regular fa-trash-can"></i>
-                                                    </button>
-                                                </form>
-                                                <button class="edit-btn" onclick="showTaskEdit(<?= htmlspecialchars(json_encode($task)) ?>)">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </button>
-                                               
-                                            </div>
-                                            <div class="description">
-                                                <h4>Description: </h4>
-                                                <p><?= htmlspecialchars($task->Description) ?></p>
-                                            </div>
-                                            <?php endforeach; ?>
-                                            <?php elseif (isset($message)): ?>
-                                                <p><?= htmlspecialchars($message) ?></p>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                                
-                               
-                            </div>
-                        </div> 
-                         -->
+                   
+                        
                     </div>
                     <div class="perfomance">
                             <div class="title">
@@ -580,14 +405,146 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="<?=JS?>/Teacher/script.js"></script>
     <script src="<?=JS?>/Teacher/graphs.js"></script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     <script>
+
+function escapeHTML(str) {
+    return String(str).replace(/[&<>"']/g, function (m) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[m];
+    });
+}
+
+console.log("Script loaded ✅");
+
+function fetchTaskList(value = '') {
     
-     
+    $.ajax({
+            url: "<?=ROOT?>/Teacher/Dashboard",
+            method: "POST",
+            data: {
+                action: 'request',
+                value: value
+            },
+            success: function (response) {
+                console.log("Server response:", response);
+
+                // ✅ Removed invalid `exit();`
+                // ✅ Fixed `data` vs `response`
+                let data = typeof response === 'string' ? JSON.parse(response) : response;
+
+                let container = $('#activity-column');
+                container.empty();
+                console.log(data);
+                if (data.tasks && data.tasks.length > 0) {
+                    data.tasks.forEach(function (task) {
+                        let activity = `
+                        <div class="activity" id="activity">
+                            <div class="data-box">
+                                <div class="head-part">
+                                     <h4 class="topic">${escapeHTML(task.Activity)}</h4>
+                                      ${
+                                                (!task.Description || task.Description.trim() === "") 
+                                                ? `<button class="add-task open-kiddo" data-workid="${task.WorkID}" data-teacherid=${task.TeacherID}>Create</button>` 
+                                                : ""
+                                            }
+                                </div>
+                               
+                                <div class="data-1 set">
+                                    <i class='bx bx-time-five'></i>
+                                    <p class="time">${escapeHTML(task.Start_Time)} - ${escapeHTML(task.End_Time)} PM</p>
+                                </div>
+                                <div class="data-2 set">
+                                    <i class='bx bx-group'></i>
+                                    <p class="time">36 students</p>
+                                </div>
+                                <div class="data-3 set">
+                                    <div class="panel" id="accd-delete">
+                                        <div class="title">
+                                            <div class="description">
+                                                <h4>Description:</h4>
+                                                <p>${escapeHTML(task.Description || "No description provided.")}</p>
+                                            </div>
+                                            <div class="buttons-section">
+                                                <form method="POST" action="<?= ROOT ?>/Teacher/KiddoSchedule/delete" style="display: inline;">
+                                                    <input type="hidden" name="ActivityID" value="${escapeHTML(task.ActivityID)}">
+                                                    <button type="submit" class="delete-btn">
+                                                        <i class="fa-regular fa-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                                <button class="edit-btn edit-kiddo" data-actid="${task.ActivityID}" data-desc="${task.Description}">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </button>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="panel-footer">
+                                            <p class="error">${escapeHTML(data.message || '')}</p>
+                                            
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                        container.append(activity); // ✅ Fixed: used correct variable name
+                    });
+                } else if (data.message) {
+                    container.html(`<p><b>${escapeHTML(data.message)}</b></p>`);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", error);
+                $('#activity-column').html(`<p style="color:red;">Error loading tasks. Please try again.</p>`);
+            }
+        });
+}
+
+$(document).ready(function () {
+    fetchTaskList();
+
+    $("#value").on('change', function () {
+        var value = $(this).val();
+        console.log("Selected:", value);
+        fetchTaskList(value);
+
+        
+    });
+
+     // 🧠 NEW: Event delegation for dynamically added "Create" buttons
+     $(document).on('click', '.open-kiddo', function () {
+        const workId = $(this).data('workid');
+        const teacherID = $(this).data('teacherid');
+        console.log("Clicked create button for WorkID:", workId);
+        console.log("Clicked create button for TeacherID:", teacherID);
+
+        showKiddo(workId,teacherID);
+    });
+
+    $(document).on('click', '.edit-kiddo', function () {
+        const activityID = $(this).data('actid');
+        const desc = $(this).data('desc');
+        console.log("Clicked create button for ActID:", activityID);
+      
+
+        showTaskEdit(activityID,desc);
+    });
+});
+
+
     </script>
 
 

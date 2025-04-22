@@ -69,6 +69,69 @@
         
         <div class="wrapper-1">
 
+        <!-- ****** skill score popup *******-->
+        <div class="skill-popup-container" id ="skill-popup-container">
+                    <div class="card">
+                    <form action="<?=ROOT?>/Teacher/Students/addSkill" method="POST">
+                    <h2>Skill Observation: Jane Doe</h2>
+                    <input type="hidden" name="ChildID" id = "id-input"/>
+                    <hr>
+                    <div class="skill-row">
+                        <label for="teamwork">Teamwork</label>
+                        <select name="Team Work" id="teamwork" >
+                        <option disabled selected value="">Rate</option>
+                        <option value="1">🌱 Beginner</option>
+                        <option value="2">🌿 Developing</option>
+                        <option value="3">🌳 Mastered</option>
+                        </select>
+                    </div>
+                    <div class="skill-row">
+                        <label for="communication">Communication</label>
+                        <select name="Communicaiton" id="communication" >
+                        <option disabled selected value="">Rate</option>
+                        <option value="1">🌱 Beginner</option>
+                        <option value="2">🌿 Developing</option>
+                        <option value="3">🌳 Mastered</option>
+                        </select>
+                    </div>
+                    <div class="skill-row">
+                        <label for="critical_thinking">Critical Thinking</label>
+                        <select name="Critical Thinking" id="critical_thinking" >
+                        <option disabled selected value="">Rate</option>
+                        <option value="1">🌱 Beginner</option>
+                        <option value="2">🌿 Developing</option>
+                        <option value="3">🌳 Mastered</option>
+                        </select>
+                    </div>
+                    <div class="skill-row">
+                        <label for="emotional_control">Emotional Control</label>
+                        <select name="Emotional Control" id="emotional_control" >
+                        <option disabled selected value="">Rate</option>
+                        <option value="1">🌱 Beginner</option>
+                        <option value="2">🌿 Developing</option>
+                        <option value="3">🌳 Mastered</option>
+                        </select>
+                    </div>
+                    <div class="skill-row">
+                        <label for="self_care">Self-Care</label>
+                        <select name="Self Care" id="self_care" >
+                        <option disabled selected value="">Rate</option>
+                        <option value="1">🌱 Beginner</option>
+                        <option value="2">🌿 Developing</option>
+                        <option value="3">🌳 Mastered</option>
+                        </select>
+                    </div>
+                    <div class="button-set">
+                        <button type="submit">Submit Observation</button>
+                        <button type="button" onclick="closePopup()" class="cancel-button">Cancel</button>
+                    </div>
+                    
+                    </form>
+                </div>
+                    </div>
+                
+
+
             <div class="navabr">
                 <div class="navbar-left">
                     <a href="#"><h2>Hey Sara Britney</h2></a>
@@ -146,7 +209,7 @@
             </div>
         <div class="content">
             <div class="backgorund-overlay" ></div>
-            <div class="profile-page">
+            <div class="profile-page"  style="height: 100%;">
                 <div class="profile-page-header">
                     <i class="fa-regular fa-circle-user"></i>
                     <h3>Student Profiles</h3>                    
@@ -154,44 +217,39 @@
                 </div>
                 <hr>
                 <div class="filter-group">
-                    <input type="text" name="search" placeholder="Search Name...">
-                    
+                   
+                    <input type="text" name="stu_name" placeholder="Search Name..." id="stu_name">
+                   
                     <label for="date">Age Group</label>
                     <select name="age-group">
                         <option value="3-5">3-5</option>
                         <option value="6-9">6-9</option>
                         <option value="10-13">10-13</option>
                     </select>
-
                 </div>
-                <div class="student-table" style="background-image: url(<?=IMAGE?>/std.png)">
-                    
-                    <div class="student-table-title">
+
+                <div class="student-table"  id ="student-table" >
+                    <div class="student-table-title" style="max-height:50px">
                         <h4>Reg NO</h4>
                         <h4>Full Name</h4>
                         <h4>Age</h4>
-                        <h4>Add Marks</h4>
+                        <h4>Skill Score</h4>
                     </div>
-                    <?php if(isset($students)):?>
-                        <?php foreach($students as $student):?>
-                            <div class="student-row">
-                                <p class="row-items"><?=htmlspecialchars($student->StudentID)?></p>
-                                <p class="row-items"><?=htmlspecialchars($student->First_Name)," ",htmlspecialchars($student->Last_Name)?></p>
-                                <p class="row-items"><?=htmlspecialchars($student->Age)?></p>
-                                <div class="marks">
-                                    <FORM method="POST" action="<?=ROOT?>/Teacher/Students/addTask">
-                                        <p class="value" id="marks"></p>
-                                        <input type="text" length="2" size="2" id="input-field">
-                                        <button onclick="submitMarks(this)">Submit</button> 
-                                    </FORM>
-                                </div>                     
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                   
-                   
+
+                    
+                    
+                    <!-- This will dynamically display students -->
+                    <div id="students-container" style="max-height: 360px; overflow-y: auto;scrollbar-width: none; 
+    border-top: 1px solid #dcdcdc;">
+                    <?php if (isset($message)): ?>
+                        <div class="success-message">
+                            <p><?= $message ?></p>
+                        </div>
+                        <?php endif; ?>
+                        
+                    </div>
                 </div>
-            </div>
+
             
        
         </div>
@@ -201,26 +259,78 @@
 
 
     
-    <script src="<?=JS?>/Teacher/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?=JS?>/Teacher/skills.js"></script>
     <script>
+    function escapeHTML(str) {
+        return String(str).replace(/[&<>"']/g, function (m) {
+            return {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[m];
+        });
+    }
 
-       
+    // 👇 Main function to fetch and render students
+    function fetchStudents(stu_name = '') {
+    $.ajax({
+        url: "<?=ROOT?>/Teacher/Students",
+        method: "POST",
+        data: {
+            action: 'SearchRecord',
+            stu_name: stu_name
+        },
+        success: function (data) {
+            console.log("Got students:", data.students);
+            let container = $('#students-container');
+            container.empty(); // Clear existing content
 
-        function submitMarks(button){
-
-            const row = button.closest(".marks");
-            const inputField = row.querySelector("#input-field");
-            const markDisplay = row.querySelector("#marks");
-
-            const marks = inputField.value;
-            
-            markDisplay.textContent = marks;
-
-           inputField.style.display = "none";
-            button.style.display = "none";
-
+            if (data.students && data.students.length > 0) {
+                data.students.forEach(function(student) {
+                    let studentRow = `
+                        <div class="student-row">
+                            <p class="row-items">${escapeHTML(student.ChildID)}</p>
+                            <p class="row-items">${escapeHTML(student.First_Name)} ${escapeHTML(student.Last_Name)}</p>
+                            <p class="row-items">${escapeHTML(student.DOB)}</p>
+                            <div class="marks">
+                                <button class="enter-btn" onclick="openPopup('${student.ChildID}')">Enter</button>
+                            </div>
+                        </div>
+                    `;
+                    container.append(studentRow);
+                });
+            } else if (data.message) {
+                container.html(`<p><b>${escapeHTML(data.message)}</b></p>`);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX failed:", status, error);
+            console.log("Response text:", xhr.responseText);
         }
-    </script>
+    });
+}
+
+    
+
+    $(document).ready(function () {
+        // 🔄 Fetch all students when the page loads
+        fetchStudents();
+
+        // 🔍 Trigger search on keyup
+        $('#stu_name').on('keyup', function () {
+            let stu_name = $(this).val();
+            fetchStudents(stu_name);
+        });
+    });
+</script>
+
+
+
+
+   
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
 

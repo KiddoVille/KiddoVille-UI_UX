@@ -307,6 +307,8 @@ h3{
         padding: 10px;
         margin-bottom: 15px;
     }
+
+    .activity-column
     
     /* Webkit scrollbar styles for Chrome, Edge, and Safari */
     .activity-column::-webkit-scrollbar {
@@ -346,6 +348,17 @@ h3{
 }
 .today-course{
     padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.today-course select{
+    margin-right: 20px;
+
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    
 }
 .data-box{
    width: 100%;
@@ -379,15 +392,32 @@ h3{
     font-size: 0.8rem;
     align-items: center;
 }
+.data-3{
+    margin-bottom:10px;
+}
 .data-3 .panel{
     width: 100%;
   
+}
+.data-3 .panel p.error{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.panel .panel-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .data-4{
     display: flex;
     justify-content: flex-start;
 }
-.data-4 button{
+.data-box .head-part{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.head-part button{
     padding: 8px 12px;
     color: #fff;
     background-color: var(--button-blue);
@@ -406,10 +436,17 @@ h3{
     margin-bottom: 5px;
 }
 .title .description{
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 .panel .title{
     justify-content: space-between;
+    align-items: center;
+}
+.title .buttons-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .title .content{
     padding: 0px;

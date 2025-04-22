@@ -154,248 +154,53 @@
                     
                 </div>
                 <hr>
-                <div class="filter-group">
-                    <input type="text" name="search" placeholder="Search Name...">
+                <div class="filter-group" style="margin: 10px 0px">
+                    <form action="<?=ROOT?>/Teacher/Reports/generateMonthlyReports" method="POST">
+                        <button class="generate">Generate Monthly Reports</button>
+                    </form>
                     <div class="age-class">
                         <label for="date">Age Group</label>
-                        <select name="age-group">
-                        <option value="3-5">3-5</option>
-                        <option value="6-9">6-9</option>
-                        <option value="10-13">10-13</option>
+                        <select name="age-group" id="report-age">
+                            <option disabled selected value="">Select</option>
+                            <option value="6-9">6-9</option>
+                            <option value="10-13">10-13</option>
                         </select>
                     </div>
                     
 
                 </div>
-                <div class="report-section" >
+                <div class="report-section" id= "report-container">
                     <div class="pending-section">
                         <h4 class="pend">Pending Reprots</h4>
                     
-                        <div class="report-row pending">
-                            <div class="report-card">
-                                <div class="card-content">
-                                    <div class="profile-img">
-                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                    </div>
-                                    <div class="card-details">
-                                        <h4>Kavindu Jayawardena</h4>
-                                        <p>Reg No: SNT110923</p>
-                                    </div>
-                                
-                                    <div class="card-footer">
-                                    
-                                        <button ><a href="<?=ROOT?>/Teacher/Marks" style="color:#fff">Edit Report</a></button>
-                                    </div>
+                        <div class="report-row pending" id="report-row-pending">
+                            <div class="pending-msg">
 
-                                </div>
                             </div>
-
-                            <div class="report-card">
-                                <div class="card-content">
-                                    <div class="profile-img">
-                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                    </div>
-                                    <div class="card-details">
-                                        <h4>Kavindu Jayawardena</h4>
-                                        <p>REG NO: SNT110923</p>
-                                    </div>
-                                
-                                    <div class="card-footer">
-                                    
-                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
-                                    </div>
-
+                         
+                            <?php if (isset($message)): ?>
+                                <div class="message">
+                                    <p><?=$message?></p>
                                 </div>
-                            </div>
-
-                            <div class="report-card">
-                                <div class="card-content">
-                                    <div class="profile-img">
-                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                    </div>
-                                    <div class="card-details">
-                                        <h4>Kavindu Jayawardena</h4>
-                                        <p>REG NO: SNT110923</p>
-                                    </div>
-                                
-                                    <div class="card-footer">
-                                    
-                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
-                                    </div>
-
-                                </div>
-                            </div>
-                            
-                            <div class="report-card">
-                                <div class="card-content">
-                                    <div class="profile-img">
-                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                    </div>
-                                    <div class="card-details">
-                                        <h4>Kavindu Jayawardena</h4>
-                                        <p>REG NO: SNT110923</p>
-                                    </div>
-                                
-                                    <div class="card-footer">
-                                    
-                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="report-card">
-                                <div class="card-content">
-                                    <div class="profile-img">
-                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                    </div>
-                                    <div class="card-details">
-                                        <h4>Kavindu Jayawardena</h4>
-                                        <p>REG NO: SNT110923</p>
-                                    </div>
-                                
-                                    <div class="card-footer">
-                                    
-                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="report-card">
-                                <div class="card-content">
-                                    <div class="profile-img">
-                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                    </div>
-                                    <div class="card-details">
-                                        <h4>Kavindu Jayawardena</h4>
-                                        <p>REG NO: SNT110923</p>
-                                    </div>
-                                
-                                    <div class="card-footer">
-                                    
-                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">Edit Report</a></button>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        
+                            <?php endif; ?>                        
                         
                         </div>
                     </div>
                     <div class="complete-section">
                         <h4 class="comp">Completed Reprots</h4>
                    
-                        <div class="report-row completed">
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>Reg No: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
+                        <div class="report-row completed" id="report-row-completed">
+                        <div class="complete-msg">
                                 
-                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
                                 </div>
+                            
+                        <?php if (isset($message)): ?>
+                                <div class="message">
+                                    <p><?=$message?></p>
+                                </div>
+                            <?php endif; ?>  
 
-                            </div>
-                        </div>
-
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>REG NO: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
-                                
-                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>REG NO: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
-                                
-                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
-                                </div>
-
-                            </div>
-                        </div>
-                        
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>REG NO: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
-                                
-                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>REG NO: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
-                                
-                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="report-card">
-                            <div class="card-content">
-                                <div class="profile-img">
-                                    <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
-                                </div>
-                                <div class="card-details">
-                                    <h4>Kavindu Jayawardena</h4>
-                                    <p>REG NO: SNT110923</p>
-                                </div>
-                               
-                                <div class="card-footer">
-                                
-                                    <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
-                                </div>
-
-                            </div>
-                        </div>
-
+                            
                     
                        
                         </div>
@@ -412,9 +217,130 @@
 
 
 
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>"']/g, function (m) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                }[m];
+            });
+        }
+
+        console.log("Script loaded ✅");
+
+        $(document).ready(function () {
+        $('#report-age').on('change', function () {
+        const selectedAgeGroup = $(this).val();
+        console.log("Selected age group:", selectedAgeGroup);
+
+        $.ajax({
+            url: '<?=ROOT?>/Teacher/Reports', // leave blank if same PHP file is handling it
+            method: 'POST',
+            data: {
+                action: 'request',
+                value: selectedAgeGroup
+            },
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                // Clear current reports
+                let completes = $('#report-row-completed');
+                let pendings = $('#report-row-pending');
+                let container = $('#report-container');
+
+                completes.empty();
+                pendings.empty();
+
+                if ((!response.completed || response.completed.length === 0) &&
+                    (!response.pending || response.pending.length === 0)) {
+                    $('#pending-msg').html(`<div class="message"><p>No pending reports</p></div>`);
+                    $('#complete-msg').html(`<div class="message"><p>No completed reports</p></div>`);
+                    return;
+                }
+
+
+                // Completed reports
+                response.completed.forEach(child => {
+                    let studentRow1 = `
+                         <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>${escapeHTML(child.First_Name)} ${escapeHTML(child.Last_Name)}</h4>
+                                        <p>Reg No: SNT110923</p>
+                                    </div>
+                                
+                                    <div class="card-footer">
+                                    
+                                        <button><a href="<?=ROOT?>/Teacher/AcademicReport" style="color:#fff">View Report</a></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                    `;
+                    completes.append(studentRow1);
+                    completes.show();
+
+
+                });
+
+                // Pending reports
+                response.pending.forEach(child => {
+                    let studentRow2 = `
+                         <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>${escapeHTML(child.First_Name)} ${escapeHTML(child.Last_Name)}</h4>
+                                        <p>Reg No: SNT110923</p>
+                                    </div>
+                                
+                                    <div class="card-footer">
+                                    
+                                        <button style="color:#fff">Enter Marks</a></button>
+                                    </div>
+                                    <div class="mark-section">
+                                        <form action="" method="POST">
+                                            <input type="text" name="Marks" id="Marks">
+                                            <button type="submit" class="marks-submit">Submit</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                    `;
+                    pendings.append(studentRow2);
+                    pendings.show();
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log("Server raw output:", xhr.responseText);
+
+                console.log("AJAX Error", {
+                    status: status,
+                    error: error,
+                    responseText: xhr.responseText
+                });
+                $('#complete-msg').html('<p>Something went wrong </p>');
+            }
+        });
+    });
+});
+
+
+    </script>
     <script src="<?=JS?>/Teacher/script.js"></script>
-    <script></script>
+    
+
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
 </body>

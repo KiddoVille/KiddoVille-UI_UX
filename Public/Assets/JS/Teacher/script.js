@@ -1,59 +1,19 @@
 
 
-
-const showFunzone = ()=>{
-    const openBtn = document.getElementById("open-funzone");
-    const popupContainer = document.getElementById("funzone-popup-container");
-
-    if(openBtn && popupContainer){
-        popupContainer.classList.add("show-funzone");
-    }
-};
-
-// CLOSE FUNZONE POPUP
-
-const closeFunZone =()=>{
-
-  
-    
-    const closeBtn = document.getElementById("close-funzone");
-    const popupContainer = document.getElementById("funzone-popup-container");
-    popupContainer.classList.remove("show-funzone");
-
-    closeBtn.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent form submission
-        // Add your desired actions here, e.g., redirect to another page
-        window.location.href = '/another-page.html'; // Redirect to another page
-      });
-}
-
-//OPNE REQUEST LEAVES
-
-const openRequest = ()=>{
-    const openBtn = document.getElementById("open-request");
-    const requestContainer = document.getElementById("request-leave-container");
-
-    if(openBtn && requestContainer){
-        requestContainer.classList.add("show-request");
-    }
-};
-
-// CLOSE LEAVE REQUEST  POPUP
-
-const closeRequest = ()=>{
-    const closeBtn = document.getElementById("close-request");
-    const requestContainer = document.getElementById("request-leave-container");
-    requestContainer.classList.remove("show-request");
-}
-
 //OPEN KIDDO SCHEDULE
+function showKiddo(workId,teacherID) {
+    console.log("Received WorkID:", workId);
+    console.log("Received TeacherID:", teacherID);
 
-const showKiddo = ()=>{
-    const openBtn = document.getElementById("open-kiddo");
     const kiddoContainer = document.getElementById("kiddo-schedule-container");
+    const inputBox1 = document.getElementById("today-task-id");
+    const inputBox2 = document.getElementById("today-teacher-id");
 
-    if(openBtn && kiddoContainer){
-        kiddoContainer.classList.add("show-kiddo")
+    if (inputBox1) inputBox1.value = workId;
+    if (inputBox2) inputBox2.value = teacherID;
+
+    if (kiddoContainer) {
+        kiddoContainer.classList.add("show-kiddo");
     }
 }
 
@@ -66,39 +26,6 @@ const closekiddo = ()=>{
     kiddoContainer.classList.remove("show-kiddo");
 }
 
-// document.getElementById('kiddo-schedule-container').addEventListener('click', function(event) {
-//     var kiddoContainer = document.getElementById('kiddo-schedule-container');
-//     // Check if the click happened outside the popup content
-//     if (!kiddoContainer.contains(event.target)) {
-//         closekiddo();
-//     }
-// });
-
-//MYTASK ACCORDION
-
-// const acc = document.getElementsByClassName("accordion");
-
-
-//   acc.addEventListener("click", function() {
-//     //this.classList.toggle("active");
-//var panel = this.nextElementSibling;
-//     if (panel.style.display === "block") {
-//       panel.style.display = "none";
-//     } else {
-//       panel.style.display = "block";
-//     }
-//   });
-
-const accd = ()=>{
-    const acc = document.getElementById("accordion");
-   
-    const panel = acc.nextElementSibling;
-    if (panel.style.maxHeight) {
-        panel.style.maxHeight = null;
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + "px";
-      } 
-} 
 
 function deleteTask(taskId) {
 
@@ -140,32 +67,10 @@ function deleteTask(taskId) {
     // Send the request with the data
     xhr.send(data);
 }
-// OPEN PENDING REPORT SECTION
 
-const openPending =()=>{
-    const act = document.getElementById("act-list");
-    const manage = document.getElementById("manage");
-    const pending = document.getElementById("pending");
+//filtering daily tasks
 
-    pending.classList.add("show-pending");
-    act.classList.add("remove-act");
-}
 
-// CLOSE PENDING REPORT SECTION
-
-const closePending =()=>{
-   
-    const act = document.getElementById("act-list");
-    const pending = document.getElementById("pending");
-
-        pending.classList.remove("show-pending");
-        act.classList.remove("remove-act");
- }
- 
-const closepend = document.getElementById("pending-close");
-if (closepend){
-    closepend.addEventListener('click',closePending)
-}
 
 //OPEN PROFILE SUBMENU
 const toggleMenu = ()=>{
@@ -212,18 +117,22 @@ document.addEventListener("click", (event) => {
 
 //OPEN KIDDO SCHEDULE
 
-const showTaskEdit = (task)=>{
-    const openBtn = document.getElementById("open-kiddo");
-    const kiddoContainer = document.getElementById("task-edit-container");
+const showTaskEdit = (actID,desc)=>{
+    
+    console.log("Received ActivityID:", actID);
+    console.log("Received ActivityID:", desc);
 
-    if(openBtn && kiddoContainer){
+    const kiddoContainer = document.getElementById("task-edit-container");
+    const editBox = document.getElementById("edit-task-id")
+    const descBox = document.getElementById("task-description")
+
+    if (editBox) editBox.value = actID;
+    if (descBox) descBox.value = desc;
+
+    if(kiddoContainer){
         kiddoContainer.classList.add("show-task-edit")
     }
 
-    document.getElementById('task-id').value = task.id;
-    document.getElementById('task-title').value = task.Title;
-    document.getElementById('task-description').value = task.Description;
-    console.log(task.id,task.Title);
 }
 
 //CLOSE KIDDO SCHDEULE
@@ -239,23 +148,3 @@ const closeTaskEdit = ()=>{
 
 
 
-// function fetchTask(taskId) {
-//     // Make an AJAX request to fetch task data
-//     console.log(taskID);
-//     fetch(`/KiddoSchedule/getTask`, {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//         body: `id=${taskId}`
-//     })
-//     .then(response => response.json())
-//     .then(task => {
-//         // Populate the popup with task data
-//         document.getElementById("task-title").value = task.Title;
-//         document.getElementById("task-desc").value = task.Description;
-
-//         // Show the popup
-//         const kiddoContainer = document.getElementById("task-edit-container");
-//         kiddoContainer.classList.add("show-task-edit");
-//     })
-//     .catch(error => console.error("Error fetching task:", error));
-// }

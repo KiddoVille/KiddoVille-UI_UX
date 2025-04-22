@@ -84,7 +84,7 @@
                     <div class="selects">
                         <div class="age">
                             <label for="date">Age Group</label>
-                            <select name="age-group">
+                            <select name="AgeGroup">
                                 <option value="3-5">3-5</option>
                                 <option value="6-9">6-9</option>
                                 <option value="10-13">10-13</option>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="type">
                             <label for="type">Media Type</label>
-                            <select name="media-type">
+                            <select name="MediaType">
                                 <option value="Audio">Audio</option>
                                 <option value="Video">Video</option>
                                 <option value="Image">Image</option>
@@ -103,13 +103,13 @@
                     </div>
                     <div class="title">
                         <h4>Title</h4>
-                        <input type="text" name="name" placeholder="Add file URL"/>
+                        <input type="text" name="Title" placeholder="Add file URL"/>
                        
                     </div>
 
                     <div class="funzone-footer">
                         <h4>Description</h4>
-                        <input type="textarea" name="description" placeholder="Add file URL"/>
+                        <input type="textarea" name="Description" placeholder="Add file URL"/>
                         <p>You will be notified once the import is successful</p>
                     </div>
 
@@ -271,8 +271,8 @@
                             <div class="upload">
                                 <img src="<?=IMAGE?>/profilePic.png">
                                 <div class="upld-person">
-                                    <p class="name">Jane Strovert</p>
-                                    <p class="email">janestr567@gmail.com</p>    
+                                    <p class="name"><?= $item->firstName?>&nbsp<?= $item->lastName?></p>
+                                    <p class="email"><?= $item->email?></p>    
                                 </div>
                             </div>
                         

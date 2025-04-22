@@ -9,19 +9,47 @@
 
             $mediaModel  = new \Modal\Funzone;
             $session = new \Core\Session;
+            $teacher = new \Modal\Teacher;
         
             $TeacherID = $this->findID(); // getting the UserID
-            $teacherTwoId = $TeacherID+2;
+            $teacherTwoId = 5;
 
-            $query = "SELECT * FROM media WHERE UserID IN (:id1, :id2)";
-            $params = ['id1' => $TeacherID, 'id2' => $teacherTwoId];
+            //getting the resources realted to the teacher (ID)
+            // $query = "SELECT * FROM media WHERE UserID IN (:id1, :id2)";
+            // $params = ['id1' => $TeacherID, 'id2' => $teacherTwoId];
         
-            $media = $mediaModel->query($query, $params);
+            // $media = $mediaModel->query($query, $params);
         
-            // $media = $mediaModel->where_norder(['UserID' => $TeacherID]);
+             $media = $mediaModel->where_norder(['UserID' => $TeacherID]);
+             
 
+            //finding the teacher's info
+           $row = $teacher->first(['TeacherID' => $TeacherID]);
+           $firstName = $row->First_Name;
+           $lastName = $row->Last_Name ;
+           $email =  $row->Email;
+           $image= $row->Image;
 
-        
+           $result = [
+                'firstName' => $firstName,  
+                'lastName' => $lastName,
+                'email' => $email,
+                'image' => $image,];
+
+            // var_dump($media);
+            // var_dump($result);
+
+            foreach ($media as  $mediaObject) {
+                foreach ($result as $key => $value) {
+                    $mediaObject->$key = $value; // Add new key-value pairs to object
+                }
+            }
+                
+            //var_dump($media);
+
+            
+           
+            
             if (!empty($media)) {
                 $this->view('Teacher/Funzone', ['media'=> $media]);
             } else {
@@ -57,8 +85,10 @@
 
             if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $arr = $_POST;
-                $arr = array_merge($arr, ['UserID' => $TeacherID]);
+                $dateCreated = date('Y-m-d'); // gets current date and time
 
+                $arr = array_merge($arr, ['UserID' => $TeacherID],['DateTime' => $dateCreated]);
+                
                 if($mediaModel->validate($arr)){
 
                     // Check if a file was uploaded without errors
@@ -84,10 +114,11 @@
                             //var_dump($filename,$filesize,$filetype);
                         }
 
-                        $arr = array_merge($arr,['FilePath'=>$target_dir], ['FileSize' => $filesize], ['FileType' => $filetype]);
-                        
+                        $arr = array_merge($arr,['URL'=>$target_dir], ['Size' => $filesize], ['Format' => $filetype]);
+                        var_dump($arr);
+                            
                         if (!($mediaModel->insert($arr))) {
-                            var_dump($arr);
+                            
                             //redirect('Teacher/Funzone');
                            
                         } else {

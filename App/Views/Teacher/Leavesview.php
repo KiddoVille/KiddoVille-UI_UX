@@ -74,7 +74,7 @@
             <div class="request-leave-container" id="request-leave-container">
                 <div class="leave-content">
                     <h3>Leave Request</h3>
-                    <form action="<?=ROOT?>/Teacher/Leaves/addLeave" method = "POST">
+                    <form action="<?=ROOT?>/Teacher/Leaves/addSkill" method = "POST">
                     <div class="leave-body">
                         <div class="body-left">
                             <label for="Leave_Type">Leave Type<span>*</span></label>
