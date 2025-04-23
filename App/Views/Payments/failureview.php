@@ -21,7 +21,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 600px;
+            max-width: 600px !important;
         }
         .container .icon {
             font-size: 50px;
@@ -76,15 +76,14 @@
         <h1>Payment Failed</h1>
         <p>Unfortunately, your transaction could not be completed.</p>
         <p>Please try again or contact customer support for assistance.</p>
-        <div class="details">
-            <h2>Payment Details</h2>
-            <p><strong>Transaction ID:</strong> 1234567890</p>
-            <p><strong>Amount:</strong> $99.99</p>
-            <p><strong>Payment Method:</strong> Credit Card (Visa)</p>
-            <p><strong>Date:</strong> October 1, 2023</p>
-        </div>
-        <a href="/retry-payment" class="btn">Retry Payment</a>
-        <a href="/previous-page" class="btn btn-secondary">Go Back</a>
+
+        <?php if(isset($_SESSION['Retry']) && $_SESSION['Retry'] == true): ?>
+            <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
+                <input type="hidden" name="total" id="total-input" value="<?= $data['Due']['Amount']*100 ?>" />
+                <button type="submit" class="btn">Retry Payment</button>
+            </form>
+        <?php endif; ?>
+        <a href="<?= ROOT . '/' . $_SESSION['APP']['Location'] ?>" class="btn btn-secondary">Go Back</a>
     </div>
 </body>
 </html>

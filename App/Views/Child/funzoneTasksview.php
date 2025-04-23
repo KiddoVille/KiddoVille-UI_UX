@@ -9,12 +9,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzonetasks.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzone1.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Setting.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Select-child.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Select-type.js?v=<?= time() ?>"></script>
+    <link rel="stylesheet" href="<?= CSS ?>/Child/funzonetasks.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
+    <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Select-type.js?v=<?= time() ?>"></script> -->
+    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
 </head>
 
 <body>
@@ -72,10 +77,6 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span></a>
-            </div>
         </div>
     <!-- navigation -->
     <!-- <div class="sidebar" style="background:white">
@@ -145,23 +146,23 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="header2">
-            <img src="<?=IMAGE?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
-            <p style="color: white; font-size: 17px;">Funzone </p>
-            <a href="<?=ROOT?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
-            <a href="<?=ROOT?>/Child/funzonewhishlist" class="hover-effect">Whishlist</a>
-            <a href="<?=ROOT?>/Child/funzonetasks" class="hover-effect select">Task</a>
-            <a href="<?=ROOT?>/Child/funzonehistory" class="hover-effect">History</a>
-            <select style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
-                <option> Videos </option>
-                <option> Books </option>
-                <option> Images </option>
-                <option> Songs </option>
-            </select>
-        </div>
-        <div class="grid" style="margin-top: 20px;">
-            <div class="item">
+            <div class="header2" style="margin-left: 23px; margin-top: 85px;">
+                <img src="<?= IMAGE ?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
+                <p style="color: white; font-size: 17px;">Funzone </p>
+                <a href="<?= ROOT ?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
+                <a href="<?= ROOT ?>/Child/funzonewhishlist" class="hover-effect">Whishlist</a>
+                <a href="<?= ROOT ?>/Child/funzonetasks" class="hover-effect select">Task</a>
+                <a href="<?= ROOT ?>/Child/funzonehistory" class="hover-effect">History</a>
+                <select id="typePicker" style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
+                    <option value="All"> All </option>
+                    <option value="Video"> Videos </option>
+                    <option value="Book"> Books </option>
+                    <option value="Image"> Images </option>
+                    <option value="Audio"> Songs </option>
+                </select>
+            </div>
+            <!-- <div class="grid" style="margin-top: 130px;"> -->
+            <!-- <div class="item">
                 <div class="icon-container">
                     <button class="icon-btn watch-btn"><i class="fas fa-play"
                             style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
@@ -445,6 +446,272 @@
         </div>
     </div>
     </div>
+    <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
+        function removechildsession() {
+            fetch('<?= ROOT ?>/Child/Funzonetask/removechildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child id removed from session.");
+                        window.location.href = '<?= ROOT ?>/Parent/Home';
+                    } else {
+                        console.error("Failed to remove child id from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function setChildSession(ChildID) {
+            fetch('<?= ROOT ?>/Child/Funzonetask/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ChildID: ChildID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child id set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Home';
+                    } else {
+                        console.error("Failed to set child id from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function fetchMedia(type) {
+            fetch('<?= ROOT ?>/Child/Funzonetasks/store_tasks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        type: type,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.data) {
+                        console.log("Fetched media data:", data.data);
+                        generateMediaGrid(data.data);
+                    } else {
+                        console.error("Failed to fetch media data:", data.message);
+                        alert("Error fetching media data.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function generateMediaGrid(data) {
+            const gridExist = document.getElementById('grid');
+            if (gridExist) {
+                gridExist.remove(); // Remove existing grid before adding a new one
+            }
+
+            const grid = document.createElement("div");
+            grid.classList.add("grid");
+            grid.style.marginTop = "140px";
+            grid.style.marginLeft = "25px";
+            grid.id = "grid";
+
+            data.forEach(item => {
+                const itemDiv = document.createElement("div");
+                itemDiv.classList.add("item");
+                itemDiv.style.cursor = 'pointer';
+                itemDiv.style.width = '600px';
+                itemDiv.style.height = '200px';
+
+                // Icon container
+                const iconContainer = document.createElement("div");
+                iconContainer.classList.add("icon-container");
+
+                const watchButton = document.createElement("button");
+                watchButton.classList.add("icon-btn", "watch-btn");
+                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px; cursor: pointer;"></i>';
+
+                if (item && item.MediaID) {
+                    watchButton.onclick = function() {
+                        console.log("clicked play button");
+                        window.location.href = `<?= ROOT ?>/Child/Resource?MediaID=${item.MediaID}`;
+                    };
+                }
+
+                iconContainer.appendChild(watchButton);
+
+                // Media Content
+                let mediaContent;
+                if (item.MediaType === "Image") {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = item.URL;
+                    mediaContent.alt = item.Title;
+                } else if (item.MediaType === "Video") {
+                    const videoContainer = document.createElement("div");
+                    videoContainer.classList.add("video-container");
+
+                    const uniqueID = `video-container-${item.CompletionID}-${item.MediaID}`;
+
+                    videoContainer.id = uniqueID;
+
+                    const thumbnail = document.createElement("img");
+                    thumbnail.src = item.Image || '<?= IMAGE ?>/video.png';
+                    thumbnail.alt = "Video Thumbnail";
+
+                    const video = document.createElement("video");
+                    video.width = 290;
+                    video.height = 210;
+                    video.style.display = "none";
+                    video.style.marginLeft = "-10px";
+                    video.style.marginTop = "-30px";
+                    video.style.marginBottom = "-30px";
+                    video.muted = true;
+                    video.preload = "none";
+
+                    const source = document.createElement("source");
+                    source.src = item.URL;
+                    source.type = "video/mp4";
+
+                    video.appendChild(source);
+                    videoContainer.appendChild(thumbnail);
+                    videoContainer.appendChild(video);
+                    mediaContent = videoContainer;
+
+                    // **Attach Event Listeners Using `CompletionID` and `MediaID`**
+                    videoContainer.addEventListener("mouseenter", () => {
+                        thumbnail.style.display = "none";
+                        video.style.display = "block";
+                        video.play();
+                    });
+
+                    videoContainer.addEventListener("mouseleave", () => {
+                        video.pause();
+                        video.style.display = "none";
+                        thumbnail.style.display = "block";
+                    });
+                } else if (item.MediaType === "Audio") {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/Audio.jpeg';
+                    mediaContent.alt = "Audio Placeholder";
+                } else if (item.MediaType === "Book") {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/PDF.jpeg';
+                    mediaContent.alt = "Book Placeholder";
+                } else {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/default.png';
+                    mediaContent.alt = "Default Placeholder";
+                }
+
+                // Content Container
+                const contentDiv = document.createElement("div");
+                contentDiv.classList.add("content");
+
+                // Title
+                const title = document.createElement("h3");
+                title.textContent = item.Title;
+
+                // Description
+                const description = document.createElement("p");
+                description.textContent = item.Description;
+
+                // Date-Time Container
+                const dateTimeDiv = document.createElement("div");
+                dateTimeDiv.classList.add("date-time");
+
+                const deadlineSpan = document.createElement("span");
+                deadlineSpan.classList.add("reminder-date");
+                deadlineSpan.innerHTML = `Deadline<i class="fa fa-calendar" style="margin-left: 43px !important;"></i> ${item.Deadline}`;
+
+                const assignedBySpan = document.createElement("span");
+                assignedBySpan.classList.add("reminder-date");
+                assignedBySpan.style.marginTop = "3px";
+                assignedBySpan.innerHTML = `Assigned By<i class="fa fa-user" style="margin-left: 20px !important;"></i> ${item.TeacherName}`;
+
+                const typeSpan = document.createElement("span");
+                typeSpan.classList.add("reminder-date");
+                typeSpan.style.marginTop = "3px";
+                typeSpan.innerHTML = `Type<i class="fa fa-video" style="margin-left: 68px !important;"></i> ${item.MediaType}`;
+
+                dateTimeDiv.appendChild(deadlineSpan);
+                dateTimeDiv.appendChild(assignedBySpan);
+                dateTimeDiv.appendChild(typeSpan);
+
+                // Reminder Toggle
+                const reminderToggleDiv = document.createElement("div");
+                reminderToggleDiv.classList.add("reminder-toggle");
+
+                const reminderText = document.createElement("span");
+                reminderText.classList.add("reminder-text");
+                reminderText.textContent = "Set Reminder";
+
+                const reminderLabel = document.createElement("label");
+                reminderLabel.classList.add("switch-reminder");
+
+                const reminderInput = document.createElement("input");
+                reminderInput.type = "checkbox";
+                reminderInput.id = `reminder-${item.CompletionID}-${item.MediaID}`;
+                if (item.Reminder) {
+                    reminderInput.checked = true;
+                }
+
+                const reminderSlider = document.createElement("span");
+                reminderSlider.classList.add("slider");
+
+                reminderLabel.appendChild(reminderInput);
+                reminderLabel.appendChild(reminderSlider);
+                reminderToggleDiv.appendChild(reminderText);
+                reminderToggleDiv.appendChild(reminderLabel);
+
+                // Append elements to content div
+                contentDiv.appendChild(title);
+                contentDiv.appendChild(description);
+                contentDiv.appendChild(dateTimeDiv);
+                contentDiv.appendChild(reminderToggleDiv);
+
+                // Append all elements to item div
+                itemDiv.appendChild(iconContainer);
+                itemDiv.appendChild(mediaContent);
+                itemDiv.appendChild(contentDiv);
+
+                // Append item to grid
+                grid.appendChild(itemDiv);
+            });
+
+            document.getElementById("media-container").appendChild(grid);
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const typePicker = document.getElementById('typePicker');
+            // Initial fetch for media
+            fetchMedia('All');
+
+            typePicker.addEventListener('change', function() {
+                fetchMedia(typePicker.value);
+            });
+        });
+    </script>
 </body>
 
 </html>

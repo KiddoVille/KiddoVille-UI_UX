@@ -1,8 +1,10 @@
+@import url('../variables.css');
+
 .header {
     position: fixed;
     right: 0;
     top: 0;
-    background: linear-gradient(135deg, #60a6ec, #10639a);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
     color: #fff;
     padding: 1.4%;
     display: flex;
@@ -67,6 +69,7 @@
     border: 3px solid rgba(107, 106, 106, 0.4);
     margin-right: 15%;
     margin-left: 10%;
+    cursor: pointer;
 }
 .name h1 {
     margin-top: 0.9375rem;
@@ -92,6 +95,104 @@
 .message-numbers p {
     margin-left: 0.3rem;
 }
+
+
+#messageDropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 300px;
+    box-shadow: 0 4px 12px var(--popup-background);
+    z-index: 1;
+    right: 0;
+    top: 85px;
+    margin-right: 342px;
+    border: 3px solid var(--secondary-color);
+    transform: translateY(-20px); 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    overflow:scroll;
+    overflow-x: hidden;
+    height: 250px;
+}
+
+#messageDropdown::-webkit-scrollbar {
+    width: 8px; 
+}
+
+#messageDropdown::-webkit-scrollbar-thumb {
+    background-color: #3a8dde;
+    border-radius: 8px;
+}
+
+#messageDropdown::-webkit-scrollbar-thumb:hover {
+    background-color: var(--button-blue-hover); 
+}
+
+#messageDropdown::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+.message-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    cursor:default;
+}
+
+.message-dropdown ul li {
+    padding: 0;
+    border-bottom: 2px solid #bdbcbc;
+    transition: background-color 0.3s ease;
+}
+
+.message-dropdown ul li:last-child {
+    border-bottom: none;
+}
+
+.message-dropdown ul li:hover {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+.message-dropdown ul li p {
+    text-decoration: none;
+    color: var(--heading);
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    display: block;
+    padding: 18px 20px;
+    transition: color 0.3s ease;
+    border-radius: 0;
+    padding-bottom: 5px;
+    margin-top: 0px;
+}
+
+.message-dropdown ul li:hover p{
+    color: white;
+}
+
+.message-dropdown ul li:hover .fa-paper-plane {
+    color: #ffffff;
+    background-color: #1A73E8;
+}
+
+.fa-paper-plane {
+    margin-left: 110px;
+    border: 2px solid var(--secondary-color);
+    background-color: #f0f4fb;
+    border-radius: 10px;
+    padding: 6px;
+    color: #1A73E8;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    justify-content: center;
+    cursor: pointer;
+}
+
 .header .profile {
     display: flex;
     align-items: left;
@@ -131,7 +232,7 @@
     width: 17.5rem; /* 280px */
     padding: 1.875rem; /* 30px */
     background-color: white;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* 0 4px 8px */
+    box-shadow: 0 0.25rem 0.5rem var(--popup-background); /* 0 4px 8px */
     transition: right 0.6s ease;
     z-index: 999;
     display: flex;
@@ -167,11 +268,11 @@
 .profilebtn:hover {
     background-color: white;
     border: 0.3125rem solid #3a8dde; /* 5px */
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* 0 4px 8px */
+    box-shadow: 0 0.25rem 0.5rem var(--popup-background); /* 0 4px 8px */
 }
 
 .profile-card p {
-    color: #666;
+    color: var(--p);
     font-size: 0.875rem; /* 14px */
     margin: 0.3125rem 0; /* 5px */
 }
@@ -181,6 +282,9 @@
     margin-top: -0.9375rem; /* -15px */
     margin-bottom: -0.625rem; /* -10px */
     cursor: pointer;
+    width: 24px;
+    height: 24px; 
+    fill:var(--heading) !important;
 }
 
 .profile-card .profile-button {

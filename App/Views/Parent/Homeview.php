@@ -8,12 +8,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Alert.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/deletepopup.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/OTP.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Number.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Home.js?v=<?= time() ?>"></script>
+    
 </head>
 
 <body style="overflow-x: hidden;">
@@ -31,7 +37,7 @@
                         <i class="fas fa-home"></i> <span>Home</span>
                     </a>
                 </li>
-                <li class="hover-effect unselected" style="margin-top: 40px;">
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Parent/history">
                         <i class="fas fa-history"></i> <span>History</span>
                     </a>
@@ -76,37 +82,31 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span></a>
-            </div>
+            <hr>
         </div>
         <!-- navigation to choose child -->
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -118,56 +118,43 @@
         <div class="main-content" style="overflow-y: scroll; overflow-x: hidden;">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
                     <p style="color: white">Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
                 <!-- message icon -->
                 <div class="bell-con" id="bell-container" style="cursor: pointer;">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <?php if(!empty($data['Notification'])): ?>
+                        <?php if($data['Notification']['Seen'] != 0): ?>
+                            <div class="message-numbers" id="message-number">
+                                <p><?= $data['Notification']['Seen'] != 0 ? $data['Notification']['Seen'] : '' ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
-                            <li>
-                                <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
+                            <?php foreach($data['Notification']['data'] as $row): ?>
+                                <li data-id="<?= $row->NotificationID ?>">
+                                    <p><?= htmlspecialchars($row->Description) ?></p>
+                                    <?php if($row->Location != NULL): ?>
+                                        <a href="<?= ROOT ?>/Child/<?= $row->Location ?>">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </div>
-                </div>
-                <div class="message-numbers">
-                    <p> 2</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <!-- Prodile btn -->
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
@@ -185,34 +172,44 @@
                         <div class="first-row" style="display: flex; flex-direction: row;">
                             <div style="display: flex; flex-direction: column;">
                                 <img
-                                    src=" "
+                                    src="<?php echo htmlspecialchars($data['children'][0]['image']); ?>"
                                     alt="parent profile pic"
-                                    style="height: 150px; border: 2px solid lightgrey; border-radius: 5px;"
-                                >
+                                    style="height: 150px; border: 2px solid lightgrey; border-radius: 5px;">
                             </div>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" 
+                                    style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), 
+                                        conic-gradient(#3974ba <?= isset($data['children'][0]['graph']) ? $data['children'][0]['graph'] : 0 ?>%, 
+                                        rgba(204, 204, 204, 0.56) <?= isset($data['children'][0]['graph']) ? $data['children'][0]['graph'] : 0 ?>%);">
+                                    <span class="progress-text">
+                                        <?= isset($data['children'][0]['graph']) ? $data['children'][0]['graph'] : 0 ?>%
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <h3 style="margin-top: 0px !important;" id="fullname"> Child Name :
-                            
+
                         </h3>
                         <hr style="margin-top: -15px; margin-bottom: -10px;">
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
                             <div>
                                 <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 10px 15px;">
-                                    <h4> Activity : Happening now </h4>
-                                    <div style="display: flex; flex-direction: row;">
-                                        <h4 style="margin-top: -10px;"> Description : </h4>
-                                        <p style="margin-top: -18px; margin-left: 5px;"> description of activity </p>
+                                    <div style="display: none;">
+                                        <h4 class="activity-title"></h4>
+                                        <div style="display: flex; flex-direction: row;">
+                                            <h4 style="margin-top: -10px;">Description:</h4>
+                                            <p class="activity-description" style="margin-top: -18px; margin-left: 5px;"></p>
+                                        </div>
                                     </div>
+                                    <h4 id="child-activity" style="text-align: center; display: block;">
+                                        Child is not Present
+                                    </h4>
                                 </div>
                                 <div style="display: flex; flex-direction: row; margin-top: 30px; margin-bottom: -30px;">
                                     <h4 style="margin-top: -10px;"> Upcoming Reservation : </h4>
                                     <p style="margin-top: -10px;" id="upcomingreservations"> </p>
                                 </div>
-                                <button class="button" id="Viewchild" style="margin: -40px 0px 0px 315px !important; padding: 15px 20px 15px 20px;" value=""> View Child 
+                                <button class="button" id="Viewchild" style="margin: -40px 0px 0px 315px !important; padding: 15px 20px 15px 20px;" value=""> View Child
                                 </button>
                             </div>
                         </div>
@@ -302,7 +299,7 @@
                     </div> -->
                 </div>
                 <div class="report-header">
-                    <div class="timetable" style=" margin-right: 1%; width: 395px;">
+                    <div class="timetable" style=" margin-right: 1%; width: 420px;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 4px;"> Reminders </h3>
                         <hr>
                         <table style="width: 100%;">
@@ -316,101 +313,68 @@
                         <div class="table-body-container" style="max-height: 90px; overflow-y: auto; padding: 10px;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tbody>
-                                    <?php foreach($data['reminders'] as $row): ?>
+                                    <?php foreach ($data['reminders'] as $row): ?>
                                         <tr>
-                                            <td><?=$row->Name ?></td>
-                                            <td><?=$row->Description ?></td>
+                                            <td><?= $row->Name ?></td>
+                                            <td><?= $row->Description ?></td>
                                         </tr>
-                                    <?php endforeach;?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="profile" style="margin-right: 1%;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Consultation </h3>
+                    <div class="profile" style="margin-right: 1%; width: 240px;">
+                        <h3 style="margin-top: 10px !important; margin-bottom: 2px; white-space: nowrap;"> Meetings </h3>
                         <hr>
-                        <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
-                            <div style="display: flex; flex-direction: row;">
-                                <h4 style=" white-space: nowrap;"> Date : </h4>
-                                <p style="margin-top: 12px;  margin-left: 5px;"> 2025/12/21 </p>
+                        <?php if (isset($data['stat1'])): ?>
+                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
+                                <div style="display: flex; flex-direction: row;">
+                                    <h4> Date : </h4>
+                                    <p style="margin-top: 12px; margin-left: 5px;"> <?= isset($data['stat1']['Date'])? $data['stat1']['Date'] : '' ?> </p>
+                                </div>
+                                <div style="display: flex; flex-direction: row;">
+                                    <h4 style="margin-top: -10px;"> Time : </h4>
+                                    <p style="margin-top: -18px; margin-left: 5px;"> <?= isset($data['stat1']['Time'])? $data['stat1']['Time'] : '' ?>  </p>
+                                </div>
                             </div>
-                            <div style="display: flex; flex-direction: row;">
-                                <h4 style="margin-top: -10px; white-space: nowrap;"> Time : </h4>
-                                <p style="margin-top: -18px; margin-left: 5px;"> 8:00 AM </p>
+                        <?php else: ?>
+                            <div class="overdue-payment card" style="justify-content: center;">
+                                <h4 style="text-align: center; margin-top: 45px;">No meeting scheduled</h4>
                             </div>
+                        <?php endif; ?>
+                        <div style="display: flex; flex-direction: row;">
+                            <?php if (!isset($data['stat1'])): ?>
+                                <button class="button" id="openMeetingModal" style="width: 100%; margin: 10px;">Request</button>
+                            <?php else: ?>
+                                <button class="button" id="openMeetingModal" style="width: 100%; margin: 10px;">Edit</button>
+                                <button class="button" id="ResetMeeting" style="width: 100%; margin: 10px;">Delete</button>
+                            <?php endif; ?>
                         </div>
-                        <button id="editmeetingbtn" style="display: none;"> </button>
-                        <button class="button" id="meetingbtn" style="margin: 0px !important; padding: 15px 20px 15px 20px;"> Edit </button>
                     </div>
-                    <div class="profile" style="margin-right: 1%;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 2px; white-space: nowrap;"> Upcoming Events </h3>
-                        <hr>
-                        <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
-                            <div style="display: flex; flex-direction: row;">
-                                <h4> Date : </h4>
-                                <p style="margin-top: 12px;  margin-left: 5px;"> 2025/12/21 </p>
-                            </div>
-                            <div style="display: flex; flex-direction: row;">
-                                <h4 style="margin-top: -10px;"> Event : </h4>
-                                <p style="margin-top: -18px; margin-left: 5px;"> Dance </p>
-                            </div>
-                        </div>
-                        <button class="button" onclick="window.location.href='<?= ROOT ?>/Parent/allevent'" style="margin: 0px !important; padding: 15px 20px;"> View </button>
-                    </div>
-                    <div class="profile margin-right: 1%;">
+                    <div class="profile" style="width: 275px;">
                         <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Pickup </h3>
                         <hr>
-                        <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
+                        <div class="overdue-payment card" style="margin-top: 10px; justify-content:center; align-items: center; text-align: center; padding: 5px 20px; display: <?=isset($data['stat2']['nochild'])? 'flex': 'none' ?>">
+                            <h4> No child In daycare </h4>
+                        </div>
+                        <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px; display: <?=isset($data['stat2']['nochild'])? 'none': 'flex' ?>">
                             <div style="display: flex; flex-direction: row;">
                                 <h4> Time : </h4>
-                                <p style="margin-top: 12px;  margin-left: 5px;"> 6:00 PM </p>
+                                <p style="margin-top: 12px;  margin-left: 5px;"><?= isset($data['stat2']['Time'])? $data['stat2']['Time']: '' ?> </p>
                             </div>
                             <div style="display: flex; flex-direction: row;">
                                 <h4 style="margin-top: -10px; white-space: nowrap;"> Person : </h4>
-                                <p style="margin-top: -18px; margin-left: 5px;"> Parent </p>
+                                <p style="margin-top: -18px; margin-left: 5px;"> <?= isset($data['stat2']['Person'])? $data['stat2']['Person']: '' ?> </p>
                             </div>
                         </div>
-                        <button class="button" id="openModalBtn" style="margin: 0px !important; padding: 15px 20px 15px 20px;"> Customize </button>
+                        <div style="display: flex; flex-direction: row; display: <?=isset($data['stat2']['nochild'])? 'none': 'flex' ?>">
+                            <button class="button" id="openPickupModal" style="width: 100%; margin: 10px;"> Customize </button>
+                            <?php if (($data['stat2']['Time'] !== '8:00PM' && $data['stat2']['Person'] !== 'Parent')): ?>
+                                <button class="button" id="ResetPickupBtn" style="width: 100%; margin: 10px;"> Reset </button>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-                <!-- <div class="report-header"
-                    style="justify-content: space-between; text-align: center; margin-top: -5px;">
-                    <div class="profile"
-                        style="width: 300px;display: flex; justify-content: center; align-items: center; font-weight:600" >
-                        Schedule pickups
-                        <button id="openModalBtn" class="button" style="width: 240px;">Schedule</button>
-                        <div class="pickupresults" id="pickupresults">
-                            <div class="pickup-section"
-                                style="display: flex; flex-direction: row; width: 200px; justify-content: center; align-items: center;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); margin-top: 10px;">
-                                <i class="fas fa-check-circle" style="color:green"></i>
-                                <h4> Success</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="profile"
-                        style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
-                        Schedule Meeting
-                        <button id="meetingbtn" class="button" style="width: 240px;">Schedule</button>
-                        <div class="pickup-section" id="meetingresults"
-                            style="display: none; width: 220px;margin-bottom: 0px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-                            <p id="meetingresultsdate" style="margin-top: 10px;"></p>
-                            <p id="meetingresultstime"></p>
-                        </div>
-                        <button id="editmeetingbtn" class="button" style="width: 240px; display: none;">Edit</button>
-                    </div>
-                    <div class="profile"
-                        style="width: 300px;display: flex; justify-content: center; align-items: center;  font-weight:600">
-                        Schedule Visit
-                        <button id="openvisitModal" class="button" style="width: 240px;">Schedule</button>
-                        <div class="pickup-section" id="visitresults"
-                            style="display: none; width: 220px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-                            <p id="visitresultsdate" style="margin-top: 10px;">Nice</p>
-                            <p id="visitresultstime">Nice</p>
-                        </div>
-                        <button id="editvisitbtn" class="button" style="width: 240px; display: none;">Edit</button>
-                    </div>
-                </div>
-            </div> -->
             </div>
             <!-- schedule meetings -->
             <div class="modal" id="MeetingModal">
@@ -425,66 +389,42 @@
                         </div>
                     </div>
                     <h1>daycare meeting slots</h1>
-                    <form id="meeting-form">
+                    <form id="meeting-form" method="post" enctype="multipart/form-data" action="<?=ROOT?>/Parent/Home/handlemeetings">
                         <div class="pickup-section">
                             <label for="time">Choose prfered time slot</label>
                             <table>
                                 <tr>
                                     <th>Date</th>
                                     <th>Time</th>
-                                    <th>Choose</th>
+                                    <th style="width: 30px;">Choose</th>
                                 </tr>
-                                <tr>
-                                    <td>2024 - 08 - 18</td>
-                                    <td>10:30 - 11:30 A.M</td>
-                                    <td class="checkbox"><input name="option" type="checkbox" class="checkboxes"
-                                            value="2024 - 08 - 18+10:30 - 11:30 A.M"></td>
-                                </tr>
-                                <tr>
-                                    <td>2024 - 08 - 18</td>
-                                    <td>10:30 - 11:30 A.M</td>
-                                    <td class="checkbox"><input name="option" type="checkbox" class="checkboxes"
-                                            value="2024 - 08 - 18+11:30 - 11:30 A.M"></td>
-                                </tr>
-                                <tr>
-                                    <td>2024 - 08 - 18</td>
-                                    <td>10:30 - 11:30 A.M</td>
-                                    <td class="checkbox"><input name="option" type="checkbox" class="checkboxes"
-                                            value="2024 - 08 - 18+12:30 - 11:30 A.M"></td>
-                                </tr>
-                                <tr>
-                                    <td>2024 - 08 - 18</td>
-                                    <td>10:30 - 11:30 A.M</td>
-                                    <td class="checkbox"><input name="option" type="checkbox" class="checkboxes"
-                                            value="2024 - 08 - 18+13:30 - 11:30 A.M"></td>
-                                </tr>
-                                <tr>
-                                    <td>2024 - 08 - 18</td>
-                                    <td>10:30 - 11:30 A.M</td>
-                                    <td class="checkbox"><input name="option" type="checkbox" class="checkboxes"
-                                            value="2024 - 08 - 18+14:30 - 11:30 A.M"></td>
-                                </tr>
-                                <tr>
-                                    <td>2024 - 08 - 18</td>
-                                    <td>10:30 - 11:30 A.M</td>
-                                    <td class="checkbox"><input name="option" type="checkbox" class="checkboxes"
-                                            value="2024 - 08 - 18+15:30 - 11:30 A.M"></td>
-                                </tr>
+                                <?php if (!empty($data['Meetingslots'])): ?>
+                                    <?php foreach ($data['Meetingslots'] as $meeting): ?>
+                                        <tr>
+                                            <td style="text-align: center;"><?= htmlspecialchars($meeting->Date) ?></td>
+                                            <td style="text-align: center;"><?= htmlspecialchars($meeting->Time) ?></td>
+                                            <td style="text-align: center;">
+                                                <input type="radio" <?=($meeting->Scheduled)? 'checked': '' ?> name="meeting_slot" style="width: 10px;" value="<?= htmlspecialchars($meeting->MeetingID) ?>">
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="3" style="text-align: center;">No meeting slots available</td>
+                                    </tr>
+                                <?php endif; ?>
                             </table>
                         </div>
-                        <div class="pickup-section">
-                            <label for="time">Custom Schedule</label>
-                            <button style="margin-left: 10px;" id="customeschedule"> Create </button>
-                        </div>
-                        <div class="button-popup">
-                            <button style="margin-right: 230px;" id="closemeetingBtn">Cancel</button>
+                        <p id="meeting-error" style="color: red; display: none;"> </p>
+                        <div class="button-popup" style="margin-top: 15px;">
+                            <button style="margin-right: 230px;" type="button" id="closemeetingBtn">Cancel</button>
                             <button type="submit">Done</button>
                         </div>
                     </form>
                 </div>
             </div>
             <!-- to create custom meetings -->
-            <div class="modal" id="customMeetingModal">
+            <!-- <div class="modal" id="customMeetingModal">
                 <div class="pickup-popup">
                     <div class="top-con">
                         <div class="back-con">
@@ -511,8 +451,9 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> -->
             <!-- to scheule pickups -->
+            <form id="pickupForm" method="post" enctype="multipart/form-data" action="<?=ROOT?>/Parent/Home/handlePickups">
             <div class="modal" id="pickupModal">
                 <div class="pickup-popup">
                     <div class="top-con">
@@ -528,50 +469,44 @@
                     <form id="pickupForm">
                         <div class="pickup-section">
                             <label for="time">Select Time <span id="red-star" class="red-star"> *</span></label>
-                            <input id="pickuptime" required class="time" type="time" />
+                            <input name="Time" style="width: 330px;" id="pickuptime" required class="time" type="time" value="<?= isset($data['stat2']['Time'])? $data['stat2']['Time'] : '' ?>" min="08:00" max="20:00"/>
+                            <p id="timeError" style="color: red; display: none;"></p>
                         </div>
                         <div class="pickup-section">
                             <label>Select person for pickup</label>
-                            <div class="person-section">
-                                <img alt="Person's photo" height="50" src="<?= IMAGE ?>/face.jpeg" width="50" />
-                                <div class="person-info">
-                                    <span>Abdulla</span>
+                            <div class="person-section" style="display: flex; flex-direction: row; align-items: flex-start">
+                                <div class="person-container" style="display: flex; flex-direction: row;padding: 5px 10px; border-radius: 10px; cursor:pointer; background-Color: #ADD8E6"
+                                    onclick="selectPerson('Guardian')">
+                                    <input type="radio" name="Person" id="guardianRadio" value="guardian" hidden>
+                                    <img id="guardianImage" alt="Guardian's photo" height="50" src="<?php echo(htmlspecialchars($data['guardian']['Image'])); ?>" width="50" />
+                                    <div class="person-info">
+                                        <span><?= $data['guardian']['name'] ?></span>
+                                    </div>
                                 </div>
-                                <div class="add-person"
-                                    style="margin-left: 30px; margin-right: 2px; width: 55px; height: 50px">+</div>
-                                <div class="person-info">
-                                    <span>Add new person</span>
+                                <div class="add-person-container" style="display: flex; flex-direction: row;padding: 5px 10px; margin-left: 0px;" id="add-person">
+                                    <label for="newPersonImageInput" class="add-person"
+                                        style="margin-right: 2px; width: 55px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: #ddd; cursor: pointer;">
+                                        +
+                                    </label>
+                                    <input type="file" id="newPersonImageInput" name="newPersonImage" accept="image/*" style="display: none;"
+                                        onchange="previewNewPersonImage(event)">
+                                </div>
+
+                                <div class="person-container" id="newPersonContainer"  style="display: none;padding: 5px 10px; flex-direction: row; margin-left: 10px; padding: 5px 10px; border-radius: 10px; cursor:pointer;" onclick="selectPerson('New')">
+                                    <input type="radio" name="Person" id="newPersonRadio" value="new" hidden>
+                                    <img id="newPersonImage" alt="New person's photo" height="50" width="50" />
                                 </div>
                             </div>
+                            <input type="hidden" name="PersonType" id="selectedPersonType" value="Guardian">
                         </div>
-                        <div class="pickup-section">
-                            <label for="otp">Confirmation OTP <span id="red-star2" class="red-star"> *</span> </label>
-                            <input required class="otp" id="otp" type="text" maxlength="6" pattern="\d*" inputmode="numeric"
-                                placeholder="000000" />
-                            <small>Enter a number and inform the pickup person</small>
-                        </div>
-                        <div class="pickup-section checkbox-section">
-                            <label>
-                                <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> For all children
-                            </label>
-                            <label>
-                                <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> Inform on pickup
-                            </label>
-                        </div>
-                        <div class="terms">
-                            <input required type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" />
-                            <label>
-                                I agree to the
-                                <a href="#">Terms of Service</a>
-                            </label>
-                        </div>
-                        <div class="button-popup">
+                        <div class="button-popup" style="margin-top: 10px;">
                             <button style="margin-right: 230px;" id="closeModalBtn">Cancel</button>
                             <button>Done</button>
                         </div>
                     </form>
                 </div>
             </div>
+            </form>
         </div>
         <!-- to schedule visits -->
         <div class="modal" id="visitModal">
@@ -673,107 +608,559 @@
                 </form>
             </div>
         </div>
-        <!-- navigation to message page -->
-        <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-            <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-            <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                <p> 2</p>
-            </div>
-        </a>
         <!-- profile card -->
-        <div class="profile-card" id="profileCard" style="margin-top: 0px; margin-right: 0px !important; margin-left: 0px !important; position:fixed;">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+        <div class="profile-card" id="profileCard">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" id="back-arrow-profile" style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>Thilina Perera</h2>
             <p>Student    RS0110657</p>
-            <button class="profile-button"
-                onclick="window.location.href ='../Profile/ChildViewProfile.html'">Profile</button>
-            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">Parent
-                profile</button>
-            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">Guardian
-                profile</button>
-            <button class="secondary-button">Medications</button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">LogOut</button>
+            <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">
+                Profile
+            </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
+                Guardian profile
+            </button>
+            <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ManageChildren'">
+                Manage Children
+            </button>
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
+                LogOut
+            </button>
         </div>
         <div class="tasks" id="taskbtn" style="position: fixed;">
             <i class="fas fa-chevron-left" id="taskicon"></i>
         </div>
     </div>
-        <script>
-            function setChildSession(ChildID) {
-                console.log(ChildID);
-                fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            ChildID: ChildID
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            console.log("Child Id set in session.");
-                            window.location.href = '<?= ROOT ?>/Child/Home';
-                        } else {
-                            console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
+
+    <div class="verification-alert" id="alert" style="display: none; top: 5%;">
+        <div class="alert-icon">
+            <img src="<?= IMAGE ?>/success.svg" id="alert-img" alt="success icon">
+        </div>
+        <div class="alert-message">
+            <h1 id="alert-message">Success</h1>
+        </div>
+    </div>
+    
+    <div id="deletePopup" class="delete-popup-overlay" style="position: fixed;">
+        <div class="delete-popup-content">
+            <p>Are you sure you want to Cancel meeting?</p>
+            <div class="delete-popup-buttons">
+                <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm" onclick=" DeleteMeeting()  ">Yes</button>
+                <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel" onclick="document.getElementById('deletePopup').style.display='none'">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deletePopup1" class="delete-popup-overlay" style="position: fixed;">
+        <div class="delete-popup-content">
+            <p>Are you sure you want to Reset Pickup details?</p>
+            <div class="delete-popup-buttons">
+                <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm" onclick=" ResetPickup()">Yes</button>
+                <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel" onclick="document.getElementById('deletePopup').style.display='none'">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    const meetingform = document.getElementById('meeting-form');
+    const alert = document.getElementById('alert');
+    const alertmessage = document.getElementById('alert-message');
+    const MeetingModal = document.getElementById('MeetingModal');
+    const alertimg =  document.getElementById('alert-img');
+    const meetingerror = document.getElementById('meeting-error');
+
+    meetingform.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const formData = new FormData(meetingform);
+
+        fetch(meetingform.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                MeetingModal.style.display = 'none';
+                alertmessage.textContent = data.message || "Meeting scheduled successfully!";
+                alert.style.display = 'flex';
+                meetingerror.style.display = 'none';
+
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                    location.reload();
+                }, 2000);
+            } else {
+                // Determine error type
+                const errorText = data.error?.toLowerCase() || "";
+
+                if (errorText.includes("meeting slot")) {
+                    // Show in meetingerror div
+                    meetingerror.style.display = 'flex';
+                    meetingerror.textContent = data.error;
+                    alert.style.display = 'none';
+                } else {
+                    // Show in alert box
+                    alertmessage.textContent = data.error || "Something went wrong.";
+                    alert.style.display = 'flex';
+                    meetingerror.style.display = 'none';
+                }
             }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alertmessage.textContent = "An unexpected error occurred.";
+            alert.style.display = 'flex';
+            meetingerror.style.display = 'none';
+        });
+    });
 
-            const childrenData = <?php echo json_encode($data['children']); ?>;
+    const pickupModal = document.getElementById('pickupModal');
+    const pickupForm = document.getElementById('pickupForm');
 
-            function setChild(childId) {
-                const selectedChild = childrenData.find(child => child.Id == childId);
+    pickupForm.addEventListener("submit", function(event){
+        event.preventDefault();
 
-                if (selectedChild) {
-                    // Update the child profile image
-                    const childProfileImage = document.querySelector(".first-row img");
-                    if (childProfileImage) {
-                        childProfileImage.src = selectedChild.image ? selectedChild.image : "default-profile.png";
-                        childProfileImage.alt = selectedChild.fullname ? `${selectedChild.fullname}'s profile picture` : "Child Profile Picture";
+        const formData = new FormData(pickupForm);
+
+        fetch(pickupForm.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alertmessage.textContent = data.message || "Pickup scheduled successfully!";
+                alert.style.display = 'flex';
+                pickupModal.style.display = 'none';
+
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                    location.reload();
+                }, 2000);
+            } else {
+                // Handle validation error (e.g., time)
+                pickupModal.style.display = 'block';
+                const timeError = document.getElementById("timeError");
+                if (timeError) {
+                    timeError.textContent = data.error;
+                    timeError.style.display = 'block';
+                }
+
+                alertmessage.textContent = "Failed to schedule pickup.";
+                alert.style.display = 'flex';
+            }
+        })
+        .catch(error => {
+            console.error("AJAX Error:", error);
+            alertmessage.textContent = "Unexpected error occurred.";
+            alert.style.display = 'flex';
+        });
+    });
+
+    const messageDropdown = document.getElementById('messageDropdown');
+    const bellIcon = document.getElementById('bell-container');
+    const messagenumber = document.getElementById('message-number')
+
+    function toggleBellDropdown() {
+        if(messageDropdown){
+            if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                messageDropdown.style.display = "block";
+                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Seen the notifications");
+                        messagenumber.style.display = 'none';
+                    } else {
+                        alert("Logout failed. Try again.");
                     }
+                })
+                .catch(error => console.error("Error:", error));
+                
+            } else {
+                messageDropdown.style.display = "none";
+            }
+        }
+    }
 
-                    // Update the child name
-                    const childNameElement = document.getElementById("fullname");
-                    if (childNameElement) {
-                        childNameElement.innerHTML = `Child Name: ${selectedChild.fullname ? selectedChild.fullname : "No name set"}`;
-                    }
+            const minimizeBtn = document.getElementById('minimize-btn');
+            const sidebar = document.getElementById('sidebar1');
+            const starImage = document.getElementById('starImage');
+            const logo = document.getElementById('sidebar-logo');
+            const kiddo = document.getElementById('sidebar-kiddo');
 
-                    // Update the activity description
-                    const activityDescriptionElement = document.querySelector(".overdue-payment p");
-                    if (activityDescriptionElement) {
-                        activityDescriptionElement.innerText = selectedChild.activity ? selectedChild.activity.description : "No activity data available.";
-                    }
+            <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+                sidebar.classList.add('minimized');
+                starImage.classList.add('show');
+                logo.classList.add('hidden');
+                kiddo.classList.add('hidden');
+            <?php endif; ?>
+        
+            let selectedPerson = "Guardian"; // Default selection
+            const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
+            const newPersonContainer = document.getElementById("newPersonContainer");
+            const addPersonSection = document.getElementById("add-person");
+            const selectedPersonTypeInput = document.getElementById("selectedPersonType");
+            const guardianRadio = document.getElementById("guardianRadio");
+            const newPersonRadio = document.getElementById("newPersonRadio");
 
-                    const upcomingreservations = document.getElementById('upcomingreservations');
-                    if(upcomingreservations){
-                        upcomingreservations.innerHTML = selectedChild.upcomingreservations;
-                    }
+            function selectPerson(personType) {
+                if (personType === "Guardian") {
+                    selectedPerson = "Guardian";
 
-                    const Viewchildbtn = document.getElementById("Viewchild");
-                    Viewchildbtn.value=childId;
+                    // ✅ Highlight Guardian
+                    guardianContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+                    newPersonContainer.style.backgroundColor = "transparent"; // Reset new person background
+
+                    // ✅ Update selected person
+                    guardianRadio.checked = true;
+                    newPersonRadio.checked = false;
+                    selectedPersonTypeInput.value = "Guardian";
+                } else if (personType === "New") {
+                    selectedPerson = "New";
+
+                    // ✅ Highlight New Person
+                    newPersonContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+                    guardianContainer.style.backgroundColor = "transparent"; // Reset guardian background
+
+                    // ✅ Hide "Add New Person" section
+                    addPersonSection.style.display = "none";
+
+                    // ✅ Update selected person
+                    newPersonRadio.checked = true;
+                    guardianRadio.checked = false;
+                    selectedPersonTypeInput.value = "New";
                 }
             }
 
-    // Set the first child as the default profile on page load
+        function previewNewPersonImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("newPersonImage").src = e.target.result;
+                    document.getElementById("newPersonContainer").style.display = "flex";
+                    document.getElementById("add-person").style.display = "none";
+                    newPersonContainer.style.backgroundColor = "#ADD8E6";
+                    guardianContainer.style.backgroundColor = "transparent";
+                    selectPerson("New");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
+
+
+            // minimizeBtn.addEventListener('click', function() {
+            //     fetch("<?=ROOT?>/Parent/Home/minimize", {
+            //         method: "POST",
+            //         credentials: "same-origin"
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.success) {
+            //             console.log("Sidebar minimized state saved successfully.");
+            //         } else {
+            //             console.log("Failed to save sidebar minimized state.");
+            //         }
+            //     })
+            //     .catch(error => console.error("Error:", error));
+            // });
+
+            let selectedPerson = "Guardian"; // Default selection
+            const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
+            const newPersonContainer = document.getElementById("newPersonContainer");
+            const addPersonSection = document.getElementById("add-person");
+            const selectedPersonTypeInput = document.getElementById("selectedPersonType");
+            const guardianRadio = document.getElementById("guardianRadio");
+            const newPersonRadio = document.getElementById("newPersonRadio");
+
+            function selectPerson(personType) {
+                if (personType === "Guardian") {
+                    selectedPerson = "Guardian";
+
+                    // ✅ Highlight Guardian
+                    guardianContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+                    newPersonContainer.style.backgroundColor = "transparent"; // Reset new person background
+
+                    // ✅ Show "Add New Person" option
+                    addPersonSection.style.display = "flex";
+
+                    // ✅ Update selected person
+                    guardianRadio.checked = true;
+                    newPersonRadio.checked = false;
+                    selectedPersonTypeInput.value = "Guardian";
+                } else if (personType === "New") {
+                    selectedPerson = "New";
+
+                    // ✅ Highlight New Person
+                    newPersonContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+                    guardianContainer.style.backgroundColor = "transparent"; // Reset guardian background
+
+                    // ✅ Hide "Add New Person" section
+                    addPersonSection.style.display = "none";
+
+                    // ✅ Update selected person
+                    newPersonRadio.checked = true;
+                    guardianRadio.checked = false;
+                    selectedPersonTypeInput.value = "New";
+                }
+            }
+
+            let savedPerson = "<?= isset($data['stat2']['Person']) ? $data['stat2']['Person'] : 'Guardian' ?>";
+            if (savedPerson === "New") {
+                selectPerson("New");
+
+                let newPersonImage = "<?= isset($data['stat2']['Image']) ? $data['stat2']['Image'] : '' ?>";
+                if (newPersonImage) {
+                    document.getElementById("newPersonImage").src = newPersonImage;
+                    newPersonContainer.style.display = "flex";
+                }
+            } else {
+                selectPerson("Guardian");
+            }
+        });
+
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/Home/Logout", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function setChildSession(ChildID) {
+            console.log(ChildID);
+            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ChildID: ChildID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child Id set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Home';
+                    } else {
+                        console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        const childrenData = <?php echo json_encode($data['children']); ?>;
+
+        function setChild(childId) {
+            const selectedChild = childrenData.find(child => child.Id == childId);
+
+            if (selectedChild) {
+                // Update the child profile image
+                const childProfileImage = document.querySelector(".first-row img");
+                if (childProfileImage) {
+                    childProfileImage.src = selectedChild.image ? selectedChild.image : "default-profile.png";
+                    childProfileImage.alt = selectedChild.fullname ? `${selectedChild.fullname}'s profile picture` : "Child Profile Picture";
+                }
+
+                // Update the child name
+                const childNameElement = document.getElementById("fullname");
+                if (childNameElement) {
+                    childNameElement.innerHTML = `Child Name: ${selectedChild.fullname ? selectedChild.fullname : "No name set"}`;
+                }
+
+                // Get activity elements
+                const activityTitle = document.querySelector(".activity-title");
+                const activityDescriptionElement = document.querySelector(".activity-description");
+                const activityContainer = activityTitle.closest("div"); // Get the parent <div> to show/hide
+                const childNotPresentElement = document.getElementById("child-activity");
+
+                if (selectedChild.Activity && selectedChild.Activity !== "Child not present") {
+                    // Show activity and update details
+                    activityContainer.style.display = "block";
+                    childNotPresentElement.style.display = "none"; // Hide "Child is not Present" message
+
+                    activityTitle.innerHTML = `Activity: ${selectedChild.Activity}`;
+                    activityDescriptionElement.innerText = `${selectedChild.Description}`;
+                } else {
+                    // Show "Child is not Present" and hide activity details
+                    activityContainer.style.display = "none";
+                    childNotPresentElement.style.display = "block";
+                }
+
+                // Update the progress bar
+                const progressBar = document.querySelector(".progress-bar");
+                if (progressBar) {
+                    let percentage = selectedChild.graph || 0;
+                    progressBar.innerHTML = `${percentage} %`;
+                    progressBar.style.background = `radial-gradient(closest-side, white 79%, transparent 80% 100%), 
+                                                        conic-gradient(#3974ba ${percentage}%, rgba(204, 204, 204, 0.56) ${percentage}% 100%)`;
+                }
+
+                // Update upcoming reservations
+                const upcomingReservations = document.getElementById('upcomingreservations');
+                console.log(upcomingReservations.innerHTML = selectedChild.upcomingreservations)
+                if (selectedChild.upcomingreservations !== undefined && selectedChild.upcomingreservations !== null) {
+                    upcomingReservations.innerHTML = selectedChild.upcomingreservations;
+                } else {
+                    upcomingReservations.innerHTML = "No Reservations";
+                }
+
+                // Set the child ID in the view button
+                const Viewchildbtn = document.getElementById("Viewchild");
+                if (Viewchildbtn) {
+                    Viewchildbtn.value = childId;
+                }
+            }
+        }
+
+        const deletePopup = document.getElementById('deletePopup');
+
+        function DeleteMeeting(){
+            deletePopup.style.display = 'none';
+            fetch("<?= ROOT ?>/parent/home/deleteMeeting", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert.style.display = 'flex';
+                    setTimeout (() => {
+                        meetingform.submit();
+                        alert.style.display = 'none'; 
+                        location.reload();
+                        alertimg.src = '<?=IMAGE?>/success.svg';
+                        alertmessage.textContent = "Success";
+                    }, 2000);
+                }
+                else{
+                    alert.style.display = 'flex';
+                    alertimg.src = '<?=IMAGE?>/faile.svg';
+                    alertmessage.textContent = "Failed";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        const deletePopup1 = document.getElementById('deletePopup1');
+        function ResetPickup(){
+            deletePopup1.style.display = 'none';
+            fetch("<?= ROOT ?>/parent/home/deletePickup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                if (data.success) {
+                    alert.style.display = 'flex';
+                    setTimeout (() => {
+                        pickupForm.submit();
+                        alert.style.display = 'none'; 
+                        location.reload();
+                        alertimg.src = '<?=IMAGE?>/success.svg';
+                        alertmessage.textContent = "Success";
+                    }, 2000);
+                }else{
+                    alert.style.display = 'flex';
+                    alertimg.src = '<?=IMAGE?>/faile.svg';
+                    alertmessage.textContent = "Failed";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const ResetPickup = document.getElementById("ResetPickupBtn");
+            const deletePopup1 = document.getElementById('deletePopup1');
+            if(ResetPickup){
+                ResetPickup.addEventListener("click", function () {
+                    console.log("Deleting the pickup");
+                    deletePopup1.style.display = 'flex';
+                });
+            }
+
+            const ResetMeeting = document.getElementById("ResetMeeting");
+            const deletePopup = document.getElementById('deletePopup');
+
+            if(ResetMeeting){
+                ResetMeeting.addEventListener("click", function () {
+                    console.log("Deleting the meeting");
+                    deletePopup.style.display = 'flex';
+                });
+            }
+
             if (childrenData.length > 0) {
                 setChild(childrenData[0].Id);
             }
 
             const Viewchildbtn = document.getElementById("Viewchild");
 
-            Viewchildbtn.addEventListener("click", function(){
+            Viewchildbtn.addEventListener("click", function() {
                 setChildSession(this.value)
             });
-        });    
-            
+
+            document.getElementById("pickuprefresh").addEventListener("click", function() {
+                const guardianContainer = document.querySelector(".person-container[onclick*='guardian']");
+                const newPersonContainer = document.getElementById("newPersonContainer");
+                const newPersonRadio = document.getElementById("newPersonRadio");
+                const selectedPersonType = document.getElementById("selectedPersonType");
+
+                // Reset the hidden input value to "parent"
+                selectedPersonType.value = "guardiant";
+                
+                // Reset radio buttons
+                parentRadio.checked = true;
+                newPersonRadio.checked = false;
+
+                // Reset background colors
+                guardianContainer.style.backgroundColor = "#add1e1"; // Highlight parent by default
+                newPersonContainer.style.backgroundColor = "transparent";
+
+                // Reset New Person Image and Hide it
+                const newPersonImage = document.getElementById("newPersonImage");
+                newPersonImage.src = ""; 
+                newPersonContainer.style.display = "none"; // Hide the new person section
+
+                // Show the "Add Person" button again
+                const addPersonButton = document.getElementById("add-person");
+                addPersonButton.style.display = "flex";
+
+                // Reset the file input
+                const newPersonImageInput = document.getElementById("newPersonImageInput");
+                newPersonImageInput.value = ""; 
+
+                // Reset the entire form if needed
+                const form = document.querySelector("form");
+                if (form) {
+                    form.reset();
+                }
+            });
+        });
     </script>
 </body>
 

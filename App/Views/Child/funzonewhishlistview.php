@@ -9,12 +9,18 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzonewhishlist.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Child/funzone1.css?v=<?= time() ?>">
-    <script src="<?=JS?>/Child/Setting.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Select-child.js?v=<?= time() ?>"></script>
-    <script src="<?=JS?>/Child/Select-type.js?v=<?= time() ?>"></script>
+    <link rel="stylesheet" href="<?= CSS ?>/Child/funzonewhishlist.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/deletepopup.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <script src="<?= JS ?>/Child/Setting.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Parental-lock.js?v=<?= time() ?>"></script>
+    <!-- <script src="<?= JS ?>/Child/Select-child.js?v=<?= time() ?>"></script>
+    <script src="<?= JS ?>/Child/Select-type.js?v=<?= time() ?>"></script> -->
+    <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
 </head>
 
 <body>
@@ -72,10 +78,6 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span></a>
-            </div>
         </div>
     <!-- navigation -->
     <!-- <div class="sidebar" style="background:white">
@@ -120,58 +122,57 @@
                     <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
-            <h2>WhishList</h2>
-            <i class="fas fa-cog settings" style="margin-right: 200px !important; margin-left: -38px;"></i>
-            <div class="profile-card" id="profileCard">
-                <img src="<?=IMAGE?>/back-arrow-2.svg" alt="back-arrow"
-                    style="width: 24px; height: 24px; fill:#233E8D !important;" class="back" id="closeProfileCard">
-                <img alt="Profile picture of Thilina Perera" height="100" src="<?=IMAGE?>/profilePic.png"
-                    width="100" class="profile" />
-                <h2 class="child-name">Thilina Perera</h2>
-                <p>Student    RS0110657</p>
-                <button class="logout-button">Logout</button>
-                <div class="lock">
-                    <p class="lock-p"> Parental lock</p>
-                    <div class="switch">
-                        <input type="checkbox" id="toggle">
-                        <label for="toggle">
-                            <div class="toggle-icon">
-                                <i class="fa fa-unlock"></i>
-                            </div>
+            <div class="header2" style="margin-left: 23px; margin-top: 85px;">
+                <img src="<?= IMAGE ?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
+                <p style="color: white; font-size: 17px;">Funzone </p>
+                <a href="<?= ROOT ?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
+                <a href="<?= ROOT ?>/Child/funzonewhishlist" class="hover-effect select">Whishlist</a>
+                <a href="<?= ROOT ?>/Child/funzonetasks" class="hover-effect">Task</a>
+                <a href="<?= ROOT ?>/Child/funzonehistory" class="hover-effect">History</a>
+                <select id="typePicker" style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
+                    <option value="All"> All </option>
+                    <option value="Video"> Videos </option>
+                    <option value="Book"> Books </option>
+                    <option value="Image"> Images </option>
+                    <option value="Audio"> Songs </option>
+                </select>
+            </div>
+            <div id="media-container" style="margin-top: 50px;">
+                <!-- <div class="item">
+                    <div class="icon-container">
+                        <button class="icon-btn watch-btn"><i class="fas fa-play"
+                                style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
+                        <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <img alt="Over It" height="150" src="<?= IMAGE ?>/funzone-1.png" width="150" />
+                    <h3>Over It</h3>
+                    <p> Small description</p>
+                    <p class="format"> Format: mp4</p>
+                    <div class="date-time">
+                        <div class="reminder-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="date-text">Sep 18, 2024</span>
+                        </div>
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            <span class="time-text">3:30 PM</span>
+                        </div>
+                    </div>
+                    <div class="reminder-toggle">
+                        <span class="reminder-text">Set Reminder</span>
+                        <label class="switch-reminder">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider"></span>
                         </label>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="header2">
-            <img src="<?=IMAGE?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
-            <p style="color: white; font-size: 17px;">Funzone </p>
-            <a href="<?=ROOT?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
-            <a href="<?=ROOT?>/Child/funzonewhishlist" class="hover-effect select">Whishlist</a>
-            <a href="<?=ROOT?>/Child/funzonetasks" class="hover-effect">Task</a>
-            <a href="<?=ROOT?>/Child/funzonehistory" class="hover-effect">History</a>
-            <select style="margin-left: 330px; width: 200px; padding: 5px; border-radius: 10px;">
-                <option> Videos </option>
-                <option> Books </option>
-                <option> Images </option>
-                <option> Songs </option>
-            </select>
-        </div>
-        <div class="grid" style="margin-top: 20px; margin-left: 20px;">
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-play"
-                            style="margin-top: 1px; font-size: 17px; margin-left: 3px;"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
-                </div>
-                <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-1.png" width="150" />
-                <h3>Over It</h3>
-                <p> Small description</p>
-                <p class="format"> Format: mp4</p>
-                <div class="date-time">
-                    <div class="reminder-date">
-                        <i class="fas fa-calendar-alt"></i> <!-- Calendar Icon -->
-                        <span class="date-text">Sep 18, 2024</span>
+        <div id="reminder-modal" class="pickup-popup" style="display: none; width: 270px; position: fixed; margin-top:240px; margin-left: 600px;">
+            <form id="ReminderForm" method="POST" action="<?= ROOT ?>/child/funzonewhishlist/AddReminders">
+                <div class="top-con">
+                    <div class="back-con">
+                        <i class="fas fa-chevron-left" id="backforpickup"></i>
                     </div>
                     <div class="reminder-time">
                         <i class="fas fa-clock"></i> <!-- Clock Icon -->
@@ -185,11 +186,9 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-            </div>
-            <div class="item">
-                <div class="icon-container">
-                    <button class="icon-btn watch-btn"><i class="fas fa-clock"></i></button>
-                    <button class="icon-btn remove-btn"><i class="fas fa-trash"></i></button>
+                <div class="button-popup" style="margin-top: 10px;">
+                    <button style="margin-right: 100px;" id="closeModalBtn">Cancel</button>
+                    <button>Done</button>
                 </div>
                 <img alt="Over It" height="150" src="<?=IMAGE?>/funzone-2.png" width="150" />
                 <h3>Over It</h3>
@@ -485,6 +484,410 @@
             </div>
         </div>
     </div>
+    <script>
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
+        function resetReminderForm() {
+            const dateInput = document.getElementById("reminder-date");
+            const timeInput = document.getElementById("reminder-time");
+            if (dateInput) dateInput.value = "";
+            if (timeInput) timeInput.value = "";
+        }
+
+        function removechildsession() {
+            fetch('<?= ROOT ?>/Child/Funzonewhishlist/removechildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child id removed from session.");
+                        window.location.href = '<?= ROOT ?>/Parent/Home';
+                    } else {
+                        console.error("Failed to remove child id from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function setChildSession(ChildID) {
+            fetch('<?= ROOT ?>/Child/Funzonewhishlist/setchildsession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ChildID: ChildID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Child id set in session.");
+                        window.location.href = '<?= ROOT ?>/Child/Home';
+                    } else {
+                        console.error("Failed to set child id from session.", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function fetchMedia(type) {
+            fetch('<?= ROOT ?>/Child/Funzonewhishlist/store_media', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        type: type,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.data) {
+                        console.log("Fetched media data:", data.data);
+                        generateMediaGrid(data.data);
+                    } else {
+                        console.error("Failed to fetch media data:", data.message);
+                        alert("Error fetching media data.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function toggleReminderPopup(itemID) {
+            console.log("Open Reminder Modal");
+            const Media = document.getElementById("WhishlistInput");
+            const modal = document.getElementById("reminder-modal");
+            const mainContent = document.getElementById("main-content");
+
+            Media.value = itemID;
+            modal.style.display = "block";
+            // mainContent.style.filter = "blur(5px)";
+            mainContent.style.pointerEvents = "none";
+        }
+
+        // Function to close the modal and remove the blur
+        function closeReminderModal() {
+            const modal = document.getElementById("reminder-modal");
+            const mainContent = document.getElementById("main-content");
+
+            modal.style.display = "none";
+            // mainContent.style.filter = "none";
+            mainContent.style.pointerEvents = "auto";
+        }
+
+        function generateMediaGrid(data) {
+            const gridexist = document.getElementById('grid');
+            if (gridexist) {
+                gridexist.remove();
+            }
+            const grid = document.createElement("div");
+            grid.classList.add("grid");
+            grid.style.marginTop = "140px";
+            grid.style.marginLeft = "20px";
+            grid.id = "grid";
+
+            data.forEach(item => {
+                const itemDiv = document.createElement("div");
+                itemDiv.classList.add("item");
+                itemDiv.style.cursor = 'pointer';
+
+                // Icon container
+                const iconContainer = document.createElement("div");
+                iconContainer.classList.add("icon-container");
+
+                const watchButton = document.createElement("button");
+                watchButton.classList.add("icon-btn", "watch-btn");
+                watchButton.innerHTML = '<i class="fas fa-play" style="margin-top: 1px; font-size: 17px; margin-left: 3px; cursor: pointer"></i>';
+
+                if (item && item.MediaID) {
+                    watchButton.onclick = function() {
+                        console.log("clicked play button");
+                        window.location.href = `<?= ROOT ?>/Child/Resource?MediaID=${item.MediaID}`;
+                    };
+                }
+
+                const removeButton = document.createElement("button");
+                removeButton.classList.add("icon-btn", "remove-btn");
+                removeButton.innerHTML = '<i class="fas fa-trash" style=" cursor: pointer"></i>';
+
+                removeButton.onclick = function() {
+                    // Show the confirmation popup
+                    const deletePopup = document.getElementById('deletePopup');
+                    deletePopup.style.display = 'block'; // Display the popup
+
+                    // Handle the "Yes" (confirm) button
+                    document.getElementById('confirmDelete').onclick = function() {
+                        console.log("delete WhishlistID", item.WishlistID);
+
+                        // Send the delete request if confirmed
+                        fetch('<?= ROOT ?>/Child/Funzonewhishlist/delete_whish', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    WishlistID: item.WishlistID,
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    const typePicker = document.getElementById('typePicker');
+                                    fetchMedia(typePicker.value); // Refresh media list after successful deletion
+                                    console.log("Fetched media data:", data.data);
+                                } else {
+                                    console.error("Failed to fetch media data:", data.message);
+                                }
+
+                                // Close the popup after action is completed
+                                deletePopup.style.display = 'none';
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                deletePopup.style.display = 'none'; // Hide popup on error
+                            });
+                    };
+
+                    // Handle the "No" (cancel) button
+                    document.getElementById('cancelDelete').onclick = function() {
+                        deletePopup.style.display = 'none'; // Close the popup if canceled
+                    };
+                };
+
+                iconContainer.appendChild(watchButton);
+                iconContainer.appendChild(removeButton);
+
+                // Media Content
+                let mediaContent;
+                if (item.MediaType === "Image") {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = item.URL;
+                    mediaContent.alt = item.Title;
+                    mediaContent.width = 150;
+                    mediaContent.height = 150;
+                } else if (item.MediaType === "Video") {
+                    const videoContainer = document.createElement("div");
+                    videoContainer.classList.add("video-container");
+                    videoContainer.id = `video-container-${item.MediaID}`;
+
+                    const thumbnail = document.createElement("img");
+                    thumbnail.src = item.Image || '<?= IMAGE ?>/video.png';
+                    thumbnail.alt = "Video Thumbnail";
+                    thumbnail.width = 150;
+                    thumbnail.height = 150;
+                    thumbnail.id = `img-${item.MediaID}`;
+
+                    const video = document.createElement("video");
+                    video.width = 250;
+                    video.height = 230;
+                    video.id = `video-${item.MediaID}`;
+                    video.style.display = "none";
+                    video.style.marginTop = "-20px";
+                    video.style.marginBottom = "-10px";
+                    video.muted = true;
+                    video.preload = "none";
+
+                    const source = document.createElement("source");
+                    source.src = item.URL;
+                    source.type = "video/mp4";
+
+                    video.appendChild(source);
+                    videoContainer.appendChild(thumbnail);
+                    videoContainer.appendChild(video);
+                    mediaContent = videoContainer;
+
+                    // **Fix: Attach Event Listeners AFTER element is in the DOM**
+                    setTimeout(() => {
+                        const container = document.getElementById(`video-container-${item.MediaID}`);
+                        const thumb = document.getElementById(`img-${item.MediaID}`);
+                        const vid = document.getElementById(`video-${item.MediaID}`);
+
+                        if (container && thumb && vid) {
+                            container.addEventListener("mouseenter", () => {
+                                thumb.style.display = "none";
+                                vid.style.display = "block";
+                                vid.play();
+                            });
+
+                            container.addEventListener("mouseleave", () => {
+                                vid.pause();
+                            });
+                        }
+                    }, 0);
+                } else if (item.MediaType === "Audio") {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/Audio.jpeg';
+                    mediaContent.alt = "Default Placeholder";
+                    mediaContent.width = 150;
+                    mediaContent.height = 150;
+                } else if (item.MediaType === "Book") {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/PDF.jpeg';
+                    mediaContent.alt = "Default Placeholder";
+                    mediaContent.width = 150;
+                    mediaContent.height = 150;
+                } else {
+                    mediaContent = document.createElement("img");
+                    mediaContent.src = '<?= IMAGE ?>/PDF.';
+                    mediaContent.alt = "Default Placeholder";
+                    mediaContent.width = 150;
+                    mediaContent.height = 150;
+                }
+
+                // Title
+                const title = document.createElement("h3");
+                title.style.marginTop = "0px";
+                title.textContent = item.Title;
+
+                // Description
+                const description = document.createElement("p");
+                description.textContent = item.Description;
+
+                // Append elements to item div
+                itemDiv.appendChild(iconContainer);
+                itemDiv.appendChild(mediaContent);
+                itemDiv.appendChild(title);
+                itemDiv.appendChild(description);
+
+                const format = document.createElement("p");
+                format.classList.add("format");
+                format.textContent = `Format: ${item.Format}`;
+
+                // Date & Time Container
+                const dateTimeDiv = document.createElement("div");
+                dateTimeDiv.classList.add("date-time");
+
+                const reminderDateDiv = document.createElement("div");
+                reminderDateDiv.classList.add("reminder-date");
+                reminderDateDiv.innerHTML = `<i class="fas fa-calendar-alt"></i> <span class="date-text">${item.Date}</span>`;
+
+                const reminderTimeDiv = document.createElement("div");
+                reminderTimeDiv.classList.add("reminder-time");
+                reminderTimeDiv.innerHTML = `<i class="fas fa-clock"></i> <span class="time-text">${item.Time}</span>`;
+
+                dateTimeDiv.appendChild(reminderDateDiv);
+                dateTimeDiv.appendChild(reminderTimeDiv);
+
+                // Reminder Toggle
+                const reminderToggleDiv = document.createElement("div");
+                reminderToggleDiv.classList.add("reminder-toggle");
+
+                const reminderText = document.createElement("span");
+                reminderText.classList.add("reminder-text");
+                reminderText.textContent = "Set Reminder";
+
+                const reminderLabel = document.createElement("label");
+                reminderLabel.classList.add("switch-reminder");
+
+                const reminderInput = document.createElement("input");
+                reminderInput.type = "checkbox";
+                reminderInput.id = `reminder-${item.MediaID}`;
+
+                if (item.Reminder) {
+                    reminderInput.checked = true;
+                }
+
+                reminderInput.addEventListener("change", function() {
+                    if (this.checked) {
+                        toggleReminderPopup(item.WishlistID);
+                    } else {
+                        console.log("Hi");
+                        fetch('<?= ROOT ?>/Child/Funzonewhishlist/delete_Reminder', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    WhishlistID: item.WishlistID,
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    console.log("Fetched media data:", data);
+                                } else {
+                                    console.error("Failed to fetch media data:", data.message);
+                                }
+                            })
+                            .catch(error => console.error("Error:", error));
+                    }
+                });
+
+                const reminderSlider = document.createElement("span");
+                reminderSlider.classList.add("slider");
+
+                reminderLabel.appendChild(reminderInput);
+                reminderLabel.appendChild(reminderSlider);
+                reminderToggleDiv.appendChild(reminderText);
+                reminderToggleDiv.appendChild(reminderLabel);
+
+                // Append all elements to the item div
+                itemDiv.appendChild(mediaContent);
+                itemDiv.appendChild(title);
+                itemDiv.appendChild(description);
+                itemDiv.appendChild(format);
+                itemDiv.appendChild(dateTimeDiv);
+                itemDiv.appendChild(reminderToggleDiv);
+
+                // Append item to grid
+                grid.appendChild(itemDiv);
+            });
+
+            document.getElementById("media-container").appendChild(grid);
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const backBtn = document.getElementById("backforpickup");
+            if (backBtn) {
+                backBtn.addEventListener("click", () => {
+                    location.reload();
+                });
+            }
+
+            // Refresh button: reset form data (and optionally hide modal)
+            const refreshBtn = document.getElementById("pickuprefresh");
+            if (refreshBtn) {
+                refreshBtn.addEventListener("click", () => {
+                    resetReminderForm();
+                });
+            }
+
+            // Additionally, the Cancel button can close the modal too:
+            const closeModalBtn = document.getElementById("closeModalBtn");
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener("click", () => {
+                    location.reload();
+                });
+            }
+
+            const typePicker = document.getElementById('typePicker');
+            // Initial fetch for media
+            fetchMedia('All');
+
+            typePicker.addEventListener('change', function() {
+                fetchMedia(typePicker.value);
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -7,6 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const spans = sidebar.querySelectorAll('ul li span');
 
     minimizeBtn.addEventListener('click', function() {
+
+        fetch("http://localhost/KiddoVille-UI_UX/Public/Child/Home/minimize", {
+            method: "POST",
+            credentials: "same-origin"
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Sidebar minimized state saved successfully.");
+            } else {
+                console.log("Failed to save sidebar minimized state.");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+        
         sidebar.classList.toggle('minimized');
             spans.forEach(span => {
                 span.style.display = 'none';

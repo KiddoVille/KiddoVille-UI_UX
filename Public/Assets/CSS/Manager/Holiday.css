@@ -270,13 +270,32 @@ textarea.form-control {
   height: 30px;
   border-radius: 10px;
   color: white;
-  margin-left: 80%;
+  margin-left: 50%;
   cursor: pointer;
 }
 .del-btn:hover{
   background-color: red;
   cursor: pointer;
 }
+
+.update-btn{
+  background-color: #023e8a;
+  border: none;
+  height: 30px;
+  border-radius: 10px;
+  color: white;
+  margin-left: 1%;
+  cursor: pointer;
+}
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2%;
+}
+.update-btn:hover{
+  background-color: green;
+  cursor: pointer;
+}     
 
 .btn-primary {
   background-color: #233E8D;
@@ -352,3 +371,105 @@ textarea.form-control {
 .cancel-btn:hover {
   background-color: #31b0d5;
 }
+
+
+
+
+
+.popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            position: relative;
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .popup p {
+            color: #666;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+
+
+        /* Holiday styling for calendar days */
+.days div.holiday {
+  background-color: #ffebee;
+  color: #d32f2f;
+  position: relative;
+  border: 1px solid #ffcdd2;
+}
+
+.days div.holiday:hover {
+  background-color: #ef5350;
+  color: white;
+}
+
+/* Holiday indicator dot */
+.holiday-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  background-color: #d32f2f;
+  border-radius: 50%;
+}
+
+/* Tooltip for holiday information */
+.days div.holiday[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -30px;
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Active holiday */
+.days div.holiday.active {
+  background-color: #c62828;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 5;
+} 

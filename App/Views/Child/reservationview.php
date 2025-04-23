@@ -9,6 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Child/reservation.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Stats.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Table1.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
@@ -16,9 +21,9 @@
     </style>
 </head>
 
-<body style="overflow:hidden;" id="body">
+<body id="body" style="overflow: hidden;">
     <div class="container">
-        <div class="sidebar" id="sidebar1" style="z-index: 100;">
+        <div class="sidebar" id="sidebar1">
             <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
                 <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
@@ -72,26 +77,23 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+
         </div>
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 35px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px; margin-left: 35px !important;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 35px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -101,12 +103,9 @@
                                     echo "select-child";
                                 } ?>
                             "
-                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -117,58 +116,45 @@
         </div>
         <div class="main-content" id="main-content">
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1>Hey Thilina</h1>
                     <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                <div class="bell-con" id="bell-container">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <?php if(!empty($data['Notification'])): ?>
+                        <?php if($data['Notification']['Seen'] != 0): ?>
+                            <div class="message-numbers" id="message-number">
+                                <p><?= $data['Notification']['Seen'] != 0 ? $data['Notification']['Seen'] : '' ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
-                            <li>
-                                <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
+                            <?php foreach($data['Notification']['data'] as $row): ?>
+                                <li data-id="<?= $row->NotificationID ?>">
+                                    <p><?= htmlspecialchars($row->Description) ?></p>
+                                    <?php if($row->Location != NULL): ?>
+                                        <a href="<?= ROOT ?>/Child/<?= $row->Location ?>">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </div>
-                </div>
-                <div class="message-numbers">
-                    <p> 2</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
-            <div class="stats">
+            <div class="stats" style="grid-template-columns: repeat(4, 1fr);">
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/reservation.svg?v=<?= time() ?>" alt="Attendance"
                             style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Accepted reservation</h3>
@@ -199,7 +185,7 @@
             <div class="saperate">
                 <div class="modal" id="NewReservationModal">
                     <div class="Edit-Reservation">
-                        <form id="NewReservationForm" method="post">
+                        <form id="NewReservationForm" method="POST" enctype="multipart/form-data" action = "<?=ROOT?>/Child/Reservation/makereservation">
                             <div class="pickup-popup">
                                 <div class="top-con">
                                     <div class="back-con">
@@ -207,55 +193,71 @@
                                     </div>
                                     <div class="refresh-con">
                                         <i class="fas fa-refresh" id="newreservationrefresh"
-                                            style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                                            style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"
+                                            ></i>
                                     </div>
                                 </div>
                                 <h1>Make Reservation</h1>
                                 <div class="pickup-section" style="margin-bottom: 10px;">
-                                    <label for="time">Select Date <span id="red-star6" class="red-star <?= isset($data['values']['Date']) ? 'hidden' : '' ?>)"> *</span>
+                                    <label for="time">Select Date <span id="red-star6" class="red-star <?= isset($_SESSION['APP']['Page']['values']['Date']) ? 'hidden' : '' ?>)"> *</span>
                                     </label>
-                                    <p style="color: black; margin-top: -28px; margin-left: 100px;"> November 2024
-                                    </p>
+                                    <p style="color: black; margin-top: -28px; margin-left: 100px;" class="month"></p>
                                     <div class="dates">
-                                        <?php foreach ($data['dates'] as $date): ?>
-                                            <?php
-                                            // Extract the day from the full date in $data['editvalues']['Date']
-                                            $selectedDay = isset($data['editvalues']['Date']) ? (new DateTime($data['editvalues']['Date']))->format('j') : null;
-                                            ?>
-                                            <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
-                                                <p class="whichday"><?= $date['dayName'] ?></p>
-                                                <h1 class="day"><?= $date['day'] ?></h1>
-                                            </div>
-                                        <?php endforeach ?>
+                                        <div class="dates" id="datesforreservation">
+                                            <?php foreach ($data['dates'] as $date): ?>
+                                                <?php
+                                                $selectedDay = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
+                                                ?>
+                                                <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
+                                                    <p class="whichday"><?= $date['dayName'] ?></p>
+                                                    <h1 class="day"><?= $date['day'] ?></h1>
+                                                </div>
+                                            <?php endforeach ?>
+                                        </div>
+                                        <div class="dates" id="datesfor24reservation" style="display: none;">
+                                            <?php foreach ($data['hours'] as $date): ?>
+                                                <?php
+                                                $selectedDay = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
+                                                ?>
+                                                <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
+                                                    <p class="whichday"><?= $date['dayName'] ?></p>
+                                                    <h1 class="day"><?= $date['day'] ?></h1>
+                                                </div>
+                                            <?php endforeach ?>
+                                        </div>
                                         <input type="hidden" name="Date" id="date-inputforpost" required />
                                     </div>
-                                    <p class="error"> <?= isset($data['errors']['Date']) ? $data['errors']['Date'] : '' ?> </p>
+                                    <p class="error"> <?= isset($_SESSION['APP']['Page']['errors']['Date']) ? $_SESSION['APP']['Page']['errors']['Date'] : '' ?> </p>
                                 </div>
-                                <div class="pickup-section" style="margin-bottom:10px; display: flex; flex-direction: column; justify-content:space-between; text-align:center;">
-                                    <div style="display: flex; flex-direction: row; justify-content:space-between;">
+                                <div class="pickup-section">
+                                    <div style="display: flex; flex-direction: row;">
                                         <div>
-                                            <label style="margin-top: 5px;">Start Time :<span id="red-star7" class="red-star <?= isset($data['values']['Start_Time']) ? 'hidden' : '' ?>"> *</span></label>
+                                            <label style="margin-top: 5px;">Start Time :<span id="red-star7" class="red-star <?= isset($_SESSION['APP']['Page']['values']['Start_Time']) ? 'hidden' : '' ?>"> *</span></label>
                                             <input name="Start_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00"
-                                                value="<?= isset($data['values']['Start_Time']) ? $data['values']['Start_Time'] : '' ?>" id="customtime1">
-                                            <p class="error"><?= isset($data['errors']['Start_Time']) ? $data['errors']['Start_Time'] : '' ?></p>
+                                                value="<?= isset($_SESSION['APP']['Page']['values']['Start_Time']) ? $_SESSION['APP']['Page']['values']['Start_Time'] : '' ?>" id="customtime1">
+                                            <p class="error"><?= isset($_SESSION['APP']['Page']['errors']['Start_Time']) ? $_SESSION['APP']['Page']['errors']['Start_Time'] : '' ?></p>
                                         </div>
-                                        <div>
-                                            <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($data['values']['End_Time']) ? 'hidden' : '' ?>"> *</span></label>
+                                        <div style="margin-left: -60px;" id="enddiv">
+                                            <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($_SESSION['APP']['Page']['values']['End_Time']) ? 'hidden' : '' ?>"> *</span></label>
                                             <input name="End_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00"
-                                                value="<?= isset($data['values']['End_Time']) ? $data['values']['End_Time'] : '' ?>" id="customtime2">
-                                            <p class="error"><?= isset($data['errors']['End_Time']) ? $data['errors']['End_Time'] : '' ?></p>
+                                                value="<?= isset($_SESSION['APP']['Page']['values']['End_Time']) ? $_SESSION['APP']['Page']['values']['End_Time'] : '' ?>" id="customtime2">
+                                            <p class="error"><?= isset($_SESSION['APP']['Page']['errors']['End_Time']) ? $_SESSION['APP']['Page']['errors']['End_Time'] : '' ?></p>
                                         </div>
                                     </div>
-                                    <p class="error"><?= isset($data['errors']['Time']) ? $data['errors']['Time'] : '' ?></p>
+                                    <p class="error"><?= isset($_SESSION['APP']['Page']['errors']['Time']) ? $_SESSION['APP']['Page']['errors']['Time'] : '' ?></p>
+                                    <div style="display: flex; flex-direction: row; justify-content:flex-start; margin-top: 20px;">
+                                        <label style="margin-top: 5px; white-space: nowrap; ">Full-day</label>
+                                        <input type="checkbox" id="full-day" name="full-day" style="width: 20px; height: 20px; margin-left: 20px;" onclick="toggleFullDay()">
+                                    </div>
                                 </div>
-                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
-                                    <label style="margin-top: 5px;">Special notes</label>
+                                <div class="pickup-section" style="display: flex; flex-direction: column; justify-content:space-between;">
+                                    <label style="margin-top: 5px; white-space: nowrap; ">Special notes</label>
                                     <input id="notes" type="text" placeholder="put to sleep at 8:00 PM" name="Notes"
-                                        value="<?= isset($data['values']['Notes']) ? $data['values']['Notes'] : '' ?>">
+                                        value="<?= isset($_SESSION['APP']['Page']['values']['Notes']) ? $_SESSION['APP']['Page']['values']['Notes'] : '' ?>">
                                 </div>
                                 <div class="button-popup">
                                     <button type="button" style="margin-right: 230px;" id="closenewReservation">Cancel</button>
-                                    <button type="submit" name="makereservation" value="new-reservation">Done</button>
+                                    <button type="submit">Done</button>
                                 </div>
                             </div>
                         </form>
@@ -263,7 +265,7 @@
                 </div>
                 <div class="modal" id="ReservationModal">
                     <div class="Edit-Reservation">
-                        <form id="ReservationEditForm" method="post">
+                        <form id="ReservationEditForm" method="POST" enctype="multipart/form-data" action ="<?=ROOT?>/Child/Reservation/editreservation">
                             <div class="pickup-popup">
                                 <div class="top-con">
                                     <div class="back-con">
@@ -275,56 +277,70 @@
                                     </div>
                                 </div>
                                 <h1>Edit Reservation</h1>
-                                <form id="visitForm">
-                                    <div class="pickup-section">
-                                        <label for="time">Select Date <span id="red-star3" class="red-star <?= isset($data['editvalues']['Date']) ? 'hidden' : '' ?>"> *</span></label>
-                                        <p style="color: lightgray; margin-top: -28px; margin-left: 100px;"> May 2024</p>
-                                        <input type=id id="modal-Res_Id" style="display: none;" name="Res_Id" value="<?= isset($data['editvalues']['Date']) ? $data['editvalues']['Date'] : '' ?>">
+                                    <div class="pickup-section" style="margin-bottom: 10px;">
+                                        <label for="time">Select Date <span id="red-star3" class="red-star <?= isset($_SESSION['APP']['Edit']['values']['Date']) ? 'hidden' : '' ?>"> *</span></label>
+                                        <p style="color: black; margin-top: -28px; margin-left: 100px;" id="month"></p>
+                                        <input type='number' id="modal-Res_Id" style="display: none;" name="ResID" value="<?= isset($_SESSION['APP']['Edit']['values']['Date']) ? $_SESSION['APP']['Edit']['values']['Date'] : '' ?>">
                                         <div class="dates">
                                             <input type="date" id="modal-Date" style="display: none;">
-                                            <?php foreach ($data['dates'] as $date): ?>
-                                                <?php
-                                                // Extract the day from the full date in $data['editvalues']['Date']
-                                                $selectedDay = isset($data['editvalues']['Date']) ? (new DateTime($data['editvalues']['Date']))->format('j') : null;
-                                                ?>
-                                                <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
-                                                    <p class="whichday"><?= $date['dayName'] ?></p>
-                                                    <h1 class="day"><?= $date['day'] ?></h1>
-                                                </div>
-                                            <?php endforeach ?>
+                                            <div class="dates" id="datesforreservation2">
+                                                <?php foreach ($data['editdates'] as $date): ?>
+                                                    <?php
+                                                    // Extract the day from the full date in $_SESSION['APP']['Edit']['values']['Date']
+                                                    $selectedDay = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
+                                                    ?>
+                                                    <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
+                                                        <p class="whichday"><?= $date['dayName'] ?></p>
+                                                        <h1 class="day"><?= $date['day'] ?></h1>
+                                                    </div>
+                                                <?php endforeach ?>
+                                            </div>
+                                            <div class="dates" id="datesfor24reservation2" style="display: none;">
+                                                <?php foreach ($data['edithours'] as $date): ?>
+                                                    <?php
+                                                    // Extract the day from the full date in $_SESSION['APP']['Edit']['values']['Date']
+                                                    $selectedDay = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
+                                                    ?>
+                                                    <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
+                                                        <p class="whichday"><?= $date['dayName'] ?></p>
+                                                        <h1 class="day"><?= $date['day'] ?></h1>
+                                                    </div>
+                                                <?php endforeach ?>
+                                            </div>
                                         </div>
-                                        <i class="fa fa-chevron-right"
-                                            style="font-size: 30px; margin-top: -65px; margin-left: 350px; color: #233E8D;"></i>
                                         <p class="error"> <?= isset($data['editerrors']['Date']) ? $data['editerrors']['Date'] : '' ?> </p>
                                     </div>
-                                    <input name="Date" type="date" id="date-inputforpost2" required style="display: none;" value="<?= isset($data['editvalues']['Date']) ? $data['editvalues']['Date'] : '' ?>" />
-                                    <div class="pickup-section" style="margin-bottom:10px; display: flex; flex-direction: column; justify-content:space-between; text-align:center;">
-                                        <div style="display: flex; flex-direction: row; justify-content:space-between;">
+                                    <input name="Date" type="date" id="date-inputforpost2" style="display: none;" value="<?= isset($_SESSION['APP']['Edit']['values']['Date']) ? $_SESSION['APP']['Edit']['values']['Date'] : '' ?>" />
+                                    <div class="pickup-section">
+                                        <div style="display: flex; flex-direction: row;">
                                             <div>
-                                                <label style="margin-top: 5px;">Start Time :<span id="red-star7" class="red-star <?= isset($data['editvalues']['Start_Time']) ? 'hidden' : '' ?>"> *</span></label>
+                                                <label style="margin-top: 5px;">Start Time :<span id="red-star7" class="red-star <?= isset($_SESSION['APP']['Edit']['values']['Start_Time']) ? 'hidden' : '' ?>"> *</span></label>
                                                 <input name="Start_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00" id="modal-Start_Time"
-                                                    value="<?= isset($data['editvalues']['Start_Time']) ? $data['editvalues']['Start_Time'] : '' ?>">
+                                                    value="<?= isset($_SESSION['APP']['Edit']['values']['Start_Time']) ? $_SESSION['APP']['Edit']['values']['Start_Time'] : '' ?>">
                                                 <p class="error"><?= isset($data['editerrors']['Start_Time']) ? $data['editerrors']['Start_Time'] : '' ?></p>
                                             </div>
-                                            <div>
-                                                <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($data['editvalues']['End_Time']) ? 'hidden' : '' ?>"> *</span></label>
+                                            <div style="margin-left: -60px;" id="editenddiv">
+                                                <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($_SESSION['APP']['Edit']['values']['End_Time']) ? 'hidden' : '' ?>"> *</span></label>
                                                 <input name="End_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00" id="modal-End_Time"
-                                                    value="<?= isset($data['editvalues']['End_Time']) ? $data['editvalues']['End_Time'] : '' ?>">
+                                                    value="<?= isset($_SESSION['APP']['Edit']['values']['End_Time']) ? $_SESSION['APP']['Edit']['values']['End_Time'] : '' ?>">
                                                 <p class="error"><?= isset($data['editerrors']['End_Time']) ? $data['editerrors']['End_Time'] : '' ?></p>
                                             </div>
                                         </div>
                                         <p class="error"><?= isset($data['editerrors']['Time']) ? $data['editerrors']['Time'] : '' ?>
+                                        <div style="display: flex; flex-direction: row; justify-content:flex-start; margin-top: 20px;">
+                                            <label style="margin-top: 5px; white-space: nowrap; ">Full-day</label>
+                                            <input type="checkbox" id="editfull-day" name="full-day" style="width: 20px; height: 20px; margin-left: 20px;" onclick="toggleFullDay2()">
+                                        </div>
                                     </div>
-                                    <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                    <div class="pickup-section" style="display: flex; flex-direction: column; justify-content:space-between;">
                                         <label style="margin-top: 5px;">Special notes</label>
                                         <input type="text" placeholder="put to sleep at 8:00 PM" name="Notes" id='modal-Notes'
-                                            value="<?= isset($data['editvalues']['Notes']) ? $data['editvalues']['Notes'] : '' ?>">
+                                            value="<?= isset($_SESSION['APP']['Edit']['values']['Notes']) ? $_SESSION['APP']['Edit']['values']['Notes'] : '' ?>">
                                     </div>
                                     <div class="button-popup">
                                         <button type="button" style="margin-right: 230px;" id="closeReservationedit">Cancel</button>
-                                        <button type="submit" name="editreservation" value="edited-reservation">Done</button>
+                                        <button type="submit" >Done</button>
                                     </div>
-                                </form>
                             </div>
                         </form>
                     </div>
@@ -339,25 +355,25 @@
                                     </div>
                                 </div>
                                 <h1>View Reservation</h1>
-                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                <div class="pickup-section" style="display: flex; flex-direction: row;">
                                     <div>
                                         <label style="margin-top: 5px;">Status :</label>
                                         <div id="datedesign">
                                             <p style="padding: 0px 30px;" id="viewstatusreservation">Canceled</p>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div style="margin-left: 40px;">
                                         <label style="margin-top: 5px;">Date :</label>
-                                        <input readonly type="date" id="viewdate">
+                                        <input readonly type="date" style="width: 130px;" id="viewdate">
                                     </div>
                                 </div>
-                                <div class="pickup-section" style="display: flex; flex-direction: row; justify-content:space-between;">
+                                <div class="pickup-section" style="display: flex; flex-direction: row;">
                                     <div>
                                         <label style="margin-top: 5px;">Start Time :</label>
                                         <input readonly type="time" id="viewstarttime" style="width: 130px">
                                     </div>
-                                    <div>
-                                        <label style="margin-top: 5px;">End Time :</label>
+                                    <div style="margin-left: -60px;">
+                                        <label style="margin-top: 5px;" id="24hour">End Time :</label>
                                         <input readonly type="time" id="viewendtime" style="width: 130px">
                                     </div>
                                 </div>
@@ -415,16 +431,16 @@
                                 <label class="hi-btn" id="hi-btn">History</label>
                             </div>
                         </div>
-                        <h2 style="margin-top: -10px !important; margin-bottom: 2px;"> Reservations </h2>
-                        <hr style="margin-bottom: 15px;">
+                        <h2 style="margin-top: -10px !important; margin-bottom: 2px;" id="headingres"> Reservations </h2>
+                        <hr>
                     </div>
                     <div class="filters">
-                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                        <select style="margin-right: 325px; width: 200px">
-                            <option value="" hidden>Status</option>
-                            <option value="2 - 5">Approved</option>
-                            <option value="5 - 7">Pending</option>
-                            <option value="7 - 9">Canceled</option>
+                        <input type="date" max="<?= date('Y-m-d') ?>" id="datePicker" style="width: 200px">
+                        <select id="statusPicker" style="margin-right: 25px; width: 200px; margin-left: -70px; margin-top: 10px;">
+                            <option value="">All</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Canceled">Canceled</option>
                         </select>
                     </div>
                     <table id="upcoming">
@@ -525,14 +541,10 @@
         <div class="profile-card" id="profileCard">
             <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
                 style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-            <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
+            <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
                 class="profile" />
-            <h2>
-                Thilina Perera
-            </h2>
-            <p>
-                Student    RS0110657
-            </p>
+            <h2><?= $data['selectedchildren']['fullname'] ?></h2>
+            <p>SRD<?= $data['selectedchildren']['id'] ?></p>
             <button class="profile-button" onclick="window.location.href='<?= ROOT ?>/Child/ChildProfile'">
                 Profile
             </button>
@@ -549,6 +561,97 @@
     </div>
 </body>
 <script>
+
+    const messageDropdown = document.getElementById('messageDropdown'); 
+    const bellIcon = document.getElementById('bell-container');
+    const messagenumber = document.getElementById('message-number')
+
+    let messageDropdownTimeout;
+
+    function toggleBellDropdown() {
+        if(messageDropdown){
+            if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                messageDropdown.style.display = "block";
+                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Seen the notifications");
+                        messagenumber.style.display = 'none';
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+                
+            } else {
+                messageDropdown.style.display = "none";
+            }
+        }
+    }
+
+    const enddiv = document.getElementById('enddiv');
+    const custometime2 = document.getElementById('customtime2');
+    const datesfor24reservation = document.getElementById('datesfor24reservation');
+    const datesforreservation = document.getElementById('datesforreservation');
+
+    function toggleFullDay() {
+
+        if (enddiv.style.display === 'none') {
+            enddiv.style.display = 'block';
+            enddiv.innerHTML = `
+                <label style="margin-top: 5px;">End Time :<span id="red-star8" class="red-star <?= isset($data['values']['End_Time']) ? 'hidden' : '' ?>"> *</span></label>
+                <input name="End_Time" type="time" style="width: 130px" required step="900" min="08:00" max="20:00"
+                    value="<?= isset($_SESSION['APP']['Page']['values']['End_Time']) ? $_SESSION['APP']['Page']['values']['End_Time'] : '' ?>" id="customtime2">
+                <p class="error"><?= isset($_SESSION['APP']['Page']['errors']['End_Time']) ? $_SESSION['APP']['Page']['errors']['End_Time'] : '' ?></p>
+            `;
+            
+            custometime2.setAttribute('min', '08:00');
+            custometime2.value = custometime2.min;
+            datesforreservation.style.display = 'flex';
+            datesfor24reservation.style.display = 'none';
+        } else {
+            enddiv.style.display = 'none';
+            
+            enddiv.innerHTML = '';
+            datesforreservation.style.display = 'none';
+            datesfor24reservation.style.display = 'flex';
+        }
+    }
+
+    const enddiv2 = document.getElementById('editenddiv');
+
+    function toggleFullDay2() {
+        console.log("Why");
+        if (enddiv2.style.display == 'none') {
+            enddiv2.style.display = 'block';
+            datesforreservation2.style.display = 'flex';
+            datesfor24reservation2.style.display = 'none';
+            document.getElementById('modal-End_Time').setAttribute('required', 'required');
+        } else {
+            enddiv2.style.display = 'none';
+            document.getElementById('modal-End_Time').removeAttribute('required');
+            datesforreservation2.style.display = 'none';
+            datesfor24reservation2.style.display = 'flex';
+        }
+    }
+
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const sidebar = document.getElementById('sidebar1');
+    const starImage = document.getElementById('starImage');
+    const logo = document.getElementById('sidebar-logo');
+    const kiddo = document.getElementById('sidebar-kiddo');
+
+    <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+        sidebar.classList.add('minimized');
+        starImage.classList.add('show');
+        logo.classList.add('hidden');
+        kiddo.classList.add('hidden');
+    <?php endif; ?>
+
     <?php if (isset($_SESSION['success']) && $_SESSION['success'] === true): ?>
         document.getElementById('alert').classList.add('showl');
         setTimeout(function() {
@@ -557,10 +660,10 @@
         <?php $_SESSION['success'] = false; ?>
     <?php endif; ?>
 
-    let currentResId = null;
+    let currentResID = null;
 
-    function deleteReservation(Res_Id) {
-        currentResId = Res_Id; // Store Res_Id in a variable
+    function deleteReservation(ResID) {
+        currentResID = ResID; // Store Res_Id in a variable
         document.getElementById("confirmationModal").style.display = "flex"; // Show modal
     }
 
@@ -575,15 +678,15 @@
     }
 
     function confirmDelete() {
-        console.log("time to delete = ", currentResId);
-        if (currentResId) {
+        console.log("time to delete = ", currentResID);
+        if (currentResID) {
             // Send AJAX request
             fetch('<?= ROOT ?>/Child/Reservation/RemoveReservation', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/json'
                     },
-                    body: `Res_Id=${currentResId}`
+                    body: JSON.stringify({ ResID: currentResID })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -608,25 +711,124 @@
         document.getElementById('residforreview').value = Res_Id;
     }
 
-    function editReservation(Res_Id) {
-        console.log(Res_Id);
-        if (Res_Id) {
+    function editReservation(ResID){
+        console.log(ResID);
+        if (ResID) {
             fetch('<?= ROOT ?>/Child/Reservation/GeteditReservation', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: `Res_Id=${Res_Id}`
+                    body: JSON.stringify({ ResID: ResID })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         openeditModal();
-                        document.getElementById('date-inputforpost').value = data.data.Date;
-                        document.getElementById('modal-Res_Id').value = data.data.Res_Id;
+                        document.getElementById('date-inputforpost2').value = data.data.Date;
+                        document.getElementById('modal-Res_Id').value = data.data.ResID;
                         document.getElementById('modal-Date').value = data.data.Date;
                         document.getElementById('modal-Start_Time').value = data.data.Start_Time;
-                        document.getElementById('modal-End_Time').value = data.data.End_Time;
+                        // Prepend the new date to the existing list
+
+                        if (data.data.End_Time !== null && data.data.End_Time !== undefined) {
+                            document.getElementById('modal-End_Time').value = data.data.End_Time;
+                            const datesContainer = document.getElementById('datesforreservation2');
+                            const existingDatesHTML = datesContainer.innerHTML;
+
+                            // Extract date values
+                            const dateOb = new Date(data.data.Date);
+                            const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' }); // e.g., "Tue"
+                            const dayNumber = dateOb.getDate(); // e.g., 8
+
+                            // Create new HTML for the selected date
+                            const newDateHTML = `
+                                <div class="date select">
+                                    <p class="whichday">${dayName}</p>
+                                    <h1 class="day">${dayNumber}</h1>
+                                </div>
+                            `;
+
+                            datesContainer.innerHTML = newDateHTML + existingDatesHTML;
+
+                            const datesContainer2 = document.getElementById('datesfor24reservation2');
+                            const existingDatesHTML2 = datesContainer2.innerHTML;
+
+                            // Extract date values
+                            const dateOb2 = new Date(data.data.Date);
+                            const dayName2 = dateOb2.toLocaleString('en-US', { weekday: 'short' });
+                            const dayNumber2 = dateOb2.getDate(); // e.g., 8
+
+                            // Create new HTML for the selected date
+                            const newDateHTML2 = `
+                                <div class="date select">
+                                    <p class="whichday">${dayName}</p>
+                                    <h1 class="day">${dayNumber}</h1>
+                                </div>
+                            `;
+
+                            datesContainer2.innerHTML = newDateHTML2 + existingDatesHTML2;
+                        }
+                        else{
+                            document.getElementById('datesforreservation2').style.display= 'none';
+                            document.getElementById('datesfor24reservation2').style.display= 'flex';
+                            document.getElementById('modal-End_Time').removeAttribute('required');
+                            document.getElementById('modal-End_Time').value = data.data.End_Time;
+                            const datesContainer = document.getElementById('datesfor24reservation2');
+                            const existingDatesHTML = datesContainer.innerHTML;
+
+                            // Extract date values
+                            const dateOb = new Date(data.data.Date);
+                            const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' });
+                            const dayNumber = dateOb.getDate(); // e.g., 8
+
+                            // Create new HTML for the selected date
+                            const newDateHTML = `
+                                <div class="date select">
+                                    <p class="whichday">${dayName}</p>
+                                    <h1 class="day">${dayNumber}</h1>
+                                </div>
+                            `;
+
+                            datesContainer.innerHTML = newDateHTML + existingDatesHTML;
+
+                            if(data.data.Allow){
+                                const datesContainer = document.getElementById('datesforreservation2');
+                                const existingDatesHTML = datesContainer.innerHTML;
+
+                                // Extract date values
+                                const dateOb = new Date(data.data.Date);
+                                const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' }); // e.g., "Tue"
+                                const dayNumber = dateOb.getDate(); // e.g., 8
+
+                                // Create new HTML for the selected date
+                                const newDateHTML = `
+                                    <div class="date select">
+                                        <p class="whichday">${dayName}</p>
+                                        <h1 class="day">${dayNumber}</h1>
+                                    </div>
+                                `;
+
+                                datesContainer.innerHTML = newDateHTML + existingDatesHTML;
+                            }
+                        }
+                        const dateString = data.data.Date; // e.g., "2025-04-08"
+                        const dateObj = new Date(dateString);
+
+                        // Format to "April 2025"
+                        const formattedMonthYear = dateObj.toLocaleString('en-US', {
+                            month: 'long',
+                            year: 'numeric'
+                        });
+
+                        console.log(formattedMonthYear);
+                        document.getElementById('month').innerHTML = formattedMonthYear;
+                        if(data.data.Is_24_Hour){
+                            enddiv2.style.display = 'none';
+                            document.getElementById('editfull-day').checked = true;
+                            const isChecked = document.getElementById('editfull-day').checked;
+                            console.log('Checked?', isChecked);
+                        }
                         if (data.data.Notes !== null) {
                             document.getElementById('modal-Notes').value = data.data.Notes;
                         } else {
@@ -646,25 +848,35 @@
         document.getElementById('ReservationViewModal').style.display = 'flex';
     }
 
-    function viewReservation(Res_Id) {
-        console.log(Res_Id);
-        if (Res_Id) {
+    function viewReservation(ResID) {
+        console.log(ResID);
+        if (ResID) {
             fetch('<?= ROOT ?>/Child/Reservation/GetviewReservation', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: `Res_Id=${Res_Id}`
+                    body: `ResID=${ResID}`
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        console.log(data.data);
                         openviewModal();
                         document.getElementById('viewstatusreservation').textContent = data.data.Status;
                         document.getElementById('datedesign').classList.add(data.data.Status);
                         document.getElementById('viewdate').value = data.data.Date;
                         document.getElementById('viewstarttime').value = data.data.Start_Time;
                         document.getElementById('viewendtime').value = data.data.End_Time;
+                        if(data.data.Is_24_Hour){
+                            document.getElementById('24hour').textContent = '24 Hour Reservation';
+                            document.getElementById('24hour').style.marginTop = '20px';
+                            document.getElementById('viewendtime').style.display = 'none';
+                        }
+                        else{
+                            document.getElementById('24hour').textContent = 'End Time:';
+                            document.getElementById('viewendtime').style.display = 'flex';
+                        }
                         if (data.data.Notes !== null) {
                             document.getElementById('viewnotes').value = data.data.Notes;
                         } else {
@@ -677,6 +889,89 @@
         } else {
             alert('No Reservation ID provided');
         }
+    }
+
+    function fetchReservation(date = null, status = null) {
+        console.log(date, status)
+        fetch('<?= ROOT ?>/Child/Reservation/store_reservations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: date,
+                    status: status
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("data:", data.data);
+                    updaterReservationTable(data.data);
+                } else {
+                    console.error("Failed to fetch meal plan:", data.message);
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    function updaterReservationTable(data) {
+        const upcomingTableBody = document.querySelector('#upcoming tbody');
+        const historyTableBody = document.querySelector('#history tbody');
+
+        // Clear existing rows
+        upcomingTableBody.innerHTML = '';
+        historyTableBody.innerHTML = '';
+
+        // Populate upcoming reservations
+        data.upcoming.forEach(res => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${res?.ResID ?? "No res set"}</td>
+            <td>${res.First_Name ?? "No res set"}</td>
+            <td>${res?.Date ?? "No res set"}</td>
+            <td>${res?.Start_Time ?? "No res set"}</td>
+            <td>
+                ${res?.End_Time ?? ""}
+                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> 24-hour</span>' : ''}
+            </td>
+            <td>
+                <div class="${res?.Status ?? "cancel"}">
+                    <p>${res?.Status ?? "cancel"}</p>
+                </div>
+            </td>
+            <td class="edit">
+                <i class="fas fa-pen reservation-edit" onclick="editReservation(${res.ResID})"></i>
+                ${res?.Status === 'Pending' ? `<i class="fas fa-trash" onclick="deleteReservation(${res.ResID})"></i>` : ''}
+            </td>
+        `;
+            upcomingTableBody.appendChild(row);
+        });
+
+        // Populate history reservations
+        data.history.forEach(res => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${res.First_Name ?? "No res set"}</td>
+            <td>${res?.Date ?? "No res set"}</td>
+            <td>${res?.Start_Time ?? "No res set"}</td>
+            <td>
+                ${res?.End_Time ?? ""}
+                ${res?.Is_24_Hour ? '<span class="tag-24-hour" title="24-Hour Reservation"> 24-hour</span>' : ''}
+            </td>
+            <td>
+                <div class="${res?.Status ?? "cancel"}">
+                    <p>${res?.Status ?? "cancel"}</p>
+                </div>
+            </td>
+            <td class="edit">
+                <i class="fas fa-eye" onclick="viewReservation(${res.ResID})"></i>
+                <i class="fas fa-star feedbackbtn" style="display: ${res?.Status === 'Canceled' ? "none" : ""}"></i>
+            </td>
+        `;
+            historyTableBody.appendChild(row);
+        });
     }
 
     function setChildSession(childName, childId) {
@@ -747,8 +1042,23 @@
     }
 
     function selectDate(date) {
-        var dateInput = document.getElementById('date-inputforpost2');
-        dateInput.value = '2024-11-' + date;
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        var currentMonth = currentDate.getMonth() + 1;
+        var currentDay = currentDate.getDate();
+
+        if (date < currentDay) {
+            currentMonth++;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++; 
+            }
+        }
+
+        var formattedDate = date < 10 ? '0' + date : date;
+        var dateInput = document.getElementById('date-inputforpost');
+        dateInput.value = currentYear + '-' + (currentMonth < 10 ? '0' + currentMonth : currentMonth) + '-' + formattedDate;
+        console.log(dateInput.value);
     }
 
     function reviewformsubmit() {
@@ -783,6 +1093,42 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+
+        <?php 
+        if (isset($_SESSION['APP']['Page']['values']['full-day']) && $_SESSION['APP']['Page']['values']['full-day']=='on'): ?>
+            enddiv.innerHTML = ``;
+        <?php endif; ?>
+
+        <?php 
+        if (isset($_SESSION['APP']['Edit']['values']['full-day']) && $_SESSION['APP']['Edit']['values']['full-day']=='on'): ?>
+            enddiv2.innerHTML = ``;
+        <?php endif; ?>
+
+        const date = new Date();
+        const month = date.toLocaleString('default', { month: 'long' });
+        const year = date.getFullYear();
+
+        console.log(month, year);
+        document.querySelector('.month').textContent = `${month} ${year}`;
+
+        const datePicker = document.getElementById('datePicker');
+        const statusPicker = document.getElementById('statusPicker');
+
+        // Initial fetch with 'null' values (or a default option like 'All')
+        fetchReservation(null, null);
+
+        datePicker.addEventListener('change', function() {
+            const dateValue = datePicker.value || null; // Use null if empty
+            const statusValue = statusPicker.value || null; // Use null if empty
+            fetchReservation(dateValue, statusValue);
+        });
+
+        statusPicker.addEventListener('change', function() {
+            const dateValue = datePicker.value || null;
+            const statusValue = statusPicker.value || null;
+            fetchReservation(dateValue, statusValue);
+        });
+
         const stars = document.querySelectorAll('.star-rate');
         let rating = 0;
         let i = 0;
@@ -825,10 +1171,18 @@
             document.querySelectorAll('.error').forEach(errorElement => {
                 errorElement.textContent = ''; // Clear the text content of all error elements
             });
+            <?php 
+                $session = new \core\Session;
+                $session->unset('Page');
+            ?>
         });
 
         closenewReservation.addEventListener('click', function() {
-            window.location.href = '<?= ROOT ?>/Child/Reservation';
+            toggleModal(NewReservationModal, 'none');
+            <?php 
+                $session = new \core\Session;
+                $session->unset('Page');
+            ?>
         });
 
         newreservationbtn.addEventListener('click', function() {
@@ -936,57 +1290,62 @@
             });
         });
 
-        const upbtn = document.getElementById('up-btn');
-        const hibtn = document.getElementById('hi-btn');
-        const upcoming = document.getElementById('upcoming');
-        const history = document.getElementById('history');
-        const headingres = document.getElementById('heading-res');
+        // function selectDate2(date) {
+        //     console.log("Selected date:", date);
+        //     var dateInput = document.getElementById('date-inputforpost2');
+        //     dateInput.value = '2024-11-' + date;
+        //     console.log(dateInput.value);
 
-        upbtn.addEventListener('click', function() {
-            upbtn.style.backgroundColor = '#10639a';
-            hibtn.style.backgroundColor = '#60a6ec';
-            upcoming.style.display = 'block';
-            history.style.display = 'none';
-            headingres.style.marginLeft = '180px';
-            headingres.textContent = 'Resrvation';
-        });
+        //     var allDates = document.querySelectorAll('.date');
+        //     allDates.forEach(function(element) {
+        //         element.classList.remove('select');
+        //     });
 
-        hibtn.addEventListener('click', function() {
-            hibtn.style.backgroundColor = '#10639a';
-            upbtn.style.backgroundColor = '#60a6ec';
-            upcoming.style.display = 'none';
-            history.style.display = 'block';
-            headingres.style.marginLeft = '140px';
-            headingres.textContent = 'Resrvation history';
-        });
-
-        function selectDate(date) {
-            console.log("Selected date:", date);
-            var dateInput = document.getElementById('date-inputforpost');
-            dateInput.value = '2024-11-' + date;
-            console.log(dateInput.value);
-
-            var allDates = document.querySelectorAll('.date');
-            allDates.forEach(function(element) {
-                element.classList.remove('select');
-            });
-
-            event.target.closest('.date').classList.add('select');
-        }
+        //     event.target.closest('.date').classList.add('select');
+        // }
 
         function selectDate2(date) {
-            console.log("Selected date:", date);
-            var dateInput = document.getElementById('date-inputforpost2');
-            dateInput.value = '2024-11-' + date;
-            console.log(dateInput.value);
+            const currentDate = new Date();
+            let currentYear = currentDate.getFullYear();
+            let currentMonth = currentDate.getMonth() + 1;
+            const currentDay = currentDate.getDate();
 
-            var allDates = document.querySelectorAll('.date');
+            // If selected day has already passed this month, move to next month
+            if (date < currentDay) {
+                currentMonth++;
+                if (currentMonth > 12) {
+                    currentMonth = 1;
+                    currentYear++;
+                }
+            }
+
+            const formattedDate = (date < 10 ? '0' : '') + date;
+            const formattedMonth = (currentMonth < 10 ? '0' : '') + currentMonth;
+            const finalDate = `${currentYear}-${formattedMonth}-${formattedDate}`;
+
+            // Set value to hidden input
+            const dateInput = document.getElementById('date-inputforpost2');
+            if (dateInput) {
+                dateInput.value = finalDate;
+                console.log("Selected full date:", finalDate);
+                console.log(dateInput.value);
+            }
+
+            // Visual highlight for selected date
+            const allDates = document.querySelectorAll('.date');
             allDates.forEach(function(element) {
                 element.classList.remove('select');
             });
 
-            event.target.closest('.date').classList.add('select');
+            // Safely apply class to clicked date block
+            if (event && event.target) {
+                const clickedBlock = event.target.closest('.date');
+                if (clickedBlock) {
+                    clickedBlock.classList.add('select');
+                }
+            }
         }
+
 
         function clearSelectedDates() {
             dateElements.forEach(function(date) {
@@ -994,7 +1353,7 @@
             });
         }
 
-        if (<?= (isset($data['displayModal']) && ($data['displayModal'] === true) && ($data['Entered'] === true))  ? 'true' : 'false' ?>) {
+        if (<?= (isset($_SESSION['APP']['Page']['displayModal']) && ($_SESSION['APP']['Page']['displayModal'] === true) && ($_SESSION['APP']['Page']['Entered'] === true))  ? 'true' : 'false' ?>) {
             NewReservationModal.style.display = 'flex';
         }
 
@@ -1100,6 +1459,31 @@
             });
         });
 
+        const upbtn = document.getElementById('up-btn');
+        const hibtn = document.getElementById('hi-btn');
+        const upcoming = document.getElementById('upcoming');
+        const history = document.getElementById('history');
+        const headingres = document.getElementById('headingres');
+
+        upbtn.addEventListener('click', function() {
+            upbtn.style.color = 'white';
+            upbtn.style.backgroundColor = '#10639a';
+            hibtn.style.backgroundColor = '#60a6ec';
+            upcoming.style.display = 'block';
+            history.style.display = 'none';
+            headingres.textContent = 'Reservation';
+        });
+
+        hibtn.addEventListener('click', function() {
+            hibtn.style.color = 'white';
+            hibtn.style.backgroundColor = '#10639a';
+            upbtn.style.backgroundColor = '#60a6ec';
+            upcoming.style.display = 'none';
+            history.style.display = 'block';
+            headingres.textContent = 'Reservation history';
+        });
+
+        const eyeicon = document.querySelectorAll('.fa-eye');
     });
 </script>
 

@@ -42,7 +42,6 @@
                     return $result;
                 }
             }
-
             return false;
         }
 

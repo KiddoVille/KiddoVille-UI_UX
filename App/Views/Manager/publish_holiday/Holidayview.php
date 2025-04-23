@@ -140,31 +140,24 @@
                     <h2>Published Holidays</h2>
                     <div class="holiday-list">
                         <?php if (!empty($data['allholidays'])): ?>
-                            <?php foreach ($data['allholidays'] as $holiday): ?>
+                            <?php foreach (array_reverse($data['allholidays']) as $holiday): ?>
                                 <div class="holiday-item">
                                     <h3><?= htmlspecialchars($holiday->Leave_Type) ?></h3>
                                     <p>Date: <?= htmlspecialchars($holiday->Date_of_Holiday) ?></p>
                                     <p>About: <?= htmlspecialchars($holiday->About) ?></p>
-                                    <button class="del-btn" onclick="deleteholiday(<?= $holiday->HolidayID ?>)">Delete</button>
+                                    <div class="buttons">
+                                        <button class="update-btn" data-id="<?= $holiday->HolidayID ?>">Update</button>
+                                        <button class="del-btn" onclick="deleteholiday(<?= $holiday->HolidayID ?>)">Delete</button>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <p>No holidays published yet.</p>
                         <?php endif ?>
-                        <!-- Delete Confirmation Modal -->
-                        <div id="deleteModal" class="modal">
-                            <div class="modal-content">
-                                <h2>Confirm Deletion</h2>
-                                <p>Are you sure you want to delete this holiday?</p>
-                                <div class="modal-buttons">
-                                    <button id="confirmDelete" class="confirm-btn">Yes, Delete</button>
-                                    <button id="cancelDelete" class="cancel-btn">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+
+
 
                 <div class="calendar">
                     <div class="calheading">
@@ -184,6 +177,59 @@
                     <div class="days" id="days"></div>
                 </div>
             </div>
+
+            <!-- Delete Confirmation Modal -->
+            <div id="deleteModal" class="modal">
+                <div class="modal-content">
+                    <h2>Confirm Deletion</h2>
+                    <p>Are you sure you want to delete this holiday?</p>
+                    <div class="modal-buttons">
+                        <button id="confirmDelete" class="confirm-btn">Yes, Delete</button>
+                        <button id="cancelDelete" class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Update Holiday Popup -->
+            <div id="popupContainer" class="popup-container">
+                <div class="popup">
+                    <button id="closePopup" class="close-btn">×</button>
+                    <h1 style="color: #233E8D;">Update Holiday</h1>
+                    <form action="<?= ROOT ?>/Manager/Holiday/updateholiday" method="POST" class="leave-form">
+                        <!-- Hidden input for holiday ID will be added via JavaScript -->
+                        <div class="form-group">
+                            <label for="Leave_Type">Leave Type:</label>
+                            <select name="Leave_Type" id="update_leavetype" class="form-control" required>
+                                <option value="">Select Leave Type</option>
+                                <option value="Annual Leave">Annual Leave</option>
+                                <option value="Poya Leave">Poya Leave</option>
+                                <option value="Independent Day">Independent Day</option>
+                                <option value="Cultural Leave">Cultural Leave</option>
+                                <option value="Religion Leave">Religion Leave</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                            <label for="Date_of_Holiday">Date of Holiday:</label>
+                            <input type="date" name="Date_of_Holiday" id="update_date" class="form-control" required>
+
+                            <label for="About">About:</label>
+                            <textarea name="About" id="update_about" class="form-control" required></textarea>
+
+                            <div class="button-group">
+                                <button type="submit" class="btn btn-primary" style="margin-top:5%;">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+<!-- 
+            <script>
+                // Convert PHP holidays array to JavaScript with explicit formatting
+                const holidays = <?php echo json_encode(!empty($data['allholidays']) ? $data['allholidays'] : []); ?>;
+
+                // Debug - check if holidays are correctly loaded
+                console.log("Holidays loaded:", holidays);
+            </script> -->
 
             <script>
                 function deleteholiday(HolidayID) {
@@ -211,6 +257,92 @@
                         }
                     };
                 }
+
+                // update - popup
+                // Get elements
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Get all update buttons by class instead of ID
+                    const updateButtons = document.querySelectorAll('.update-btn');
+                    const closeBtn = document.getElementById('closePopup');
+                    const popupContainer = document.getElementById('popupContainer');
+
+                    // Add click event to all update buttons
+                    updateButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            // Get the holiday data from this specific holiday item
+                            const holidayItem = this.closest('.holiday-item');
+                            const holidayId = this.getAttribute('data-id');
+
+                            // Get the text content of leave type, date, and about
+                            const leaveType = holidayItem.querySelector('h3').textContent;
+                            const dateText = holidayItem.querySelector('p:nth-of-type(1)').textContent;
+                            const aboutText = holidayItem.querySelector('p:nth-of-type(2)').textContent;
+
+                            // Extract just the date value from "Date: 2023-04-16" format
+                            const dateValue = dateText.replace('Date: ', '').trim();
+                            // Extract just the about text from "About: Some text" format
+                            const aboutValue = aboutText.replace('About: ', '').trim();
+
+                            // Set form action to point to the update endpoint with the correct ID
+                            const form = document.querySelector('#popupContainer form');
+                            form.action = `<?= ROOT ?>/Manager/Holiday/updateholiday/${holidayId}`;
+
+                            // Add hidden input for holiday ID if needed
+                            let hiddenInput = form.querySelector('input[name="HolidayID"]');
+                            if (!hiddenInput) {
+                                hiddenInput = document.createElement('input');
+                                hiddenInput.type = 'hidden';
+                                hiddenInput.name = 'HolidayID';
+                                form.appendChild(hiddenInput);
+                            }
+                            hiddenInput.value = holidayId;
+
+                            // Populate form fields with the holiday data
+                            const leaveTypeSelect = form.querySelector('select[name="Leave_Type"]');
+                            const dateInput = form.querySelector('input[name="Date_of_Holiday"]');
+                            const aboutTextarea = form.querySelector('textarea[name="About"]');
+
+                            // Set the selected option in the dropdown
+                            for (let i = 0; i < leaveTypeSelect.options.length; i++) {
+                                if (leaveTypeSelect.options[i].value === leaveType) {
+                                    leaveTypeSelect.selectedIndex = i;
+                                    break;
+                                }
+                            }
+
+                            // Set the date and about values
+                            dateInput.value = dateValue;
+                            aboutTextarea.value = aboutValue;
+
+                            // Show the popup
+                            popupContainer.style.display = 'flex';
+                        });
+                    });
+
+                    // Close popup function
+                    function closePopup() {
+                        popupContainer.style.display = 'none';
+                    }
+
+                    // Event listener for close button
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', closePopup);
+                    }
+
+                    // Close popup when clicking outside
+                    popupContainer.addEventListener('click', function(event) {
+                        if (event.target === popupContainer) {
+                            closePopup();
+                        }
+                    });
+
+                    // Close popup with Escape key
+                    document.addEventListener('keydown', function(event) {
+                        if (event.key === 'Escape') {
+                            closePopup();
+                        }
+                    });
+                });
             </script>
 </body>
 

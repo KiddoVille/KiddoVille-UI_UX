@@ -9,6 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Child/report.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Stats.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Table1.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
@@ -71,29 +76,24 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span> </a>
-            </div>
+            <hr>
         </div>
         <!-- navigation to home and stuff -->
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 15px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px; margin-left: 15px !important;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 15px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -103,12 +103,9 @@
                                     echo "select-child";
                                 } ?>
                             "
-                                onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>','<?= isset($child['Child_Id']) ? $child['Child_Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -117,57 +114,44 @@
                 </div>
             </div>
         </div>
-        <div class="main-content" id="main-content" style="overflow: none;">
+        <div class="main-content" id="main-content">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1>Hey Thilina</h1>
                     <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                <div class="bell-con" id="bell-container">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <?php if(!empty($data['Notification'])): ?>
+                        <?php if($data['Notification']['Seen'] != 0): ?>
+                            <div class="message-numbers" id="message-number">
+                                <p><?= $data['Notification']['Seen'] != 0 ? $data['Notification']['Seen'] : '' ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
-                            <li>
-                                <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
+                            <?php foreach($data['Notification']['data'] as $row): ?>
+                                <li data-id="<?= $row->NotificationID ?>">
+                                    <p><?= htmlspecialchars($row->Description) ?></p>
+                                    <?php if($row->Location != NULL): ?>
+                                        <a href="<?= ROOT ?>/Child/<?= $row->Location ?>">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </div>
-                </div>
-                <div class="message-numbers">
-                    <p> 2</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
@@ -191,13 +175,38 @@
                     <span style="font-weight: 50;">Total of 5 report downloaded</span>
                 </div>
             </div>
-            <div class="saperate" style="margin-top: 25px !important; height: 460px !important;">
-                <!-- Report table -->
-                <div class="report-container" style="width: 1200px !important;">
-                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Weekly Reports </h2>
-                    <hr>
-                    <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                    <table>
+            <div class="stats" id="teacher-stats" style="display: none;">
+                <div class="stat">
+                    <h3><img src="<?= IMAGE ?>/report.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Pending reports</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_pending'] ?> pending</p>
+                    <span style="font-weight: 50;">Maid reports still in progress</span>
+                </div>
+                <div class="stat">
+                    <h3><img src="<?= IMAGE ?>/report view.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Report views</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_viewed'] ?> viewed</p>
+                    <span style="font-weight: 50;">Maid reports viewed</span>
+                </div>
+                <div class="stat">
+                    <h3><img src="<?= IMAGE ?>/report download.svg?v=<?= time() ?>" alt="Attendance" style="width: 50px; margin-right: 10px; margin-bottom: -15px;">Report downloads</h3>
+                    <p style="margin-bottom: 3px;"><?= $data['stats']['teacher_downloaded'] ?> downloaded</p>
+                    <span style="font-weight: 50;">Total Maid reports downloaded</span>
+                </div>
+            </div>
+            <div class="saperate">
+                <div class="Table1" style="width: 1200px !important;">
+                    <div style="display: flex; flex-direction: column; justify-content: flex-start; margin-bottom: -20px; margin-top: 20px; margin-left: 7px;">
+                        <div class="toggle">
+                            <label class="background" for="toggle"></label>
+                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                                <label class="up-btn" id="up-btn" style="padding-left: 50px !important; padding-right: 40px;">Maid</label>
+                                <label class="hi-btn" id="hi-btn">Teacher</label>
+                            </div>
+                        </div>
+                        <h2 style="margin-top: -10px !important; margin-bottom: 5px;"> Child Reports </h2>
+                        <hr style="margin-bottom: 30px;">
+                    </div>
+                    <input type="date" max="<?= date('Y-m-d') ?>" id="datePicker" id="SnackdatePicker" style="width: 200px; margin-right: 20px;">
+                    <table id="upcoming">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -371,27 +380,15 @@
                 </div>
             </div>
         </div>
-        <!-- Messager navigation -->
-        <a href="<?= ROOT ?>/Child/Message" class="chatbox">
-            <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-            <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                <p> 2</p>
-            </div>
-        </a>
     </div>
     <!-- profile card -->
     <div class="profile-card" id="profileCard" style="margin-top: -710px;">
         <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
             style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
-        <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
+        <img alt="Profile picture of Thilina Perera" height="100" src="<?php echo htmlspecialchars($data['selectedchildren']['image']); ?>" width="100"
             class="profile" />
-        <h2>
-            Thilina Perera
-        </h2>
-        <p>
-            Student    RS0110657
-        </p>
+        <h2><?= $data['selectedchildren']['fullname'] ?></h2>
+        <p>SRD<?= $data['selectedchildren']['id'] ?></p>
         <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Child/ChildProfile'">
             Profile
         </button>
@@ -407,8 +404,54 @@
     </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            fetch('<?= ROOT ?>/Child/Home/setchildsession', {
+
+        const messageDropdown = document.getElementById('messageDropdown');
+        const bellIcon = document.getElementById('bell-container');
+        const messagenumber = document.getElementById('message-number')
+
+        let messageDropdownTimeout;
+
+        function toggleBellDropdown() {
+            if(messageDropdown){
+                if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                    messageDropdown.style.display = "block";
+                    fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                        method: "POST",
+                        credentials: "same-origin"
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log("Seen the notifications");
+                            messagenumber.style.display = 'none';
+                        } else {
+                            alert("Logout failed. Try again.");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                    
+                } else {
+                    messageDropdown.style.display = "none";
+                }
+            }
+        }
+
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
+        function setChildSession(ChildID) {
+            console.log(ChildID);
+            fetch(' <?= ROOT ?>/Child/Report/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -429,6 +472,90 @@
                 .catch(error => console.error("Error:", error));
         }
 
+        function fetchReports(date) {
+            fetch('<?= ROOT ?>/Child/Report/store_reports', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Meal plan data:", data.data);
+                        updateReportTables(data.data);
+                    } else {
+                        console.error("Failed to fetch meal plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function updateReportTables(data) {
+            const maidTableBody = document.querySelector('#upcoming tbody');
+            const teacherTableBody = document.querySelector('#history tbody');
+
+            // Clear the existing table rows
+            maidTableBody.innerHTML = '';
+            teacherTableBody.innerHTML = '';
+
+            // Update Maid Reports table
+            if (data.Maid) {
+                data.Maid.forEach(report => {
+                    const formattedDate = new Date(report.Report_Date).toLocaleDateString('en-GB');
+                    const row = `
+                        <tr>
+                            <td>${sanitizeHTML(report.Child_Name)}</td>
+                            <td>${formattedDate}</td>
+                            <td>${sanitizeHTML(report.Maid_Name)}</td>
+                            <td><i class="fas fa-eye icon reportbtn"></i></td>
+                            <td><i class="fas fa-download icon"></i></td>
+                            <td>
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" class="checkbox" ${report.Viewed === 'Yes' ? 'checked' : ''} />
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    `;
+                    maidTableBody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+
+            // Update Teacher Reports table
+            if (data.Teacher) {
+                data.Teacher.forEach(report => {
+                    const formattedDate = new Date(report.Report_Date).toLocaleDateString('en-GB');
+                    const row = `
+                        <tr>
+                            <td>${sanitizeHTML(report.Child_Name)}</td>
+                            <td>${formattedDate}</td>
+                            <td>${sanitizeHTML(report.Teacher_Name)}</td>
+                            <td><i class="fas fa-eye icon reportbtn"></i></td>
+                            <td><i class="fas fa-download icon"></i></td>
+                            <td>
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" class="checkbox" ${report.Viewed === 'Yes' ? 'checked' : ''} />
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    `;
+                    teacherTableBody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+        }
+
+        function sanitizeHTML(str) {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+
         function removechildsession() {
             fetch('<?= ROOT ?>/Child/Home/removechildsession', {
                     method: 'POST',
@@ -440,13 +567,63 @@
                 .then(data => {
                     if (data.success) {
                         console.log("Child name removed from session.");
-                        window.location.href = '<?= ROOT ?>/Parent/Report';
+                        window.location.href = '<?= ROOT ?>/Child/Report';
                     } else {
                         console.error("Failed to remove child name from session.", data.message);
                     }
                 })
                 .catch(error => console.error("Error:", error));
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const upbtn = document.getElementById('up-btn');
+            const hibtn = document.getElementById('hi-btn');
+            const maidStats = document.getElementById('maid-stats');
+            const teacherStats = document.getElementById('teacher-stats');
+            const upcoming = document.getElementById('upcoming');
+            const history = document.getElementById('history');
+
+            upbtn.addEventListener('click', function() {
+                // Toggle stats visibility
+                maidStats.style.display = 'flex';
+                teacherStats.style.display = 'none';
+
+                // Toggle table visibility
+                upcoming.style.display = 'block';
+                history.style.display = 'none';
+
+                // Update button styles
+                upbtn.style.color = 'white';
+                hibtn.style.color = 'white';
+                upbtn.style.backgroundColor = '#10639a';
+                hibtn.style.backgroundColor = '#60a6ec';
+            });
+
+            hibtn.addEventListener('click', function() {
+                // Toggle stats visibility
+                maidStats.style.display = 'none';
+                teacherStats.style.display = 'flex';
+
+                // Toggle table visibility
+                upcoming.style.display = 'none';
+                history.style.display = 'block';
+
+                // Update button styles
+                hibtn.style.color = 'white';
+                upbtn.style.color = 'white';
+                hibtn.style.backgroundColor = '#10639a';
+                upbtn.style.backgroundColor = '#60a6ec';
+            });
+
+
+            const datePicker = document.getElementById('datePicker');
+
+            fetchReports(null);
+
+            datePicker.addEventListener('change', function() {
+                fetchReports(datePicker.value);
+            });
+        });
     </script>
 </body>
 

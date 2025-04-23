@@ -10,6 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/event.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Table1.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
@@ -50,7 +55,7 @@
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top:40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/event">
                         <i class="fas fa-calendar-alt"></i> <span>Event</span>
                     </a>
@@ -71,112 +76,94 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+            <hr>
         </div>
         <!-- navigation -->
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first select-child"
-                            onclick="window.location.href = '<?= ROOT ?>/ReParent/Home'">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;"">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
-                    <ul class=" children-list">
+                    <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
                             <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
-                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>" alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
                         <?php endforeach; ?>
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="main-content" id="main-content">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
-                    <h1>Hey Thilina</h1>
+                    <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
                     <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                <!-- message icon -->
+                <div class="bell-con" id="bell-container">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <?php if(!empty($data['Notification'])): ?>
+                        <?php if($data['Notification']['Seen'] != 0): ?>
+                            <div class="message-numbers" id="message-number">
+                                <p><?= $data['Notification']['Seen'] != 0 ? $data['Notification']['Seen'] : '' ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
-                            <li>
-                                <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
+                            <?php foreach($data['Notification']['data'] as $row): ?>
+                                <li data-id="<?= $row->NotificationID ?>">
+                                    <p><?= htmlspecialchars($row->Description) ?></p>
+                                    <?php if($row->Location != NULL): ?>
+                                        <a href="<?= ROOT ?>/Child/<?= $row->Location ?>">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
-                <div class="message-numbers">
-                    <p> 2</p>
-                </div>
+                <!-- Prodile btn -->
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
             <div class="stats">
-                <div class="stat" id="NewEvent" style="width: 60px !important; display: flex; flex-direction: row !important;">
-                    <div style="display: flex; flex-direction: row;">
-                        <img src="<?=isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE.'/event-2.svg'; ?>" alt="Event Image"
-                            style="width: 130px ; height: 130px; margin-top: -15px; border-radius: 7px 0px 0px 7px; margin-bottom: -15px;">
-                        <div style="display: flex; flex-direction: column; margin-top: 10px;">
-                            <h3 class="footer" style="margin-left: 5px;">Event Name: <?= $data['stat3']['EventName'] ?></h3>
-                            <p class="footer" style="margin-left: 5px; font-size: 1rem; white-space:nowrap;">Date: <?= date('d/m/Y', strtotime($data['stat3']['Date'])) ?></p>
+                <div class="stat" id="NewEvent">
+                    <div class="stat-img">
+                        <img src="<?= isset($data['stat3']['Image']) ? $data['stat3']['Image'] : IMAGE . '/event-2.svg'; ?>" alt="Event Image">
+                        <div class="stat-event">
+                            <h3 class="footer">Event Name: <?= $data['stat3']['EventName'] ?></h3>
+                            <p class="footer">Date: <?= date('d/m/Y', strtotime($data['stat3']['Date'])) ?></p>
                         </div>
                     </div>
                 </div>
                 <div class="stat" id="stat1" style="display: none;">
                     <h3>
-                        <img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance" style="width: 40px; margin-right: 10px; margin-bottom: -10px;">
+                        <img src="<?= IMAGE ?>/event.svg?v=<?= time() ?>" alt="Attendance">
                         Upcoming events
                     </h3>
 
@@ -192,18 +179,16 @@
                         </p>
                     <?php endif; ?>
 
-                    <span style="font-weight: 50;"><?= $data['stat1']['upcomingEvent']['Date'] ?></span>
+                    <span style="font-weight: 50;"><?= isset($data['stat1']['upcomingEvent']['Date']) ? $data['stat1']['upcomingEvent']['Date'] : ''; ?></span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">Enroll to events</h3>
+                    <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance">Enroll to events</h3>
                     <p style="margin-bottom: 3px;"> <?= $data['stat2']['enrolledEvents'] ?></p>
-                    <span style="font-weight: 50;"><?= $data['stat2']['eventsMessage'] ?></span>
+                    <span><?= $data['stat2']['eventsMessage'] ?></span>
                 </div>
                 <div class="stat">
-                    <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -10px;">View all events</h3>
-                    <div class="lol" style="cursor: pointer; margin-bottom: -100px; margin-top: 10px;"
+                    <h3><img src="<?= IMAGE ?>/event-2.svg?v=<?= time() ?>" alt="Attendance">View all events</h3>
+                    <div class="lol" style="cursor: pointer; margin-top: 20px; margin-left: 4rem;"
                         onclick="window.location.href='<?= ROOT ?>/Parent/allevent';">
                         <p>View</p>
                     </div>
@@ -213,7 +198,7 @@
                 <!-- Event Modal -->
                 <div class="modal" id="EventModal">
                     <div class="View-Package">
-                        <img id="Eventimage" src="<?= IMAGE ?>/packages.png" style="width: 360px; height: auto position: fixed; margin-left: -20px; margin-top: -20px; border-radius: 7px 0px 7px 0px;">
+                        <img id="Eventimage" src="<?= IMAGE ?>/packages.png">
                         <div class="top-con" style="margin-top: -190px; margin-left: 1px;">
                             <div class="back-con" id="back-arrow">
                                 <i class="fas fa-chevron-left" id="backformeeting"></i>
@@ -221,7 +206,7 @@
                         </div>
                         <div class="pickup-section" style="margin-top: 190px;">
                             <label for="package-name">Event name</label>
-                            <input id="event-name" readonly="" type="text"/>
+                            <input id="event-name" readonly="" type="text" />
                         </div>
                         <div class="pickup-section">
                             <label for="included-services">Activity details</label>
@@ -231,8 +216,11 @@
                         <div class="pickup-section">
                             <label for="price">Date Time</label>
                             <div class="price-container">
-                                <input id="datetime" readonly="" type="text"/>
+                                <input id="datetime" readonly="" type="text" />
                             </div>
+                        </div>
+                        <div class="button-popup">
+                            <button id="LeaveEvent">Leave</button>
                         </div>
                     </div>
                 </div>
@@ -244,12 +232,11 @@
                                 <i class="fas fa-chevron-left" id="backforrating"></i>
                             </div>
                             <div class="refresh-con">
-                                <i class="fas fa-refresh" id="ratingrefresh"
-                                    style="margin-left: 10px; margin-bottom: -20px; cursor: pointer; color: #233E8D;"></i>
+                                <i class="fas fa-refresh" id="ratingrefresh"></i>
                             </div>
                         </div>
                         <form id="ratingform">
-                            <h1 style="margin-left: 20px; margin-top: 40px !important;">Review and Rating</h1>
+                            <h1 class="review">Review and Rating</h1>
                             <div class="pickup-section">
                                 <label for="package-name">Reason</label>
                                 <input id="package-name" type="text" placeholder="Reason for the review" />
@@ -269,24 +256,32 @@
                                 </div>
                             </div>
                             <div class="button-popup">
-                                <button style="margin-right: 150px;" id="closeratingBtn">Cancel</button>
+                                <button id="closeratingBtn">Cancel</button>
                                 <button type="submit">Done</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <!-- Event conatiner -->
-                <div class="event-container" style="width:750px; height: 400px; ">
-                    <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Events </h2>
-                    <hr style="margin-bottom: 15px;">
+                <div class="Table1">
+                    <h2> Events </h2>
+                    <hr>
                     <div class="filters">
-                        <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                        <input type="date" id="datePicker" value="" style="width: 200px">
                         <select style="width: 200px" id="select">
                             <option value="" hidden>Status</option>
                             <option value="NULL">All</option>
                             <option value="Upcoming">Upcoming</option>
                             <option value="Happening">Happening</option>
                             <option value="Finished">Finished</option>
+                        </select>
+                        <select id="childPicker" style="margin-right: 200px;">
+                            <option Value="" selected> All </option>
+                            <?php foreach ($data['children'] as $child): ?>
+                                <option value="<?= $child['name']; ?>">
+                                    <?= $child['name']; ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <table>
@@ -304,7 +299,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="glass-box" style="width: 200px !important; height: 360px !important;">
+                <div class="glass-box">
                     <div class="report-header">
                         <i class="fa-regular fa-clipboard"></i>
                         <h1>Feedback</h1>
@@ -320,18 +315,11 @@
                 </div>
             </div>
             <!-- navigation to messager -->
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
+
         </div>
         <!-- profile card -->
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow"
-                style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100"
                 class="profile" />
             <h2>
@@ -349,15 +337,79 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/ReParent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
                 LogOut
             </button>
         </div>
     </div>
     <script>
+
+    const messageDropdown = document.getElementById('messageDropdown');
+    const bellIcon = document.getElementById('bell-container');
+    const messagenumber = document.getElementById('message-number')
+
+    function toggleBellDropdown() {
+        if(messageDropdown){
+            if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                messageDropdown.style.display = "block";
+                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Seen the notifications");
+                        messagenumber.style.display = 'none';
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+                
+            } else {
+                messageDropdown.style.display = "none";
+            }
+        }
+    }
+
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/event/Logout", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
         function setChildSession(ChildID) {
             console.log(ChildID);
-            fetch(' <?= ROOT ?>/Parent/Event/setchildsession', {
+            fetch(' <?= ROOT ?>/Parent/event/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -370,7 +422,7 @@
                 .then(data => {
                     if (data.success) {
                         console.log("Child Id set in session.");
-                        window.location.href = '<?= ROOT ?>/Child/Home';
+                        window.location.href = '<?= ROOT ?>/Child/Event';
                     } else {
                         console.error("Failed to set child ID in session at " + window.location.href + " inside function setChildSession.", data.message);
                     }
@@ -378,7 +430,7 @@
                 .catch(error => console.error("Error:", error));
         }
 
-        function fetchrequest(date, status) {
+        function fetchrequest(date, status, child) {
             fetch('<?= ROOT ?>/Parent/Event/store_data', {
                     method: 'POST',
                     headers: {
@@ -386,7 +438,8 @@
                     },
                     body: JSON.stringify({
                         date: date,
-                        status: status
+                        status: status,
+                        child: child
                     })
                 })
                 .then(response => response.json())
@@ -404,7 +457,7 @@
         }
 
         function updateEventTable(events) {
-            const tbody = document.querySelector('.event-container table tbody');
+            const tbody = document.querySelector('.Table1 table tbody');
             tbody.innerHTML = '';
 
             events.forEach(event => {
@@ -414,7 +467,7 @@
                     <td> ${event.ChildName} </td>
                     <td>${new Date(event.Date).toLocaleDateString()}</td>
                     <td>${event.Status}</td>
-                    <td><i class="fas fa-eye icon eventbtn" data-eventid="${event.EventID}"></i></td>
+                    <td><i class="fas fa-eye icon eventbtn" data-eventid="${event.EventID}" data-enrollmentid = "${event.EnrollmentID}"></i></td>
                 `;
                 tbody.appendChild(row);
             });
@@ -426,50 +479,87 @@
             eventbtns.forEach(function(eventbtn) {
                 eventbtn.addEventListener('click', function() {
                     const eventId = this.dataset.eventid;
+                    const EnrollmentID = this.dataset.enrollmentid;
                     console.log(eventId);
-                    fetchEventDetails(eventId);
+                    fetchEventDetails(eventId, EnrollmentID);
                 });
             });
         }
 
-        function fetchEventDetails(eventId) {
+        function fetchEventDetails(eventId, EnrollmentID) {
             const eventNameInput = document.getElementById('event-name');
             const eventDetailsDiv = document.getElementById('event-description');
             const eventDateTimeInput = document.getElementById('datetime');
             const eventImage = document.getElementById('Eventimage');
+            const LeaveEvent = document.getElementById('LeaveEvent');
 
-            fetch('<?= ROOT ?>/Parent/Event/Event_details', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify({
-                    EventID: eventId
+            console.log(eventId);
+            fetch('<?= ROOT ?>/Parent/event/lol', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        EventID: eventId
+                    })
                 })
-            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Populate modal with event details
+                        console.log('Event details:', data.data);
                         eventNameInput.value = data.data.EventName;
                         eventDateTimeInput.value = data.data.Date;
                         eventDetailsDiv.innerHTML = data.data.Description.replace(/\./g, '.<br>');
+                        LeaveEvent.dataset.EnrollmentID = EnrollmentID
+
+
                         if (data.data.Image) {
                             eventImage.src = data.data.Image;
                         } else {
                             eventImage.src = "<?= IMAGE ?>/packages.png";
                         }
-                        toggleModal(EventModal, 'flex');
+
+                        toggleModal(EventModal, 'flex'); // Ensure EventModal is defined elsewhere
                     } else {
                         alert(data.message || 'Failed to load event details.');
                     }
                 })
-                .catch(error => {
-                    console.error('Error fetching event details:', error);
-                    alert('An error occurred while fetching event details.');
-                });
+                .catch(error => console.error("Error:", error));
         }
 
+        const LeaveEvent = document.getElementById('LeaveEvent');
+        if (LeaveEvent) {
+            LeaveEvent.addEventListener('click', function() {
+                const enrollmentId = this.dataset.EnrollmentID; // Get EnrollmentID from data attribute
+
+                if (!enrollmentId) {
+                    alert("EnrollmentID is missing!");
+                    return;
+                }
+
+                console.log("Leaving event with EnrollmentID:", enrollmentId);
+
+                fetch('<?= ROOT ?>/Parent/event/leaveEvent', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            EnrollmentID: enrollmentId // ✅ Send EnrollmentID
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Successfully left the event!");
+                            location.reload(); // ✅ Refresh the page or update UI
+                        } else {
+                            alert(data.message || "Failed to leave event.");
+                        }
+                    })
+                    .catch(error => console.error("Error leaving event:", error));
+            });
+        }
 
         function toggleModal(modal, display) {
             const mainContent = document.getElementById('main-content');
@@ -484,20 +574,24 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            fetchrequest(null, null);
+
+            fetchrequest(null, null, null);
 
             const datePicker = document.getElementById('datePicker');
             const statusDropdown = document.querySelector('select');
+            const childPicker = document.getElementById('childPicker');
 
             function applyFilters() {
                 const selectedDate = datePicker.value || null;
                 const selectedStatus = statusDropdown.value || null;
-                console.log(selectedDate, selectedStatus);
-                fetchrequest(selectedDate, selectedStatus);
+                const selectedchild = childPicker.value || null;
+                console.log(selectedDate, selectedStatus, selectedchild);
+                fetchrequest(selectedDate, selectedStatus, selectedchild);
             }
 
             datePicker.addEventListener('change', applyFilters);
             statusDropdown.addEventListener('change', applyFilters);
+            childPicker.addEventListener('change', applyFilters);
 
             const EventModal = document.getElementById('EventModal');
             const eventbtns = document.querySelectorAll('.eventbtn');

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="Profilecard" style="margin-top: 140px;">
+    <div class="Profilecard">
         <div class="Profile">
             <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer;"
                 onclick="window.location.href='<?=ROOT?>/Parent/Home'">Guardian Profile

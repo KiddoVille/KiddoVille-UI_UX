@@ -9,6 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/payment.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Stats.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Table1.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
@@ -72,20 +77,17 @@
                 </li>
             </ul>
             <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span>Help</span></a>
-            </div>
+
         </div>
         <!-- navigation -->
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?= isset($data['parent']['image']) ? $data['parent']['image'] . '?v=' . time() : '' ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
@@ -97,10 +99,10 @@
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
-                                <img src="<?= isset($child['image']) ? $child['image'] . '?v=' . time() : ROOT . '/Uploads/default_images/default_profile.jpg' ?>"
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
                                     alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                    style="margin-left: -20px;">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -112,55 +114,43 @@
         <div class="main-content">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn" style=""></i>
                 <div class="name">
-                    <h1>Hey Thilina</h1>
-                    <p>Let’s do some productive activities today</p>
+                    <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
+                    <p style="color: white">Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <!-- notoifcation icona and dropdown -->
-                <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                <!-- message icon -->
+                <div class="bell-con" id="bell-container" style="cursor: pointer;">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <?php if(!empty($data['Notification'])): ?>
+                        <?php if($data['Notification']['Seen'] != 0): ?>
+                            <div class="message-numbers" id="message-number">
+                                <p><?= $data['Notification']['Seen'] != 0 ? $data['Notification']['Seen'] : '' ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
-                            <li>
-                                <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
+                            <?php foreach($data['Notification']['data'] as $row): ?>
+                                <li data-id="<?= $row->NotificationID ?>">
+                                    <p><?= htmlspecialchars($row->Description) ?></p>
+                                    <?php if($row->Location != NULL): ?>
+                                        <a href="<?= ROOT ?>/Child/<?= $row->Location ?>">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
-                <div class="message-numbers">
-                    <p> 2</p>
-                </div>
+                <!-- Prodile btn -->
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
@@ -168,28 +158,47 @@
                 <div class="stat" style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
                     <div class="overdue-payment" style="justify-content: center; display: flex;">
                         <div style="margin-left: 20px; margin-right: 20px;">
-                            <h3 style="color: red;">Overdue Payment</h3>
-                            <p>Due Date: <strong>2023-11-01</strong></p>
-                            <p>Amount: <strong>$120</strong></p>
-                            <button class="pay-now" style="padding: 10px 15px; border-bottom-right-radius: 10px; white-space: nowrap; margin-bottom: -15px !important; margin-top: -10px; margin-left: 290px;">Pay Now</button>
+                            <?php if (isset($data['Due'])): ?>
+                                <h2 style="color: red; margin-top: -5px; margin-bottom: -5px;">Overdue Payment</h2>
+                                <p>Due Date: <strong><?= $data['Due']['Date'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Due']['Amount'] ?></strong></p>
+                                <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
+                                    <input type="hidden" name="total" id="total-input" value="<?= $data['Due']['Amount']*100 ?>" />
+                                    <button type="submit" class="pay-now">Pay Now</button>
+                                </form>
+                            <?php else: ?>
+                                <h2 style="color: red;">No Overdue Payment</h2>
+                            <?php endif; ?>
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="stat" style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
                     <div class="upcoming-payment" style="justify-content: center; display: flex;">
                         <div style="margin-left: -10px; margin-right: 20px;">
-                            <h3 style="color: green;">Upcoming Payment</h3>
-                            <p>Due Date: <strong>2023-12-15</strong></p>
-                            <p>Amount: <strong>$150</strong></p>
+                            <?php if (isset($data['Expenses'])): ?>
+                                <h2 style="color: green; margin-top: -5px; margin-bottom: -5px;">Upcoming Payment</h2>
+                                <p>Due Date: <strong><?= $data['Expenses']['Date'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Expenses']['Amount'] ?></strong></p>
+                            <?php else: ?>
+                                <h2 style="color: green;"> No Expenses </h2>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
-                <div class="stat"
-                    style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
-                    <h3 style="margin-top: -16px;"><img src="<?= IMAGE ?>/mountain.svg" alt="Attendance"
-                            style="width: 40px; margin-right: 10px; margin-bottom: -15px;">Last bill amount</h3>
-                    <div class="lol" style="cursor: pointer; margin-top: 10px;">
-                        <p>7000</p>
+                <div class="stat">
+                    <div style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
+                        <?php if (isset($data['LastBill'])): ?>
+                            <h3 style="margin-top: 5px;">
+                                <img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-top: -15px;">
+                                Last bill amount
+                            </h3>
+                            <p style="margin-top: 15px;"><?= isset($data['LastBill']['Amount']) ? $data['LastBill']['Amount'] : '0'; ?></p>
+                        <?php else: ?>
+                            <h3 style="margin-top: 5px;">
+                                <img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-top: -15px;">
+                                Enjoy the journey — your first invoice will show up here soon!
+                            </h3>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -207,21 +216,25 @@
                         <h2 style="margin-top: 10px !important; margin-bottom: 2px;"> Payment History </h2>
                         <hr>
                         <div class="filters">
-                            <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
-                            <select style="margin-right: 325px; width: 200px">
-                                <option value="" hidden>Status</option>
-                                <option value="2 - 5">Approved</option>
-                                <option value="5 - 7">Pending</option>
-                                <option value="7 - 9">Canceled</option>
+                            <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker" style="width: 200px">
+                            <select id="modePicker" style="margin-right: 100px; width: 200px">
+                                <option value="All" hidden>Mode</option>
+                                <option value="All">All</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Online">Online</option>
+                                <option value="Transfer">Transfer</option>
                             </select>
-                            <select style="margin-right: 700px; width: 200px; margin-left: -200px;">
-                                <option value="" hidden>Child</option>
-                                <option value="2 - 5">Abdulla</option>
-                                <option value="5 - 7">yunus</option>
-                                <option value="7 - 9">Ayyub</option>
+                            <select id="childPicker" style="margin-right: 400px;">
+                                <option value="All" selected hidden>Child</option>
+                                <option Value="All"> All </option>
+                                <?php foreach ($data['children'] as $child): ?>
+                                    <option value="<?= $child['name']; ?>">
+                                        <?= $child['name']; ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
-                        <table class="payments" style="margin-top: -10px;">
+                        <table id="history" class="payments" style="margin-top: -10px;">
                             <thead>
                                 <tr>
                                     <th>Payment ID</th>
@@ -234,111 +247,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="approved">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="approved">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="cancel">
-                                            <p> Declined </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="cancel">
-                                            <p> Declined </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="pending">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="approved">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11000011</td>
-                                    <td>Abdulla</td>
-                                    <td>25/03/2025</td>
-                                    <td>8:00 AM</td>
-                                    <td> 20000</td>
-                                    <td> <i class="fas fa-eye"></i> </td>
-                                    <td>
-                                        <div class="approved">
-                                            <p> Approved </p>
-                                        </div>
-                                    </td>
-                                </tr>
 
                             </tbody>
                         </table>
-                        <button class="pay"> Make payment </button>
                     </div>
                     <div id="upcoming" style="display: flex; flex-direction: row; align-items: flex-start;">
-                        <canvas id="paymentsChart" width="500" height="200"></canvas>
-                        <div>
-                            <html>
+                        <div style="width: 600px; height: 400px;">
+                            <canvas id="paymentsChart" width="500" height="200"></canvas>
+                        </div>
+                        <div style="margin-top: -10px;">
                             <div class="payment-description">
                                 <h3>
                                     Payment Description
                                 </h3>
-                                <hr>
+                                <hr style="margin-top: -17px;">
+                                <div id="month-switcher" class="month-switcher">
+                                    <button id="prev-month" class="month-nav">&lt;</button>
+                                    <span id="current-month" class="month-label">April 2025</span>
+                                    <button id="next-month" class="month-nav">&gt;</button>
+                                </div>
                                 <ul>
                                     <li>
                                         <span>
@@ -377,12 +304,12 @@
                                     Total Amount: $950
                                 </div>
                                 <div style=" display: flex;justify-content: space-between; ">
-                                    <button class="btn" onclick="window.location.href='<?=ROOT?>/Parent/PaymentSheet'">
+                                    <button class="btn" id="view-details-btn">
                                         View Details
                                     </button>
-                                    <button class="btn" onclick="window.location.href='<?=ROOT?>/Parent/Pay'">
+                                    <!-- <button class="btn" onclick="window.location.href='<?= ROOT ?>/Parent/Pay'">
                                         Pay Now
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -390,13 +317,7 @@
                 </div>
             </div>
             <!-- messager navigation -->
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots"
-                    style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
+
         </div>
         <!-- profile card -->
         <div class="profile-card" id="profileCard">
@@ -416,21 +337,85 @@
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">
                 Guardian profile
             </button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">
                 LogOut
             </button>
         </div>
     </div>
     <script>
-        function setChildSession(childName) {
-            console.log(childName);
-            fetch(' <?= ROOT ?>/Parent/Home/setchildsession', {
+
+    const messageDropdown = document.getElementById('messageDropdown');
+    const bellIcon = document.getElementById('bell-container');
+    const messagenumber = document.getElementById('message-number')
+
+    function toggleBellDropdown() {
+        if(messageDropdown){
+            if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                messageDropdown.style.display = "block";
+                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Seen the notifications");
+                        messagenumber.style.display = 'none';
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+                
+            } else {
+                messageDropdown.style.display = "none";
+            }
+        }
+    }
+
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/payment/Logout", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function setChildSession(ChildID) {
+            console.log(ChildID);
+            fetch(' <?= ROOT ?>/Parent/Payment/setchildsession', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        childName: childName
+                        ChildID: ChildID
                     })
                 })
                 .then(response => response.json())
@@ -445,7 +430,194 @@
                 .catch(error => console.error("Error:", error));
         }
 
+        function fetchPayments(date = null, mode = null, child = null) {
+            console.log(date, child, mode)
+            fetch('<?= ROOT ?>/Parent/Payment/store_history', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        child: child,
+                        mode: mode
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("data:", data.data);
+                        updaterHistoryTable(data.data);
+                    } else {
+                        console.error("Failed to fetch meal plan:", data.message);
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function updaterHistoryTable(data) {
+            const historyTableBody = document.querySelector('#history tbody');
+            historyTableBody.innerHTML = '';
+
+            data.forEach(pay => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${pay.PaymentID ?? "No res set"}</td>
+                    <td>${pay.ChildName ?? "No res set"}</td>
+                    <td>${pay.Date ?? "No res set"}</td>
+                    <td> ${pay.Time ?? "No res set"} </td>
+                    <td> ${pay.Amount ?? "No res set"} </td>
+                    <td> <i class="fas fa-eye"></i> </td>
+                    <td> ${pay.Mode ?? "No res set"} </td>
+                `;
+                historyTableBody.appendChild(row);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+
+            const form = document.getElementById("pay-form");
+
+            if(form){
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const total = document.getElementById("total-input").value;
+                    const purpose = "Overdue Pyament Parent";
+
+                    fetch("<?=ROOT?>/Parent/Payment/AmountPurpose", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ total, purpose })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.success) {
+                            form.submit();
+                        } else {
+                            alert("Something went wrong while setting session!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+                });
+            }
+
+            document.getElementById('view-details-btn').addEventListener('click', function () {
+                const monthText = document.getElementById('current-month').textContent.trim(); // e.g., "April 2025"
+                const [monthName, year] = monthText.split(' ');
+                
+                const monthMap = {
+                    January: '01', February: '02', March: '03',
+                    April: '04', May: '05', June: '06',
+                    July: '07', August: '08', September: '09',
+                    October: '10', November: '11', December: '12'
+                };
+
+                const month = monthMap[monthName];
+
+                if (month && year) {
+                    const targetUrl = `<?= ROOT ?>/Parent/PaymentSheet?month=${month}&year=${year}`;
+                    window.location.href = targetUrl;
+                } else {
+                    alert("Invalid month format.");
+                }
+            });
+
+        const paymentData = <?= json_encode($data['description']) ?>;
+        
+        let currentMonthIndex = 0;
+        const months = Object.keys(paymentData);
+        let currentMonth = months[currentMonthIndex];
+
+        const currentMonthLabel = document.getElementById('current-month');
+        const paymentList = document.querySelector('.payment-description ul');
+        const totalAmountElement = document.querySelector('.payment-description .total');
+
+        function renderMonth(month) {
+            let data = paymentData[month] || [];
+            console.log(data);
+            let total = 0;
+
+            // Update month label
+            currentMonthLabel.textContent = month;
+            paymentList.innerHTML = '';
+
+            if (!Array.isArray(data)) {
+                data = Object.entries(data).map(([service, amount]) => ({
+                    service,
+                    amount
+                }));
+            }
+
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>Service: ${item.service}</span>
+                    <span class="amount">Amount: $${item.amount}</span>
+                `;
+                paymentList.appendChild(li);
+                total += parseFloat(item.amount);
+            });
+
+            totalAmountElement.textContent = `Total Amount: $${total}`;
+        }
+
+        // Initial render
+        renderMonth(currentMonth);
+
+        const prevmonth = document.getElementById('prev-month');
+        const nextmonth =  document.getElementById('next-month');
+
+        prevmonth.addEventListener('click', () => {
+            if (currentMonthIndex < months.length - 1) {
+                currentMonthIndex++;
+                currentMonth = months[currentMonthIndex];
+                renderMonth(currentMonth);
+            }
+        });
+
+        nextmonth.addEventListener('click', () => {
+            if (currentMonthIndex > 0) {
+                currentMonthIndex--;
+                currentMonth = months[currentMonthIndex];
+                renderMonth(currentMonth);
+            }
+        });
+
+            const datePicker = document.getElementById('datePicker');
+            const childPicker = document.getElementById('childPicker');
+            const modePicker = document.getElementById('modePicker');
+
+            // Initial fetch with 'null' values (or a default option like 'All')
+            fetchPayments(null, null, null);
+
+            datePicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null; // Use null if empty
+                const modeValue = modePicker.value || null; // Use null if empty
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchPayments(dateValue, modeValue, childValue);
+            });
+
+            childPicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null;
+                const modeValue = modePicker.value || null;
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchPayments(dateValue, modeValue, childValue);
+            });
+
+            modePicker.addEventListener('change', function() {
+                const dateValue = datePicker.value || null;
+                const modeValue = modePicker.value || null;
+                const childValue = childPicker.value || 'All'; // Default to 'All' if empty
+                fetchPayments(dateValue, modeValue, childValue);
+            });
+
             const upbtn = document.getElementById('up-btn');
             const hibtn = document.getElementById('hi-btn');
             const upcoming = document.getElementById('upcoming');
@@ -453,19 +625,15 @@
             const headingres = document.getElementById('heading-res');
 
             upbtn.addEventListener('click', function() {
-                upbtn.style.color = 'white';
-                hibtn.style.color = 'black';
                 upbtn.style.backgroundColor = '#10639a';
                 hibtn.style.backgroundColor = '#60a6ec';
-                upcoming.style.display = 'block';
+                upcoming.style.display = 'flex';
                 history.style.display = 'none';
                 headingres.style.marginLeft = '180px';
                 headingres.textContent = 'Reervation';
             });
 
             hibtn.addEventListener('click', function() {
-                hibtn.style.color = 'white';
-                upbtn.style.color = 'black';
                 hibtn.style.backgroundColor = '#10639a';
                 upbtn.style.backgroundColor = '#60a6ec';
                 upcoming.style.display = 'none';
@@ -475,100 +643,76 @@
             });
         });
 
-        const data = {
-            labels: ['October', 'November', 'December'], // Months
-            datasets: [{
-                    label: 'Child 1',
-                    data: [400, 500, 450], // Payments for Child 1
-                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Child 2',
-                    data: [300, 400, 350], // Payments for Child 2
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Child 3',
-                    data: [200, 250, 300], // Payments for Child 3
-                    backgroundColor: 'rgba(255, 206, 86, 0.6)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Child 4',
-                    data: [100, 150, 200], // Payments for Child 4
-                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Child 5',
-                    data: [50, 100, 150], // Payments for Child 5
-                    backgroundColor: 'rgba(153, 102, 255, 0.6)',
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    borderWidth: 1
-                }
-            ]
-        };
+        var chartData = <?php echo ($data['graph']); ?>;
+        const ctx = document.getElementById('paymentsChart').getContext('2d');
 
-        // Configuration for the chart
-        const config = {
-            type: 'bar', // Bar chart
-            data: data,
+        // Destroy existing chart instance if it exists
+        if (window.myChart instanceof Chart) {
+            window.myChart.destroy();
+        }
+
+        // Create the chart
+        window.myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData, // Directly use the PHP-injected JSON data
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'nearest',
+                    intersect: true
+                },
                 responsive: true,
                 plugins: {
                     legend: {
                         display: true,
-                        position: 'top',
-                        font: {
-                            size: 20, // Font size in pixels
-                            weight: 'bold', // Font weight (e.g., 'bold', 'normal', 'lighter')
-                        },
+                        position: 'top'
                     },
                     title: {
                         display: true,
                         text: 'Payments per Child',
                         font: {
-                            size: 20, // Font size in pixels
-                            weight: 'bold', // Font weight (e.g., 'bold', 'normal', 'lighter')
-                        },
+                            size: 20,
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const childName = context.dataset.label;
+                                const amount = context.parsed.y;
+                                return `${childName}: $${amount}`;
+                            }
+                        }
                     }
                 },
                 scales: {
                     x: {
+                        stacked: false,
                         title: {
                             display: true,
                             text: 'Month',
                             font: {
-                                size: 20, // Font size in pixels
-                                weight: 'bold', // Font weight (e.g., 'bold', 'normal', 'lighter')
-                            },
-                        },
-                        stacked: false
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        }
                     },
                     y: {
+                        stacked: false,
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Payments (RS)',
+                            text: 'Fees',
                             font: {
-                                size: 20, // Font size in pixels
-                                weight: 'bold', // Font weight (e.g., 'bold', 'normal', 'lighter')
-                            },
+                                size: 16,
+                                weight: 'bold'
+                            }
                         }
                     }
                 }
             }
-        };
-
-        // Render the chart
-        const ctx = document.getElementById('paymentsChart').getContext('2d');
-        new Chart(ctx, config);
+        });
     </script>
 </body>
 

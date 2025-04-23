@@ -34,7 +34,6 @@ use SessionHandler;
 
             if (is_array($keyOrArray)) {
                 foreach ($keyOrArray as $key => $value) {
-
                     $_SESSION[$this->mainkey][$key] = $value;
                 }
 

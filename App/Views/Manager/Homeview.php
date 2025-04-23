@@ -8,8 +8,8 @@
     <link rel="icon" href="<?= IMAGE ?>/KIDDOVILLE_LOGO.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="<?= JS ?>/Manager/profileview.js"></script>
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/Leaverequest.css?<?= time() ?>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -20,7 +20,7 @@
                 <img src="<?= IMAGE ?>/logo_light.png" style="width: 40px;height:40px" alt="">
                 <h2 style="margin-top: 10px;font-size:25px;">KIDDO VILLE</h2>
             </div>
-            <ul>
+            <ul style=" margin-top: 10%;">
                 <li class="selected">
                     <a href="<?= ROOT ?>/Manager/Home" style="font-size: 18px;margin-left:10%;margin-top:-10%;">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
@@ -54,8 +54,8 @@
 
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="<?= ROOT ?>/Manager/Publish" style="font-size: 18px;">
-                            <i class="fas fa-share"></i>Publish</a>
+                        <a href="<?= ROOT ?>/Manager/Holiday" style="font-size: 18px;">
+                            <i class="fas fa-umbrella-beach"></i> Holiday</a>
                     </li>
                 </ul>
                 <ul>
@@ -72,6 +72,12 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
+                        <a href="<?= ROOT ?>/Manager/Leaverequest" style="font-size: 18px;">
+                            <i class="fas fa-hand-paper"></i>Request</a>
+                    </li>
+                </ul>
+                <!-- <ul>
+                    <li class="hover-effect unselected">
                         <a href="#" style="font-size: 18px;">
                             <i class="fas fa-info-circle"></i>Info
                         </a>
@@ -83,8 +89,7 @@
 
                         </ul>
                     </li>
-                </ul>
-
+                </ul> -->
             </ul>
         </div>
 
@@ -165,24 +170,25 @@
             <div class="stats">
                 <div class="stat">
                     <h3 style="color: #233E8D;">Total Attendance</h3>
-                    <h2 style="margin-bottom: 3px;color: #233E8D;">89/120</h2>
+                    <h2 style="margin-bottom: 3px;color: #233E8D;"><?= $data['Totalchild'] ?></h2>
                     <p style="color: #233E8D;">Out of 120 Children today attended to Daycare</p>
                 </div>
                 <div class="stat">
                     <h3 style="color: #233E8D;">Total Employees Attendance</h3>
-                    <h2 style="margin-bottom: 3px;color: #233E8D;">20 Employees</h2>
-                    <p style="color: #233E8D;">Out of 24 employees today attended to Daycare</p>
+                    <h2 style="margin-bottom: 3px;color: #233E8D;"><?= $data['Totaluser'] ?></h2>
+                    <p style="color: #233E8D;">Out of 27 employees today attended to Daycare</p>
                 </div>
                 <div class="stat">
                     <h3 style="color: #233E8D;">Total Enrollment</h3>
-                    <h2 style="margin-bottom: 3px;color: #233E8D;">13 Children</h2>
-                    <p style="color: #233E8D;">Dec-2024</p>
+                    <h2 style="margin-bottom: 3px;color: #233E8D;"><?= $data['Totalenroll'] ?></h2>
+                    <p style="color: #233E8D;"><?=date('F Y')?></p>
                 </div>
             </div>
 
             <div class="two-divs">
                 <div class="graph">
                     <h2 style="color: #233E8D;">Income of the month</h2>
+                    <hr>
                     <div class="description_gr">
                         <p style="color: #233E8D;font-weight:bold;color:red;font-size:18px;">Pending :LKR.56000</p>
                         <p style="color: #233E8D;font-weight:bold;color:green;font-size:18px;">Paid : LKR.123000</p>
@@ -192,131 +198,74 @@
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <script src="inventoryGraph.js"></script>
                 </div>
-                <div class="leaverequest">
-                    <div id="leave-requests" class="scroll-container">
-                        <h1 style="margin-top: 1%; color:#233E8D; font-size:24px">Leave requests</h1>
+                <div class="emergency">
+                    <h2 style="color: #233E8D; margin-left:5%; margin-top:5%;">Emergency Alerts</h2>
+                    <hr>
+                    <?php if (!empty($data['emergency'])): ?> <!-- Check if data exists -->
+                        <?php foreach ($data['emergency'] as $emergency): ?> <!-- Loop through data -->
+                            <div class="alert-box">
+                                <img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;margin-left:5%;">
+                                <p class="description" style="margin-left:30%; margin-top:-18%;">
+                                    <strong><?= htmlspecialchars($emergency->Description); ?></strong><br>
+                                </p>
+                                <p style="margin-left:30%;"><?= htmlspecialchars($emergency->Name) ?></p>
+                                <p style="margin-left: 30%;"><?= htmlspecialchars($emergency->Time) ?></p>
+                                <a href="<?= ROOT ?>/Manager/Home/emergency_delete/<?= $emergency->EmergencyID ?>"><button class="edel">Delete</button></a>
+                            </div>
+                            <br>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No Emergency alert found.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
 
-                        <!-- Leave Requests -->
-                        <div class="request" data-name="John Doe" data-role="Teacher" data-dates="2024-12-20 to 2024-12-22" data-reason="Flu">
-                            <img img src="<?= IMAGE ?>/profilePic.png"  class="resize" style="width: 50px; border-radius: 50%;">
-                            <p class="l_name"><strong>John Doe</strong><br>Teacher</p>
-                            <p style="margin-top: 10%;">From: 2024-12-20 To: 2024-12-22</p>
-                            <p>Reason: Flu</p>
-                            <button class="viewbtn">View</button>
-                        </div>
+            <div class="today_visitors" style="padding-bottom: 2%;">
+                <div class="today_visitors_header">
+                    <span style="white-space: nowrap;">
+                        <i class="fas fa-door-open" style="margin-right: 5%;"></i>Visitors Summary
+                    </span>
+                    <input type="date" class="visitorsdate" id="search-date" oninput="filterByDate();">
+                    <input type="text" class="visitorsrole" id="search-role" oninput="filterByRole();" placeholder="Search by Role">
 
-                        <div class="request" data-name="Jane Smith" data-role="Maid" data-dates="2024-12-25 to 2024-12-30" data-reason="Family Trip">
-                            <img img src="<?= IMAGE ?>/profilePic.png"  class="resize" style="width: 50px; border-radius: 50%;">
-                            <p class="l_name"><strong>Jane Smith</strong><br>Maid</p>
-                            <p style="margin-top: 10%;">From: 2024-12-25 To: 2024-12-30</p>
-                            <p>Reason: Family Trip</p>
-                            <button class="viewbtn">View</button>
-                        </div>
+                </div>
 
-                        <!-- Overlay -->
-                        <div class="overlay" id="overlay"></div>
+                <div class="visitor-table-topics">
+                    <div class="visitorname"><span>NAME</span></div>
+                    <div class="visitorposition"><span>Role</span></div>
+                    <div class="visitorpurpose"><span>PURPOSE</span></div>
+                    <div class="visitordate"><span>DATE</span></div>
+                    <div class="visitorstarttime"><span>Start Time</span></div>
+                    <div class="visitorendtime"><span>End Time</span></div>
+                </div>
 
-                        <!-- Popup -->
-                        <div class="popup" id="popup">
-                            <h3>Personal Leave</h3>
-                            <div class="form-field">
-                                <label>Employee Name</label>
-                                <input type="text" id="popup-name" readonly>
+                <div id="visitorData">
+                    <?php if (!empty($data['visitorsummary'])): ?>
+                        <?php foreach ($data['visitorsummary'] as $visitor): ?>
+                            <div class="detailed-lines">
+                                <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
+                                <div class="visitorposition" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
+                                <div class="visitorpurpose" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
+                                <div class="visitordate" style="margin-left: 0.5%;">
+                                    <span><?= htmlspecialchars(date('Y-m-d', strtotime($visitor->Date))); ?></span>
+                                </div>
+                                <div class="visitorstarttime" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Start_Time); ?></span></div>
+                                <div class="visitorendtime" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->End_Time); ?></span></div>
                             </div>
-                            <div class="form-field">
-                                <label>Application Type</label>
-                                <input type="text" value="Leave Request" readonly>
-                            </div>
-                            <div class="form-field">
-                                <label>Leave</label>
-                                <input type="text" id="popup-dates" readonly>
-                            </div>
-                            <div class="form-field">
-                                <label>Reason</label>
-                                <input type="text" id="popup-reason" readonly>
-                            </div>
-                            <div class="buttons">
-                                <button class="approve-btn">Approve</button>
-                                <button class="reject-btn">Reject</button>
-                            </div>
-                            <span class="close-btn" id="closePopup" style="text-decoration: none;">Close</span>
-                        </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No visitors found.</p>
+                    <?php endif; ?>
+                    <div id="no-results" style="display: none; color: red; text-align: center; margin-top: 11.5%;">
+                        <h1>Date Not Found</h1>
                     </div>
                 </div>
             </div>
 
-            <div class="today_visitors">
-    <div class="today_visitors_header">
-        <span><i class="fas fa-door-open"></i>Lastday Visitors Summary</span>
-    </div>
-    <div class="visitor-table-topics">
-        <div class="visitorname"><span>NAME</span></div>
-        <div class="visitorposition"><span>POSITION</span></div>
-        <div class="visitorpurpose"><span>PURPOSE</span></div>
-    </div>
-    <div class="today_visitors_content">
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Lisa Johnson</span></div>
-            <div class="visitorposition"><span>Delivery Personnel</span></div>
-            <div class="visitorpurpose"><span>Delivering office supplies</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Dr. Emily Brown</span></div>
-            <div class="visitorposition"><span>Pediatrician</span></div>
-            <div class="visitorpurpose"><span>Conducting health check-ups</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Michael Smith</span></div>
-            <div class="visitorposition"><span>Maintenance Staff</span></div>
-            <div class="visitorpurpose"><span>Inspecting AC systems</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Sarah White</span></div>
-            <div class="visitorposition"><span>Parent</span></div>
-            <div class="visitorpurpose"><span>Meeting with teachers</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>David Green</span></div>
-            <div class="visitorposition"><span>IT Technician</span></div>
-            <div class="visitorpurpose"><span>Fixing internet issues</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Anna Roberts</span></div>
-            <div class="visitorposition"><span>Event Organizer</span></div>
-            <div class="visitorpurpose"><span>Planning holiday events</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>John Carter</span></div>
-            <div class="visitorposition"><span>Government Inspector</span></div>
-            <div class="visitorpurpose"><span>Checking safety protocols</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Karen Lee</span></div>
-            <div class="visitorposition"><span>Consultant</span></div>
-            <div class="visitorpurpose"><span>Discussing childcare strategy</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Daniel Williams</span></div>
-            <div class="visitorposition"><span>Courier</span></div>
-            <div class="visitorpurpose"><span>Package delivery</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Jessica Brown</span></div>
-            <div class="visitorposition"><span>Photographer</span></div>
-            <div class="visitorpurpose"><span>Taking promotional photos</span></div>
-        </div>
-        <div class="detailed-lines">
-            <div class="visitorname"><span>Chris Taylor</span></div>
-            <div class="visitorposition"><span>Electrician</span></div>
-            <div class="visitorpurpose"><span>Repairing power issues</span></div>
-        </div>
-    </div>
-</div>
-
 
         </div>
-
     </div>
+
 
     <script>
         // Get the canvas element
@@ -384,72 +333,64 @@
         });
 
 
+        const filterByDate = () => {
+            const searchDate = document.getElementById('search-date').value; // Get input date
+            const visitors = document.querySelectorAll('.detailed-lines'); // Select all visitor records
+            const noResultsMessage = document.getElementById('no-results');
 
-        const leaveRequests = [{
-                name: "Alice Brown",
-                type: "Teacher",
-                from: "2025-01-01",
-                to: "2025-03-01",
-                Reason: "Flud"
-            },
-            {
-                name: "Mark Lee",
-                type: "Reciptionist",
-                from: "2024-12-23",
-                to: "2024-12-25",
-                Reason: "Sick leave"
-            },
-        ];
+            let found = false; // Track if any match is found
+            noResultsMessage.style.display = "none"; // Hide "Date Not Found" initially
 
-        const container = document.getElementById('leave-requests');
+            for (let i = 0; i < visitors.length; i++) {
+                let visitorDateElement = visitors[i].querySelector('.visitordate span'); // Get the date span inside each visitor record
 
-        leaveRequests.forEach(request => {
-            const requestDiv = document.createElement('div');
-            requestDiv.className = 'request';
-            requestDiv.innerHTML = ` <img src="<?= IMAGE ?>/profilePic.png"  class="resize"><p class="l_name"><strong>${request.name}</strong><br>${request.type}</p>
-                                         <p style="margin-top: 10%;">From: ${request.from} To: ${request.to}</p>
-                                         <p>Reason: ${request.Reason}</p>  <button class="viewbtn">View</button>`;
-            container.appendChild(requestDiv);
-        });
+                if (visitorDateElement) {
+                    let visitorDate = visitorDateElement.textContent.trim(); // Get the text content (date)
 
-        const viewButtons = document.querySelectorAll('.viewbtn');
-        const overlay = document.getElementById('overlay');
-        const popup = document.getElementById('popup');
-        const closePopup = document.getElementById('closePopup');
+                    // Compare the selected date with the visitor's date
+                    if (searchDate === visitorDate) {
+                        visitors[i].style.display = ""; // Show matching record
+                        found = true;
+                    } else {
+                        visitors[i].style.display = "none"; // Hide non-matching records
+                    }
+                }
+            }
 
-        const popupName = document.getElementById('popup-name');
-        const popupDates = document.getElementById('popup-dates');
-        const popupReason = document.getElementById('popup-reason');
+            // If no match is found, show the "Date Not Found" message
+            if (!found && searchDate !== "") {
+                noResultsMessage.style.display = "block";
+            }
+        };
 
-        viewButtons.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                const requestDiv = e.target.closest('.request');
-                const name = requestDiv.getAttribute('data-name');
-                const dates = requestDiv.getAttribute('data-dates');
-                const reason = requestDiv.getAttribute('data-reason');
+        const filterByRole = () => {
+    const searchRole = document.getElementById('search-role').value.toLowerCase().trim();
+    const visitors = document.querySelectorAll('.detailed-lines');
+    const noResultsMessage = document.getElementById('no-results');
 
-                // Set popup content dynamically
-                popupName.value = name;
-                popupDates.value = dates;
-                popupReason.value = reason;
+    let found = false;
+    noResultsMessage.style.display = "none";
 
-                // Show popup
-                popup.style.display = 'block';
-                overlay.style.display = 'block';
-            });
-        });
+    for (let i = 0; i < visitors.length; i++) {
+        let visitorRoleElement = visitors[i].querySelector('.visitorposition span');
 
-        // Close Popup
-        closePopup.addEventListener('click', () => {
-            popup.style.display = 'none';
-            overlay.style.display = 'none';
-        });
+        if (visitorRoleElement) {
+            let visitorRole = visitorRoleElement.textContent.toLowerCase().trim();
 
-        overlay.addEventListener('click', () => {
-            popup.style.display = 'none';
-            overlay.style.display = 'none';
-        });
+            if (visitorRole.includes(searchRole)) {
+                visitors[i].style.display = "";
+                found = true;
+            } else {
+                visitors[i].style.display = "none";
+            }
+        }
+    }
+
+    if (!found && searchRole !== "") {
+        noResultsMessage.style.display = "block";
+    }
+};
+
     </script>
 </body>
-
 </html>

@@ -1,3 +1,6 @@
+@import url('../variables.css');
+
+
 body::-webkit-scrollbar {
     display: none;
 }
@@ -13,9 +16,9 @@ body::-webkit-scrollbar {
 
 .activity-schedule h2 {
     font-size: 24px;
-    color: #233E8D;
+    color: var(--heading);
     margin: 0 0 20px;
-    border-bottom: 2px solid #233E8D;
+    border-bottom: 2px solid var(--heading);
     width: 75%;
     padding-bottom: 10px;
 }
@@ -65,8 +68,8 @@ body::-webkit-scrollbar {
 }
 
 .timetable table th {
-    background-color: #f5f5f5;
-    color: #233E8D;
+    background-color: var(--input-field-background);
+    color: var(--heading);
     padding-top: 15px;
     padding-bottom: 15px;
 }
@@ -76,7 +79,7 @@ body::-webkit-scrollbar {
 }
 
 .timetable table tr:hover {
-    background-color: #e0e0e0;
+    background-color: var(--body-second);
 }
 
 .timetable .description {
@@ -109,7 +112,7 @@ body::-webkit-scrollbar {
 .pickup-popup {
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     padding: 20px;
     width: 400px;
     border: 1px solid #ccc;
@@ -137,10 +140,10 @@ body::-webkit-scrollbar {
 }
 
 .pickup-section {
-    background-color: #e0f7fa;
+    background-color: var(--pickup);
     border-radius: 10px;
     padding: 5px 20px;
-    border: 2px solid #b2ebf2;
+    border: 2px solid var(--pickup-border);
     position: relative;
 }
 
@@ -161,7 +164,7 @@ body::-webkit-scrollbar {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 input[type="range"] {
@@ -182,7 +185,7 @@ input[type="range"] {
     padding: 10px;
     position: relative;
     transition: background-color 0.3s;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
 }
 
 .person-section:hover {
@@ -320,7 +323,7 @@ input[type="range"] {
     margin-left: 10px;
     border-radius: 5px;
     margin: 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
     justify-content: center;
     align-items: center;
     transition: transform 0.3s, z-index 0s;
@@ -334,7 +337,7 @@ input[type="range"] {
 }
 
 .select {
-    background-color: #b2ebf2 !important;
+    background-color: var(--pickup-border) !important;
 }
 
 .dates::-webkit-scrollbar {
@@ -381,7 +384,7 @@ input[type="range"] {
     padding: 2px 3px;
     background-color: white;
     transition: transform 0.3s, z-index 0s;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--popup-background);
     cursor: pointer;
 }
 
@@ -405,7 +408,7 @@ input[type="range"] {
 }
 
 .back-con {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -418,7 +421,7 @@ input[type="range"] {
 }
 
 .refresh-con {
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;
@@ -449,7 +452,7 @@ input[type="range"] {
 
 .View-Package {
     background-color: white;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--popup-background);
     padding: 20px;
     border: 1px solid #ccc;
     animation: popupSlideIn 0.5s ease;
@@ -487,7 +490,7 @@ input[type="range"] {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     margin-left: 15px;
 }
 
@@ -498,7 +501,7 @@ input[type="range"] {
     margin-bottom: 20px;
     font-size: 14px;
     line-height: 1.5;
-    background-color: #f0f0f0;
+    background-color: var(--body-first);
     width: 83%;
     margin-left: 15px;
 }
@@ -600,20 +603,24 @@ td {
 
 .report-page {
     border-radius: 15px;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 10px 10px 15px var(--popup-background);
     display: flex;
     flex-direction: column;
-    box-shadow: 8px 0px 12px -2px rgba(128, 128, 128, 0.5), 8px 0 12px -2px rgba(128, 128, 128, 0.5);
+    box-shadow: 8px 0px 12px -2px var(--background-opacity), 8px 0 12px -2px var(--background-opacity);
     padding: 25px;
     margin: 20px 20px;
     margin-top: 90px;
     transition: width 0.3s ease-in-out;
     flex-grow: 1;
     width: 100%;
+    margin-left: 0px;
+    margin-top: 100px;
 }
 
 .report-header {
-    display: flex;
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     padding: 10px 10px;
     margin: 5px 4px;
@@ -623,7 +630,7 @@ td {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     border-radius: 8px;
     padding: 20px;
     background-color: #fff;
@@ -662,10 +669,13 @@ td {
 
 .report-header .attendence-bar {
     padding: 20px 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     border-radius: 8px;
     padding: 20px;
     background-color: #fff;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .attendence-bar {
@@ -673,12 +683,12 @@ td {
 }
 
 .profile hr {
-    border: 1px solid #ccccccb0;
+    border: 1px solid var(--hr);
     margin: 5px 0px;
 }
 
 .attendence-bar hr {
-    border: 1px solid #ccccccb0;
+    border: 1px solid var(--hr);
     margin: 5px 0px;
 }
 
@@ -700,7 +710,7 @@ td {
 }
 
 .timetable hr {
-    border: 1px solid #ccccccb0;
+    border: 1px solid var(--hr);
     margin: 0px 0px;
 }
 
@@ -708,7 +718,7 @@ td {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     border-radius: 8px;
     padding: 20px;
     background-color: #fff;
@@ -730,7 +740,7 @@ td {
     border: 1px solid #ccc;
     border-top-left-radius: 5px;
     border-top-left-radius: 5px;
-    background-color: #007bff;
+    background-color: var(--button-blue);
 }
 
 .subject-grades-titles {
@@ -767,7 +777,7 @@ td {
 
 .social,
 .behaviour {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     border-radius: 8px;
     padding: 20px;
     background-color: #fff;
@@ -810,7 +820,7 @@ td {
     width: 100%;
     border-radius: 5px;
     border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--popup-background);
     border-radius: 8px;
     padding: 20px;
     background-color: #fff;

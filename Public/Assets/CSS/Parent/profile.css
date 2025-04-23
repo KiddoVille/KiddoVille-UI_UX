@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 body {
     margin: 0;
     padding: 0;
@@ -16,7 +18,7 @@ body {
     margin: 50px;
     justify-content: center;
     border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--popup-background);
     border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -104,7 +106,7 @@ label{
     width: 300px;
     height: 35px;
     font-size: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px var(--popup-background);
     transition: box-shadow 0.3s ease;
     padding-left: 10px;
 }
@@ -114,7 +116,7 @@ label{
 .data input[type='email']:hover,
 .data input[type='date']:hover,
 .data select:hover {
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 12px var(--popup-background);
 }
 
 .data select {
@@ -163,7 +165,7 @@ label{
 }
 .Save:hover {
     transform: scale(1.1);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 6px 12px var(--popup-background);
 }
 .edit{
     position: absolute;
@@ -183,7 +185,7 @@ label{
     margin-right: 10px;
 }
 .refresh-con{
-    background-color: #007bff;
+    background-color: var(--button-blue);
     z-index: 10000;
     height: 40px;
     display: flex;

@@ -20,6 +20,35 @@
 
             return $children;
         }
+
+        public function child_count(){
+            return count($this->store_child());
+        }
+
+        public function getAgeGroup($dob) {
+            $current_year = date("Y");
+            $dob_date = new \DateTime($dob);
+            $start_of_year = new \DateTime("$current_year-01-01");
+            $age = $start_of_year->diff($dob_date)->y;
+        
+            // Define age groups
+            $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+            
+            // Default AgeGroup
+            $AgeGroup = '2-3';
+        
+            // Match age to group
+            foreach ($age_groups as $group) {
+                list($start, $end) = explode('-', $group);
+                if ($age >= $start && $age <= $end) {
+                    $AgeGroup = $group;
+                    break;
+                }
+            }
+        
+            return $AgeGroup;
+        }
+        
     }
 
 ?>

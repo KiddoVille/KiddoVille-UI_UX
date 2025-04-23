@@ -8,6 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Home.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Alert.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/deletepopup.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/MessageDropdown.js?v=<?= time() ?>"> </script>
     <script src="<?= JS ?>/Child/OTP.js?v=<?= time() ?>"></script>
@@ -73,29 +78,24 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
-            <div class="help">
-                <a href="#" style="text-decoration:none"><i class="fas fa-question-circle"></i> <span
-                        id="help">Help</span></a>
-            </div>
+            <hr>
         </div>
         <!-- navigation to choose child -->
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px; margin-left: 20px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first"
                             onclick="removechildsession();">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 10px;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
@@ -103,14 +103,9 @@
                             <li class="first
                                 <?php if ($child['name'] === $data['selectedchildren']['name']) {
                                     echo "select-child";
-                                } ?>
-                            "
-                            onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
-                                <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; <?php if ($child['name'] !== $data['selectedchildren']['name']) {
-                                                                                                echo "margin-left: -20px !important";
-                                                                                            } ?>">
+                                } ?>"
+                                onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
+                                <img src="<?php echo htmlspecialchars($child['image']); ?>" alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -119,59 +114,46 @@
                 </div>
             </div>
         </div>
-        <div class="main-content" style="margin-left: 150px; height: 100%; width: 90%;">
+        <div class="main-content" id="main-content" style="margin-left: 150px; height: 100%; width: 90%;">
             <!-- Header -->
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn"
-                    style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
                     <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
                     <p style="color: white">Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
                 <!-- message icon -->
                 <div class="bell-con" id="bell-container" style="cursor: pointer;">
                     <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                    <?php if(!empty($data['Notification'])): ?>
+                        <?php if($data['Notification']['Seen'] != 0): ?>
+                            <div class="message-numbers" id="message-number">
+                                <p><?= $data['Notification']['Seen'] != 0 ? $data['Notification']['Seen'] : '' ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
-                            <li>
-                                <p>New Message 1 <i href="" class="fas fa-paper-plane"></i> </p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i href="" class="fas fa-paper-plane"></i></p>
-                                <p class="content"> content like a message</p>
-                            </li>
+                            <?php foreach($data['Notification']['data'] as $row): ?>
+                                <li data-id="<?= $row->NotificationID ?>">
+                                    <p><?= htmlspecialchars($row->Description) ?></p>
+                                    <?php if($row->Location != NULL): ?>
+                                        <a href="<?= ROOT ?>/Child/<?= $row->Location ?>">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </div>
-                </div>
-                <div class="message-numbers">
-                    <p> 2</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <!-- Prodile btn -->
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
@@ -181,8 +163,8 @@
                     <h1 style="color: #233E8D; margin-left: 15px;">
                         <?= isset($data['selectedchildren']['name']) ? $data['selectedchildren']['name'] : 'No name set'; ?> Our Star Of The Day</h1>
                     <p style="margin-left: 15px; margin-bottom: 0px;"> Today, we shine a spotlight on Abdulla, a bright and joyful part of our family! </p>
-                    <div class="report-header">
-                        <div class="profile" id="profile" style="max-height: 350px; margin-right: 2%; width: 200px !important;">
+                    <div class="report-header" id="report-header1">
+                        <div class="profile" id="profile" style="max-height: 350px; margin-right: 2%; width: 250px !important;">
                             <h3 style="margin-top: 0px; margin-bottom: 2px;">Child Profile</h3>
                             <hr>
                             <div class="first-row">
@@ -208,17 +190,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="attendence-bar" style="margin-right: 2%;" id="attendance">
-                            <h3 style="margin-top: 0px;">Child Attendence </h3>
-                            <hr>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
-                            <p style="margin-top: 18px;"> Completed Tasks</p>
-                            <input style="margin-top: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
-                        </div>
-                        <div class="timetable" id="timetable">
+                        <div class="timetable" id="timetable" style="width: 450px;">
                             <h3 style="margin-top: 0px; margin-bottom: 5px;">Activity Schedule</h3>
                             <hr>
                             <div class="filters">
@@ -234,7 +206,7 @@
                                 </thead>
                             </table>
                             <!-- childs activity for the day -->
-                            <div class="table-body-container" style="max-height: 150px; overflow-y: auto; padding: 10px;">
+                            <div class="table-body-container" style=" max-height: 150px; overflow-y: auto; padding: 10px;">
                                 <table style="width: 100%; border-collapse: collapse;">
                                     <tbody>
                                         <tr>
@@ -286,13 +258,80 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="attendence-bar" style=" width: 250px;" id="attendance">
+                            <h3 style="margin-top: 0px;">Child Attendence </h3>
+                            <hr>
+                            <div class="progress" style="margin-left: -10px;">
+                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba <?= $data['graph'] ?>%, rgba(204, 204, 204, 0.56) 0);">
+                                    <?= $data['graph'] ?>%
+                                </div>
+                            </div>
+                            <p style="margin-top: 18px;"> Completed Tasks</p>
+                            <input style="margin-top: -10px; margin-bottom: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
+                        </div>
                     </div>
-                    <div class="report-header" style="display: flex; flex-direction: row;">
-                        <div class="timetable">
+                    <div class="report-header" id="report-header2">
+                        <div class="attendence-bar" style=" width: 250px; display: none;" id="attendance2">
+                            <h3 style="margin-top: 0px;">Child Attendence </h3>
+                            <hr>
+                            <div class="progress" style="margin-left: -10px;">
+                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#3974ba <?= $data['graph'] ?>%, rgba(204, 204, 204, 0.56) 0);">
+                                    <?= $data['graph'] ?>%
+                                </div>
+                            </div>
+                            <p style="margin-top: 18px;"> Completed Tasks</p>
+                            <input style="margin-top: -10px; margin-bottom: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
+                        </div>
+                        <div class="social" style="margin-left: 0px; width: 300px;" id="social">
+                            <!-- <div class="social-head">
+                                <h3 style="display: inline;">Social Development</h3>
+                            </div>
+                            <div class="skills">
+                                <span style="display: inline;">Connecting with Peers</span>
+                                <input type="range" min="0" max="100" value="50" step="20" readonly>
+                            </div>
+                            <div class="skills">
+                                <span style="display: inline;">Connecting with Peers</span>
+                                <input type="range" min="0" max="100" value="50" step="20" readonly>
+                            </div>
+                            <div class="behaviour-skills" style="margin-top: 0px;">
+                                <div class="text-line">
+                                    <input type="checkbox" name="behaviour">Consistently calm and cooperative
+                                </div>
+
+                                <div class="text-line">
+                                    <input type="checkbox" name="behaviour">Expresses emotions freely
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="profile" style="width: 200px;" id="pickup">
+                            <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Pickup </h3>
+                            <hr>
+                            <div class="overdue-payment card" style="margin-top: 10px; justify-content:center; align-items: center; text-align: center; padding: 5px 20px; display: <?= isset($data['stat2']['nochild']) ? 'flex' : 'none' ?>">
+                                <h4> No child In daycare </h4>
+                            </div>
+                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px; display: <?= isset($data['stat2']['nochild']) ? 'none' : 'flex' ?>">
+                                <div style="display: flex; flex-direction: row;">
+                                    <h4> Time : </h4>
+                                    <p style="margin: 23 0 0 auto;"><?= isset($data['stat2']['Time']) ? $data['stat2']['Time'] : '' ?> </p>
+                                </div>
+                                <div style="display: flex; flex-direction: row;">
+                                    <h4 style="margin-top: -10px; white-space: nowrap;"> Person : </h4>
+                                    <p style="margin: -8 5 0 auto;"> <?= isset($data['stat2']['Person']) ? $data['stat2']['Person'] : '' ?> </p>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: row; display: <?= isset($data['stat2']['nochild']) ? 'none' : 'flex' ?>">
+                                <button class="button" id="openPickupModal" style="width: 100%; margin: 10px;"> Customize </button>
+                                <?php if (($data['stat2']['Time'] !== '8:00PM' && $data['stat2']['Person'] !== 'Parent')): ?>
+                                    <button class="button" id="ResetPickupBtn" style="width: 100%; margin: 10px;"> Reset </button>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="timetable" style="width: 450px;">
                             <h3 style="margin-top: 0px; margin-bottom: 5px;">Subject Marks</h3>
                             <hr>
                             <div class="filters">
-                                <input type="date" id="datePicker" value="2025-01-10" style="width: 200px">
+                                <input type="date" max="<?= (date('Y-m-d')); ?>" id="datePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
                             </div>
                             <table style="width: 100%;">
                                 <thead>
@@ -325,53 +364,16 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="social" style="margin-left: 0px; width: 50%;">
-                            <div class="social-head">
-                                <h3 style="display: inline;">Social Development</h3>
-                            </div>
-                            <div class="skills">
-                                <span style="display: inline;">Connecting with Peers</span>
-                                <input type="range" min="0" max="100" value="50" step="20" readonly>
-                            </div>
-                            <div class="skills">
-                                <span style="display: inline;">Connecting with Peers</span>
-                                <input type="range" min="0" max="100" value="50" step="20" readonly>
-                            </div>
-                            <div class="behaviour-skills" style="margin-top: 0px;">
-                                <div class="text-line">
-                                    <input type="checkbox" name="behaviour">Consistently calm and cooperative
-                                </div>
-
-                                <div class="text-line">
-                                    <input type="checkbox" name="behaviour">Expresses emotions freely
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profile margin-right: 1%;">
-                            <h3 style="margin-top: 10px !important; margin-bottom: 2px;"> Departure </h3>
-                            <hr>
-                            <div class="overdue-payment card" style="flex-direction: column; margin-top: 10px; padding: 5px 20px;">
-                                <div style="display: flex; flex-direction: row;">
-                                    <h4 style="white-space: nowrap;"> Time : </h4>
-                                    <p style="white-space: nowrap; margin-top: 22px;  margin-left: 5px;"> 6:00 PM </p>
-                                </div>
-                                <div style="display: flex; flex-direction: row;">
-                                    <h4 style="white-space: nowrap; margin-top: -10px;"> Person : </h4>
-                                    <p style="white-space: nowrap; margin-top: -10px; margin-left: 5px;"> Parent </p>
-                                </div>
-                            </div>
-                            <button class="button" style="margin: 0px !important; padding: 15px 20px 15px 20px;"> Customize </button>
-                        </div>
                     </div>
                 </div>
                 <!-- tasks right navbar -->
-                <div class="task-container" id="tasknavbar" style="top: 0; margin-bottom: -20px; margin-left: -50px; position: sticky; height: 770px; overflow-y: auto;">
+                <div class="task-container" id="tasknavbar" style="top: 0; margin-bottom: -20px; margin-left: -200px; position: sticky; height: 770px; overflow-y: auto;">
                     <h2 style="margin-top: 30px;"> Quick Tasks Hub </h2>
                     <div class="card">
-                        <h2 style="margin-top: 15px;">November</h2>
+                        <h2 style="margin-top: 15px;" id="calendar-title">November</h2>
                         <div class="calendar-header">
-                            <a href="#">&lt;October</a>
-                            <a href="#">December&gt;</a>
+                            <a href="#" id="prev-month">&lt;October</a>
+                            <a href="#" id="next-month">December&gt;</a>
                         </div>
                         <table class="calendar-table" style="margin-bottom: 15px;">
                             <thead>
@@ -385,7 +387,7 @@
                                     <th>Sun</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="calendar-body">
                                 <tr>
                                     <td></td>
                                     <td></td>
@@ -435,36 +437,16 @@
                         </table>
                     </div>
                     <div class="card">
-                        <h2>Upcoming Tasks</h2>
-                        <div class="task-item">
-                            <div class="task-info">
-                                <p class="task-title">Math Homework</p>
-                                <span class="task-deadline">Due: Nov 5, 2024</span>
-                            </div>
-                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                        </div>
-                        <div class="task-item">
-                            <div class="task-info">
-                                <p class="task-title">History Essay</p>
-                                <span class="task-deadline">Due: Nov 10, 2024</span>
-                            </div>
-                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                        </div>
-                        <div class="task-item">
-                            <div class="task-info">
-                                <p class="task-title">Science Project</p>
-                                <span class="task-deadline">Due: Nov 15, 2024</span>
-                            </div>
-                            <a href="#" class="task-icon" title="View Task Details"><i class="fas fa-paper-plane"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
+                        <?php if(!empty($data['holiday'])): ?>
+                            <h2>Upcoming Holidays</h2>
+                            <div id="holiday-list"></div>
+                        <?php endif ?>
                         <h2>Main menu</h2>
                         <a href="#" class="main-menu-item">
                             <i class="fas fa-bullhorn icon-announcements"></i>
                             <span>Site announcements</span>
                         </a>
-                        <a href="#" class="main-menu-item">
+                        <a href="<?=ROOT?>/Child/Funzonehome" class="main-menu-item">
                             <i class="fas fa-globe icon-library"></i>
                             <span>KIDDOVILLE Funzone</span>
                         </a>
@@ -604,32 +586,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="pickup-section">
-                        <label for="otp">Confirmation OTP <span id="red-star2" class="red-star"> *</span> </label>
-                        <input required class="otp" id="otp" type="text" maxlength="6" pattern="\d*" inputmode="numeric"
-                            placeholder="000000" />
-                        <small>Enter a number and inform the pickup person</small>
-                    </div>
-                    <div class="pickup-section checkbox-section">
-                        <label>
-                            <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> For all children
-                        </label>
-                        <label>
-                            <input type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" /> Inform on pickup
-                        </label>
-                    </div>
-                    <div class="terms">
-                        <input required type="checkbox" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" />
-                        <label>
-                            I agree to the
-                            <a href="#">Terms of Service</a>
-                        </label>
-                    </div>
-                    <div class="button-popup">
-                        <button style="margin-right: 230px;" id="closeModalBtn">Cancel</button>
-                        <button>Done</button>
-                    </div>
-                </form>
+                    <h1>Schedule pickup</h1>
+                    <form id="pickupForm">
+                        <div class="pickup-section">
+                            <label for="time">Select Time <span id="red-star" class="red-star"> *</span></label>
+                            <input name="Time" style="width: 330px;" id="pickuptime" required class="time" type="time" value="<?= isset($data['stat2']['Time']) ? $data['stat2']['Time'] : '' ?>" min="08:00" max="20:00" />
+                            <p id="timeError" style="color: red; display: none;"></p>
+                        </div>
+                        <div class="pickup-section">
+                            <label>Select person for pickup</label>
+                            <div class="person-section" style="display: flex; flex-direction: row; align-items: flex-start">
+                                <div class="person-container" style="display: flex; flex-direction: row;padding: 5px 10px; border-radius: 10px; cursor:pointer; background-Color: #ADD8E6"
+                                    onclick="selectPerson('Guardian')">
+                                    <input type="radio" name="Person" id="guardianRadio" value="guardian" hidden>
+                                    <img id="guardianImage" alt="Guardian's photo" height="50" src="<?php echo (htmlspecialchars($data['guardian']['Image'])); ?>" width="50" />
+                                    <div class="person-info">
+                                        <span><?= $data['guardian']['name'] ?></span>
+                                    </div>
+                                </div>
+                                <div class="add-person-container" style="display: flex; flex-direction: row;padding: 5px 10px; margin-left: 0px;" id="add-person">
+                                    <label for="newPersonImageInput" class="add-person"
+                                        style="margin-right: 2px; width: 55px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: #ddd; cursor: pointer;">
+                                        +
+                                    </label>
+                                    <input type="file" id="newPersonImageInput" name="newPersonImage" accept="image/*" style="display: none;"
+                                        onchange="previewNewPersonImage(event)">
+                                </div>
+
+                                <div class="person-container" id="newPersonContainer" style="display: none;padding: 5px 10px; flex-direction: row; margin-left: 10px; padding: 5px 10px; border-radius: 10px; cursor:pointer;" onclick="selectPerson('New')">
+                                    <input type="radio" name="Person" id="newPersonRadio" value="new" hidden>
+                                    <img id="newPersonImage" alt="New person's photo" height="50" width="50" />
+                                </div>
+                            </div>
+                            <input type="hidden" name="PersonType" id="selectedPersonType" value="Guardian">
+                        </div>
+                        <div class="button-popup" style="margin-top: 10px;">
+                            <button style="margin-right: 230px;" id="closeModalBtn">Cancel</button>
+                            <button>Done</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -759,8 +755,298 @@
     <div class="tasks" id="taskbtn" style="position: fixed;">
         <i class="fas fa-chevron-left" id="taskicon"></i>
     </div>
+
+    <div class="verification-alert" id="alert" style="display: none; top: 5%;">
+        <div class="alert-icon">
+            <img src="<?= IMAGE ?>/success.svg" id="alert-img" alt="success icon">
+        </div>
+        <div class="alert-message">
+            <h1 id="alert-message">Success</h1>
+        </div>
+    </div>
+
+    <div id="deletePopup1" class="delete-popup-overlay" style="position: fixed;">
+        <div class="delete-popup-content">
+            <p>Are you sure you want to Reset Pickup details?</p>
+            <div class="delete-popup-buttons">
+                <button id="confirmDelete" class="delete-popup-btn delete-popup-confirm" onclick="ResetPickup()">Yes</button>
+                <button id="cancelDelete" class="delete-popup-btn delete-popup-cancel" onclick="document.getElementById('deletePopup').style.display='none'">No</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
+
+    const pickupModal = document.getElementById('pickupModal');
+    const pickupForm = document.getElementById('pickupForm');
+    const alert = document.getElementById('alert');
+    const alertmessage = document.getElementById('alert-message'); // assume this exists
+    const timeError = document.getElementById('timeError'); // error span below time input
+    const alertimg =  document.getElementById('alert-img');
+
+    pickupForm.addEventListener("submit", function(event){
+        event.preventDefault();
+        
+        const formData = new FormData(pickupForm);
+
+        fetch(pickupForm.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alertmessage.textContent = data.message || "Pickup scheduled successfully!";
+                alertimg.src = '<?=IMAGE?>/Success.svg';
+                alert.style.display = 'flex';
+                pickupModal.style.display = 'none';
+
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                    location.reload();
+                }, 2000);
+            } else {
+                // Show form again if there was an error
+                pickupModal.style.display = 'block';
+
+                // Display error under time input
+                if (timeError) {
+                    timeError.textContent = data.error || "Validation failed.";
+                    timeError.style.display = 'block';
+                }
+
+                alertmessage.textContent = "Failed to schedule pickup.";
+                alert.style.display = 'flex';
+                alertimg.src = '<?=IMAGE?>/Faile.svg';
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alertmessage.textContent = "An unexpected error occurred.";
+            alert.style.display = 'flex';
+        });
+    });
+
+    document.getElementById('pickuptime').addEventListener("input", () => {
+        timeError.style.display = 'none';
+        timeError.textContent = '';
+    });
+
+    const messageDropdown = document.getElementById('messageDropdown');
+    const bellIcon = document.getElementById('bell-container');
+    const messagenumber = document.getElementById('message-number')
+
+    function toggleBellDropdown() {
+        if(messageDropdown){
+            if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                messageDropdown.style.display = "block";
+                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Seen the notifications");
+                        messagenumber.style.display = 'none';
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+                
+            } else {
+                messageDropdown.style.display = "none";
+            }
+        }
+    }
+
+const holidays = <?php echo(json_encode($data['holiday'])); ?>
+
+if(Array.isArray(holidays) && holidays.length > 0){
+    function renderHolidays(data) {
+        const container = document.getElementById("holiday-list");
+        container.innerHTML = "";
+
+        data.forEach((holiday, index) => {
+            const item = document.createElement("div");
+            item.className = "holiday-item";
+
+            const header = document.createElement("div");
+            header.className = "holiday-header";
+            header.innerHTML = `
+                <i class="fas fa-calendar-alt holiday-icon"></i>
+                <span>${holiday.Date}</span>
+                <span>${holiday.Name}</span>
+            `;
+
+            const details = document.createElement("div");
+            details.className = "holiday-details";
+            details.textContent = holiday.Details;
+
+            item.appendChild(header);
+            item.appendChild(details);
+
+            // Toggle on click
+            item.addEventListener("click", () => {
+                details.style.display = details.style.display === "none" || !details.style.display
+                    ? "block"
+                    : "none";
+            });
+
+            container.appendChild(item);
+        });
+    }
+}
+
+    let currentMonth = new Date().getMonth() + 1;
+    let currentYear = new Date().getFullYear();
+    let Month = 0;
+    let Year = 0;
+
+    function fetchCalendar(Month, Year) {
+        fetch("<?= ROOT ?>/Child/Home/GetCalendar", {
+                method: "POST",
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    Month: Month,
+                    Year: Year
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(data);
+                    renderCalendar(data);
+                } else {
+                    alert("Logout failed. Try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    function renderCalendar(data) {
+        if (!data.success) return;
+
+        const calendarTitle = document.getElementById("calendar-title");
+        const calendarBody = document.getElementById("calendar-body");
+        const prev_month = document.getElementById("prev-month");
+        const next_month = document.getElementById("next-month");
+        Month = data.month;
+        Year = data.year;
+
+        let prevMonth = data.month - 1;
+        const date = new Date(2000, prevMonth - 1, 1);
+        prevMonth = date.toLocaleString('default', { month: 'long' });
+        prev_month.textContent = prevMonth;
+
+        let nextMonth = data.month + 1;
+        const date2 = new Date(2000, nextMonth - 1, 1);
+        nextMonth = date2.toLocaleString('default', { month: 'long' });
+        next_month.textContent = nextMonth;
+
+        calendarTitle.textContent = data.monthName + ' ' + data.year ;
+        calendarBody.innerHTML = "";
+
+        const startDay = data.startDay;
+        const totalDays = data.totalDays;
+
+        let dayCounter = 1;
+        let AttendanceCounter = 0;
+        let HolidayCounter = 0;
+        let row = document.createElement("tr");
+
+        // Fill leading empty cells
+        for (let i = 0; i < startDay; i++) {
+            const emptyCell = document.createElement("td");
+            emptyCell.textContent = "  ";
+            emptyCell.style.marginRight = "10px";
+            row.appendChild(emptyCell);
+        }
+
+        for (let i = startDay; i < 7; i++) {
+            const cell = document.createElement("td");
+            cell.textContent = dayCounter++;
+
+            const today = new Date();
+            if (Month === today.getMonth() + 1 && Year === today.getFullYear() && dayCounter === today.getDate()){
+                cell.classList.add('today');
+            }
+            console.log((dayCounter-1) + "=" + data.Attendance[AttendanceCounter]);
+            if((dayCounter-1) == data.Attendance[AttendanceCounter]){
+                cell.classList.add('present');
+                AttendanceCounter ++;
+            }
+            if(dayCounter == data.Holiday[HolidayCounter]){
+                cell.classList.add('holiday');
+                HolidayCounter ++;
+            }
+            row.appendChild(cell);
+        }
+
+        calendarBody.appendChild(row);
+
+        // Remaining weeks
+        while (dayCounter <= totalDays) {
+            let newRow = document.createElement("tr");
+            for (let i = 0; i < 7; i++) {
+                const cell = document.createElement("td");
+                if (dayCounter <= totalDays) {
+                    const today = new Date();
+                    if (Month === today.getMonth() + 1 && Year === today.getFullYear() && dayCounter === today.getDate()){
+                        cell.classList.add('today');
+                    }
+                    console.log(dayCounter + "=" + data.Attendance[AttendanceCounter]);
+                    if(dayCounter == data.Attendance[AttendanceCounter]){
+                        cell.classList.add('present');
+                        AttendanceCounter ++;
+                    }
+                    if(dayCounter == data.Holiday[HolidayCounter]){
+                        cell.classList.add('holiday');
+                        HolidayCounter ++;
+                    }
+                    cell.textContent = dayCounter++;
+                }
+                newRow.appendChild(cell);
+            }
+            calendarBody.appendChild(newRow);
+        }
+    }
+
+    document.getElementById('prev-month').addEventListener('click', function (e) {
+        e.preventDefault();
+        Month--;
+        if(Month == 0){
+            Year--;
+            Month = 12;
+        }
+        fetchCalendar(Month, Year);
+    });
+
+    document.getElementById('next-month').addEventListener('click', function (e) {
+        e.preventDefault();
+        Month++;
+        if(Month == 13){
+            Year++;
+            Month = 1;
+        }
+        fetchCalendar(Month, Year);
+    });
+
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const sidebar = document.getElementById('sidebar1');
+    const starImage = document.getElementById('starImage');
+    const logo = document.getElementById('sidebar-logo');
+    const kiddo = document.getElementById('sidebar-kiddo');
+
+    <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+        sidebar.classList.add('minimized');
+        starImage.classList.add('show');
+        logo.classList.add('hidden');
+        kiddo.classList.add('hidden');
+    <?php endif; ?>
+
     const fixedSlider = document.getElementById('fixedSlider');
     const initialValue = fixedSlider.value;
 
@@ -798,15 +1084,162 @@
     //     });
     // }
 
-    function setChildSession(ChildID){
-        fetch('<?= ROOT ?>/Child/Home/setchildsession', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ChildID: ChildID
+    let selectedPerson = "Guardian"; // Default selection
+    const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
+    const newPersonContainer = document.getElementById("newPersonContainer");
+    const addPersonSection = document.getElementById("add-person");
+    const selectedPersonTypeInput = document.getElementById("selectedPersonType");
+    const guardianRadio = document.getElementById("guardianRadio");
+    const newPersonRadio = document.getElementById("newPersonRadio");
+
+    function selectPerson(personType) {
+        if (personType === "Guardian") {
+            selectedPerson = "Guardian";
+
+            // ✅ Highlight Guardian
+            guardianContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+            newPersonContainer.style.backgroundColor = "transparent"; // Reset new person background
+
+            // ✅ Update selected person
+            guardianRadio.checked = true;
+            newPersonRadio.checked = false;
+            selectedPersonTypeInput.value = "Guardian";
+        } else if (personType === "New") {
+            selectedPerson = "New";
+
+            // ✅ Highlight New Person
+            newPersonContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+            guardianContainer.style.backgroundColor = "transparent"; // Reset guardian background
+
+            // ✅ Hide "Add New Person" section
+            addPersonSection.style.display = "none";
+
+            // ✅ Update selected person
+            newPersonRadio.checked = true;
+            guardianRadio.checked = false;
+            selectedPersonTypeInput.value = "New";
+        }
+    }
+
+    function previewNewPersonImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("newPersonImage").src = e.target.result;
+                document.getElementById("newPersonContainer").style.display = "flex";
+                document.getElementById("add-person").style.display = "none";
+                newPersonContainer.style.backgroundColor = "#ADD8E6";
+                guardianContainer.style.backgroundColor = "transparent";
+                selectPerson("New");
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    const deletePopup1 = document.getElementById('deletePopup1');
+
+        function ResetPickup(){
+            deletePopup1.style.display = 'none';
+            fetch("<?= ROOT ?>/Child/home/deletePickup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({})
                 })
+                .then(response => response.json())
+                .then(data => {
+                if (data.success) {
+                    console.log("Pickup deleted Successfully");
+                    alert.style.display = 'flex';
+                    setTimeout (() => {
+                        pickupForm.submit();
+                        alert.style.display = 'none'; 
+                        location.reload();
+                        alertimg.src = '<?=IMAGE?>/success.svg';
+                        alertmessage.textContent = "Success";
+                    }, 2000);
+                }else{
+                    alert.style.display = 'flex';
+                    alertimg.src = '<?=IMAGE?>/faile.svg';
+                    alertmessage.textContent = "Failed";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const ResetPickup = document.getElementById("ResetPickupBtn");
+        const deletePopup1 = document.getElementById('deletePopup1');
+        if(ResetPickup){
+            ResetPickup.addEventListener("click", function () {
+                console.log("Deleting the pickup");
+                deletePopup1.style.display = 'flex';
+            });
+        }
+
+        renderHolidays(holidays)
+        fetchCalendar(currentMonth, currentYear);
+
+        let selectedPerson = "Guardian"; // Default selection
+        const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
+        const newPersonContainer = document.getElementById("newPersonContainer");
+        const addPersonSection = document.getElementById("add-person");
+        const selectedPersonTypeInput = document.getElementById("selectedPersonType");
+        const guardianRadio = document.getElementById("guardianRadio");
+        const newPersonRadio = document.getElementById("newPersonRadio");
+
+        function selectPerson(personType) {
+            if (personType === "Guardian") {
+                selectedPerson = "Guardian";
+
+                // ✅ Highlight Guardian
+                guardianContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+                newPersonContainer.style.backgroundColor = "transparent"; // Reset new person background
+
+                // ✅ Show "Add New Person" option
+                addPersonSection.style.display = "flex";
+
+                // ✅ Update selected person
+                guardianRadio.checked = true;
+                newPersonRadio.checked = false;
+                selectedPersonTypeInput.value = "Guardian";
+            } else if (personType === "New") {
+                selectedPerson = "New";
+
+                // ✅ Highlight New Person
+                newPersonContainer.style.backgroundColor = "#ADD8E6"; // Light blue background
+                guardianContainer.style.backgroundColor = "transparent"; // Reset guardian background
+
+                // ✅ Hide "Add New Person" section
+                addPersonSection.style.display = "none";
+
+                // ✅ Update selected person
+                newPersonRadio.checked = true;
+                guardianRadio.checked = false;
+                selectedPersonTypeInput.value = "New";
+            }
+        }
+
+        let savedPerson = "<?= isset($data['stat2']['Person']) ? $data['stat2']['Person'] : 'Guardian' ?>";
+        if (savedPerson === "New") {
+            selectPerson("New");
+
+            let newPersonImage = "<?= isset($data['stat2']['Image']) ? $data['stat2']['Image'] : '' ?>";
+            if (newPersonImage) {
+                document.getElementById("newPersonImage").src = newPersonImage;
+                newPersonContainer.style.display = "flex";
+            }
+        } else {
+            selectPerson("Guardian");
+        }
+
+    });
+
+    function logoutUser() {
+        fetch("<?= ROOT ?>/Child/Home/Logout", {
+                method: "POST",
+                credentials: "same-origin"
             })
             .then(response => response.json())
             .then(data => {
@@ -839,6 +1272,138 @@
             })
             .catch(error => console.error("Error:", error));
     }
+
+    function setChildSession(ChildID) {
+        fetch('<?= ROOT ?>/Child/Home/setchildsession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ChildID: ChildID
+                })
+            })
+
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Child id set in session.");
+                    window.location.href = '<?= ROOT ?>/Child/Home';
+                } else {
+                    console.error("Failed to set child id from session.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    function fetchActivitySchedule(date) {
+        console.log(date);
+        fetch('<?= ROOT ?>/Child/Home/store_schedule', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: date
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(data.data);
+                    renderScheduleTable(data.data);
+                } else {
+                    console.error("Failed to set child id from session.", data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    function renderScheduleTable(activities) {
+        const timetableBody = document.querySelector('.table-body-container tbody');
+        timetableBody.innerHTML = ''; // Clear any existing rows
+
+        // Get the current time as a string (HH:mm:ss)
+        const currentTime = new Date();
+        //const currentTime = new Date('2025-01-28T11:30:00'); Example for testing
+        const currentTimeString = currentTime.toTimeString().split(' ')[0]; // Get just "HH:mm:ss"
+        const currentTimeInMillis = convertTimeToMillis(currentTimeString);
+
+        activities.forEach((activity, index) => {
+            const row = document.createElement('tr');
+
+            // Convert the Start Time and End Time into milliseconds
+            const startTimeInMillis = convertTimeToMillis(activity.Start_Time);
+            const endTimeInMillis = convertTimeToMillis(activity.End_Time);
+
+            // Add the Activity Name, Start Time, and End Time to the row
+            row.innerHTML = `
+            <td>${activity.Subject}</td>
+            <td style="padding-left: -15%;">${activity.Start_Time}</td>
+            <td style="padding-left: -15%;">${activity.End_Time}</td>
+        `;
+
+            // Highlight the row if it matches the current time
+            if (currentTimeInMillis >= startTimeInMillis && currentTimeInMillis <= endTimeInMillis) {
+                row.style.backgroundColor = '#cce5ff'; // Light blue color for the current activity
+                row.classList.add('selected'); // Add class for further styling
+            }
+
+            // When the row is clicked, insert the description row below it
+            row.addEventListener('click', function() {
+                // Check if this row already has a visible description row
+                const existingDescriptionRow = document.querySelector(`.description-row[data-index="${index}"]`);
+
+                if (existingDescriptionRow) {
+                    // If the description row exists, remove it
+                    existingDescriptionRow.remove();
+                } else {
+                    // Remove any other existing description rows
+                    const allDescriptionRows = document.querySelectorAll('.description-row');
+                    allDescriptionRows.forEach((descRow) => descRow.remove());
+
+                    // Create a new description row
+                    const descriptionRow = document.createElement('tr');
+                    descriptionRow.classList.add('description-row');
+                    descriptionRow.setAttribute('data-index', index); // Use index to identify the row
+
+                    descriptionRow.innerHTML = `
+            <td colspan="3" style="background-color: #f9f9f9; padding: 10px; border-top: 1px solid #ddd;">
+                ${activity.Description || 'No description available'}
+            </td>
+        `;
+
+                    // Insert the description row after the clicked row
+                    timetableBody.insertBefore(descriptionRow, row.nextSibling);
+                }
+            });
+
+
+            timetableBody.appendChild(row);
+        });
+    }
+
+    // Convert time (HH:mm:ss) to milliseconds since midnight
+    function convertTimeToMillis(timeString) {
+        const [hours, minutes, seconds] = timeString.split(':').map(Number);
+        return (hours * 3600 + minutes * 60 + seconds) * 1000; // Return time in milliseconds
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const datePicker = document.getElementById('datePicker');
+
+        fetchActivitySchedule(null);
+
+        datePicker.addEventListener('change', function() {
+            console.log(datePicker.value);
+            fetchActivitySchedule(datePicker.value);
+        });
+
+        const existingDescriptionRows = document.querySelectorAll('.description-row');
+        existingDescriptionRows.forEach((descRow) => descRow.remove());
+
+
+    });
 </script>
 
 </html>

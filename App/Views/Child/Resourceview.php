@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="<?= CSS ?>/Child/videomain.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/funzone1.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Child/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Child/Sidebar2.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Child/Setting.js"></script>
     <script src="<?= JS ?>/Child/Progress.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Child/Navbar.js?v=<?= time() ?>"></script>
@@ -305,35 +308,35 @@
                 <!-- Sidebar for Related Videos -->
                 <div class="related-sidebar">
                     <?php foreach ($data['relevant'] as $item): if (isset($item->MediaType)): ?>
-                        <div class="related-video" onclick="window.location.href='<?=ROOT?>/Child/Resource?MediaID=<?= $item->MediaID ?>'">
-                            <div class="thumbnail">
-                                <?php if ($item->MediaType === "Image"): ?>
-                                    <img alt="<?= htmlspecialchars($item->Title) ?>" class="resource-img" height="150" src="<?= $item->URL ?>" width="150" />
-                                <?php elseif ($item->MediaType === "Video"): $videoBlob = $item->Image; ?>
-                                <div class="video-container" id="video-container-<?= $item->MediaID ?>">
-                                    <img alt="Video" style="height: 130px; width: auto; object-fit: contain; margin-left: 110px;" 
-                                        id="img-<?= $item->MediaID ?>" 
-                                        src="<?= IMAGE ?>/video.png" />
-                                    <video width="150" height="150" id="video-<?= $item->MediaID ?>" style="display: none;" muted preload="none">
-                                        <source src="<?= $item->URL ?>" type="video/mp4">
-                                        Your browser does not support video playback.
-                                    </video>
+                            <div class="related-video" onclick="window.location.href='<?= ROOT ?>/Child/Resource?MediaID=<?= $item->MediaID ?>'">
+                                <div class="thumbnail">
+                                    <?php if ($item->MediaType === "Image"): ?>
+                                        <img alt="<?= htmlspecialchars($item->Title) ?>" class="resource-img" height="150" src="<?= $item->URL ?>" width="150" />
+                                    <?php elseif ($item->MediaType === "Video"): $videoBlob = $item->Image; ?>
+                                        <div class="video-container" id="video-container-<?= $item->MediaID ?>">
+                                            <img alt="Video" style="height: 130px; width: auto; object-fit: contain; margin-left: 110px;"
+                                                id="img-<?= $item->MediaID ?>"
+                                                src="<?= IMAGE ?>/video.png" />
+                                            <video width="150" height="150" id="video-<?= $item->MediaID ?>" style="display: none;" muted preload="none">
+                                                <source src="<?= $item->URL ?>" type="video/mp4">
+                                                Your browser does not support video playback.
+                                            </video>
+                                        </div>
+                                    <?php elseif ($item->MediaType === "Audio"): $audioBlob = $item->Image; ?>
+                                        <img alt="Audio Thumbnail" height="150" class="resource-img" src="<?= isset($item->Image) ? IMAGE . '/Audio.jpeg' : IMAGE . '/Audio.jpeg' ?>" width="150" />
+                                    <?php elseif ($item->MediaType === "Book"): $bookBlob = $item->Image; ?>
+                                        <img alt="Book Thumbnail" height="150" class="resource-img" src="<?= isset($item->Image) ? IMAGE . '/PDF.jpeg' : IMAGE . '/PDF.jpeg' ?>" width="150" />
+                                    <?php else: ?>
+                                        <img alt="Default Placeholder" height="150" class="resource-img" src="<?= IMAGE ?>/default-placeholder.png" width="150" />
+                                    <?php endif; ?>
                                 </div>
-                                <?php elseif ($item->MediaType === "Audio"): $audioBlob = $item->Image; ?>
-                                    <img alt="Audio Thumbnail" height="150" class="resource-img" src="<?= isset($item->Image)? IMAGE.'/Audio.jpeg': IMAGE.'/Audio.jpeg' ?>" width="150" />
-                                <?php elseif ($item->MediaType === "Book"): $bookBlob = $item->Image; ?>
-                                    <img alt="Book Thumbnail" height="150" class="resource-img" src="<?= isset($item->Image)? IMAGE.'/PDF.jpeg': IMAGE.'/PDF.jpeg' ?>" width="150" />
-                                <?php else: ?>
-                                    <img alt="Default Placeholder" height="150" class="resource-img" src="<?= IMAGE ?>/default-placeholder.png" width="150" />
-                                <?php endif; ?>
-                            </div>
                                 <div class="details">
                                     <div class="title"><?= htmlspecialchars($item->Title) ?></div>
                                     <div class="description"><?= htmlspecialchars($item->Description) ?></div>
                                 </div>
                             </div>
-                        <?php endif;
-                    endforeach;?>
+                    <?php endif;
+                    endforeach; ?>
 
                     <!-- <div class="related-video">
                         <div class="thumbnail">
@@ -379,6 +382,51 @@
         </div>
     </div>
     <script>
+
+        const messageDropdown = document.getElementById('messageDropdown');
+        const bellIcon = document.getElementById('bell-container');
+        const messagenumber = document.getElementById('message-number')
+
+        let messageDropdownTimeout;
+
+        function toggleBellDropdown() {
+            if(messageDropdown){
+                if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                    messageDropdown.style.display = "block";
+                    fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                        method: "POST",
+                        credentials: "same-origin"
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log("Seen the notifications");
+                            messagenumber.style.display = 'none';
+                        } else {
+                            alert("Logout failed. Try again.");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                    
+                } else {
+                    messageDropdown.style.display = "none";
+                }
+            }
+        }
+
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
         function renderComments(comments) {
             const commentsArray = Array.isArray(comments) ? comments : Object.values(comments);
             const commentsContainer = document.getElementById('comments');

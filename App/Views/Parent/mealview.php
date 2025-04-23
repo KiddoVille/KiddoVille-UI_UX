@@ -12,6 +12,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/meal.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Parent/Main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Header.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Sidebar2.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/foodtable.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Parent/Profile.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/MessageDropdown.js?v=<?= time() ?>"></script>
     <script src="<?= JS ?>/Parent/Navbar.js?v=<?= time() ?>"></script>
@@ -23,7 +27,7 @@
             <img src="<?= IMAGE ?>/logo_light.png" class="star" id="starImage">
             <div class="logo-div">
                 <img src="<?= IMAGE ?>/logo_light.png" class="logo" id="sidebar-logo"> </img>
-                <h2 style="font-size: 1.5em; white-space: nowrap; margin-left: 0px;" id="sidebar-kiddo">KIDDO VILLE </h2>
+                <h2 id="sidebar-kiddo">KIDDO VILLE </h2>
             </div>
             <ul>
                 <li class="hover-effect unselected">
@@ -46,7 +50,7 @@
                         <i class="fas fa-calendar-check"></i> <span>Reservation</span>
                     </a>
                 </li>
-                <li class="selected" style="margin-top: 40px;">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Parent/meal">
                         <i class="fas fa-utensils"></i> <span>Meal plan</span>
                     </a>
@@ -72,35 +76,33 @@
                     </a>
                 </li>
             </ul>
-            <hr style="margin-top: 40px;">
+            <hr>
             <div class="help">
-                <a href="#" style="text-decoration:none; color:purple"><i class="fas fa-question-circle"></i> <span>Help</span></a>
+                <a href="#"><i class="fas fa-question-circle"></i> <span>Help</span></a>
             </div>
         </div>
-        <div class="sidebar-2" id="sidebar2" style="display: flex; flex-direction: row;">
+        <div class="sidebar-2" id="sidebar2">
             <div>
-                <h2 style="margin-top: 25px; margin-left: 12px !important;">Familty Ties</h2>
-                <div class="family-section" style="margin-top: 10px;">
+                <h2>Familty Ties</h2>
+                <div class="family-section">
                     <ul>
                         <li class="hover-effect first select-child"
                             onclick="window.location.href = '<?= ROOT ?>/Parent/Home'">
-                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>"
-                                style="width: 60px; height:60px; border-radius: 30px;">
+                            <img src="<?php echo htmlspecialchars($data['parent']['image']); ?>">
                             <h2>Family</h2>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <h2 style="margin-top: 25px;">Little Explorers</h2>
-                    <p style="margin-bottom: 20px; color: white; margin-left: 5px !important;">
+                    <h2>Little Explorers</h2>
+                    <p>
                         Explore your children's activities and progress!
                     </p>
                     <ul class="children-list">
                         <?php foreach ($data['children'] as $child): ?>
-                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['name']) ? $child['name'] : '' ?>')">
+                            <li class="hover-effect first" onclick="setChildSession('<?= isset($child['Id']) ? $child['Id'] : '' ?>')">
                                 <img src="<?php echo htmlspecialchars($child['image']); ?>"
-                                    alt="Child Profile Image"
-                                    style="width: 60px; height: 60px; border-radius: 30px; margin-left: -20px !important;">
+                                    alt="Child Profile Image">
                                 <h2><?= isset($child['name']) ? $child['name'] : 'No name set'; ?></h2>
                             </li>
                             <hr>
@@ -111,68 +113,58 @@
         </div>
         <div class="main-content">
             <div class="header">
-                <i class="fa fa-bars" id="minimize-btn" style="margin-right: -50px; cursor: pointer; font-size: 30px;"></i>
+                <i class="fa fa-bars" id="minimize-btn"></i>
                 <div class="name">
-                    <h1>Hey Thilina</h1>
+                    <h1><?= isset($data['parent']['fullname']) ? $data['parent']['fullname'] : 'No name set'; ?></h1>
                     <p>Let’s do some productive activities today</p>
                 </div>
                 <div class="search-bar">
                     <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
                 </div>
-                <div class="bell-con" style="cursor: pointer;" id="bell-container">
-                    <i class="fas fa-bell bell-icon" style="margin-left: -350px;"></i>
-                    <div class="message-dropdown" id="messageDropdown" style="display: none;">
+                <!-- message icon -->
+                <div class="bell-con" id="bell-container">
+                    <i class="fas fa-bell bell-icon"></i>
+                    <?php if(!empty($data['Notification'])): ?>
+                        <?php if($data['Notification']['Seen'] != 0): ?>
+                            <div class="message-numbers" id="message-number">
+                                <p><?= $data['Notification']['Seen'] != 0 ? $data['Notification']['Seen'] : '' ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <div class="message-dropdown" id="messageDropdown" style="display: none;">
                         <ul>
-                            <li>
-                                <p>New Message 1 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">content like a message</p>
-                            </li>
+                            <?php foreach($data['Notification']['data'] as $row): ?>
+                                <li data-id="<?= $row->NotificationID ?>">
+                                    <p><?= htmlspecialchars($row->Description) ?></p>
+                                    <?php if($row->Location != NULL): ?>
+                                        <a href="<?= ROOT ?>/Child/<?= $row->Location ?>">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
-                    </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
-                <div class="message-numbers">
-                    <p>2</p>
-                </div>
+                <!-- Prodile btn -->
                 <div class="profile">
                     <button class="profilebtn">
-                        <i class="fas fa-user-circle" style="margin-left: 10px;"></i>
+                        <i class="fas fa-user-circle"></i>
                     </button>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: row; width: 100%; justify-content:flex-start;">
-                <div class="container-food" style="margin-left: 20px; top:0; vertical-align: top;">
+            <div class="table-holder">
+                <div class="container-food t1">
                     <!-- Table for Food -->
-                    <div class="timetable" style="margin-right: 1%; width: 395px; vertical-align: top;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; top:0;">Meal Plan</h3>
+                    <div class="foodtable">
+                        <h3>Meal Plan</h3>
                         <hr>
-                        <input type="date" id="datePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
-                        <table id="mealsTable" style="width: 100%; border-collapse: collapse;">
+                        <input type="date" id="datePicker" min="<?= (date('Y-m-d')); ?>" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
+                        <table id="mealsTable">
                             <thead>
                                 <tr>
-                                    <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Meal</th>
-                                    <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Dish</th>
+                                    <th>Meal</th>
+                                    <th>Dish</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -181,17 +173,17 @@
                         </table>
                     </div>
                 </div>
-                <div class="container-food" style="margin-left: 20px;">
+                <div class="container-food t2">
                     <!-- Table for Snacks -->
-                    <div class="timetable" style="margin-right: 1%; width: 395px;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px;">Snack Plan</h3>
+                    <div class="foodtable">
+                        <h3>Snack Plan</h3>
                         <hr>
-                        <input type="date" id="SnackdatePicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
-                        <table id="snackTable" style="width: 100%; border-collapse: collapse;">
+                        <input type="date" id="SnackdatePicker" min="<?= (date('Y-m-d')); ?>" value="<?= (date('Y-m-d')); ?>" style="width: 200px">
+                        <table id="snackTable">
                             <thead>
                                 <tr>
-                                    <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Time</th>
-                                    <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Snack</th>
+                                    <th>Time</th>
+                                    <th>Snack</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -200,105 +192,241 @@
                         </table>
                     </div>
                 </div>
-                <div class="container-food" style="margin-left: 20px;">
-                    <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Add Snack</h3>
-                    <hr style="width: 160px;">
-                    <div class="pickup-section" style="margin-top: 20px;">
-                        <label for="date">Date</label>
-                        <input required id="" type="date">
-                        <label for="date">Meal</label>
-                        <select required id="" type="date">
-                            <option>Breakfast</option>
-                            <option>Lunch</option>
-                            <option>Dinner</option>
-                        </select>
-                        <label for="date">Child</label>
-                        <select required id="" type="date">
-                            <option>Breakfast</option>
-                            <option>Lunch</option>
-                            <option>Dinner</option>
-                        </select>
-                        <label for="date">Snack</label>
-                        <select required id="" type="date">
-                            <option>Breakfast</option>
-                            <option>Lunch</option>
-                            <option>Dinner</option>
-                        </select>
-                    </div>
-                    <button style="margin-top: 15px; margin-left:110px;"> Add </button>
+                <div class="container-food t3">
+                    <form id="Form" method="POST" id="details" enctype="multipart/form-data" action="<?= ROOT ?>/Parent/Meal/Snack_request">
+                        <h3>Add Snack</h3>
+                        <hr>
+                        <div class="pickup-section">
+                            <label for="Date">Date</label>
+                            <input name="Date" required id="dateInput" type="date" min="<?= date('Y-m-d', strtotime('+1 day')); ?>" value="<?= date('Y-m-d', strtotime('+1 day')); ?>">
+
+                            <label for="Meal">Meal</label>
+                            <select name="Meal" required id="mealInput">
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                            </select>
+
+                            <label for="Child">Child</label>
+                            <select name="Child" required id="childInput">
+                                <?php foreach ($data['children'] as $child): ?>{
+                                <option value="<?= isset($child['Id']) ? $child['Id'] : ''; ?>"><?= isset($child['name']) ? $child['name'] : ''; ?></option>
+                                }
+                            <?php endforeach; ?>
+                            </select>
+
+                            <label for="Snack">Snack</label>
+                            <select name="Snack" required id="snackInput">
+                            </select>
+                        </div>
+                        <button type="submit"> Add </button>
+                    </form>
                 </div>
             </div>
 
-            <div class="container-food" style="margin-left: 40px; margin-top: 20px; align-items: left; width: 1060px; justify-content: space-between;">
-                <h3 style="margin-top: 0px !important; margin-bottom: 4px; margin-right: 900px;">Assigned Snacks</h3>
-                <hr style="width: 1070px;">
+            <div class="container-food container2 ">
+                <h3>Assigned Snacks</h3>
+                <hr>
                 <p> Please select the child and meal, then enter the snack to assign it. You can easily view and edit the assigned snacks for each child as needed. </p>
-                <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                    <div style="display: flex; flex-direction: column; margin-right: 50px;">
-                        <h3 style="margin-top: 10px !important; margin-bottom: 4px; margin-right: 60px;">Edit Snack Request</h3>
-                        <hr style="width: 360px;">
-                        <div class="pickup-section" style="margin-top: 20px;">
-                            <label for="date">Date</label>
-                            <input class="editsnack" required id="" type="date">
-                            <label for="date">Meal</label>
-                            <select class="editsnacksel" required id="" type="date">
-                                <option>Breakfast</option>
-                                <option>Lunch</option>
-                                <option>Dinner</option>
-                            </select>
-                            <label for="date">Child</label>
-                            <select class="editsnacksel" required id="" type="date">
-                                <option>Breakfast</option>
-                                <option>Lunch</option>
-                                <option>Dinner</option>
-                            </select>
-                            <label for="date">Snack</label>
-                            <select class="editsnacksel" required id="" type="date">
-                                <option>Breakfast</option>
-                                <option>Lunch</option>
-                                <option>Dinner</option>
+                <div class="Snackdata">
+                    <form id="Form2" method="POST" enctype="multipart/form-data" action="<?= ROOT ?>/Parent/Meal/Snack_request_edit">
+                        <div class="edit-con">
+                            <h3>Edit Snack Request</h3>
+                            <hr>
+                            <div class="pickup-section">
+                                <label for="date">Date</label>
+                                <input class="editsnack" required id="EditSnackDate" type="date" min="<?= date('Y-m-d', strtotime('+1 day')); ?>">
+                                <label for="date">Meal</label>
+                                <select class="editsnacksel" required id="EditSnackTime" name="Meal">
+                                    <option>Breakfast</option>
+                                    <option>Lunch</option>
+                                    <option>Dinner</option>
+                                </select>
+                                <label for="date">Child</label>
+                                <select class="editsnacksel" name="Child" required id="EditChild">
+                                    <option hidden> selecte child </option>
+                                    <?php foreach ($data['children'] as $child): ?>
+                                        <option value="<?= isset($child['Id']) ? $child['Id'] : ''; ?>"><?= isset($child['name']) ? $child['name'] : ''; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <input type="number" id="requestid" style="display: none;" name="Request"> </input>
+                                <label for="date">Snack</label>
+
+                                <select class="editsnacksel" required id="Snacksforedit" name="Snack">
+                                    <option hidden> selecte snack </option>
+                                </select>
+                            </div>
+                            <button> Save </button>
+                        </div>
+                    </form>
+                    <div class="verticle-line"></div>
+                    <div class="foodtable">
+                        <div class="filters">
+                            <input type="date" id="requestPicker" value="<?= date('Y-m-d', strtotime('+1 day')); ?>" min="<?= date('Y-m-d', strtotime('+1 day')); ?>">
+                            <select id="mealPicker">
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
                             </select>
                         </div>
-                        <button style="margin-top: 15px; margin-left:200px;"> Edit </button>
-                    </div>
-                    <div style="width: 3px; background-color: lightgray; margin-right: 50px;"></div>
-                    <div class="timetable" style="display: flex; flex-direction: column;">
-                        <input type="date" id="requestPicker" value="<?= (date('Y-m-d')); ?>" style="width: 200px; margin-top:20px; margin-bottom: -10px; table-layout: fixed;">
-                        <table id="requestTable" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                        <table id="requestTable">
                             <thead>
                                 <tr>
-                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Child</th>
-                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Meal</th>
-                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Snack</th>
-                                    <th style="color: #233E8D; background-color: transparent; padding: 10px 15px;">Edit</th>
+                                    <th>Child</th>
+                                    <th>Meal</th>
+                                    <th>Snack</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
                             <tbody style="max-height: 400px; overflow-y: auto;">
-                                
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <a href="<?= ROOT ?>/Parent/Message" class="chatbox">
-                <img src="<?= IMAGE ?>/message.svg" class="fas fa-comment-dots" style="margin-left: 12px; width: 24px; height: 24px; margin-top: 2px;" alt="Message Icon" />
-                <div class="message-numbers" style="margin-left: -5px; margin-bottom: 15px;">
-                    <p> 2</p>
-                </div>
-            </a>
         </div>
 
         <div class="profile-card" id="profileCard">
-            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" style="width: 24px; height: 24px; fill:#233E8D !important;" class="back">
+            <img src="<?= IMAGE ?>/back-arrow-2.svg" alt="back-arrow" class="back">
             <img alt="Profile picture of Thilina Perera" height="100" src="<?= IMAGE ?>/profilePic.png" width="100" class="profile" />
             <h2>Thilina Perera</h2>
             <p>Student    RS0110657</p>
             <button class="profile-button" onclick="window.location.href ='<?= ROOT ?>/Parent/ParentProfile'">Profile</button>
             <button class="secondary-button" onclick="window.location.href ='<?= ROOT ?>/Parent/GuardianProfile'">Guardian profile</button>
-            <button class="logout-button" onclick="window.location.href ='<?= ROOT ?>/Main/Home'">LogOut</button>
+            <?php if ($data['Child_Count'] < 5) { ?>
+                <button class="secondary-button" onclick="window.location.href='<?php echo ROOT; ?>/Onbording/Child'">
+                    Add Children
+                </button>
+            <?php } ?>
+            <button class="logout-button" onclick="logoutUser()">LogOut</button>
         </div>
     </div>
     <script>
+
+    const messageDropdown = document.getElementById('messageDropdown');
+    const bellIcon = document.getElementById('bell-container');
+    const messagenumber = document.getElementById('message-number')
+
+    function toggleBellDropdown() {
+        if(messageDropdown){
+            if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
+                messageDropdown.style.display = "block";
+                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Seen the notifications");
+                        messagenumber.style.display = 'none';
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+                
+            } else {
+                messageDropdown.style.display = "none";
+            }
+        }
+    }
+
+        const minimizeBtn = document.getElementById('minimize-btn');
+        const sidebar = document.getElementById('sidebar1');
+        const starImage = document.getElementById('starImage');
+        const logo = document.getElementById('sidebar-logo');
+        const kiddo = document.getElementById('sidebar-kiddo');
+
+        <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
+            sidebar.classList.add('minimized');
+            starImage.classList.add('show');
+            logo.classList.add('hidden');
+            kiddo.classList.add('hidden');
+        <?php endif; ?>
+
+        const dateInput = document.getElementById("dateInput");
+        const mealInput = document.getElementById("mealInput");
+        const snackInput = document.getElementById("snackInput");
+
+        function fetchSnacks() {
+            let selectedDate = dateInput.value;
+            let selectedMeal = mealInput.value;
+            // console.log(selectedMeal);
+
+            if (!selectedDate) {
+                let tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                selectedDate = tomorrow.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+                dateInput.value = selectedDate; // Update input field
+            }
+
+            // If meal is empty, set it to "Breakfast"
+            if (!selectedMeal) {
+                selectedMeal = "Breakfast";
+                mealInput.value = selectedMeal; // Update input field
+            }
+
+            fetch("<?= ROOT ?>/Parent/meal/get_snacks", {
+                    method: "POST",
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        date: selectedDate,
+                        time: selectedMeal
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // console.log("Snack data for a specific date and time");
+                        // console.log(data.data);
+                        updatesnacksInput(data.data);
+                    } else {
+                        alert("Fetching snacks failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function updatesnacksInput(data) {
+            // console.log("Received data:", data);
+            if (!Array.isArray(data)) {
+                console.error("Data is not an array:", data);
+                return;
+            }
+
+            // Clear previous options
+            snackInput.innerHTML = '';
+            // Populate the select element with received snack options
+            data.forEach(snack => {
+                // console.log("Adding snack:", snack.Snack);
+                let option = document.createElement("option");
+                option.value = snack.SnackID;
+                option.textContent = snack.Snack;
+                snackInput.appendChild(option);
+            });
+
+            // console.log("Updated snackInput:", snackInput.innerHTML);
+        }
+
+
+        function logoutUser() {
+            fetch("<?= ROOT ?>/Parent/meal/Logout", {
+                    method: "POST",
+                    credentials: "same-origin"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "<?= ROOT ?>/Main/Login"; // Redirect after logout
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
         function setChildSession(ChildID) {
             fetch(' <?= ROOT ?>/Parent/Meal/setchildsession', {
                     method: 'POST',
@@ -334,7 +462,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        console.log("Meal plan data:", data.data);
+                        // console.log("Meal plan data:", data.data);
                         updateMealPlanTables(data.data);
                     } else {
                         console.error("Failed to fetch meal plan:", data.message);
@@ -346,7 +474,7 @@
 
         // Function to update tables dynamically
         function updateMealPlanTables(mealPlan) {
-            console.log(mealPlan);
+            // console.log(mealPlan);
             const mealsTableBody = document.querySelector('#mealsTable tbody');
             mealsTableBody.innerHTML = '';
 
@@ -391,7 +519,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        console.log("Snack plan data:", data.data);
+                        // console.log("Snack plan data:", data.data);
                         updateSnackPlanTables(data.data);
                     } else {
                         console.error("Failed to fetch snack plan:", data.message);
@@ -403,7 +531,7 @@
 
         // Function to update tables dynamically
         function updateSnackPlanTables(SnackPlan) {
-            console.log(SnackPlan);
+            // console.log(SnackPlan);
             const snacksTableBody = document.querySelector('#snackTable tbody');
             snacksTableBody.innerHTML = '';
 
@@ -435,20 +563,21 @@
             }
         }
 
-        function fetchrequest(date) {
+        function fetchrequest(date, meal) {
             fetch('<?= ROOT ?>/Parent/Meal/store_request', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        date: date
+                        date: date,
+                        meal: meal
                     })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        console.log("snack request data:", data.data);
+                        // console.log("snack request data:", data.data);
                         updateSnackrequestTables(data.data);
                     } else {
                         console.error("Failed to fetch snack request:", data.message);
@@ -458,31 +587,78 @@
                 .catch(error => console.error("Error:", error));
         }
 
+        function fetchSnacksEdit() {
+            let dateInput = document.getElementById("EditSnackDate");
+            let mealInput = document.getElementById("EditSnackTime");
+            let snackInput = document.getElementById("Snacksforedit"); // Correct reference
+
+            let selectedDate = dateInput.value;
+            let selectedMeal = mealInput.value;
+
+            if (!selectedDate) {
+                let tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                selectedDate = tomorrow.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+                dateInput.value = selectedDate; // Update input field
+            }
+
+            if (!selectedMeal) {
+                selectedMeal = "Breakfast";
+                mealInput.value = selectedMeal; // Update input field
+            }
+
+            console.log(selectedDate, selectedMeal);
+
+            fetch("<?= ROOT ?>/Parent/meal/get_snacks", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        date: selectedDate,
+                        time: selectedMeal,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && Array.isArray(data.data)) {
+                        console.log(data.data);
+                        snackInput.innerHTML = ''; // Clear previous options
+
+                        data.data.forEach(snack => {
+                            let option = document.createElement("option");
+                            option.value = snack.SnackID; // Set ID as value
+                            option.textContent = snack.Snack; // Set snack name as text
+                            snackInput.appendChild(option);
+                        });
+                    } else {
+                        console.error("Unexpected response:", data);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
         function updateSnackrequestTables(snackRequestData) {
-            console.log("hi");
-            console.log(snackRequestData);
-            // Get the table body element
             const tableBody = document.querySelector("#requestTable tbody");
             tableBody.innerHTML = "";
 
-            // Iterate through the snack request data
             for (const childName in snackRequestData) {
                 const meals = snackRequestData[childName];
                 let firstRowForChild = true;
 
-                // Iterate through meals (breakfast, lunch, dinner)
                 for (const meal in meals) {
                     const snacks = meals[meal];
                     let firstRowForMeal = true;
 
-                    // Iterate through snacks for the current meal
                     for (const snackName in snacks) {
-                        const quantity = snacks[snackName];
+                        const {
+                            quantity,
+                            requestID
+                        } = snacks[snackName]; // ✅ Extract RequestID
 
-                        // Create a new row for the table
                         const row = document.createElement("tr");
 
-                        // Add child name cell (only for the first row of the child)
                         if (firstRowForChild) {
                             const childCell = document.createElement("td");
                             childCell.textContent = childName;
@@ -492,7 +668,6 @@
                             firstRowForChild = false;
                         }
 
-                        // Add meal cell (only for the first row of the meal)
                         if (firstRowForMeal) {
                             const mealCell = document.createElement("td");
                             mealCell.textContent = meal;
@@ -502,48 +677,205 @@
                             firstRowForMeal = false;
                         }
 
-                        // Add snack name cell
                         const snackCell = document.createElement("td");
                         snackCell.textContent = `${snackName} (${quantity})`;
                         snackCell.style.padding = "10px 15px";
                         row.appendChild(snackCell);
 
-                        // Add edit actions cell
                         const editCell = document.createElement("td");
                         editCell.className = "edit";
                         editCell.style.padding = "10px 15px";
                         editCell.innerHTML = `
-                    <i class="fas fa-pen reservation-edit" style="margin-right: 15px; cursor: pointer;"></i>
-                    <i class="fas fa-trash" style="cursor: pointer;"></i>`;
+                    <i class="fas fa-pen reservation-edit" 
+                        style="margin-right: 15px; cursor: pointer;" 
+                        data-request-id="${requestID}"></i>
+                    <i class="fas fa-trash" style="cursor: pointer;" data-request-id="${requestID}"></i>`;
                         row.appendChild(editCell);
 
-                        // Append the row to the table body
                         tableBody.appendChild(row);
                     }
                 }
             }
         }
 
-
         // Add event listener for date picker
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const editSnackDate = document.getElementById("EditSnackDate");
+            const editSnackTime = document.getElementById("EditSnackTime");
+            const editChild = document.getElementById("EditChild");
+            const requestid = document.getElementById("requestid");
+            const editSnackSelect = document.getElementById("Snacksforedit");
+
+            // Function to populate the edit form
+            function populateEditForm(date, meal, snack, child, id) {
+                editSnackDate.value = date;
+                editChild.value = child;
+                requestid.value = id;
+
+                editSnackTime.value = meal;
+
+                fetchSnacksEdit(date, meal);
+                setTimeout(() => {
+                    Array.from(editSnackSelect.options).forEach(option => {
+                        if (option.textContent.trim() == snack.trim()) { // Compare correctly
+                            option.selected = true; // Select only the correct option
+                        } else {
+                            option.selected = false; // Deselect others
+                        }
+                    });
+                }, 50);
+
+                for (let option of editChild.options) {
+                    if (option.textContent.trim() === child) {
+                        editChild.value = option.value;
+                        break;
+                    }
+                }
+            }
+
+            document.querySelector("#requestTable tbody").addEventListener("click", function(event) {
+                if (event.target.classList.contains("fa-trash")) {
+                    const requestID = event.target.getAttribute("data-request-id");
+
+                    if (!requestID) {
+                        console.error("Request ID is missing");
+                        return;
+                    }
+
+                    // Confirm before deleting
+                    if (!confirm("Are you sure you want to delete this snack request?")) {
+                        return;
+                    }
+
+                    // Send delete request to the server
+                    fetch("<?= ROOT ?>/Parent/meal/delete_snack_request", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                ID: requestID
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Remove the row from the table
+                                event.target.closest("tr").remove();
+                            } else {
+                                alert("Failed to delete the request. Try again.");
+                            }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+            });
+
+            document.querySelector("#requestTable tbody").addEventListener("click", function(event) {
+                if (event.target.classList.contains("reservation-edit")) {
+                    // Find the clicked row
+                    const row = event.target.closest("tr");
+                    const requestId = event.target.getAttribute("data-request-id");
+
+                    let childName = null;
+                    let meal = null;
+                    let snackInfo = null;
+                    let snackName = null;
+
+                    // Find the closest row containing the child name
+                    let prevRow = row;
+                    while (prevRow && prevRow.cells.length < 4) {
+                        prevRow = prevRow.previousElementSibling;
+                    }
+                    if (prevRow) {
+                        childName = prevRow.cells[0].textContent.trim(); // Get child name from the first column
+                    }
+
+                    // Find the closest row containing the meal name
+                    let mealRow = row;
+                    while (mealRow && mealRow.cells.length < 3) {
+                        mealRow = mealRow.previousElementSibling;
+                    }
+                    if (mealRow) {
+                        meal = mealRow.cells[1].textContent.trim(); // Get meal name from the second column
+                    }
+
+                    // Extract snack info from the current row
+                    snackInfo = row.cells[row.cells.length - 2].textContent.trim(); // Get snack name + quantity
+                    snackName = snackInfo.split(" (")[0]; // Extract snack name only
+
+                    // Get the selected date (assumed from input)
+                    let selectedDate = document.getElementById("EditSnackDate").value;
+                    if (!selectedDate) {
+                        let tomorrow = new Date();
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        selectedDate = tomorrow.toISOString().split("T")[0];
+                    }
+
+                    console.log("Date:", selectedDate, "Meal:", meal, "Snack:", snackName, "Child:", childName);
+
+                    populateEditForm(selectedDate, meal, snackName, childName, requestId);
+                }
+            });
+
+
+            editSnackDate.addEventListener('change', function() {
+                const selectedDate = this.value;
+                const selectedMeal = editSnackTime.value;
+                console.log(selectedDate, selectedMeal);
+                fetchSnacksEdit(selectedDate, selectedMeal);
+            });
+
+            editSnackTime.addEventListener('change', function() {
+                const selectedDate = editSnackDate.value;
+                const selectedMeal = this.value;
+                console.log(selectedDate, selectedMeal);
+                fetchSnacksEdit(selectedDate, selectedMeal);
+            });
+
+            const dateInput = document.getElementById("dateInput");
+            const mealInput = document.getElementById("mealInput");
+            const snackInput = document.getElementById("Snacks");
+
+            fetchSnacks();
+
+            dateInput.addEventListener('change', function() {
+                console.log(dateInput.value)
+                fetchSnacks();
+            });
+            mealInput.addEventListener('change', function() {
+                console.log(mealInput.value)
+                fetchSnacks();
+            });
 
             const currentDate = new Date().toISOString().split('T')[0];
             fetchMealPlan(currentDate);
             fetchSnackPlan(currentDate);
-            fetchrequest(currentDate);
+            fetchrequest();
 
-            document.getElementById('requestPicker').addEventListener('change', function() {
+            const requestPicker = document.getElementById('requestPicker')
+            const mealPicker = document.getElementById('mealPicker')
+            const datePicker = document.getElementById('datePicker')
+            const SnackdatePicker = document.getElementById('SnackdatePicker')
+
+            requestPicker.addEventListener('change', function() {
                 const selectedDate = this.value;
-                fetchrequest(selectedDate);
+                const selectedMeal = mealPicker.value;
+                fetchrequest(selectedDate, selectedMeal);
             });
 
-            document.getElementById('datePicker').addEventListener('change', function() {
+            mealPicker.addEventListener('change', function() {
+                const selectedDate = requestPicker.value;
+                const selectedMeal = this.value;
+                fetchrequest(selectedDate, selectedMeal);
+            });
+
+            datePicker.addEventListener('change', function() {
                 const selectedDate = this.value;
                 fetchMealPlan(selectedDate);
             });
 
-            document.getElementById('SnackdatePicker').addEventListener('change', function() {
+            SnackdatePicker.addEventListener('change', function() {
                 const selectedDate = this.value;
                 fetchSnackPlan(selectedDate);
             });

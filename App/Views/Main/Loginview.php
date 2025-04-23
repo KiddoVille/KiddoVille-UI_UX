@@ -15,8 +15,7 @@
         rel="stylesheet">
 </head>
 
-<body>
-    <!-- login form -->
+<body  style="background-image: url('<?= IMAGE ?>/Login-bg.png');">
     <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
         <div id="fade" class="box fade-out" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; transition: opacity 1s ease,transform 1s ease;">
             <div class="logo">
@@ -42,7 +41,7 @@
                         <div class="checkbox-remember-me">
                             <input type="checkbox" id="remember-me" style="margin-bottom: 7px;">
                             <label class="label" for="remember-me">Remember me</label>
-                            <a class="forgot-password" href="./Reset-password-email.html" style="margin-bottom: 5px;">Forgot your Password?</a>
+                            <a class="forgot-password" href="<?=ROOT?>/Main/EnterEmail" style="margin-bottom: 5px;">Forgot your Password?</a>
                         </div>
                         <button type="submit">Login</button>
                         <div style="display: flex;align-items: center; margin-bottom: 0px; margin-top: -20px">
@@ -59,7 +58,7 @@
             </div>
         </div>
         <!-- righ side design and signup -->
-        <div id="move" class="box image" style="width: 400px; height: 500px;border-top-right-radius: 10px; border-bottom-right-radius: 10px; background-image: url('<?=IMAGE?>/side2.png'); transition: transform 1s ease;">
+        <div id="move" class="box image" style="width: 400px; height: 500px;border-top-right-radius: 10px; border-bottom-right-radius: 10px;background: linear-gradient(135deg, #c0c0c0, #007bff, #a0a0a0); transition: transform 1s ease;">
             <div class="home-contain" style="background-color: white !important;">
                 <i onclick="window.location.href='<?=ROOT?>/Main/Home'" class="fa fa-home"></i>
             </div>

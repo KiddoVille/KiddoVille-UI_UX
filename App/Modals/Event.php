@@ -9,12 +9,14 @@
 
         protected $table = 'event';
         protected $allowedColumns = [
+            'EventID',
             'EventName',
             'Date',
             'TeacherID',
-            'Descrption',
+            'Description',
             'Image',
-            'BlogID'
+            'BlogID',
+            'Fee'
         ];
 
         public function validate($data){
