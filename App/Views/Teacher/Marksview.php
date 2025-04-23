@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messages</title>
+    <title>Students</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Teacher/message.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Teacher/marks.css?v=<?= time() ?>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!--google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,7 +100,6 @@
                         </a>
                         <a href="#" class="sub-menu-link">
                             <i class='bx bx-help-circle' ></i>
-                         
                             <p>Help & Support</p>
                             <span>></span>
                         </a>
@@ -146,95 +145,82 @@
     
             </div>
         <div class="content">
-            <div class="backgorund-overlay"></div>
-            <div class="glass-box">
-                <div class="message-box">
-                    <div class="chat-bar">
-                        <h3><span>4</span> New Messages</h3>
-                        <div class="chat-pane">
-                        <div class="chat-list-item">
-                            <img src="<?=IMAGE?>/profilePic-1.png">
-                            <div class="chat-details">
-                                <h4>Sara Andrews</h4>
-                                <p>New meeting is scheduled 3 days later</p>
-                                <span>4.03 PM</span>
-                            </div>
-                        </div>
-                        <div class="chat-list-item">
-                            <img src="<?=IMAGE?>/profilePic-2.png">
-                            <div class="chat-details">
-                                <h4>Sara Andrews</h4>
-                                <p>New meeting is scheduled 3 days later</p>
-                                <span>4.03 PM</span>
-                            </div>
-                        </div>
-                        <div class="chat-list-item">
-                            <img src="<?=IMAGE?>/profilePic-3.png">
-                            <div class="chat-details">
-                                <h4>Sara Andrews</h4>
-                                <p>New meeting is scheduled 3 days later</p>
-                                <span>4.03 PM</span>
-                            </div>
-                        </div>
-                        <div class="chat-list-item">
-                            <img src="<?=IMAGE?>/profilePic-4.png">
-                            <div class="chat-details">
-                                <h4>Sara Andrews</h4>
-                                <p>New meeting is scheduled 3 days later</p>
-                                <span>4.03 PM</span>
-                            </div>
-                        </div>
-                        <div class="chat-list-item">
-                            <img src="<?=IMAGE?>/profilePic-2.png">
-                            <div class="chat-details">
-                                <h4>Sara Andrews</h4>
-                                <p>New meeting is scheduled 3 days later</p>
-                                <span>4.03 PM</span>
-                            </div>
-                        </div>
-                        <div class="chat-list-item">
-                            <img src="<?=IMAGE?>/profilePic-2.png">
-                            <div class="chat-details">
-                                <h4>Sara Andrews</h4>
-                                <p>New meeting is scheduled 3 days later</p>
-                                <span>4.03 PM</span>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="message-panel">
-                        <div class="heading">
-                            <p>Your Connection With</p>
-                            <h3>Sara Andrews</h3>
-                        </div>
-                       
-                        <div class="dialog-box">
-                            <div class="chat-container" id="chat-content">
-                                <div class="sub-cont" id="sub-cont-1">
-                                    <img class="person" src="<?=IMAGE?>/profilePic-2.png" title="Person-1" alt="person">
-                                    <p id="chat-1">Hey</p>
-                                    
-                                </div>
-                                <div class="sub-cont" id="sub-cont-2">
-                                   
-                                    <p id="chat-2">Hello</p>
-                                    <img class="person" src="<?=IMAGE?>/profilePic-4.png" title="Person-2" alt="person">
-                                </div>
-                            </div>
+            <div class="marks-page">
+                <div class="marks-page-header">
+                    <i class='bx bxs-report'></i>
+                    <h3>Status Reports</h3>                    
                     
-                            <div class="type-container">
-                                <div class="child">
-                                    <input type="text" id="type-1" placeholder="Enter your message here...">
-                                    <div class="send-btn">
-                                        <button id="act-1">Send</button>
-                                    </div>
-                                    
+                </div>
+                <hr>
+               
+                <div class="student-table">
+                <div id="container">
+                    <!-- Form -->
+                    <form id="dataForm"class="dataform">
+                        <div class="profile-img">
+                            <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
+                        </div>
+                        <!-- <label for="name">Name:</label>
+                        <input type="text" id="name" required />
+                        <label for="regNo">Reg No:</label>
+                        <input type="text" id="regNo" required /> -->
+
+                        <p><b>Kavindu Jayarathne</b></p>
+                        <p class="index">Index Number: <span class="">2249403</span></p>
+
+                        <div class="marks-section">
+                            <div class="subject mark">
+                                <h4>Maths</h4>
+                                <div class="range-slider mark">
+                                    <input type="range" class="slider" id="range" min=0 max=100 value=60>
+                                    <div class="value" >20</div>
                                 </div>
                             </div>
+
+                            <h4 class="fund">Fundamental Skills</h4>
+                            <hr>
+                            <div class="skill mark">
+                                <div class="skill-type cog">
+                                    <h4>Cognitive Skills</h4>
+                                    <div class="skill-1 mark">
+                                        <input type="range" class="slider-1 slider" id="range-1" min=0 max=100 value=60>
+                                        <div class="value-1" >20</div>
+                                    </div>
+                                </div>
+                                <div class="skill-type com">
+                                    <h4>Communication Skills</h4>
+                                    <div class="skill-2 mark">
+                                        <input type="range" class="slider-2 slider" id="range-2" min=0 max=100 value=60>
+                                        <div class="value-2" >20</div>
+                                    </div>
+                                </div>
+                                <div class="skill-type soc">
+                                    <h4>Social and Emotional Skills</h4>
+                                    <div class="skill-3 mark">
+                                        <input type="range" class="slider-3 slider" id="range-3" min=0 max=100 value=60>
+                                        <div class="value-3" >20</div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-type cre">
+                                    <h4>Creative Skills</h4>
+                                    <div class="skill-4 mark">
+                                        <input type="range" class="slider-4 slider" id="range-4" min=0 max=100 value=60>
+                                        <div class="value-4" >20</div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
+                        <button type="submit">Submit</button>
+                    </form>
+
+                    <!-- Card Container -->
+                    <div id="detailsContainer"></div>
                 </div>
-                
+
+
+               
             </div>
             
        
@@ -246,7 +232,11 @@
 
     
     <script src="<?=JS?>/Teacher/script.js"></script>
-    <script src="<?=JS?>/Teacher/message.js"></script>
+    <script src="<?=JS?>/Teacher/marks.js"></script>
+    <script>
+
+
+    </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
 

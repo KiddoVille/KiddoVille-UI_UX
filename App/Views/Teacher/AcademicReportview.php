@@ -33,9 +33,9 @@
                         <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="<?=ROOT?>/Main/Home" class="sidebar-list-item" id="home-link">
-                        <i class='bx bxs-home'></i>
-                        <span class="text">Home</span>
+                    <a href="<?=ROOT?>/Teacher/Funzone" class="sidebar-list-item" id="home-link">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                        <span class="text">Funzone</span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Reports" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
@@ -165,80 +165,104 @@
             
             <div class="report-page">
                 <H3>Report Card</H3>
+                
+                   
                 <div class="report-header">
+                    <?php if (isset($studentError) && $studentError !== null): ?>
+                        <div class="error-message"><?= htmlspecialchars($studentError) ?></div>
+                    
+                    <?php elseif(isset($studentData)): ?>
+                        <!-- <pre>
+                            <?php var_dump ($studentData); ?>
+                        </pre> -->
                     <div class="profile">
                         <div class="first-row">
                             <img src="<?=IMAGE?>/profilePic-3.png" alt="profile pic">
-                            <h3>Thilina Perera </h3>
+                            <h3><?=htmlspecialchars($studentData['First_Name'])?> <?=htmlspecialchars($studentData['Last_Name'])?> </h3>
                         </div>
                         <div class="sub-details">
-                            <p>Registration Number : <span>SRD110021</span></p>
-                            <p>Age: 6 </p>
+                            <p>Registration Number : <span><?=htmlspecialchars($studentData['RegNo'])?></span></p>
+                            <p>Age: <?=htmlspecialchars($studentData['Age'])?> </p>
                         </div>
                         <div class="sub-details">
-                            <p>Report Duraiton: 6<sup>th</sup> - 13<sup>th</sup> May</p>
-                            <p>Creation Date: 2025-05-14 </p>
+                            <p>Report Month: <?=htmlspecialchars($studentData['Month'])?> </p>
+                            <p>Creation Date: <?=htmlspecialchars($studentData['Created'])?> </p>
                         </div>
                         
                     </div>
+                    <?php endif; ?>
+
+                    
                     <div class="attendence-bar">
+                    <?php if (isset($attendError) && $attendError !== null): ?>
+                                <div class="error-message"><?= htmlspecialchars($attendError) ?></div>
+                            <?php elseif(isset($attendData)): ?>
                             <h3>My Attendence </h3>
+                           
+                            
+                           
                           
                             <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div class="data">
                                 <div class="data-line">
                                     <div class="dot1"></div>
-                                    <p><span>22 </span>Present</p>
+                                    <p><span><?=htmlspecialchars($attendData['precent'])?> </span>Present</p>
                                 </div>
                                 <div class="data-line">
                                     <div class="dot2"></div>
-                                    <p><span>73 </span>Absent</p>
+                                    <p><span><?=htmlspecialchars($attendData['absent'])?> </span>Absent</p>
                                 </div>
                             </div>
                         </div>
+                    <?php endif; ?>
                 </div>
                 <div class="subject-grades">
                     <div class="subject-grades-head">
                         <h3>Learning Checks</h3>
                     </div>
                     <div class="subject-grades-titles">
-                        <h4>No</h4>
+                        <h4>Subject ID</h4>
                         <h4>Subject</h4>
                         <h4>Marks</h4>
                         <h4>Regulation</h4>
                     </div>
-                    <div class="subject-grades-data">
-                        <p>001</p>
-                        <p>English</p>
-                        <p>70</p>
-                        <div class="regulation">Good</div>
-                    </div>
-                    <div class="subject-grades-data">
-                        <p>002</p>
-                        <p>Arts & Crafts</p>
-                        <p>87</p>
-                        <div class="regulation">Excellent</div>
-                    </div>
-                    <div class="subject-grades-data">
-                        <p>003</p>
-                        <p>Dancing</p>
-                        <p>90</p>
-                        <div class="regulation">Excellent</div>
-                    </div>
+                    <?php if (isset($marksError) && $marksError !== null): ?>
+                    <div class="error-message"><?= htmlspecialchars($marksError) ?></div>
+                  
+                    <?php elseif(isset($marksData)): ?>
+                        <?php foreach($marksData as $mark): ?>
+                            <div class="subject-grades-data">
+                                <p>0<?=htmlspecialchars($mark['Subject_ID'])?></p>
+                                <p><?=htmlspecialchars($mark['Subject_Name'])?></p>
+                                <p><?=htmlspecialchars($mark['Mark'])?></p>
+                                <div class="regulation">Good</div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                
+                   
                 </div>
                 <div class="social-behaviour">
                     <div class="social">
                         <div class="social-head">
-                            <h3>Social Development</h3>
+                            <h3>Fundamental Skills</h3>
                         </div>
                         <div class="skills">
-                            <p>Connecting with Peers</p>
+                            <p>Cognitive Skills</p>
                             <input type="range" min="0" max="100" value="50" step="20"> 
                         </div>
                         <div class="skills">
-                            <p>Connecting with Peers</p>
+                            <p>Communication Skills</p>
+                            <input type="range" min="0" max="100" value="50" step="20"> 
+                        </div>
+                        <div class="skills">
+                            <p>Social and Emotional Skills</p>
+                            <input type="range" min="0" max="100" value="50" step="20"> 
+                        </div>
+                        <div class="skills">
+                            <p>Creative Skills</p>
                             <input type="range" min="0" max="100" value="50" step="20"> 
                         </div>
                     </div>
@@ -249,11 +273,13 @@
                             </div>
                             <div class="behaviour-skills">
                                 <div class="text-line">
-                                <input type="checkbox" name="behaviour">Consistently calm and cooperative
+                                <i class="fas fa-circle" style="font-size: 10px; color: #3974ba;"></i>
+                                Consistently calm and cooperative
                                 </div>
                             
                             <div class="text-line">
-                                <input type="checkbox" name="behaviour">Expresses emotions freely
+                            <i class="fas fa-circle" style="font-size: 10px; color: #3974ba;"></i>
+                                Expresses emotions freely
                            </div>
                         </div>
                             
@@ -261,7 +287,7 @@
 
                     </div>
                 </div>
-                <div class="general-notes">
+                <!-- <div class="general-notes">
                     <div class="note-head">
                         <h3>General Notes and Suggestions</h3>
                     </div>
@@ -273,7 +299,7 @@
                     
                     <button class="reset" id="reset-report" >Reset</button>
                     <button class="submit-report" id="submit-report">Submit</button>
-                </div>
+                </div> -->
             </div>
          
        
