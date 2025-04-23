@@ -21,8 +21,8 @@
             if (empty($data['Team Work']) && empty($data['Communicaiton']) && empty($data['Critical Thinking']) && empty($data['Emotional Control']) && empty($data['Self Care'])) {
                 $this->errors['error'] = 'At least one skill is required';
             }
-        
-            return empty($this->errors);
+            //var_dump($this->errors);
+            return empty($this->errors);    
         }
         
     

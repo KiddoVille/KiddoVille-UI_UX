@@ -214,6 +214,16 @@ position: absolute;
     border: 1px solid #ccc;
 }
 
+.error-message{
+    color: #d54242;
+    width: auto;
+    padding: 10px 30px;
+    border: 1px;
+    background-color: #fbcaca94;
+    margin: auto;
+    border-radius: 8px;
+
+}
 
 
 .show-skill-popup{

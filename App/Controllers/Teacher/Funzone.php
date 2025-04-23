@@ -1,13 +1,14 @@
 <?php
 
     namespace Controller;
+    use App\Helpers\FileHelper;
 
     class Funzone{
         use MainController;
 
             public function index(){
 
-                $mediaModel  = new \Modal\Funzone;
+                $mediaModel  = new \Modal\Media;
                 $session = new \Core\Session;
                 $teacher = new \Modal\Teacher;
             
@@ -15,6 +16,7 @@
                 
                 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'SearchMedia'){
                     
+                    error_log("📬 AJAX request received for SearchMedia");
                     $media_name = $_POST['media_name'];
                     $media_name = htmlspecialchars($media_name, ENT_QUOTES, 'UTF-8');
 
@@ -26,23 +28,19 @@
                         $result = $mediaModel->where_norder(['UserID' => $TeacherID]);
                     }
 
-                    if($result){
-                        header('Content-Type: application/json');
-                        echo json_encode([
-                            'media' => "$media_name"
-                            // 'media' => array_map(fn($mediaModel) => (array)$mediaModel, $result),
-                            //'media' => array_map(fn($mediaModel) => (array)$mediaModel, $result),
-                            'message' => empty($result) ? 'No Media Found.' : ''
-                        ]);
-                        exit();
-                    }else{
-                        header('Content-Type: application/json');
-                        echo json_encode([
-                            'media' => [],
-                            'message' => 'No Media Found.'
-                        ]);
-                        exit();
-                    }
+                    // var_dump($result);
+                    // exit();
+                    ob_clean();
+                    header('Content-Type: application/json');
+                    echo json_encode([
+                        'media' => $result ?? [],
+                        'message' => empty($result) ? 'No Media Found.' : ''
+                    ]);
+                    
+                  
+                    // Clear any accidental output
+
+                    exit();
                     
                 }
 
@@ -97,7 +95,7 @@
         }
 
         public function addMedia(){
-            $mediaModel = new \Modal\Funzone;
+            $mediaModel = new \Modal\Media;
             $session = new \Core\Session;
 
             $TeacherID = $this->findID();
@@ -112,33 +110,32 @@
                 $dateCreated = date('Y-m-d H:i:s'); // gets current date and time
 
                 $arr = array_merge($arr, ['UserID' => $TeacherID],['DateTime' => $dateCreated]);
-                
-                if($mediaModel->validate($arr)){
+                $result = $mediaModel->validate($arr);
+                if(empty($result)){
 
                     // Check if a file was uploaded without errors
                     if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
                         //var_dump($arr);
-                    $target_dir = "UPLOADS/Funzone/"; //  directory for uploaded files
-                    $target_file = $target_dir . basename($_FILES["file"]["name"]);
-                    $file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                    // $target_dir = "UPLOADS/Funzone/"; //  directory for uploaded files
+                    // $target_file = $target_dir . basename($_FILES["file"]["name"]);
+                    // $file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                    
+                    $FileHelper = new FileHelper;
+                    $data = $FileHelper->store_file($_FILES["file"]); 
+
+                    // var_dump($data);
+                    // exit();
                     
 
                     // Check if the file is allowed (you can modify this to allow specific file types)
                     $allowed_types = array("jpg", "jpeg", "png", "gif", "pdf","txt","mp4","mp3");
-                    if (!in_array($file_type, $allowed_types)) {
+                    if (!in_array($data['format'], $allowed_types)) {
                         $this->view('Teacher/Funzone', ['message' => 'Sorry, the file format in not allowed']);
                         
                     } else{
 
-                        if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-                            // File upload success, now store information in the database
-                            $filename = $_FILES["file"]["name"];
-                            $filesize = $_FILES["file"]["size"];
-                            $filetype = $_FILES["file"]["type"];
-                            //var_dump($filename,$filesize,$filetype);
-                        }
-
-                        $arr = array_merge($arr,['URL'=>$target_dir], ['Size' => $filesize], ['Format' => $filetype]);
+                       
+                        $arr = array_merge($arr,$data);
                         // var_dump($arr);
                         // exit();
                             
@@ -152,10 +149,15 @@
                         
                     }
 
+                    }else{
+                        $error['file'] = 'Please upload a file.';
+                        $this->view('Teacher/Funzone', ['message' => $error]);
                     }
 
                 }else{
-                    $this->view('Teacher/Funzone', ['errors' => $mediaModel->errors]);
+                    // var_dump($result);
+                    // exit();
+                    $this->view('Teacher/Funzone', ['message' => $result]);
                 }
 
                 
@@ -167,7 +169,7 @@
         }
 
         public function removeMedia(){
-            $mediaModel = new \Modal\Funzone;
+            $mediaModel = new \Modal\Media;
             $session = new \Core\Session;
 
             $TeacherID = $this->findID();

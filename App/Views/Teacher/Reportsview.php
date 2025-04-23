@@ -77,11 +77,7 @@
                     <h4>Empowering Excellence in Every Lesson!</h4>
                 </div>
                 <div class="navbar-right">
-                <div class="alter-icon"></div>
-                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
-                   
-                    <i class='bx bxs-bell' ></i>
-                </a>
+              
                 <a href="#" class="profile">
                     <img src="<?=IMAGE?>/profilePic.png" onclick="toggleMenu()" id="profileIcon">
                 </a>

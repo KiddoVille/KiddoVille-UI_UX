@@ -75,11 +75,11 @@
                     <h4>Empowering Excellence in Every Lesson!</h3>
                 </div>
                 <div class="navbar-right">
-                <div class="alter-icon"></div>
+                <!-- <div class="alter-icon"></div>
                 <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
                    
                     <i class='bx bxs-bell' ></i>
-                </a>
+                </a> -->
                 <a href="#" class="profile">
                     <img src="<?=IMAGE?>/profilePic.png" onclick="toggleMenu()" id="profileIcon">
                 </a>
@@ -172,12 +172,10 @@
                         <div class="error-message"><?= htmlspecialchars($studentError) ?></div>
                     
                     <?php elseif(isset($studentData)): ?>
-                        <!-- <pre>
-                            <?php var_dump ($studentData); ?>
-                        </pre> -->
-                    <div class="profile">
+                        
+                    <!-- <div class="profile">
                         <div class="first-row">
-                            <img src="<?=IMAGE?>/profilePic-3.png" alt="profile pic">
+                            <img src="<?=htmlspecialchars($studentData['Image'])?>" alt="profile pic">
                             <h3><?=htmlspecialchars($studentData['First_Name'])?> <?=htmlspecialchars($studentData['Last_Name'])?> </h3>
                         </div>
                         <div class="sub-details">
@@ -189,22 +187,66 @@
                             <p>Creation Date: <?=htmlspecialchars($studentData['Created'])?> </p>
                         </div>
                         
+                    </div> -->
+                    <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-img-container">
+                            <img src="<?=htmlspecialchars($studentData['Image'])?>" alt="Student Photo" class="profile-img">
+                        </div>
                     </div>
+                    <div class="profile-content">
+                        <h1 class="student-name"><?=htmlspecialchars($studentData['First_Name'])?> <?=htmlspecialchars($studentData['Last_Name'])?></h1>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Registration Number</span>
+                                <span class="detail-value"><?=htmlspecialchars($studentData['RegNo'])?></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Age</span>
+                                <span class="detail-value"><?=htmlspecialchars($studentData['Age'])?></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Report Month</span>
+                                <span class="detail-value"><?=htmlspecialchars($studentData['Month'])?></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Creation Date</span>
+                                <span class="detail-value"><?=htmlspecialchars($studentData['Created'])?></span>
+                            </div>
+                        </div>
+                        <div class="report-badge">
+                            <span><?=htmlspecialchars($studentData['Month'])?></span> <span><?=htmlspecialchars($studentData['Year'])?></sapn> Report
+                        </div>
+                    </div>
+                </div>
                     <?php endif; ?>
 
-                    
-                    <div class="attendence-bar">
                     <?php if (isset($attendError) && $attendError !== null): ?>
                                 <div class="error-message"><?= htmlspecialchars($attendError) ?></div>
                             <?php elseif(isset($attendData)): ?>
+                    <div class="attendence-bar">
+                            
                             <h3>My Attendence </h3>
                            
                             
                            
                           
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            <?php 
+                                $presentPercent = (int)($attendData['precent']);
+                                $conic = "conic-gradient(var(--primary-color) {$presentPercent}%, var(--border-line) 0)";
+                            ?>
+                            <div 
+                                class="progress-bar" 
+                                role="progressbar" 
+                                aria-valuenow="<?= $presentPercent ?>" 
+                                aria-valuemin="0" 
+                                aria-valuemax="100"
+                                style="background:
+                                    radial-gradient(closest-side, white 79%, transparent 80% 100%),
+                                    <?= $conic ?>;">
+                                <span class="progress-value"><?= $presentPercent ?>%</span>
                             </div>
+
                             <div class="data">
                                 <div class="data-line">
                                     <div class="dot1"></div>
@@ -218,9 +260,11 @@
                         </div>
                     <?php endif; ?>
                 </div>
+               
                 <div class="subject-grades">
                     <div class="subject-grades-head">
                         <h3>Learning Checks</h3>
+                       
                     </div>
                     <div class="subject-grades-titles">
                         <h4>Subject ID</h4>
@@ -236,8 +280,8 @@
                             <div class="subject-grades-data">
                                 <p>0<?=htmlspecialchars($mark['Subject_ID'])?></p>
                                 <p><?=htmlspecialchars($mark['Subject_Name'])?></p>
-                                <p><?=htmlspecialchars($mark['Mark'])?></p>
-                                <div class="regulation">Good</div>
+                                <p class="mark"><?=htmlspecialchars($mark['Mark'])?></p>
+                                <div class="regulation"><p class="stat">Good</p></div>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -245,27 +289,58 @@
                    
                 </div>
                 <div class="social-behaviour">
-                    <div class="social">
-                        <div class="social-head">
-                            <h3>Fundamental Skills</h3>
+                <div class="container-social">
+                    <h3>Fundamental Skills</h3>
+                    <div class="skills-container">
+                        <!-- Cognitive Skills -->
+                         <?php if (isset($skillsData) && $skillsData !== null): ?>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Cognitive Skills</span>
+                                <span class="skill-value cognitive"><?=htmlspecialchars($skillsData['cognitive'])?></span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress cognitive" style="width: 85%"></div>
+                            </div>
                         </div>
-                        <div class="skills">
-                            <p>Cognitive Skills</p>
-                            <input type="range" min="0" max="100" value="50" step="20"> 
+                        <?php endif; ?>
+
+                        <!-- Communication Skills -->
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Communication Skills</span>
+                                <span class="skill-value communication">78</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress communication" style="width: 78%"></div>
+                            </div>
                         </div>
-                        <div class="skills">
-                            <p>Communication Skills</p>
-                            <input type="range" min="0" max="100" value="50" step="20"> 
+
+                        <!-- Social and Emotional Skills -->
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Social and Emotional Skills</span>
+                                <span class="skill-value socials">82</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress socials" style="width: 82%"></div>
+                            </div>
+
                         </div>
-                        <div class="skills">
-                            <p>Social and Emotional Skills</p>
-                            <input type="range" min="0" max="100" value="50" step="20"> 
-                        </div>
-                        <div class="skills">
-                            <p>Creative Skills</p>
-                            <input type="range" min="0" max="100" value="50" step="20"> 
+
+                        <!-- Creative Skills -->
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Creative Skills</span>
+                                <span class="skill-value creative">90</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress creative" style="width: 90%"></div>
+                            </div>
                         </div>
                     </div>
+                </div>
+
                     <div class="behaviour">
                         
                             <div class="behaviour-head">
@@ -310,6 +385,69 @@
 
     <script src="<?=JS?>/Teacher/script.js"></script>
     <script src="<?=JS?>/Teacher/academic.js"></script>
+    <script>
+        //  document.addEventListener('DOMContentLoaded', function() {
+        //     // Fetch skills data from PHP backend
+        //     fetch('get_skills_data.php')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             // Update skill values and progress bars
+        //             document.querySelector('.cognitive').textContent = Number(data.cognitive);
+        //             document.querySelector('.skill-progress.cognitive').style.width = '40' + '%';
+                    
+        //             document.querySelector('.communication').textContent = data.communication;
+        //             document.querySelector('.skill-progress.communication').style.width = data.communication + '%';
+                    
+        //             document.querySelector('.social').textContent = data.social;
+        //             document.querySelector('.skill-progress.social').style.width = data.social + '%';
+                    
+        //             document.querySelector('.creative').textContent = data.creative;
+        //             document.querySelector('.skill-progress.creative').style.width = data.creative + '%';
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching skills data:', error);
+        //         });
+        // });
+
+        // document.querySelector('.cognitive').textContent = Number(data.cognitive);
+        //             document.querySelector('.skill-progress.cognitive').style.width = 40 + '%';
+                    
+        //             document.querySelector('.communication').textContent = data.communication;
+        //             document.querySelector('.skill-progress.communication').style.width = data.communication + '%';
+                    
+        //             document.querySelector('.social').textContent = data.social;
+        //             document.querySelector('.skill-progress.social').style.width = data.social + '%';
+                    
+        //             document.querySelector('.creative').textContent = data.creative;
+        //             document.querySelector('.skill-progress.creative').style.width = data.creative + '%';
+
+        
+        window.addEventListener('load', () => {
+    let markElement = document.querySelector('.mark');
+    if (!markElement) return; // just in case it's not there
+
+    let mark = parseFloat(markElement.textContent.trim());
+    console.log("Parsed mark:", mark);
+
+    let card = document.querySelector('.regulation');
+    let stat = document.querySelector('.stat');
+
+    if (mark >= 75 && mark <= 100) {
+        stat.innerHTML = '💎 Perfect';
+        card.style.backgroundColor = '#a3f0b6';
+    } else if (mark >= 65 && mark < 75) {
+        stat.innerHTML = '✅ Good';
+        card.style.backgroundColor = '#f6fbba';
+    } else if (mark >= 50 && mark < 65) {
+        stat.innerHTML = '🧩 Almost Good';
+        card.style.backgroundColor = '#a3f0b6';
+    } else {
+        stat.innerHTML = '🚨 Needs Work';
+        card.style.backgroundColor = '#f6cfcf';
+    }
+});
+
+    </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     

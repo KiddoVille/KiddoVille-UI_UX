@@ -84,6 +84,8 @@ class Students {
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $arr = $_POST;
+            // var_dump($arr);
+            // exit();
             
             $stu_id = $arr['ChildID'];
 
@@ -109,9 +111,10 @@ class Students {
                 $observe->insert($observeArray);
                 $result = $observe->where_norder(['StudentID' =>$arr['ChildID'], 'TeacherID' => $arr['TeacherID'], 'Scored_Date'=> $today]);
                 
-
+                //   var_dump($result);
+                // exit();
                 //insert skill score
-                $this->skillScore($result[0]->id,array_slice($arr,2));
+                $this->skillScore(end($result)->id,array_slice($arr,2));
                 redirect('Teacher/Students');
             } else{
                 $this->view('Teacher/Students', ['errors' => $observe->errors]);
@@ -135,7 +138,7 @@ class Students {
 
         $observeID = $ID;
         $skillArray = $array;
-        // var_dump($skillArray);
+        // var_dump($skillArray,$observeID);
         // exit();
 
         foreach ($skillArray as $key => $value) {

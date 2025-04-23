@@ -84,7 +84,8 @@
                     <div class="selects">
                         <div class="age">
                             <label for="date">Age Group</label>
-                            <select name="AgeGroup">
+                            <select name="AgeGroup" >
+                                <option disabled selected value="">Select</option>
                                 <option value="3-5">3-5</option>
                                 <option value="6-9">6-9</option>
                                 <option value="10-13">10-13</option>
@@ -93,6 +94,7 @@
                         <div class="type">
                             <label for="type">Media Type</label>
                             <select name="MediaType">
+                            <option disabled selected value="">Select</option>
                                 <option value="Audio">Audio</option>
                                 <option value="Video">Video</option>
                                 <option value="Image">Image</option>
@@ -103,13 +105,13 @@
                     </div>
                     <div class="title">
                         <h4>Title</h4>
-                        <input type="text" name="Title" placeholder="Add file URL"/>
+                        <input type="text" name="Title" placeholder="Add file title" required/>
                        
                     </div>
 
                     <div class="funzone-footer">
                         <h4>Description</h4>
-                        <input type="textarea" name="Description" placeholder="Add file URL"/>
+                        <input type="textarea" name="Description" placeholder="Add file description" />
                         <p>You will be notified once the import is successful</p>
                     </div>
 
@@ -122,7 +124,7 @@
                         </div>
                         <h3>Drag and drop files to upload or </h3>
                         <div class="file-select">
-                             <input type="file" name="file" id="file">
+                             <input type="file" name="file" id="file" >
                         </div>
                         
                         <p>Supported Files: JPG, PNG, PDF, DOCX</p>
@@ -240,8 +242,18 @@
                     </div>
                     
                 </div> 
-
+                <?php if (!empty(($message))): ?>
+                <div class="error-message">
+                       
+                           <?php foreach($message as $error): ?>
+                            <p><li><?= $error ?></li></p>
+                            <?php endforeach; ?>
+                       
+                        </div>
+                        <?php endif; ?>
                 <div class="student-table">
+               
+                    
                     
                     <div class="student-table-title">
                         <h4 class="file-name"><i class="fa-solid fa-file"></i>File Name</h4>
@@ -250,13 +262,10 @@
                         <h4 class="up"><i class="fa-solid fa-user"></i>Uploaded By</h4>
                         <h4 class="actions"><i class="fa-regular fa-circle-check"></i>Actions</h4>
                     </div>
+                   
                     <div class="table-rows">
-
-                        <?php if (isset($message)): ?>
-                        <div class="success-message">
-                            <p><?= $message ?></p>
-                        </div>
-                        <?php endif; ?>
+                  
+                       
 
                         <?php if(isset($media)):?>
                             <?php foreach($media as $item):?>
@@ -301,6 +310,7 @@
             
        
         </div>
+        
     </div>
     </div>
     
@@ -330,8 +340,13 @@
                 },
                 dataType:"json",
                 success:function(data){
-                    console.log(data);
-                    $('#media_list').html(data.media_list);
+                    console.log("JSON received:", data);
+                    if(data.media.length > 0){
+                        // loop & build HTML here if needed
+                        $('#media_list').html(buildMediaHTML(data.media)); // or use your own method
+                    } else {
+                        $('#media_list').html('<p>' + data.message + '</p>');
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.error("AJAX failed:", status, error);
