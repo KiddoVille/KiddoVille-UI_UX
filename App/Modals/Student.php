@@ -4,17 +4,17 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Task{
+    class Student{
         use Modal;
 
-        protected $table = 'assignteacher';
+        protected $table = 'students';
         protected $allowedColumns = [
-            'TeacherID',
-            'Date',
-            'Start_Time',
-            'End_Time',
-            'AgeGroup',
-            'Activity'
+            'StudentID',
+            'ChildID',
+            'Last_Name',
+            'First_Name',
+            'Age',
+            'Age_Group'
         ];
 
         public function validate($data){
@@ -37,7 +37,6 @@
             return false;
         }
     
- 
-
+    
     }
 ?>
