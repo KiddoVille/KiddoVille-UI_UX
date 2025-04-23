@@ -48,7 +48,7 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                        <a href="<?= ROOT ?>/Manager/Meeting"><i class="fa fa-exclamation-triangle"></i>Meeting</a>
                     </li>
                 </ul>
 
@@ -76,20 +76,6 @@
                             <i class="fas fa-hand-paper"></i>Request</a>
                     </li>
                 </ul>
-                <!-- <ul>
-                    <li class="hover-effect unselected">
-                        <a href="#" style="font-size: 18px;">
-                            <i class="fas fa-info-circle"></i>Info
-                        </a>
-                        <ul class="dropdown">
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Blog"><i class="fas fa-blog"></i>Blog</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Aboutus"><i class="fas fa-info-circle"></i>About Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Contactus"><i class="fas fa-envelope"></i>Contact Us</a></li>
-                            <li><a style="font-size: 16px;" href="<?= ROOT ?>/Manager/Profile"><i class="fas fa-user-circle"></i>Home</a></li>
-
-                        </ul>
-                    </li>
-                </ul> -->
             </ul>
         </div>
 
@@ -98,48 +84,6 @@
                 <div class="name">
                     <h1>Hey Namal</h1>
                     <p style="color: white;">Let’s do some productive activities today</p>
-                </div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                    <i class="fas fa-search"></i>
-                    <i class="fa fa-times clear-btn" style="margin-right: 10px;"></i>
-                </div>
-                <div class="bell-icon" style="cursor: pointer;">
-                    <button class="bellbtn" onclick="handlenotify()">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <div class="message-dropdown" id="notification">
-                        <ul>
-                            <li>
-                                <p>New Message 1 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 2 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 3 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 4 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 5 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                            <li>
-                                <p>New Message 6 <i class="fas fa-paper-plane"></i></p>
-                                <p class="content">Content like a message</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="message-numbers">
-                    <p> 2</p>
                 </div>
                 <div class="profile">
                     <button class="profilebtn" onclick="handleClick()">

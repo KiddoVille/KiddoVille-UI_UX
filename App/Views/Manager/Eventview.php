@@ -46,7 +46,7 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                        <a href="<?= ROOT ?>/Manager/Meeting"><i class="fa fa-exclamation-triangle"></i>Meeting</a>
                     </li>
                 </ul>
 
@@ -77,7 +77,7 @@
             </ul>
         </div>
         <div style="display: block;">
-            <div class="header" style="margin-top:1">
+            <div class="header" style="margin-top:0.025%">
                 <div class="name">
                     <h1>Hey Namal</h1>
                     <p style="color: white;">Let’s do some productive activities today</p>
@@ -152,7 +152,7 @@
                                     <button class="del-btn" onclick="deleteEvent(<?= $event->EventID ?>)">Delete</button>
                                 </div>
                             </div>
-                        <?php endforeach;?>
+                        <?php endforeach; ?>
                     <?php else: ?>
                         <p>No events published yet.</p>
                     <?php endif ?>
@@ -184,10 +184,10 @@
                     <label for="EventName">Event Type <span class="required">*</span></label>
                     <select name="EventName" id="EventName" class="form-control">
                         <option value="">Select Event Type</option>
-                        <option value="Annual Event" >Annual Event</option>
+                        <option value="Annual Event">Annual Event</option>
                         <option value="Sports day">Sports Day</option>
                         <option value="Cultural Leave">Cultural Leave</option>
-                        <option value="Eid Festival"]>Eid Festival</option>
+                        <option value="Eid Festival" ]>Eid Festival</option>
                         <option value="Other">Other</option>
                     </select>
 

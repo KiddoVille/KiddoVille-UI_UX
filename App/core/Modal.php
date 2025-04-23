@@ -272,6 +272,9 @@ trait Modal
                 }
             }
         }
+        if(empty($data)) {
+            return false; // No data to update
+        }
 
         // Prepare the SET clause for the query
         $setClauses = [];

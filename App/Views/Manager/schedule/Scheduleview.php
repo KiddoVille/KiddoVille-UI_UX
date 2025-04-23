@@ -47,7 +47,7 @@
             </ul>
             <ul>
                 <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                    <a href="<?= ROOT ?>/Manager/Meeting"><i class="fa fa-exclamation-triangle"></i>Meeting</a>
                 </li>
             </ul>
 
@@ -77,7 +77,7 @@
             </ul>
         </ul>
     </div>
-    <div class="header" style="margin-top:-41%">
+    <div class="header" style="margin-top:-40.05%">
         <div class="name">
             <h1>Hey Namal</h1>
             <p style="color: white;">Let’s do some productive activities today</p>
@@ -131,7 +131,7 @@
                         <option value="9 - 11">9 - 11</option>
                     </select>
                 </div>
-                <div class="table-div" >
+                <div class="table-div">
                     <table>
                         <thead>
                             <tr class="table_headings">
@@ -166,7 +166,8 @@
                                         <option value="">Basic Learning Time</option>
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
-                                        <option value="">English</option>                                    </select>
+                                        <option value="">English</option>
+                                    </select>
                                 </td>
                                 <td><select name="Staff name" class="styled-select" id="">
                                         <option value="Select Staff" disabled selected>Select Staff</option>
@@ -176,7 +177,7 @@
                                         <option value="">Ms.Kivitha</option>
                                     </select></td>
                                 <td>
-                                        <input type="text" value="8:30" readonly class="styled-select">
+                                    <input type="text" value="8:30" readonly class="styled-select">
                                 </td>
                                 <td>
                                     <select name="End Time" class="styled-select" id="">
@@ -197,7 +198,8 @@
                                         <option value="">Basic Learning Time</option>
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
-                                        <option value="">English</option>                                    </select>
+                                        <option value="">English</option>
+                                    </select>
                                 </td>
                                 <td><select name="Staff name" class="styled-select" id="">
                                         <option value="Select Staff" disabled selected>Select Staff</option>
@@ -243,7 +245,8 @@
                                         <option value="">Basic Learning Time</option>
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
-                                        <option value="">English</option>                                    </select>
+                                        <option value="">English</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <select name="Staff name" class="styled-select" id="">
@@ -275,7 +278,8 @@
                                         <option value="">Basic Learning Time</option>
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
-                                        <option value="">English</option>                                    </select>
+                                        <option value="">English</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <select name="Staff name" class="styled-select" id="">
@@ -320,7 +324,8 @@
                                         <option value="">Basic Learning Time</option>
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
-                                        <option value="">English</option>                                    </select>
+                                        <option value="">English</option>
+                                    </select>
                                 </td>
                                 <td><select name="Staff name" class="styled-select" id="">
                                         <option value="Select Staff" disabled selected>Select Staff</option>
@@ -371,7 +376,7 @@
                                         <option value="">14:00</option>
                                         <option value="">14:30</option>
                                         <option value="">15:00</option>
-                                       
+
                                     </select>
                                 </td>
                             </tr>
@@ -386,7 +391,8 @@
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
                                         <option value="">English</option>
-]                                    </select>
+                                        ]
+                                    </select>
                                 </td>
                                 <td>
                                     <select name="Staff name" class="styled-select" id="">
@@ -406,7 +412,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                  <input type="text" class="styled-select" readonly value="15:30">
+                                    <input type="text" class="styled-select" readonly value="15:30">
                                 </td>
                             </tr>
                             <tr>
@@ -433,7 +439,8 @@
                                         <option value="">Basic Learning Time</option>
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
-                                        <option value="">English</option>                                    </select>
+                                        <option value="">English</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <select name="Staff name" class="styled-select" id="">
@@ -465,7 +472,8 @@
                                         <option value="">Basic Learning Time</option>
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
-                                        <option value="">English</option>                                    </select>
+                                        <option value="">English</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <select name="Staff name" class="styled-select" id="">
@@ -499,7 +507,8 @@
                                         <option value="">Basic Learning Time</option>
                                         <option value="">Maths</option>
                                         <option value="">Science</option>
-                                        <option value="">English</option>                                    </select>
+                                        <option value="">English</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <select name="Staff name" class="styled-select" id="">

@@ -47,7 +47,7 @@
                     </ul>
                     <ul>
                         <li class="hover-effect unselected">
-                            <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                            <a href="<?= ROOT ?>/Manager/Meeting"><i class="fa fa-exclamation-triangle"></i>Meeting</a>
                         </li>
                     </ul>
 
@@ -77,9 +77,9 @@
                     </ul>
                 </ul>
             </div>
-            <div class="header" style="margin-top:-1%">
+            <div class="header" style="margin-top:16.45%">
                 <div class="name">
-                    <h1>Hey Namal</h1>
+                    <h1 style="color: #fff;">Hey Namal</h1>
                     <p style="color: white;">Let’s do some productive activities today</p>
                 </div>
                 <div class="profile">
@@ -107,7 +107,7 @@
                     </button>
                 </div>
             </div>
-            <div class="fill" style="margin-left: 300px;margin-top:10%">
+            <div class="fill" style="margin-left: 300px;margin-top:25%">
                 <h1 style=" margin-left: 20px;color:#233E8D ;width:75%;margin-top:20px;">Packages</h1>
                 <hr>
                 <div class="packages">
@@ -117,7 +117,7 @@
                                 <img alt="Classroom with colorful furniture and toys" src="<?= IMAGE ?>/packages.png" />
                                 <p><?= $package->Name; ?></p>
                                 <p>LKR.<?= $package->Price; ?>.00</p>
-                                <button class='update-btn' data-id="<?= $package->PackageID ?>">Update</button>
+                                <button class='update-btn' onclick="updatepackage('<?= $package->PackageID; ?>')">Update</button>
                                 <button class="delete-btn" onclick="deletepackage('<?= $package->PackageID; ?>')">Delete</button>
                             </div>
                         <?php endforeach; ?>
@@ -129,9 +129,10 @@
                     <button class="add-btn" onclick="addPackage()" id="addpack">+Add Package</button>
                 </div>
                 <div id="popupOverlay"></div>
-                <div class="addcontainer">
-                    <h1>Create Package</h1>
+                <div class="addcontainer" id="Addcontainer" style="width: 35%; height: 80%; margin-top: 2.5%; overflow-y: auto;">
+                    <button id="close" class="close-btn">×</button>
                     <form id="packageForm" method="post" action="<?= ROOT ?>/Manager/Packages/addpackage">
+                        <h1>Create Package</h1>
                         <!-- Package name -->
                         <label for="package-name">Package Name <span class="required">*</span></label>
                         <input type="text" class="opt" name="Name" placeholder="Enter package name"
@@ -197,8 +198,8 @@
 
                         <!-- Submit button -->
                         <div class="buttons">
-                            <button type="submit" class="publish">Publish</button>
-                            <a href="<?= ROOT ?>/Manager/Packages" class="cancel">Cancel</a>
+                            <button type="submit" class="publish" style="margin-bottom: 2%;">Publish</button>
+                            <a href="<?= ROOT ?>/Manager/Packages" style="margin-bottom: 2%;" class="cancel">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -206,16 +207,16 @@
         </div>
         </div>
         <!-- Add this near the top of your packages view -->
-            <?php if (isset($_SESSION['message'])): ?>
-                <div class="alert alert-<?= $_SESSION['message_type'] ?>">
-                    <?= $_SESSION['message'] ?>
-                </div>
-                <?php
-                // Clear the message after displaying
-                unset($_SESSION['message']);
-                unset($_SESSION['message_type']);
-                ?>
-            <?php endif; ?>
+        <?php if (isset($_SESSION['message'])): ?>
+            <div class="alert alert-<?= $_SESSION['message_type'] ?>">
+                <?= $_SESSION['message'] ?>
+            </div>
+            <?php
+            // Clear the message after displaying
+            unset($_SESSION['message']);
+            unset($_SESSION['message_type']);
+            ?>
+        <?php endif; ?>
 
         <!-- Delete Confirmation Modal -->
         <div id="deleteModal" class="modal">
@@ -232,10 +233,10 @@
 
 
         <div id="popupContainer" class="popup-container">
-            <div class="popup">
+            <div class="popup" style="width: 35%; height: 80%; margin-top: 5%; overflow-y: auto;">
                 <button id="closePopup" class="close-btn">×</button>
-                <h1 style="color: #233E8D;">Update Package</h1>
-                <form action="" method="POST" class="leave-form" id="updatePackageForm">
+                <h1 style="color: #233E8D; text-align: center;">Update Package</h1>
+                <form action="<?= ROOT ?>/Manager/Packages/updatepackage" method="POST" class="leave-form" id="updatePackageForm">
                     <!-- Hidden package ID field -->
                     <input type="hidden" name="PackageID" id="packageId">
 
@@ -284,12 +285,63 @@
 
                     <!-- Submit button -->
                     <div class="buttons">
-                        <button type="submit" class="publish">Update</button>
+                        <button type="submit" class="publish" id="confirmupdate">Update</button>
                         <a href="<?= ROOT ?>/Manager/Packages" class="cancel">Cancel</a>
                     </div>
                 </form>
             </div>
         </div>
+
+        <style>
+            .popup-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.2);
+                /* Light transparent gray-black */
+                z-index: 999;
+                margin-left: 1.5%;
+            }
+
+
+
+            .popup,
+            .addcontainer {
+                background: #fff;
+                border-radius: 10px;
+                padding: 20px 30px;
+                width: 35%;
+                height: 80%;
+                margin-top: 5%;
+                overflow-y: auto;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            .popup h1,
+            .addcontainer h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+                color: #233E8D;
+            }
+
+            .close-btn {
+                float: right;
+                font-size: 24px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #999;
+            }
+
+            .close-btn:hover {
+                color: #233E8D;
+            }
+        </style>
 
 
         <script>
@@ -320,291 +372,45 @@
             }
 
             function addPackage() {
+                const close = document.getElementById('close')
+                const addcontainer = document.getElementById('Addcontainer')
                 document.querySelector(".addcontainer").style.display = "flex";
+                close.addEventListener('click', function() {
+                    addcontainer.style.display = 'none';
+                });
+
+                // Optional: Also close popup when clicking outside the modal
+                window.addEventListener('click', function(e) {
+                    if (e.target === updatemodal) {
+                        addcontainer.style.display = 'none';
+                    }
+                });
             }
 
             function closePackageForm() {
                 document.querySelector(".addcontainer").style.display = "none";
             }
 
+            function updatepackage(PackageID) {
+                const updatemodal = document.getElementById('popupContainer');
+                const closepopup = document.getElementById('closePopup');
 
-            // document.addEventListener('DOMContentLoaded', function() {
-            //     // Get all update buttons by class instead of ID
-            //     const updateButtons = document.querySelectorAll('.update-btn');
-            //     const closeBtn = document.getElementById('closePopup');
-            //     const popupContainer = document.getElementById('popupContainer');
-
-            //     // Add click event to all update buttons
-            //     updateButtons.forEach(button => {
-            //         button.addEventListener('click', function() {
-            //             // Get the holiday data from this specific holiday item
-            //             const holidayItem = this.closest('.package-card');
-            //             const holidayId = this.getAttribute('data-id');
-
-            //             // Get the text content of leave type, date, and about
-            //             const leaveType = holidayItem.querySelector('h3').textContent;
-            //             const dateText = holidayItem.querySelector('p:nth-of-type(1)').textContent;
-            //             const aboutText = holidayItem.querySelector('p:nth-of-type(2)').textContent;
-
-            //             // Extract just the date value from "Date: 2023-04-16" format
-            //             const nameValue = dateText.replace('Name: ', '').trim();
-            //             // Extract just the about text from "About: Some text" format
-            //             const priceValue = aboutText.replace('Price: ', '').trim();
-            //             const DescriptionValue = aboutText.replace('Description: ', '').trim();
-            //             const mondayValue = aboutText.replace('Monday: ', '').trim();
-            //             const tuesdayValue = aboutText.replace('Tuesday: ', '').trim();
-            //             const wednesdayValue = aboutText.replace('Wednesday: ', '').trim();
-            //             const thursdayValue = aboutText.replace('Thursday: ', '').trim();
-            //             const fridayValue = aboutText.replace('Friday: ', '').trim();
-            //             const saturdayValue = aboutText.replace('Saturday: ', '').trim();
-            //             const sundayValue = aboutText.replace('Sunday: ', '').trim();
-            //             const ageGroupValue = aboutText.replace('AgeGroup: ', '').trim();
-            //             const foodAddonsValue = aboutText.replace('FoodAddons: ', '').trim();
-            //             const allHoursValue = aboutText.replace('AllHours: ', '').trim();
-            //             const everythingValue = aboutText.replace('Everything: ', '').trim();
+                // Show the modal
+                updatemodal.style.display = 'flex';
 
 
-
-            //             // Set form action to point to the update endpoint with the correct ID
-            //             const form = document.querySelector('#popupContainer form');
-            //             form.action = `<?= ROOT ?>/Manager/Package/updatepackage/${PackageID}`;
-
-            //             // Add hidden input for holiday ID if needed
-            //             let hiddenInput = form.querySelector('input[name="PackageID"]');
-            //             if (!hiddenInput) {
-            //                 hiddenInput = document.createElement('input');
-            //                 hiddenInput.type = 'hidden';
-            //                 hiddenInput.name = 'PackageID';
-            //                 form.appendChild(hiddenInput);
-            //             }
-            //             hiddenInput.value = holidayId;
-
-            //             // Populate form fields with the holiday data
-            //             const nameInput = form.querySelector('select[name="Namel"]');
-            //             const priceInput = form.querySelector('input[name="price"]');
-            //             const descriptionTextarea = form.querySelector('textarea[name="Description"]');
-            //             const mondayCheckbox = form.querySelector('input[name="Monday"]');
-            //             const tuesdayCheckbox = form.querySelector('input[name="Tuesday"]');
-            //             const wednesdayCheckbox = form.querySelector('input[name="Wedenesday"]');
-            //             const thursdayCheckbox = form.querySelector('input[name="Thursday"]');
-            //             const fridayCheckbox = form.querySelector('input[name="Friday"]');
-            //             const saturdayCheckbox = form.querySelector('input[name="Saturday"]');
-            //             const sundayCheckbox = form.querySelector('input[name="Sunday"]');
-            //             const ageGroupSelect = form.querySelector('select[name="AgeGroup"]');
-            //             const foodAddonsSelect = form.querySelector('select[name="features"]');
-            //             const allHoursCheckbox = form.querySelector('input[name="AllHours"]');
-            //             const everythingCheckbox = form.querySelector('input[name="Everything"]');
-
-
-            //             // Set the selected option in the dropdown
-            //             for (let i = 0; i < leaveTypeSelect.options.length; i++) {
-            //                 if (leaveTypeSelect.options[i].value === leaveType) {
-            //                     leaveTypeSelect.selectedIndex = i;
-            //                     break;
-            //                 }
-            //             }
-
-            //             // Set the date and about values
-            //             nameInput.value = nameValue;
-            //             priceInput.value = priceValue;
-            //             descriptionTextarea.value = DescriptionValue;
-            //             mondayCheckbox.checked = mondayValue === '1';
-            //             tuesdayCheckbox.checked = tuesdayValue === '1';
-            //             wednesdayCheckbox.checked = wednesdayValue === '1';
-            //             thursdayCheckbox.checked = thursdayValue === '1';
-            //             fridayCheckbox.checked = fridayValue === '1';
-            //             saturdayCheckbox.checked = saturdayValue === '1';
-            //             sundayCheckbox.checked = sundayValue === '1';
-            //             ageGroupSelect.value = ageGroupValue;
-            //             foodAddonsSelect.value = foodAddonsValue;
-            //             allHoursCheckbox.checked = allHoursValue === '1';
-            //             everythingCheckbox.checked = everythingValue === '1';
-
-            //             // Show the popup
-            //             popupContainer.style.display = 'flex';
-            //         });
-            //     });
-
-            //     // Close popup function
-            //     function closePopup() {
-            //         popupContainer.style.display = 'none';
-            //     }
-
-            //     // Event listener for close button
-            //     if (closeBtn) {
-            //         closeBtn.addEventListener('click', closePopup);
-            //     }
-
-            //     // Close popup when clicking outside
-            //     popupContainer.addEventListener('click', function(event) {
-            //         if (event.target === popupContainer) {
-            //             closePopup();
-            //         }
-            //     });
-
-            //     // Close popup with Escape key
-            //     document.addEventListener('keydown', function(event) {
-            //         if (event.key === 'Escape') {
-            //             closePopup();
-            //         }
-            //     });
-            // });
-
-
-
-            document.addEventListener('DOMContentLoaded', function() {
-                // Get all update buttons, close button, and popup container
-                const updateButtons = document.querySelectorAll('.update-btn');
-                const closeBtn = document.getElementById('closePopup');
-                const popupContainer = document.getElementById('popupContainer');
-                const updateForm = document.getElementById('updatePackageForm');
-
-                // Add click event to all update buttons
-                updateButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const packageId = this.getAttribute('data-id');
-
-                        // Fetch package details via AJAX
-                        fetch(`<?= ROOT ?>/Manager/Package/getPackageDetails/${packageId}`)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Network response was not ok');
-                                }
-                                return response.json();
-                            })
-                            .then(packageData => {
-                                // Fill the form with package data
-                                populateUpdateForm(packageData);
-
-                                // Update form action
-                                updateForm.action = `<?= ROOT ?>/Manager/Package/updatepackage/${packageId}`;
-
-                                // Show the popup
-                                popupContainer.style.display = 'flex';
-                            })
-                            .catch(error => {
-                                console.error('Error fetching package details:', error);
-                                alert('Failed to load package details. Please try again.');
-                            });
-                    });
+                // Close the popup when '×' button is clicked
+                closepopup.addEventListener('click', function() {
+                    updatemodal.style.display = 'none';
                 });
 
-                // Function to populate form fields with package data
-                function populateUpdateForm(packageData) {
-                    // Set basic fields
-                    document.getElementById('packageId').value = packageData.PackageID;
-                    document.getElementById('packageName').value = packageData.Name;
-                    document.getElementById('packageDescription').value = packageData.Description;
-                    document.getElementById('packagePrice').value = packageData.Price;
-                    document.getElementById('packageAgeGroup').value = packageData.AgeGroup;
-
-                    // Set checkboxes for days
-                    document.getElementById('monday').checked = packageData.Monday == 1;
-                    document.getElementById('tuesday').checked = packageData.Tuesday == 1;
-                    document.getElementById('wednesday').checked = packageData.Wednesday == 1;
-                    document.getElementById('thursday').checked = packageData.Thursday == 1;
-                    document.getElementById('friday').checked = packageData.Friday == 1;
-                    document.getElementById('saturday').checked = packageData.Saturday == 1;
-                    document.getElementById('sunday').checked = packageData.Sunday == 1;
-
-                    // Set features dropdown based on which one is 1
-                    let featureValue = '';
-                    if (packageData.FoodAddons == 1) featureValue = 'FoodAddons';
-                    else if (packageData.AllHours == 1) featureValue = 'AllHours';
-                    else if (packageData.Everything == 1) featureValue = 'Everything';
-
-                    document.getElementById('packageFeatures').value = featureValue;
-                }
-
-                // Close popup function
-                function closePopup() {
-                    popupContainer.style.display = 'none';
-                    // Reset form to prevent data persistence between openings
-                    updateForm.reset();
-                }
-
-                // Event listener for close button
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', closePopup);
-                }
-
-                // Close popup when clicking outside
-                popupContainer.addEventListener('click', function(event) {
-                    if (event.target === popupContainer) {
-                        closePopup();
+                // Optional: Also close popup when clicking outside the modal
+                window.addEventListener('click', function(e) {
+                    if (e.target === updatemodal) {
+                        updatemodal.style.display = 'none';
                     }
                 });
-
-                // Close popup with Escape key
-                document.addEventListener('keydown', function(event) {
-                    if (event.key === 'Escape') {
-                        closePopup();
-                    }
-                });
-            });
-
-
-
-
-
-
-
-
-            // document.addEventListener("DOMContentLoaded", function() {
-            //     // Get elements
-            //     const openPopup = document.getElementById("addpack");
-            //     const closePopup = document.getElementById("closePopup");
-            //     const popupOverlay = document.getElementById("popupOverlay");
-            //     const popupBox = document.getElementById("addcontainer");
-
-            //     // Function to open popup
-            //     openPopup.addEventListener("click", () => {
-            //         popupOverlay.style.display = "block";
-            //         popupBox.style.display = "block";
-            //     });
-
-            //     // Function to close popup
-            //     closePopup.addEventListener("click", () => {
-            //         popupOverlay.style.display = "none";
-            //         popupBox.style.display = "none";
-            //     });
-
-            //     // Close when clicking outside the popup
-            //     popupOverlay.addEventListener("click", () => {
-            //         popupOverlay.style.display = "none";
-            //         popupBox.style.display = "none";
-            //     });
-            // });
-
-
-            // // Select the update popup and close button
-            // const updatePopup = document.querySelector('.addcontainer');
-            // const closeUpdatePopup = document.getElementById('closeupdatePopup');
-
-            // // Function to show the update popup
-            // function showUpdatePopup() {
-            //     updatePopup.style.display = "block";
-            // }
-
-            // // Function to hide the update popup
-            // function hideUpdatePopup() {
-            //     updatePopup.style.display = "none";
-            // }
-
-            // // Attach event listeners to all update buttons
-            // document.querySelectorAll('.updatepopupbtn').forEach(button => {
-            //     button.addEventListener('click', showUpdatePopup);
-            // });
-
-            // // Attach event listener to the close button
-            // closeUpdatePopup.addEventListener('click', hideUpdatePopup);
-
-            // // Close the popup when clicking outside of it
-            // window.addEventListener('click', function(event) {
-            //     if (event.target === updatePopup) {
-            //         hideUpdatePopup();
-            //     }
-            // });
+            }
         </script>
 
     </body>

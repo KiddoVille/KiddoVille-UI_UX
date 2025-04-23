@@ -22,22 +22,30 @@ class Home
         //Child Attendance
 
         $AttendanceModal = new \Modal\Attendance;  //To accecess the attendance tabel modal name is Attendance 
-        $Records = $AttendanceModal->where_norder(["Status" => "Present"]); //store
+        $Records = $AttendanceModal->where_norder(["Status" => "Present", 'Start_date' => date('Y-m-d')]); //store
 
         $ChildModal = new \modal\Child;
         $Child = $ChildModal->findall();
-
-        $data['Totalchild'] = count($Records) . '/' . count($Child);
+        if(!empty($Records)){
+            $data['Totalchild'] = count($Records) . '/' . count($Child);
+        }
+        else{
+            $data['Totalchild'] = 0;
+        }
 
 
         //Employee Attendance
         $EmployeeAttendanceModal = new \Modal\Employeeattendance;
-        $Employeerecords = $EmployeeAttendanceModal->where_norder(['Status' => 'Present']);
-
+        $Employeerecords = $EmployeeAttendanceModal->where_norder(['Status' => 'Present', 'Start_date' => date('Y-m-d')]);
         $EmployeeModal = new \modal\user;
         $User = $EmployeeModal->where_norder([], ["Role" => "User"]);
 
-        $data['Totaluser'] = count($Employeerecords) . '/' . count($User);
+        if(!empty($Employeerecords)){
+            $data['Totaluser'] = count($Employeerecords) . '/' . count($User);
+        }
+        else {
+            $data['Totaluser'] = 0;
+        }
 
         //Enroll child
         $EnrollModal = new \Modal\Enrollments;
@@ -108,10 +116,5 @@ class Home
         $Visitorrecords = $VisitorModal->findall();
         $data['visitorsummary'] = $Visitorrecords;
         return $data;
-    }
-    
-    public function Packages()
-    {
-        $this->view('Manager/Packages');
     }
 }
