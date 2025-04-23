@@ -46,7 +46,7 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                        <a href="<?= ROOT ?>/Manager/Meeting"><i class="fa fa-exclamation-triangle"></i>Meeting</a>
                     </li>
                 </ul>
 
@@ -334,7 +334,7 @@
                             <?php endif; ?>
                         </td>
                         <td class="food-items">
-                        <?php if (!empty($snackData['dayafter'])): ?>
+                            <?php if (!empty($snackData['dayafter'])): ?>
                                 <?php foreach ($snackData['dayafter'] as $snacks): ?>
                                     <?php if ($snacks->Time == 'Lunch') echo htmlspecialchars($snacks->Snack) . "<br>"; ?>
                                 <?php endforeach; ?>
@@ -352,7 +352,7 @@
                             <?php endif; ?>
                         </td>
                         <td class="food-items">
-                        <?php if (!empty($snackData['tomorrow'])): ?>
+                            <?php if (!empty($snackData['tomorrow'])): ?>
                                 <?php foreach ($snackData['tomorrow'] as $snacks): ?>
                                     <?php if ($snacks->Time == 'Dinner') echo htmlspecialchars($snacks->Snack) . "<br>"; ?>
                                 <?php endforeach; ?>

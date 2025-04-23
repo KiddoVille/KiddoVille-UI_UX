@@ -47,8 +47,8 @@
                 </li>
             </ul>
             <ul>
-                <li class="selected">
-                    <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                <li class="hover-effect unselected">
+                    <a href="<?= ROOT ?>/Manager/Meeting"><i class="fa fa-exclamation-triangle"></i>Meeting</a>
                 </li>
             </ul>
 
@@ -264,4 +264,4 @@
     </script>
 </body>
 
-</html> 
+</html>

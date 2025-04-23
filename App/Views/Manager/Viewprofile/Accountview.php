@@ -49,7 +49,7 @@
             </ul>
             <ul>
                 <li class="hover-effect unselected">
-                    <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                    <a href="<?= ROOT ?>/Manager/Meeting"><i class="fa fa-exclamation-triangle"></i>Meeting</a>
                 </li>
             </ul>
 

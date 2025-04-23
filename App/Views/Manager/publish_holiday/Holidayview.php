@@ -47,7 +47,7 @@
                 </ul>
                 <ul>
                     <li class="hover-effect unselected">
-                        <a href="<?= ROOT ?>/Manager/Problem"><i class="fa fa-exclamation-triangle"></i>Problems</a>
+                        <a href="<?= ROOT ?>/Manager/Meeting"><i class="fa fa-exclamation-triangle"></i>Meeting</a>
                     </li>
                 </ul>
 
@@ -78,7 +78,7 @@
             </ul>
         </div>
         <div style="display: block;">
-            <div class="header" style="margin-top:1">
+            <div class="header" style="margin-top:0.025">
                 <div class="name">
                     <h1>Hey Namal</h1>
                     <p style="color: white;">Let’s do some productive activities today</p>
@@ -222,7 +222,7 @@
                     </form>
                 </div>
             </div>
-<!-- 
+            <!-- 
             <script>
                 // Convert PHP holidays array to JavaScript with explicit formatting
                 const holidays = <?php echo json_encode(!empty($data['allholidays']) ? $data['allholidays'] : []); ?>;

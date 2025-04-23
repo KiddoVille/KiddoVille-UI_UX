@@ -12,7 +12,7 @@ class Foodtable
     public function index()
     {
         $data['Meal'] = $this->food_items();
-        // $this->view('Manager/Foodtable', $data);
+        $this->view('Manager/Foodtable', $data);
     }
 
     private function getRandomMeals($array, $count = 3) {
@@ -20,7 +20,7 @@ class Foodtable
         return array_slice($array, 0, $count);
     }
 
-    private function ganerateMeal(){
+    private function generateMeal(){
         $Breakfast = [
             "String Hoppers with Kiri Hodi",
             "Pol Roti with Lunu Miris",
@@ -114,7 +114,6 @@ class Foodtable
                 'Time' => $time,
                 'Date' => $realDate
             ];
-            show($foodData);
             $Modal->insert($foodData);
         }
     }
@@ -151,9 +150,9 @@ class Foodtable
     
         // If no data or last date is older than today, generate and insert all 3 days
         if (!$latestDateInTable || $latestDateInTable < $today) {
-            $data['today'] = $this->ganerateMeal();
-            $data['tomorrow'] = $this->ganerateMeal();
-            $data['dayafter'] = $this->ganerateMeal();
+            $data['today'] = $this->generateMeal();
+            $data['tomorrow'] = $this->generateMeal();
+            $data['dayafter'] = $this->generateMeal();
 
             $this->insertfood($data['today']['Breakfast'], "Breakfast", $today);
             $this->insertfood($data['today']['Lunch'], "Lunch", $today);
@@ -173,8 +172,8 @@ class Foodtable
                 'Lunch'     => $Modal->where_norder(["Date" => $today, "Time" => "Lunch"]),
                 'Dinner'    => $Modal->where_norder(["Date" => $today, "Time" => "Dinner"]),
             ];
-            $data['tomorrow'] = $this->ganerateMeal();
-            $data['dayafter'] = $this->ganerateMeal();
+            $data['tomorrow'] = $this->generateMeal();
+            $data['dayafter'] = $this->generateMeal();
     
             $this->insertfood($data['tomorrow']['Breakfast'], "Breakfast", $tomorrow);
             $this->insertfood($data['tomorrow']['Lunch'], "Lunch", $tomorrow);
@@ -195,7 +194,7 @@ class Foodtable
                 'Lunch'     => $Modal->where_norder(["Date" => $tomorrow, "Time" => "Lunch"]),
                 'Dinner'    => $Modal->where_norder(["Date" => $tomorrow, "Time" => "Dinner"]),
             ];
-            $data['dayafter'] = $this->ganerateMeal();
+            $data['dayafter'] = $this->generateMeal();
     
             $this->insertfood($data['dayafter']['Breakfast'], "Breakfast", $dayafter);
             $this->insertfood($data['dayafter']['Lunch'], "Lunch", $dayafter);
