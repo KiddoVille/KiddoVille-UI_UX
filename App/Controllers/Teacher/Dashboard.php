@@ -34,7 +34,8 @@
                 'Last_Name' => $teacherDetails->Last_Name,
                 'Image' => 'data:image/jpg;base64,' . $base64Image
             ];
-         
+            // var_dump($teacherInfo);
+            // exit();
          
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'request'){
                 
@@ -114,7 +115,8 @@
         // Fetch today's tasks
             $tasks = $task->where_norder(['Date' =>date('Y-m-d'),'TeacherID'=>$TeacherID]);
            
-     
+            // var_dump($tasks);
+            // exit();
             if(!empty($tasks)){
 
                 $taskList = $this->findTaskList($tasks);
@@ -133,7 +135,8 @@
             else{
                 $this->view('Teacher/Dashboard', 
                 ['tasks' => [],
-                'message' => 'No tasks created.'
+                'message' => 'No tasks created.',
+                'teacherInfo' => $teacherInfo
             ]);
             }
 

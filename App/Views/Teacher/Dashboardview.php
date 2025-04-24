@@ -140,7 +140,9 @@
              <!-- *********  NAVBAR  **********-->
             <div class="navabr">
             <div class="navbar-left">
+            <?php if(isset($teacherInfo)): ?>
                 <a href="#"><h2>Hey <?=htmlspecialchars($teacherInfo['First_Name'])?> <?=htmlspecialchars($teacherInfo['Last_Name'])?></h2></a>
+                <?php endif; ?>
                 <h4>Empowering Excellence in Every Lesson!</h4>
             </div>
             <div class="navbar-right">
