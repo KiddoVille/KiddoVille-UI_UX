@@ -165,14 +165,6 @@ class Meeting
     }
 
 
-    public function checkNIC()
-{
-    $data = json_decode(file_get_contents("php://input"), true);
-    $nic = $data['nic'];
-
-    $existing = $this->model('AddmissionMeeting')->query("SELECT * FROM admission_meeting WHERE NIC = :nic", ['nic' => $nic]);
-
-    echo json_encode(['exists' => !empty($existing)]);
-}
+ 
 
 }
