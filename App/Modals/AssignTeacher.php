@@ -13,8 +13,9 @@
             'TeacherID',
             'Date',
             'Start_Time',
+            'End_Time',
             'AgeGroup',
-            'Subject'
+            'Activity'
         ];
 
         public function validate($data){

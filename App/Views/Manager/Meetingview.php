@@ -154,8 +154,19 @@
                             <option value="11:45:00">11:45 - 12:00</option>
                         </select>
 
-                        <label for="Date">Date <span class="required">*</span></label>
-                        <input type="date" min="<?php echo date('Y-m-d', strtotime('+1 days')); ?>" max="<?php echo date('Y-m-d', strtotime('+7 days')); ?>" id="SlotDate" name="Date" class="form-control" required>
+                        <!-- HTML Date Input with PHP for min/max values -->
+                        <div class="date-container">
+                            <label for="SlotDate" class="date-label">Select a Saturday:<span class="required">*</span></label>
+                            <input
+                                type="date"
+                                id="SlotDate"
+                                name="Date"
+                                class="form-control"
+                                min="<?php echo date('Y-m-d', strtotime('next Saturday')); ?>"
+                                required>
+                            <div id="dateMessage" class="date-message"></div>
+                        </div>
+
                     </div>
                     <input type="hidden" name="MeetingID" id="MeetingID" value="">
                     <div class="button-group">
@@ -208,7 +219,17 @@
                             <option value="11:45:00">11:45 - 12:00</option>
                         </select>
                         <label for="Date">Date <span class="required">*</span></label>
-                        <input type="date" min="<?php echo date('Y-m-d', strtotime('+1 days')); ?>" max="<?php echo date('Y-m-d', strtotime('+7 days')); ?>" id="SlotDate" name="Date" class="form-control" required>
+                        <div class="date-container">
+                            <label for="SlotDate" class="date-label">Select a Sunday:<span class="required">*</span></label>
+                            <input
+                                type="date"
+                                id="SlotDate"
+                                name="Date"
+                                class="form-control"
+                                min="<?php echo date('Y-m-d', strtotime('next Sunday')); ?>"
+                                required>
+                             hi
+                        </div>
                         <label for="name">Name</label>
                         <input type="text" name="name">
                         <label for="NIC" name="nic">NIC<span class="required">*</span></label>
@@ -235,92 +256,187 @@
     <div id="deleteModal" class="modal">
         <div class="modal-content">
             <h2>Confirm Deletion</h2>
-            <p>Are you sure you want to delete this Event?</p>
+            <p>Are you sure you want to delete this time Slot?</p>
             <div class="modal-buttons">
                 <button id="confirmDelete" class="confirm-btn">Delete</button>
                 <button id="cancelDelete" class="cancel-btn">Cancel</button>
             </div>
         </div>
     </div>
-
-
-
     <script>
-        const SlotTime = document.getElementById('SlotTime');
-        const SlotDate = document.getElementById('SlotDate');
-        const MeetingID = document.getElementById('MeetingID');
-        const Update = document.getElementById('Update');
+        document.addEventListener('DOMContentLoaded', function() {
+            const SlotTime = document.getElementById('SlotTime');
+            const SlotDate = document.getElementById('SlotDate');
+            const MeetingID = document.getElementById('MeetingID');
+            const Update = document.getElementById('Update');
+            const dateMessage = document.getElementById('dateMessage');
 
-        SlotDate.addEventListener('change', function() {
-            const selectedDate = SlotDate.value;
-            console.log(selectedDate);
+            // Set initial value to next Saturday
+            SlotDate.value = "<?php echo date('Y-m-d', strtotime('next Saturday')); ?>";
 
-            fetch('<?= ROOT ?>/Manager/Meeting/checkDate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        Date: selectedDate
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Server response:', data);
-                    SlotTime.innerHTML = '';
+            // Show initial message
+            dateMessage.textContent = "Please select Saturday Only";
+            dateMessage.classList.add('info-message');
 
-                    // Create label map for time slots
-                    const labelMap = {
-                        "09:00:00": "9:00 - 9:15",
-                        "09:15:00": "9:15 - 9:30",
-                        "09:30:00": "9:30 - 9:45",
-                        "09:45:00": "9:45 - 10:00",
-                        "10:00:00": "10:00 - 10:15",
-                        "10:15:00": "10:15 - 10:30",
-                        "11:00:00": "11:00 - 11:15",
-                        "11:15:00": "11:15 - 11:30",
-                        "11:30:00": "11:30 - 11:45",
-                        "11:45:00": "11:45 - 12:00"
+            // Load time slots for the initial date
+            loadTimeSlots(SlotDate.value);
+
+            // Single event listener for date changes to handle both validation and time slot loading
+            SlotDate.addEventListener('change', function() {
+                const selectedDate = new Date(this.value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Reset time part for proper date comparison
+
+                // Check if selected date is in the past
+                if (selectedDate < today) {
+                    // Show error message for past dates
+                    dateMessage.textContent = "Please select a future date";
+                    dateMessage.classList.remove('info-message');
+                    dateMessage.classList.add('error-message');
+
+                    // Reset to next available Saturday
+                    const nextSat = findNextSaturday(new Date());
+                    this.value = formatDate(nextSat);
+
+                    setTimeout(() => {
+                        dateMessage.textContent = "Please select Saturday";
+                        dateMessage.classList.remove('error-message');
+                        dateMessage.classList.add('info-message');
+                    }, 3000);
+
+                    // Load time slots for the corrected date
+                    loadTimeSlots(this.value);
+                    return;
+                }
+
+                // Check if selected date is a Saturday (day 6)
+                if (selectedDate.getDay() !== 6) {
+                    // Show error message
+                    dateMessage.textContent = "Sorry, only Saturdays are available for booking";
+                    dateMessage.classList.remove('info-message');
+                    dateMessage.classList.add('error-message');
+
+                    // Reset to next available Saturday
+                    const nextSat = findNextSaturday(selectedDate);
+                    this.value = formatDate(nextSat);
+
+                    // After 3 seconds, switch back to info message
+                    setTimeout(() => {
+                        dateMessage.textContent = "Please select Saturday only";
+                        dateMessage.classList.remove('error-message');
+                        dateMessage.classList.add('info-message');
+                    }, 3000);
+
+                    // Load time slots for the corrected date
+                    loadTimeSlots(this.value);
+                } else {
+                    // Valid selection, show confirmation
+                    const options = {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
                     };
+                    dateMessage.textContent = "Selected: " + selectedDate.toLocaleDateString(undefined, options);
+                    dateMessage.classList.remove('error-message');
+                    dateMessage.classList.add('info-message');
 
-                    // Always add the "Select" option first
-                    const defaultOption = document.createElement('option');
-                    defaultOption.value = 'hidden';
-                    defaultOption.textContent = 'Select Time Slot';
-                    SlotTime.appendChild(defaultOption);
+                    // Load time slots for the valid date
+                    loadTimeSlots(this.value);
+                }
+            });
 
-                    // Check if we are updating
-                    if (Update.style.display === 'flex') {
-                        const meetingId = MeetingID.value;
-                        const allSlots = <?= json_encode($data['allslots']) ?>;
-                        const selectedSlot = allSlots.find(slot => slot.MeetingID == meetingId);
+            // Function to load time slots from the server
+            function loadTimeSlots(selectedDate) {
+                console.log("Loading time slots for:", selectedDate);
 
-                        if (selectedSlot) {
-                            const selectedTime = selectedSlot.Time;
+                fetch('<?= ROOT ?>/Manager/Meeting/checkDate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            Date: selectedDate
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Server response:', data);
+                        SlotTime.innerHTML = '';
 
-                            const selectedOption = document.createElement('option');
-                            selectedOption.value = selectedTime;
-                            selectedOption.textContent = labelMap[selectedTime] || selectedTime;
-                            selectedOption.selected = true;
-                            SlotTime.appendChild(selectedOption);
+                        // Create label map for time slots
+                        const labelMap = {
+                            "09:00:00": "9:00 - 9:15",
+                            "09:15:00": "9:15 - 9:30",
+                            "09:30:00": "9:30 - 9:45",
+                            "09:45:00": "9:45 - 10:00",
+                            "10:00:00": "10:00 - 10:15",
+                            "10:15:00": "10:15 - 10:30",
+                            "11:00:00": "11:00 - 11:15",
+                            "11:15:00": "11:15 - 11:30",
+                            "11:30:00": "11:30 - 11:45",
+                            "11:45:00": "11:45 - 12:00"
+                        };
+
+                        // Always add the "Select" option first
+                        const defaultOption = document.createElement('option');
+                        defaultOption.value = 'hidden';
+                        defaultOption.textContent = 'Select Time Slot';
+                        SlotTime.appendChild(defaultOption);
+
+                        // Check if we are updating
+                        if (Update.style.display === 'flex') {
+                            const meetingId = MeetingID.value;
+                            const allSlots = <?= json_encode($data['allslots'] ?? []) ?>;
+                            const selectedSlot = allSlots.find(slot => slot.MeetingID == meetingId);
+
+                            if (selectedSlot) {
+                                const selectedTime = selectedSlot.Time;
+
+                                const selectedOption = document.createElement('option');
+                                selectedOption.value = selectedTime;
+                                selectedOption.textContent = labelMap[selectedTime] || selectedTime;
+                                selectedOption.selected = true;
+                                SlotTime.appendChild(selectedOption);
+                            }
                         }
-                    }
 
-                    // Add remaining available slots (excluding the selected one if updating)
-                    data.forEach(time => {
-                        // Don't add duplicate if already selected
-                        const isAlreadySelected = SlotTime.querySelector(`option[value="${time}"]`);
-                        if (!isAlreadySelected) {
-                            const option = document.createElement('option');
-                            option.value = time;
-                            option.textContent = labelMap[time] || time;
-                            SlotTime.appendChild(option);
-                        }
+                        // Add remaining available slots (excluding the selected one if updating)
+                        data.forEach(time => {
+                            // Don't add duplicate if already selected
+                            const isAlreadySelected = SlotTime.querySelector(`option[value="${time}"]`);
+                            if (!isAlreadySelected) {
+                                const option = document.createElement('option');
+                                option.value = time;
+                                option.textContent = labelMap[time] || time;
+                                SlotTime.appendChild(option);
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error sending date:', error);
                     });
-                })
-                .catch(error => {
-                    console.error('Error sending date:', error);
-                });
+            }
+
+            // Find the next Saturday from a given date
+            function findNextSaturday(date) {
+                const dayOfWeek = date.getDay();
+                const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+
+                const nextSaturday = new Date(date);
+                nextSaturday.setDate(date.getDate() + (daysUntilSaturday === 0 ? 7 : daysUntilSaturday));
+
+                return nextSaturday;
+            }
+
+            // Format date as YYYY-MM-DD for input value
+            function formatDate(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+
+                return `${year}-${month}-${day}`;
+            }
         });
 
         // JavaScript function to update a slot
@@ -330,10 +446,13 @@
 
             const Add = document.getElementById('Add');
             const Update = document.getElementById('Update');
+            const SlotDate = document.getElementById('SlotDate');
+            const MeetingID = document.getElementById('MeetingID');
+
             Add.style.display = "none";
             Update.style.display = "flex";
 
-            const data = <?php echo json_encode($data['allslots']); ?>;
+            const data = <?php echo json_encode($data['allslots'] ?? []); ?>;
 
             const selectedSlot = data.find(slot => slot.MeetingID == meetingId);
             console.log(selectedSlot);
@@ -348,9 +467,6 @@
                 // Manually trigger the date change event to load available time slots
                 const changeEvent = new Event('change');
                 SlotDate.dispatchEvent(changeEvent);
-
-                // We'll select the correct time slot after the fetch completes
-                // The existing code in the fetch's then() block will handle this
             } else {
                 console.error('Slot not found with ID:', meetingId);
             }
@@ -382,9 +498,6 @@
             };
         }
 
-
-
-        
     </script>
 </body>
 
