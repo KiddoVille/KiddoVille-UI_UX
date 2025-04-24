@@ -5,36 +5,49 @@
     class KiddoSchedule{
         use MainController;
         public function addTask() {
-            $task = new \Modal\Task;
+            $task = new \Modal\Activity;
         
             $dateTime = date('Y-m-d H:i:s');
             $data['Date'] = $dateTime;
-            $arr = $_POST;
-            $arr = array_merge($arr, $data);
-        
-        
-            if ($task->validate($arr)) {
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $arr = $_POST;
+
+                if ($task->validate($arr)) {
                 
-                $task->insert($arr);
-                // Redirect to success page or display a success message
-                redirect('Teacher/Dashboard');
-            } else {
-                // Display error message
+                    $task->insert($arr);
+                    // Redirect to success page or display a success message
+                    redirect('Teacher/Dashboard');
+                } else {
+                    redirect('Teacher/Dashboard');
+                   ;
+                }
+                
             }
+           
+        
+           
         }
     
         public function delete($taskId = null) {
            
     
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-                $taskId = $_POST['id'];
-                $task = new \Modal\Task;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ActivityID'])) {
+                
+                $task = new \Modal\Activity;
+
+                $taskId = $_POST['ActivityID'];
+                // var_dump($taskId);
+                // exit();
+                
         
                 if ($task->deleteTask($taskId)) {
+                    echo "<script>alert('Task deleted successfully.'); </script>";
                     redirect('Teacher/Dashboard'); // Redirect to dashboard
+                    
                 } else {
                     // Optionally, set a message for failure and redirect
                     redirect('Teacher/Dashboard');
+                    echo "<script>alert('Task deleted successfully.'); </script>";
                 }
             } else {
                 // Redirect if accessed via GET or without proper data
@@ -47,27 +60,32 @@
     
        public function updateTask(){
     
-        IF(!isset($_POST['Task_ID']) || !isset($_POST['Title']) || !isset($_POST['Description'])){
-            $_SESSION['error'] = "Invalid data.";
-            var_dump($_POST);
-            echo "<script>alert('Failed to update the task.'); </script>";
+        IF($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            $task = new \Modal\Activity;
+
+            if(empty($_POST['Description'])){
+                $_SESSION['error'] = "Invalid data.";
+                echo "<script>alert('Failed to update the task.'); </script>";
+            }else{
+        
+                $_SESSION['error'] = null;
                 
+                $result = $task->update_withid($_POST['ActivityID'], array_slice($_POST,1), 'ActivityID');
+
+            }
+
+            if($result){
+                redirect('Teacher/Dashboard');
+            }else{
+                echo "<script>alert('Failed to update the task.');</script>";
+                 redirect('Teacher/Dashboard');
+            }
+           
+            
         } 
     
-        $task = new \Modal\Task;
-        $id = $_POST['id'];
-        $data = [
-            'Title' => $_POST['Title'],
-            'Description' => $_POST['Description']
-        ];
-    
-        if ($task->update_withid($id, $data, 'id')) {
-            echo "<script>alert('Task updated successfully.');</script>";
-            redirect('Teacher/Dashboard');
-        } else {
-            echo "<script>alert('Failed to update the task.');</script>";
-            redirect('Teacher/Dashboard');
-        }
+
     
         
     }

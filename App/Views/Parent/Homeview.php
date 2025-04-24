@@ -257,20 +257,28 @@
                         <hr>
                         <div class="overdue-payment card" style="justify-content: center; display: flex;">
                             <div style="margin-left: 20px; margin-right: 20px; margin-top:40px">
-                                <h3 style="color:#4380D1">Overdue Payment</h3>
-                                <p>Due Date: <strong>2023-11-01</strong></p>
-                                <p>Amount: <strong>$120</strong></p>
-
-                                <p>Days Overdue: <strong>10 days</strong></p>
-                                <button class="pay-now" style="white-space: nowrap; margin-bottom: -10px !important; margin-top: 7px;">Pay Now</button>
+                                <?php if (isset($data['Due'])): ?>
+                                    <h2 style="color: red; margin-top: -5px; margin-bottom: -5px;">Overdue Payment</h2>
+                                    <p>Due Date: <strong><?= $data['Due']['Date'] ?></strong></p>
+                                    <p>Amount: <strong><?= $data['Due']['Amount'] ?></strong></p>
+                                    <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
+                                        <input type="hidden" name="total" id="total-input" value="<?= $data['Due']['Amount']*100 ?>" />
+                                        <button type="submit" class="pay-now">Pay Now</button>
+                                    </form>
+                                <?php else: ?>
+                                    <h2 style="color: red; white-space: nowrap;">No Overdue Payment</h2>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="upcoming-payment card" style="justify-content: center; display: flex; margin-top: 20px;">
                             <div style="margin-left: -10px; margin-right: 20px;  margin-top:50px">
-                                <h3 style="color:#4380D1">Upcoming Payment</h3>
-                                <p>Due Date: <strong>2023-12-15</strong></p>
-                                <p>Amount: <strong>$150</strong></p>
-                                <p>Status: <span class="upcoming">Upcoming</span></p>
+                                <?php if (isset($data['Expenses'])): ?>
+                                    <h2 style="color: green; margin-top: -5px; margin-bottom: 25px;">Upcoming Payment</h2>
+                                    <p>Due Date: <strong><?= $data['Expenses']['Date'] ?></strong></p>
+                                    <p>Amount: <strong><?= $data['Expenses']['Amount'] ?></strong></p>
+                                <?php else: ?>
+                                    <h2 style="color: green;"> No Expenses </h2>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -345,6 +353,8 @@
                         <div style="display: flex; flex-direction: row;">
                             <?php if (!isset($data['stat1'])): ?>
                                 <button class="button" id="openMeetingModal" style="width: 100%; margin: 10px;">Request</button>
+                            <?php elseif(isset($data['stat1']) && $data['stat1']['today'] == 1): ?>
+                                
                             <?php else: ?>
                                 <button class="button" id="openMeetingModal" style="width: 100%; margin: 10px;">Edit</button>
                                 <button class="button" id="ResetMeeting" style="width: 100%; margin: 10px;">Delete</button>

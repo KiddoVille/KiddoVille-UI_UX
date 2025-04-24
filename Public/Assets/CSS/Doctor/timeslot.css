@@ -10,10 +10,10 @@
   margin: 0;
 }
 
-.time-slot-form {
+/* .time-slot-form {
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 8px 20px var(--popup-background);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   width: 600px;
   padding: 20px;
 }
@@ -26,7 +26,7 @@ h3 {
 }
 
 /* Calendar Section */
-.calendar {
+/* .calendar {
   margin-bottom: 30px;
 }
 
@@ -77,29 +77,29 @@ h3 {
   color: #555;
   transition: all 0.3s ease;
   border: 1px solid #ddd;
-}
+} */
+/* 
 
-/* Reduce size of radio buttons */
 input[type="radio"] {
-  transform: scale(0.8); /* Adjust scale to make the radio button smaller */
-  width: 16px;          /* Set a smaller width */
-  height: 16px;         /* Set a smaller height */
-  margin: 0 5px;        /* Add some spacing around */
+  transform: scale(0.8); 
+  width: 16px;        
+  height: 16px;        
+  margin: 0 5px;       
 }
 
-/* Optional: Keep the label aligned with smaller radio buttons */
+
 label.day, label.slot {
   display: inline-block;
   margin-left: 10px;
-  font-size: 14px; /* Adjust text size to match smaller buttons */
+  font-size: 14px; 
   cursor: pointer;
 }
 .day:hover {
   background-color: #e3e3ff;
-}
+} */
 
 /* Time Selection Section */
-.time-selection {
+/* .time-selection {
   margin-bottom: 20px;
 }
 
@@ -130,10 +130,10 @@ input[type="radio"]:checked + .slot {
 
 .slot:hover {
   background-color: #e3e3ff;
-}
+} */
 
 /* Buttons */
-button.submit-btn,
+/* button.submit-btn,
 button.reset-btn {
   background-color: #6c63ff;
   color: white;
@@ -158,4 +158,231 @@ button.reset-btn {
 
 button.reset-btn:hover {
   background-color: #d32f2f;
+} */ 
+
+.time-slot-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.time-slot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+
+/* Calendar Section */
+.calendar, .time-selection {
+  flex: 1;
+  min-width: 300px;
+}
+
+.calendar h3, .time-selection h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.month-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-switch span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.month-switch button {
+  border: none;
+  background-color: #f8f9fa;
+  color: #4a6cf7;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.month-switch button:hover {
+  background-color: #4a6cf7;
+  color: white;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.days input[type="radio"] {
+  display: none;
+}
+
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: all 0.2s ease;
+  background-color: #f8f9fa;
+}
+
+.day:hover {
+  background-color: #eef2ff;
+  color: #4a6cf7;
+}
+
+input[type="radio"]:checked + .day {
+  background-color: #4a6cf7;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
+}
+
+/* Time Selection Section */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.slots input[type="radio"] {
+  display: none;
+}
+
+.slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  background-color: #f8f9fa;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.slot:hover {
+  background-color: #eef2ff;
+  color: #4a6cf7;
+}
+
+input[type="radio"]:checked + .slot {
+  background-color: #4a6cf7;
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
+}
+
+/* Button Styling */
+.submit-btn, .reset-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-btn {
+  background-color: #4a6cf7;
+  color: white;
+  margin-right: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #3a5ce5;
+  box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
+}
+
+.reset-btn {
+  background-color: #f8f9fa;
+  color: #666;
+}
+
+.reset-btn:hover {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+header {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.header-display {
+  display: flex;
+  align-items: center;
+}
+
+.header-display p {
+  color: var(--accent);
+  margin: 5px;
+  font-size: 1.2rem;
+  word-spacing: 0.5rem;
+}
+
+pre {
+  padding: 10px;
+  margin: 0;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+.days,
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin: auto;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+.week div,
+.days div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 3em;
+  border-radius: 100%;
+}
+.days div:hover {
+  background: var(--accent-2);
+  color: rgb(25, 25, 201);
+  cursor: pointer;
+}
+.week div {
+  opacity: 0.5;
+}
+.current-date {
+  background-color: var(--accent);
+  color: var(--white);
+}
+.display-selected {
+  margin-bottom: 10px;
+  padding: 20px 20px;
+  text-align: center;
 }

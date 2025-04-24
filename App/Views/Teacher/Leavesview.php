@@ -19,7 +19,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="sidebar">
+        
             <div class="sidebar">
                 <div class="sidebar-header">
                     <img src="<?=IMAGE?>/profilePic.png" alt="profile-pic">
@@ -33,9 +33,9 @@
                         <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="<?=ROOT?>/Main/Home" class="sidebar-list-item" id="home-link">
-                        <i class='bx bxs-home'></i>
-                        <span class="text">Home</span>
+                    <a href="<?=ROOT?>/Teacher/Funzone" class="sidebar-list-item" id="home-link">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                        <span class="text">Funzone</span>
                     </a>
                     <a href="<?=ROOT?>/Teacher/Reports" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
@@ -53,41 +53,107 @@
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
                     </a>
-                    <hr>
-                    <a href="<?=ROOT?>/Main/Help" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
                     
+                   
         
                 </div>
             </div>
-        </div>
+    
 
 
 
         
         <div class="wrapper-1">
 
-<!-- leave edit popup-->
-<div class="request-leave-container" id="request-leave-container">
+             <!-- ********* REQUEST LEAVES **********-->
+
+            <div class="request-leave-container" id="request-leave-container">
                 <div class="leave-content">
                     <h3>Leave Request</h3>
-                    <form action="#">
+                    <form action="<?=ROOT?>/Teacher/Leaves/addLeave" method = "POST">
                     <div class="leave-body">
                         <div class="body-left">
-                            <label for="leave-type">Leave Type<span>*</span></label>
-                            <select name="leave-type" required>
+                            <label for="Leave_Type">Leave Type<span>*</span></label>
+                            <select name="Leave_Type" required>
                                 <option value="Annual Leave">Annual Leave</option>
                                 <option value="Sick Leave">Sick Leave</option>
-                                <option value="Compassionate">Compassionate</option>
+                                <option value="Compassionate Leave">Compassionate</option>
                             </select>
-                            <label for="fromdate">From</label>
-                            <input type="date" name="fromdate" id="fromdate" required> 
-                            <label for="todate">To</label>
-                            <input type="date" name="todate" id="todate" required>
-                            <label for="about">About</label>
-                            <textarea name="about" id="about" placeholder="Inlcude comments for your approver" rows="5" required></textarea>
+                            <label for="Start_Date">From</label>
+                            <input type="date" name="Start_Date" id="Start_Date" required> 
+                            <label for="End_Date">To</label>
+                            <input type="date" name="End_Date" id="End_Date" required>
+                            <label for="Description">About</label>
+                            <textarea name="Description" id="Description" placeholder="Inlcude comments for your approver" rows="5" required></textarea>
+                            
+                        </div>
+                        <div class="body-right">
+                            <img src="<?=ROOT?>/assets/images/leave.png">
+                            <div class="leave-info">
+                                <h4>Your Request Includes</h4>
+                                <hr>
+                                <div class="details-grid">
+                                   
+                                        <div class="detail-item">
+                                            <span class="detail-label"></span>
+                                            <div class="leave-rem">
+                                                <span class="detail-value">Used: </span>
+                                                <span class="detail-value">Remaining: </span>
+                                            </div>
+                                        </div>
+                                    
+                            
+                            <div class="detail-item">
+                                <span class="detail-label">Medical Leaves</span>
+                                <div class="leave-rem">
+                                    <span class="detail-value">Used: </span>
+                                    <span class="detail-value">Remaining: </span>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Compassionate Leaves</span>
+                                <div class="leave-rem">
+                                    <span class="detail-value">Used: </span>
+                                    <span class="detail-value">Remaining: </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leave-footer">
+                        <button class="request" type="submit">Request Now</button>
+                        <button type="button"class="cancel" id="close-request" onclick="closeRequest()">Cancel</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+
+
+             <!-- ********* EDIT REQUEST LEAVES **********-->
+
+             <div class="request-leave-edit" id="request-leave-edit">
+                <div class="edit-leave-content">
+                    <h3>Leave Request</h3>
+                    <form action="<?=ROOT?>/Teacher/Leaves/editLeave" method = "POST">
+                    <div class="edit-leave-body">
+                        <div class="body-left">
+                            
+                            <input type="hidden" id="leave-id" name="LeaveID">
+                            <input type="hidden" id="teacher-id" name="TeacherID">
+                            <label for="Leave_Type">Leave Type<span>*</span></label>
+                            <select name="Leave_Type" required>
+                                <option value="Annual Leave">Annual Leave</option>
+                                <option value="Sick Leave">Sick Leave</option>
+                                <option value="Compassionate Leave">Compassionate</option>
+                            </select>
+                            <label for="Start_Date">From</label>
+                            <input type="date" name="Start_Date" id="Start_Date" required> 
+                            <label for="End_Date">To</label>
+                            <input type="date" name="End_Date" id="End_Date" required>
+                            <label for="Description">About</label>
+                            <textarea name="Description" id="Description" placeholder="Inlcude comments for your approver" rows="5" required></textarea>
                             
                         </div>
                         <div class="body-right">
@@ -96,17 +162,19 @@
                                 <h4>Your Request Includes</h4>
                                 <hr>
                                 <b><p class="para-1"><span>10 </span>days of annual leave</p></b>
-                                <p class="para-2"><span>26</span> days remaining</p>
+                                <p class="para-2"><span>
+                                    </span> days remaining</p>
                             </div>
                         </div>
                     </div>
                     <div class="leave-footer">
-                        <button class="request" type="submit">Request Now</button>
-                        <button class="cancel" id="close-request" onclick="closeRequest()">Cancel</button>
+                        <button class="edit-request" type="submit">Request Now</button>
+                        <button class="edit-cancel" id="close-edit-request" onclick="closeEditLeaves(event)">Cancel</button>
                     </div>
                 </form>
                 </div>
             </div>
+
 
             <div class="navabr">
                 <div class="navbar-left">
@@ -114,11 +182,11 @@
                     <h4>Empowering Excellence in Every Lesson!</h4>
                 </div>
                 <div class="navbar-right">
-                <div class="alter-icon"></div>
+                <!-- <div class="alter-icon"></div>
                 <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
                    
                     <i class='bx bxs-bell' ></i>
-                </a>
+                </a> -->
                 <a href="#" class="profile">
                     <img src="<?=IMAGE?>/profilePic.png"  onclick="toggleMenu()" id="profileIcon">
                 </a>
@@ -184,69 +252,60 @@
     
             </div>
         <div class="content">
-            <div class="backgorund-overlay" ></div>
+           
             <div class="leave-page">
                 <div class="leave-page-header">
                     <div class="leave-page-header-group">
                         <i class="fa-regular fa-calendar"></i>
                         <h3>Leave History</h3>
+                        <div class="req-btn">
+                            <button class="new-req" id="open-request" onclick="openRequest()">New Request</button>
+                        </div>
                     </div>
-                    
                     <hr>
+                    <?php if (!empty($errors)): ?>
+                    <div class="error-messages">
+                        <ul>
+                            <?php foreach ($errors as $field => $error): ?>
+                                <li><strong><?= ucfirst($field) ?>:</strong> <?= $error ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                        <?php endif; ?>
+                        <?php if (isset($message)): ?>
+                            <div class="success-message">
+                                <p><?= $message ?></p>
+                            </div>
+                        <?php endif; ?>
                 </div>
                 <div class="leave-table">
                     <div class="leave-table-title">
-                        <h4>Leave Type</h4>
-                        <h4>Start Date</h4>
-                        <h4>End Date</h4>
-                        <h4>Duration</h4>
-                        <h4>Status</h4>
-                        <h4>Action</h4>
+                        <h4><i class="fa-solid fa-file-alt"></i>Leave Type</h4>
+                        <h4><i class="fa-solid fa-calendar-plus"></i>Start Date</h4>
+                        <h4><i class="fa-solid fa-calendar-check"></i>End Date</h4>
+                        <h4><i class="fa-solid fa-hourglass-half"></i>Duration</h4>
+                        <h4><i class="fa-solid fa-info-circle"></i>Status</h4>
+                        <h4><i class="fa-solid fa-cogs"></i>Action</h4>
                     </div>
-                    <div class="leave-row">
-                        <p>Annual Leave</p>
-                        <p>25/03/2025</p>
-                        <p>25/03/2025</p>
-                        <p class="num">2</p>
-                        <div class="approve">Approved</div>  
-                        <button class="edit-btn" onclick="openRequest()" id="open-request">Edit</button>                      
-                    </div>
-                    <div class="leave-row">
-                        <p>Annual Leave</p>
-                        <p>10/06/2025</p>
-                        <p>11/06/2025</p>
-                        <p class="num">1</p>
-                        <div class="approve">Approved</div>
-                        <button class="edit-btn" onclick="">Edit</button>      
-                        
-                    </div>
-                    <div class="leave-row">
-                        <p>Annual Leave</p>
-                        <p>05/04/2025</p>
-                        <p>06/04/2025</p>
-                        <p class="num">1</p>
-                        <div class="rejected">Rejected</div> 
-                        <button class="edit-btn" onclick="">Edit</button>     
-                    </div>
-                    <div class="leave-row">
-                        <p>Sick Leave</p>
-                        <p>20/12/2024</p>
-                        <p>24/12/2025</p>
-                        <p class="num">4</p>
-                        <div class="approve">Approved</div>  
-                        <button class="edit-btn" onclick="">Edit</button>    
-                    </div>
-                    <div class="leave-row">
-                        <p>Compassinate Leave</p>
-                        <p>06/01/2025</p>
-                        <p>07/01/2025</p>
-                        <p class="num">1</p>
-                        <div class="approve">Approved</div>    
-                        <button class="edit-btn" onclick="">Edit</button>  
-                    </div>
+                    <?php if(isset($leaves)):?>
+                        <?php foreach($leaves as $leave):?>
+                            <div class="leave-row">
+                                <p><?=$leave->Leave_Type?></p>
+                                <p><?=$leave->Start_Date?></p>
+                                <p><?=$leave->End_Date?></p>
+                                <p class="num"><?=$leave->Duration?></p>
+                                <div class="approve" ><?=$leave->Status?></div>  
+                                <button class="edit-btn"  onclick='openEditLeaves(<?= htmlspecialchars(json_encode($leave)) ?>)'>Edit</button>
+                            </div>
+                        <?php endforeach;?>
+                    <?php endif;?>
+                 
                 </div>
             </div>
-         
+    
+
+         <!-- <br><br><br><br><br><br><br><br><br><br>
+         sdsdsds -->
        
             
         </div>
@@ -254,23 +313,83 @@
     </div>
 
     <script src="<?=JS?>/Teacher/script.js"></script>
+    <script src="<?=JS?>/Teacher/leaves.js"></script>
     <script>
-        const openRequest = ()=>{
-    const openBtn = document.getElementById("open-request");
-    const requestContainer = document.getElementById("request-leave-container");
 
-    if(openBtn && requestContainer){
+const openRequest = () => {
+    const requestContainer = document.getElementById("request-leave-container");
+    if (requestContainer) {
         requestContainer.classList.add("show-request");
     }
 };
 
-// CLOSE LEAVE REQUEST  POPUP
-
-const closeRequest = ()=>{
-    const closeBtn = document.getElementById("close-request");
+// CLOSE LEAVE REQUEST POPUP
+const closeRequest = () => {
     const requestContainer = document.getElementById("request-leave-container");
-    requestContainer.classList.remove("show-request");
-}
+    if (requestContainer) {
+        requestContainer.classList.remove("show-request");
+    }
+};
+
+// OPEN EDIT LEAVES POPUP
+const openEditLeaves = (leave) => {
+    console.log(leave);
+    try {
+        // Parse the leave object if it's a string
+        if (typeof leave === 'string') {
+            leave = JSON.parse(leave);
+        }
+        
+        const editContainer = document.getElementById("request-leave-edit");
+        
+        if (editContainer) {
+            // Show the edit container by adding the class
+            editContainer.classList.add("show-request-edit");
+            
+            // Set form field values from the leave object
+            if (document.getElementById('leave-id')) {
+                document.getElementById('leave-id').value = leave.LeaveID;
+            }
+            if (document.getElementById('teacher-id')) {
+                document.getElementById('teacher-id').value = leave.TeacherID;
+            }
+            
+            // Get all the Start_Date fields in the edit form
+            const startDateInputs = editContainer.querySelectorAll('#Start_Date');
+            startDateInputs.forEach(input => input.value = leave.Start_Date);
+            
+            // Get all the End_Date fields in the edit form
+            const endDateInputs = editContainer.querySelectorAll('#End_Date');
+            endDateInputs.forEach(input => input.value = leave.End_Date);
+            
+            // Get all the Description fields in the edit form
+            const descriptionInputs = editContainer.querySelectorAll('#Description');
+            descriptionInputs.forEach(input => input.value = leave.Description);
+            
+            console.log("Successfully opened edit form with data:", leave);
+        } else {
+            console.error("Edit container not found!");
+        }
+    } catch (error) {
+        console.error("Error opening edit form:", error);
+        console.error("Leave data:", leave);
+    }
+};
+
+// CLOSE EDIT LEAVES POPUP
+const closeEditLeaves = (event) => {
+    if (event) {
+        event.preventDefault();
+    }
+    const editContainer = document.getElementById("request-leave-edit");
+    if (editContainer) {
+        editContainer.classList.remove("show-request-edit");
+    } else {
+        console.error("Edit container not found!");
+    }
+};
+
+// // OPEN LEAVE REQUEST POPUP
 
     </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
@@ -278,3 +397,4 @@ const closeRequest = ()=>{
     
 </body>
 </html>
+

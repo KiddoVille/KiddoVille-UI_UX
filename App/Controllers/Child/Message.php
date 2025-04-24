@@ -296,8 +296,57 @@
             echo json_encode($response);
         }
 
-        public function get_messages(){
+        public function NewMessage(){
+            header('Content-Type: application/json');
 
+            $request = json_decode(file_get_contents('php://input'), true);
+            $UserID = $request['UserID'];
+
+            $session = new \Core\Session;
+            $MessageModal = new \Modal\Chat;
+            $UserModal = new \Modal\User;
+
+            // Get current user and child ID
+            $User = $UserModal->first(["UserID" => $UserID]);
+            $ChildID = $session->get("CHILDID");
+
+            if (!$ChildID) {
+                echo json_encode(['success' => false, 'message' => 'No child ID found in session.']);
+                return;
+            }
+
+            // Fetch all messages TO this ChildID that are unseen
+            $newMessages = $MessageModal->where_norder([
+                "SenderID" => $UserID,
+                "SenderRole" => $User->Role,
+                "ReceiverID" => $ChildID,
+                "ReceiverRole" => "Child",
+                "Seen" => 0
+            ]);
+
+            // Mark them as seen
+            if (!empty($newMessages)) {
+                foreach ($newMessages as $msg) {
+                    $MessageModal->update(["ChatID" => $msg->ChatID], ["Seen" => 1]);
+                }
+            }
+
+            // Sort by time
+            if (!empty($newMessages)) {
+                usort($newMessages, function ($a, $b) {
+                    return strtotime($a->DateTime) - strtotime($b->DateTime);
+                });
+            }
+
+            $response = [
+                'success' => true,
+                'message' => $newMessages ?? []
+            ];
+
+            echo json_encode($response);
+        }
+
+        public function get_messages(){
             header('Content-Type: application/json');
             $request = json_decode(file_get_contents('php://input'), true);
             $UserID = $request['UserID'];
@@ -323,6 +372,12 @@
                     $PartnerID = $PartnerData->TeacherID;
                     $sentHistory     = $MessageModal->where_norder(["SenderID" => $ChildID, "ReceiverID" => $PartnerID,"SenderRole"=> "Child",  "ReceiverRole"=> "Teacher" ]);
                     $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $ChildID, "SenderID" => $PartnerID,"ReceiverRole"=> "Child", "SenderRole"=> "Teacher" ]);
+
+                    if(!empty($receivedHistory)){
+                        foreach ($receivedHistory as $his){
+                            $MessageModal->update(["ChatID" => $his->ChatID], ["Seen" => 1]);
+                        }
+                    }
         
                     $ChatHistory = array_merge((array)$sentHistory, (array)$receivedHistory);
                     $ChatHistory = array_filter($ChatHistory, fn($message) => $message !== false);
@@ -330,8 +385,15 @@
                 case 'Maid':
                     $PartnerData = $MaidModal->first(["UserID" => $UserID]);
                     $PartnerID = $PartnerData->MaidID;
-                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $PartnerID, "SenderRole"=> "Maid"]);
-                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $PartnerID, "ReceiverRole"=> "Maid" ]);
+
+                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $ChildID, "ReceiverID" => $PartnerID,"SenderRole"=> "Child",  "ReceiverRole"=> "Maid" ]);
+                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $ChildID, "SenderID" => $PartnerID,"ReceiverRole"=> "Child", "SenderRole"=> "Maid" ]);
+
+                    if(!empty($receivedHistory)){
+                        foreach ($receivedHistory as $his){
+                            $MessageModal->update(["ChatID" => $his->ChatID], ["Seen" => 1]);
+                        }
+                    }
         
                     $ChatHistory = array_merge((array)$sentHistory, (array)$receivedHistory);
                     $ChatHistory = array_filter($ChatHistory, fn($message) => $message !== false);
@@ -341,6 +403,12 @@
                     $PartnerID = $PartnerData->ChildID;
                     $sentHistory     = $MessageModal->where_norder(["SenderID" => $PartnerID, "SenderRole"=> "Child"]);
                     $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $PartnerID, "ReceiverRole"=> "Child" ]);
+
+                    if(!empty($receivedHistory)){
+                        foreach ($receivedHistory as $his){
+                            $MessageModal->update(["ChatID" => $his->ChatID], ["Seen" => 1]);
+                        }
+                    }
         
                     $ChatHistory = array_merge((array)$sentHistory, (array)$receivedHistory);
                     $ChatHistory = array_filter($ChatHistory, fn($message) => $message !== false);
@@ -348,8 +416,14 @@
                 case 'Doctor':
                     $PartnerData = $DoctorModal->first(["UserID" => $UserID]);
                     $PartnerID = $PartnerData->DoctorID;
-                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $PartnerID, "SenderRole"=> "Doctor"]);
-                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $PartnerID, "ReceiverRole"=> "Doctor" ]);
+                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $ChildID, "ReceiverID" => $PartnerID,"SenderRole"=> "Child",  "ReceiverRole"=> "Doctor" ]);
+                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $ChildID, "SenderID" => $PartnerID,"ReceiverRole"=> "Child", "SenderRole"=> "Doctor" ]);
+
+                    if(!empty($receivedHistory)){
+                        foreach ($receivedHistory as $his){
+                            $MessageModal->update(["ChatID" => $his->ChatID], ["Seen" => 1]);
+                        }
+                    }
         
                     $ChatHistory = array_merge((array)$sentHistory, (array)$receivedHistory);
                     $ChatHistory = array_filter($ChatHistory, fn($message) => $message !== false);
@@ -357,8 +431,14 @@
                 case 'Manager':
                     $PartnerData = $ManagerModal->first(["UserID" => $UserID]);
                     $PartnerID = $PartnerData->ManagerID;
-                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $PartnerID, "SenderRole"=> "Manager"]);
-                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $PartnerID, "ReceiverRole"=> "Manager" ]);
+                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $ChildID, "ReceiverID" => $PartnerID,"SenderRole"=> "Child",  "ReceiverRole"=> "Manager" ]);
+                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $ChildID, "SenderID" => $PartnerID,"ReceiverRole"=> "Child", "SenderRole"=> "Manager" ]);
+
+                    if(!empty($receivedHistory)){
+                        foreach ($receivedHistory as $his){
+                            $MessageModal->update(["ChatID" => $his->ChatID], ["Seen" => 1]);
+                        }
+                    }
         
                     $ChatHistory = array_merge((array)$sentHistory, (array)$receivedHistory);
                     $ChatHistory = array_filter($ChatHistory, fn($message) => $message !== false);
@@ -366,8 +446,14 @@
                 case 'Receptionist':
                     $PartnerData = $ReceptionistModal->first(["UserID" => $UserID]);
                     $PartnerID = $PartnerData->ReceptionistID;
-                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $PartnerID, "SenderRole"=> "Receptionist"]);
-                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $PartnerID, "ReceiverRole"=> "Receptionist" ]);
+                    $sentHistory     = $MessageModal->where_norder(["SenderID" => $ChildID, "ReceiverID" => $PartnerID,"SenderRole"=> "Child",  "ReceiverRole"=> "Receptionist" ]);
+                    $receivedHistory = $MessageModal->where_norder(["ReceiverID" => $ChildID, "SenderID" => $PartnerID,"ReceiverRole"=> "Child", "SenderRole"=> "Receptionist" ]);
+
+                    if(!empty($receivedHistory)){
+                        foreach ($receivedHistory as $his){
+                            $MessageModal->update(["ChatID" => $his->ChatID], ["Seen" => 1]);
+                        }
+                    }
         
                     $ChatHistory = array_merge((array)$sentHistory, (array)$receivedHistory);
                     $ChatHistory = array_filter($ChatHistory, fn($message) => $message !== false);

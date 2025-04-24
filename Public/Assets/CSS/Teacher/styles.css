@@ -17,12 +17,15 @@ body::-webkit-scrollbar{
 }
 body{
     background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);
+    
+    min-height: 100vh;
 }
 
 .wrapper{
     display: flex;
-    height: auto;
-    overflow: hidden;
+    /* height: auto;
+    overflow: hidden; */
+    min-height: 100vh;
 }
 
 /*SIDEBAR*/
@@ -117,13 +120,14 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-height: 100vh;
     margin-left: 280px;
 }
 
 /*NAVBAR*/
 .navabr{
-    height: 80px;
-    background: linear-gradient(135deg, var(--primary-color), #10639a);
+    max-height: 80px;
+    background: linear-gradient(135deg, #60a6ec, #10639a);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -259,9 +263,18 @@ body{
 
 /* CONTENT*/
 .content{
+    /* display: flex;
+    flex-direction: column;
+    padding: 10px;
+    min-height: 100%; /* Add this to set minimum height */
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 10px;
+    flex: 1; /* This makes it grow and fill available space */
+    min-height: calc(100vh - 80px); /* Subtract navbar height */
+    background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);
+
 }
 .backgorund-overlay{
     background: url(../Images/background.png);
@@ -293,7 +306,7 @@ body{
     height: 150px;
     background-color: #fff;
     backdrop-filter: blur(3px);
-    box-shadow: 4px 4px 15px var(--popup-background);
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
     transition: 0.2s ease-in;
     color: var(--secondary-color);
 }
@@ -461,7 +474,7 @@ body{
 .activity-list{
     flex:2;
     background-color: #fff;
-    box-shadow: 0px 0px 10px var(--popup-background);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     padding: 10px 20px 20px 20px;
 }
@@ -473,6 +486,9 @@ body{
 .activity-header{
     display: flex;
     justify-content: space-between;
+}
+.activity-column p{
+    color:red;
 }
 .activity-header .header-content{
     display: flex;
@@ -571,7 +587,7 @@ body{
     display: none;
     flex:2;
     background-color: #fff;
-    box-shadow: 0px 0px 10px var(--popup-background);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 25px;
     padding: 20px;
     backdrop-filter: blur(5px);
@@ -622,7 +638,7 @@ body{
     padding: 8px 10px;
     margin: 8px 10px;
     background-color: #f6f6f69b;
-    box-shadow:0 2px 6px var(--popup-background); ;
+    box-shadow:0 2px 6px rgba(0, 0, 0, 0.1); ;
     transition: 0.3s;
     cursor: pointer;
 }
@@ -655,7 +671,7 @@ body{
     flex-direction: column;
     flex:1;
     background-color: #fff;
-    box-shadow: 0px 0px 10px var(--popup-background);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     padding: 20px 20px;
     justify-content: center;
@@ -905,7 +921,7 @@ body{
     background-color: #135ab0;
  
     color: #fff;
-    box-shadow: 0px 2px 5px var(--popup-background);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 .report-footer{
     justify-content: left;

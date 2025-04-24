@@ -153,6 +153,7 @@
                             <option value="11:30:00">11:30 - 11:45</option>
                             <option value="11:45:00">11:45 - 12:00</option>
                         </select>
+
                         <!-- HTML Date Input with PHP for min/max values -->
                         <div class="date-container">
                             <label for="SlotDate" class="date-label">Select a Saturday:<span class="required">*</span></label>
@@ -496,6 +497,7 @@
                 }
             };
         }
+
     </script>
 </body>
 
