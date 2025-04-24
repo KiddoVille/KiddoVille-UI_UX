@@ -33,23 +33,16 @@
                         <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="#" class="sidebar-list-item" id="home-link">
-                        <i class='bx bxs-home'></i>
-                        <span class="text">Home</span>
-                    </a>
+                    
                     <a href="<?=ROOT?>/Doctor/Prescriptions" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
                         <span class="text"> Prescriptions </span>
                     </a>
-                    <a href="<?=ROOT?>/Doctor/Historygroup' ></i>
-                        <span class="text">History</span>
+                    <a href="<?=ROOT?>/Doctor/History" class="sidebar-list-item" id="students-link">
+                    <i class='bx bxs-group' ></i>    
+                    <span class="text">History</span>
                     </a>
                 
-                    <a href="#" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
-                    
         
                 </div>
             </div>

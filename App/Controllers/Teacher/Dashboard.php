@@ -15,13 +15,25 @@
            $activity = new \Modal\Activity;
            $child = new \Modal\Child;
            $attend = new \Modal\Attendance;
+           $teacher = new \Modal\Teacher;
 
            $result = [];
 
                   // Attendance for age groups
         // counting total children
 
- 
+            //getting teacher details
+            $teacherDetails = $teacher->where_norder(['TeacherID' => $TeacherID]);
+            $teacherDetails = $teacherDetails[0];
+            $profilePic = $teacherDetails->Image;
+            $base64Image = base64_encode($profilePic);
+
+            $teacherInfo =[
+                'TeacherID' => $teacherDetails->TeacherID,
+                'First_Name' => $teacherDetails->First_Name,
+                'Last_Name' => $teacherDetails->Last_Name,
+                'Image' => 'data:image/jpg;base64,' . $base64Image
+            ];
          
          
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'request'){
@@ -110,7 +122,9 @@
                 if (!empty($taskList)) {
                     $this->view('Teacher/Dashboard', 
                     ['tasks' => $taskList,
-                    'message' => empty($taskList) ? 'No tasks created.' :''
+                    'message' => empty($taskList) ? 'No tasks created.' :'',
+                    'teacherInfo' => $teacherInfo
+
                 ]);
                 } 
 

@@ -487,6 +487,9 @@ body{
     display: flex;
     justify-content: space-between;
 }
+.activity-column p{
+    color:red;
+}
 .activity-header .header-content{
     display: flex;
     flex:1;  

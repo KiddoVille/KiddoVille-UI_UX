@@ -285,7 +285,6 @@ trait Modal
         $query .= " WHERE " . implode(" AND ", $conditionKeys); // Join the conditions with AND
         // Execute the query with the combined data and conditions
 
-      
         return $this->query($query, $conditionValues);
     }
 

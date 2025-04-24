@@ -22,9 +22,11 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic.png" alt="profile-pic">
+                    <img src="<?=htmlspecialchars($teacherInfo['Image'])?> " alt="profile-pic">
                     <div class="sidebar-header-content">
-                        <h3>Sara Britney</h3>
+                        <?php if(isset($teacherInfo)): ?>
+                        <h3><?=htmlspecialchars($teacherInfo['First_Name'])?> <?=htmlspecialchars($teacherInfo['Last_Name'])?></h3>
+                        <?php endif; ?>
                         <h4>Teacher</h4>
                     </div>
                 </div>
@@ -53,12 +55,7 @@
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
                     </a>
-                    <hr>
-                    <a href="<?=ROOT?>/Main/Help" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
-                    
+                  
         
                 </div>
             </div>

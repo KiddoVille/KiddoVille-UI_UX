@@ -23,9 +23,12 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=ROOT?>/assets/images/profilePic.png" alt="profile-pic">
+                <?php if(isset($teacherInfo)): ?>
+                <img src="<?=htmlspecialchars($teacherInfo['Image'])?> " alt="profile-pic">
                     <div class="sidebar-header-content">
-                        <h3>Sara Britney</h3>
+                    
+                        <h3><?=htmlspecialchars($teacherInfo['First_Name'])?> <?=htmlspecialchars($teacherInfo['Last_Name'])?></h3>
+                        <?php endif; ?>
                         <h4>Teacher</h4>
                     </div>
                 </div>
@@ -55,11 +58,7 @@
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
                     </a>
-                    <hr>
-                    <a href="<?=ROOT?>/Main/Help" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
+                  
                     
         
                 </div>
@@ -141,7 +140,7 @@
              <!-- *********  NAVBAR  **********-->
             <div class="navabr">
             <div class="navbar-left">
-                <a href="#"><h2>Hey Sara Britney</h2></a>
+                <a href="#"><h2>Hey <?=htmlspecialchars($teacherInfo['First_Name'])?> <?=htmlspecialchars($teacherInfo['Last_Name'])?></h2></a>
                 <h4>Empowering Excellence in Every Lesson!</h4>
             </div>
             <div class="navbar-right">
@@ -508,7 +507,17 @@ function fetchTaskList(value = null) {
             },
             error: function (xhr, status, error) {
                 console.error("AJAX error:", error);
-                $('#activity-column').html(`<p style="color:red;">Error loading tasks. Please try again.</p>`);
+                $('#activity-column').html(`<p style=" width: 100%;
+    padding: 4px 5px 4px 20px;
+     color: #ff0000;
+    border: 1px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #feb7b7ad;
+    width:40%;
+    margin: 6px 2px 6px 12px;
+  
+    border-radius: 8px;">No Activities Found Today</p>`);
             }
         });
 }

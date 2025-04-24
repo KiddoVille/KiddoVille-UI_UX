@@ -53,12 +53,8 @@
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
                     </a>
-                    <hr>
-                    <a href="<?=ROOT?>/Main/Help" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
                     
+                   
         
                 </div>
             </div>

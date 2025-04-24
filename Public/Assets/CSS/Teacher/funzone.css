@@ -250,7 +250,7 @@
 
 /*** add resources ***/
 
-.funzone-popup-container{
+.funzone-popup-container, .funzone-popup-edit{
     position: absolute;
    background-color: var(--popup-background);
    width: 100%;
@@ -263,7 +263,7 @@
    visibility: hidden;
    opacity: 0;
 }
-.funzone-content{
+.funzone-content, .edit-funzone-content{
     box-shadow: 4px 4px 15px rgba(0,0,0,0.25);
     width:600px;
     margin: 60px 300px;

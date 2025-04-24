@@ -53,11 +53,8 @@
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
                     </a>
-                    <hr>
-                    <a href="<?=ROOT?>/Main/Help" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
+                    
+                   
                     
         
                 </div>
@@ -75,6 +72,77 @@
             <div class="funzone-popup-container" id="funzone-popup-container" >
                 <form action="<?=ROOT?>/Teacher/Funzone/addMedia" method="post" enctype="multipart/form-data">
                 <div class="funzone-content">
+                    <div class="funzone-header">
+                        <i class="fa-solid fa-upload"></i>
+                        <h3>Upload Resources</h3>
+                        <img src="<?=ROOT?>/assets/images/logo.png">
+                    </div>
+                    
+                    <div class="selects">
+                        <div class="age">
+                            <label for="date">Age Group</label>
+                            <select name="AgeGroup" >
+                                <option disabled selected value="">Select</option>
+                                <option value="3-5">3-5</option>
+                                <option value="6-9">6-9</option>
+                                <option value="10-13">10-13</option>
+                            </select>
+                        </div>
+                        <div class="type">
+                            <label for="type">Media Type</label>
+                            <select name="MediaType">
+                            <option disabled selected value="">Select</option>
+                                <option value="Audio">Audio</option>
+                                <option value="Video">Video</option>
+                                <option value="Image">Image</option>
+                                <option value="Text">Text</option>
+                            </select>
+                        </div>
+                            
+                    </div>
+                    <div class="title">
+                        <h4>Title</h4>
+                        <input type="text" name="Title" placeholder="Add file title" required/>
+                       
+                    </div>
+
+                    <div class="funzone-footer">
+                        <h4>Description</h4>
+                        <input type="textarea" name="Description" placeholder="Add file description" />
+                        <p>You will be notified once the import is successful</p>
+                    </div>
+
+                    <div class="drag-and-drop">
+                        <div class="foramts">
+                            <i class="fa-regular fa-file"></i>
+                            <i class="fa-regular fa-image"></i>
+                            <i class="fa-regular fa-file-lines"></i>
+    
+                        </div>
+                        <h3>Drag and drop files to upload or </h3>
+                        <div class="file-select">
+                             <input type="file" name="file" id="file" >
+                        </div>
+                        
+                        <p>Supported Files: JPG, PNG, PDF, DOCX</p>
+                    </div>
+                   
+                    <div class="funzone-buttons">
+                        <button type = "button"class="cancel"  onclick="closeFunZone()">Cancel</button>
+                        <button class="done" id="" type="submit">Done</button>
+                    </div>
+                </form>
+                </div>
+    
+    
+            </div> 
+
+            <!-- ********* FUN ZONE CONTENT EDITING  **********-->
+
+
+            <div class="funzone-popup-edit" id="funzone-popup-edit" >
+                <form action="<?=ROOT?>/Teacher/Funzone/addMedia" method="post" enctype="multipart/form-data">
+                <div class="edit-funzone-content">
                     <div class="funzone-header">
                         <i class="fa-solid fa-upload"></i>
                         <h3>Upload Resources</h3>
