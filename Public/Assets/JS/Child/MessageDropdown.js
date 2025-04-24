@@ -16,8 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.addEventListener('click', function(event) {
-        if (!messageDropdown.contains(event.target) && !bellIcon.contains(event.target)) {
-            messageDropdown.style.display = "none";
+        if(messageDropdown){
+            if (!messageDropdown.contains(event.target) && !bellIcon.contains(event.target)) {
+                messageDropdown.style.display = "none";
+            }
         }
     });
 
