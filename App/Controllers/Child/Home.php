@@ -382,8 +382,7 @@ class Home
         return $data;
     }
 
-    public function store_schedule()
-    {
+    public function store_schedule(){
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
 

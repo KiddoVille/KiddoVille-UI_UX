@@ -24,6 +24,7 @@
             $data['Child_Count'] = $ChildHelper->child_count();
             $data = $data + $this->store_stats();
             $data = $data + $this->store_meeting_times();
+            $data = $data + $this->store_payment();
 
             $session->set("Location" , 'Parent/Home');
             $this->view('Parent/home',$data);
@@ -158,16 +159,79 @@
             $UserID = $session->get("USERID");
             $MeetingModal = new \Modal\Meeting;
             $ParentModal = new \Modal\ParentUser;
-            $Meeting = $MeetingModal->first(["ParentID" => $Parent->ParentID , "Scheduled" => 1]);
+            $firstday = date('Y-m-d');
+            $lastday = date('Y-m-d', strtotime($firstday . ' +7 days'));
+            $Meeting = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday ,["ParentID" => $Parent->ParentID , "Scheduled" => 1]);
 
-            if($Meeting){
+            if($Meeting && $Meeting[0]->Date){
                 $stats['stat1'] = [
-                    'Time' => $Meeting->Time,
-                    'Date' => $Meeting->Date,
+                    'Time' => $Meeting[0]->Time,
+                    'Date' => $Meeting[0]->Date,
+                    'today' => 1
+                ];
+            }else if($Meeting){
+                $stats['stat1'] = [
+                    'Time' => $Meeting[0]->Time,
+                    'Date' => $Meeting[0]->Date,
+                    'today' => 0
                 ];
             }
     
             return $stats;
+        }
+
+        private function store_payment(){
+            $data = [];
+            $FeesModal = new \Modal\Fees;
+            $Childhelper = new ChildHelper();
+            $children = $Childhelper->store_child();
+
+            foreach ($children as $child){
+                $childPayments = $FeesModal->where_order_desc(["ChildID" => $child->ChildID, "Status" => "Unpaid"], [], "DueDate");
+
+                $Amount = 0;
+                $DueDate = null;
+        
+                if(!empty($childPayments)){
+                    foreach ($childPayments as $payment) {
+                        $Amount += $payment->Amount;
+                    }
+    
+                    $data['Due']['Date'] = date('Y-m-d', strtotime($childPayments[0]->DueDate));
+                    if(isset($data['Due']['Amount'])){
+                        $data['Due']['Amount'] += $payment->Amount;
+                    }else{
+                        $data['Due']['Amount'] = $payment->Amount;
+                    }            
+                }
+                
+                $LastBill = $FeesModal->where_order_desc(["ChildID" => $child->ChildID], [], "DueDate");
+                if (!empty($LastBill)) {
+                    if (!isset($data['LastBill']['Amount'])) {
+                        $data['LastBill']['Amount'] = $LastBill[0]->Amount;
+                    } else {
+                        $data['LastBill']['Amount'] += $LastBill[0]->Amount;
+                    }
+                }
+    
+                $ExpensesModal = new \Modal\Expense;
+                $firstDayOfMonth = date('Y-m-01');
+                $childExpenses = $ExpensesModal->where_order_desc(["ChildID" => $child->ChildID, "Date" => $firstDayOfMonth ], [], "Date");
+                if($childExpenses){
+                    $Amount = 0;
+                    foreach ($childExpenses as $expense) {
+                        $Amount += $expense->Amount;
+                    }
+                    if (!isset($data['Expenses']['Amount'])) {
+                        $data['Expenses']['Amount'] = $Amount;
+                    } else {
+                        $data['Expenses']['Amount'] += $Amount;
+                    }
+                    $data['Expenses']['Date'] = date('Y-m-d', strtotime($firstDayOfMonth));
+                }
+            }
+
+            return $data;
         }
 
         public function deletePickup(){
@@ -214,9 +278,11 @@
             $MeetingModal = new \Modal\Meeting;
             $ParentModal = new \Modal\ParentUser;
 
+            $firstday = date('Y-m-d', strtotime('+1 day'));
+            $lastday = date('Y-m-d', strtotime($firstday . ' +7 days'));
             $Parent = $ParentModal->first(["UserID" => $UserID]);
-            $Meetings = $MeetingModal->where_norder(["Scheduled" => 0]);
-            $Meeting = $MeetingModal->first(['ParentID' => $Parent->ParentID , "Scheduled" => 1]);
+            $Meetings = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday,["Scheduled" => 0]);
+            $Meeting = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday , ['ParentID' => $Parent->ParentID , "Scheduled" => 1]);
             if($Meeting){
                 $Meetings[] = $Meeting;
                 usort($Meetings, function ($a, $b) {

@@ -207,6 +207,7 @@
             <div class="messages" id="chat-window">
                 <div id="scroll-anchor"></div>
             </div>
+            <input type="number" id="Selected-User" hidden />
             <div class="input-bar" id="input-bar">
                 <button id="paperclip-btn"><i class="fa fa-paperclip"></i></button>
                 <button id="edit-close-btn"><i class="fas fa-times"></i></button>
@@ -279,6 +280,7 @@
 </body>
 <script>
 
+    const SelectedUser = document.getElementById('Selected-User');
     const messageDropdown = document.getElementById('messageDropdown');
     const bellIcon = document.getElementById('bell-container');
     const messagenumber = document.getElementById('message-number')
@@ -531,6 +533,7 @@
 
             messagevalue.value = '';
             selectedMessage = null;
+            SelectedUser.value = partnerUserID;
             senduser(partnerUserID);
         }
     });
@@ -740,8 +743,172 @@
         });
     }
 
+    function renderSingleMessage(msg) {
+        const dt = new Date(msg.DateTime);
+        const isSent = parseInt(msg.SenderID) === parseInt(MyID);
+        const messageDate = dt.toLocaleDateString();
+        const today = new Date().toLocaleDateString();
+        const yesterday = new Date();
+        yesterday.setDate(new Date().getDate() - 1);
+
+        const displayDate = messageDate === today
+            ? "Today"
+            : (messageDate === yesterday.toLocaleDateString() ? "Yesterday" : messageDate);
+
+        // Check if date heading already exists
+        const existingDateHeadings = [...chatwindow.querySelectorAll('.date-heading')].map(el => el.textContent);
+        if (!existingDateHeadings.includes(displayDate)) {
+            const dateHeading = document.createElement("div");
+            dateHeading.classList.add("date-heading");
+            dateHeading.textContent = displayDate;
+            chatwindow.appendChild(dateHeading);
+        }
+
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message", isSent ? "sent" : "received");
+
+        const textDiv = document.createElement("div");
+        textDiv.classList.add("text");
+        textDiv.setAttribute("data-chatid", msg.ChatID);
+
+        if (msg.Deleted) {
+            const deletedMsg = document.createElement("p");
+            deletedMsg.textContent = "This message was deleted";
+            deletedMsg.classList.add("deleted-message");
+            textDiv.appendChild(deletedMsg);
+        } else if (!msg.Message && msg.FileType) {
+            const mediaElement = document.createElement("div");
+            mediaElement.classList.add("file-container");
+
+            let fileMedia;
+
+            if (msg.FileType.startsWith("image")) {
+                fileMedia = document.createElement("img");
+                fileMedia.src = msg.URL;
+                fileMedia.alt = "Image file";
+                fileMedia.style.maxWidth = "250px";
+            } else if (msg.FileType.startsWith("audio")) {
+                fileMedia = document.createElement("audio");
+                fileMedia.controls = true;
+                fileMedia.src = msg.URL;
+            } else if (msg.FileType.startsWith("video")) {
+                fileMedia = document.createElement("video");
+                fileMedia.controls = true;
+                fileMedia.style.maxWidth = "300px";
+                fileMedia.src = msg.URL;
+            } else if (msg.FileType.startsWith("document")) {
+                fileMedia = document.createElement("p");
+                fileMedia.textContent = msg.FileName;
+            }
+
+            const downloadBtn = document.createElement("a");
+            downloadBtn.href = msg.URL;
+            downloadBtn.download = msg.URL.split('/').pop();
+            const downloadIcon = document.createElement("i");
+            downloadIcon.classList.add("fas", "fa-download");
+
+            if (isSent) {
+                mediaElement.appendChild(downloadBtn);
+                downloadBtn.appendChild(downloadIcon);
+                mediaElement.appendChild(fileMedia);
+                mediaElement.classList.add("sent-file");
+            } else {
+                mediaElement.appendChild(fileMedia);
+                downloadBtn.appendChild(downloadIcon);
+                mediaElement.appendChild(downloadBtn);
+                mediaElement.classList.add("received-file");
+            }
+
+            downloadBtn.classList.add("download-btn");
+            textDiv.appendChild(mediaElement);
+        } else {
+            if (isSent) {
+                textDiv.classList.add("word");
+            }
+            const messagePara = document.createElement("p");
+            messagePara.textContent = msg.Message;
+            textDiv.appendChild(messagePara);
+
+            if (msg.Edited) {
+                const editedSpan = document.createElement("span");
+                editedSpan.classList.add("edited");
+                editedSpan.textContent = "Edited";
+                messagePara.appendChild(editedSpan);
+            }
+        }
+
+        const timeStatusDiv = document.createElement("div");
+        timeStatusDiv.classList.add("time-status-container");
+
+        const timeDiv = document.createElement("div");
+        timeDiv.classList.add("time2");
+        timeDiv.textContent = dt.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        const statusDiv = document.createElement("div");
+        statusDiv.classList.add("message-status");
+
+        if (isSent) {
+            if (msg.Seen) {
+                statusDiv.innerHTML = "✔✔";
+                statusDiv.classList.add("status-seen");
+            } else if (msg.Delivered) {
+                statusDiv.innerHTML = "✔✔";
+                statusDiv.classList.add("status-delivered");
+            } else {
+                statusDiv.innerHTML = "✔";
+                statusDiv.classList.add("status-sent");
+            }
+        }
+
+        timeStatusDiv.appendChild(timeDiv);
+        if (isSent) timeStatusDiv.appendChild(statusDiv);
+
+        textDiv.appendChild(timeStatusDiv);
+        messageDiv.appendChild(textDiv);
+        chatwindow.appendChild(messageDiv);
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
+
+        const SelectedUser = document.getElementById('Selected-User');
+        SelectedUser.value = '';
+        console.log(SelectedUser.value);
+
+        function fetchNewMessages() {
+            const SelectedUserID = SelectedUser.value;
+            if (!SelectedUserID) return;
+
+            fetch("<?= ROOT ?>/Child/Message/NewMessage", {
+                method: "POST",
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    UserID: SelectedUserID
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.message.length > 0) {
+                    data.message.forEach(msg => {
+                        renderSingleMessage(msg);
+                    });
+
+                    const newAnchor = document.createElement("div");
+                    newAnchor.id = "scroll-anchor-new";
+                    chatwindow.appendChild(newAnchor);
+                    newAnchor.scrollIntoView({ behavior: "smooth" });
+                // Update UI here if needed
+                    } else {
+                        console.warn("Failed to fetch messages");
+                    }
+                })
+            .catch(error => console.error("Error:", error));
+        }
+
+        // Start checking every 5 seconds
+        setInterval(fetchNewMessages, 5000);
 
         let selectedFiles = [];
         const refresh = document.getElementById('refresh');
