@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaves</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="<?=CSS?>/Doctor/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/timeslot.css?v=<?= time() ?>">
@@ -29,14 +29,11 @@
                     </div>
                 </div>
                 <div class="sidebar-list">
-                    <a href="<?=ROOT?>/Doctor/Dashboard" class="sidebar-list-item" id="dashboard-link"> 
-                        <i class='<?=ROOT?>/Doctor/Dashboard'></i>
+                <a href="<?=ROOT?>/Doctor/Dashboard" class="sidebar-list-item" id="dashboard-link"> 
+                        <i class='bx bxs-dashboard'></i>
                         <span class="text">Dashboard</span>
                     </a>
-                    <a href="#" class="sidebar-list-item" id="home-link">
-                        <i class='bx bxs-home'></i>
-                        <span class="text">Home</span>
-                    </a>
+                  
                     <a href="<?=ROOT?>/Doctor/Prescriptions" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
                         <span class="text"> Prescriptions </span>
@@ -46,10 +43,7 @@
                         <span class="text">History</span>
                     </a>
                 
-                    <a href="#" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
+                   
                     
         
                 </div>
@@ -67,11 +61,7 @@
                     <h4>12/08/2025</h3>
                 </div>
                 <div class="navbar-right">
-                <div class="alter-icon"></div>
-                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
-                   
-                    <i class='bx bxs-bell' ></i>
-                </a>
+               
                 <a href="#" class="profile">
                     <img src="<?=IMAGE?>/profilePic-2.png"  onclick="toggleMenu()" id="profileIcon">
                 </a>
@@ -144,105 +134,34 @@
                     <div class="time-slot">
                       <!-- Calendar Section -->
                       <div class="calendar">
-                        <h3>Date</h3>
-                        <div class="month-switch">
-                          <button type="button" class="prev">&lt;</button>
-                          <span>May</span>
-                          <button type="button" class="next">&gt;</button>
+                      <h3>Date</h3>
+                        <header>
+                        <pre class="left">◀</pre>
+                        
+                        <div class="header-display">
+                            <p class="display">""</p>
                         </div>
-                        <div class="days">
-                          <input type="radio" id="day-1" name="day-1" value="1" />
-                          <label class="day" for="day-1">1</label>
 
-                          <input type="radio" id="day-2" name="day-2" value="2" />
-                          <label class="day" for="day-2">2</label>
+                        <pre class="right">▶</pre>
 
-                          <input type="radio" id="day-3" name="day-3" value="3" />
-                          <label class="day" for="day-3">3</label>
+                        </header>
 
-                          <input type="radio" id="day-4" name="day-4" value="4" />
-                          <label class="day" for="day-4">4</label>
-
-                          <input type="radio" id="day-5" name="day-5" value="5" />
-                          <label class="day" for="day-5">5</label>
-
-                          <input type="radio" id="day-6" name="day-6" value="6" />
-                          <label class="day" for="day-6">6</label>
-
-                          <input type="radio" id="day-7" name="day-7" value="7" />
-                          <label class="day" for="day-7">7</label>
-
-                          <input type="radio" id="day-8" name="day-8" value="8" />
-                          <label class="day" for="day-8">8</label>
-
-                          <input type="radio" id="day-9" name="day-9" value="9" />
-                          <label class="day" for="day-9">9</label>
-
-                          <input type="radio" id="day-10" name="day-10" value="10" />
-                          <label class="day" for="day-10">10</label>
-
-                          <input type="radio" id="day-11" name="day-11" value="11" />
-                          <label class="day" for="day-11">11</label>
-
-                          <input type="radio" id="day-12" name="day-12" value="12" />
-                          <label class="day" for="day-12">12</label>
-
-                          <input type="radio" id="day-13" name="day-13" value="13" />
-                          <label class="day" for="day-13">13</label>
-
-                          <input type="radio" id="day-14" name="day-14" value="14" />
-                          <label class="day" for="day-14">14</label>
-
-                          <input type="radio" id="day-15" name="day-15" value="15" />
-                          <label class="day" for="day-15">15</label>
-
-                          <input type="radio" id="day-16" name="day-16" value="16" />
-                          <label class="day" for="day-16">16</label>
-
-                          <input type="radio" id="day-17" name="day-17" value="17" />
-                          <label class="day" for="day-17">17</label>
-
-                          <input type="radio" id="day-18" name="day-18" value="18" />
-                          <label class="day" for="day-18">18</label>
-
-                          <input type="radio" id="day-19" name="day-19" value="19" />
-                          <label class="day" for="day-19">19</label>
-
-                          <input type="radio" id="day-20" name="day-20" value="20" />
-                          <label class="day" for="day-20">20</label>
-
-                          <input type="radio" id="day-21" name="day-21" value="21" />
-                          <label class="day" for="day-21">21</label>
-
-                          <input type="radio" id="day-22" name="day-22" value="22" />
-                          <label class="day" for="day-22">22</label>
-
-                          <input type="radio" id="day-23" name="day-23" value="23" />
-                          <label class="day" for="day-23">23</label>
-
-                          <input type="radio" id="day-24" name="day-24" value="24" />
-                          <label class="day" for="day-24">24</label>
-
-                          <input type="radio" id="day-25" name="day-25" value="25" />
-                          <label class="day" for="day-25">25</label>
-
-                          <input type="radio" id="day-26" name="day-26" value="26" />
-                          <label class="day" for="day-26">26</label>
-
-                          <input type="radio" id="day-27" name="day-27" value="27" />
-                          <label class="day" for="day-27">27</label>
-
-                          <input type="radio" id="day-28" name="day-28" value="28" />
-                          <label class="day" for="day-28">28</label>
-
-                          <input type="radio" id="day-29" name="day-29" value="29" />
-                          <label class="day" for="day-29">29</label>
-
-                          <input type="radio" id="day-30" name="day-30" value="30" />
-                          <label class="day" for="day-30">30</label>
-                          <!-- Repeat for all days -->
+                        <div class="week">
+                            <div>Su</div>
+                            <div>Mo</div>
+                            <div>Tu</div>
+                            <div>We</div>
+                            <div>Th</div>
+                            <div>Fr</div>
+                            <div>Sa</div>
                         </div>
-                      </div>
+                        <div class="days"></div>
+
+                        <div class="display-selected">
+                            <p class="selected"></p>
+                        </div>
+                    </div>
+                     
                   
                       <!-- Time Selection Section -->
                       <div class="time-selection">
@@ -307,8 +226,9 @@
     </div>
     </div>
 
-    <script src="../Scripts/script.js"></script>
-    <script src="timeslot.js"></script>
+    
+    <script src="<?=JS?>/Doctor/calander.js"></script>
+    
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     

@@ -47,7 +47,7 @@
                                 $lastseen = date('Y-m-d H:i:s');
                                 $teacher->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
 
-                                redirect('Teacher/Home');
+                                redirect('Teacher/Dashboard');
                             }
                             if($result->Role === "Maid"){
                                 $maid = new \Modal\Maid;
@@ -71,7 +71,7 @@
                                 $doctor = new \Modal\Doctor;
                                 $lastseen = date('Y-m-d H:i:s');
                                 $doctor->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
-                                redirect('Doctor/Home');
+                                redirect('Doctor/Dashboard');
                             }
                             if($result->Role){
                                 redirect('_404');

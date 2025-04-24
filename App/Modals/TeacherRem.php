@@ -7,11 +7,15 @@
     class TeacherRem{
         use Modal;
 
-        protected $table = 'teacher_rem_leaves';
+        protected $table = 'TeacherLeaveBalance';
         protected $allowedColumns = [
             'id',
             'TeacherID ',
-            'Remaining_Leaves'
+            'LeaveType',
+            'TotalAllocated',
+            'Used',
+            'Remaining',
+            'LastUpdate'
             
         ];
 

@@ -17,12 +17,15 @@ body::-webkit-scrollbar{
 }
 body{
     background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);
+    
+    min-height: 100vh;
 }
 
 .wrapper{
     display: flex;
-    height: auto;
-    overflow: hidden;
+    /* height: auto;
+    overflow: hidden; */
+    min-height: 100vh;
 }
 
 /*SIDEBAR*/
@@ -117,13 +120,13 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
-    
+    min-height: 100vh;
     margin-left: 280px;
 }
 
 /*NAVBAR*/
 .navabr{
-    height: 80px;
+    max-height: 80px;
     background: linear-gradient(135deg, #60a6ec, #10639a);
     display: flex;
     align-items: center;
@@ -260,9 +263,17 @@ body{
 
 /* CONTENT*/
 .content{
+    /* display: flex;
+    flex-direction: column;
+    padding: 10px;
+    min-height: 100%; /* Add this to set minimum height */
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 10px;
+    flex: 1; /* This makes it grow and fill available space */
+    min-height: calc(100vh - 80px); /* Subtract navbar height */
+    background: linear-gradient(to bottom right, #f7f7f7, #eaeaea);
 
 }
 .backgorund-overlay{
@@ -475,6 +486,9 @@ body{
 .activity-header{
     display: flex;
     justify-content: space-between;
+}
+.activity-column p{
+    color:red;
 }
 .activity-header .header-content{
     display: flex;

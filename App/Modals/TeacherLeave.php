@@ -9,10 +9,13 @@
 
         protected $table = 'teacher_leave';
         protected $allowedColumns = [
+            'TeacherID',
             'Leave_Type',
             'Start_Date',
             'End_Date',
-            'Description'
+            'Duration',
+            'Description',
+            'Status'
         ];
 
         public function validate($data) {
@@ -30,8 +33,8 @@
                 $this->errors['Start_Date'] = 'Start date is required';
             } elseif (!strtotime($data['Start_Date'])) {
                 $this->errors['Start_Date'] = 'Invalid date format';
-            }elseif(strtotime($data['Start_Date']) < time()){
-                $this->errors['Start_Date'] = 'Start date must be in the future';
+            }elseif(strtotime($data['Start_Date']) <= strtotime(date('Y-m-d'))){
+                $this->errors['Start_Date'] = 'Start date must be a date after today';
             }
             
             

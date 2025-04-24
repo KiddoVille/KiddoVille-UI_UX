@@ -14,6 +14,9 @@
                 $attend =  new \Modal\Attendance;
                 $mark =  new \Modal\Mark;
                 $subject = new \Modal\Subject;
+                $skill = new \Modal\Skill;
+                $skillScore = new \Modal\SkillScore;
+                $observ = new \Modal\Observation;
                 
                 $reportID = $_POST['report_id'];
 
@@ -24,12 +27,15 @@
                 //student details
                 $child = $student->where_norder(['ChildID' => $reportCard->StudentID]);
                 $studentDetails = $child[0];
-
+                
                 //registarin no
                 $studentDetails->DOB = $this->agecalculate($studentDetails->DOB);
                 $year = date('y', strtotime($studentDetails->EnrollDate));
                 $studentDetails->RegNo = "KV".$year.str_pad($studentDetails->ChildID, 4, '0', STR_PAD_LEFT);
-
+                $profilePic = $studentDetails->Image;
+                $base64Image = base64_encode($profilePic);
+                // var_dump($profilePic);
+                // exit();
                 $studentData [] = [
                     'RegNo' => $studentDetails->RegNo,
                     'First_Name' => $studentDetails->First_Name,
@@ -37,6 +43,8 @@
                     'Age' => $studentDetails->DOB,
                     'Month' => $reportCard->Month,
                     'Created' => date('Y-m-d', strtotime($reportCard->Submitted_at)),
+                    'Year' => $reportCard->Year,
+                    'Image'=> 'data:image/jpeg;base64,' . $base64Image
                 ];
 
 
@@ -105,9 +113,64 @@
                     $marksError = "Marks data is missing or incomplete.";
                 } else {
                     $marksError = null;  
+                
 
+                //skill score details
 
+                $observations = $observ->where_norder(['StudentID' => $reportCard->StudentID]);
+                $skillsData = [
+                    'cognitive' => 0,
+                    'communication' => 0,
+                    'critical_thinking' => 0,
+                    'emotional_control' => 0,
+                    'creativity' => 0
+                ];
+                $skillRounds = [
+                    'cognitive' => 0,
+                    'communication' => 0,
+                    'critical_thinking' => 0,
+                    'emotional_control' => 0,
+                    'creativity' => 0
+                ];
+                foreach ($observations as $obs) {
+                    $scores = $skillScore->where_norder(['ObservationID' => $obs->id]);
 
+                    foreach ($scores as $score) {
+                        if($score->SkillID == 1){
+                            $skillsData['cognitive'] = $skillsData['cognitive'] + $score->Score;
+                            $skillRounds['cognitive'] = $skillRounds['cognitive'] + 1;
+                        }
+                        if($score->SkillID == 2){
+                            $skillsData['communication'] =$skillsData['communication'] + $score->Score;
+                            $skillRounds['communication'] = $skillRounds['communication'] + 1;
+                        }
+                        if($score->SkillID == 3){
+                            $skillsData['critical_thinking'] =  $skillsData['critical_thinking'] + $score->Score;
+                            $skillRounds['critical_thinking'] = $skillRounds['critical_thinking'] + 1;
+                        }
+                        if($score->SkillID == 4){
+                            $skillsData['emotional_control'] = $skillsData['emotional_control'] + $score->Score;
+                            $skillRounds['emotional_control'] = $skillRounds['emotional_control'] + 1;
+                        }
+                        if($score->SkillID == 5){
+                            $skillsData['creativity'] = $skillsData['creativity'] + $score->Score;
+                            $skillRounds['creativity'] = $skillRounds['creativity'] + 1;
+                        }
+                        
+                    }
+                   
+                };
+
+                foreach ($skillsData as $skill => $totalScore) {
+                    $count = $skillRounds[$skill];
+                    $skillsData[$skill] = $count > 0 ? round($totalScore / $count, 2) : 0;
+                }
+
+                // var_dump($skillsData);
+                // exit();
+               
+
+                
 
              
                 
@@ -116,6 +179,7 @@
                     'attendData' => $attendData[0],
                     'studentData' => $studentData[0],
                     'marksData' => $marksData,
+                    'skillsData' => $skillsData,
                     'attendError' => $attendError,  // Pass error for attendance
                     'studentError' => $studentError,  // Pass error for student
                     'marksError' => $marksError, 

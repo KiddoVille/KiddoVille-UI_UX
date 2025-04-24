@@ -138,11 +138,7 @@
                     <h4>Empowering Excellence in Every Lesson!</h4>
                 </div>
                 <div class="navbar-right">
-                <div class="alter-icon"></div>
-                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
-                   
-                    <i class='bx bxs-bell' ></i>
-                </a>
+               
                 <a href="#" class="profile">
                     <img src="<?=IMAGE?>/profilePic.png" onclick="toggleMenu()" id="profileIcon">
                 </a>
@@ -227,6 +223,16 @@
                         <option value="10-13">10-13</option>
                     </select>
                 </div>
+
+                <?php if (!empty(($errors))): ?>
+                <div class="error-message">
+                       
+                           <?php foreach($errors as $error): ?>
+                            <p><li><?= $error ?></li></p>
+                            <?php endforeach; ?>
+                       
+                        </div>
+                        <?php endif; ?>
 
                 <div class="student-table"  id ="student-table" >
                     <div class="student-table-title" style="max-height:50px">

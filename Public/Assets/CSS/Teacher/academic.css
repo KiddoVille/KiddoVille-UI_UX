@@ -47,6 +47,9 @@ gap: 10px;
 justify-content: center;
 align-items: center;
 }
+.first-row img{
+  border-radius: 50%;
+}
 
 .report-header .attendence-bar{
 padding: 30px 20px;
@@ -61,22 +64,21 @@ border: 1px solid #ccccccb0;
 margin: 5px 0px;
 
 }
-.attendence-bar h3{
-  color: #0d102f;
-  font-family: 'Inter', sans-serif;
-}
-.attendence-bar .progress-bar {
-display: flex;
-justify-content: center;
-align-items: center;
-width: 200px;
-height: 200px;
-border-radius: 50%;
-background: 
-  radial-gradient(closest-side, white 79%, transparent 80% 100%),
-  conic-gradient( var(--primary-color) 65%, var(--border-line) 0 );
-/* Rotates to position the start/end gap */
 
+.attendence-bar .progress-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  font-size: 30px;
+  font-weight: 700;
+  color: black;
+}
+.progress-bar{
+  margin: 30px 0px 15px 140px;
 }
 
 .attendence-bar .progress{
@@ -85,11 +87,14 @@ background:
   padding: 30px 150px;
  
 }
-.progress-bar::before {
+.progress-value {
+  z-index: 2;
+}
+/* .progress-bar::before {
 content: "65%";
 font-size: 30px;
 font-weight: 700;
-}
+} */
 
 /*subject assesments*/
 
@@ -131,12 +136,12 @@ background-color: #f9f9f9;
 }
 .subject-grades-data .regulation{
   display: inline;
-  width: auto;
-  width: 40%;
+ width: 60%;
   background-color: #bad7fac4;
   padding: 5px 12px;
-  border-radius: 13px;
+  border-radius: 8px;
   text-align: center;
+  justify-content: center;
   
 }
 
@@ -149,7 +154,7 @@ padding: 10px 10px;
 margin: 5px 4px;
 
 }
-.social, .behaviour{
+.container-social, .behaviour{
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 border-radius: 8px;
 padding: 20px;
@@ -172,9 +177,8 @@ width: 100%;
   width: 100%;
 }
 .behaviour-skills{
-display: flex;
-flex-direction: column;
-padding: 10px 10px;
+
+padding: 2px 2px;
 }
 .behaviour-skills .text-line{
 display: flex;
@@ -350,4 +354,191 @@ padding: 6px 10px;
 }
 .data-line span{
   font-weight: 800;
+}
+
+.error-message{
+  color: #d54242;
+  width: auto;
+  padding: 10px 30px;
+  border: 1px;
+  background-color: #fbcaca94;
+  margin: auto;
+  border-radius: 8px;
+
+}
+
+
+
+.container-social {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.container-social h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 30px;
+}
+
+.skills-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.skill-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-name {
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 17px;
+  
+}
+
+.skill-value {
+  font-weight: 700;
+  font-size: 18px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: white;
+}
+
+.skill-bar {
+  height: 10px;
+  border-radius: 5px;
+  position: absolute;
+  background-color: #e2e8f0;
+}
+
+.skill-progress {
+  height: 100%;
+  border-radius: 5px;
+  position: absolute;
+  padding: 2px 0px;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+/* Individual skill colors */
+.cognitive {
+  background-color: #3182ce;
+}
+
+.communication {
+  background-color: #38a169;
+}
+
+.socials {
+  background-color: #dd6b20;
+}
+
+.creative {
+  background-color: #805ad5;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.profile-header {
+  background: linear-gradient(135deg, #6e8efb, var(--primary-color));
+  height: 80px;
+  position: relative;
+}
+
+.profile-img-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -50px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-content {
+  padding: 60px 20px 20px;
+  text-align: center;
+}
+
+.student-name  {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 5px;
+}
+.attendence-bar h3{
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 5px;
+}
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+  text-align: left;
+}
+
+.detail-item {
+  padding: 12px;
+  background-color: #f7f9fc;
+  border-radius: 8px;
+}
+
+.detail-label {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-size: 14px;
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.report-badge {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #ebf4ff;
+  color: #4299e1;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
 }
