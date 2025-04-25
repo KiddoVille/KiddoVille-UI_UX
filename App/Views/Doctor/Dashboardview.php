@@ -6,7 +6,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="<?=CSS?>/Doctor/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/variables.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Doctor/time.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Doctor/press.css?v=<?= time() ?>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!--google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,13 +154,17 @@
                             <p><?=$time['ChildName']?></p>
                             <?php if($time['Status'] !== 'booked'):?>
                             <div class="actions">
-                                <button type="button" class="edit-btn-booked">Edit</button></a>
-                                <button type="button" class="dlt-btn-booked">Delete</button>
+                                <button type="button" class="edit">Edit</button></a>
+                                <button type="button" class="delete">Delete</button>
                             </div>
                             <?php else:?>
                             <div class="actions">
-                                <button type="button" class="edit-btn-booked" disabled>Edit</button></a>
-                                <button type="button" class="dlt-btn-booked" disabled>Delete</button>
+                                <button type="button" class="edit-btn" disabled>Edit</button></a>
+                                <button type="button" class="dlt-btn" disabled>Delete</button>
+                                <form action="<?=ROOT?>/Doctor/Prescriptions" method="POST">
+                                    <input type="text" value="<?=$time['SlotID']?>">
+                                <button type="submit" class="prescription" name="SlotID">Add Prescription</button>
+                                </form> 
                             </div>
                             <?php endif;?>
                                                 
