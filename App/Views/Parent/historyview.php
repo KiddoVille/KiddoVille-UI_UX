@@ -165,7 +165,7 @@
                 </div>
                 <div class="stat">
                     <h3><img src="<?= IMAGE ?>/sick.svg?v=<?= time() ?>" alt="Attendance">Average attendance</h3>
-                    <p style="margin-bottom: 3px;"> <?= $data['average_attendance'] ?> Day</p>
+                    <p style="margin-bottom: 3px;"> <?= $data['average_attendance'] ?>%</p>
                     <span>Average of attendance in a month</span>
                 </div>
                 <div class="stat">
@@ -364,7 +364,9 @@
                 
                 // Departure Time (End Date & Time)
                 const departureCell = document.createElement('td');
-                departureCell.textContent = `${attendance.End_Date} ${attendance.End_Time}`;
+                departureCell.textContent = (attendance.End_Date && attendance.End_Time) 
+                    ? `${attendance.End_Date} ${attendance.End_Time}` 
+                    : '';
                 row.appendChild(departureCell);
                 
                 // Pickup Information

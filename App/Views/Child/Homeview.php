@@ -296,7 +296,7 @@
                             <table style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Subject</th>
+                                        <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Activity</th>
                                         <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Description</th>
                                         <th style="color: #233E8D; background-color:transparent; padding-left:10%;">Marks</th>
                                     </tr>
@@ -814,12 +814,12 @@ if(Array.isArray(holidays) && holidays.length > 0){
             header.innerHTML = `
                 <i class="fas fa-calendar-alt holiday-icon"></i>
                 <span>${holiday.Date}</span>
-                <span>${holiday.Name}</span>
+                <span>${holiday.Leave_Type}</span>
             `;
 
             const details = document.createElement("div");
             details.className = "holiday-details";
-            details.textContent = holiday.Details;
+            details.textContent = holiday.About;
 
             item.appendChild(header);
             item.appendChild(details);
@@ -1262,6 +1262,7 @@ if(Array.isArray(holidays) && holidays.length > 0){
         //const currentTime = new Date('2025-01-28T11:30:00'); Example for testing
         const currentTimeString = currentTime.toTimeString().split(' ')[0]; // Get just "HH:mm:ss"
         const currentTimeInMillis = convertTimeToMillis(currentTimeString);
+        console.log(activities);
 
         activities.forEach((activity, index) => {
             const row = document.createElement('tr');
@@ -1272,7 +1273,7 @@ if(Array.isArray(holidays) && holidays.length > 0){
 
             // Add the Activity Name, Start Time, and End Time to the row
             row.innerHTML = `
-            <td>${activity.Subject}</td>
+            <td>${activity.Activity}</td>
             <td style="padding-left: -15%;">${activity.Start_Time}</td>
             <td style="padding-left: -15%;">${activity.End_Time}</td>
         `;
@@ -1283,7 +1284,7 @@ if(Array.isArray(holidays) && holidays.length > 0){
                 row.classList.add('selected'); // Add class for further styling
             }
 
-            // When the row is clicked, insert the description row below it
+            // When the row is clicked, insert the description row below itw
             row.addEventListener('click', function() {
                 // Check if this row already has a visible description row
                 const existingDescriptionRow = document.querySelector(`.description-row[data-index="${index}"]`);

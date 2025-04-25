@@ -258,7 +258,7 @@
                         <div class="overdue-payment card" style="justify-content: center; display: flex;">
                             <div style="margin-left: 20px; margin-right: 20px; margin-top:40px">
                                 <?php if (isset($data['Due'])): ?>
-                                    <h2 style="color: red; margin-top: -5px; margin-bottom: -5px;">Overdue Payment</h2>
+                                    <h2 style="color: red; margin-top: -5px;">Overdue Payment</h2>
                                     <p>Due Date: <strong><?= $data['Due']['Date'] ?></strong></p>
                                     <p>Amount: <strong><?= $data['Due']['Amount'] ?></strong></p>
                                     <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
@@ -354,7 +354,7 @@
                             <?php if (!isset($data['stat1'])): ?>
                                 <button class="button" id="openMeetingModal" style="width: 100%; margin: 10px;">Request</button>
                             <?php elseif(isset($data['stat1']) && $data['stat1']['today'] == 1): ?>
-                                
+                                Meeting is Scheduled for today
                             <?php else: ?>
                                 <button class="button" id="openMeetingModal" style="width: 100%; margin: 10px;">Edit</button>
                                 <button class="button" id="ResetMeeting" style="width: 100%; margin: 10px;">Delete</button>
