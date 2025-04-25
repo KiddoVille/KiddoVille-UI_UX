@@ -161,11 +161,11 @@
                                 <hr>
                                 <div class="table_filters">
                                     <div class="search_line">
-                                        <div class="field_input2">
+                                        <form class="field_input2" action = "<?=ROOT?>/Receptionist/Attendance/search" method="POST">
                                             <i class="fas fa-search">
                                             </i>
-                                          <input placeholder="Search Index......" type="text"/>
-                                        </div>
+                                          <input placeholder="Search Index......" type="text" name="ChildID"/>
+                                        </form>
                                      </div>
                                      <div class="date_entry">
                                         <input type="date"/>
@@ -217,10 +217,10 @@
                                 </div>
                                 <div class="colum check_in">
                                 
-                                        <?php if( $child->Start_Time !== NULL): ?>
+                                        <?php if(isset($child->Start_Time) && $child->Start_Time !== NULL): ?>
                                            
                                             <span><?= htmlspecialchars($child->Start_Time) ?></span>
-                                        <?php else: ?>
+                                         <?php else: ?>
                                             
                                             <form class="before_mark attendanceButton" method="POST" action="<?=ROOT?>/Receptionist/Attendance/markAttendance">
                                                 <input type="hidden" name="childID" value="<?= htmlspecialchars($child->ChildID) ?>">
@@ -231,10 +231,17 @@
                                     
                                 </div>
                                 <div class="colum Check-in" >
-                                    <div class="before_mark attendanceButton">
-                                        <span>Mark</span>
-                                    </div>
-                                    <span class="checkInTime"></span>
+                                <?php if(isset($child->End_Time) && $child->End_Time !== NULL): ?>
+                                           
+                                           <span><?= htmlspecialchars($child->End_Time) ?></span>
+                                        <?php else: ?>
+                                           
+                                           <form class="before_mark attendanceButton" method="POST" action="<?=ROOT?>/Receptionist/Attendance/finAttendance">
+                                               <input type="hidden" name="childID" value="<?= htmlspecialchars($child->ChildID) ?>">
+                                               <button type="submit">Mark</button>
+                                           </form>
+                                       <?php endif; ?>
+                                   
                                 </div>
                             </div>
                             <hr>
