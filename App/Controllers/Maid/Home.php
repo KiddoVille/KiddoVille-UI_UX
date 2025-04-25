@@ -66,15 +66,19 @@
                         $children[] = $child;
                     }
                 }
+                //  foreach ($children as $child) {
+                //     foreac
+                //  }
+                     
                 
             
                
              
-            show($children);
-           exit();
+        //     show($children);
+        //    exit();
              
             
-            // $this->view('Maid/home');
+             $this->view('Maid/home');
         }
     }
 ?>
