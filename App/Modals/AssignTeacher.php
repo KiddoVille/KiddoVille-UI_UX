@@ -12,8 +12,6 @@
             'WorkID',
             'TeacherID',
             'Date',
-            'Start_Time',
-            'End_Time',
             'AgeGroup',
             'Activity'
         ];

@@ -4,15 +4,15 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Meeting_Request{
+    class Maidactivity{
         use Modal;
 
-        protected $table = 'meeting_request';
+        protected $table = 'maidactivity';
         protected $allowedColumns = [
-            'Name',
-            'NIC',
-            'Email',
-            'PhoneNumber'
+            'WorkID',
+            'MaidID',
+            'Date',
+            'Activity'
         ];
 
         public function validate($data){

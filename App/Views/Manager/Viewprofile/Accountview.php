@@ -128,7 +128,7 @@
                             placeholder="Search ID"
                             style="padding: 10px 30px;margin-left:-50%">
                         <select name="role" id="rolefilter" style="margin-left:50%">
-                            <option value="All">All</option>
+                            <option value="All" selected>All</option>
                             <option value="User">Parent</option>
                             <option value="Teacher">Teacher</option>
                             <option value="Maid">Maid</option>

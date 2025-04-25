@@ -138,15 +138,14 @@ class Meeting
 
 
 
-    public function add_admission_Meeting(){
+    public function new_enrollment_Meeting(){
         $model = new \modal\AddmissionMeeting;
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $data = [
-                'name' => $_POST['name'],
-                'nic' => $_POST['nic'],
-                'Date' => $_POST['Date'],
-                'Time' => $_POST['Time'],
-                'Email' => $_POST['Email']
+                'Name' => $_POST['Name'],
+                'NIC' => $_POST['NIC'],
+                'Email' => $_POST['Email'],
+                'PhoneNUmber' => $_POST['PhoneNumber'],
             ];
             if($model->validate($data)){
                 $result = $model -> insert($data);

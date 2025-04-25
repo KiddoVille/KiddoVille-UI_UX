@@ -125,9 +125,9 @@
                                     <option value="Other">Other</option>
                                 </select>
 
-                                <label for="Date_of_Holiday">Date of Holiday:</label>
-                                <input type="date" name="Date_of_Holiday" id="Date_of_Holiday" class="form-control"
-                                    value="<?php echo isset($_POST['Date_of_Holiday']) ? $_POST['Date_of_Holiday'] : ''; ?>" required>
+                                <label for="Date">Date of Holiday:</label>
+                                <input type="date" name="Date" id="Date" class="form-control"
+                                    value="<?php echo isset($_POST['Date']) ? $_POST['Date'] : ''; ?>" required>
                                 <label for="About">About:</label>
                                 <textarea name="About" id="About" required class="form-control" required><?php echo isset($_POST['About']) ? htmlspecialchars($_POST['About']) : ''; ?></textarea>
                                 <div class="button-group">
@@ -143,7 +143,7 @@
                             <?php foreach (array_reverse($data['allholidays']) as $holiday): ?>
                                 <div class="holiday-item">
                                     <h3><?= htmlspecialchars($holiday->Leave_Type) ?></h3>
-                                    <p>Date: <?= htmlspecialchars($holiday->Date_of_Holiday) ?></p>
+                                    <p>Date: <?= htmlspecialchars($holiday->Date) ?></p>
                                     <p>About: <?= htmlspecialchars($holiday->About) ?></p>
                                     <div class="buttons">
                                         <button class="update-btn" data-id="<?= $holiday->HolidayID ?>">Update</button>
@@ -209,8 +209,8 @@
                                 <option value="Other">Other</option>
                             </select>
 
-                            <label for="Date_of_Holiday">Date of Holiday:</label>
-                            <input type="date" name="Date_of_Holiday" id="update_date" class="form-control" required>
+                            <label for="Date">Date of Holiday:</label>
+                            <input type="date" name="Date" id="update_date" class="form-control" required>
 
                             <label for="About">About:</label>
                             <textarea name="About" id="update_about" class="form-control" required></textarea>
@@ -299,7 +299,7 @@
 
                             // Populate form fields with the holiday data
                             const leaveTypeSelect = form.querySelector('select[name="Leave_Type"]');
-                            const dateInput = form.querySelector('input[name="Date_of_Holiday"]');
+                            const dateInput = form.querySelector('input[name="Date"]');
                             const aboutTextarea = form.querySelector('textarea[name="About"]');
 
                             // Set the selected option in the dropdown
