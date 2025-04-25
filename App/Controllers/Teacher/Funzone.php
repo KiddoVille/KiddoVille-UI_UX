@@ -55,12 +55,13 @@
             $lastName = $row->Last_Name ;
             $email =  $row->Email;
             $image= $row->Image;
+            $base64Image = base64_encode($image);
 
             $result = [
                     'firstName' => $firstName,  
                     'lastName' => $lastName,
                     'email' => $email,
-                    'image' => $image,];
+                    'image' => 'data:image/jpg;base64,' . $base64Image];
 
                 // var_dump($media);
                 // var_dump($result);
@@ -71,12 +72,13 @@
                     }
                 }
                     
-                //var_dump($media);
+                // var_dump($result);
+                // exit();
 
                 
             
                 
-                $this->view('Teacher/Funzone', !empty($media) ? ['media' => $media] : ['message' => 'No resource found']);
+                $this->view('Teacher/Funzone', !empty($media) ? ['media' => $media,'result' => $result] : ['message' => 'No resource found']);
             }
 
         public function findID(){

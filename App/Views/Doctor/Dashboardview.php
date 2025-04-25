@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaves</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="<?=CSS?>/Doctor/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/time.css?v=<?= time() ?>">
@@ -60,11 +60,7 @@
                     <h4>12/08/2025</h3>
                 </div>
                 <div class="navbar-right">
-                <div class="alter-icon"></div>
-                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
-                   
-                    <i class='bx bxs-bell' ></i>
-                </a>
+                
                 <a href="#" class="profile">
                     <img src="<?=IMAGE?>/profilePic-2.png"  onclick="toggleMenu()" id="profileIcon">
                 </a>
@@ -130,7 +126,7 @@
     
             </div>
         <div class="content">
-            <div class="backgorund-overlay"></div>
+            
             <div class="appointment-page">
                 <div class="appointment-page-header">
                     <div class="appointment-page-header-group">
@@ -149,39 +145,32 @@
                         <h4>Actions </h4>
                         
                     </div>
-                    <div class="appointment-row">
-                        <p>APT0019</p>
-                        <p>10:00 - 10:30</p>
-                        <div class="booked">Booked</div> 
-                        <p>Thilina Perera</p>
-                        <div class="actions">
-                            <a href="<?=ROOT?>/Doctor/Dashboard"><button type="button" class="edit-btn-booked">Edit</button></a>
-                            <button type="button" class="dlt-btn-booked">Delete</button>
+                    <?php if(isset($times)): ?>
+                        <?php foreach($times as $time): ?>
+                        <div class="appointment-row">
+                            <p><?=$time['SlotID']?></p>
+                            <p><?=$time['Start_Time']?> - <?=$time['End_Time']?> </p>
+                            <div class="status"><?=$time['Status']?> </div> 
+                            <p><?=$time['ChildName']?></p>
+                            <?php if($time['Status'] !== 'booked'):?>
+                            <div class="actions">
+                                <button type="button" class="edit-btn-booked">Edit</button></a>
+                                <button type="button" class="dlt-btn-booked">Delete</button>
+                            </div>
+                            <?php else:?>
+                            <div class="actions">
+                                <button type="button" class="edit-btn-booked" disabled>Edit</button></a>
+                                <button type="button" class="dlt-btn-booked" disabled>Delete</button>
+                            </div>
+                            <?php endif;?>
+                                                
                         </div>
-                        
-                                               
-                    </div>
-                    <div class="appointment-row">
-                        <p>APT0019</p>
-                        <p>10:30 - 11:00</p>
-                        <div class="available">Available</div> 
-                        <p>Dewmini Rathnayaka</p>  
-                        <div class="actions">
-                        <a href="<?=ROOT?>/Doctor/TimeSlots"><button type="button" class="edit-btn">Edit</button></a>
-                            <button type="button" class="dlt-btn ">Delete</button>
-                        </div>
-                        
-                    </div>
-                    <div class="appointment-row">
-                        <p>APT0019</p>
-                        <p>15:00 - 15:30</p>
-                        <div class="booked">Booked</div> 
-                        <p>Rinesh Silva</p>
-                        <div class="actions">
-                            <button type="button" class="edit-btn-booked">Edit</button>
-                            <button type="button" class="dlt-btn-booked">Delete</button>
-                        </div>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php endif;?>
+
+                  
+                    
+                    
                     <a href="<?=ROOT?>/Doctor/TimeSlots">
                     <button type="button" class="add-btn">Add Time Slot</button>
                     </a>
@@ -196,7 +185,22 @@
     </div>
 
     <script src="<?=JS?>/Teacher/script.js"></script>
-    <script></script>
+    <script>
+       document.addEventListener("DOMContentLoaded", function(e) {
+            console.log("fetched");
+
+            const statuses = document.querySelectorAll('.status'); // or '.booked' if that's your actual class
+            statuses.forEach(function(status) {
+                if (status.textContent.trim().toLowerCase() === 'booked') {
+                    console.log(status.innerHTML);
+                    status.classList.add('booked');
+                }else{
+                    status.classList.add('available');
+                }
+            });
+        });
+
+    </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     

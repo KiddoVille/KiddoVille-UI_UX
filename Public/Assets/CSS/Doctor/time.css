@@ -87,7 +87,7 @@
      background-color: #e4e4e4;
 }
 
-.appointment-row .booked{
+.booked{
     padding: 4px 8px;
     background-color:rgba(0,128,0,0.15);
     border-radius: 8px;
@@ -98,7 +98,7 @@
     text-align: center;
     justify-content: center;
 }
-.appointment-row .available{
+ .available{
     padding: 4px 12px;
     background-color:#a3d0fb;
     border-radius: 8px;
@@ -122,10 +122,10 @@
 }
 
 .appointment-row .actions .dlt-btn-booked{
-    background-color: rgb(183, 184, 185);
+    background-color: rgb(232, 77, 77);
     cursor:auto;
 }
 .appointment-row .actions .edit-btn-booked{
-    background-color: rgb(183, 184, 185);
+    background-color: rgb(54, 129, 205);
     cursor:auto;
 }
