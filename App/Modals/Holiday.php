@@ -10,7 +10,7 @@ class  Holiday{
     protected $table = 'holiday';   
     protected $allowedColumns = [
         'HolidayID',
-        'Date_of_Holiday',
+        'Date',
         'Leave_Type',
         'About',
         'IsPublicHoliday'
@@ -22,8 +22,8 @@ class  Holiday{
         if (empty($data['Leave_Type'])) {
             $this->errors['Leave_Type'] = "Leave type is required.";
         }
-        if (empty($data['Date_of_Holiday'])) {
-            $this->errors['Date_of_Holiday'] = "Date is required.";
+        if (empty($data['Date'])) {
+            $this->errors['Date'] = "Date is required.";
         }
         if (empty($data['About'])) {
             $this->errors['About'] = "Description is required.";
