@@ -1,24 +1,3 @@
-
-
-    // // Toggle day and time
-    // function addToggleLogic(groupSelector, labelSelector) {
-    //   const labels = document.querySelectorAll(`${groupSelector} ${labelSelector}`);
-    //   labels.forEach((label) => {
-    //     const input = document.getElementById(label.getAttribute("for"));
-    //     label.addEventListener("click", (e) => {
-    //       if (input.checked) {
-    //         input.checked = false;
-    //         e.preventDefault(); // prevent re-checking
-    //       }
-    //     });
-    //   });
-    // }
-
-    // addToggleLogic(".calendar .days", ".day");
-    // addToggleLogic(".time-selection .slots", ".slot");
-
-
-
   let display = document.querySelector(".display");
   let days = document.querySelector(".days");
   let previous = document.querySelector(".left");
@@ -44,7 +23,7 @@
       year: "numeric"
     });
   
-    display.innerHTML = `${formattedDate}`;
+    display.innerHTML = formattedDate;
   
     for (let x = 1; x <= firstDayIndex; x++) {
       const div = document.createElement("div");
@@ -57,7 +36,9 @@
       let div = document.createElement("div");
       let currentDate = new Date(year, month, i);
   
-      div.dataset.date = currentDate.toDateString();
+      div.dataset.date = currentDate.toISOString().split("T")[0]; // YYYY-MM-DD
+      // const selectedDate = new Date(e.target.dataset.date);  // Convert to Date object
+      // const formattedDate = selectedDate.toISOString().split("T")[0];
   
       div.innerHTML += i;
       days.appendChild(div);
@@ -109,10 +90,14 @@
   
   function displaySelected() {
     const dayElements = document.querySelectorAll(".days div");
+    const dataBox = document.querySelector("#Date");
     dayElements.forEach((day) => {
       day.addEventListener("click", (e) => {
         const selectedDate = e.target.dataset.date;
         selected.innerHTML = `Selected Date : ${selectedDate}`;
+        dataBox.value = selectedDate;
+       
+
       });
     });
   }

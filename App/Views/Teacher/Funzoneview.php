@@ -22,9 +22,11 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic.png" alt="profile-pic">
+                <?php if(isset($result)):?>
+                <img src="<?=$result['image']?>">
                     <div class="sidebar-header-content">
-                        <h3>Sara Britney</h3>
+                        <h3><?= $result['firstName'] ?> <?= $result['lastName'] ?></h3>
+                        <?php endif; ?>
                         <h4>Teacher</h4>
                     </div>
                 </div>
@@ -227,7 +229,7 @@
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
                         <div class="user-info">
-                            <img src="<?=IMAGE?>/profilePic.png" alt="">
+                            <img src="<?=$item->image?>" alt="">
                             <h3>Sara Bretney</h3>
                         </div>
                         <hr>
@@ -346,7 +348,7 @@
 
                            
                             <div class="upload">
-                                <img src="<?=IMAGE?>/profilePic.png">
+                                <img src="<?=$item->image?>">
                                 <div class="upld-person">
                                     <p class="name"><?= $item->firstName?>&nbsp<?= $item->lastName?></p>
                                     <p class="email"><?= $item->email?></p>    
@@ -386,7 +388,10 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script src="<?=JS?>/Teacher/script.js"></script>
+    <script src="
+    
+    
+    "></script>
     <script src="<?=JS?>/Teacher/funzone.js"></script>
     <script>
         $(document).ready(function (){
