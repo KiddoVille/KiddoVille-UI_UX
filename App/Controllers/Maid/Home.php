@@ -67,14 +67,7 @@
                     }
                 }
                 
-            
-               
-             
-            show($children);
-           exit();
-             
-            
-            // $this->view('Maid/home');
+            $this->view('Maid/home');
         }
     }
 ?>

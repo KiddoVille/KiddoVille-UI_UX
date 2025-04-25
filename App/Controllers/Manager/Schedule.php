@@ -52,11 +52,6 @@ class Schedule{
         }
     }
     
-
-    
-
-
-    
     public function addscheduleforTeacher(){
         $assignteachermodel = new \Modal\AssignTeacher;
         

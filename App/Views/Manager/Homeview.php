@@ -187,7 +187,7 @@
                     <?php if (!empty($data['visitorsummary'])): ?>
                         <?php foreach ($data['visitorsummary'] as $visitor): ?>
                             <div class="detailed-lines">
-                                <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
+                                <div class="visitorname"><span><?= htmlspecialchars($visitor->FirstName . ' ' . $visitor->LastName ); ?></span></div>
                                 <div class="visitorposition" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
                                 <div class="visitorpurpose" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
                                 <div class="visitordate" style="margin-left: 0.5%;">

@@ -145,8 +145,10 @@ class Students {
 
             $scoreArray = [];
             $scoreArray['ObservationID'] = $observeID;
-            
+            // var_dump($skillArray);
+            // exit();
             $skillName = $skill->where_norder(['Skill_Name' => $key]);
+           
             $skillID = $skillName[0]->SkillId;
             $scoreArray['SkillID'] = $skillID;
             $scoreArray['Score'] = $value;
@@ -154,8 +156,7 @@ class Students {
             $score->insert($scoreArray);
             
         }
-        // var_dump($scoreArray);
-        //     exit();
+        
     }
 
     public function findID(){
