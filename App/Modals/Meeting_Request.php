@@ -7,7 +7,7 @@
     class Meeting_Request{
         use Modal;
 
-        protected $table = 'meeting_request';
+        protected $table = 'meeting_request ';
         protected $allowedColumns = [
             'Name',
             'NIC',

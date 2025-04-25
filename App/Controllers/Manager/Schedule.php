@@ -11,7 +11,7 @@ class Schedule{
         // Get all maids from the database
         $maidModel = new \Modal\Maid;
         $maids = $maidModel->findAll();
-        
+
         // Pass the maids data to the view
         $data['maids'] = $maids;
     
@@ -52,10 +52,34 @@ class Schedule{
         }
     }
     
+    public function getTeacher(){
+        header('Content-Type: application/json');
+        $requestData = json_decode(file_get_contents("php://input"), true);
+        $Subject = $requestData['Subject'];
 
-    
+        $teacherModel = new \Modal\Teacher;
+        $Teacher = $teacherModel->where_norder(["Subject" => $Subject]); 
 
+        $AssignTeacherModal = new \Modal\AssignTeacher;
 
+        $ExistTeacher = [];
+        if(!empty($Teacher)){
+            foreach ($Teacher as $teach) {
+                $Exist = $AssignTeacherModal->first(["TeacherID" => $teach->TeacherID, "Date" => date("Y-m-d", strtotime("tomorrow")) ]);
+                if(empty($Exist)) {
+                    $ExistTeacher[] = $teach;
+                }
+            }
+        }
+        
+        if (empty($ExistTeacher)) {
+            echo json_encode(['success' => true, 'data' => 'No teacher found for this subject']);
+            return;
+        }else{
+            echo json_encode(['success' => true, 'data' => $ExistTeacher]);
+            return;
+        }
+    }
     
     public function addscheduleforTeacher(){
         $assignteachermodel = new \Modal\AssignTeacher;
@@ -64,7 +88,7 @@ class Schedule{
             $data = [
                 'TeacherID' => $_POST['TeacherID'],
                 'Date' => $_POST['Date'],
-                'Activity' => $_POST['Activity'],
+                'Activity' => $_POST['Activity'][1],
                 'AgeGroup' => $_POST['AgeGroup'],
             ];
             
