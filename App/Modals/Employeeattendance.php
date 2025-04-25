@@ -9,6 +9,8 @@
 
         protected $table = 'Employeeattendance';
         protected $allowedColumns = [
+            'UserID',
+            'AttendanceID',
             'Start_Date',
             'Start_Time',
             'End_Date',
