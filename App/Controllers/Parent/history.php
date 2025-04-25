@@ -169,13 +169,13 @@ class History
         // Get the current year and month (e.g., 2025-01 for January 2025)
         $currentMonth = date('Y-m');
 
+        $firstday = date('Y-m-01'); // First day of the current month
+        $lastday = date('Y-m-t'); // Last day of the current month
+
         // Fetch attendance records for all children for the current month
         foreach ($children as $child) {
             // Fetch the attendance records for each child using ChildID and the current month filter
-            $childAttendance = $attendanceModel->where_norder([
-                'ChildID' => $child->ChildID,
-                'Start_Date' => $currentMonth // Apply current month filter
-            ]);
+            $childAttendance = $attendanceModel->findFutureDatesWithConditions($firstday, $lastday, ['ChildID' => $child->ChildID], "Start_Date");
 
             // Add the attendance records to the result set
             if (!empty($childAttendance)) {
@@ -197,7 +197,7 @@ class History
             }
 
             // Count days where the child is marked as 'present'
-            if ($record->Status === 'present') {
+            if ($record->Status === 'Present') {
                 $totalAttendanceDays++;
             }
         }
@@ -208,7 +208,7 @@ class History
         // Return statistics (holidays, average attendance, late arrivals)
         return [
             'holidays' => $holidayCount,  // Hardcoded
-            'average_attendance' => $averageAttendance,
+            'average_attendance' => $averageAttendance*100,
             'late_arrivals' => $totalLateArrivals
         ];
     }

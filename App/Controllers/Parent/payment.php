@@ -198,7 +198,7 @@ use DateTime;
                         
                                 // Handle 24-hour reservation
                                 if ($startDate !== $endDate) {
-                                    if (!$Package->AllHours) {
+                                    if (!$Package->AllHours && $Package) {
                                         $Amount = $Amount + 5000;
                                     }
                                     continue;

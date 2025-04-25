@@ -9,15 +9,19 @@
 
         protected $table = 'maid';
         protected $allowedColumns = [
+            'UserID',
+            'MaidID',
             'Last_Name',
             'First_Name',
             'Phone_Number',
             'Address',
             'NID',
+            'Language',
             'Last_Seen',
-            'AgeGroup',
-            'ProfileImage',
-            'ImageType'
+            'Age_Group',
+            'Image',
+            
+            
         ];
 
         public function validate($data){

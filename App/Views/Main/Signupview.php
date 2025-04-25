@@ -74,14 +74,14 @@
             </div>
         </div>
     </div>
-    <div class="verification-alert" id="alert">
+    <!-- <div class="verification-alert" id="alert">
         <div class="alert-icon">
             <img src="<?=IMAGE?>/success.svg" style="width: 64px; height: 64px; filter: invert(43%) sepia(85%) saturate(542%) hue-rotate(83deg); align-items: center;" alt="success icon">
         </div>
         <div class="alert-message">
             <h1>Success</h1>
         </div>
-    </div>
+    </div> -->
     <script>
         function tologin() {
             setTimeout(() => {

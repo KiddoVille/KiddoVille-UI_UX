@@ -385,7 +385,9 @@
 
                 // Departure Time (End Date & Time)
                 const departureCell = document.createElement('td');
-                departureCell.textContent = `${attendance.End_Date} ${attendance.End_Time}`;
+                departureCell.textContent = (attendance.End_Date && attendance.End_Time) 
+                    ? `${attendance.End_Date} ${attendance.End_Time}` 
+                    : '';
                 row.appendChild(departureCell);
 
                 // Pickup Information

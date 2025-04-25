@@ -9,6 +9,7 @@
 
         protected $table = 'attendance';
         protected $allowedColumns = [
+            'ChildID',
             'Start_Date',
             'Start_Time',
             'End_Date',

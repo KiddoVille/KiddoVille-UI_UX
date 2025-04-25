@@ -245,7 +245,7 @@
                     <div class="perfomance">
                             <div class="title">
                                 <h3>Overrall Performance</h3>
-                                <a href="#"><p>View Details ></p></a>
+                                
                             </div>
                             
                             <div class="chart">

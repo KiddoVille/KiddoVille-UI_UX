@@ -1,5 +1,6 @@
 <?php
     namespace Controller;
+    use App\Helpers\ChildHelper;
 
     defined('ROOTPATH') or exit('Access denied');
     
@@ -30,7 +31,6 @@
             
             $location = $session->get("Location");
             $this->checkChildLimit($children, $child, $data, $location);
-
             $this->view('Onbording/Package', $data);
         }
     
@@ -69,30 +69,34 @@
             $ChildModal = new \Modal\Child;
             $ChildID = $session->get("CHILDID");
             $Child = $ChildModal->first(["ChildID" => $ChildID]);
-        
-            // Calculate child's age at the start of the year
-            $currentYear = (new \DateTime())->format('Y');
-            $startOfYear = new \DateTime("$currentYear-01-01");
-            $dob = new \DateTime($Child->DOB);
-            $filterAge = $dob->diff($startOfYear)->y; // Child's age at the start of the year
-        
+
+            $ChildHelper = new ChildHelper;
+            $ChildAgeGroup = $ChildHelper->getAgeGroup($Child->DOB);
             $PackageModal = new \Modal\Package;
-            $Packages = $PackageModal->findall();
+            $Packages = $PackageModal->where_norder(["AgeGroup" => $ChildAgeGroup]);
+            // // Calculate child's age at the start of the year
+            // $currentYear = (new \DateTime())->format('Y');
+            // $startOfYear = new \DateTime("$currentYear-01-01");
+            // $dob = new \DateTime($Child->DOB);
+            // $filterAge = $dob->diff($startOfYear)->y; // Child's age at the start of the year
         
-            // Filter by age group
-            $Packages = array_filter($Packages, function ($row) use ($filterAge) {
-                // Parse age group range (e.g., "2-3" -> min: 2, max: 3)
-                if (preg_match('/^(\d+)-(\d+)$/', $row->AgeGroup, $matches)) {
-                    $minAge = (int)$matches[1];
-                    $maxAge = (int)$matches[2];
+            // $PackageModal = new \Modal\Package;
+            // $Packages = $PackageModal->findall();
         
-                    // Check if child's age falls within the range
-                    return $filterAge >= $minAge && $filterAge <= $maxAge;
-                }
+            // // Filter by age group
+            // $Packages = array_filter($Packages, function ($row) use ($filterAge) {
+            //     // Parse age group range (e.g., "2-3" -> min: 2, max: 3)
+            //     if (preg_match('/^(\d+)-(\d+)$/', $row->AgeGroup, $matches)) {
+            //         $minAge = (int)$matches[1];
+            //         $maxAge = (int)$matches[2];
         
-                // If AgeGroup format is invalid, exclude the package
-                return false;
-            });
+            //         // Check if child's age falls within the range
+            //         return $filterAge >= $minAge && $filterAge <= $maxAge;
+            //     }
+        
+            //     // If AgeGroup format is invalid, exclude the package
+            //     return false;
+            // });
 
             // Filter packages by selected days
             $filteredPackages = array_filter($Packages, function ($package) use ($selectedDays) {
@@ -129,9 +133,6 @@
                 if ($_POST['action'] === "child" && is_array($children) && count($children) < 5) {
                     show("goto child ");
                     redirect('Onbording/Child');
-                }
-                elseif($_POST['action'] === "guardian" && isset($location)){
-                    redirect('location');
                 }
                 elseif ($_POST['action'] === "guardian" && !isset($location)) {
                     show("goto guardian ");

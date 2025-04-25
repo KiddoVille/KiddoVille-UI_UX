@@ -80,7 +80,7 @@ class Home
         $emodel = new \Modal\Emergency;
         $today = new \DateTime();
         $formattedDate = $today->format('Y-m-d');
-        $rows = $emodel->where_norder(["Date" => $formattedDate]);
+        $rows = $emodel->where_order(["Date" => $formattedDate] , [], "Date");
 
         // Check if $rows is an iterable object and not empty
         if (!empty($rows) && is_iterable($rows)) {

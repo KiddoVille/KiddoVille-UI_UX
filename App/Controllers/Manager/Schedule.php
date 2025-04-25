@@ -80,7 +80,7 @@ class Schedule{
             return;
         }
     }
-    
+
     public function addscheduleforTeacher(){
         $assignteachermodel = new \Modal\AssignTeacher;
         

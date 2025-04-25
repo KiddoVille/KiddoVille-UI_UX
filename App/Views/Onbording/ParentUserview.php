@@ -85,8 +85,8 @@
                             <input name="Phone_Number" style="width: 200px;" class="number"
                             placeholder="<?php 
                                 echo htmlspecialchars(
-                                    $_SESSION['APP']['CONTACT_VARIFIED'] 
-                                        ? $_SESSION['APP']['NUMBER'] 
+                                    isset($_SESSION['APP']['CONTACT_VARIFIED'], $_SESSION['APP']['NUMBER']) && $_SESSION['APP']['CONTACT_VARIFIED']
+                                        ? $_SESSION['APP']['NUMBER']
                                         : '0712345678'
                                 ); 
                             ?>"
@@ -130,7 +130,7 @@
                         <input name="Email" style="width: 308px;" required 
                             placeholder="<?php 
                                 echo htmlspecialchars(
-                                    $_SESSION['APP']['EMAIL_VARIFIED'] 
+                                    isset($_SESSION['APP']['EMAIL_VARIFIED'], $_SESSION['APP']['EMAIL']) && $_SESSION['APP']['EMAIL_VARIFIED']
                                         ? $_SESSION['APP']['EMAIL'] 
                                         : 'lol@gmail.com'
                                 ); 
