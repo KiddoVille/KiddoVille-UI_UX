@@ -163,7 +163,7 @@
             $lastday = date('Y-m-d', strtotime($firstday . ' +7 days'));
             $Meeting = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday ,["ParentID" => $Parent->ParentID , "Scheduled" => 1]);
 
-            if($Meeting && $Meeting[0]->Date){
+            if($Meeting && $Meeting[0]->Date == $today){
                 $stats['stat1'] = [
                     'Time' => $Meeting[0]->Time,
                     'Date' => $Meeting[0]->Date,
@@ -216,6 +216,7 @@
     
                 $ExpensesModal = new \Modal\Expense;
                 $firstDayOfMonth = date('Y-m-01');
+                $firstDayOfNextMonth = date('Y-m-01', strtotime('+1 month', strtotime($firstDayOfMonth)));
                 $childExpenses = $ExpensesModal->where_order_desc(["ChildID" => $child->ChildID, "Date" => $firstDayOfMonth ], [], "Date");
                 if($childExpenses){
                     $Amount = 0;
@@ -227,7 +228,7 @@
                     } else {
                         $data['Expenses']['Amount'] += $Amount;
                     }
-                    $data['Expenses']['Date'] = date('Y-m-d', strtotime($firstDayOfMonth));
+                    $data['Expenses']['Date'] = date('Y-m-d', strtotime($firstDayOfNextMonth));
                 }
             }
 
@@ -272,27 +273,43 @@
             echo json_encode(['success' => true, 'message' => '']);
         }
 
-        private function store_meeting_times(){
+        private function store_meeting_times() {
             $session = new \Core\Session;
             $UserID = $session->get("USERID");
             $MeetingModal = new \Modal\Meeting;
             $ParentModal = new \Modal\ParentUser;
-
+        
             $firstday = date('Y-m-d', strtotime('+1 day'));
             $lastday = date('Y-m-d', strtotime($firstday . ' +7 days'));
+        
             $Parent = $ParentModal->first(["UserID" => $UserID]);
-            $Meetings = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday,["Scheduled" => 0]);
-            $Meeting = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday , ['ParentID' => $Parent->ParentID , "Scheduled" => 1]);
-            if($Meeting){
-                $Meetings[] = $Meeting;
-                usort($Meetings, function ($a, $b) {
-                    return strtotime($a->Time) - strtotime($b->Time);
-                });
+        
+            $Meetings = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday, ["Scheduled" => 0]);
+            $Meeting = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday , ['ParentID' => $Parent->ParentID, "Scheduled" => 1]);
+        
+            // Ensure both are arrays
+            $Meetings = is_array($Meetings) ? $Meetings : [];
+            $Meeting = is_array($Meeting) ? $Meeting : ($Meeting ? [$Meeting] : []);
+        
+            // Merge both meeting sets
+            $allMeetings = array_merge($Meetings, $Meeting);
+        
+            // Convert all items to objects to prevent property access issues
+            foreach ($allMeetings as &$meeting) {
+                if (is_array($meeting)) {
+                    $meeting = (object) $meeting;
+                }
             }
-
-            $data['Meetingslots'] = $Meetings;
+            unset($meeting);
+        
+            // Sort the meetings by Time
+            usort($allMeetings, function ($a, $b) {
+                return strtotime($a->Time) <=> strtotime($b->Time); // safer way to compare timestamps
+            });
+        
+            $data['Meetingslots'] = $allMeetings;
             return $data;
-        }
+        }        
 
         public function handlemeetings(){
             header('Content-Type: application/json'); // Important for AJAX

@@ -32,12 +32,12 @@ class Viewprofile
 
         // Get role and ID from request
         $Role = isset($requestData['role']) ? $requestData['role'] : 'All';
-        $UserID = isset($requestData['id']) ? $requestData['id'] : null; // Default is null if not provided
+        $UserID = isset($requestData['id']) ? $requestData['id'] : null;
 
         $UsersModal = new \Modal\User;
         $Usersrecords = $UsersModal->findAll();
 
-        foreach ($Usersrecords as $User) {
+        foreach ($Usersrecords as $key => $User) {
             // Fetch partner data based on role.
             switch ($User->Role) {
                 case 'User':
@@ -48,9 +48,6 @@ class Viewprofile
                     break;
                 case 'Maid':
                     $Data = $MaidModal->first(["UserID" => $User->UserID]);
-                    break;
-                case 'Child':
-                    $Data = $ParentModal->first(["UserID" => $User->UserID]);
                     break;
                 case 'Doctor':
                     $Data = $DoctorModal->first(["UserID" => $User->UserID]);
@@ -65,20 +62,27 @@ class Viewprofile
                     $Data = null;
                     break;
             }
-
-            if ($Data && !empty($Data->Image)) {
-                $imageData = $Data->Image;
-                $imageType = $Data->ImageType;
-                $base64Image = (!empty($imageData) && is_string($imageData))
-                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
-                    : null;
-            } else {
-                $base64Image = IMAGE . "/ProfilePic.png";
+        
+            // Skip user if no associated role data is found
+            if (empty($Data)) {
+                unset($Usersrecords[$key]); // remove the user from the list
+                continue;
+            }else{
+                if (!empty($Data->Image) && !empty($Data->ImageType) && $Data->ImageType != 'null' && $Data->Image != null) {
+                    $imageData = $Data->Image;
+                    $imageType = $Data->ImageType;
+                    $base64Image = is_string($imageData)
+                        ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                        : null;
+                    $Usersrecords[$key]->Image = $base64Image;
+                } else {
+                    $Usersrecords[$key]->Image = IMAGE . "/ProfilePic.png";
+                }
             }
-            $User->Image = $base64Image;
         }
+        
+        $Usersrecords = array_values($Usersrecords);
 
-        // Remove "Manager" role
         $Usersrecords = array_filter($Usersrecords, function ($user) {
             return $user->Role !== "Manager";
         });
@@ -413,11 +417,59 @@ class Viewprofile
     {
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
+        $Mailer = new \core\Mailer;
+        $UserModal = new \Modal\User;
+        $TeacherModal = new \Modal\Teacher;
+        $MaidModal = new \Modal\Maid;
+        $ChildModal = new \Modal\Child;
+        $DoctorModal = new \Modal\Doctor;
+        $ManagerModal = new \Modal\Manager;
+        $ReceptionistModal = new \Modal\Receptionist;
+        $ParentModal = new \Modal\ParentUser;
 
         $UserID = isset($requestData['UserID']) ? $requestData['UserID'] : null;
         $model = new \Modal\User;
         if (!empty($UserID)) {
             $model->update_withid($UserID, ["Block" => 1], "UserID");
+
+            $body = $this->getWelcomeEmailTemplate($UserID);
+            $User = $UserModal->first(["UserID" => $UserID]);
+            $Data = 0;
+
+            if(!empty($User)){
+                switch ($User->Role) {
+                    case 'User':
+                        $Data = $ParentModal->first(["UserID" => $User->UserID]);
+                        break;
+                    // case 'Teacher':
+                    //     $Data = $TeacherModal->first(["UserID" => $User->UserID]);
+                    //     break;
+                    // case 'Maid':
+                    //     $Data = $MaidModal->first(["UserID" => $User->UserID]);
+                    //     break;
+                    // case 'Doctor':
+                    //     $Data = $DoctorModal->first(["UserID" => $User->UserID]);
+                    //     break;
+                    // case 'Manager':
+                    //     $Data = $ManagerModal->first(["UserID" => $User->UserID]);
+                    //     break;
+                    // case 'Receptionist':
+                    //     $Data = $ReceptionistModal->first(["UserID" => $User->UserID]);
+                    //     break;
+                    default:
+                        $Data = null;
+                        break;
+                }
+    
+                if(!empty($Data)){
+                    $Mailer->send(
+                        $Data->Email,
+                        'Email Verification - OTP Code',
+                        $body,
+                    );
+                }
+            }
+
             echo json_encode(['success' => true, 'message' => 'Blocked User Successfully']);
         } else {
             echo json_encode(['success' => false, 'message' => 'Error in blocking user']);

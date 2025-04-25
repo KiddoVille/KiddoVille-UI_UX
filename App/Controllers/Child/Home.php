@@ -434,13 +434,13 @@ class Home
         $dinnerRow = new \stdClass();
         $dinnerRow->Start_Time = '13:30:00';
         $dinnerRow->End_Time   = '14:30:00';
-        $dinnerRow->Subject    = 'Dinner';
+        $dinnerRow->Activity    = 'Dinner';
         
         // Create a new stdClass object for Breakfast
         $breakfastRow = new \stdClass();
         $breakfastRow->Start_Time = '10:00:00';
         $breakfastRow->End_Time   = '10:30:00';
-        $breakfastRow->Subject    = 'Breakfast';
+        $breakfastRow->Activity   = 'Breakfast';
         
         // Insert Breakfast and Dinner rows into the subjects array
         $subjects[] = $breakfastRow;
