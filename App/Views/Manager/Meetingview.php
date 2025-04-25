@@ -114,7 +114,7 @@
 
     <div class="twomeetings" style="display: flex;">
         <div class="all" style="display: flex;">
-            <div class="Display-events" style="margin-top: 20%;">
+            <div class="Display-events" style="margin-top: 28%;">
                 <h2>Time Slots</h2>
                 <div class="event-list">
                     <?php if (!empty($data['allslots'])): ?>
@@ -180,8 +180,8 @@
 
 
         <div class="all" style="display: flex;">
-            <div class="Display-events" style="margin-top: 20%;">
-                <h2>New Enrollment request Meeting</h2>
+            <div class="Display-events" style="margin-top: 35%;height:50%">
+                <h2>New Enrollment Meeting</h2>
                 <div class="event-list">
                     <?php if (!empty($data['admission_allslots'])): ?>
                         <?php foreach (array_reverse($data['admission_allslots']) as $slot): ?>
@@ -195,7 +195,7 @@
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No events published yet.</p>
+                        <p>No meetingsyet.</p>
                     <?php endif ?>
                 </div>
             </div>

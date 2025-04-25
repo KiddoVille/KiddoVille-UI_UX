@@ -10,7 +10,7 @@ class Meeting
     public function index()
     {
         $data = $this->show_slots();
-        $data = $data + $this->show_admission_slots();
+        // $data = $data + $this->show_admission_slots();
 
         $this->view('Manager/Meeting', $data);
     }
@@ -27,16 +27,16 @@ class Meeting
         return $data;
     }
 
-    public function show_admission_slots(){
-        $data = [];
-        $admissionModel = new \Modal\AddmissionMeeting;
-        $firstday = date('Y-m-d', strtotime('today'));
-        $lastday = date('Y-m-d', strtotime('+10 days'));
-        $slotRecords = $admissionModel->findFutureDates($firstday, $lastday, 'Date');
-        $data['admission_allslots'] = $slotRecords;
-        return $data;
+    // public function show_admission_slots(){
+    //     $data = [];
+    //     $admissionModel = new \Modal\Meeting_Request;
+    //     $firstday = date('Y-m-d', strtotime('today'));
+    //     $lastday = date('Y-m-d', strtotime('+10 days'));
+    //     $slotRecords = $admissionModel->findFutureDates($firstday, $lastday, 'Date');
+    //     $data['admission_allslots'] = $slotRecords;
+    //     return $data;
 
-    }
+    // }
 
     public function updateMeeting()
     {
@@ -138,30 +138,7 @@ class Meeting
 
 
 
-    public function new_enrollment_Meeting(){
-        $model = new \modal\AddmissionMeeting;
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $data = [
-                'Name' => $_POST['Name'],
-                'NIC' => $_POST['NIC'],
-                'Email' => $_POST['Email'],
-                'PhoneNUmber' => $_POST['PhoneNumber'],
-            ];
-            if($model->validate($data)){
-                $result = $model -> insert($data);
-                if($result){
-                    echo "Failed to add admissionmeeting";
-                }
-                else{
-                    echo "Add addmision meeting successfully";
-                }
-                redirect("Manager/Meeting");
-            }
-        }
-        else {
-            $this->view('Manager/Meeting');
-        }
-    }
+    
 
 
 }

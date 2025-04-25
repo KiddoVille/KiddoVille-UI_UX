@@ -119,7 +119,7 @@
     </div>
     <div id="content1" class="content show" style="display: none">
         <form action="<?= ROOT ?>/Manager/Schedule/addscheduleMaid" method="post">
-            <div class="activity-schedule" style="position:fixed;margin-top:-10%;margin-left:-46.5%;">
+            <div class="activity-schedule" style="position:fixed;margin-top:-11%;margin-left:-48.5%;">
                 <div style="display: flex;justify-content:space-around;">
                     <h2 style="color: #233E8D;margin-left:-25%">Tomorrow Activity Schedule
                         <div style="display: flex;width:100px;margin-left:50%;margin-top:-2.5%">
@@ -165,14 +165,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="MaidID" class="styled-select" id="" required>
-                                        <option value="" disabled selected>Select Maid</option>
-                                        <?php foreach ($maids as $maid): ?>
-                                            <option>
-                                                <?= $maid->First_Name . ' ' . $maid->Last_Name ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input type="text" value="" readonly class="styled-select">
                                 </td>
 
                                 <td>
@@ -209,15 +202,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="styled-select" id="" required>
-                                        <option value="" disabled selected>Select Maid</option>
-
-                                        <?php foreach ($maids as $maid): ?>
-                                            <option>
-                                                <?= $maid->First_Name . ' ' . $maid->Last_Name ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input type="text" value="" readonly class="styled-select">
                                 </td>
 
                                 <td>
@@ -269,15 +254,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="MaidID" class="styled-select" id="" required>
-                                        <option value="" disabled selected>Select Maid</option>
-
-                                        <?php foreach ($maids as $maid): ?>
-                                            <option>
-                                                <?= $maid->First_Name . ' ' . $maid->Last_Name ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input type="text" value="" readonly class="styled-select">
                                 </td>
 
                                 <td>
@@ -299,15 +276,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="styled-select" id="" required>
-                                        <option value="" disabled selected>Select Maid</option>
-
-                                        <?php foreach ($maids as $maid): ?>
-                                            <option>
-                                                <?= $maid->First_Name . ' ' . $maid->Last_Name ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input type="text" value="" readonly class="styled-select">
                                 </td>
 
                                 <td>
@@ -332,15 +301,7 @@
                                 </td>
 
                                 <td>
-                                    <select name="MaidID" class="styled-select" id="" required>
-                                        <option value="" disabled selected>Select Maid</option>
-
-                                        <?php foreach ($maids as $maid): ?>
-                                            <option>
-                                                <?= $maid->First_Name . ' ' . $maid->Last_Name ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input type="text" value="" readonly class="styled-select">
                                 </td>
 
                                 <td>
@@ -362,7 +323,7 @@
 
     <div id="content2" class="content show" style="display: none;">
         <form action="<?= ROOT ?>/Manager/Schedule/addscheduleforTeacher" method="post">
-            <div class="activity-schedule" style="position:fixed;margin-top:-10%;margin-left:-46.5%;">
+            <div class="activity-schedule" style="position:fixed;margin-top:-10%;margin-left:-48.5%;">
                 <div style="display: flex;justify-content:space-around;">
                     <h2 style="color: #233E8D;margin-left:-25%">Tomorrow Activity Schedule
                         <div style="display: flex;width:100px;margin-left:50%;margin-top:-2.5%">
@@ -372,7 +333,7 @@
                 </div>
                 <hr style="margin-top: -1%;">
                 <div class="table-div">
-                    <input type="text" name="AgeGroup" id="InsideFormAgeGroup" hidden/>
+                    <input type="text" name="AgeGroup" id="InsideFormAgeGroup" hidden />
                     <table>
                         <thead>
                             <tr class="table_headings">
@@ -428,7 +389,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <select name="Activity[]" class="styled-select" id="">
+                                    <select name="Activity[]" class="styled-select" id="activity" onchange="loadTeachers(this.value)">
                                         <option value="Select Activity" disabled selected>Select Activity</option>
                                         <option value="Maths">Maths</option>
                                         <option value="Science">Science</option>
@@ -436,13 +397,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="TeacherID" class="styled-select" id="" required>
+                                    <select name="TeacherID" class="styled-select" id="teacherSelect" required>
                                         <option value="" disabled selected>Select Teacher</option>
-                                        <?php foreach ($teachers as $teacher): ?>
-                                            <option value="<?= $teacher->TeacherID ?>">
-                                                <?= $teacher->First_Name . ' ' . $teacher->Last_Name ?>
-                                            </option>
-                                        <?php endforeach; ?>
                                     </select>
 
                                 </td>
@@ -537,6 +493,32 @@
                 }
             });
         });
+
+        function loadTeachers(subject) {
+            fetch("<?= ROOT ?>/Manager/Schedule/getTeacher", {
+                    method: "POST",
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        Subject: subject
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const Teachers = data.data
+                        console.log(Teachers);
+                        Teachers.forEach(teacher => {
+                            const option = document.createElement("option");
+                            option.value = teacher.TeacherID;
+                            option.textContent = teacher.First_Name + " " + teacher.Last_Name;
+                            document.getElementById("teacherSelect").appendChild(option);
+                        });
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
     </script>
 </body>
 
