@@ -77,8 +77,8 @@
                     <input type="hidden" name="ChildID" id = "id-input"/>
                     <hr>
                     <div class="skill-row">
-                        <label for="teamwork">Teamwork</label>
-                        <select name="Team Work" id="teamwork" >
+                        <label for="teamwork">Cognitive</label>
+                        <select name="Cognitive" id="teamwork" >
                         <option disabled selected value="">Rate</option>
                         <option value="1">🌱 Beginner</option>
                         <option value="2">🌿 Developing</option>
@@ -113,8 +113,8 @@
                         </select>
                     </div>
                     <div class="skill-row">
-                        <label for="self_care">Self-Care</label>
-                        <select name="Self Care" id="self_care" >
+                        <label for="self_care">Creativity</label>
+                        <select name="Creativity" id="self_care" >
                         <option disabled selected value="">Rate</option>
                         <option value="1">🌱 Beginner</option>
                         <option value="2">🌿 Developing</option>
