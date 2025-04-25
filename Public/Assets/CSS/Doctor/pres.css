@@ -2,11 +2,12 @@
     border-radius: 15px;
     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);;
     display: flex;
-    flex-direction: column;
+   
     background-color: #f4f4f4;
     padding: 25px;
-    margin:20px 100px;
+    
     justify-content: center;
+  
 }
 
 .form-container {
@@ -16,12 +17,14 @@
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    
     overflow: hidden;
   }
   
   .prescription-form {
     display: flex;
     flex-wrap: wrap;
+    
   }
   
   .form-section {
