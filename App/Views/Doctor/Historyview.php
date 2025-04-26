@@ -22,11 +22,12 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic-2.png" alt="profile-pic">
-                    <div class="sidebar-header-content">
-                        <h3>Wane Carter</h3>
-                        <h4>Doctor</h4>
-                    </div>
+                <?php if(isset($doctor)) :?>
+                        <img src="<?=$doctor['image']?>" alt="profile-pic">
+                        <div class="sidebar-header-content">
+                            <h3><?=$doctor['Name']?></h3>
+                            <h4>Doctor</h4>
+                        </div>
                 </div>
                 <div class="sidebar-list">
                     <a href="<?=ROOT?>/Doctor/Dashboard" class="sidebar-list-item" id="dashboard-link"> 
@@ -34,13 +35,13 @@
                         <span class="text">Dashboard</span>
                     </a>
                    
-                    <a href="<?=ROOT?>/Doctor/Prescriptions" class="sidebar-list-item" id="report-link">
+                    <!-- <a href="<?=ROOT?>/Doctor/Prescriptions" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
                         <span class="text"> Prescriptions </span>
-                    </a>
+                    </a> -->
                     <a href="<?=ROOT?>/Doctor/History" class="sidebar-list-item" id="students-link">
-                        <i class='bx bxs-group' ></i>
-                        <span class="text">History</span>
+                    <i class='bx bxs-report' ></i>
+                        <span class="text">Prescriptions</span>
                     </a>
                     
                   
@@ -56,19 +57,19 @@
             <div class="navabr">
                 <div class="navbar-left">
                     <a href="#"><h2>Dashboard</h2></a>
-                    <h4>12/08/2025</h3>
+                    <h4><?=$doctor['date'] ?></h3>
                 </div>
                 <div class="navbar-right">
                 <div class="alter-icon"></div>
-                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
+                <!-- <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
                    
                     <i class='bx bxs-bell' ></i>
-                </a>
+                </a> -->
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic-2.png"  onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$doctor['image']?>"  onclick="toggleMenu()" id="profileIcon" height="50px">
                 </a>
                 </div>
-    
+                <?php endif; ?>    
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
                         <div class="user-info">
@@ -148,47 +149,23 @@
                         <h4>Contact Number </h4>
                         
                     </div>
+                    <?php if (isset($childInfo)): ?>
+                        <?php foreach ($childInfo as $child): ?>
                     <div class="press-row">
-                        <p>MDT0012</p>
-                        <p>Rinesh Silva</p>
-                        <p>Paracetamol</p>
-                        <p>Saman Silva</p>
-                        <p>07123456789</p>
+                        <p>MTD00<?=$child['AppoinentID']?></p>
+                        <p><?=$child['ChildName']?></p>
+                        <p><?=$child['Medication']?></p>
+                        <p><?=$child['Dosage']?></p>
+                        <p><?=$child['Frequency']?></p>
                                         
                     </div>
-                    <div class="press-row">
-                        <p>MDT0012</p>
-                        <p>Senal Rithmina</p>
-                        <p>Ibuprofen</p>
-                        <p>Kamal Perera</p>
-                        <p>07134566789</p>
-                                        
-                    </div>
-                        
-                    <div class="press-row">
-                        <p>MDT0012</p>
-                        <p>Thusal Seniya</p>
-                        <p>Cetirizine</p>
-                        <p>Ranith Gamage</p>
-                        <p>0712346789</p>
-                                        
-                    </div>
-                    <div class="press-row">
-                        <p>MDT0012</p>
-                        <p>Tilan Yumeth</p>
-                        <p>Amoxicillin</p>
-                        <p>Sagara Rathnayaka</p>
-                        <p>0733778976</p>
-                                        
-                    </div>
-                    <div class="press-row">
-                        <p>MDT0012</p>
-                        <p>Tharushi Nimna</p>
-                        <p>Salbutamol</p>
-                        <p>Ridma Jayawardena</p>
-                        <p>0712355678</p>
-                                        
-                    </div>
+                    <?php endforeach; ?>
+                    <?php elseif (isset($Message)): ?>
+                       <div class="message">
+                       <p><?=$Message?></p>
+                       </div>
+                   <?php endif; ?>
+                   
                    
                 </div>
                 

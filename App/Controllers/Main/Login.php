@@ -16,6 +16,7 @@
                     $result = $user->first(['Username' => $username]);
 
                     if(!empty($result)){
+                        
                         if(checkpassword($_POST["Password"],$result->Password)){
                             
                             $session = new \Core\Session;

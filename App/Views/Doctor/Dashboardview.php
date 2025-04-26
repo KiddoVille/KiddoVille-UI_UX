@@ -6,7 +6,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="<?=CSS?>/Doctor/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/variables.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Doctor/press.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Doctor/time.css?v=<?= time() ?>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!--google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,11 +22,12 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic-2.png" alt="profile-pic">
-                    <div class="sidebar-header-content">
-                        <h3>Wane Carter</h3>
-                        <h4>Doctor</h4>
-                    </div>
+                    <?php if(isset($doctor)) :?>
+                        <img src="<?=$doctor['image']?>" alt="profile-pic">
+                        <div class="sidebar-header-content">
+                            <h3><?=$doctor['Name']?></h3>
+                            <h4>Doctor</h4>
+                        </div>
                 </div>
                 <div class="sidebar-list">
                     <a href="<?=ROOT?>/Doctor/Dashboard" class="sidebar-list-item" id="dashboard-link"> 
@@ -34,13 +35,10 @@
                         <span class="text">Dashboard</span>
                     </a>
                   
-                    <a href="<?=ROOT?>/Doctor/Prescriptions" class="sidebar-list-item" id="report-link">
-                        <i class='bx bxs-report' ></i>
-                        <span class="text"> Prescriptions </span>
-                    </a>
+                   
                     <a href="<?=ROOT?>/Doctor/History" class="sidebar-list-item" id="students-link">
-                        <i class='bx bxs-group' ></i>
-                        <span class="text">History</span>
+                    <i class='bx bxs-report' ></i>
+                        <span class="text">Prescriptions</span>
                     </a>
                    
                     
@@ -57,15 +55,15 @@
             <div class="navabr">
                 <div class="navbar-left">
                     <a href="#"><h2>Dashboard</h2></a>
-                    <h4>12/08/2025</h3>
+                    <h4><?=$doctor['date'] ?></h3>
                 </div>
                 <div class="navbar-right">
                 
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic-2.png"  onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$doctor['image']?>"  onclick="toggleMenu()" id="profileIcon" height="50px">
                 </a>
                 </div>
-    
+                <?php endif; ?>         
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
                         <div class="user-info">
@@ -145,7 +143,10 @@
                         <h4>Actions </h4>
                         
                     </div>
-                    <?php if(isset($times)): ?>
+                    <?php if(isset($message)):?>
+                    <div class="message"><?=$message?></div>
+                    
+                    <?php elseif(isset($times)): ?>
                         <?php foreach($times as $time): ?>
                         <div class="appointment-row">
                             <p><?=$time['SlotID']?></p>
@@ -155,15 +156,16 @@
                             <?php if($time['Status'] !== 'booked'):?>
                             <div class="actions">
                                 <button type="button" class="edit">Edit</button></a>
-                                <button type="button" class="delete">Delete</button>
+                                <button type="button" class="delete"  onclick="deleteTime(<?=$time['SlotID']?>)">Delete</button>
                             </div>
                             <?php else:?>
                             <div class="actions">
                                 <button type="button" class="edit-btn" disabled>Edit</button></a>
-                                <button type="button" class="dlt-btn" disabled>Delete</button>
+                                <button type="button" class="dlt-btn"  disabled>Delete</button>
                                 <form action="<?=ROOT?>/Doctor/Prescriptions" method="POST">
-                                    <input type="text" value="<?=$time['SlotID']?>">
-                                <button type="submit" class="prescription" name="SlotID">Add Prescription</button>
+                                    <input type="text" value="<?=$time['SlotID']?>" name="SlotID" hidden>
+                                    <button type="submit" class="prescription" ><i class='bx bxs-plus-circle'></i>
+                                    Prescription</button>
                                 </form> 
                             </div>
                             <?php endif;?>
@@ -187,7 +189,7 @@
         </div>
     </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>                            
     <script src="<?=JS?>/Teacher/script.js"></script>
     <script>
        document.addEventListener("DOMContentLoaded", function(e) {
@@ -204,6 +206,31 @@
             });
         });
 
+
+        function deleteTime(SlotID) {
+            console.log(SlotID);
+            fetch('<?=ROOT?>/Doctor/TimeSlots/deleteSlot', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        SlotID: SlotID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(data);
+                        window.location.reload();
+                        alert('Slot removed');
+                       // window.location.href = '<?= ROOT ?>/Child/Home';
+                    } else {
+                        console.error("Failed to delet slot ");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
     </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     

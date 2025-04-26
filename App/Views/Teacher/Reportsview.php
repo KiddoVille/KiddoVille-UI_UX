@@ -24,9 +24,11 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic.png" alt="profile-pic">
+                <?php if(isset($teacher)):?>
+                <img src="<?=$teacher['image']?>">
                     <div class="sidebar-header-content">
-                        <h3>Sara Britney</h3>
+                        <h3><?= $teacher['firstName'] ?> <?= $teacher['lastName'] ?></h3>
+                        <?php endif; ?>
                         <h4>Teacher</h4>
                     </div>
                 </div>
@@ -55,11 +57,8 @@
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
                     </a>
-                    <hr>
-                    <a href="<?=ROOT?>/Main/Help" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
+                  
+                    
                     
         
                 </div>
@@ -73,13 +72,13 @@
 
             <div class="navabr">
                 <div class="navbar-left">
-                    <a href="#"><h2>Hey Sara Britney</h2></a>
+                    <a href="#"><h2>Hey <?= $teacher['firstName'] ?> <?= $teacher['lastName'] ?></h2></a>
                     <h4>Empowering Excellence in Every Lesson!</h4>
                 </div>
                 <div class="navbar-right">
               
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic.png" onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$teacher['image']?>" onclick="toggleMenu()" id="profileIcon">
                 </a>
                 </div>
     
@@ -278,11 +277,7 @@
                                             <button style="color:#fff">Enter Marks</button>
                                         </div>
                                         <div class="mark-section">
-                                            <form class="mark-form" method="POST">
-                                                <input type="hidden" name="report_id" value="${child.ReportID}">
-                                                <input type="text" name="Marks" required>
-                                                <button type="submit" class="marks-submit">Submit</button>
-                                            </form>
+                                         
                                         </div>
                                     </div>
                                 </div>

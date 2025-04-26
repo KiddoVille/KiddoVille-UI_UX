@@ -212,7 +212,7 @@
 
             <div class="navabr">
                 <div class="navbar-left">
-                    <a href="#"><h2>Hey Sara Britney</h2></a>
+                    <a href="#"><h2>Hey <?= $teacher['firstName'] ?> <?= $teacher['lastName'] ?></h2></a>
                     <h4>Empowering Excellence in Every Lesson!</h4>
                 </div>
                 <div class="navbar-right">
@@ -222,7 +222,7 @@
                     <i class='bx bxs-bell' ></i>
                 </a> -->
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic.png" onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$teacher['image']?>" onclick="toggleMenu()" id="profileIcon">
                 </a>
                 </div>
     

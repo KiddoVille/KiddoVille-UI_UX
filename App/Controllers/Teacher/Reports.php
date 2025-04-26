@@ -8,9 +8,29 @@
         use MainController;
 
         public function index(){
-
+            $teacher = new \Modal\Teacher;
+            
+            $TeacherID = $this->findID();
             $child = new \Modal\Child;
             $report =  new \Modal\Report;
+
+            $row = $teacher->first(['TeacherID' => $TeacherID]);
+            // show($row);
+            // exit();
+                $firstName = $row->First_Name;
+                $lastName = $row->Last_Name ;
+                $email =  $row->Email;
+                $image= $row->Image;
+                $base64Image = base64_encode($image);
+    
+                $TeacherInfo = [
+                        'firstName' => $firstName,  
+                        'lastName' => $lastName,
+                        'email' => $email,
+                        'image' => 'data:image/jpg;base64,' . $base64Image];
+    
+
+           
   
             //getting reports from report table
             $reports = $report->findall();
@@ -30,7 +50,7 @@
                     $pending = [];
     
                     if (empty($reports)) {
-                        echo json_encode(['message' => 'No reports found']);
+                        echo json_encode(['message' => 'No reports found','teacher' => $TeacherInfo]);
                         exit;
                     }
     
@@ -76,7 +96,8 @@
                     header('Content-Type: application/json');
                     echo json_encode([
                        'pending' => $this->convertToArray($pending),
-                        'completed' => $this->convertToArray($completed)
+                        'completed' => $this->convertToArray($completed),
+                        'teacher' => $TeacherInfo
                     ]);
                     return;
                 }else{
@@ -87,7 +108,8 @@
 
                         header('Content-Type: application/json');
                         echo json_encode([
-                            'message' => 'No reports found'
+                            'message' => 'No reports found',
+                            'teacher' => $TeacherInfo
                         ]);
                         exit;
                     }
@@ -109,34 +131,25 @@
                         } else {
                             $pending[] = $student;
                         }
-                        // header('Content-Type: application/json');
-                        // echo json_encode([
-                        // 'reports'=>$completed
-                        // ]);
-                        // return;
+                      
                         
                     }
 
-                    // var_dump($completed, $pending);
-                    // exit();
-
-                    // header('Content-Type: application/json');
-                    // echo json_encode([
-                    //    'reports'=>$completed
-                    // ]);
-                    // return;
+                  
     
                     if (!empty($completed) || !empty($pending)) {
                         header('Content-Type: application/json');
                         echo json_encode([
                            'pending' => $this->convertToArray($pending),
-                            'completed' => $this->convertToArray($completed)
+                            'completed' => $this->convertToArray($completed),
+                            'teacher' => $TeacherInfo
                         ]);
                         exit;
                     } else {
                         header('Content-Type: application/json');
                         echo json_encode([
-                            'message' => 'No reports found'
+                            'message' => 'No reports found',
+                            'teacher' => $TeacherInfo
                         ]);
                         exit;
                     }
@@ -149,28 +162,40 @@
 
             $completed = [];
             $pending = [];
+            // show($reports);
+            // exit();
 
-            foreach ($reports as $report) {
-                $studentData = $child->where_norder(['ChildID' => $report->StudentID]);
-                if (empty($studentData)) continue;
-
-                $student = $studentData[0];
-                $student->ReportID = $report->ReportID;
-                // var_dump($student);
-                // exit();
-                if ($report->Status == 'completed') {
-                    $completed[] = $student;
-                } else {
-                    $pending[] = $student;
+            if(!empty($reporst)){
+                foreach ($reports as $report) {
+                    $studentData = $child->where_norder(['ChildID' => $report->StudentID]);
+                    if (empty($studentData)) continue;
+    
+                    $student = $studentData[0];
+                    $student->ReportID = $report->ReportID;
+                    // var_dump($student);
+                    // exit();
+                    if ($report->Status == 'completed') {
+                        $completed[] = $student;
+                    } else {
+                        $pending[] = $student;
+                    }
+    
+                    
                 }
 
-                
+            }else{
+                $this->view('Teacher/Reports',['message'=> 'No Reports Found',
+                'teacher' => $TeacherInfo
+                ]);
             }
+
+           
 
             if (!empty($completed) || !empty($pending)) {
                 $this->view('Teacher/Reports', 
                 ['pending' => $this->convertToArray($pending),
-                'completed' => $this->convertToArray($completed)
+                'completed' => $this->convertToArray($completed),
+                'teacher' => $TeacherInfo
             ]);
             }
                  
