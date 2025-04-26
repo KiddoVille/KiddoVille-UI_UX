@@ -118,12 +118,15 @@
                         $stats['stat2'] = [
                             'Time' => $row->Time,
                             'Person' => $row->Person,
-                            'Image' => $base64Image
+                            'Image' => $base64Image,
+                            'OTP' => $row->OTP,
+                            "NID" => $row->NID,
                         ];
                     } else {
                         $stats['stat2'] = [
                             'Time' => $row->Time,
-                            'Person' => $row->Person
+                            'Person' => $row->Person,
+                            'OTP' => $row->OTP
                         ];
                     }
                     break;
