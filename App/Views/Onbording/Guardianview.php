@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="<?= CSS ?>/Onbording/Onbording.css">
-    <script src="<?= JS ?>/Onbording/Number.js"></script>
+    <!-- <script src="<?= JS ?>/Onbording/Number.js"></script> -->
     <script src="<?= JS ?>/Onbording/Guardian.js"></script>
     <style>
         .error {
@@ -88,16 +88,26 @@
                         </div>
                         <div class="data">
                             <label>Phone Number <span id="red-star4" class="red-star"> *</span></label>
-                            <input name="Phone_Number" style="width: 200px;" class="number" placeholder="071-4810928" type="text" id="number" maxlength="12"
+                            <input name="Phone_Number" style="width: 200px;" class="number" placeholder="0714810928" type="text" id="number" maxlength="10"
                             value="<?php if (!empty($data['values']['Phone_Number'])) {
                                 echo $data['values']['Phone_Number'];
                             } ?>">
                         </div>
                     </div>
                     <span id="red-star5" class="red-star" style="margin-right: -40px;"> *</span>
-                    <div class="datacon imagecon" id="image-bg">
-                        <input type="file" name="profile_image" style="display: none" id="image" accept="image/*" required>
-                        <i class="fa fa-add" style="font-size:30px;cursor: pointer; border-radius: 30px; padding: 10px 12px; border: 2px solid black; background-color: white;" id="image-icon"></i>
+                    <div class="datacon imagecon" id="image-bg" <?php if (!empty($data['values']['profile_image_base64'])): ?>
+                            style="background-image: url('<?= $data['values']['profile_image_base64'] ?>'); background-size: cover;"
+                        <?php endif; ?>
+                    >
+                    <input 
+                            type="file" 
+                            name="profile_image" 
+                            id="image" 
+                            accept="image/*" 
+                            style="display: none"
+                            <?= empty($data['values']['profile_image_base64']) ? 'required' : '' ?>
+                        >
+                        <i class="fa fa-add" id="image-icon" style="font-size:30px; cursor: pointer; border-radius: 30px; padding: 10px 12px; border: 2px solid black; background-color: white;"></i>
                     </div>
                 </div>
                 <div class="datacon">
@@ -200,13 +210,11 @@
             const username = document.getElementById('username');
             const lastname = document.getElementById('lastname');
             const lastnameError = document.getElementById('lastname-error');
-            const number = document.getElementById('number');
             const address = document.getElementById('address');
             const nid = document.getElementById('nid');
             const nidError = document.getElementById('nid-error');
             const email = document.getElementById('email');
             const emailError = document.getElementById('email-error');
-            const numberInput = document.querySelector('.number');
             const relation = document.getElementById('relation');
             const relationError = document.getElementById('relation-error');
 
@@ -217,16 +225,6 @@
                     redstar2.classList.add('hidden');
                 }
                 relationError.style.display = 'none';
-            });
-
-            numberInput.addEventListener('input', function (e) {
-                this.value = this.value.replace(/\D/g, '');
-                if (this.value.length > 3) {
-                    this.value = this.value.slice(0, 3) + '-' + this.value.slice(3);
-                }
-                if (this.value.length > 7) {
-                    this.value = this.value.slice(0, 7) + ' ' + this.value.slice(7);
-                }
             });
 
             email.addEventListener('input',function(){
@@ -253,14 +251,6 @@
                     redstar7.classList.add('hidden');
                 }
                 nidError.style.display = 'none';
-            })
-
-            number.addEventListener('input',function(){
-                if (!number.value) {
-                    redstar4.classList.remove('hidden');
-                } else {
-                    redstar4.classList.add('hidden');
-                }
             })
 
             firstname.addEventListener('input',function(){

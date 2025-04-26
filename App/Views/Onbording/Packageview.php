@@ -227,7 +227,7 @@
                 weekdayPrice.style.justifyContent = "space-between";
                 weekdayPrice.style.padding = "5px 0";
                 weekdayPrice.style.borderBottom = '3px solid lightgrey';
-                weekdayPrice.innerHTML = `<label>Price</label><span>: $${pkg.Price}</span>`;
+                weekdayPrice.innerHTML = `<label>Price</label><span>: Rs ${pkg.Price}</span>`;
 
                 // Append elements
                 packageDiv.appendChild(nameLabel);
