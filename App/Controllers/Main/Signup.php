@@ -50,5 +50,6 @@ class Signup {
         }
         $this->view('main/signup', $Data);
     }
+    
 }
 ?>

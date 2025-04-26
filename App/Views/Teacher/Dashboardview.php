@@ -158,7 +158,7 @@
                 <i class='bx bxs-bell' ></i>
             </a>
             <a href="#" class="profile">
-                <img src="<?=ROOT?>/assets/images/profilePic.png" onclick="toggleMenu()" id="profileIcon">
+                <img src="<?=htmlspecialchars($teacherInfo['Image'])?>" onclick="toggleMenu()" id="profileIcon">
             </a>
             </div>
 
