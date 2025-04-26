@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -8,6 +9,8 @@ class Schedule{
     use MainController;
     
     public function index() {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         // Get all maids from the database
         $maidModel = new \Modal\Maid;
         $maids = $maidModel->findAll();
@@ -29,7 +32,6 @@ class Schedule{
         $assignmaidmodel = new \Modal\Maidactivity;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
-                'MaidID' => $_POST['MaidID'],
                 'Date' => $_POST['Date'],
                 'Activity' => $_POST['Activity']
             ];

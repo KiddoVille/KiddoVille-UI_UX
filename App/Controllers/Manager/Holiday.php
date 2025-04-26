@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 use Modal\Modal;
 
@@ -11,6 +12,8 @@ class Holiday
     use MainController;
     public function index()
     {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $data = $this->show_holidays();
         $this->view('Manager/publish_holiday/Holiday', $data);
     }

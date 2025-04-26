@@ -4,7 +4,7 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class TeacherLeave{
+    class Teacher_Leave{
         use Modal;
 
         protected $table = 'teacher_leave';
@@ -19,15 +19,11 @@
         ];
 
         public function validate($data) {
-            $this->errors = [];
-
-            
-        
+            $this->errors = [];        
             // Validate Leave Type
             if (empty($data['Leave_Type'])) {
                 $this->errors['Leave_Type'] = 'Leave type is required';
             }
-        
             // Validate Start Date
             if (empty($data['Start_Date'])) {
                 $this->errors['Start_Date'] = 'Start date is required';
@@ -36,8 +32,6 @@
             }elseif(strtotime($data['Start_Date']) <= strtotime(date('Y-m-d'))){
                 $this->errors['Start_Date'] = 'Start date must be a date after today';
             }
-            
-            
             // Validate End Date
             if (empty($data['End_Date'])) {
                 $this->errors['End_Date'] = 'End date is required';
@@ -53,19 +47,20 @@
             } elseif (strlen($data['Description']) < 10) {
                 $this->errors['Description'] = 'Description must be at least 10 characters long';
             }
-
-           
             return empty($this->errors);
-
-            // echo "<pre>";
-            // print_r($data); // Print the data being inserted
-            // echo "</pre>";
-            // exit;
-
-           
         }
-        
-    
 
+
+        public function requestLeave($TeacherID){
+            $query = "SELECT Duration  From {$this->table} where TeacherID = :TeacherID";
+            $params = [
+                'TeacherID' => $TeacherID
+            ];
+            $result = $this->query($query, $params);
+            if($result){
+                return $result[0]['LeaveType'];
+            }
+            return false;
+        }
     }
 ?>

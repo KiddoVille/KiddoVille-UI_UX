@@ -125,7 +125,7 @@
                 <div class="stat">
                     <h3 style="color: #233E8D;">Total Enrollment</h3>
                     <h2 style="margin-bottom: 3px;color: #233E8D;"><?= $data['Totalenroll'] ?></h2>
-                    <p style="color: #233E8D;"><?=date('F Y')?></p>
+                    <p style="color: #233E8D;"><?= date('F Y') ?></p>
                 </div>
             </div>
 
@@ -170,7 +170,7 @@
                         <i class="fas fa-door-open" style="margin-right: 5%;"></i>Visitors Summary
                     </span>
                     <input type="date" class="visitorsdate" id="search-date" oninput="filterByDate();">
-                    <input type="text" class="visitorsrole" id="search-role" oninput="filterByRole();" placeholder="Search by Role">
+                    <!-- <input type="text" class="visitorsrole" id="search-role" oninput="filterByRole();" placeholder="Search by Role"> -->
 
                 </div>
 
@@ -187,7 +187,7 @@
                     <?php if (!empty($data['visitorsummary'])): ?>
                         <?php foreach ($data['visitorsummary'] as $visitor): ?>
                             <div class="detailed-lines">
-                                <div class="visitorname"><span><?= htmlspecialchars($visitor->FirstName . ' ' . $visitor->LastName ); ?></span></div>
+                                <div class="visitorname"><span><?= htmlspecialchars($visitor->FirstName . ' ' . $visitor->LastName); ?></span></div>
                                 <div class="visitorposition" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
                                 <div class="visitorpurpose" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
                                 <div class="visitordate" style="margin-left: 0.5%;">
@@ -205,7 +205,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -307,34 +306,34 @@
             }
         };
 
-        const filterByRole = () => {
-    const searchRole = document.getElementById('search-role').value.toLowerCase().trim();
-    const visitors = document.querySelectorAll('.detailed-lines');
-    const noResultsMessage = document.getElementById('no-results');
+        // const filterByRole = () => {
+        //     const searchRole = document.getElementById('search-role').value.toLowerCase().trim();
+        //     const visitors = document.querySelectorAll('.detailed-lines');
+        //     const noResultsMessage = document.getElementById('no-results');
 
-    let found = false;
-    noResultsMessage.style.display = "none";
+        //     let found = false;
+        //     noResultsMessage.style.display = "none";
 
-    for (let i = 0; i < visitors.length; i++) {
-        let visitorRoleElement = visitors[i].querySelector('.visitorposition span');
+        //     for (let i = 0; i < visitors.length; i++) {
+        //         let visitorRoleElement = visitors[i].querySelector('.visitorposition span');
 
-        if (visitorRoleElement) {
-            let visitorRole = visitorRoleElement.textContent.toLowerCase().trim();
+        //         if (visitorRoleElement) {
+        //             let visitorRole = visitorRoleElement.textContent.toLowerCase().trim();
 
-            if (visitorRole.includes(searchRole)) {
-                visitors[i].style.display = "";
-                found = true;
-            } else {
-                visitors[i].style.display = "none";
-            }
-        }
-    }
+        //             if (visitorRole.includes(searchRole)) {
+        //                 visitors[i].style.display = "";
+        //                 found = true;
+        //             } else {
+        //                 visitors[i].style.display = "none";
+        //             }
+        //         }
+        //     }
 
-    if (!found && searchRole !== "") {
-        noResultsMessage.style.display = "block";
-    }
-};
-
+        //     if (!found && searchRole !== "") {
+        //         noResultsMessage.style.display = "block";
+        //     }
+        // };
     </script>
 </body>
+
 </html>

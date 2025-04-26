@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -10,6 +11,8 @@ class Packages
 
     public function index()
     {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $packages = new \Modal\Package;
         $result = $packages->findall();
         $data = ['packageData' => $result];

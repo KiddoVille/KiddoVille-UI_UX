@@ -59,6 +59,10 @@
                                 $Manager = new \Modal\Manager;
                                 $lastseen = date('Y-m-d H:i:s');
                                 $Manager->update(["UserID" => $result->UserID],["Last_Seen"=>$lastseen]);
+
+                                $session = new \Core\Session;
+                                $session->set('Manager' , 1);
+
                                 redirect('Manager/Home');
                             }
                             if($result->Role === "Receptionist"){

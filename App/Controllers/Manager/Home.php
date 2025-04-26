@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -13,6 +14,9 @@ class Home
         $data = $this->store_stats();
         $data = $data + $this->visitors_log();
         $data = $data + $this->show_emergency();
+
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $this->view('Manager/Home', $data);
     }
 
@@ -117,4 +121,5 @@ class Home
         $data['visitorsummary'] = $Visitorrecords;
         return $data;
     }
+
 }

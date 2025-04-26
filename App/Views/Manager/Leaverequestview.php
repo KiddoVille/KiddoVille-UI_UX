@@ -111,24 +111,39 @@
     </div>
 
 
-    <div class="container" id="container" style="margin-top:22%;margin-left:20.5%;">
+    <div class="container" id="container">
         <div class="leaverequest">
             <div id="leave-requests" class="scroll-container">
-                <h1 style="margin-top: 2%; color:#233E8D; font-size:24px;display:flex;gap:2%"><i class="fa-solid fa-calendar-check"></i>Leave requests</h1>
+                <h1 style="margin-top: 2%; color:#233E8D; font-size:24px;display:flex;gap:2%"><i class="fa-solid fa-calendar-check"></i>Teacher Leave requests</h1>
                 <hr style="margin-left: -4%;">
                 <!-- Leave Requests -->
-                <div class="request" data-name="John Doe" data-role="Teacher" data-dates="2024-12-20 to 2024-12-22" data-reason="Flu">
-                    <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
-                    <p class="l_name"><strong>John Doe</strong><br>Teacher</p>
-                    <p>Reason: Flu</p>
-                    <button class="viewbtn">View</button>
-                </div>
+                <div class="leavecards">
+                    <?php if (!empty($data['leaverequest'])): ?>
+                        <?php foreach ($data['leaverequest'] as $leave): ?>
+                            <div class="leavecard">
+                                <p name="TeacherName"><span>Name : <?= htmlspecialchars($leave->TeacherName) ?></span></p>
+                                <p name="LeaveType"><span>Leave_Type : <?= htmlspecialchars($leave->Leave_Type); ?></span></p>
+                                <p name="Description"><span>Description : <?= htmlspecialchars($leave->Description); ?></span></p>
+                                <p name="Duration"><span>Duration : <?= htmlspecialchars($leave->Duration); ?></span></p>
+                                <p name="Duration"><span>Remaining : <?= htmlspecialchars($leave->Remaining); ?></span></p>
+                                <p name="Duration"><span>Used : <?= htmlspecialchars($leave->Used); ?></span></p>
+                                <p name="status" style="margin: 10px 0;">
+                                    <span id="status-text" data-status="<?= strtolower(htmlspecialchars($leave->Status)) ?>" style="font-weight: bold;">
+                                        <?= htmlspecialchars($leave->Status) ?>
+                                    </span>
+                                    <?php if (strtolower($leave->Status) === 'pending'): ?>
+                                <div style="margin-top: 8px;">
+                                    <button class="accept-btn" onclick="Approve(<?= htmlspecialchars($leave->LeaveID) ?>)">Accept</button>
+                                    <button class="decline-btn" onclick="Delete(<?= htmlspecialchars($leave->LeaveID) ?>)">Decline</button>
+                                </div>
+                            <?php endif; ?>
+                            </p>
+                            </div>
 
-                <div class="request" data-name="Jane Smith" data-role="Maid" data-dates="2024-12-25 to 2024-12-30" data-reason="Family Trip">
-                    <img img src="<?= IMAGE ?>/profilePic.png" class="resize" style="width: 50px; border-radius: 50%;">
-                    <p class="l_name"><strong>Jane Smith</strong><br>Maid</p>
-                    <p>Reason: Family Trip</p>
-                    <button class="viewbtn">View</button>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Not found</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -166,22 +181,6 @@
 
 
     <script>
-        const leaveRequests = [{
-                name: "Alice Brown",
-                type: "Teacher",
-                from: "2025-01-01",
-                to: "2025-03-01",
-                Reason: "Flud"
-            },
-            {
-                name: "Mark Lee",
-                type: "Reciptionist",
-                from: "2024-12-23",
-                to: "2024-12-25",
-                Reason: "Sick leave"
-            },
-        ];
-
         const container = document.getElementById('leave-requests');
 
         leaveRequests.forEach(request => {
@@ -225,11 +224,56 @@
             popup.style.display = 'none';
             overlay.style.display = 'none';
         });
-
+        
         overlay.addEventListener('click', () => {
             popup.style.display = 'none';
             overlay.style.display = 'none';
         });
+
+        function Approve(LeaveID){
+            console.log(LeaveID);
+            fetch('<?= ROOT ?>/Manager/Leaverequest/ApproveLeave', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    LeaveID: LeaveID
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Leave request approved successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to approve leave request.');
+                }
+            })
+        }
+
+        function Delete(LeaveID){
+            console.log(LeaveID);
+            fetch('<?= ROOT ?>/Manager/Leaverequest/CancelLeave', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    LeaveID: LeaveID
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Leave request Cancelled successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to approve leave request.');
+                }
+            })
+        }
+
     </script>
 
 </body>
