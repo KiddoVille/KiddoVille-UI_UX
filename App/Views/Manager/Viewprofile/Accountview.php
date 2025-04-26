@@ -138,7 +138,29 @@
                     </form>
                 </div>
                 <div class="cards">
-
+                    <?php
+                    if (!empty($data['userData'])): ?>
+                        <?php foreach ($data['userData'] as $user): ?>
+                            <div class="report-card">
+                                <div class="card-content">
+                                    <div class="profile-img">
+                                        <img src="<?= IMAGE ?>/profilePic.png" class="face" width="70px">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4><?= htmlspecialchars($user->Username); ?></h4>
+                                        <p>UserID: <?= htmlspecialchars($user->UserID); ?></p>
+                                        <p>Role: <?= htmlspecialchars($user->Role); ?></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button id="userview" class="view-btn" onclick="viewUser(<?= $user->UserID ?>)">View</button>
+                                        <button id="blockuser" class="del-btn" onclick="blockUser(<?= $user->UserID ?>)">Block</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No users found matching the criteria.</p>
+                    <?php endif; ?>
                 </div>
 
                 <a href="#" id="addUserBtn" style="margin-left:85%;text-decoration:none;font-size:20px;color:blue">+Add User</a>
@@ -235,7 +257,6 @@
                     return;
                 }
 
-                console.log("Users data:", users);
                 let allCardsHTML = '';
 
                 users.forEach(user => {
@@ -243,7 +264,7 @@
                     const isBlocked = user.Block == 1; // Check if user is blocked
 
                     allCardsHTML += `
-            <div class="report-card ${user.Block ? 'blocked-user' : ''}">
+            <div class="report-card ${isBlocked ? 'blocked-user' : ''}">
                 <div class="card-content">
                     <div class="profile-img">
                         <img src="${user.Image}" class="face" width="70px">
@@ -252,11 +273,11 @@
                         <h4>${user.Username}</h4>
                         <p>UserID: ${user.UserID}</p>
                         <p>Role: ${Role}</p>
-                        ${user.Block ? '<p class="blocked-status">BLOCKED</p>' : ''}
+                        ${isBlocked ? '<p class="blocked-status">BLOCKED</p>' : ''}
                     </div>
                     <div class="card-footer">
                         <button onclick="viewUser(${user.UserID})">View</button>
-                        ${!user.Block ? 
+                        ${!isBlocked ? 
                           `<button class="del-btn" onclick="blockUser(${user.UserID})">Block</button>` : 
                           `<button class="unblock-btn" onclick="unblockUser(${user.UserID})">Unblock</button>`
                         }
@@ -414,8 +435,6 @@
             }
 
             document.addEventListener('DOMContentLoaded', function() {
-
-                fetchProfile('All', null);
 
                 const passwordInput = document.getElementById('password');
                 const passwordError = document.getElementById('passwordError');

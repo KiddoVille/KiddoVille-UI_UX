@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -8,6 +9,8 @@ class Schedule{
     use MainController;
     
     public function index() {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         // Get all maids from the database
         $maidModel = new \Modal\Maid;
         $maids = $maidModel->findAll();
@@ -28,26 +31,23 @@ class Schedule{
     public function addscheduleMaid(){
         $assignmaidmodel = new \Modal\Maidactivity;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $data = [
-                'MaidID' => $_POST['MaidID'],
-                'Date' => $_POST['Date'],
-                'Activity' => $_POST['Activity']
-            ];
-            
-            // Debugging output
-            echo '<pre>';
-            print_r($data);  // Check the data being passed
-            echo '</pre>';
-    
-            if ($assignmaidmodel->validate($data)) {
+            // $data = [
+            //     'Date' => $_POST['Date'],
+            //     'Activity' => $_POST['Activity']
+            // ];
+
+            $success = true;
+            foreach ($_POST['Activity'] as $key => $value) {
+                $data = [
+                    'Date' => $_POST['Date'],
+                    'Activity' => $value,
+                ];
+                show($data);
                 $result = $assignmaidmodel->insert($data);
-                if ($result) {
-                    echo "Schedule Added successfully";
-                } else {
-                    echo "Failed to add";
+                if (!$result && $assignmaidmodel->validate($data)) {
+                    $success = false;
+                    break; // Exit the loop if any insert fails
                 }
-            } else {
-                echo "Validation failed.";
             }
         }
     }
