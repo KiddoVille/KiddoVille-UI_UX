@@ -196,12 +196,15 @@ class Home
                 $stats['stat2'] = [
                     'Time' => $row->Time,
                     'Person' => $row->Person,
-                    'Image' => $base64Image
+                    'Image' => $base64Image,
+                    'OTP' => $row->OTP,
+                    "NID" => $row->NID,
                 ];
             } else {
                 $stats['stat2'] = [
                     'Time' => $row->Time,
-                    'Person' => $row->Person
+                    'Person' => $row->Person,
+                    'OTP' => $row->OTP
                 ];
             }
         }
@@ -265,7 +268,6 @@ class Home
     
         $_POST['Person'] = $_POST['PersonType'] ?? null;
         $_POST['AllChild'] = 0;
-        $_POST['OTP'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
         $_POST['Date'] = $today;
     
         unset($_POST['PersonType'], $_POST['selectedPerson'], $_POST['inform']);

@@ -388,7 +388,6 @@
         
             $_POST['Person'] = $_POST['PersonType'] ?? null;
             $_POST['AllChild'] = 1;
-            $_POST['OTP'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
             $_POST['Date'] = $today;
         
             unset($_POST['PersonType'], $_POST['selectedPerson'], $_POST['inform']);
