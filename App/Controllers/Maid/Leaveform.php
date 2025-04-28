@@ -12,7 +12,8 @@
         }
         public function RequestLeave(){
             $maidLeaveModel = new \Modal\MaidLeave;
-            $maidid = $this->findID();
+            // $maidid = $this->findID();
+            $maidid = 1;
                  
             if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $data = [
@@ -36,7 +37,7 @@
             $session = new \Core\Session;
     
             $userID = $session->get('USERID'); 
-    
+            
             $row = $maid->first(['UserID' => $userID]);
             $result = $row->MaidID;
     
