@@ -130,9 +130,9 @@ class Schedule
             ];
 
             // Debugging output
-            echo '<pre>';
-            print_r($data);  // Check the data being passed
-            echo '</pre>';
+            // echo '<pre>';
+            // print_r($data);  // Check the data being passed
+            // echo '</pre>';
             if ($assignteachermodel->validate($data)) {
                 $result = $assignteachermodel->insert($data);
                 if ($result) {
@@ -141,6 +141,7 @@ class Schedule
                     echo "Failed to add";
                 }
             }
+            redirect('Manager/schedule/Schedule');
         }
     }
 }
