@@ -11,7 +11,7 @@
     padding-left: 2%;
     background-color: white;
     overflow-y: auto;
-    margin-top: -17%;
+    margin-top: -15%;
   }
 
   .request:last-child {
@@ -267,7 +267,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 300px;
+  width: 250px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -297,7 +297,7 @@
   background-color: #28a745;
 }
 
-.leavecard span[data-status="pending"] {
+.card span[data-status="pending"] {
   background-color: #ffc107;
   color: #000000;
 }
@@ -309,9 +309,9 @@
 
 .container{
   display: flex;
-  gap: 20px;
+  gap: -10px;
   margin-top:22%;
-  margin-left:2.5%;
+  margin-left:-4.5%;
 }
 
 .status-container {

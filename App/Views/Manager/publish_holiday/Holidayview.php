@@ -127,7 +127,7 @@
 
                                 <label for="Date">Date of Holiday:</label>
                                 <?php $today = date('Y-m-d'); ?>
-
+                                
                                 <input type="date" name="Date" id="Date" class="form-control"
                                     value="<?php echo isset($_POST['Date']) ? $_POST['Date'] : ''; ?>"
                                     min="<?php echo $today; ?>" required>

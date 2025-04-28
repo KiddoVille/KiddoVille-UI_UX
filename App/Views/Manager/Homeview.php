@@ -164,6 +164,54 @@
                 </div>
             </div>
 
+            <div class="reservation">
+                <h2 style="color: #233E8D; margin-left:5%;">Reservations</h2>
+                <hr>
+                <div class="schedule-table-header">
+                    <div class="child-id"><span>Parent</span></div>
+                    <div class="reservation-date"><span>Date</span></div>
+                    <div class="start-time"><span>Start Time</span></div>
+                    <div class="end-time"><span>End Time</span></div>
+                    <div class="status"><span>Status</span></div>
+                    <div class="notes"><span>Notes</span></div>
+                    <div class="is_24_Hour">Is 24_Hours</div>
+                </div>
+
+                <div id="scheduleData">
+                    <?php if (!empty($data['reservations'])): ?>
+                        <?php foreach ($data['reservations'] as $reservation): ?>
+                            <div class="schedule-table-row">
+                                <div class="child-id"><span><?= htmlspecialchars($reservation->ParentName); ?></span></div>
+                                <div class="reservation-date"><span><?= htmlspecialchars($reservation->Date); ?></span></div>
+                                <div class="start-time"><span><?= htmlspecialchars($reservation->Start_Time); ?></span></div>
+                                <div class="end-time"><span><?= htmlspecialchars($reservation->End_Time); ?></span></div>
+                                <div class="status">
+                                    <span data-status="<?= strtolower(htmlspecialchars($reservation->Status)) ?>">
+                                        <?= htmlspecialchars($reservation->Status) ?>
+                                    </span>
+                                </div>
+
+                                <div class="notes">
+                                    <?php if (!empty($reservation->Notes)): ?>
+                                        <span><?= htmlspecialchars($reservation->Notes) ?></span>
+                                    <?php else: ?>
+                                        <span>-</span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="is_24_Hour"><span><?= htmlspecialchars($reservation->Is_24_Hour); ?></span></div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No visitors found.</p>
+                    <?php endif; ?>
+                    <div id="no-results" style="display: none; color: red; text-align: center; margin-top: 11.5%;">
+                        <h1>Date Not Found</h1>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="today_visitors" style="padding-bottom: 2%;">
                 <div class="today_visitors_header">
                     <span style="white-space: nowrap;">
@@ -178,7 +226,7 @@
                     <div class="visitorname"><span>NAME</span></div>
                     <div class="visitorposition"><span>Role</span></div>
                     <div class="visitorpurpose"><span>PURPOSE</span></div>
-                    
+
                     <div class="visitordate"><span>DATE</span></div>
                     <div class="visitorstarttime"><span>Start Time</span></div>
                     <div class="visitorendtime"><span>End Time</span></div>
@@ -189,7 +237,14 @@
                         <?php foreach ($data['visitorsummary'] as $visitor): ?>
                             <div class="detailed-lines">
                                 <div class="visitorname"><span><?= htmlspecialchars($visitor->FirstName . ' ' . $visitor->LastName); ?></span></div>
-                                <div class="visitorposition" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
+
+                                <div class="visitorposition" style="margin-left: 0.5%;">
+                                    <?php if(!empty($visitor->Role)):?>
+                                        <span><?= htmlspecialchars($visitor->Role); ?></span>
+                                    <?php else: ?>
+                                        <span>-</span>
+                                    <?php endif; ?> 
+                                </div>
                                 <div class="visitorpurpose" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
                                 <div class="visitordate" style="margin-left: 0.5%;">
                                     <span><?= htmlspecialchars(date('Y-m-d', strtotime($visitor->Date))); ?></span>

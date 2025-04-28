@@ -151,9 +151,9 @@ li:hover .dropdown {
     padding: 20px;
     background-size: cover;
     height: fit-contentto;
-    margin-left: 270px;
+    margin-left: 21%;
     background-color: #eee;
-    margin-top: -22.55%;
+    margin-top: -21%
 }
 .header {
     position: fixed;
@@ -714,3 +714,144 @@ li:hover .dropdown {
   .edel:hover{
     background-color: red;
   }
+  .schedule-table-header {
+    display: flex;
+    background-color: #3a8dde; /* Dark blue header */
+    color: white;
+    padding: 12px 0;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.schedule-table-row {
+    display: flex;
+    background-color: #eaf2f8; /* Very light blue */
+    margin-bottom: 4px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.schedule-table-row:hover {
+    background-color: #d4e6f1; /* Slightly darker blue on hover */
+    transform: translateX(2px);
+}
+
+.schedule-table-header div,
+.schedule-table-row div {
+    flex: 1;
+    text-align: center;
+    padding: 0 5px;
+}
+
+.child-id { flex: 1.2; }
+.reservation-date { flex: 1; }
+.start-time { flex: 0.8; }
+.end-time { flex: 0.8; }
+.status { flex: 0.8; }
+.notes { flex: 1.2; }
+
+/* Status colors */
+.status span {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+}
+
+.status span[data-status="confirmed"] {
+    background-color: #2ecc71; /* Green for confirmed */
+    color: white;
+}
+
+.status span[data-status="pending"] {
+    background-color: #f39c12; /* Orange for pending */
+    color: white;
+}
+
+.status span[data-status="cancelled"] {
+    background-color: #e74c3c; /* Red for cancelled */
+    color: white;
+}
+
+#scheduleData {
+    margin-top: 0;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-height: 200px;
+}
+
+#no-results {
+    padding: 40px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+.reservation {
+    width: 65%; /* Reduced from 90% to 70% */
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1.5%;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-table-header {
+    display: flex;
+    background-color:#f0f4f8;
+    color: #555555;
+    padding: 8px 0; /* Reduced padding */
+    font-size: 0.9em; /* Slightly smaller font */
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: -2%;
+}
+
+.schedule-table-row {
+    display: flex;
+    background-color: #eaf2f8;
+    padding: 6px 0; /* Reduced padding */
+    transition: all 0.3s ease;
+    align-items: center;
+    min-height: 36px; /* Slightly reduced */
+    font-size: 0.85em; /* Smaller font for content */
+}
+
+/* Column width adjustments */
+.child-id { flex: 1; }      /* Reduced from 1.2 */
+.reservation-date { flex: 1; }
+.start-time { flex: 0.7; }  /* Reduced from 0.8 */
+.end-time { flex: 0.7; }    /* Reduced from 0.8 */
+.status { flex: 0.7; }      /* Reduced from 0.8 */
+.notes { flex: 1; }         /* Reduced from 1.2 */
+
+/* Status badges - made more compact */
+.status span {
+    padding: 2px 6px;       /* Reduced padding */
+    border-radius: 10px;
+    font-size: 0.8em;       /* Smaller font */
+    min-width: 70px;        /* Reduced from 80px */
+}
+
+/* Other styles remain the same */
+#scheduleData {
+    flex: 1;
+    overflow-y: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;               /* Reduced gap between rows */
+    padding: 0 2px 2px 2px;
+    margin-top: 0.5%;
+}
+
+/* Keep the rest of your existing styles... */
+
+.is_24_Hour { 
+    flex: 0.7; /* Adjust this value as needed */
+}   

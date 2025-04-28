@@ -12,6 +12,8 @@
             'WorkID',
             'MaidID',
             'Date',
+            'Start_Time',
+            'End_Time',
             'Activity'
         ];
 

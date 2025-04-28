@@ -52,6 +52,17 @@
         
             return $errors;
         }        
+
+        public function findById($id) {
+            $sql = "SELECT * FROM parent WHERE UserID = :id LIMIT 1";
+            $data = ['id' => $id];
+            
+            $result = $this->query($sql, $data);
+            if ($result) {
+                return $result[0]; // Return the first row
+            }
+            return false;
+        }
     }
 
 ?>
