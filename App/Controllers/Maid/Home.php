@@ -7,7 +7,10 @@
     class Home{
         use MainController;
         public function index(){
+
+
             $childModel = new \Modal\Child();
+            $maidactivityModel = new \Modal\Maidactivity();
             $AttendanceModel = new \Modal\Attendance();
             $maidassignModel = new \Modal\AssignMaid();
             $maidattendance = new \Modal\Employeeattendance;
@@ -22,15 +25,30 @@
             $attendchilds = $AttendanceModel->where_order(['Status' => 'Present' , 'Start_Date' => date('Y-m-d')], [], 'Start_Time');
            
                 $assign = $maidassignModel->where_norder(['Date' => date('Y-m-d')],[]);
-
+                
+                
+            if(is_array($attendchilds) && !empty($attendchilds)){
                 $presentChildIds = array_map(function($child) {
                     return $child->ChildID;
                 }, $attendchilds);
-            //var_dump($presentChildIds);    
-               
+            }else{
+                $presentChildIds = [];
+            }
+            // show($presentChildIds);
+            // exit();    
+            if(is_array($assign) && !empty($assign)){
                 $assignedChildIds = array_map(function($assig) {
                     return $assig->ChildID;
                 }, $assign);
+            }else{
+                $assignedChildIds = [];
+            }
+               // show($assignedChildIds);
+               // exit();
+                // $notAssignedButPresent = array_diff($presentChildIds, $assignedChildIds);
+                // show($notAssignedButPresent);
+                // exit();
+
            // var_dump($assignedChildIds);    
               
                 $notAssignedButPresent = array_diff($presentChildIds, $assignedChildIds);
@@ -49,6 +67,8 @@
         
                     if (is_array($maidAssignments)) {
                         $maid->AssignmentCount = count($maidAssignments);
+                        // show($maid);
+                        // exit();
                        
                     } else {
                        
@@ -58,16 +78,114 @@
                 }
                 $children = [];
                 $childHelper= new ChildHelper();
+                
                 foreach ($notAssignedButPresent as $childID) {
                     $childData = $childModel->where_norder(['ChildID' => $childID], []);
+                   
                     if (is_array($childData) && !empty($childData)) {
                         $child = $childData[0];        
                         $child->AgeGroup = $childHelper->getAgeGroup($child->DOB);       
                         $children[] = $child;
+                        
                     }
                 }
+                // show($children);
+                // show($presentMaids);
+                //         exit();
+             
                 
+                foreach ($children as $child) {
+                     foreach ($presentMaids as $maid) {
+                        if(($child->AgeGroup === $maid->AgeGroup) && ($maid->AssignmentCount < 5)){
+                            $data = [
+                                'MaidID'   => $maid->MaidID,
+                                'ChildID'   => $child->ChildID,
+                                'AgeGroup'    => $child->AgeGroup,
+                                'Date'        => date('Y-m-d'),
+                                
+                            ];
+                            
+                           
+                           
+                            
+                if ($maidassignModel->validate($data)) {
+                    
+                    // Insert the data into the database
+                    $maidassignModel->insert($data);
+                    
+                }
+                break;
+
+                        }
+                    }
+                     
+                
+                }
+                $maidid = $this->findID();
+                 
+                $todayassigned = $maidassignModel->where_norder(['MaidID' => $maidid, 'Date' => date('Y-m-d')], []);
+                $todayactivities = $maidactivityModel->where_norder([ 'Date' => date('Y-m-d')], []);
+                
+            if(is_array($todayassigned) && !empty($todayassigned)){
+                $todayAssignedChildIds = array_map(function($child) {
+                    return $child->ChildID;
+                }, $todayassigned);
+            }else{
+                $todayAssignedChildIds = [];
+            }  
+            $data['children'] =[];
+            foreach ($todayAssignedChildIds as $childID) {
+                $data['children'][] = $childModel->first(['ChildID' => $childID], []);
+            }
+            if(is_array($todayactivities) && !empty($todayactivities)){
+                $data['activities'] = $todayactivities;
+            }
+            $this->view('Maid/home',$data);
+        }
+        public function conditions(){
+            $childModel = new \Modal\Child();
+            $childid = $_POST['child_id'];
+            $data['children'] = $childModel->where_norder(['ChildID' => $childid], []);
+
+            // show($data['children']);
+            
+             if(is_array($data) && !empty($data)){
+                 $this->view('Maid/Profile',$data);
+            }
+        }
+        public function markActivity(){
+            $maidactivityModel = new \Modal\Maidactivity();
+            if($_SERVER['REQUEST_METHOD'] === 'POST'){
+               
+            
+                    
+                    // Insert the data into the database
+          $success =  $maidactivityModel->update(['WorkID' => $_POST['work_id']],['IsCompleted' => 1] );
+           if($success){
+            redirect('maid/home');
+           }else{
+            redirect('maid/home');
+           }
+                
+                    
+                
+            }
+        }    
+        public function findID(){
+            $maid = new \Modal\Maid;
+            $session = new \Core\Session;
+    
+            $userID = $session->get('USERID'); 
+    
+            $row = $maid->first(['UserID' => $userID]);
+            $result = $row->MaidID;
+    
+            return $result;
+    
+    
             $this->view('Maid/home');
         }
+
+
     }
 ?>

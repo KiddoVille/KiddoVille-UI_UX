@@ -4,8 +4,8 @@
         width:96%;
         display:flex;
         flex-direction:row;
-        justify-content:center;
-        align-items: center;
+        justify-content: space-between;
+        align-items: flex-start;
 }
 .item_checklist{
     width:100%;
@@ -211,9 +211,9 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+   justify-content: space-around;
     width:49%;
-    height: 80%;
+    height: 90%;
 }
 .form-head {
  width:88%;
@@ -323,6 +323,7 @@ input[type="checkbox"] {
     flex-direction: row;
     justify-content:center;
     align-items: flex-end;
+    margin-bottom: 20px;;
 }
 .buttons button {
     width:100%;
@@ -343,8 +344,8 @@ a{
     height: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    align-items:center ;
 }
 input[type="date"]{
     box-shadow: 0 0 3px 0.001px rgba(0,0,0,0.4);
