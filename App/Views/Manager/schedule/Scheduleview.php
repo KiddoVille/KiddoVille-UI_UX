@@ -142,22 +142,25 @@
                             <tr>
                                 <td>
                                     <input type="text" value="Breakfast" readonly class="styled-select">
+                                    <input type="hidden" name="Activity[]" value="Breakfast">
                                 </td>
                                 <td>
                                     <input type="text" class="styled-select" readonly>
+                                </td>
                                 <td>
                                     <input type="text" value="8:00" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="8:00">
                                 </td>
                                 <td>
                                     <input type="text" value="8:30" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="8:30">
                                 </td>
-
                             </tr>
                             <tr>
                                 <td>
                                     <select name="Activity[]" class="styled-select" id="">
                                         <option value="Select Activity" disabled selected>Select Activity</option>
-                                        <option value="Creative Activity">Creative Acitivity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
                                         <option value="Story Time">Story Time</option>
                                         <option value="Out door Time">Out door Time</option>
                                         <option value="Basic Learning Time">Basic Learning Time</option>
@@ -167,34 +170,37 @@
                                 <td>
                                     <input type="text" value="" readonly class="styled-select">
                                 </td>
-
                                 <td>
                                     <input type="text" value="8:30" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="8:30">
                                 </td>
                                 <td>
                                     <input type="text" value="10:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="10:00">
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <input type="text" value="Refreshment" class="styled-select" readonly>
+                                    <input type="hidden" name="Activity[]" value="Refreshment">
                                 </td>
                                 <td>
                                     <input type="text" class="styled-select" readonly>
                                 </td>
                                 <td>
                                     <input type="text" value="10:00" class="styled-select" readonly>
+                                    <input type="hidden" name="Start_Time[]" value="10:00">
                                 </td>
                                 <td>
                                     <input type="text" value="10:30" class="styled-select" readonly>
+                                    <input type="hidden" name="End_Time[]" value="10:30">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <select name="Activity[]" class="styled-select" id="">
                                         <option value="Select Activity" disabled selected>Select Activity</option>
-                                        <option value="Creative Activity">Creative Acitivity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
                                         <option value="Story Time">Story Time</option>
                                         <option value="Out door Time">Out door Time</option>
                                         <option value="Basic Learning Time">Basic Learning Time</option>
@@ -204,49 +210,54 @@
                                 <td>
                                     <input type="text" value="" readonly class="styled-select">
                                 </td>
-
                                 <td>
                                     <input type="text" value="10:30" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="10:30">
                                 </td>
                                 <td>
                                     <input type="text" value="12:00" readonly class="styled-select">
-
+                                    <input type="hidden" name="End_Time[]" value="12:00">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <input type="text" value="Ready for Lunch" readonly class="styled-select">
+                                    <input type="hidden" name="Activity[]" value="Ready for Lunch">
                                 </td>
                                 <td>
                                     <input type="text" name="" id="" readonly class="styled-select">
                                 </td>
                                 <td>
                                     <input type="text" value="12:00" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="12:00">
                                 </td>
                                 <td>
                                     <input type="text" value="13:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="13:00">
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <input type="text" class="styled-select" value="Lunch" readonly>
+                                    <input type="hidden" name="Activity[]" value="Lunch">
                                 </td>
                                 <td>
                                     <input type="text" class="styled-select" readonly>
                                 </td>
                                 <td>
                                     <input type="text" value="13:00" class="styled-select" readonly>
+                                    <input type="hidden" name="Start_Time[]" value="13:00">
                                 </td>
                                 <td>
                                     <input type="text" value="13:30" class="styled-select" readonly>
+                                    <input type="hidden" name="End_Time[]" value="13:30">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <select name="Activity[]" class="styled-select" id="">
                                         <option value="Select Activity" disabled selected>Select Activity</option>
-                                        <option value="Creative Activity">Creative Acitivity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
                                         <option value="Story Time">Story Time</option>
                                         <option value="Out door Time">Out door Time</option>
                                         <option value="Basic Learning Time">Basic Learning Time</option>
@@ -256,19 +267,20 @@
                                 <td>
                                     <input type="text" value="" readonly class="styled-select">
                                 </td>
-
                                 <td>
                                     <input type="text" value="13:30" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="13:30">
                                 </td>
                                 <td>
                                     <input type="text" value="15:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="15:00">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <select name="Activity[]" class="styled-select" id="">
                                         <option value="Select Activity" disabled selected>Select Activity</option>
-                                        <option value="Creative Activity">Creative Acitivity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
                                         <option value="Story Time">Story Time</option>
                                         <option value="Out door Time">Out door Time</option>
                                         <option value="Basic Learning Time">Basic Learning Time</option>
@@ -278,44 +290,41 @@
                                 <td>
                                     <input type="text" value="" readonly class="styled-select">
                                 </td>
-
                                 <td>
                                     <input type="text" value="15:00" readonly class="styled-select">
-
+                                    <input type="hidden" name="Start_Time[]" value="15:00">
                                 </td>
                                 <td>
                                     <input type="text" value="16:30" readonly class="styled-select">
-
+                                    <input type="hidden" name="End_Time[]" value="16:30">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <select name="Activity[]" class="styled-select" id="">
                                         <option value="Select Activity" disabled selected>Select Activity</option>
-                                        <option value="Creative Activity">Creative Acitivity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
                                         <option value="Story Time">Story Time</option>
                                         <option value="Out door Time">Out door Time</option>
                                         <option value="Basic Learning Time">Basic Learning Time</option>
                                         <option value="Nap Time">Nap Time</option>
                                     </select>
                                 </td>
-
                                 <td>
                                     <input type="text" value="" readonly class="styled-select">
                                 </td>
-
                                 <td>
                                     <input type="text" value="16:30" readonly class="styled-select">
-
+                                    <input type="hidden" name="Start_Time[]" value="16:30">
                                 </td>
                                 <td>
-                                    <input type="text" class="styled-select" readonly value="17:00">
+                                    <input type="text" value="17:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="17:00">
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
                 <button class="resetbtn" style="background-color: #233E8D;color:white;">Add</button>
             </div>
         </form>

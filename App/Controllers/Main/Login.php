@@ -108,6 +108,7 @@ class Login
                         if ($result->Role === "Manager") {
                             $Manager = new \Modal\Manager;
                             $lastseen = date('Y-m-d H:i:s');
+                            $session->set('Manager', 1);
                             $Manager->update(["UserID" => $result->UserID], ["Last_Seen" => $lastseen]);
                             redirect('Manager/Home');
                         }

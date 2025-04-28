@@ -147,6 +147,41 @@
                 </div>
             </div>
         </div>
+        <div class="leaverequest">
+            <div id="leave-requests" class="scroll-container">
+                <h1 style="margin-top: 2%; color:#233E8D; font-size:24px;display:flex;gap:2%"><i class="fa-solid fa-calendar-check"></i>Teacher Leave requests</h1>
+                <hr style="margin-left: -4%;">
+                <!-- Leave Requests -->
+                <div class="leavecards">
+                    <?php if (!empty($data['leaverequest'])): ?>
+                        <?php foreach ($data['leaverequest'] as $leave): ?>
+                            <div class="leavecard">
+                                <p name="TeacherName"><span>Name : <?= htmlspecialchars($leave->TeacherName) ?></span></p>
+                                <p name="LeaveType"><span>Leave_Type : <?= htmlspecialchars($leave->Leave_Type); ?></span></p>
+                                <p name="Description"><span>Description : <?= htmlspecialchars($leave->Description); ?></span></p>
+                                <p name="Duration"><span>Duration : <?= htmlspecialchars($leave->Duration); ?></span></p>
+                                <p name="Duration"><span>Remaining : <?= htmlspecialchars($leave->Remaining); ?></span></p>
+                                <p name="Duration"><span>Used : <?= htmlspecialchars($leave->Used); ?></span></p>
+                                <p name="status" style="margin: 10px 0;">
+                                    <span id="status-text" data-status="<?= strtolower(htmlspecialchars($leave->Status)) ?>" style="font-weight: bold;">
+                                        <?= htmlspecialchars($leave->Status) ?>
+                                    </span>
+                                    <?php if (strtolower($leave->Status) === 'pending'): ?>
+                                <div style="margin-top: 8px;">
+                                    <button class="accept-btn" onclick="Approve(<?= htmlspecialchars($leave->LeaveID) ?>)">Accept</button>
+                                    <button class="decline-btn" onclick="Delete(<?= htmlspecialchars($leave->LeaveID) ?>)">Decline</button>
+                                </div>
+                            <?php endif; ?>
+                            </p>
+                            </div>
+
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Not found</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Overlay -->

@@ -236,13 +236,13 @@
             <div class="popup" style="width: 35%; height: 80%; margin-top: 5%; overflow-y: auto;">
                 <button id="closePopup" class="close-btn">×</button>
                 <h1 style="color: #233E8D; text-align: center;">Update Package</h1>
-                <form action="<?= ROOT ?>/Manager/Packages/updatepackage" method="POST" class="leave-form" id="updatePackageForm">
+                <form method="POST" class="leave-form" id="updatePackageForm" action="<?= ROOT ?>/Manager/Packages/updatepackage">
                     <!-- Hidden package ID field -->
-                    <input type="hidden" name="PackageID" id="packageId">
+                    <input type="hidden" name="PackageID" id="packageId" value="<?= $package->PackageID; ?>">
 
                     <!-- Package name -->
                     <label for="package-name">Package Name <span class="required">*</span></label>
-                    <input type="text" class="opt" name="Name" id="packageName" placeholder="Enter package name" required>
+                    <input type="text" class="opt" name="Name" id="packageName" placeholder="Enter package name" value="" required>
 
                     <!-- Description -->
                     <label for="included-services">Description<span class="required">*</span></label>
@@ -291,59 +291,6 @@
                 </form>
             </div>
         </div>
-
-        <style>
-            .popup-container {
-                position: fixed;
-                top: 0;
-                left: 0;
-                display: none;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.2);
-                /* Light transparent gray-black */
-                z-index: 999;
-                margin-left: 1.5%;
-            }
-
-
-
-            .popup,
-            .addcontainer {
-                background: #fff;
-                border-radius: 10px;
-                padding: 20px 30px;
-                width: 35%;
-                height: 80%;
-                margin-top: 5%;
-                overflow-y: auto;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            }
-
-            .popup h1,
-            .addcontainer h1 {
-                font-size: 24px;
-                margin-bottom: 20px;
-                color: #233E8D;
-            }
-
-            .close-btn {
-                float: right;
-                font-size: 24px;
-                background: none;
-                border: none;
-                cursor: pointer;
-                color: #999;
-            }
-
-            .close-btn:hover {
-                color: #233E8D;
-            }
-        </style>
-
-
         <script>
             function deletepackage(PackageID) {
                 const modal = document.getElementById("deleteModal");
@@ -392,6 +339,29 @@
             }
 
             function updatepackage(PackageID) {
+
+                //window.location.href = `<?= ROOT ?>/Manager/Packages/getPackage/${PackageID}`;
+
+                fetch(`<?= ROOT ?>/Manager/Packages/getPackage/${PackageID}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        
+                        console.log(data);
+                        // Populate the form fields with the fetched data
+                        document.getElementById('packageId').value = data.PackageID;
+                        document.getElementById('packageName').value = data.Name;
+                        document.getElementById('packageDescription').value = data.Description;
+                        document.getElementById('packagePrice').value = data.Price;
+                        document.getElementById('packageAgeGroup').value = data.AgeGroup;
+                        document.getElementById('packageFeatures').value = data.Features;
+
+                        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                        days.forEach(day => {
+                            document.getElementById(day.toLowerCase()).checked = data[day] === 1;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching package data:', error));
+
                 const updatemodal = document.getElementById('popupContainer');
                 const closepopup = document.getElementById('closePopup');
 
@@ -409,7 +379,7 @@
                     if (e.target === updatemodal) {
                         updatemodal.style.display = 'none';
                     }
-                });
+                }); 
             }
         </script>
 
