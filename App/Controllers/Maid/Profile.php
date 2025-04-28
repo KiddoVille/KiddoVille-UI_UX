@@ -12,7 +12,8 @@
         public function cond(){
             $childModel = new \Modal\Child();
              $emergencyModel = new \Modal\Emergency();
-             $maidid = $this->findID();
+            //  $maidid = $this->findID();
+            $maidid = 1;
              $maidassignModel = new \Modal\AssignMaid();
              $data = [
                 'ChildID' => $_POST['child_id'],
@@ -33,7 +34,8 @@
         }
         public function condi(){
             $behaviourModel = new \Modal\Behaviour;
-            $maidid = $this->findID();
+            // $maidid = $this->findID();
+            $maidid = 1;
             $data = [
                'ChildID' => $_POST['child_id'],
                'Description' => $_POST['description'],       

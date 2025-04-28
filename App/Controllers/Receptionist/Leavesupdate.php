@@ -4,13 +4,13 @@
 
     defined('ROOTPATH') or exit('Access denied');
 
-    class Leaves{
+    class Leavesupdate{
         use MainController;
         public function index(){
-            $leavesModel = new \Modal\MaidLeave;
-            $data['leaves']  = $leavesModel->findall();
+           show($_POST);
+           exit();
             
-            $this->view('Maid/leaves', $data);
+            $this->view('Maid/leavesupdate', $data);
         }
       
     }

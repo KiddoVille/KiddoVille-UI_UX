@@ -13,7 +13,8 @@
         $rem = new \Modal\TeacherRem;
         $teacher = new \Modal\Teacher;
 
-        $TeacherID = $this->findID();
+        // $TeacherID = $this->findID();
+        $TeacherID =  1;
 
         $row = $teacher->first(['TeacherID' => $TeacherID]);
         $firstName = $row->First_Name;
@@ -76,7 +77,8 @@
         $session = new \Core\Session;
         $teacher = new \Modal\Teacher;
 
-        $TeacherID = $this->findID();
+        // $TeacherID = $this->findID();
+        $TeacherID =  1;
 
         $row = $teacher->first(['TeacherID' => $TeacherID]);
         $firstName = $row->First_Name;
@@ -188,7 +190,8 @@
         $session = new \Core\Session;
         $teacher = new \Modal\Teacher;
 
-        $TeacherID = $this->findID();
+        // $TeacherID = $this->findID();
+        $TeacherID =  1;
 
         
         $row = $teacher->first(['TeacherID' => $TeacherID]);

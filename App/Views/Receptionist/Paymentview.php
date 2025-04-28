@@ -152,7 +152,7 @@
                                         <span>SROOO<?= htmlspecialchars($payment->ChildID) ?></span> 
                                     </div>
                                     <div class="colum name">
-                                        <img alt="card icon" height="30px" src="$payment['Image']" width="30px"/>
+                                        <img alt="card icon" height="30px" src="<?= $payment->Image ?>" width="30px"/>
                                         <span><?= htmlspecialchars($payment->First_Name) ?></span>
                                     </div>
                                     <div class="colum transaction_id">

@@ -121,7 +121,8 @@
                      
                 
                 }
-                $maidid = $this->findID();
+                // $maidid = $this->findID();
+                $maidid = 1;
                  
                 $todayassigned = $maidassignModel->where_norder(['MaidID' => $maidid, 'Date' => date('Y-m-d')], []);
                 $todayactivities = $maidactivityModel->where_norder([ 'Date' => date('Y-m-d')], []);

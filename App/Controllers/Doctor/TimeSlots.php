@@ -9,7 +9,8 @@
 
             $doctor = new \Modal\Doctor;
 
-            $DoctorID = $this->findID();
+            // $DoctorID = $this->findID();
+            $DoctorID =  1;
 
             $doctorInfo = $doctor->first(['DoctorID' => $DoctorID]);
             $profileImage = $doctorInfo->Image;
