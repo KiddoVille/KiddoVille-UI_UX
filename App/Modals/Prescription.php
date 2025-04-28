@@ -4,17 +4,18 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Visitorlog{
+    class Prescription{
         use Modal;
 
-        protected $table = 'visitor';
+        protected $table = 'prescriptions';
         protected $allowedColumns = [
-            'FirstName',
-            'LastName',
-            'Role',
-            'Start_time',
-            'End_time',
-            'Purpose'
+            'AppointmentID',
+            'Medication_Name',
+            'Dosage',
+            'Frequency',
+            'Route_of_Administration',
+            'Issued_At',
+            'DoctorID'
         ];
 
         public function validate($data){

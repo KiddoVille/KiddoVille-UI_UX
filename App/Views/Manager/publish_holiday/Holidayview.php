@@ -126,8 +126,12 @@
                                 </select>
 
                                 <label for="Date">Date of Holiday:</label>
+                                <?php $today = date('Y-m-d'); ?>
+
                                 <input type="date" name="Date" id="Date" class="form-control"
-                                    value="<?php echo isset($_POST['Date']) ? $_POST['Date'] : ''; ?>" required>
+                                    value="<?php echo isset($_POST['Date']) ? $_POST['Date'] : ''; ?>"
+                                    min="<?php echo $today; ?>" required>
+
                                 <label for="About">About:</label>
                                 <textarea name="About" id="About" required class="form-control" required><?php echo isset($_POST['About']) ? htmlspecialchars($_POST['About']) : ''; ?></textarea>
                                 <div class="button-group">

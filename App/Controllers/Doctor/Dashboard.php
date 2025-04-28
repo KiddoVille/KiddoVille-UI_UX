@@ -13,9 +13,23 @@
 
            $DoctorID = $this->findID();
 
+            $doctorInfo = $doctor->first(['DoctorID' => $DoctorID]);
+            $profileImage = $doctorInfo->Image;
+            $baseImage = base64_encode($profileImage);
+
+           $doctorDetails = [
+            'id' => $DoctorID,
+            'Name' =>$doctorInfo->First_Name. ' ' . $doctorInfo->Last_Name,
+            'image' => 'data:image/jpeg;base64,' . $baseImage,
+            'date' => date('Y-m-d')   
+        ];
+
            $row = $slot->where_norder(['DoctorID' => $DoctorID, 'Slot_Date' => date('Y-m-d')]);
             // var_dump($row);
             // exit();
+            if(empty($row)){
+                $this->view('Doctor/Dashboard',['message' => 'No Time Slot Found','doctor' => $doctorDetails]);
+            }else{
            foreach($row as $time){
             // var_dump($time);
             // exit();
@@ -43,16 +57,15 @@
                     ];
                 
                 }
-        //    var_dump($data);
-        //         exit()
+           
            
         }
+        $this->view('Doctor/Dashboard',['times' => $data,  'doctor' => $doctorDetails]);
+    }
+        // var_dump($data);
+        //         exit();
         
-        if(!empty($row)){
-            $this->view('Doctor/Dashboard',['times' => $data]);
-       }else{
-        $this->view('Teacher/Funzone', ['message' => 'Error ']);
-       }
+        
     }
         
         public function findID(){
