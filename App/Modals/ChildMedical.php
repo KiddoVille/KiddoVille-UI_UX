@@ -4,16 +4,18 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Appointment{
+    class ChildMedical{
         use Modal;
 
-        protected $table = 'appointments';
+        protected $table = 'childmedical';
         protected $allowedColumns = [
-            'AppointmentID',
-            'SlotID',
             'ChildID',
-            'DoctorID',
-            'Booked_At'
+            'DoctorID ',
+            'Start_Time',
+            'Diagnosis',
+            'DateTime',
+            'Notes'
+            
         ];
 
         public function validate($data){

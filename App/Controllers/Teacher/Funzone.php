@@ -198,6 +198,55 @@
 
  
         }
-    }
+
+        public function editMedia() {
+            ob_clean();
+
+            // Set response type to JSON
+            header('Content-Type: application/json');
+            
+            // Check if request method is POST
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                // var_dump($_POST);
+                // exit();
+                
+                // Collect data
+                $mediaId = $_POST['mediaId'] ?? null;
+                $title = $_POST['title'] ?? null;
+                $description = $_POST['description'] ?? null;
+                $ageGroup = $_POST['ageGroup'] ?? null;
+                $mediaType = $_POST['mediaType'] ?? null;
+                
+                // If you also want to check file
+                $fileUploaded = isset($_FILES['file']);
+            
+                // Just send back what you received to check
+                echo json_encode([
+                    "success" => true,
+                    "message" => "Data received successfully!",
+                    "data" => [
+                        "mediaId" => $mediaId,
+                        "title" => $title,
+                        "description" => $description,
+                        "ageGroup" => $ageGroup,
+                        "mediaType" => $mediaType,
+                        "fileUploaded" => $fileUploaded
+                    ]
+                ]);
+                exit;
+            
+            } else {
+                // If not POST method
+                echo json_encode([
+                    "success" => false,
+                    "message" => "Invalid request method."
+                ]);
+                exit;
+            }
+        }
+        
+
+}
 ?>
 
