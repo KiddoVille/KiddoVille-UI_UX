@@ -155,7 +155,7 @@
                             <p><?=$time['ChildName']?></p>
                             <?php if($time['Status'] !== 'booked'):?>
                             <div class="actions">
-                                <button type="button" class="edit">Edit</button></a>
+                                <button type="button" class="edit" onclick="editTime(<?=$time['SlotID']?>)">Edit</button></a>
                                 <button type="button" class="delete"  onclick="deleteTime(<?=$time['SlotID']?>)">Delete</button>
                             </div>
                             <?php else:?>
@@ -231,6 +231,8 @@
                 })
                 .catch(error => console.error("Error:", error));
         }
+
+       
     </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     

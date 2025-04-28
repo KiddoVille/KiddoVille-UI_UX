@@ -214,6 +214,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?=JS?>/Teacher/report.js"></script>
     <script>
     function escapeHTML(str) {
         return String(str).replace(/[&<>"']/g, function (m) {
@@ -277,7 +278,13 @@
                                             <button style="color:#fff">Enter Marks</button>
                                         </div>
                                         <div class="mark-section">
-                                         
+                                         <form class="mark-form" method="POST" id="marks-from">
+                                                <input type="hidden" name="report_id" value="${child.ReportID}">
+                                                <input type="text" name="Marks" id="marks-input" required>
+                                                <span  style="color: red;" id="mark-error"></span>
+                                                <button type="submit" class="marks-submit">Submit</button>
+                                            </form>
+                                            
                                         </div>
                                     </div>
                                 </div>

@@ -11,23 +11,60 @@
        
         $leave = new \Modal\TeacherLeave;
         $rem = new \Modal\TeacherRem;
-        
+        $teacher = new \Modal\Teacher;
+
         $TeacherID = $this->findID();
+
+        $row = $teacher->first(['TeacherID' => $TeacherID]);
+        $firstName = $row->First_Name;
+        $lastName = $row->Last_Name ;
+        $email =  $row->Email;
+        $image= $row->Image;
+        $base64Image = base64_encode($image);
+
+        $result = [
+                'firstName' => $firstName,  
+                'lastName' => $lastName,
+                'email' => $email,
+                'image' => 'data:image/jpg;base64,' . $base64Image];
+
+            
+        
+   
         
         //remaining leaves of the teacher in each type
         $remainings = $rem->where_norder(['TeacherID' => $TeacherID]);
-        // var_dump($remainings);
-        // exit;
+           
+        if(empty($remainings)){
+            //assigning total allocated leaves to each type
+            $rem->insert(['TeacherID' => $TeacherID,'Leave Type' => 'Annual Leave', 'TotalAllocated' => 12,'Used' => 0,'Remaining' => 12]);
+            $rem->insert(['TeacherID' => $TeacherID,'Leave Type' => 'Sick Leave', 'TotalAllocated' => 10,'Used' => 0,'Remaining' => 10]);
+            $rem->insert(['TeacherID' => $TeacherID,'Leave Type' => 'Compassionate Leave', 'TotalAllocated' => 5,'Used' => 0,'Remaining' => 5]);
+        }else{
+
+            // show($remainings);
+            // exit;
         
+            foreach($remainings as $rem){
+                $rems [] = [
+                    'LeaveType' => $rem->LeaveType,
+                    'Used' => $rem->Used,
+                    'Remain' => $rem->Remaining
+                ];
+            }
+        }
+
+        
+            
         // all leaves of the teacher
         $leaves = $leave->where_norder(['TeacherID' => $TeacherID]);
 
             
 
         if (!empty($leaves)) {
-            $this->view('Teacher/Leaves', ['leaves' => $leaves, 'remains' => $remainings]);
+            $this->view('Teacher/Leaves', ['leaves' => $leaves, 'remains' => $remainings, 'result' => $result, 'rems' => $rems]);
         } else {
-            $this->view('Teacher/Leaves', ['message' => 'No leave records found for you.']);
+            $this->view('Teacher/Leaves', ['message' => 'No leave records found for you.', 'result' => $result]);
         }
        
     }
@@ -37,18 +74,35 @@
         $leave = new \Modal\TeacherLeave;
         $rem = new \Modal\TeacherRem;
         $session = new \Core\Session;
+        $teacher = new \Modal\Teacher;
+
+        $TeacherID = $this->findID();
+
+        $row = $teacher->first(['TeacherID' => $TeacherID]);
+        $firstName = $row->First_Name;
+        $lastName = $row->Last_Name ;
+        $email =  $row->Email;
+        $image= $row->Image;
+        $base64Image = base64_encode($image);
+
+        $result = [
+                'firstName' => $firstName,  
+                'lastName' => $lastName,
+                'email' => $email,
+                'image' => 'data:image/jpg;base64,' . $base64Image];
+
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $arr = $_POST;
-            $TeacherID = $this->findID();
+           
             // var_dump($TeacherID,$arr);
             // exit();
 
             if (!$TeacherID) {
                 // Redirect to login page if TeacherID is not found
-                $this->view('Teacher/Leaves', ['message' => 'Please log in to request a leave.']);
+                $this->view('Teacher/Leaves', ['message' => 'Please log in to request a leave.','result' => $result]);
                 return;
             }
              $arr = array_merge($arr,['TeacherID' => $TeacherID]);
@@ -107,56 +161,125 @@
 
                 // Insert data
                 if (!($leave->insert($arr))) {
+
+
                     // var_dump($arr);
                     //  exit();
-                    redirect('Teacher/Leaves');
+                    $this->view('Teacher/Leaves',['result' => $result]);
                 } else {
-                    $this->view('Teacher/Leaves', ['message' => 'Failed to add leave. Please try again.']);
+                    $this->view('Teacher/Leaves', ['message' => 'Failed to add leave. Please try again.','result' => $result]);
                 }
               
             } else {
                 // Show validation errors
-                $this->view('Teacher/Leaves', ['errors' => $leave->errors]);
+                $this->view('Teacher/Leaves', ['errors' => $leave->errors,'result' => $result]);
             }
             
         } else {
-            $this->view('Teacher/Leaves');
+            $this->view('Teacher/Leaves',['result' => $result]);
         }
         
     }
 
     public function editLeave(){
 
+        $leave = new \Modal\TeacherLeave;
+        $rem = new \Modal\TeacherRem;
+        $session = new \Core\Session;
+        $teacher = new \Modal\Teacher;
+
+        $TeacherID = $this->findID();
+
+        
+        $row = $teacher->first(['TeacherID' => $TeacherID]);
+        $firstName = $row->First_Name;
+        $lastName = $row->Last_Name ;
+        $email =  $row->Email;
+        $image= $row->Image;
+        $base64Image = base64_encode($image);
+
+        $result = [
+                'firstName' => $firstName,  
+                'lastName' => $lastName,
+                'email' => $email,
+                'image' => 'data:image/jpg;base64,' . $base64Image];
+
+
+
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $leave = new \Modal\TeacherLeave;
+            
+            $TeacherID = $this->findID();
 
             $arr = $_POST;
+            $arr = array_merge($arr,['TeacherID' => $TeacherID]);
             if(!empty($arr)){
 
                 $valid  = $leave->validate($arr);
-                if(empty($valid)){
-                    $id = [
-                        'LeaveID' => $arr['LeaveID']
-                    ];
-                    $data = [
-                        'Leave_Type'=> $arr['Leave_Type'],
-                        'Start_Date' => $arr['Start_Date'],
-                        'End_Date' => $arr['End_Date'],
-                        'Description' => $arr['Description']
-                    ];
-                    //update the record
-                    $result = $leave->update($id,$data);
-                    if($result){
-                        redirect('Teacher/Leaves');
-                    }else{
-                        $this->view('Teacher/Leaves',['message' => 'Faild to Update 1']);
+                if(!$valid){
+
+                    $this->view('Teacher/Leaves', ['errors' => $leave->errors,'result' => $result]);
+    return; }
+                    // show($arr);
+                    // exit();
+
+                     //find the leave duraiton
+                $arr['Duration'] = (strtotime($arr['End_Date']) -  strtotime($arr['Start_Date']))/ (60 * 60 * 24);
+
+                if($arr['Leave_Type'] == 'Annual Leave'){
+                    $remainings = $rem->where_norder(['TeacherID' => $TeacherID, 'LeaveType' => $arr['Leave_Type']]);
+                    $remains = (int)$remainings[0]->Remaining;
+
+                    if($remains > 0 &&  $arr['Duration'] <=2){
+                        $arr['Status'] = 'Approved';
+                            
+                        
+                    }else if($arr['Duration'] > 2 && $remains > 0){
+                        $arr['Status'] = 'Pending';
+                    }else if($remains === 0){
+                        $arr['Status'] = 'Rejected';
                     }
-                }else{
-                    $this->view('Teacher/Leaves', ['errors' => $leave->errors]);
+                    // var_dump($arr);
+                    // exit();
+                }else if($arr['Leave_Type'] == 'Sick Leave'){
+                    $remainings = $rem->where_norder(['TeacherID' => $TeacherID, 'LeaveType' => $arr['Leave_Type']]);
+                    $remains = (int)$remainings[0]->Remaining;
+
+                    if($remains > 0 &&  $arr['Duration'] <=1){
+                        $arr['Status'] = 'Approved';
+                    }else if($arr['Duration'] > 1 && $remains > 0){
+                        $arr['Status'] = 'Pending';
+                    }else if($remains === 0){
+                        $arr['Status'] = 'Pending';
+                    }
+                    // var_dump($arr);
+                    // exit();
+
+                }else if($arr['Leave_Type'] == 'Compassionate Leave'){
+                    $remainings = $rem->where_norder(['TeacherID' => $TeacherID, 'LeaveType' => $arr['Leave_Type']]);
+                    $remains = (int)$remainings[0]->Remaining;
+                    if($remains > 0){
+                        $arr['Status'] = 'Pending';
+                    }else{
+                        $arr['Status'] = 'Rejected';
+                    }
+                    
                 }
+                  
+                    
+                    //update the record
+                    $results = $leave->update_withid($arr['LeaveID'],$arr,'LeaveID');
+                 
+                    if(isset($results)){
+                        $this->view('Teacher/Leaves',['result' => $result, 'messages' => 'Leave Updated Successfully']);
+                    }else{
+                        $this->view('Teacher/Leaves',['message' => 'Faild to Update ','result' => $result]);
+                    }
+                // }else{
+                //     $this->view('Teacher/Leaves', ['errors' => $leave->errors,'result' => $result]);
+                // }
                
             }else{
-                $this->view('Teacher/Leaves',['message' => 'Faild to Update 2']);
+                $this->view('Teacher/Leaves',['message' => 'Faild to Update Due to Error','result' => $result]);
             }
         }
         // var_dump($_POST);
@@ -178,8 +301,46 @@
 
 
     }
-}
 
+    public function deleteLeave(){
+
+        $leave = new \Modal\TeacherLeave;
+        $rem = new \Modal\TeacherRem;
+        $session = new \Core\Session;
+        $teacher = new \Modal\Teacher;
+
+        $TeacherID = $this->findID();
+
+        $row = $teacher->first(['TeacherID' => $TeacherID]);
+        $firstName = $row->First_Name;
+        $lastName = $row->Last_Name ;
+        $email =  $row->Email;
+        $image= $row->Image;
+        $base64Image = base64_encode($image);
+
+        $result = [
+                'firstName' => $firstName,  
+                'lastName' => $lastName,
+                'email' => $email,
+                'image' => 'data:image/jpg;base64,' . $base64Image];
+
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            
+
+            $arr = $_POST;
+            $leaves = $leave->first(['LeaveID' => $arr['LeaveID']]);
+            if($leaves->Status == 'Pending'){
+                 $leave->delete($arr['LeaveID'],'LeaveID');  
+
+                 $this->view('Teacher/Leaves', ['message' => 'Deleted Successfully','result' => $result]);
+           
+            }else{
+                $this->view('Teacher/Leaves', ['message' => 'Faild to Delete','result' => $result]);
+            }
+        }
+    }
+    }
 
 ?>
 
