@@ -9,11 +9,15 @@
         use MainController;
         public function index(){
 
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = $this->store_data();
             $this->view('Parent/parenteditprofile', $data);
         }
 
         private function store_data(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = [];
             $session = new \core\Session;
             $ParentModal = new \Modal\ParentUser;
@@ -43,6 +47,8 @@
         }
 
         public function update() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = [
                 "First_Name" => $_POST['First_Name'] ?? '',
                 "Last_Name" => $_POST['Last_Name'] ?? '',

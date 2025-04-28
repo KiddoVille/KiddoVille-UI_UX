@@ -12,6 +12,8 @@ class VerifyNumber
         $otp = $this->generateOTP();
 
         $session = new \Core\Session;
+        $session->set("USERID", 1);
+        $session = new \Core\Session;
         $session->set('OTP', $otp);
         $UserID = $session->get("USERID");
 
@@ -33,6 +35,8 @@ class VerifyNumber
     }
 
     public function verify(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $requestData = json_decode(file_get_contents("php://input"), true);
         $enteredOtp = $requestData['otp'];
         $session = new \Core\Session;
