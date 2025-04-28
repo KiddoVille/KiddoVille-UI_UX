@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=CSS?>/Maid/main.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="<?=CSS?>/Maid/profile.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Maid/studenprofile.css?v=<?= time() ?>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="main">
-        <div class="side_bar">
+    <div class="side_bar">
             <div class="userblock">
                 <div class="photo">
                     <img alt="User profile picture" height="50" src="./assets/profilePic.png" width="50"/>
@@ -32,14 +32,14 @@
             </div>
             <div class="directions">
                 <div class="direction-items">
-                <a href="<?=ROOT?>/Maid/Home"><div class="dashboard">
+                <a href=""><div class="dashboard">
                     
                     <i class="fas fa-tachometer-alt">
                     </i>
                     <span>&nbsp;&nbsp; Dashboard</span>
                   
                 </div> </a>
-               
+                
                  <a href="<?=ROOT?>/Maid/Leaves"><div class="leaves">
                     <i class="fas fa-calendar-check">
                     </i>
@@ -80,71 +80,48 @@
                         <div class="make_background">
                             
                             <div class="second-content">
-                                <form class="container_3" method= "POST" action = "<?=ROOT?>/Maid/Profile/condi">
-                                <?php if (!empty($children)): ?>
-                                    <?php foreach ($children as $child): ?>
+                                <form class="container_3" method = "POST" action = "<?=ROOT?>/Maid/Leaveform/RequestLeave">
                                     <div class="form-head">
                                         
-                                        <span>Special Behaviour</span>
+                                        <span>Request Leave</span>
                                     </div>
                                     <div class="form-group-date">
-                                        <label for="date">Registration No</label>
+                                        <label for="date">Start Date</label>
                                         <div class="date_entry">
-                                            <span><?= htmlspecialchars($child->ChildID) ?></span>
+                                            <input type="date" name="Start_Date"/>
+                                         </div>
+                                    </div>
+                                    <div class="form-group-date">
+                                        <label for="date">End Date</label>
+                                        <div class="date_entry">
+                                            <input type="date" name = "End_Date"/>
                                          </div>
                                     </div>
                                 
                                     <div class="form-group-option">
-                                        <label for="type">Name</label>                                        
-                                          <span><?= htmlspecialchars($child->First_Name) ?></span>                                         
-                                    </div>
-                                    <div class="form-group-desp">
-                                    <label for="description">Description</label>
-                                        <input type="hidden" name="child_id" value = "<?= htmlspecialchars($child->ChildID) ?>">
-                                        <textarea id="description" placeholder="Details about the behavioural condition" name = "description"></textarea>
-                                    </div>
-                                    <div class="buttons">
-                                        <button class="submt_butto" type="submit">Submit</button>
-                                    </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                                </form>
-                                    
-                                <form class="container_4" method= "POST" action = "<?=ROOT?>/Maid/Profile/cond">
-                                <?php if (!empty($children)): ?>
-                                    <?php foreach ($children as $child): ?>
-                                    <div class="form-head">
-                                        <span>Medical Conditions</span>
-                                    </div>
-                                    <div class="form-group-date">
-                                    <label for="date">Registration No</label>
-                                        <div class="date_entry">
-                                            <span><?= htmlspecialchars($child->ChildID) ?></span>
-                                         </div>
-                                    </div>
-                                    <div class="form-group-option">
-                                        <label for="type">Name</label>                                        
-                                        <span><?= htmlspecialchars($child->First_Name) ?></span>  
+                                        <label for="type">Request Types</label>
+                                        <select id="type" name = "Leave_Type">
+                                            <option value="Annual Leave">Annual Leave</option>
+                                            <option value="Sick Leave">Sick Leave</option>
+                                            <option value="Compassionate">Compassionate</option>
+                                        </select>  
                                     </div>
                                     <div class="form-group-desp">
                                         <label for="description">Description</label>
-                                        <input type="hidden" name="child_id" value = "<?= htmlspecialchars($child->ChildID) ?>">
-                                        <textarea id="description" placeholder="Details about the medical condition" name = "description"></textarea>
+                                        <textarea id="description" placeholder="Details about behavioutal condition" name= "Description"></textarea>
                                     </div>
+                                  
                                     <div class="buttons">
-                                        <button class="submt_butto" type = submit>Submit</button>
+                                        <button class="submt_butto" type = "submit">Request</button>
                                     </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
                                 </form>
+                               
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <script src="./receptionist_attendance.js"></script>
-            <script src = './maid_dashboard_skill.js' ></script>
-            <script src = './studenprofile.js'></script>
+            
 </body>
 </html>
