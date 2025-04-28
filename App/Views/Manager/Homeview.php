@@ -178,6 +178,7 @@
                     <div class="visitorname"><span>NAME</span></div>
                     <div class="visitorposition"><span>Role</span></div>
                     <div class="visitorpurpose"><span>PURPOSE</span></div>
+                    
                     <div class="visitordate"><span>DATE</span></div>
                     <div class="visitorstarttime"><span>Start Time</span></div>
                     <div class="visitorendtime"><span>End Time</span></div>

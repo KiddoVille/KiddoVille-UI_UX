@@ -187,6 +187,7 @@
                             <div class="common-fields">
                                 <label for="email" class="labeltag">Email : </label>
                                 <input type="email" id="email" name="email" required>
+                                <p id="emailError" style="color: red; font-size: 12px; display: none;" ></p>
 
                                 <label for="name" class="labeltag">Username</label>
                                 <input type="text" id="name" name="Username" required>
@@ -439,6 +440,9 @@
                 const passwordInput = document.getElementById('password');
                 const passwordError = document.getElementById('passwordError');
                 const usererror = document.getElementById('usererror');
+                const emailError = document.getElementById('emailError');
+
+                //
 
                 // Password validation regex
                 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
