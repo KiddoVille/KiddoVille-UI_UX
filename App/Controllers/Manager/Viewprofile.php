@@ -165,7 +165,135 @@ class Viewprofile
         }
     }
 
-    private function getWelcomeEmailTemplate($userData)
+    public function getWelcomeEmailTemplate($userData)
+{
+    $roleDisplay = ($userData['Role'] == 'User') ? 'Parent' : $userData['Role'];
+    
+    return '
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to KiddoVille</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            font-family: \'Poppins\', Arial, sans-serif;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            background-color: #e8f5e9;
+            padding: 25px 0;
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .header img {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        .header h2 {
+            margin: 0;
+            color: #2e7d32;
+            font-weight: 600;
+            font-size: 22px;
+        }
+        .content {
+            padding: 30px 40px;
+            color: #4a4a4a;
+        }
+        .greeting {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .credentials {
+            background-color: #f1f8e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #689f38;
+        }
+        .credentials h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .login-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #43a047;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            margin: 15px 0;
+        }
+        .footer {
+            background-color: #f9f9ff;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #95a5a6;
+            border-top: 1px solid #eaeaea;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <img src="cid:kiddoLogo" alt="KiddoVille Logo">
+            <h2>Welcome to KiddoVille!</h2>
+        </div>
+
+        <div class="content">
+            <p class="greeting">Dear ' . htmlspecialchars($userData['Full_Name']) . ',</p>
+            
+            <p>Your ' . htmlspecialchars($roleDisplay) . ' account has been successfully created by the KiddoVille management team.</p>
+            
+            <div class="credentials">
+                <h3>Your Login Credentials:</h3>
+                <p><strong>Username:</strong> ' . htmlspecialchars($userData['Username']) . '</p>
+                <p><strong>Password:</strong> ' . htmlspecialchars($userData['Password']) . '</p>
+                <p><em>(You will be prompted to change your password after first login)</em></p>
+            </div>
+
+            <p>To access your account, please click the button below:</p>
+            
+            <a href="https://kiddoville.com/login" class="login-button">Login to Your Account</a>
+            
+            <p>For security reasons, we recommend:</p>
+            <ul>
+                <li>Changing your password immediately after first login</li>
+                <li>Not sharing your credentials with anyone</li>
+                <li>Contacting support if you didn\'t request this account</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>&copy; ' . date("Y") . ' KiddoVille Inc. All rights reserved.</p>
+            <p>KiddoVille Inc., 106/37, Nawagampura, Stace Road, Colombo 14, Sri Lanka</p>
+        </div>
+    </div>
+</body>
+</html>';
+}
+
+
+
+
+
+
+    private function blockEmailTemplate($userData)
     {
         $roleDisplay = ($userData['Role'] == 'User') ? 'Parent' : $userData['Role'];
 
@@ -379,7 +507,7 @@ class Viewprofile
             $model->update_withid($UserID, ["Block" => 1], "UserID");
     
             // ✅ Get email body template
-            $body = $this->getWelcomeEmailTemplate($UserID);
+            $body = $this->blockEmailTemplate($UserID);
     
             // ✅ Get user info
             $User = $UserModal->first(["UserID" => $UserID]);

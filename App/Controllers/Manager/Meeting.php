@@ -13,7 +13,7 @@ class Meeting
         $Helper = new ManagerHelper;
         $Helper->Check_Manager();
         $data = $this->show_slots();
-        // $data = $data + $this->show_admission_slots();
+        $data = $data + $this->show_admission_slots();
 
         $this->view('Manager/Meeting', $data);
     }
@@ -30,16 +30,14 @@ class Meeting
         return $data;
     }
 
-    // public function show_admission_slots(){
-    //     $data = [];
-    //     $admissionModel = new \Modal\Meeting_Request;
-    //     $firstday = date('Y-m-d', strtotime('today'));
-    //     $lastday = date('Y-m-d', strtotime('+10 days'));
-    //     $slotRecords = $admissionModel->findFutureDates($firstday, $lastday, 'Date');
-    //     $data['admission_allslots'] = $slotRecords;
-    //     return $data;
+    public function show_admission_slots(){
+        $data = [];
+        $admissionModel = new \Modal\Meeting_Request;
+        $slotRecords = $admissionModel->findall(); 
+        $data['admission_allslots'] = $slotRecords;
+        return $data;
 
-    // }
+    }
 
     public function updateMeeting()
     {
@@ -138,7 +136,11 @@ class Meeting
         }
         header("Location: " . ROOT . "/Manager/Meeting");
     }
+ 
 
+    // public function addmissiondelete($NIC){
+    //     $model = new \modal\
+    // }
 
 
     

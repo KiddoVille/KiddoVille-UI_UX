@@ -218,11 +218,13 @@
                     </div>
                 </div>
 
+
+                //View profile popup
+
         
 
             </div>
         </div>
-        
         <script>
             function fetchProfile(Role, Id) {
                 fetch('<?= ROOT ?>/Manager/Viewprofile/store_users', {
@@ -446,8 +448,7 @@
                 //
 
                 // Password validation regex
-                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
                 passwordInput.addEventListener('input', function() {
                     const password = passwordInput.value;
 
@@ -465,10 +466,6 @@
                     if (!/[0-9]/.test(password)) {
                         errors.push("• At least one number");
                     }
-                    if (!/[\W_]/.test(password)) {
-                        errors.push("• At least one special character");
-                    }
-
                     if (errors.length > 0) {
                         passwordError.style.display = 'block';
                         passwordError.innerHTML = "Password must include:<br>" + errors.join('<br>');
