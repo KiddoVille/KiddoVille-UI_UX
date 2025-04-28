@@ -282,9 +282,9 @@
             console.log(window.location.pathname);
             window.addEventListener("popstate", function (event) {
                 console.log(window.location.pathname);
-                if (window.location.pathname === '/MVC/Public/Onbording/Guardian') {
+                if (window.location.pathname === '/KiddoVille-UI_UX/Public/Onbording/Guardian') {
                     // Redirect or take another action
-                    window.location.href = "/MVC/Public/Onbording/Guardian";
+                    window.location.href = "/KiddoVille-UI_UX/Public/Onbording/Guardian";
                 }
             });
             
