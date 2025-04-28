@@ -478,9 +478,33 @@
                     <h1>Schedule pickup</h1>
                     <form id="pickupForm">
                         <div class="pickup-section">
-                            <label for="time">Select Time <span id="red-star" class="red-star"> *</span></label>
-                            <input name="Time" style="width: 330px;" id="pickuptime" required class="time" type="time" value="<?= isset($data['stat2']['Time'])? $data['stat2']['Time'] : '' ?>" min="08:00" max="20:00"/>
+                            <label for="Time">Select Time <span id="red-star" class="red-star"> *</span></label>
+                            <input name="Time" style="width: 330px;" id="pickuptime" required class="time" type="time" value="<?= isset($data['stat2']['Time'])? $data['stat2']['Time'] : '' ?>" min="08:00" max="20:00" />
                             <p id="timeError" style="color: red; display: none;"></p>
+                        </div>
+                        <div class="pickup-section">
+                            <label for="OTP">Provide OTP <span id="red-star" class="red-star"> *</span></label>
+                            <input name="OTP"
+                                style="width: 330px;"
+                                id="pickupotp"
+                                required
+                                class="time"
+                                type="number"
+                                maxlength="6"
+                                oninput="this.value = this.value.slice(0, 6);"
+                                value="<?= isset($data['stat2']['OTP']) ? $data['stat2']['OTP'] : '' ?>" />
+                            <p id="otpError" style="color: red; display: none;"></p>
+                        </div>
+                        <div class="pickup-section" id="PickupNID" style="display: <?= isset($data['stat2']['NID']) ? 'flex' : 'none' ?>;">
+                            <label for="NID">Provide NID <span id="red-star" class="red-star"> *</span></label>
+                            <input name="NID"
+                                style="width: 330px;"
+                                id="Newnid"
+                                class="time"
+                                type="number"
+                                maxlength="12" <?= isset($data['stat2']['NID']) ? 'required' : '' ?>
+                                oninput="this.value = this.value.slice(0, 12);"
+                                value="<?= isset($data['stat2']['NID']) ? $data['stat2']['NID'] : '' ?>" />
                         </div>
                         <div class="pickup-section">
                             <label>Select person for pickup</label>
@@ -733,10 +757,31 @@
 
     const pickupModal = document.getElementById('pickupModal');
     const pickupForm = document.getElementById('pickupForm');
+    const bannedOtps = ["000000", "111111", "123456", "654321", "999999", "222222", "333333"];
+
+    function validateOTP(input) {
+        input.value = input.value.slice(0, 6); // Always limit to 6 digits
+
+        const otpError = document.getElementById('otpError');
+        if (bannedOtps.includes(input.value)) {
+            otpError.textContent = "This OTP is too common. Please choose a different one.";
+            otpError.style.display = 'block';
+            return false; // Invalid OTP
+        } else {
+            otpError.textContent = "";
+            otpError.style.display = 'none';
+            return true; // Valid OTP
+        }
+    }
 
     pickupForm.addEventListener("submit", function(event){
         event.preventDefault();
+        const otpInput = document.getElementById('pickupotp');
+        const isValidOtp = validateOTP(otpInput);
 
+        if (!isValidOtp) {
+            return;
+        }
         const formData = new FormData(pickupForm);
 
         fetch(pickupForm.action, {
@@ -756,15 +801,18 @@
                 }, 2000);
             } else {
                 // Handle validation error (e.g., time)
-                pickupModal.style.display = 'block';
-                const timeError = document.getElementById("timeError");
-                if (timeError) {
-                    timeError.textContent = data.error;
-                    timeError.style.display = 'block';
-                }
 
                 alertmessage.textContent = "Failed to schedule pickup.";
                 alert.style.display = 'flex';
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                    pickupModal.style.display = 'fixed';
+                    const timeError = document.getElementById("timeError");
+                    if (timeError) {
+                        timeError.textContent = data.error;
+                        timeError.style.display = 'block';
+                    }
+                }, 2000);
             }
         })
         .catch(error => {
@@ -782,20 +830,7 @@
         if(messageDropdown){
             if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
                 messageDropdown.style.display = "block";
-                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
-                    method: "POST",
-                    credentials: "same-origin"
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Seen the notifications");
-                        messagenumber.style.display = 'none';
-                    } else {
-                        alert("Logout failed. Try again.");
-                    }
-                })
-                .catch(error => console.error("Error:", error));
+                w
                 
             } else {
                 messageDropdown.style.display = "none";
@@ -808,6 +843,7 @@
             const starImage = document.getElementById('starImage');
             const logo = document.getElementById('sidebar-logo');
             const kiddo = document.getElementById('sidebar-kiddo');
+            const PickupNID = document.getElementById('PickupNID');
 
             <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
                 sidebar.classList.add('minimized');
@@ -823,6 +859,7 @@
             const selectedPersonTypeInput = document.getElementById("selectedPersonType");
             const guardianRadio = document.getElementById("guardianRadio");
             const newPersonRadio = document.getElementById("newPersonRadio");
+            const Newnid = document.getElementById('Newnid');
 
             function selectPerson(personType) {
                 if (personType === "Guardian") {
@@ -836,6 +873,10 @@
                     guardianRadio.checked = true;
                     newPersonRadio.checked = false;
                     selectedPersonTypeInput.value = "Guardian";
+
+                    PickupNID.style.display = 'none';
+                    Newnid.required = false;
+
                 } else if (personType === "New") {
                     selectedPerson = "New";
 
@@ -850,6 +891,9 @@
                     newPersonRadio.checked = true;
                     guardianRadio.checked = false;
                     selectedPersonTypeInput.value = "New";
+
+                    PickupNID.style.display = 'block';
+                    Newnid.required = true;
                 }
             }
 
@@ -871,6 +915,11 @@
 
         document.addEventListener("DOMContentLoaded", function () {
 
+            const pickupotp = document.getElementById("pickupotp");
+
+            pickupotp.addEventListener('input', function () {
+                const lol = validateOTP(pickupotp);
+            });
 
             // minimizeBtn.addEventListener('click', function() {
             //     fetch("<?=ROOT?>/Parent/Home/minimize", {

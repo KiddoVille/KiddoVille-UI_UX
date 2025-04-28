@@ -16,10 +16,11 @@
         rel="stylesheet">
 </head>
 
-<body>
+<body  style="background-image: url('<?= IMAGE ?>/Login-bg.png');">
     <!-- redirection for login -->
     <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
-        <div id="move" class="box" style="width: 400px; height: 500px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; background-image: url('<?= IMAGE ?>/side2.png'); transition: transform 1s ease;">
+        <div id="move" class="box" style="width: 400px; height: 500px;border-top-right-radius: 10px; border-bottom-right-radius: 10px;background: linear-gradient(135deg, #c0c0c0, #007bff, #a0a0a0); transition: transform 1s ease;">
+;">
             <div class="home-contain">
                 <i onclick="window.location.href='<?= ROOT ?>/main/home'" class="fa fa-home"></i>
             </div>
@@ -68,7 +69,7 @@
                             </div>
                             <p class="error" id="error-Contact"> <?= isset($data['errors']['Contact']) ? $data['errors']['Contact'] : '' ?> </p>
                         </div>
-                        <button type="submit">Signup</button>
+                        <button type="submit">Request Meeting</button>
                     </form>
                 </div>
             </div>

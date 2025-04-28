@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 use Modal\Modal;
 
@@ -11,6 +12,8 @@ class Foodtable
     use MainController;
     public function index()
     {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $data['Meal'] = $this->food_items();
         $this->view('Manager/Foodtable', $data);
     }
