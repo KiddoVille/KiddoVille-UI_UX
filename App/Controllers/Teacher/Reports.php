@@ -10,7 +10,8 @@
         public function index(){
             $teacher = new \Modal\Teacher;
             
-            $TeacherID = $this->findID();
+            // $TeacherID = $this->findID();
+            $TeacherID =  1;
             $child = new \Modal\Child;
             $report =  new \Modal\Report;
 
@@ -290,27 +291,50 @@
             ];
           
             $insertmarks = $mark->insert($data);
-            // var_dump($insertmarks);
-            // exit();
+            
+           
             if(!$insertmarks) {
+
+                $markedReports = $mark->where_norder(['Report_ID' => $reportID]);
+                // var_dump($markedReports);
+                // exit();
+
+                $subjectsWithMarks = [1 => false, 2 => false, 3 => false];
+
+                foreach ($markedReports as $report) {
+                    if (isset($subjectsWithMarks[$report->Subject_ID]) && $report->Marks !== null) {
+                        $subjectsWithMarks[$report->Subject_ID] = true;
+                    }
+                }
+    
+
                
-    
-                // Step 2: Update report status only if mark insertion is successful
-                $updated = $report->update_withid($reportID, ['Status' => 'completed', 'Submitted_at' => date('Y-m-d H:i:s')], 'ReportID');
-    
-                if (!$updated) {
-                    header('Content-Type: application/json');
-                    echo json_encode([
-                        'success' => true,
-                        'message' => 'Marks submitted and report status updated!',
-                        'data' => $data
-                    ]);
-                    exit;
-                } else {
+                
+                if ($subjectsWithMarks[1] && $subjectsWithMarks[2] && $subjectsWithMarks[3]){
+                    // Step 2: Update report status only if mark insertion is successful
+                    $updated = $report->update_withid($reportID, ['Status' => 'completed', 'Submitted_at' => date('Y-m-d H:i:s')], 'ReportID');
+        
+                    if (!$updated) {
+                        header('Content-Type: application/json');
+                        echo json_encode([
+                            'success' => true,
+                            'message' => 'Marks submitted and report status updated!',
+                            'data' => $data
+                        ]);
+                        exit;
+                    } else {
+                        header('Content-Type: application/json');
+                        echo json_encode([
+                            'success' => false,
+                            'error' => 'Marks added, but report status failed to update.'
+                        ]);
+                        exit;
+                    }
+                }else{
                     header('Content-Type: application/json');
                     echo json_encode([
                         'success' => false,
-                        'error' => 'Marks added, but report status failed to update.'
+                        'message' => 'Not all subjects have marks for this report.'
                     ]);
                     exit;
                 }

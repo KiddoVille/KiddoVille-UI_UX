@@ -9,7 +9,8 @@ class Students {
         $student = new \Modal\Child;
         $teacher = new \Modal\Teacher;
 
-        $TeacherID = $this->findID();
+        // $TeacherID = $this->findID();
+        $TeacherID =  1;
 
         $row = $teacher->first(['TeacherID' => $TeacherID]);
         // show($row);

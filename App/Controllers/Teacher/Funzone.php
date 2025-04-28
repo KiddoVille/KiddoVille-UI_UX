@@ -12,7 +12,8 @@
                 $session = new \Core\Session;
                 $teacher = new \Modal\Teacher;
             
-                $TeacherID = $this->findID(); // getting the UserID
+                // $TeacherID = $this->findID(); // getting the UserID
+                $TeacherID =  1;
                 
                 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'SearchMedia'){
                     
@@ -100,7 +101,8 @@
             $mediaModel = new \Modal\Media;
             $session = new \Core\Session;
 
-            $TeacherID = $this->findID();
+            // $TeacherID = $this->findID();
+            $TeacherID =  1;
             if (!$TeacherID) {
                 // Redirect to login page if TeacherID is not found
                 $this->view('Teacher/Funzone', ['message' => 'Please log in to request a leave.']);
@@ -174,7 +176,8 @@
             $mediaModel = new \Modal\Media;
             $session = new \Core\Session;
 
-            $TeacherID = $this->findID();
+            // $TeacherID = $this->findID();
+            $TeacherID =  1;
             if (!$TeacherID) {
                 // Redirect to login page if TeacherID is not found
                 $this->view('Teacher/Funzone', ['message' => 'Please log in to request a leave.']);
@@ -200,28 +203,40 @@
         }
 
         public function editMedia() {
+
+            $mediaModel = new \Modal\Media;
+
+            // $TeacherID = $this->findID();
+            $TeacherID =  1;
             ob_clean();
 
+            // echo json_encode($_POST);
+        
             // Set response type to JSON
             header('Content-Type: application/json');
-            
+        
             // Check if request method is POST
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-                // var_dump($_POST);
-                // exit();
-                
-                // Collect data
+                // Collect text data from $_POST
                 $mediaId = $_POST['mediaId'] ?? null;
                 $title = $_POST['title'] ?? null;
                 $description = $_POST['description'] ?? null;
                 $ageGroup = $_POST['ageGroup'] ?? null;
                 $mediaType = $_POST['mediaType'] ?? null;
-                
-                // If you also want to check file
-                $fileUploaded = isset($_FILES['file']);
-            
-                // Just send back what you received to check
+        
+                // Check if a file was uploaded
+                $fileUploaded = isset($_FILES['file']) ? $_FILES['file'] : null;
+
+                $mediaModel->update_withid($mediaId, [
+                    'MediaID' => $mediaId,
+                    'Title' => $title,
+                     'Description' => $description,
+                      'AgeGroup' => $ageGroup,
+                       'MediaType' => $mediaType,
+                       'TeacherID' => $TeacherID
+                    ],'MediaID');
+        
+                // Respond with the collected data (including file info)
                 echo json_encode([
                     "success" => true,
                     "message" => "Data received successfully!",
@@ -235,7 +250,6 @@
                     ]
                 ]);
                 exit;
-            
             } else {
                 // If not POST method
                 echo json_encode([
@@ -245,6 +259,7 @@
                 exit;
             }
         }
+        
         
 
 }

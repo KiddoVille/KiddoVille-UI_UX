@@ -9,7 +9,8 @@
 
         public function index(){
 
-           $TeacherID = $this->findID(); 
+        //    $TeacherID = $this->findID(); 
+        $TeacherID =  1;
 
            $task = new \Modal\Task;
            $activity = new \Modal\Activity;
