@@ -126,8 +126,11 @@
                             <option value="Other" <?php if (isset($_POST['EventName']) && $_POST['EventName'] == "Other") echo 'selected'; ?>>Other</option>
                         </select>
 
-                        <label for="Date">Date <span class="required">*</span></label>
-                        <input type="date" id="Date" name="Date" class="form-control" value="<?= isset($_POST['Date']) ? htmlspecialchars($_POST['Date']) : ''; ?>" required>
+                        <?php $today = date('Y-m-d'); ?>
+
+                        <input type="date" name="Date" id="Date" class="form-control"
+                            value="<?php echo isset($_POST['Date']) ? $_POST['Date'] : ''; ?>"
+                            min="<?php echo $today; ?>" required>
 
                         <label for="Description">Description</label>
                         <textarea id="Description" name="Description" placeholder="Include comments for Event type" class="form-control" required><?= isset($_POST['Description']) ? htmlspecialchars($_POST['Description']) : ''; ?></textarea>

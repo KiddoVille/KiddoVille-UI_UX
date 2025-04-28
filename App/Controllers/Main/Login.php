@@ -68,6 +68,10 @@ class Login
 
                 $result = $user->first(['Username' => $username]);
 
+                if($result && $result->Block == 1){
+                    redirect('Main/Block');
+                }
+
                 if (!empty($result)) {
                     if (checkpassword($_POST["Password"], $result->Password)) {
 

@@ -12,7 +12,7 @@
 <body>
     <div class="Profilecard" style="display: flex; flex-direction: column; justify-content: center; align-self: center; margin-top: 140px;">
         <div class="Profile">
-            <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer; color: rgba(35, 83, 167, 1);">My Profile</p>
+            <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer; color: rgba(35, 83, 167, 1);">Guardian Profile</p>
         </div>
         <div class="ProfileContainer">
             <div class="leftcon">

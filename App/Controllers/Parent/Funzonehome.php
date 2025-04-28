@@ -75,8 +75,8 @@
                 $start_of_year = new \DateTime("$current_year-01-01");
                 $age = $start_of_year->diff($dob_date)->y;
         
-                $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
-                $AgeGroup = '2-3';
+                $age_groups = ['3-5', '6-9', '10-13'];
+                $AgeGroup = '3-5';
         
                 foreach ($age_groups as $group) {
                     list($start, $end) = explode('-', $group);
@@ -172,8 +172,8 @@
                         $start_of_year = new \DateTime("$current_year-01-01");
                         $age = $start_of_year->diff($dob_date)->y;
         
-                        $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
-                        $AgeGroup = '2-3';
+                        $age_groups = ['3-5', '6-9', '10-13'];
+                        $AgeGroup = '3-5';
         
                         foreach ($age_groups as $group) {
                             list($start, $end) = explode('-', $group);

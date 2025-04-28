@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Main/Login.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Onbording/meeting.css?v=<?= time() ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="<?= CSS ?>/Parent/Alert.css?v=<?= time() ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,11 +17,10 @@
         rel="stylesheet">
 </head>
 
-<body  style="background-image: url('<?= IMAGE ?>/Login-bg.png');">
+<body style="background-image: url('<?= IMAGE ?>/Login-bg.png');">
     <!-- redirection for login -->
     <div class="container" style="display: flex; justify-content: center; margin-top: 20px;">
         <div id="move" class="box" style="width: 400px; height: 500px;border-top-right-radius: 10px; border-bottom-right-radius: 10px;background: linear-gradient(135deg, #c0c0c0, #007bff, #a0a0a0); transition: transform 1s ease;">
-;">
             <div class="home-contain">
                 <i onclick="window.location.href='<?= ROOT ?>/main/home'" class="fa fa-home"></i>
             </div>
@@ -45,44 +45,80 @@
                         <div class="input-box">
                             <label class="label" for="name">Name<span id="red-star1" class="red-star"> *</span></label>
                             <div class="password-group">
-                                <input type="text" name="Name" id="name" placeholder="Enter your Name" maxlength="40" required>
+                                <input
+                                    type="text"
+                                    name="Name"
+                                    id="name"
+                                    placeholder="Enter your Name"
+                                    maxlength="40"
+                                    required
+                                    value="<?= isset($data['inputs']['Name']) ? htmlspecialchars($data['inputs']['Name']) : '' ?>">
                             </div>
+                            <p class="error" id="error-Name"><?= isset($data['errors']['Name']) ? $data['errors']['Name'] : '' ?></p>
                         </div>
+
                         <div class="input-box">
                             <label class="label" for="NIC">NIC<span id="red-star2" class="red-star"> *</span></label>
                             <div class="password-group">
-                                <input type="text" name="NIC" id="NIC" placeholder="Enter your NIC" maxlength="12" required>
+                                <input
+                                    type="text"
+                                    name="NIC"
+                                    id="NIC"
+                                    placeholder="Enter your NIC"
+                                    maxlength="12"
+                                    required
+                                    value="<?= isset($data['inputs']['NIC']) ? htmlspecialchars($data['inputs']['NIC']) : '' ?>">
                             </div>
-                            <p class="error" id="error-NIC"> <?= isset($data['errors']['NIC']) ? $data['errors']['NIC'] : '' ?> </p>
+                            <p class="error" id="error-NIC"><?= isset($data['errors']['NIC']) ? $data['errors']['NIC'] : '' ?></p>
                         </div>
+
                         <div class="input-box">
                             <label class="label" for="Email">Email<span id="red-star3" class="red-star"> *</span></label>
                             <div class="password-group">
-                                <input type="Email" name="Email" id="Email" placeholder="Enter your Email" maxlength="40" required>
+                                <input
+                                    type="email"
+                                    name="Email"
+                                    id="Email"
+                                    placeholder="Enter your Email"
+                                    maxlength="40"
+                                    required
+                                    value="<?= isset($data['inputs']['Email']) ? htmlspecialchars($data['inputs']['Email']) : '' ?>">
                             </div>
-                            <p class="error" id="error-Email"> <?= isset($data['errors']['Email']) ? $data['errors']['Email'] : '' ?> </p>
+                            <p class="error" id="error-Email"><?= isset($data['errors']['Email']) ? $data['errors']['Email'] : '' ?></p>
                         </div>
+
                         <div class="input-box">
                             <label class="label" for="Contact">Contact<span id="red-star4" class="red-star"> *</span></label>
                             <div class="password-group">
-                                <input type="text" name="Contact" id="Contact" placeholder="Enter your Contact" maxlength="10" required>
+                                <input
+                                    type="text"
+                                    name="Contact"
+                                    id="Contact"
+                                    placeholder="Enter your Contact"
+                                    maxlength="10"
+                                    required
+                                    value="<?= isset($data['inputs']['Contact']) ? htmlspecialchars($data['inputs']['Contact']) : '' ?>">
                             </div>
-                            <p class="error" id="error-Contact"> <?= isset($data['errors']['Contact']) ? $data['errors']['Contact'] : '' ?> </p>
+                            <p class="error" id="error-Contact"><?= isset($data['errors']['Contact']) ? $data['errors']['Contact'] : '' ?></p>
                         </div>
+
                         <button type="submit">Request Meeting</button>
                     </form>
+
                 </div>
             </div>
         </div>
-    </div>
-    <!-- <div class="verification-alert" id="alert">
+        
+    <div class="verification-alert" id="alert" style="top: 10%;">
         <div class="alert-icon">
-            <img src="<?=IMAGE?>/success.svg" style="width: 64px; height: 64px; filter: invert(43%) sepia(85%) saturate(542%) hue-rotate(83deg); align-items: center;" alt="success icon">
+            <img src="<?= IMAGE ?>/success.svg" id="alert-img" alt="success icon">
         </div>
         <div class="alert-message">
-            <h1>Success</h1>
+            <h1 id="alert-message">Request Sent</h1>
         </div>
-    </div> -->
+    </div>
+    </div>
+    
     <script>
         function tologin() {
             setTimeout(() => {
@@ -100,6 +136,24 @@
 
         // validation and animation
         document.addEventListener('DOMContentLoaded', function() {
+
+            var successMessage = '<?php echo $data['success']; ?>';
+        
+            // Check if success message is set
+            if (successMessage === 'Request submitted successfully.') {
+                // Show the success alert
+                var alertElement = document.getElementById('alert');
+                alertElement.style.display = 'block'; // Show the alert
+                
+                // Optionally, change the message text if you want
+                document.getElementById('alert-message').textContent = 'Success!';
+
+                // Hide the alert after 2 seconds (2000ms)
+                setTimeout(function () {
+                    alertElement.style.display = 'none'; // Hide the alert after 2 seconds
+                }, 2000);
+            }
+
             const login = document.getElementById('login');
             const fade = document.getElementById('fade');
             const move = document.getElementById('move');
