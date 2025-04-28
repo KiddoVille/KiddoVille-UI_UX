@@ -270,7 +270,7 @@
             $mark = new \Modal\Mark;
             $report =  new \Modal\Report;
 
-            $TeacherID = $this->findID(); 
+            $TeacherID = $this->findID();    
             $subjectID = $teacherSub->where_norder(['teacher_id' => $TeacherID]);
             $subjectID = $subjectID[0];
             $reportID = $_POST['report_id'];
@@ -299,18 +299,18 @@
                 // var_dump($markedReports);
                 // exit();
 
-                $subjectsWithMarks = [1 => false, 2 => false, 3 => false];
+                // $subjectsWithMarks = [1 => false, 2 => false, 3 => false];
 
-                foreach ($markedReports as $report) {
-                    if (isset($subjectsWithMarks[$report->Subject_ID]) && $report->Marks !== null) {
-                        $subjectsWithMarks[$report->Subject_ID] = true;
-                    }
-                }
+                // foreach ($markedReports as $report) {
+                //     if (isset($subjectsWithMarks[$report->Subject_ID]) && $report->Marks !== null) {
+                //         $subjectsWithMarks[$report->Subject_ID] = true;
+                //     }
+                // }
     
 
                
                 
-                if ($subjectsWithMarks[1] && $subjectsWithMarks[2] && $subjectsWithMarks[3]){
+                // if ($subjectsWithMarks[1] && $subjectsWithMarks[2] && $subjectsWithMarks[3]){
                     // Step 2: Update report status only if mark insertion is successful
                     $updated = $report->update_withid($reportID, ['Status' => 'completed', 'Submitted_at' => date('Y-m-d H:i:s')], 'ReportID');
         
@@ -330,14 +330,14 @@
                         ]);
                         exit;
                     }
-                }else{
-                    header('Content-Type: application/json');
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Not all subjects have marks for this report.'
-                    ]);
-                    exit;
-                }
+                // }else{
+                //     header('Content-Type: application/json');
+                //     echo json_encode([
+                //         'success' => false,
+                //         'message' => 'Not all subjects have marks for this report.'
+                //     ]);
+                //     exit;
+                // }
             } else {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'error' => 'Failed to insert marks']);

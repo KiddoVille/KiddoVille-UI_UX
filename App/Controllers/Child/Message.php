@@ -14,6 +14,8 @@
         {
 
             $session = new \Core\Session;
+            $session->set("USERID", 1);
+            $session = new \Core\Session;
             $session->check_login();
             $session->check_child();
             $ChildID = $session->get("CHILDID");
@@ -38,6 +40,8 @@
 
         private function selectedchild($selectedchild)
         {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = [];
 
             // Retrieve the specific child's profile image and details
@@ -64,6 +68,8 @@
         }
 
         public function get_users(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
 
             header('Content-Type: application/json');
             $request = json_decode(file_get_contents('php://input'), true);
@@ -297,6 +303,8 @@
         }
 
         public function NewMessage(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
 
             $request = json_decode(file_get_contents('php://input'), true);
@@ -347,6 +355,8 @@
         }
 
         public function get_messages(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $request = json_decode(file_get_contents('php://input'), true);
             $UserID = $request['UserID'];
@@ -484,6 +494,8 @@
         }
 
         public function store_chats(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $session = new \Core\Session;
             $assignMaidModal = new \Modal\AssignMaid;
             $assignTeacherModal = new \Modal\AssignTeacher;
@@ -672,6 +684,8 @@
         public function setchildsession()
         {
 
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -692,6 +706,8 @@
         }
 
         public function insert_message() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $UserModal = new \Modal\User;
             $MessageModal = new \Modal\Chat;
             $TeacherModal = new \Modal\Teacher;
@@ -784,6 +800,8 @@
         } 
         
         public function uploadFiles() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $UserModal = new \Modal\User;
             $MessageModal = new \Modal\Chat;
             $TeacherModal = new \Modal\Teacher;
@@ -895,6 +913,8 @@
         }        
         
         private function getFileType($fileExtension) {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
             $videoExtensions = ['mp4', 'avi', 'mov', 'mkv'];
             $audioExtensions = ['mp3', 'wav', 'ogg'];
@@ -928,6 +948,8 @@
         }
         
         public function deletechat(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $request = json_decode(file_get_contents('php://input'), true);
 
@@ -945,6 +967,8 @@
         }
 
         public function editchat(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $request = json_decode(file_get_contents('php://input'), true);
 
@@ -965,6 +989,8 @@
         public function removechildsession()
         {
 
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -986,6 +1012,8 @@
         }
 
         public function Logout(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $session = new \core\Session();
             $session->logout();
 

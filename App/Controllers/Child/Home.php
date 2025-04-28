@@ -14,6 +14,8 @@ class Home
     public function index()
     {
         $session = new \Core\Session;
+        $session->set("USERID", 1);
+        $session = new \Core\Session;
         $session->check_login();
         $session->check_child();
         $ChildID = $session->get("CHILDID");
@@ -42,6 +44,8 @@ class Home
     }
 
     public function SeenNotification(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
         $NotificationModal = new \Modal\ChildNotification;
 
@@ -56,6 +60,8 @@ class Home
     }
 
     private function Notifications() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $NotificationModal = new \Modal\ChildNotification;
         $session = new \Core\Session;
         $ChildID = $session->get("CHILDID");
@@ -86,6 +92,8 @@ class Home
     }    
 
     private function holidays() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $HolidayModal = new \Modal\Holiday;
         $firstDate = new DateTime();
         $lastDate = (clone $firstDate)->modify('+30 days');
@@ -95,6 +103,8 @@ class Home
     }    
 
     public function GetCalendar(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         // Get raw JSON from POST
         $raw = file_get_contents("php://input");
         $body = json_decode($raw, true);
@@ -169,6 +179,8 @@ class Home
 
     private function store_stats(){
 
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $today = new \DateTime();
         $today = $today->format("Y-m-d");
         $session = new \Core\Session;
@@ -240,6 +252,8 @@ class Home
     }
 
     public function deletePickup(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
 
@@ -258,6 +272,8 @@ class Home
     }
 
     public function handlePickups(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
     
         $session = new \Core\Session;
@@ -318,6 +334,8 @@ class Home
     }    
 
     private function store_attendance() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \core\session;
         $ChildID = $session->get("CHILDID");
     
@@ -360,6 +378,8 @@ class Home
 
     private function selectedchild($selectedchild)
     {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $data = [];
 
         // Retrieve the specific child's profile image and details
@@ -386,6 +406,8 @@ class Home
     }
 
     public function store_schedule(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
 
@@ -492,6 +514,8 @@ class Home
     public function setchildsession()
     {
 
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -513,7 +537,8 @@ class Home
 
     public function removechildsession()
     {
-
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -535,6 +560,8 @@ class Home
     }
 
     public function Logout(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \core\Session();
         $session->logout();
 
@@ -543,6 +570,8 @@ class Home
     }
 
     public function minimize() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \Core\Session();
         $minimized = $session->get("MINIMIZE");
         $session->set("MINIMIZE", !$minimized);

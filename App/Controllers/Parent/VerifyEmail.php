@@ -12,6 +12,8 @@ class VerifyEmail
         $otp = $this->generateOTP();
 
         $session = new \Core\Session;
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session->set('OTP', $otp);
         $UserID = $session->get("USERID");
 
@@ -264,6 +266,8 @@ class VerifyEmail
     }
 
     public function verify(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $requestData = json_decode(file_get_contents("php://input"), true);
         $enteredOtp = $requestData['otp'];
         $session = new \Core\Session;
@@ -289,6 +293,8 @@ class VerifyEmail
 
     private function generateOTP($length = 4)
     {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $otp = '';
         for ($i = 0; $i < $length; $i++) {
             $otp .= rand(0, 9);

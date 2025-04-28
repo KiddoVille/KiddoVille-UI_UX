@@ -27,7 +27,7 @@
             <div class="filter-box">
                 <h2>Hello, user</h2>
                 <p>Log In to Enhance Your Child's Care and Growth!</p>
-                <button id="login" type="button" style="width:200px;margin-top: 20px;">Login</button>
+                <button id="login" type="button" onclick="window.location.href='Login';" style="width:200px;margin-top: 20px;">Login</button>
             </div>
         </div>
         <!-- signup form -->
@@ -109,7 +109,7 @@
             </div>
         </div>
         
-    <div class="verification-alert" id="alert" style="top: 10%;">
+    <div class="verification-alert" id="alert" style="top: 10%; display:none;">
         <div class="alert-icon">
             <img src="<?= IMAGE ?>/success.svg" id="alert-img" alt="success icon">
         </div>

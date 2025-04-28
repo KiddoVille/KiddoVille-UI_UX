@@ -2,7 +2,7 @@
     defined('ROOTPATH') or exit('Access denied');
 
         //Database config
-        define('DBNAME','my_db(1)');
+        define('DBNAME','my_db');
         define('DBHOST','localhost');
         define('DBUSER', 'root');
         define('DBPASS', '');
