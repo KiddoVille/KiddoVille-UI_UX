@@ -24,22 +24,33 @@
 
         public function validate() {
             $errors = [];
-            if (!isString($_POST['First_Name'])) {
-                $errors['First_Name'] = "First Name must be a valid string";
+        
+            // First Name: must be non-empty and only letters, spaces, hyphens, apostrophes
+            if (empty($_POST['First_Name']) || !preg_match("/^[a-zA-Z\s'-]+$/", $_POST['First_Name'])) {
+                $errors['First_Name'] = "First Name must contain only letters.";
             }
-            if (!isString($_POST['Last_Name'])) {
-                $errors['Last_Name'] = "Last Name must be a valid string";
+        
+            // Last Name: same as First Name
+            if (empty($_POST['Last_Name']) || !preg_match("/^[a-zA-Z\s'-]+$/", $_POST['Last_Name'])) {
+                $errors['Last_Name'] = "Last Name must contain only letters.";
             }
-            if (!isNumber($_POST['NID'])) {
-                $errors['NID'] = "NID must be a valid number";
+        
+            // NID: must be numeric
+            if (empty($_POST['NID']) || !is_numeric($_POST['NID'])) {
+                $errors['NID'] = "NID must be a valid number.";
             }
-            if (!isEmail($_POST['Email'])) {
-                $errors['Email'] = "Email is not valid";
+        
+            // Email
+            if (empty($_POST['Email']) || !filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)) {
+                $errors['Email'] = "Email is not valid.";
             }
-            if (!IsString($_POST['Relation'])) {
-                $errors['Relation'] = "Relation is not valid";
+        
+            // Relation: only letters and spaces
+            if (empty($_POST['Relation']) || !preg_match("/^[a-zA-Z\s'-]+$/", $_POST['Relation'])) {
+                $errors['Relation'] = "Relation must contain only letters.";
             }
+        
             return $errors;
-        }
+        }        
     }
 ?>

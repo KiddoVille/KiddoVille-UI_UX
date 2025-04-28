@@ -80,7 +80,7 @@
             </ul>
         </ul>
     </div>
-    <div class="header" style="margin-top:0.025%">
+    <div class="header" style="margin-top:-1.3%">
         <div class="name">
             <h1>Hey Namal</h1>
             <p style="color: white;">Let’s do some productive activities today</p>
@@ -112,146 +112,90 @@
     </div>
 
 
-    <div class="twomeetings" style="display: flex;">
-        <div class="all" style="display: flex;">
-            <div class="Display-events" style="margin-top: 20%;">
-                <h2>Time Slots</h2>
-                <div class="event-list">
-                    <?php if (!empty($data['allslots'])): ?>
-                        <?php foreach (array_reverse($data['allslots']) as $slot): ?>
-                            <div class="event-item">
-                                <h3><?= htmlspecialchars($slot->Time) ?></h3>
-                                <p>Date: <?= htmlspecialchars($slot->Date) ?></p>
-                                <?php if ($slot->Scheduled == 0): ?>
-                                    <div class="buttons">
-                                        <button class="update-btn" onclick="UpdateSlot(<?= $slot->MeetingID ?>)">Update</button>
-                                        <button class="del-btn" onclick="deleteSlot(<?= $slot->MeetingID ?>)">Delete</button>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>No events published yet.</p>
-                    <?php endif ?>
+    <div class="container">
+        <!-- Column 1: Add Time Slot Form -->
+        <div class="column">
+            <h2>Add Time Slot</h2>
+            <form id="meetingform" action="<?= ROOT ?>/Manager/Meeting/addMeeting" method="post" class="leave-form">
+                <div class="form-group">
+                    <label for="SlotTime">Time Slot<span class="required">*</span></label>
+                    <select name="Time" id="SlotTime" class="form-control">
+                        <option value="hidden">Select Time Slot</option>
+                        <option value="9:00:00">9:00 - 9:15</option>
+                        <option value="9:15:00">9:15 - 9:30</option>
+                        <option value="9:30:00">9:30 - 9:45</option>
+                        <option value="9:45:00">9:45 - 10:00</option>
+                        <option value="10:00:00">10:00 - 10:15</option>
+                        <option value="10:15:00">10:15 - 10:30</option>
+                        <option value="11:00:00">11:00 - 11:15</option>
+                        <option value="11:15:00">11:15 - 11:30</option>
+                        <option value="11:30:00">11:30 - 11:45</option>
+                        <option value="11:45:00">11:45 - 12:00</option>
+                    </select>
                 </div>
-            </div>
-            <div class="publish-events" style="margin-top: 1%;">
-                <h1 style="color: #233E8D;">Addtime slot</h1>
-                <form id="meetingform" action="<?= ROOT ?>/Manager/Meeting/addMeeting" method="post" class="leave-form">
-                    <div class="form-group">
-                        <label for="EventName">Time Slot<span class="required">*</span></label>
-                        <select name="Time" id="SlotTime" class="form-control">
-                            <option value="hidden">Select Time SSlot</option>
-                            <option value="9:00:00">9:00 - 9:15</option>
-                            <option value="9:15:00">9:15 - 9:30</option>
-                            <option value="9:30:00">9:30 - 9:45</option>
-                            <option value="9:30:00">9:45 - 10:00</option>
-                            <option value="10:00:00">10:00 - 10:15</option>
-                            <option value="10:15:00">10:15 - 10:30</option>
-                            <option value="11:00:00">11:00 - 11:15</option>
-                            <option value="11:15:00">11:15 - 11:30</option>
-                            <option value="11:30:00">11:30 - 11:45</option>
-                            <option value="11:45:00">11:45 - 12:00</option>
-                        </select>
-
-                        <!-- HTML Date Input with PHP for min/max values -->
-                        <div class="date-container">
-                            <label for="SlotDate" class="date-label">Select a Saturday:<span class="required">*</span></label>
-                            <input
-                                type="date"
-                                id="SlotDate"
-                                name="Date"
-                                class="form-control"
-                                min="<?php echo date('Y-m-d', strtotime('next Saturday')); ?>"
-                                required>
-                            <div id="dateMessage" class="date-message"></div>
-                        </div>
-
-                    </div>
-                    <input type="hidden" name="MeetingID" id="MeetingID" value="">
-                    <div class="button-group">
-                        <button type="submit" id="Add" class="btn btn-primary">Add</button>
-                        <button type="submit" id="Update" style="display: none;" class="btn btn-secondary">Update</button>
-                    </div>
-                </form>
-            </div>
+                
+                <div class="form-group date-container">
+                    <label for="SlotDate" class="date-label">Select a Saturday:<span class="required">*</span></label>
+                    <input
+                        type="date"
+                        id="SlotDate"
+                        name="Date"
+                        class="form-control"
+                        min="<?php echo date('Y-m-d', strtotime('next Saturday')); ?>"
+                        required>
+                    <div id="dateMessage" class="date-message"></div>
+                </div>
+                
+                <input type="hidden" name="MeetingID" id="MeetingID" value="">
+                <div class="button-group">
+                    <button type="submit" id="Add" class="btn btn-primary">Add</button>
+                    <button type="submit" id="Update" style="display: none;" class="btn btn-secondary">Update</button>
+                </div>
+            </form>
         </div>
-
-
-
-        <div class="all" style="display: flex;">
-            <div class="Display-events" style="margin-top: 20%;">
-                <h2>Addmission Meeting Time Slots</h2>
-                <div class="event-list">
-                    <?php if (!empty($data['admission_allslots'])): ?>
-                        <?php foreach (array_reverse($data['admission_allslots']) as $slot): ?>
-                            <div class="event-item">
-                                <h3><?= htmlspecialchars($slot->Time) ?></h3>
-                                <p>Date: <?= htmlspecialchars($slot->Date) ?></p>
-
+        <!-- Column 2: Time Slots List -->
+        <div class="column">
+            <h2>Time Slots</h2>
+            <div class="event-list">
+                <?php if (!empty($data['allslots'])): ?>
+                    <?php foreach (array_reverse($data['allslots']) as $slot): ?>
+                        <div class="event-item">
+                            <h3><?= htmlspecialchars($slot->Time) ?></h3>
+                            <p>Date: <?= htmlspecialchars($slot->Date) ?></p>
+                            <?php if ($slot->Scheduled == 0): ?>
                                 <div class="buttons">
                                     <button class="update-btn" onclick="UpdateSlot(<?= $slot->MeetingID ?>)">Update</button>
                                     <button class="del-btn" onclick="deleteSlot(<?= $slot->MeetingID ?>)">Delete</button>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>No events published yet.</p>
-                    <?php endif ?>
-                </div>
-            </div>
-            <div class="publish-events" style="margin-top: 1%;">
-                <h1 style="color: #233E8D;">Addtime slot</h1>
-                <form id="meetingform" action="<?= ROOT ?>/Manager/Meeting/add_admission_Meeting" method="post" class="leave-form">
-                    <div class="form-group">
-                        <label for="EventName">Time Slot<span class="required">*</span></label>
-                        <select name="Time" id="SlotTime" class="form-control">
-                            <option value="hidden">Select Time SSlot</option>
-                            <option value="9:00:00">9:00 - 9:15</option>
-                            <option value="9:15:00">9:15 - 9:30</option>
-                            <option value="9:30:00">9:30 - 9:45</option>
-                            <option value="9:30:00">9:45 - 10:00</option>
-                            <option value="10:00:00">10:00 - 10:15</option>
-                            <option value="10:15:00">10:15 - 10:30</option>
-                            <option value="11:00:00">11:00 - 11:15</option>
-                            <option value="11:15:00">11:15 - 11:30</option>
-                            <option value="11:30:00">11:30 - 11:45</option>
-                            <option value="11:45:00">11:45 - 12:00</option>
-                        </select>
-                        <label for="Date">Date <span class="required">*</span></label>
-                        <div class="date-container">
-                            <label for="SlotDate" class="date-label">Select a Sunday:<span class="required">*</span></label>
-                            <input
-                                type="date"
-                                id="SlotDate"
-                                name="Date"
-                                class="form-control"
-                                min="<?php echo date('Y-m-d', strtotime('next Sunday')); ?>"
-                                required>
-                             hi
+                            <?php endif; ?>
                         </div>
-                        <label for="name">Name</label>
-                        <input type="text" name="name">
-                        <label for="NIC" name="nic">NIC<span class="required">*</span></label>
-                        <input type="text" name="nic" maxlength="12" pattern="\d{12}" required placeholder="Enter 12-digit NIC">
-                        <label for="emial">Email<span class="required">*</span> </label>
-                        <input type="email" name="Email">
-
-
-                    </div>
-                    <input type="hidden" name="MeetingID" id="MeetingID" value="">
-                    <div class="button-group">
-                        <button type="submit" id="Add" class="btn btn-primary">Add</button>
-                        <button type="submit" id="Update" style="display: none;" class="btn btn-secondary">Update</button>
-                    </div>
-                </form>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No events published yet.</p>
+                <?php endif ?>
             </div>
         </div>
-
+        <!-- Column 3: New Enrollment Meetings -->
+        <div class="column">
+            <h2>New Enrollment Meetings</h2>
+            <div class="event-list">
+                <?php if (!empty($data['admission_allslots'])): ?>
+                    <?php foreach (array_reverse($data['admission_allslots']) as $slot): ?>
+                        <div class="event-item">
+                            <h3><?= htmlspecialchars($slot->Name) ?></h3>
+                            <p>Date: <?= htmlspecialchars($slot->PhoneNumber) ?></p>
+                            <div class="buttons">
+                                <button class="del-btn" onclick="deleteSlot(<?= $slot->MeetingID ?>)">Delete</button>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No meetings yet.</p>
+                <?php endif ?>
+            </div>
+        </div>
     </div>
-
-
-
+    </div>
     <!-- Delete Confirmation Modal -->
     <div id="deleteModal" class="modal">
         <div class="modal-content">

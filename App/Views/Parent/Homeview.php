@@ -258,7 +258,7 @@
                         <div class="overdue-payment card" style="justify-content: center; display: flex;">
                             <div style="margin-left: 20px; margin-right: 20px; margin-top:40px">
                                 <?php if (isset($data['Due'])): ?>
-                                    <h2 style="color: red; margin-top: -5px; margin-bottom: -5px;">Overdue Payment</h2>
+                                    <h2 style="color: red; margin-top: -5px;">Overdue Payment</h2>
                                     <p>Due Date: <strong><?= $data['Due']['Date'] ?></strong></p>
                                     <p>Amount: <strong><?= $data['Due']['Amount'] ?></strong></p>
                                     <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
@@ -354,7 +354,7 @@
                             <?php if (!isset($data['stat1'])): ?>
                                 <button class="button" id="openMeetingModal" style="width: 100%; margin: 10px;">Request</button>
                             <?php elseif(isset($data['stat1']) && $data['stat1']['today'] == 1): ?>
-                                
+                                Meeting is Scheduled for today
                             <?php else: ?>
                                 <button class="button" id="openMeetingModal" style="width: 100%; margin: 10px;">Edit</button>
                                 <button class="button" id="ResetMeeting" style="width: 100%; margin: 10px;">Delete</button>
@@ -478,9 +478,34 @@
                     <h1>Schedule pickup</h1>
                     <form id="pickupForm">
                         <div class="pickup-section">
-                            <label for="time">Select Time <span id="red-star" class="red-star"> *</span></label>
-                            <input name="Time" style="width: 330px;" id="pickuptime" required class="time" type="time" value="<?= isset($data['stat2']['Time'])? $data['stat2']['Time'] : '' ?>" min="08:00" max="20:00"/>
+                            <label for="Time">Select Time <span id="red-star" class="red-star"> *</span></label>
+                            <input name="Time" style="width: 330px;" id="pickuptime" required class="time" type="time" value="<?= isset($data['stat2']['Time'])? $data['stat2']['Time'] : '' ?>" min="08:00" max="20:00" />
                             <p id="timeError" style="color: red; display: none;"></p>
+                        </div>
+                        <div class="pickup-section">
+                            <label for="OTP">Provide OTP <span id="red-star" class="red-star"> *</span></label>
+                            <input name="OTP"
+                                style="width: 330px;"
+                                id="pickupotp"
+                                required
+                                class="time"
+                                type="number"
+                                maxlength="6"
+                                oninput="this.value = this.value.slice(0, 6);"
+                                value="<?= isset($data['stat2']['OTP']) ? $data['stat2']['OTP'] : '' ?>" />
+                            <p id="otpError" style="color: red; display: none;"></p>
+                        </div>
+                        <div class="pickup-section" id="PickupNID" style="display: <?= isset($data['stat2']['NID']) ? 'block' : 'none' ?>;">
+                            <label for="NID">Provide NID <span id="red-star" class="red-star"> *</span></label>
+                            <input name="NID"
+                                style="width: 330px;"
+                                id="Newnid"
+                                class="time"
+                                type="number"
+                                maxlength="12" <?= isset($data['stat2']['NID']) ? 'required' : '' ?>
+                                oninput="this.value = this.value.slice(0, 12);"
+                                value="<?= isset($data['stat2']['NID']) ? $data['stat2']['NID'] : '' ?>" />
+                            <p id="nidError" style="color: red; display: none;"></p>
                         </div>
                         <div class="pickup-section">
                             <label>Select person for pickup</label>
@@ -733,10 +758,50 @@
 
     const pickupModal = document.getElementById('pickupModal');
     const pickupForm = document.getElementById('pickupForm');
+    const bannedOtps = ["000000", "111111", "123456", "654321", "999999", "222222", "333333"];
+
+    function validateOTP(input) {
+        input.value = input.value.slice(0, 6); // Always limit to 6 digits
+
+        const otpError = document.getElementById('otpError');
+        if (bannedOtps.includes(input.value)) {
+            otpError.textContent = "This OTP is too common. Please choose a different one.";
+            otpError.style.display = 'block';
+            return false; // Invalid OTP
+        } else {
+            otpError.textContent = "";
+            otpError.style.display = 'none';
+            return true; // Valid OTP
+        }
+    }
+
+    const nidInput = document.getElementById('Newnid');
+    const otpInput = document.getElementById('pickupotp');
+    const nidError = document.getElementById('nidError');
+
+    // NID Validation on input
+    nidInput.addEventListener('input', function() {
+        const value = nidInput.value.trim();
+
+        if (value.length !== 12) {
+            nidError.textContent = "NID must be exactly 12 digits.";
+            nidError.style.display = 'block';
+        } else {
+            nidError.style.display = 'none';
+        }
+    });
 
     pickupForm.addEventListener("submit", function(event){
         event.preventDefault();
+        const otpInput = document.getElementById('pickupotp');
+        const isValidOtp = validateOTP(otpInput);
 
+        if (!isValidOtp) {
+            return;
+        }
+        if(nidInput.style.display === 'block') {
+            return;
+        }
         const formData = new FormData(pickupForm);
 
         fetch(pickupForm.action, {
@@ -756,15 +821,18 @@
                 }, 2000);
             } else {
                 // Handle validation error (e.g., time)
-                pickupModal.style.display = 'block';
-                const timeError = document.getElementById("timeError");
-                if (timeError) {
-                    timeError.textContent = data.error;
-                    timeError.style.display = 'block';
-                }
 
                 alertmessage.textContent = "Failed to schedule pickup.";
                 alert.style.display = 'flex';
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                    pickupModal.style.display = 'fixed';
+                    const timeError = document.getElementById("timeError");
+                    if (timeError) {
+                        timeError.textContent = data.error;
+                        timeError.style.display = 'block';
+                    }
+                }, 2000);
             }
         })
         .catch(error => {
@@ -782,20 +850,7 @@
         if(messageDropdown){
             if (messageDropdown.style.display === "none" || !messageDropdown.style.display) {
                 messageDropdown.style.display = "block";
-                fetch("<?= ROOT ?>/Child/Home/SeenNotification", {
-                    method: "POST",
-                    credentials: "same-origin"
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Seen the notifications");
-                        messagenumber.style.display = 'none';
-                    } else {
-                        alert("Logout failed. Try again.");
-                    }
-                })
-                .catch(error => console.error("Error:", error));
+                w
                 
             } else {
                 messageDropdown.style.display = "none";
@@ -808,6 +863,7 @@
             const starImage = document.getElementById('starImage');
             const logo = document.getElementById('sidebar-logo');
             const kiddo = document.getElementById('sidebar-kiddo');
+            const PickupNID = document.getElementById('PickupNID');
 
             <?php if (!empty($_SESSION['APP']['MINIMIZE'])): ?>
                 sidebar.classList.add('minimized');
@@ -823,6 +879,7 @@
             const selectedPersonTypeInput = document.getElementById("selectedPersonType");
             const guardianRadio = document.getElementById("guardianRadio");
             const newPersonRadio = document.getElementById("newPersonRadio");
+            const Newnid = document.getElementById('Newnid');
 
             function selectPerson(personType) {
                 if (personType === "Guardian") {
@@ -836,6 +893,10 @@
                     guardianRadio.checked = true;
                     newPersonRadio.checked = false;
                     selectedPersonTypeInput.value = "Guardian";
+
+                    PickupNID.style.display = 'none';
+                    Newnid.required = false;
+
                 } else if (personType === "New") {
                     selectedPerson = "New";
 
@@ -850,6 +911,9 @@
                     newPersonRadio.checked = true;
                     guardianRadio.checked = false;
                     selectedPersonTypeInput.value = "New";
+
+                    PickupNID.style.display = 'block';
+                    Newnid.required = true;
                 }
             }
 
@@ -871,6 +935,11 @@
 
         document.addEventListener("DOMContentLoaded", function () {
 
+            const pickupotp = document.getElementById("pickupotp");
+
+            pickupotp.addEventListener('input', function () {
+                const lol = validateOTP(pickupotp);
+            });
 
             // minimizeBtn.addEventListener('click', function() {
             //     fetch("<?=ROOT?>/Parent/Home/minimize", {

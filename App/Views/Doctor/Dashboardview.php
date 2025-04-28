@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaves</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="<?=CSS?>/Doctor/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/time.css?v=<?= time() ?>">
@@ -22,11 +22,12 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic-2.png" alt="profile-pic">
-                    <div class="sidebar-header-content">
-                        <h3>Wane Carter</h3>
-                        <h4>Doctor</h4>
-                    </div>
+                    <?php if(isset($doctor)) :?>
+                        <img src="<?=$doctor['image']?>" alt="profile-pic">
+                        <div class="sidebar-header-content">
+                            <h3><?=$doctor['Name']?></h3>
+                            <h4>Doctor</h4>
+                        </div>
                 </div>
                 <div class="sidebar-list">
                     <a href="<?=ROOT?>/Doctor/Dashboard" class="sidebar-list-item" id="dashboard-link"> 
@@ -34,13 +35,10 @@
                         <span class="text">Dashboard</span>
                     </a>
                   
-                    <a href="<?=ROOT?>/Doctor/Prescriptions" class="sidebar-list-item" id="report-link">
-                        <i class='bx bxs-report' ></i>
-                        <span class="text"> Prescriptions </span>
-                    </a>
+                   
                     <a href="<?=ROOT?>/Doctor/History" class="sidebar-list-item" id="students-link">
-                        <i class='bx bxs-group' ></i>
-                        <span class="text">History</span>
+                    <i class='bx bxs-report' ></i>
+                        <span class="text">Prescriptions</span>
                     </a>
                    
                     
@@ -57,19 +55,15 @@
             <div class="navabr">
                 <div class="navbar-left">
                     <a href="#"><h2>Dashboard</h2></a>
-                    <h4>12/08/2025</h3>
+                    <h4><?=$doctor['date'] ?></h3>
                 </div>
                 <div class="navbar-right">
-                <div class="alter-icon"></div>
-                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
-                   
-                    <i class='bx bxs-bell' ></i>
-                </a>
+                
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic-2.png"  onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$doctor['image']?>"  onclick="toggleMenu()" id="profileIcon" height="50px">
                 </a>
                 </div>
-    
+                <?php endif; ?>         
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
                         <div class="user-info">
@@ -130,7 +124,7 @@
     
             </div>
         <div class="content">
-            <div class="backgorund-overlay"></div>
+            
             <div class="appointment-page">
                 <div class="appointment-page-header">
                     <div class="appointment-page-header-group">
@@ -149,39 +143,40 @@
                         <h4>Actions </h4>
                         
                     </div>
-                    <div class="appointment-row">
-                        <p>APT0019</p>
-                        <p>10:00 - 10:30</p>
-                        <div class="booked">Booked</div> 
-                        <p>Thilina Perera</p>
-                        <div class="actions">
-                            <a href="<?=ROOT?>/Doctor/Dashboard"><button type="button" class="edit-btn-booked">Edit</button></a>
-                            <button type="button" class="dlt-btn-booked">Delete</button>
+                    <?php if(isset($message)):?>
+                    <div class="message"><?=$message?></div>
+                    
+                    <?php elseif(isset($times)): ?>
+                        <?php foreach($times as $time): ?>
+                        <div class="appointment-row">
+                            <p><?=$time['SlotID']?></p>
+                            <p><?=$time['Start_Time']?> - <?=$time['End_Time']?> </p>
+                            <div class="status"><?=$time['Status']?> </div> 
+                            <p><?=$time['ChildName']?></p>
+                            <?php if($time['Status'] !== 'booked'):?>
+                            <div class="actions">
+                                <button type="button" class="edit" onclick="editTime(<?=$time['SlotID']?>)">Edit</button></a>
+                                <button type="button" class="delete"  onclick="deleteTime(<?=$time['SlotID']?>)">Delete</button>
+                            </div>
+                            <?php else:?>
+                            <div class="actions">
+                                <button type="button" class="edit-btn" disabled>Edit</button></a>
+                                <button type="button" class="dlt-btn"  disabled>Delete</button>
+                                <form action="<?=ROOT?>/Doctor/Prescriptions" method="POST">
+                                    <input type="text" value="<?=$time['SlotID']?>" name="SlotID" hidden>
+                                    <button type="submit" class="prescription" ><i class='bx bxs-plus-circle'></i>
+                                    Prescription</button>
+                                </form> 
+                            </div>
+                            <?php endif;?>
+                                                
                         </div>
-                        
-                                               
-                    </div>
-                    <div class="appointment-row">
-                        <p>APT0019</p>
-                        <p>10:30 - 11:00</p>
-                        <div class="available">Available</div> 
-                        <p>Dewmini Rathnayaka</p>  
-                        <div class="actions">
-                        <a href="<?=ROOT?>/Doctor/TimeSlots"><button type="button" class="edit-btn">Edit</button></a>
-                            <button type="button" class="dlt-btn ">Delete</button>
-                        </div>
-                        
-                    </div>
-                    <div class="appointment-row">
-                        <p>APT0019</p>
-                        <p>15:00 - 15:30</p>
-                        <div class="booked">Booked</div> 
-                        <p>Rinesh Silva</p>
-                        <div class="actions">
-                            <button type="button" class="edit-btn-booked">Edit</button>
-                            <button type="button" class="dlt-btn-booked">Delete</button>
-                        </div>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php endif;?>
+
+                  
+                    
+                    
                     <a href="<?=ROOT?>/Doctor/TimeSlots">
                     <button type="button" class="add-btn">Add Time Slot</button>
                     </a>
@@ -194,9 +189,51 @@
         </div>
     </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>                            
     <script src="<?=JS?>/Teacher/script.js"></script>
-    <script></script>
+    <script>
+       document.addEventListener("DOMContentLoaded", function(e) {
+            console.log("fetched");
+
+            const statuses = document.querySelectorAll('.status'); // or '.booked' if that's your actual class
+            statuses.forEach(function(status) {
+                if (status.textContent.trim().toLowerCase() === 'booked') {
+                    console.log(status.innerHTML);
+                    status.classList.add('booked');
+                }else{
+                    status.classList.add('available');
+                }
+            });
+        });
+
+
+        function deleteTime(SlotID) {
+            console.log(SlotID);
+            fetch('<?=ROOT?>/Doctor/TimeSlots/deleteSlot', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        SlotID: SlotID
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(data);
+                        window.location.reload();
+                        alert('Slot removed');
+                       // window.location.href = '<?= ROOT ?>/Child/Home';
+                    } else {
+                        console.error("Failed to delet slot ");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+       
+    </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     

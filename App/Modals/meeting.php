@@ -11,7 +11,8 @@
         protected $allowedColumns = [
             'Date',
             'Time',
-            "Scheduled"
+            "Scheduled",
+            "ParentID"
         ];
 
         public function validate($data){

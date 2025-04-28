@@ -1,6 +1,7 @@
 <?php
 require 'vendor_stripe/autoload.php';
 session_start();
+$GLOBALS['env'] = require 'C:\xampp\htdocs\KiddoVille-UI_UX\App\env.php';
 
 $stripe_secret_key = $GLOBALS['env']['stripe_secret_key']; // your key
 $webhook_secret = $GLOBALS['env']['webhook_secret']; // from Stripe CLI or dashboard

@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 use Modal\Modal;
 
@@ -11,6 +12,8 @@ class Holiday
     use MainController;
     public function index()
     {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $data = $this->show_holidays();
         $this->view('Manager/publish_holiday/Holiday', $data);
     }
@@ -22,7 +25,7 @@ class Holiday
             $data = [
                 'Leave_Type' => $_POST['Leave_Type'],
                 'About' => $_POST['About'],
-                'Date_of_Holiday' => $_POST['Date_of_Holiday']
+                'Date' => $_POST['Date']
             ];
 
             if ($model->validate($data)) {
@@ -69,7 +72,7 @@ class Holiday
             $data = [
                 'Leave_Type' => $_POST['Leave_Type'],
                 'About' => $_POST['About'],
-                'Date_of_Holiday' => $_POST['Date_of_Holiday']
+                'Date' => $_POST['Date']
             ];
 
             // Change this line - instead of passing $HolidayID as a string,

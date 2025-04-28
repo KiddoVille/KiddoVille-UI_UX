@@ -118,12 +118,15 @@
                         $stats['stat2'] = [
                             'Time' => $row->Time,
                             'Person' => $row->Person,
-                            'Image' => $base64Image
+                            'Image' => $base64Image,
+                            'OTP' => $row->OTP,
+                            "NID" => $row->NID,
                         ];
                     } else {
                         $stats['stat2'] = [
                             'Time' => $row->Time,
-                            'Person' => $row->Person
+                            'Person' => $row->Person,
+                            'OTP' => $row->OTP
                         ];
                     }
                     break;
@@ -163,7 +166,7 @@
             $lastday = date('Y-m-d', strtotime($firstday . ' +7 days'));
             $Meeting = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday ,["ParentID" => $Parent->ParentID , "Scheduled" => 1]);
 
-            if($Meeting && $Meeting[0]->Date){
+            if($Meeting && $Meeting[0]->Date == $today){
                 $stats['stat1'] = [
                     'Time' => $Meeting[0]->Time,
                     'Date' => $Meeting[0]->Date,
@@ -216,6 +219,7 @@
     
                 $ExpensesModal = new \Modal\Expense;
                 $firstDayOfMonth = date('Y-m-01');
+                $firstDayOfNextMonth = date('Y-m-01', strtotime('+1 month', strtotime($firstDayOfMonth)));
                 $childExpenses = $ExpensesModal->where_order_desc(["ChildID" => $child->ChildID, "Date" => $firstDayOfMonth ], [], "Date");
                 if($childExpenses){
                     $Amount = 0;
@@ -227,7 +231,7 @@
                     } else {
                         $data['Expenses']['Amount'] += $Amount;
                     }
-                    $data['Expenses']['Date'] = date('Y-m-d', strtotime($firstDayOfMonth));
+                    $data['Expenses']['Date'] = date('Y-m-d', strtotime($firstDayOfNextMonth));
                 }
             }
 
@@ -272,27 +276,43 @@
             echo json_encode(['success' => true, 'message' => '']);
         }
 
-        private function store_meeting_times(){
+        private function store_meeting_times() {
             $session = new \Core\Session;
             $UserID = $session->get("USERID");
             $MeetingModal = new \Modal\Meeting;
             $ParentModal = new \Modal\ParentUser;
-
+        
             $firstday = date('Y-m-d', strtotime('+1 day'));
             $lastday = date('Y-m-d', strtotime($firstday . ' +7 days'));
+        
             $Parent = $ParentModal->first(["UserID" => $UserID]);
-            $Meetings = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday,["Scheduled" => 0]);
-            $Meeting = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday , ['ParentID' => $Parent->ParentID , "Scheduled" => 1]);
-            if($Meeting){
-                $Meetings[] = $Meeting;
-                usort($Meetings, function ($a, $b) {
-                    return strtotime($a->Time) - strtotime($b->Time);
-                });
+        
+            $Meetings = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday, ["Scheduled" => 0]);
+            $Meeting = $MeetingModal->findFutureDatesWithConditions($firstday, $lastday , ['ParentID' => $Parent->ParentID, "Scheduled" => 1]);
+        
+            // Ensure both are arrays
+            $Meetings = is_array($Meetings) ? $Meetings : [];
+            $Meeting = is_array($Meeting) ? $Meeting : ($Meeting ? [$Meeting] : []);
+        
+            // Merge both meeting sets
+            $allMeetings = array_merge($Meetings, $Meeting);
+        
+            // Convert all items to objects to prevent property access issues
+            foreach ($allMeetings as &$meeting) {
+                if (is_array($meeting)) {
+                    $meeting = (object) $meeting;
+                }
             }
-
-            $data['Meetingslots'] = $Meetings;
+            unset($meeting);
+        
+            // Sort the meetings by Time
+            usort($allMeetings, function ($a, $b) {
+                return strtotime($a->Time) <=> strtotime($b->Time); // safer way to compare timestamps
+            });
+        
+            $data['Meetingslots'] = $allMeetings;
             return $data;
-        }
+        }        
 
         public function handlemeetings(){
             header('Content-Type: application/json'); // Important for AJAX
@@ -368,7 +388,6 @@
         
             $_POST['Person'] = $_POST['PersonType'] ?? null;
             $_POST['AllChild'] = 1;
-            $_POST['OTP'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
             $_POST['Date'] = $today;
         
             unset($_POST['PersonType'], $_POST['selectedPerson'], $_POST['inform']);
@@ -528,7 +547,7 @@
                     "Start_Date" => $CurrentDate
                 ]);
 
-                $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+                $validAgeGroups = ['3-5', '6-9', '10-13'];
 
                 // Calculate the child's age at the start of the current year (January 1st)
                 $dob = new \DateTime($Children->DOB); // Assuming $Child->DOB is a valid date string
@@ -539,16 +558,8 @@
                 $ageAtStartOfYear = $dob->diff($startOfYear)->y;
         
                 // Map the age to the corresponding age group
-                $AgeGroup = null; // Initialize with null in case no match is found
-        
-                foreach ($validAgeGroups as $group) {
-                    [$minAge, $maxAge] = explode('-', $group);
-        
-                    if ($ageAtStartOfYear >= $minAge && $ageAtStartOfYear <= $maxAge) {
-                        $AgeGroup = $group;
-                        break;
-                    }
-                }
+                $ChildHelper = new ChildHelper();
+                $AgeGroup = $ChildHelper->getAgeGroup($Children->DOB);
 
                 if ($row) {
                     $AssignModal = new \Modal\AssignTeacher;
@@ -558,14 +569,17 @@
                     $subjects = $AssignModal->where_order(["Agegroup" => $AgeGroup, "Date" => $CurrentDate]);
 
                     // Filter the activities to check if the current time is within Start_Time and End_Time
-                    $currentActivity = array_filter($subjects, function ($subject) use ($CurrentTime) {
-                        return $subject->Start_Time <= $CurrentTime && $subject->End_Time >= $CurrentTime;
-                    });
+                    if(!empty($subjects)){
+                        $currentActivity = array_filter($subjects, function ($subject) use ($CurrentTime) {
+                            return $subject->Start_Time <= $CurrentTime && $subject->End_Time >= $CurrentTime;
+                        });
+                        $currentActivity = reset($currentActivity); // Ensures we get the first element safely
+                    }
 
                     // Get the first valid activity
-                    $currentActivity = reset($currentActivity); // Ensures we get the first element safely
+                    
 
-                    if ($currentActivity) {
+                    if (!empty($currentActivity)) {
                         // Fetch activity details using WorkID
                         $activityDetails = $ActivityModal->first(["WorkID" => $currentActivity->WorkID]);
 

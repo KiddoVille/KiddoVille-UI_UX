@@ -11,7 +11,7 @@
     
 
 }
-.appointment-table button{
+.appointment-table button.add-btn{
    
     padding: 0.5rem 1rem;
     background-color: #007bff;
@@ -28,7 +28,7 @@
 .appointment-table .add-btn:hover{
     background-color: var(--secondary-color);
 }
-.appointment-table button:hover{
+.appointment-table .add-btnbutton:hover{
     background-color: #0056b3;
 }
 .appointment-table{
@@ -84,10 +84,10 @@
     justify-content: center;
 }
 .appointment-row:hover{
-     background-color: #e4e4e4;
+     /* background-color: #e4e4e4; */
 }
 
-.appointment-row .booked{
+.booked{
     padding: 4px 8px;
     background-color:rgba(0,128,0,0.15);
     border-radius: 8px;
@@ -98,7 +98,7 @@
     text-align: center;
     justify-content: center;
 }
-.appointment-row .available{
+ .available{
     padding: 4px 12px;
     background-color:#a3d0fb;
     border-radius: 8px;
@@ -114,18 +114,53 @@
     gap: 8px;
 }
 
-.appointment-row .actions .dlt-btn{
-    background-color: #fa3c3c;
+.appointment-row .actions .delete, .actions .prescription{
+    background-color: rgb(251, 251, 251);
+    color: #4d4d4d;
+    padding: 5px 12px;
+    border-radius: 7px;
+    font-weight: 500;
+    border: 1px solid #4d4d4d48;
+    outline: none;
+    cursor:pointer;
+    transition: 0.1s ease;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
 }
-.appointment-row .actions .dlt-btn:hover{
-    background-color: #f00707;
+.prescription{
+    display: flex;
+    align-items: center;
+    gap:3px;
+    font-size: 12px;
+    text-align: left;
+}
+.appointment-row .actions .delete:hover,.actions .prescription:hover{
+    background-color: #e4e4e4;
 }
 
-.appointment-row .actions .dlt-btn-booked{
-    background-color: rgb(183, 184, 185);
-    cursor:auto;
+.appointment-row .actions .edit:hover{
+    background-color: #e4e4e4;
 }
-.appointment-row .actions .edit-btn-booked{
-    background-color: rgb(183, 184, 185);
-    cursor:auto;
+.appointment-row .actions .edit{
+    background-color: rgb(251, 251, 251);
+    color: #4d4d4d;
+    padding: 5px 12px;
+    border-radius: 7px;
+    font-weight: 500;
+    border: 1px solid #4d4d4d48;
+    outline: none;
+    cursor:pointer;
+    transition: 0.1s ease;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+}
+.actions .edit-btn, .actions .dlt-btn{
+    background-color: #e4e4e4;
+    color: #4d4d4d;
+    padding: 5px 12px;
+    border-radius: 7px;
+    font-weight: 500;
+    border: 1px solid #4d4d4d48;
+    outline: none;
+    cursor:pointer;
+    transition: 0.1s ease;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
 }

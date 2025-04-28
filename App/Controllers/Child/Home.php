@@ -2,6 +2,7 @@
 
 namespace Controller;
 use App\Helpers\SidebarHelper;
+use App\Helpers\ChildHelper;
 use DateTime;
 
 defined('ROOTPATH') or exit('Access denied');
@@ -196,12 +197,15 @@ class Home
                 $stats['stat2'] = [
                     'Time' => $row->Time,
                     'Person' => $row->Person,
-                    'Image' => $base64Image
+                    'Image' => $base64Image,
+                    'OTP' => $row->OTP,
+                    "NID" => $row->NID,
                 ];
             } else {
                 $stats['stat2'] = [
                     'Time' => $row->Time,
-                    'Person' => $row->Person
+                    'Person' => $row->Person,
+                    'OTP' => $row->OTP
                 ];
             }
         }
@@ -265,7 +269,6 @@ class Home
     
         $_POST['Person'] = $_POST['PersonType'] ?? null;
         $_POST['AllChild'] = 0;
-        $_POST['OTP'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
         $_POST['Date'] = $today;
     
         unset($_POST['PersonType'], $_POST['selectedPerson'], $_POST['inform']);
@@ -399,7 +402,7 @@ class Home
         $ActivityModal = new \Modal\Activity;
 
         $Child = $ChildModal->first(["ChildID" => $ChildID]);
-        $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+        $validAgeGroups = ['3-5'. '6-9', '10-13'];
 
         // Calculate the child's age at the start of the current year (January 1st)
         $dob = new \DateTime($Child->DOB); // Assuming $Child->DOB is a valid date string
@@ -407,10 +410,8 @@ class Home
         $startOfYear = new \DateTime("{$currentYear}-01-01");
 
         // Calculate the age as of January 1st of the current year
-        $ageAtStartOfYear = $dob->diff($startOfYear)->y;
-
-        // Map the age to the corresponding age group
-        $AgeGroup = null; // Initialize with null in case no match is found
+        $ChildHelper = new ChildHelper();
+        $AgeGroup = $ChildHelper->getAgeGroup($Children->DOB);
 
         foreach ($validAgeGroups as $group) {
             [$minAge, $maxAge] = explode('-', $group);
@@ -434,13 +435,13 @@ class Home
         $dinnerRow = new \stdClass();
         $dinnerRow->Start_Time = '13:30:00';
         $dinnerRow->End_Time   = '14:30:00';
-        $dinnerRow->Subject    = 'Dinner';
+        $dinnerRow->Activity    = 'Dinner';
         
         // Create a new stdClass object for Breakfast
         $breakfastRow = new \stdClass();
         $breakfastRow->Start_Time = '10:00:00';
         $breakfastRow->End_Time   = '10:30:00';
-        $breakfastRow->Subject    = 'Breakfast';
+        $breakfastRow->Activity   = 'Breakfast';
         
         // Insert Breakfast and Dinner rows into the subjects array
         $subjects[] = $breakfastRow;

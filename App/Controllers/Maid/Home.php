@@ -183,6 +183,7 @@
             return $result;
     
     
+            $this->view('Maid/home');
         }
 
 

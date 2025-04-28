@@ -90,5 +90,19 @@
         
     }
 
+//     public function deleteTask($id, $id_column = 'id') {
+//         $data[$id_column] = $id;
+//         $query = "DELETE FROM $this->table WHERE $id_column = :$id_column";
+
+//         var_dump($query);
+//         exit();
+
+//         // Execute the query and check the result
+//         $result = $this->query($query, $data);
+
+//         // Return true if rows were affected, otherwise false
+//         return $result ? true : false;
+// }
+
     }
 ?>

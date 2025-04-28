@@ -17,7 +17,8 @@
             'Description',
             'Image',
             'ImageType',
-            'AllChild'
+            'AllChild',
+            'NID'
         ];
 
         public function validate($data){

@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -12,9 +13,12 @@ class Viewprofile
 
     public function index()
     {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $user = new \Modal\User;
         $result = $user->findall();
         $data = ['userData' => $result];
+
         $this->view('Manager/Viewprofile/Account', $data);
     }
 
@@ -24,7 +28,6 @@ class Viewprofile
         $requestData = json_decode(file_get_contents("php://input"), true);
         $TeacherModal = new \Modal\Teacher;
         $MaidModal = new \Modal\Maid;
-        $ChildModal = new \Modal\Child;
         $DoctorModal = new \Modal\Doctor;
         $ManagerModal = new \Modal\Manager;
         $ReceptionistModal = new \Modal\Receptionist;
@@ -32,12 +35,12 @@ class Viewprofile
 
         // Get role and ID from request
         $Role = isset($requestData['role']) ? $requestData['role'] : 'All';
-        $UserID = isset($requestData['id']) ? $requestData['id'] : null; // Default is null if not provided
+        $UserID = isset($requestData['id']) ? $requestData['id'] : null;
 
         $UsersModal = new \Modal\User;
         $Usersrecords = $UsersModal->findAll();
 
-        foreach ($Usersrecords as $User) {
+        foreach ($Usersrecords as $key => $User) {
             // Fetch partner data based on role.
             switch ($User->Role) {
                 case 'User':
@@ -48,9 +51,6 @@ class Viewprofile
                     break;
                 case 'Maid':
                     $Data = $MaidModal->first(["UserID" => $User->UserID]);
-                    break;
-                case 'Child':
-                    $Data = $ParentModal->first(["UserID" => $User->UserID]);
                     break;
                 case 'Doctor':
                     $Data = $DoctorModal->first(["UserID" => $User->UserID]);
@@ -65,20 +65,26 @@ class Viewprofile
                     $Data = null;
                     break;
             }
-
-            if ($Data && !empty($Data->Image)) {
-                $imageData = $Data->Image;
-                $imageType = $Data->ImageType;
-                $base64Image = (!empty($imageData) && is_string($imageData))
-                    ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
-                    : null;
-            } else {
-                $base64Image = IMAGE . "/ProfilePic.png";
+        
+            // Skip user if no associated role data is found
+            if (!empty($Data)) {
+                if (!empty($Data->Image) && !empty($Data->ImageType) && $Data->ImageType != 'null' && $Data->Image != null) {
+                    $imageData = $Data->Image;
+                    $imageType = $Data->ImageType;
+                    $base64Image = is_string($imageData)
+                        ? 'data:' . $imageType . ';base64,' . base64_encode($imageData)
+                        : null;
+                    $Usersrecords[$key]->Image = $base64Image;
+                } else {
+                    $Usersrecords[$key]->Image = IMAGE . "/ProfilePic.png";
+                }
+            }else{
+                $Usersrecords[$key]->Image = IMAGE . "/ProfilePic.png";
             }
-            $User->Image = $base64Image;
         }
+        
+        $Usersrecords = array_values($Usersrecords);
 
-        // Remove "Manager" role
         $Usersrecords = array_filter($Usersrecords, function ($user) {
             return $user->Role !== "Manager";
         });
@@ -169,7 +175,7 @@ class Viewprofile
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KiddoVille App Access Details</title>
+    <title>KiddoVille Account Blocked</title>
     <style>
         body {
             margin: 0;
@@ -189,7 +195,7 @@ class Viewprofile
         }
 
         .header {
-            background-color: #f9f9ff;
+            background-color: #fce4e4;
             padding: 25px 0;
             text-align: center;
             border-bottom: 1px solid #eaeaea;
@@ -202,7 +208,7 @@ class Viewprofile
 
         .header h2 {
             margin: 0;
-            color: #2c3e50;
+            color: #c0392b;
             font-weight: 600;
             font-size: 22px;
         }
@@ -223,45 +229,17 @@ class Viewprofile
             margin-bottom: 25px;
         }
 
-        .credentials {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px dashed #d1d9e6;
-            margin-bottom: 25px;
-        }
-
-        .credentials p {
-            font-size: 16px;
-            margin: 10px 0;
-        }
-
-        .login-link {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .login-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-
         .instructions {
             background-color: #f9fbfd;
             padding: 15px 20px;
             border-radius: 8px;
             margin-bottom: 25px;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid #e74c3c;
         }
 
         .instructions h3 {
             margin-top: 0;
-            color: #3498db;
+            color: #e74c3c;
             font-size: 16px;
         }
 
@@ -282,7 +260,7 @@ class Viewprofile
         .support-button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #3498db;
+            background-color: #e74c3c;
             color: white;
             text-decoration: none;
             border-radius: 6px;
@@ -294,19 +272,6 @@ class Viewprofile
             height: 1px;
             background-color: #eaeaea;
             margin: 25px 0;
-        }
-
-        .social-links {
-            text-align: center;
-            padding: 0 0 15px;
-        }
-
-        .social-link {
-            display: inline-block;
-            margin: 0 8px;
-            color: #95a5a6;
-            text-decoration: none;
-            font-size: 14px;
         }
 
         .footer {
@@ -332,53 +297,36 @@ class Viewprofile
     <div class="email-container">
         <div class="header">
             <img src="cid:kiddoLogo" alt="KiddoVille Logo">
-            <h2>Welcome to KiddoVille</h2>
+            <h2>Account Access Blocked</h2>
         </div>
 
         <div class="content">
-            <p class="greeting">Hello, and welcome!</p>
+            <p class="greeting">Dear ' . htmlspecialchars($roleDisplay) . ',</p>
 
             <div class="message">
-                <p>You have been granted access to the KiddoVille application.</p>
-                <p>Use the credentials below to log in to your' . htmlspecialchars($userData['Role']) . 'and get started</p>
-            </div>
-
-            <div class="credentials">
-                <p><strong>Username:</strong> ' . htmlspecialchars($userData['Username']) . '</p>
-                <p><strong>Password:</strong> ' . htmlspecialchars($userData['Password']) . '</p>
-            </div>
-
-            <div class="login-link">
-                <a href="https://kiddoville.com/login" class="login-button">Go to Login</a>
+                <p>We regret to inform you that your access to the KiddoVille application as a <strong>' . htmlspecialchars($roleDisplay) . '</strong> has been <span style="color:#e74c3c;"><strong>blocked</strong></span>.</p>
+                <p>This action may have been taken due to policy violations, account inactivity, or administrative decisions.</p>
             </div>
 
             <div class="instructions">
-                <h3>Helpful Tips:</h3>
+                <h3>What to do next:</h3>
                 <ul>
-                    <li>After logging in, you may be asked to reset your password</li>
-                    <li>Keep your credentials secure and private</li>
-                    <li>If you have trouble logging in, contact support</li>
+                    <li>If you believe this is a mistake, please contact our support team.</li>
+                    <li>You will not be able to log in until the issue is resolved.</li>
+                    <li>Do not attempt to create a new account without prior authorization.</li>
                 </ul>
             </div>
 
             <div class="support">
-                <p>Need help?</p>
+                <p>Need clarification or help?</p>
                 <a href="https://kiddoville.com/support" class="support-button">Contact Support</a>
             </div>
 
             <div class="divider"></div>
-
-            <div class="social-links">
-                <a href="https://facebook.com/kiddoville" class="social-link">Facebook</a> •
-                <a href="https://instagram.com/kiddoville" class="social-link">Instagram</a> •
-                <a href="https://twitter.com/kiddoville" class="social-link">Twitter</a> •
-                <a href="https://pinterest.com/kiddoville" class="social-link">Pinterest</a>
-            </div>
         </div>
 
         <div class="footer">
             <p>&copy; ' . date("Y") . ' KiddoVille Inc. All rights reserved.</p>
-            <p><a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></p>
             <div class="address">
                 KiddoVille Inc.,<br>
                 106/37 , Nawagampura, Stace Road, Colombo 14, Sri Lanka<br>
@@ -413,16 +361,72 @@ class Viewprofile
     {
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
-
+        $Mailer = new \core\Mailer;
+        $UserModal = new \Modal\User;
+        $TeacherModal = new \Modal\Teacher;
+        $MaidModal = new \Modal\Maid;
+        $ChildModal = new \Modal\Child;
+        $DoctorModal = new \Modal\Doctor;
+        $ManagerModal = new \Modal\Manager;
+        $ReceptionistModal = new \Modal\Receptionist;
+        $ParentModal = new \Modal\ParentUser;
+    
         $UserID = isset($requestData['UserID']) ? $requestData['UserID'] : null;
         $model = new \Modal\User;
+    
         if (!empty($UserID)) {
+            // ✅ Block the user
             $model->update_withid($UserID, ["Block" => 1], "UserID");
+    
+            // ✅ Get email body template
+            $body = $this->getWelcomeEmailTemplate($UserID);
+    
+            // ✅ Get user info
+            $User = $UserModal->first(["UserID" => $UserID]);
+            $Data = 0;
+    
+            if (!empty($User)) {
+                // ✅ Identify and get role-specific data
+                switch ($User->Role) {
+                    case 'User':
+                        $Data = $ParentModal->first(["UserID" => $User->UserID]);
+                        break;
+                    case 'Teacher':
+                        $Data = $TeacherModal->first(["UserID" => $User->UserID]);
+                        break;
+                    case 'Maid':
+                        $Data = $MaidModal->first(["UserID" => $User->UserID]);
+                        break;
+                    case 'Doctor':
+                        $Data = $DoctorModal->first(["UserID" => $User->UserID]);
+                        break;
+                    case 'Manager':
+                        $Data = $ManagerModal->first(["UserID" => $User->UserID]);
+                        break;
+                    case 'Receptionist':
+                        $Data = $ReceptionistModal->first(["UserID" => $User->UserID]);
+                        break;
+                    default:
+                        $Data = null;
+                        break;
+                }
+    
+                // ✅ Send email if role data found
+                if (!empty($Data)) {
+                    $Mailer->send(
+                        $Data->Email,
+                        'Email Verification - OTP Code',
+                        $body,
+                    );
+                }
+            }
+    
             echo json_encode(['success' => true, 'message' => 'Blocked User Successfully']);
         } else {
             echo json_encode(['success' => false, 'message' => 'Error in blocking user']);
         }
     }
+    
 
     public function unblockuser()
     {

@@ -125,7 +125,7 @@
                 <div class="stat">
                     <h3 style="color: #233E8D;">Total Enrollment</h3>
                     <h2 style="margin-bottom: 3px;color: #233E8D;"><?= $data['Totalenroll'] ?></h2>
-                    <p style="color: #233E8D;"><?=date('F Y')?></p>
+                    <p style="color: #233E8D;"><?= date('F Y') ?></p>
                 </div>
             </div>
 
@@ -164,13 +164,61 @@
                 </div>
             </div>
 
+            <div class="reservation">
+                <h2 style="color: #233E8D; margin-left:5%;">Reservations</h2>
+                <hr>
+                <div class="schedule-table-header">
+                    <div class="child-id"><span>Parent</span></div>
+                    <div class="reservation-date"><span>Date</span></div>
+                    <div class="start-time"><span>Start Time</span></div>
+                    <div class="end-time"><span>End Time</span></div>
+                    <div class="status"><span>Status</span></div>
+                    <div class="notes"><span>Notes</span></div>
+                    <div class="is_24_Hour">Is 24_Hours</div>
+                </div>
+
+                <div id="scheduleData">
+                    <?php if (!empty($data['reservations'])): ?>
+                        <?php foreach ($data['reservations'] as $reservation): ?>
+                            <div class="schedule-table-row">
+                                <div class="child-id"><span><?= htmlspecialchars($reservation->ParentName); ?></span></div>
+                                <div class="reservation-date"><span><?= htmlspecialchars($reservation->Date); ?></span></div>
+                                <div class="start-time"><span><?= htmlspecialchars($reservation->Start_Time); ?></span></div>
+                                <div class="end-time"><span><?= htmlspecialchars($reservation->End_Time); ?></span></div>
+                                <div class="status">
+                                    <span data-status="<?= strtolower(htmlspecialchars($reservation->Status)) ?>">
+                                        <?= htmlspecialchars($reservation->Status) ?>
+                                    </span>
+                                </div>
+
+                                <div class="notes">
+                                    <?php if (!empty($reservation->Notes)): ?>
+                                        <span><?= htmlspecialchars($reservation->Notes) ?></span>
+                                    <?php else: ?>
+                                        <span>-</span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="is_24_Hour"><span><?= htmlspecialchars($reservation->Is_24_Hour); ?></span></div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No visitors found.</p>
+                    <?php endif; ?>
+                    <div id="no-results" style="display: none; color: red; text-align: center; margin-top: 11.5%;">
+                        <h1>Date Not Found</h1>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="today_visitors" style="padding-bottom: 2%;">
                 <div class="today_visitors_header">
                     <span style="white-space: nowrap;">
                         <i class="fas fa-door-open" style="margin-right: 5%;"></i>Visitors Summary
                     </span>
                     <input type="date" class="visitorsdate" id="search-date" oninput="filterByDate();">
-                    <input type="text" class="visitorsrole" id="search-role" oninput="filterByRole();" placeholder="Search by Role">
+                    <!-- <input type="text" class="visitorsrole" id="search-role" oninput="filterByRole();" placeholder="Search by Role"> -->
 
                 </div>
 
@@ -178,6 +226,7 @@
                     <div class="visitorname"><span>NAME</span></div>
                     <div class="visitorposition"><span>Role</span></div>
                     <div class="visitorpurpose"><span>PURPOSE</span></div>
+
                     <div class="visitordate"><span>DATE</span></div>
                     <div class="visitorstarttime"><span>Start Time</span></div>
                     <div class="visitorendtime"><span>End Time</span></div>
@@ -187,8 +236,15 @@
                     <?php if (!empty($data['visitorsummary'])): ?>
                         <?php foreach ($data['visitorsummary'] as $visitor): ?>
                             <div class="detailed-lines">
-                                <div class="visitorname"><span><?= htmlspecialchars($visitor->VisitorName); ?></span></div>
-                                <div class="visitorposition" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Role); ?></span></div>
+                                <div class="visitorname"><span><?= htmlspecialchars($visitor->FirstName . ' ' . $visitor->LastName); ?></span></div>
+
+                                <div class="visitorposition" style="margin-left: 0.5%;">
+                                    <?php if(!empty($visitor->Role)):?>
+                                        <span><?= htmlspecialchars($visitor->Role); ?></span>
+                                    <?php else: ?>
+                                        <span>-</span>
+                                    <?php endif; ?> 
+                                </div>
                                 <div class="visitorpurpose" style="margin-left: 0.5%;"><span><?= htmlspecialchars($visitor->Purpose); ?></span></div>
                                 <div class="visitordate" style="margin-left: 0.5%;">
                                     <span><?= htmlspecialchars(date('Y-m-d', strtotime($visitor->Date))); ?></span>
@@ -205,7 +261,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -307,34 +362,34 @@
             }
         };
 
-        const filterByRole = () => {
-    const searchRole = document.getElementById('search-role').value.toLowerCase().trim();
-    const visitors = document.querySelectorAll('.detailed-lines');
-    const noResultsMessage = document.getElementById('no-results');
+        // const filterByRole = () => {
+        //     const searchRole = document.getElementById('search-role').value.toLowerCase().trim();
+        //     const visitors = document.querySelectorAll('.detailed-lines');
+        //     const noResultsMessage = document.getElementById('no-results');
 
-    let found = false;
-    noResultsMessage.style.display = "none";
+        //     let found = false;
+        //     noResultsMessage.style.display = "none";
 
-    for (let i = 0; i < visitors.length; i++) {
-        let visitorRoleElement = visitors[i].querySelector('.visitorposition span');
+        //     for (let i = 0; i < visitors.length; i++) {
+        //         let visitorRoleElement = visitors[i].querySelector('.visitorposition span');
 
-        if (visitorRoleElement) {
-            let visitorRole = visitorRoleElement.textContent.toLowerCase().trim();
+        //         if (visitorRoleElement) {
+        //             let visitorRole = visitorRoleElement.textContent.toLowerCase().trim();
 
-            if (visitorRole.includes(searchRole)) {
-                visitors[i].style.display = "";
-                found = true;
-            } else {
-                visitors[i].style.display = "none";
-            }
-        }
-    }
+        //             if (visitorRole.includes(searchRole)) {
+        //                 visitors[i].style.display = "";
+        //                 found = true;
+        //             } else {
+        //                 visitors[i].style.display = "none";
+        //             }
+        //         }
+        //     }
 
-    if (!found && searchRole !== "") {
-        noResultsMessage.style.display = "block";
-    }
-};
-
+        //     if (!found && searchRole !== "") {
+        //         noResultsMessage.style.display = "block";
+        //     }
+        // };
     </script>
 </body>
+
 </html>

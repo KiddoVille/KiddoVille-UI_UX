@@ -1,10 +1,9 @@
-
-<?php 
-    $session = new \Core\Session;
-    $childExistError = $session->get("ChildExist");
-    $session->unset("ChildExist");
-    $First_Name = $session->get("First_Name");
-    $session->unset("First_Name");
+<?php
+$session = new \Core\Session;
+$childExistError = $session->get("ChildExist");
+$session->unset("ChildExist");
+$First_Name = $session->get("First_Name");
+$session->unset("First_Name");
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,7 +36,7 @@
 </head>
 
 <body>
-    <form method="post" id="details" enctype="multipart/form-data" action = "<?=ROOT?>/Onbording/Child/lol">
+    <form method="post" id="details" enctype="multipart/form-data" action="<?= ROOT ?>/Onbording/Child/lol">
         <!--  To input doctor prescriptions to the system -->
         <div id="prescriptionModal" class="prescription-view">
             <div class="top-con" style="margin-bottom: 570px;">
@@ -91,33 +90,37 @@
                 <div class="hori">
                     <div class="datacon">
                         <div class="data">
-                            <label>First Name 
+                            <label>First Name
                                 <span id="red-star" class="red-star <?php echo !empty($data['values']['First_Name']) ? 'hidden' : ''; ?>"> *</span>
                             </label>
-                            <input name="First_Name" style="width: 200px;" placeholder="Yunus" type="text" id="firstname" 
-                            <?php if (!empty($First_Name)) { echo 'value="' . htmlspecialchars($First_Name, ENT_QUOTES, 'UTF-8') . '"'; } ?>
-                            >
+                            <input name="First_Name" style="width: 200px;" placeholder="Yunus" type="text" id="firstname"
+                                <?php if (!empty($data['values']['First_Name'])) {
+                                    echo 'value="' . htmlspecialchars($data['values']['First_Name'], ENT_QUOTES, 'UTF-8') . '"';
+                                } ?>>
                             <?php if (!empty($data['errors']['First_Name']) || !empty($childExistError)): ?>
                                 <p class="error" id="firstname-error">
-                                    <?php 
-                                        if (!empty($data['errors']['First_Name'])) {
-                                            echo $data['errors']['First_Name'] . "<br>";
-                                        }
-                                        if (!empty($childExistError)) {
-                                            echo $childExistError;
-                                        }
+                                    <?php
+                                    if (!empty($data['errors']['First_Name'])) {
+                                        echo $data['errors']['First_Name'] . "<br>";
+                                    }
+                                    if (!empty($childExistError)) {
+                                        echo $childExistError;
+                                    }
                                     ?>
                                 </p>
                             <?php endif; ?>
                         </div>
                         <div class="data">
-                            <label name="Gender">Gender</label>
+                            <label>Gender</label>
                             <select style="width: 215px;" required>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
                         </div>
                     </div>
+
+                    <!-- Other input fields here -->
+
                     <div class="datacon">
                         <div class="data">
                             <label>Last Name <span id="red-star2" class="red-star"> *</span></label>
@@ -131,6 +134,9 @@
                                 </p>
                             <?php endif; ?>
                         </div>
+
+                        <!-- Other fields like DOB, Relation, etc -->
+
                         <div class="data">
                             <label>Date Of Birth</label>
                             <input name="DOB" style="width: 200px;" type="date" id="dob" required
@@ -144,12 +150,15 @@
                             <?php endif; ?>
                         </div>
                     </div>
+
                     <span id="red-star5" class="red-star" style="margin-right: -40px;"> *</span>
+
                     <div class="datacon imagecon" id="image-bg">
                         <input name="profile_image" type="file" style="display: none" id="image" accept="image/*" required>
                         <i class="fa fa-add" style="font-size:30px;cursor: pointer; border-radius: 30px; padding: 10px 12px; border: 2px solid black; background-color: white;" id="image-icon"></i>
                     </div>
                 </div>
+
                 <div class="datacon" style="flex-direction: row;">
                     <div class="data">
                         <label>Nickname <span id="red-star3" class="red-star" style="margin-right: -40px;"> *</span></label>
@@ -178,6 +187,7 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="datacon" style="flex-direction: row !important;">
                     <div class="data">
                         <label>Language Preference</label>
@@ -192,6 +202,7 @@
                         <input name="Allergies" style="width: 308px;" placeholder="shrimp" type="text" maxlength="12">
                     </div>
                 </div>
+
                 <div class="datacon" style="flex-direction: row !important;">
                     <div class="data">
                         <label>Medications</label>
@@ -204,23 +215,14 @@
                         <p class="edit" style="margin-left: 100px;" id="documents">+ Add Files </p>
                     </div>
                 </div>
-                <!-- <?php echo !empty($data['value']['button']) ? 'flex-end' : 'space-between '; ?> -->
+
                 <div class="datacon" style="flex-direction: row; justify-content: <?php echo empty($data['value']['button']) ? 'flex-end' : 'space-between '; ?>; margin-right: 20px;">
-                    <?php
-                    // if (!empty($data['value']['button']) && $data['value']['button'] === true) {
-                    //     echo <<<HTML
-                    //         <div class="data">
-                    //             <button name="action" value="child" type="submit" id="add-btn" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px; background-color:rgb(67, 99, 154) !important; color: white !important;">Add Children<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
-                    //         </div>
-                    //     HTML;
-                    // }
-                    // 
-                    ?>
                     <div class="data">
-                        <button name="action" value="guardian" type="submit" id="submit" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px;     background-color:rgb(67, 99, 154) !important; color: white !important;">Save<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
+                        <button name="action" value="guardian" type="submit" id="submit" style="font-weight: 600; width: 200px; font-size: 20px; padding: 7px; background-color:rgb(67, 99, 154) !important; color: white !important;">Save<i class="fa fa-chevron-right" style="margin-left: 4px;"></i></button>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </form>
     <script>
@@ -399,13 +401,13 @@
             const files = []; // Store uploaded files
 
             // Open document modal
-            documents.addEventListener('click', function () {
+            documents.addEventListener('click', function() {
                 documentModal.style.display = 'block';
                 Profilecard.style.filter = "blur(10px)";
             });
 
             // Close document modal
-            backfordocument.addEventListener('click', function () {
+            backfordocument.addEventListener('click', function() {
                 documentModal.style.display = 'none';
                 Profilecard.style.filter = "blur(0px)";
             });
@@ -427,7 +429,7 @@
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = "Delete";
                     deleteButton.className = "delete-button";
-                    deleteButton.onclick = function () {
+                    deleteButton.onclick = function() {
                         deleteFile(index);
                     };
 
@@ -443,7 +445,7 @@
             // });
 
             // Handle new file selection
-            fileInput.addEventListener('change', function () {
+            fileInput.addEventListener('change', function() {
                 for (const file of fileInput.files) {
                     files.push(file); // Add files to array
                 }
@@ -457,7 +459,7 @@
             }
 
             // Ensure all files are sent on form submission
-            document.querySelector('form').addEventListener('submit', function (event) {
+            document.querySelector('form').addEventListener('submit', function(event) {
                 const dataTransferDocuments = new DataTransfer();
 
                 // Add all files to DataTransfer

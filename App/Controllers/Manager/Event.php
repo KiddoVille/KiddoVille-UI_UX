@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -9,6 +10,8 @@ class Event
     use MainController;
     public function index()
     {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $data = $this->show_events();
         $this->view('Manager/Event', $data);
     }
