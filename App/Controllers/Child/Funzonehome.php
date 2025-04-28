@@ -79,7 +79,7 @@
             $age = $start_of_year->diff($dob_date)->y;
         
             // Map Age to AgeGroup
-            $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+            $age_groups = ['3-5','6-9','10-13'];
             $AgeGroup = '2-3'; // Default AgeGroup
         
             foreach ($age_groups as $group) {
@@ -165,7 +165,7 @@
                     $age = $start_of_year->diff($dob_date)->y;
         
                     // Map Age to AgeGroup
-                    $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+                    $age_groups = ['3-5','6-9','10-13'];
                     $AgeGroup = '2-3'; // Default AgeGroup
         
                     foreach ($age_groups as $group) {
