@@ -11,7 +11,8 @@
            $slot = new \Modal\TimeSlot;
            $appoint = new \Modal\Appointment;
 
-           $DoctorID = $this->findID();
+        //    $DoctorID = $this->findID();
+        $DoctorID =  1;
 
             $doctorInfo = $doctor->first(['DoctorID' => $DoctorID]);
             $profileImage = $doctorInfo->Image;
