@@ -9,11 +9,12 @@
 
         protected $table = 'payment';
         protected $allowedColumns = [
+            'PaymentID',
             'DateTime',
             'Amount',
             'ChildID',
             'Mode',
-            'Month'
+           
         ];
 
         public function validate($data){

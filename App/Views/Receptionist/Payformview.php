@@ -103,10 +103,10 @@
                                 <div class="mini_header">
                                     <span class="enter_index">Registration Number</span>
                                 </div>
-                                <div class="input_button">
-                                    <input type="text" class="index_input" placeholder="Registration No">
-                                    <button class="apply">PROCEED</button>
-                                </div>
+                                <form class="input_button" method="POST" action = "<?=ROOT?>/Receptionist/Payform">
+                                    <input type="text" class="index_input" placeholder="Registration No" name="reg_no"/>
+                                    <button class="apply" type="submit">PROCEED</button>
+                                </form>
                                 <div class="hidden_details">
                                     <div class="details">
                                         <span class="head">User Details</span>
@@ -125,35 +125,16 @@
                                         </div>
                                     </div>
                                     <div class="details">
-                                        <span class="head">Package Price</span>
+                                        <span class="head">Expences for child</span>
                                         <hr>
+                                <?php if(!empty($payments)): ?>       
+                                    <?php foreach($payments as $payment): ?>    
                                         <div class="row_value">
-                                            <span class="tag">5-Day Package</span>
-                                            <span class="value">$23</span>
+                                            <span class="tag"><?= htmlspecialchars($payment->Description) ?></span>
+                                            <span class="value"><?= htmlspecialchars($payment->Amount) ?></span>
                                         </div>
-                                    </div>
-                                    <div class="details">
-                                        <span class="head">Resevation Price</span>
-                                        <hr>
-                                        <div class="row_value">
-                                            <span class="tag">Reservation</span>
-                                            <span class="value">5</span>
-                                        </div>
-                                        <div class="row_value">
-                                            <span class="tag">Meal</span>
-                                            <span class="value">$5</span>
-                                        </div>
-                                        <div class="row_value">
-                                            <span class="tag">Activity</span>
-                                            <span class="value">$25</span>
-                                        </div>
-                                    </div>
-                                    <div class="details">
-                                        <div class="row_value">
-                                            <span class="value">Grand Total</span>
-                                            <span class="value">$48</span>
-                                        </div>
-                                    </div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>   
                                     <button class="submit">Submit Payment</button>
                                 </div>
                                 
