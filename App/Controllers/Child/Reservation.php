@@ -294,7 +294,7 @@
         
                     // Check for available maids
                     $dateUsed = isset($_POST['Is_24_Hour']) && $_POST['Is_24_Hour'] ? $_POST['Date24'] : $_POST['Date'];
-                    $AvailableMaids = $AssignMaidModal->countGroupByJoin("ChildID", "MaidID", "<", 5, ['table' => 'Maid', 'on' => 'Maid.MaidID = Assignmaid.MaidID'], ["AgeGroup" => '2-3', "Date" => $dateUsed]);
+                    $AvailableMaids = $AssignMaidModal->countGroupByJoin("ChildID", "MaidID", "<", 5, ['table' => 'Maid', 'on' => 'Maid.MaidID = Assignmaid.MaidID'], ["AgeGroup" => $AgeGroup, "Date" => $dateUsed]);
                     $UsedMaids = [];
                     if (empty($AvailableMaids)) {
                         $UsedMaids = $AssignMaidModal->countGroupByJoin("ChildID", "MaidID", "=", 5, ['table' => 'Maid', 'on' => 'Maid.MaidID = Assignmaid.MaidID'], ["AgeGroup" => $AgeGroup, "Date" => $dateUsed]);

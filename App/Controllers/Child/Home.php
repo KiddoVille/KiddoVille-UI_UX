@@ -2,6 +2,7 @@
 
 namespace Controller;
 use App\Helpers\SidebarHelper;
+use App\Helpers\ChildHelper;
 use DateTime;
 
 defined('ROOTPATH') or exit('Access denied');
@@ -401,7 +402,7 @@ class Home
         $ActivityModal = new \Modal\Activity;
 
         $Child = $ChildModal->first(["ChildID" => $ChildID]);
-        $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+        $validAgeGroups = ['3-5'. '6-9', '10-13'];
 
         // Calculate the child's age at the start of the current year (January 1st)
         $dob = new \DateTime($Child->DOB); // Assuming $Child->DOB is a valid date string
@@ -409,10 +410,8 @@ class Home
         $startOfYear = new \DateTime("{$currentYear}-01-01");
 
         // Calculate the age as of January 1st of the current year
-        $ageAtStartOfYear = $dob->diff($startOfYear)->y;
-
-        // Map the age to the corresponding age group
-        $AgeGroup = null; // Initialize with null in case no match is found
+        $ChildHelper = new ChildHelper();
+        $AgeGroup = $ChildHelper->getAgeGroup($Children->DOB);
 
         foreach ($validAgeGroups as $group) {
             [$minAge, $maxAge] = explode('-', $group);

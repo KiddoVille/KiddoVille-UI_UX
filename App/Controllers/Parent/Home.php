@@ -547,7 +547,7 @@
                     "Start_Date" => $CurrentDate
                 ]);
 
-                $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+                $validAgeGroups = ['3-5', '6-9', '10-13'];
 
                 // Calculate the child's age at the start of the current year (January 1st)
                 $dob = new \DateTime($Children->DOB); // Assuming $Child->DOB is a valid date string
@@ -558,16 +558,8 @@
                 $ageAtStartOfYear = $dob->diff($startOfYear)->y;
         
                 // Map the age to the corresponding age group
-                $AgeGroup = null; // Initialize with null in case no match is found
-        
-                foreach ($validAgeGroups as $group) {
-                    [$minAge, $maxAge] = explode('-', $group);
-        
-                    if ($ageAtStartOfYear >= $minAge && $ageAtStartOfYear <= $maxAge) {
-                        $AgeGroup = $group;
-                        break;
-                    }
-                }
+                $ChildHelper = new ChildHelper();
+                $AgeGroup = $ChildHelper->getAgeGroup($Children->DOB);
 
                 if ($row) {
                     $AssignModal = new \Modal\AssignTeacher;
@@ -577,14 +569,17 @@
                     $subjects = $AssignModal->where_order(["Agegroup" => $AgeGroup, "Date" => $CurrentDate]);
 
                     // Filter the activities to check if the current time is within Start_Time and End_Time
-                    $currentActivity = array_filter($subjects, function ($subject) use ($CurrentTime) {
-                        return $subject->Start_Time <= $CurrentTime && $subject->End_Time >= $CurrentTime;
-                    });
+                    if(!empty($subjects)){
+                        $currentActivity = array_filter($subjects, function ($subject) use ($CurrentTime) {
+                            return $subject->Start_Time <= $CurrentTime && $subject->End_Time >= $CurrentTime;
+                        });
+                        $currentActivity = reset($currentActivity); // Ensures we get the first element safely
+                    }
 
                     // Get the first valid activity
-                    $currentActivity = reset($currentActivity); // Ensures we get the first element safely
+                    
 
-                    if ($currentActivity) {
+                    if (!empty($currentActivity)) {
                         // Fetch activity details using WorkID
                         $activityDetails = $ActivityModal->first(["WorkID" => $currentActivity->WorkID]);
 

@@ -32,10 +32,10 @@
             $age = $start_of_year->diff($dob_date)->y;
         
             // Define age groups
-            $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+            $age_groups = ['3-5', '6-9', '10-13'];
             
             // Default AgeGroup
-            $AgeGroup = '2-3';
+            $AgeGroup = '3-5';
         
             // Match age to group
             foreach ($age_groups as $group) {
