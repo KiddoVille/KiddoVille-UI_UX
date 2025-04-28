@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
     <div class="container">
         <div class="sidebar">
             <div class="logo_stuf" style="display: flex;margin-top:6%">
@@ -112,6 +111,7 @@
                 KIDDO VILLE Food plan
             </div>
 
+            <?php show($data) ?>
             <div class="table-container">
                 <table id="foodtable">
                     <tr>

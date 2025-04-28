@@ -104,7 +104,8 @@ class Students {
         $observe = new \Modal\Observation;
         $score = new \Modal\SkillScore;
 
-        $TeacherID = $this->findID(); 
+        // $TeacherID = $this->findID(); 
+        $TeacherID =  1;
         $observeArray = [];
         $today = date('Y-m-d');
 
