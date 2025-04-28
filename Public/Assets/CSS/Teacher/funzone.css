@@ -413,6 +413,10 @@
 
 
 }
+.show-funzone-edit{
+    visibility: visible;
+    opacity: 1;
+}
 .error-message{
     color: #d54242;
     width: auto;
@@ -422,4 +426,9 @@
     margin: auto;
     border-radius: 8px;
 
+}
+
+
+#title-error{
+    
 }

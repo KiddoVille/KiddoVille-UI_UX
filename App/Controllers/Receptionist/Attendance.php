@@ -73,9 +73,7 @@
                     'Start_Date'    => date('Y-m-d'),
                     'Start_Time'        => date('H:i:s'),
                     'Status'        => 'Present',
-                    
                 ];
-
                
                 if ($AttendanceModel->validate($data)) {
                     // Insert the data into the database

@@ -27,6 +27,8 @@
                 //student details
                 $child = $student->where_norder(['ChildID' => $reportCard->StudentID]);
                 $studentDetails = $child[0];
+                // var_dump($studentDetails);
+                // exit();
                 
                 //registarin no
                 $studentDetails->DOB = $this->agecalculate($studentDetails->DOB);
@@ -64,6 +66,9 @@
                     'month' => $currentMonth,
                     'year' => $currentYear
                 ]);
+
+                // show($attendances);
+                // exit();
 
                 $attendData [] = [
                     'precentage' => count($attendances) / 30 * 100,

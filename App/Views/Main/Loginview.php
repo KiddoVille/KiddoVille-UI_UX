@@ -33,7 +33,7 @@
                         <div class="input-box">
                             <label class="label" for="password">Password<span id="red-star2" class="red-star"> *</span></label>
                             <div class="password-group">
-                                <input type="password" name="Password" id="password" placeholder="Enter your Password" maxlength="6" required>
+                                <input type="password" name="Password" id="password" placeholder="Enter your Password" maxlength="8" required>
                                 <i class="fas fa-eye" id="togglePassword"></i>
                             </div>
                             <p class="error" id="password-error"> <?php  if (!empty($data['errors']['password'])) { echo $data['errors']['password']; } ?> </p>
@@ -65,7 +65,7 @@
             <div class="filter-box">
                 <h2 style="color: white;">Hello, User</h2>
                 <p style="color: white;">Enter your personal details and start journey with us</p>
-                <button id="signup" type="button" style="width:200px;margin-top: 20px;">Sign Up</button>
+                <button id="signup" type="button" style="width:200px;margin-top: 20px;">Request Meeting</button>
             </div>
         </div>
     </div>

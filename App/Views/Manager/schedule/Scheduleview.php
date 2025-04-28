@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Dashboard.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/StaffSchedule.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= CSS ?>/Manager/Schedule.css?v=<?= time() ?>">
     <script src="<?= JS ?>/Manager/profileview.js"></script>
 </head>
 
@@ -108,259 +109,356 @@
         </div>
     </div>
 
-
-    <div class="container" id="container" style="margin-top:22%;margin-left:-6.5%;">
-        <div id="content1" class="content show">
-            <form action="<?= ROOT ?>/Manager/Schedule/addschedule" method="post">
-                <div class="activity-schedule" style="position:fixed;margin-top:-25%;margin-left:-28%;z-index:2;">
-                    <div style="display: flex;justify-content:space-around;">
-                        <h2 style="color: #233E8D;margin-left:-25%">Tomorrow Activity Schedule</h2>
-                    </div>
-                    <hr style="margin-top: -1%;">
-
-                    <div class="filters">
-                        <div style="display: flex;width:100px;">
-                            <input type="date" id="onlyTomorrow" name="Date">
-                        </div>
-                        <select name="AgeGroup" style="margin-right: 325px;width:150px;" id="ageGroupSelect">
-                            <option value="" disabled selected>Select age group</option>
-                            <option value="3 - 5">3 - 5</option>
-                            <option value="6 - 9">6 - 9</option>
-                            <option value="10 - 13">10 - 13</option>
-
-                        </select>
-                    </div>
-
-                    <div class="table-div">
-                        <table>
-                            <thead>
-                                <tr class="table_headings">
-                                    <th style="color: #233E8D;background-color:transparent">Activity</th>
-                                    <th style="color: #233E8D;background-color:transparent">Staff</th>
-                                    <th style="color: #233E8D;background-color:transparent">Start_Time</th>
-                                    <th style="color: #233E8D;background-color:transparent">End_Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="text" value="Breakfast" readonly class="styled-select">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="styled-select" readonly>
-                                    <td>
-                                        <input type="text" value="8:00" readonly class="styled-select">
-                                    </td>
-                                    <td>
-                                        <input type="text" value="8:30" readonly class="styled-select">
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select name="Activity" class="styled-select" id="">
-                                            <option value="Select Activity" disabled selected>Select Activity</option>
-                                            <option value="">Creative Acitivity</option>
-                                            <option value="">Story Time</option>
-                                            <option value="">Out door Time</option>
-                                            <option value="">Basic Learning Time</option>
-                                            <option value="">Maths</option>
-                                            <option value="">Science</option>
-                                            <option value="">English</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select name="TeacherID" class="styled-select" id="">
-                                            <option value="Select Staff" disabled selected>Select Staff</option>
-                                            <option value="">Ms.Rahul</option>
-                                            <option value="">Ms.Thilina</option>
-                                            <option value="">Ms.Hanshika</option>
-                                            <option value="">Ms.Kivitha</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" value="8:30" readonly class="styled-select">
-                                    </td>
-                                    <td>
-                                        <input type="text" value="10:00" readonly class="styled-select">
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <input type="text" value="Refreshment" class="styled-select" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="styled-select" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" value="10:00" class="styled-select" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" value="10:30" class="styled-select" readonly>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select name="" class="styled-select" id="">
-                                            <option value="Select Activity" disabled selected>Select Activity</option>
-                                            <option value="">Creative Acitivity</option>
-                                            <option value="">Story Time</option>
-                                            <option value="">Out door Time</option>
-                                            <option value="">Basic Learning Time</option>
-                                            <option value="">Maths</option>
-                                            <option value="">Science</option>
-                                            <option value="">English</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select name="TeacherID" class="styled-select" id="">
-                                            <option value="Select Staff" disabled selected>Select Staff</option>
-                                            <option value="">Ms.Rahul</option>
-                                            <option value="">Ms.Thilina</option>
-                                            <option value="">Ms.Hanshika</option>
-                                            <option value="">Ms.Kivitha</option>
-                                        </select>
-                                    </td>               
-                                    <td>
-                                        <input type="text" value="10:30" readonly class="styled-select">
-                                    </td>
-                                    <td>
-                                        <input type="text" value="12:00" readonly class="styled-select">
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" value="Ready for Lunch" readonly class="styled-select">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" readonly class="styled-select">
-                                    </td>
-                                    <td>
-                                        <input type="text" value="12:00" readonly class="styled-select">
-                                    </td>
-                                    <td>
-                                        <input type="text" value="13:00" readonly class="styled-select">
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <input type="text" class="styled-select" value="Lunch" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="styled-select" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" value="13:00" class="styled-select" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="text" value="13:30" class="styled-select" readonly>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select name="" class="styled-select" id="">
-                                            <option value="Select Activity" disabled selected>Select Activity</option>
-                                            <option value="">Creative Acitivity</option>
-                                            <option value="">Story Time</option>
-                                            <option value="">Out door Time</option>
-                                            <option value="">Basic Learning Time</option>
-                                            <option value="">Maths</option>
-                                            <option value="">Science</option>
-                                            <option value="">English</option>
-                                        </select>
-                                    </td>
-                                    <td><select name="TeacherID" class="styled-select" id="">
-                                            <option value="Select Staff" disabled selected>Select Staff</option>
-                                            <option value="">Ms.Rahul</option>
-                                            <option value="">Ms.Thilina</option>
-                                            <option value="">Ms.Hanshika</option>
-                                            <option value="">Ms.Kivitha</option>
-                                        </select></td>
-                                    <td>
-                                        <input type="text" value="13:30" readonly class="styled-select">
-                                    </td>
-                                    <td>
-                                        <input type="text" value="15:00" readonly class="styled-select">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select name="" class="styled-select" id="">
-                                            <option value="Select Activity" disabled selected>Select Activity</option>
-                                            <option value="">Creative Acitivity</option>
-                                            <option value="">Story Time</option>
-                                            <option value="">Out door Time</option>
-                                            <option value="">Basic Learning Time</option>
-                                            <option value="">Maths</option>
-                                            <option value="">Science</option>
-                                            <option value="">English</option>
-                                        </select>
-                                    </td>
-                                    <td><select name="TeacherID" class="styled-select" id="">
-                                            <option value="Select Staff" disabled selected>Select Staff</option>
-                                            <option value="">Ms.Rahul</option>
-                                            <option value="">Ms.Thilina</option>
-                                            <option value="">Ms.Hanshika</option>
-                                            <option value="">Ms.Kivitha</option>
-                                        </select></td>
-                                    <td>
-                                        <input type="text" value="15:00" readonly class="styled-select">
-
-                                    </td>
-                                    <td>
-                                        <input type="text" value="16:30" readonly class="styled-select">
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select name="Activity" class="styled-select" id="">
-                                            <option value="Select Activity" disabled selected>Select Activity</option>
-                                            <option value="">Creative Acitivity</option>
-                                            <option value="">Story Time</option>
-                                            <option value="">Out door Time</option>
-                                            <option value="">Basic Learning Time</option>
-                                            <option value="">Maths</option>
-                                            <option value="">Science</option>
-                                            <option value="">English</option>
-                                        </select>
-                                    </td>
-
-                                    <td>
-                                        <select name="TeacherID" class="styled-select" id="">
-                                            <option value="" disabled selected>Select Staff</option>
-                                            <?php if (isset($teachers) && is_array($teachers)): ?>
-                                                <?php foreach ($teachers as $teacher): ?>
-                                                    <option value="<?= $teacher->TeacherID ?>"><?= $teacher->LastName ?></option>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" value="16:30" readonly class="styled-select">
-
-                                    </td>
-                                    <td>
-                                        <input type="text" class="styled-select" readonly value="17:00">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <button class="resetbtn" style="background-color: #233E8D;color:white;">Add</button>
-                </div>
-            </form>
-        </div>
+    <div class="filters">
+        <label for="ageGroupSelect">Age Group:</label>
+        <select name="AgeGroup2" style="margin-right: 325px;width:150px;" id="ageGroupSelect">
+            <option value="3-5">3 - 5</option>
+            <option value="6-9">6 - 9</option>
+            <option value="10-13">10 - 13</option>
+        </select>
     </div>
+    <div id="content1" class="content show" style="display: none">
+        <form action="<?= ROOT ?>/Manager/Schedule/addscheduleMaid" method="post">
+            <div class="activity-schedule" style="position:fixed;margin-top:-11%;margin-left:-48.5%;">
+                <div style="display: flex;justify-content:space-around;">
+                    <h2 style="color: #233E8D;margin-left:-25%">Tomorrow Activity Schedule
+                        <div style="display: flex;width:100px;margin-left:50%;margin-top:-2.5%">
+                            <input type="date" id="onlyTomorrow" name="Date" required>
+                        </div>
+                    </h2>
+                </div>
+                <hr style="margin-top: -1%;">
+                <div class="table-div">
+                    <table>
+                        <thead>
+                            <tr class="table_headings">
+                                <th style="color: #233E8D;background-color:transparent">Activity</th>
+                                <th style="color: #233E8D;background-color:transparent">Staff</th>
+                                <th style="color: #233E8D;background-color:transparent">Start_Time</th>
+                                <th style="color: #233E8D;background-color:transparent">End_Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" value="Breakfast" readonly class="styled-select">
+                                    <input type="hidden" name="Activity[]" value="Breakfast">
+                                </td>
+                                <td>
+                                    <input type="text" class="styled-select" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" value="8:00" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="8:00">
+                                </td>
+                                <td>
+                                    <input type="text" value="8:30" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="8:30">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="Activity[]" class="styled-select" id="">
+                                        <option value="Select Activity" disabled selected>Select Activity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
+                                        <option value="Story Time">Story Time</option>
+                                        <option value="Out door Time">Out door Time</option>
+                                        <option value="Basic Learning Time">Basic Learning Time</option>
+                                        <option value="Nap Time">Nap Time</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="8:30" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="8:30">
+                                </td>
+                                <td>
+                                    <input type="text" value="10:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="10:00">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" value="Refreshment" class="styled-select" readonly>
+                                    <input type="hidden" name="Activity[]" value="Refreshment">
+                                </td>
+                                <td>
+                                    <input type="text" class="styled-select" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" value="10:00" class="styled-select" readonly>
+                                    <input type="hidden" name="Start_Time[]" value="10:00">
+                                </td>
+                                <td>
+                                    <input type="text" value="10:30" class="styled-select" readonly>
+                                    <input type="hidden" name="End_Time[]" value="10:30">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="Activity[]" class="styled-select" id="">
+                                        <option value="Select Activity" disabled selected>Select Activity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
+                                        <option value="Story Time">Story Time</option>
+                                        <option value="Out door Time">Out door Time</option>
+                                        <option value="Basic Learning Time">Basic Learning Time</option>
+                                        <option value="Nap Time">Nap Time</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="10:30" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="10:30">
+                                </td>
+                                <td>
+                                    <input type="text" value="12:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="12:00">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" value="Ready for Lunch" readonly class="styled-select">
+                                    <input type="hidden" name="Activity[]" value="Ready for Lunch">
+                                </td>
+                                <td>
+                                    <input type="text" name="" id="" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="12:00" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="12:00">
+                                </td>
+                                <td>
+                                    <input type="text" value="13:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="13:00">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" class="styled-select" value="Lunch" readonly>
+                                    <input type="hidden" name="Activity[]" value="Lunch">
+                                </td>
+                                <td>
+                                    <input type="text" class="styled-select" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" value="13:00" class="styled-select" readonly>
+                                    <input type="hidden" name="Start_Time[]" value="13:00">
+                                </td>
+                                <td>
+                                    <input type="text" value="13:30" class="styled-select" readonly>
+                                    <input type="hidden" name="End_Time[]" value="13:30">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="Activity[]" class="styled-select" id="">
+                                        <option value="Select Activity" disabled selected>Select Activity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
+                                        <option value="Story Time">Story Time</option>
+                                        <option value="Out door Time">Out door Time</option>
+                                        <option value="Basic Learning Time">Basic Learning Time</option>
+                                        <option value="Nap Time">Nap Time</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="13:30" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="13:30">
+                                </td>
+                                <td>
+                                    <input type="text" value="15:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="15:00">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="Activity[]" class="styled-select" id="">
+                                        <option value="Select Activity" disabled selected>Select Activity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
+                                        <option value="Story Time">Story Time</option>
+                                        <option value="Out door Time">Out door Time</option>
+                                        <option value="Basic Learning Time">Basic Learning Time</option>
+                                        <option value="Nap Time">Nap Time</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="15:00" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="15:00">
+                                </td>
+                                <td>
+                                    <input type="text" value="16:30" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="16:30">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="Activity[]" class="styled-select" id="">
+                                        <option value="Select Activity" disabled selected>Select Activity</option>
+                                        <option value="Creative Activity">Creative Activity</option>
+                                        <option value="Story Time">Story Time</option>
+                                        <option value="Out door Time">Out door Time</option>
+                                        <option value="Basic Learning Time">Basic Learning Time</option>
+                                        <option value="Nap Time">Nap Time</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="16:30" readonly class="styled-select">
+                                    <input type="hidden" name="Start_Time[]" value="16:30">
+                                </td>
+                                <td>
+                                    <input type="text" value="17:00" readonly class="styled-select">
+                                    <input type="hidden" name="End_Time[]" value="17:00">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="resetbtn" style="background-color: #233E8D;color:white;">Add</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="content2" class="content show" style="display: none;">
+        <form action="<?= ROOT ?>/Manager/Schedule/addscheduleforTeacher" method="post">
+            <div class="activity-schedule" style="position:fixed;margin-top:-10%;margin-left:-48.5%;">
+                <div style="display: flex;justify-content:space-around;">
+                    <h2 style="color: #233E8D;margin-left:-25%">Tomorrow Activity Schedule
+                        <div style="display: flex;width:100px;margin-left:50%;margin-top:-2.5%">
+                            <input type="date" id="onlyTomorrow_1" name="Date" required>
+                        </div>
+                    </h2>
+                </div>
+                <hr style="margin-top: -1%;">
+                <div class="table-div">
+                    <input type="text" name="AgeGroup" id="InsideFormAgeGroup" hidden />
+                    <table>
+                        <thead>
+                            <tr class="table_headings">
+                                <th style="color: #233E8D;background-color:transparent">Activity</th>
+                                <th style="color: #233E8D;background-color:transparent">Staff</th>
+                                <th style="color: #233E8D;background-color:transparent">Start_Time</th>
+                                <th style="color: #233E8D;background-color:transparent">End_Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" value="Lunch" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" class="styled-select" readonly>
+                                <td>
+                                    <input type="text" value="14:00" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="14:30" readonly class="styled-select">
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="Activity[]" class="styled-select" id="">
+                                        <option value="Select Activity" disabled selected>Select Activity</option>
+                                        <option value="Creative Activity">Creative Acitivity</option>
+                                        <option value="Story Time">Story Time</option>
+                                        <option value="Out door Time">Out door Time</option>
+                                        <option value="Basic Learning Time">Basic Learning Time</option>
+                                        <option value="Nap Time">Nap Time</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="MaidID" class="styled-select" id="" required>
+                                        <option value="" disabled selected>Select Maid</option>
+                                        <?php foreach ($maids as $maid): ?>
+                                            <option>
+                                                <?= $maid->First_Name . ' ' . $maid->Last_Name ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+
+                                </td>
+                                <td>
+                                    <input type="text" value="14:30" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="15:30" readonly class="styled-select">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="Activity[]" class="styled-select" id="activity" onchange="loadTeachers(this.value)">
+                                        <option value="Select Activity" disabled selected>Select Activity</option>
+                                        <option value="Maths">Maths</option>
+                                        <option value="Science">Science</option>
+                                        <option value="English">English</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="TeacherID" class="styled-select" id="teacherSelect" required>
+                                        <option value="" disabled selected>Select Teacher</option>
+                                    </select>
+
+                                </td>
+                                <td>
+                                    <input type="text" value="15:30" readonly class="styled-select">
+                                </td>
+                                <td>
+                                    <input type="text" value="16:30" readonly class="styled-select">
+
+                                </td>
+                            </tr>
+                            <td>
+                                <select name="Activity[]" class="styled-select" id="">
+                                    <option value="Select Activity" disabled selected>Select Activity</option>
+                                    <option value="Creative Acitivity">Creative Acitivity</option>
+                                    <option value="Story Time">Story Time</option>
+                                    <option value="Out door Time">Out door Time</option>
+                                    <option value="Basic Learning Time">Basic Learning Time</option>
+                                    <option value="Nap Time">Nap Time</option>
+                                </select>
+                            </td>
+                            <td><select name="MaidID" class="styled-select" id="" required>
+                                    <option value="" disabled selected>Select Maid</option>
+                                    <?php foreach ($maids as $maid): ?>
+                                        <option>
+                                            <?= $maid->First_Name . ' ' . $maid->Last_Name ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" value="16:30" readonly class="styled-select">
+                            </td>
+                            <td>
+                                <input type="text" value="17:00" readonly class="styled-select">
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="resetbtn" style="background-color: #233E8D;color:white;">Add</button>
+            </div>
+        </form>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Set tomorrow's date
             const dateInput = document.getElementById('onlyTomorrow');
+            const dateInput1 = document.getElementById('onlyTomorrow_1');
             const today = new Date();
             const tomorrow = new Date(today);
             tomorrow.setDate(today.getDate() + 1);
@@ -370,155 +468,66 @@
             const dd = String(tomorrow.getDate()).padStart(2, '0');
 
             dateInput.value = `${yyyy}-${mm}-${dd}`;
+            dateInput1.value = `${yyyy}-${mm}-${dd}`; // Set the same date for the second input
+
             dateInput.min = dateInput.value;
             dateInput.max = dateInput.value;
+        });
 
+        document.addEventListener('DOMContentLoaded', function() {
             const ageGroupSelect = document.getElementById('ageGroupSelect');
-            const activityRows = document.querySelectorAll('tbody tr');
-            const fixedRows = document.querySelectorAll('tbody tr:nth-child(1), tbody tr:nth-child(3), tbody tr:nth-child(6)'); // Breakfast, Refreshment, Lunch rows
-            const lunchRow = document.querySelector('tbody tr:nth-child(6)'); // Lunch row
-            const lunchStartTimeInput = lunchRow.querySelector('td:nth-child(3) input'); // Lunch start time input
-            const lunchEndTimeInput = lunchRow.querySelector('td:nth-child(4) input'); // Lunch end time input
+            const insideFormAgeGroup = document.getElementById('InsideFormAgeGroup');
+            const content1 = document.getElementById('content1');
+            const content2 = document.getElementById('content2');
+            content1.style.display = 'block';
+            content2.style.display = 'none';
 
-            // Get post-lunch activity rows
-            const postLunchActivityRow = document.querySelector('tbody tr:nth-child(7)'); // First activity after lunch
-            const subjectRow = document.querySelector('tbody tr:nth-child(8)'); // Second activity after lunch (subject)
-            const finalActivityRow = document.querySelector('tbody tr:nth-child(9)'); // Final activity
-
-            ageGroupSelect.addEventListener('change', function() {
-                const selectedAgeGroup = this.value;
-
-                // Always show fixed rows (meals)
-                fixedRows.forEach(row => {
-                    row.style.display = '';
-                });
-
-                // Adjust lunch time and post-lunch activities based on age group
-                if (selectedAgeGroup === '6 - 9' || selectedAgeGroup === '10 - 13') {
-                    // Set lunch time to 14:00 for older age groups
-                    lunchStartTimeInput.value = '14:00';
-                    lunchEndTimeInput.value = '14:30';
-
-                    // Update post-lunch activity times
-                    if (postLunchActivityRow) {
-                        postLunchActivityRow.querySelector('td:nth-child(3) input').value = '14:30';
-                        postLunchActivityRow.querySelector('td:nth-child(4) input').value = '15:30';
-
-                        // Update first dropdown to show it's an activity
-                        const activitySelect = postLunchActivityRow.querySelector('td:nth-child(1) select');
-                        if (activitySelect) {
-                            activitySelect.querySelector('option[disabled]').textContent = 'Select Activity';
-                        }
-                    }
-
-                    if (subjectRow) {
-                        subjectRow.querySelector('td:nth-child(3) input').value = '15:30';
-                        subjectRow.querySelector('td:nth-child(4) input').value = '16:30';
-
-                        // Update first dropdown to show it's a subject
-                        const subjectSelect = subjectRow.querySelector('td:nth-child(1) select');
-                        if (subjectSelect) {
-                            subjectSelect.querySelector('option[disabled]').textContent = 'Select Subject';
-                        }
-                    }
-
-                    if (finalActivityRow) {
-                        finalActivityRow.querySelector('td:nth-child(3) input').value = '16:30';
-                        finalActivityRow.querySelector('td:nth-child(4) input').value = '17:00';
-                    }
-
-                    // Show only needed activity rows for older kids
-                    activityRows.forEach((row, index) => {
-                        row.style.display = index >= 10 - 5 ? '' : 'none';
-                    });
-
-                    // Make sure staff dropdowns are enabled and reset to default
-                    activityRows.forEach(row => {
-                        const staffSelect = row.querySelector('td:nth-child(2) select');
-                        if (staffSelect) {
-                            staffSelect.disabled = false;
-                            staffSelect.selectedIndex = 0;
-                        }
-                    });
-                } else if (selectedAgeGroup === '3 - 5') {
-                    // Keep original lunch time (13:00) for younger kids
-                    lunchStartTimeInput.value = '13:00';
-                    lunchEndTimeInput.value = '13:30';
-
-                    // Update post-lunch activity times
-                    if (postLunchActivityRow) {
-                        postLunchActivityRow.querySelector('td:nth-child(3) input').value = '13:30';
-                        postLunchActivityRow.querySelector('td:nth-child(4) input').value = '15:30';
-                    }
-
-                    if (subjectRow) {
-                        subjectRow.querySelector('td:nth-child(3) input').value = '15:30';
-                        subjectRow.querySelector('td:nth-child(4) input').value = '16:30';
-                    }
-
-                    if (finalActivityRow) {
-                        finalActivityRow.querySelector('td:nth-child(3) input').value = '16:30';
-                        finalActivityRow.querySelector('td:nth-child(4) input').value = '17:00';
-                    }
-
-                    // Show all activity rows for younger kids
-                    activityRows.forEach(row => {
-                        row.style.display = '';
-
-                        // Clear and disable all staff selects for age group 3-5
-                        const staffSelect = row.querySelector('td:nth-child(2) select');
-                        if (staffSelect) {
-                            staffSelect.selectedIndex = 0; // Reset to default option
-                            staffSelect.disabled = true; // Disable the select
-                        }
-
-                        // Also clear any static staff inputs if they exist
-                        const staffInput = row.querySelector('td:nth-child(2) input');
-                        if (staffInput) {
-                            staffInput.value = ''; // Clear the input
-                        }
-                    });
+            ageGroupSelect.addEventListener('change', function(event) {
+                const selectedValue = this.value;
+                console.log(selectedValue); // Log the selected value
+                if (selectedValue === '3-5') {
+                    content1.style.display = 'block';
+                    content2.style.display = 'none';
+                } else if (selectedValue === '6-9') {
+                    content1.style.display = 'none';
+                    content2.style.display = 'block';
+                    insideFormAgeGroup.value = selectedValue; // Set the hidden input value
+                } else if (selectedValue === '10-13') {
+                    content1.style.display = 'none';
+                    content2.style.display = 'block';
+                    insideFormAgeGroup.value = selectedValue; // Set the hidden input value
                 } else {
-                    // Reset lunch time and schedule to default if no age group selected
-                    lunchStartTimeInput.value = '13:00';
-                    lunchEndTimeInput.value = '13:30';
-
-                    // Reset post-lunch activity times
-                    if (postLunchActivityRow) {
-                        postLunchActivityRow.querySelector('td:nth-child(3) input').value = '13:30';
-                        postLunchActivityRow.querySelector('td:nth-child(4) input').value = '15:00';
-                    }
-
-                    if (subjectRow) {
-                        subjectRow.querySelector('td:nth-child(3) input').value = '15:00';
-                        subjectRow.querySelector('td:nth-child(4) input').value = '16:30';
-                    }
-
-                    if (finalActivityRow) {
-                        finalActivityRow.querySelector('td:nth-child(3) input').value = '16:30';
-                        finalActivityRow.querySelector('td:nth-child(4) input').value = '17:00';
-                    }
-
-                    // Show all rows if no age group selected
-                    resetFilter();
-
-                    // Enable staff dropdowns
-                    activityRows.forEach(row => {
-                        const staffSelect = row.querySelector('td:nth-child(2) select');
-                        if (staffSelect) {
-                            staffSelect.disabled = false;
-                            staffSelect.selectedIndex = 0;
-                        }
-                    });
+                    content1.style.display = 'block';
+                    content2.style.display = 'none';
                 }
             });
-
-            function resetFilter() {
-                activityRows.forEach(row => {
-                    row.style.display = '';
-                });
-            }
         });
+
+        function loadTeachers(subject) {
+            fetch("<?= ROOT ?>/Manager/Schedule/getTeacher", {
+                    method: "POST",
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        Subject: subject
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const Teachers = data.data
+                        console.log(Teachers);
+                        Teachers.forEach(teacher => {
+                            const option = document.createElement("option");
+                            option.value = teacher.TeacherID;
+                            option.textContent = teacher.First_Name + " " + teacher.Last_Name;
+                            document.getElementById("teacherSelect").appendChild(option);
+                        });
+                    } else {
+                        alert("Logout failed. Try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
     </script>
 </body>
 

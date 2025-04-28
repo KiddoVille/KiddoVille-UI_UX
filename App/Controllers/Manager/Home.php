@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -13,7 +14,33 @@ class Home
         $data = $this->store_stats();
         $data = $data + $this->visitors_log();
         $data = $data + $this->show_emergency();
+        $data = $data + $this->show_reservations();
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $this->view('Manager/Home', $data);
+    }
+
+    public function show_reservations(){
+
+        $model = new \Modal\Reservation;
+        $child = new \Modal\Child;
+        $parent = new \Modal\ParentUser;    
+
+
+        $records = $model->findall();
+
+        foreach($records as $reservation){
+            $childData = $child->findById($reservation->ChildID);
+            if($childData){
+                $parentData = $parent->findById($childData->ParentID);
+                if($parentData){
+                    $reservation->ParentName = $parentData->First_Name . ' ' . $parentData->Last_Name;
+                }
+            }
+
+        }
+        $data['reservations'] = $records;
+        return $data;
     }
 
     private function store_stats()
@@ -80,7 +107,7 @@ class Home
         $emodel = new \Modal\Emergency;
         $today = new \DateTime();
         $formattedDate = $today->format('Y-m-d');
-        $rows = $emodel->where_norder(["Date" => $formattedDate]);
+        $rows = $emodel->where_order(["Date" => $formattedDate] , [], "Date");
 
         // Check if $rows is an iterable object and not empty
         if (!empty($rows) && is_iterable($rows)) {
@@ -117,4 +144,5 @@ class Home
         $data['visitorsummary'] = $Visitorrecords;
         return $data;
     }
+
 }

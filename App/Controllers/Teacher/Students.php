@@ -7,6 +7,27 @@ class Students {
 
     public function index() {
         $student = new \Modal\Child;
+        $teacher = new \Modal\Teacher;
+
+        $TeacherID = $this->findID();
+
+        $row = $teacher->first(['TeacherID' => $TeacherID]);
+        // show($row);
+        // exit();
+            $firstName = $row->First_Name;
+            $lastName = $row->Last_Name ;
+            $email =  $row->Email;
+            $image= $row->Image;
+            $base64Image = base64_encode($image);
+
+            $TeacherInfo = [
+                    'firstName' => $firstName,  
+                    'lastName' => $lastName,
+                    'email' => $email,
+                    'image' => 'data:image/jpg;base64,' . $base64Image];
+
+                // show($TeacherInfo);
+                // exit();
 
         // ✨ Handle AJAX POST request (search or fetch all)
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'SearchRecord') {
@@ -41,13 +62,16 @@ class Students {
                 header('Content-Type: application/json');
                 echo json_encode([
                     'students' => array_map(fn($student) => (array)$student, $result),
-                    'message' => empty($result) ? 'No students found.' : ''
+                    'message' => empty($result) ? 'No students found.' : '',
+                    'teacher' => $TeacherInfo
+
                 ]);
             } else {
                 header('Content-Type: application/json');
                 echo json_encode([
                     'students' => [],
-                    'message' => 'No students found.'
+                    'message' => 'No students found.',
+                    'teacher' => $TeacherInfo
                 ]);
             }
             exit();
@@ -62,7 +86,8 @@ class Students {
 
         $this->view('Teacher/Students', [
             'students' => $students,
-            'message' => empty($students) ? 'No students found.' : ''
+            'message' => empty($students) ? 'No students found.' : '',
+            'teacher' => $TeacherInfo
         ]);
     }
 
@@ -145,8 +170,10 @@ class Students {
 
             $scoreArray = [];
             $scoreArray['ObservationID'] = $observeID;
-            
+            // var_dump($skillArray);
+            // exit();
             $skillName = $skill->where_norder(['Skill_Name' => $key]);
+           
             $skillID = $skillName[0]->SkillId;
             $scoreArray['SkillID'] = $skillID;
             $scoreArray['Score'] = $value;
@@ -154,8 +181,7 @@ class Students {
             $score->insert($scoreArray);
             
         }
-        // var_dump($scoreArray);
-        //     exit();
+        
     }
 
     public function findID(){

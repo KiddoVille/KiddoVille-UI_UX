@@ -81,7 +81,7 @@
                         <img src="<?=ROOT?>/assets/images/let.png">
                     </div>
                     
-                    <form action="<?=ROOT?>/Teacher/KiddoSchedule/addTask" method="post">
+                    <form action="<?=ROOT?>/Teacher/KiddoSchedule/addTask" method="post" id="task-form-submit">
                     <input type="hidden" id="today-task-id" name="WorkID">
                     <input type="hidden" id="today-teacher-id" name="TeacherID">
                         <div class="kiddo-body">
@@ -90,7 +90,8 @@
                     <input type="text" name="Title"  required> -->
 
                     <label htmlfor="name">Description</label>
-                    <textarea rows="4" required name="Description"></textarea>
+                    <textarea rows="4"  name="Description" id="task-des"></textarea>
+                    <span  style="color: red;" id="task-error"></span>
                     
                 </div>
                    
@@ -124,8 +125,8 @@
                         <input type="text" name="Title"  id="task-title" required> -->
 
                         <label htmlfor="name">Description</label>
-                        <textarea rows="4" required name="Description" id="task-description"></textarea>
-                        
+                        <textarea rows="4" required name="Description" class="task-description"></textarea>
+                        <span id="task-name-error" style="color: red;" class="task-name-erro"></span>
                     </div>
                     
                         <div class="task-edit-footer">
@@ -158,7 +159,7 @@
                 <i class='bx bxs-bell' ></i>
             </a>
             <a href="#" class="profile">
-                <img src="<?=ROOT?>/assets/images/profilePic.png" onclick="toggleMenu()" id="profileIcon">
+                <img src="<?=htmlspecialchars($teacherInfo['Image'])?>" onclick="toggleMenu()" id="profileIcon">
             </a>
             </div>
 
@@ -245,7 +246,7 @@
                     <div class="perfomance">
                             <div class="title">
                                 <h3>Overrall Performance</h3>
-                                <a href="#"><p>View Details ></p></a>
+                                
                             </div>
                             
                             <div class="chart">
@@ -411,6 +412,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="<?=JS?>/Teacher/script.js"></script>
     <script src="<?=JS?>/Teacher/graphs.js"></script>
+    <script src="<?=JS?>/Teacher/validation.js"></script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     <script>

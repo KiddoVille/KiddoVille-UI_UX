@@ -87,7 +87,7 @@
             $Events = $filterDate ? $EventModal->where_norder(["Date" => $filterDate]) : $EventModal->findall();
         
             if ($filterAge !== null) {
-                $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15', 'All'];
+                $validAgeGroups = ['3-5', '6-9', '10-13', 'All'];
         
                 if (in_array($filterAge, $validAgeGroups)) {
                     if ($filterAge !== 'All') {

@@ -85,8 +85,8 @@
                             <input name="Phone_Number" style="width: 200px;" class="number"
                             placeholder="<?php 
                                 echo htmlspecialchars(
-                                    $_SESSION['APP']['CONTACT_VARIFIED'] 
-                                        ? $_SESSION['APP']['NUMBER'] 
+                                    isset($_SESSION['APP']['CONTACT_VARIFIED'], $_SESSION['APP']['NUMBER']) && $_SESSION['APP']['CONTACT_VARIFIED']
+                                        ? $_SESSION['APP']['NUMBER']
                                         : '0712345678'
                                 ); 
                             ?>"
@@ -98,9 +98,19 @@
                         </div>
                     </div>
                     <span id="red-star5" class="red-star" style="margin-right: -40px;"> *</span>
-                    <div class="datacon imagecon" id="image-bg">
-                        <input type="file" name='profile_image' required style="display: none" id="image" accept="image/*">
-                        <i class="fa fa-add" style="font-size:30px; cursor: pointer; border-radius: 30px; padding: 10px 12px; border: 2px solid black; background-color: white;" id="image-icon"></i>
+                    <div class="datacon imagecon" id="image-bg" <?php if (!empty($data['values']['profile_image_base64'])): ?>
+                            style="background-image: url('<?= $data['values']['profile_image_base64'] ?>'); background-size: cover;"
+                        <?php endif; ?>
+                    >
+                    <input 
+                            type="file" 
+                            name="profile_image" 
+                            id="image" 
+                            accept="image/*" 
+                            style="display: none"
+                            <?= empty($data['values']['profile_image_base64']) ? 'required' : '' ?>
+                        >
+                        <i class="fa fa-add" id="image-icon" style="font-size:30px; cursor: pointer; border-radius: 30px; padding: 10px 12px; border: 2px solid black; background-color: white;"></i>
                     </div>
                 </div>
                 <div class="datacon">
@@ -128,9 +138,12 @@
                     <div class="data">
                         <label>Email <span id="red-star8" class="red-star"> *</span></label>
                         <input name="Email" style="width: 308px;" required 
+                                value="<?php if (!empty($data['values']['Email'])) {
+                                        echo $data['values']['Email'];
+                                    } ?>"
                             placeholder="<?php 
                                 echo htmlspecialchars(
-                                    $_SESSION['APP']['EMAIL_VARIFIED'] 
+                                    isset($_SESSION['APP']['EMAIL_VARIFIED'], $_SESSION['APP']['EMAIL']) && $_SESSION['APP']['EMAIL_VARIFIED']
                                         ? $_SESSION['APP']['EMAIL'] 
                                         : 'lol@gmail.com'
                                 ); 
@@ -177,9 +190,9 @@
             const image = document.getElementById('image');
             const imagebg = document.getElementById('image-bg');
 
-            imageicon.addEventListener('click', function() {
-                image.click();
-            })
+            //imageicon.addEventListener('click', function() {
+            //    image.click();
+            //})
 
             image.addEventListener('input', function(event) {
                 const file = event.target.files[0];
@@ -295,9 +308,6 @@
                     console.log(`${key}: ${value}`);
                 });
             });
-
-            const form = document.getElementById(details);
-            form.submit();
 
             // Trigger file input when icon is clicked
             document.getElementById('image-icon').addEventListener('click', () => {

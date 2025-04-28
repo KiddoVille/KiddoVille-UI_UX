@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use App\Helpers\ManagerHelper;
 
 defined('ROOTPATH') or exit('Access denied');
 
@@ -9,8 +10,10 @@ class Meeting
     use MainController;
     public function index()
     {
+        $Helper = new ManagerHelper;
+        $Helper->Check_Manager();
         $data = $this->show_slots();
-        $data = $data + $this->show_admission_slots();
+        // $data = $data + $this->show_admission_slots();
 
         $this->view('Manager/Meeting', $data);
     }
@@ -27,16 +30,16 @@ class Meeting
         return $data;
     }
 
-    public function show_admission_slots(){
-        $data = [];
-        $admissionModel = new \Modal\AddmissionMeeting;
-        $firstday = date('Y-m-d', strtotime('today'));
-        $lastday = date('Y-m-d', strtotime('+10 days'));
-        $slotRecords = $admissionModel->findFutureDates($firstday, $lastday, 'Date');
-        $data['admission_allslots'] = $slotRecords;
-        return $data;
+    // public function show_admission_slots(){
+    //     $data = [];
+    //     $admissionModel = new \Modal\Meeting_Request;
+    //     $firstday = date('Y-m-d', strtotime('today'));
+    //     $lastday = date('Y-m-d', strtotime('+10 days'));
+    //     $slotRecords = $admissionModel->findFutureDates($firstday, $lastday, 'Date');
+    //     $data['admission_allslots'] = $slotRecords;
+    //     return $data;
 
-    }
+    // }
 
     public function updateMeeting()
     {
@@ -138,31 +141,7 @@ class Meeting
 
 
 
-    public function add_admission_Meeting(){
-        $model = new \modal\AddmissionMeeting;
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $data = [
-                'name' => $_POST['name'],
-                'nic' => $_POST['nic'],
-                'Date' => $_POST['Date'],
-                'Time' => $_POST['Time'],
-                'Email' => $_POST['Email']
-            ];
-            if($model->validate($data)){
-                $result = $model -> insert($data);
-                if($result){
-                    echo "Failed to add admissionmeeting";
-                }
-                else{
-                    echo "Add addmision meeting successfully";
-                }
-                redirect("Manager/Meeting");
-            }
-        }
-        else {
-            $this->view('Manager/Meeting');
-        }
-    }
+    
 
 
 }

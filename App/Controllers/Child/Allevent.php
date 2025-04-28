@@ -87,7 +87,7 @@
             $EventModal = new \Modal\Event;
             $Events = $filterDate ? $EventModal->where_norder(["Date" => $filterDate]) : $EventModal->findall();
         
-            $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15', 'All'];
+            $validAgeGroups = ['3-5', '6-9', '10-13'];
         
             // Filter events based on the child's age and allowed age groups
             $Events = array_filter($Events, function ($event) use ($childAge, $validAgeGroups) {

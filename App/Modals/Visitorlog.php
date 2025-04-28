@@ -9,7 +9,8 @@
 
         protected $table = 'visitor';
         protected $allowedColumns = [
-            'VisitorName',
+            'FirstName',
+            'LastName',
             'Role',
             'Start_time',
             'End_time',

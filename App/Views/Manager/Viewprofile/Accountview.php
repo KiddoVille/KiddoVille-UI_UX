@@ -128,7 +128,7 @@
                             placeholder="Search ID"
                             style="padding: 10px 30px;margin-left:-50%">
                         <select name="role" id="rolefilter" style="margin-left:50%">
-                            <option value="All">All</option>
+                            <option value="All" selected>All</option>
                             <option value="User">Parent</option>
                             <option value="Teacher">Teacher</option>
                             <option value="Maid">Maid</option>
@@ -187,6 +187,7 @@
                             <div class="common-fields">
                                 <label for="email" class="labeltag">Email : </label>
                                 <input type="email" id="email" name="email" required>
+                                <p id="emailError" style="color: red; font-size: 12px; display: none;" ></p>
 
                                 <label for="name" class="labeltag">Username</label>
                                 <input type="text" id="name" name="Username" required>
@@ -217,10 +218,11 @@
                     </div>
                 </div>
 
+        
+
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        
         <script>
             function fetchProfile(Role, Id) {
                 fetch('<?= ROOT ?>/Manager/Viewprofile/store_users', {
@@ -439,6 +441,9 @@
                 const passwordInput = document.getElementById('password');
                 const passwordError = document.getElementById('passwordError');
                 const usererror = document.getElementById('usererror');
+                const emailError = document.getElementById('emailError');
+
+                //
 
                 // Password validation regex
                 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
@@ -480,7 +485,7 @@
                     const password = passwordInput.value;
                     let haserror = false;
                     if (!passwordRegex.test(password)) {
-                        e.preventDefault(); // Stop form submission
+                        e.preventDefault();
                         passwordError.textContent = "Please fix your password before submitting.";
                         haserror = true;
                     }

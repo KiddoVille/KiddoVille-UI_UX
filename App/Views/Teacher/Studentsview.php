@@ -21,10 +21,12 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="sidebar">
-                <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic.png" alt="profile-pic">
+            <div class="sidebar-header">
+                <?php if(isset($teacher)):?>
+                <img src="<?=$teacher['image']?>">
                     <div class="sidebar-header-content">
-                        <h3>Sara Britney</h3>
+                        <h3><?= $teacher['firstName'] ?> <?= $teacher['lastName'] ?></h3>
+                        <?php endif; ?>
                         <h4>Teacher</h4>
                     </div>
                 </div>
@@ -53,11 +55,8 @@
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
                     </a>
-                    <hr>
-                    <a href="<?=ROOT?>/Main/Help" class="sidebar-bottom" id="help-link">
-                            <i class='bx bxs-help-circle' ></i>
-                            <span class="text">Help</span>
-                    </a>
+                    
+                   
                     
         
                 </div>
@@ -77,8 +76,8 @@
                     <input type="hidden" name="ChildID" id = "id-input"/>
                     <hr>
                     <div class="skill-row">
-                        <label for="teamwork">Teamwork</label>
-                        <select name="Team Work" id="teamwork" >
+                        <label for="teamwork">Cognitive</label>
+                        <select name="Cognitive" id="teamwork" >
                         <option disabled selected value="">Rate</option>
                         <option value="1">🌱 Beginner</option>
                         <option value="2">🌿 Developing</option>
@@ -113,8 +112,8 @@
                         </select>
                     </div>
                     <div class="skill-row">
-                        <label for="self_care">Self-Care</label>
-                        <select name="Self Care" id="self_care" >
+                        <label for="self_care">Creativity</label>
+                        <select name="Creativity" id="self_care" >
                         <option disabled selected value="">Rate</option>
                         <option value="1">🌱 Beginner</option>
                         <option value="2">🌿 Developing</option>
@@ -134,13 +133,13 @@
 
             <div class="navabr">
                 <div class="navbar-left">
-                    <a href="#"><h2>Hey Sara Britney</h2></a>
+                    <a href="#"><h2>Hey <?= $teacher['firstName'] ?> <?= $teacher['lastName'] ?></h2></a>
                     <h4>Empowering Excellence in Every Lesson!</h4>
                 </div>
                 <div class="navbar-right">
                
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic.png" onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$teacher['image']?>" onclick="toggleMenu()" id="profileIcon">
                 </a>
                 </div>
     

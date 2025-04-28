@@ -121,7 +121,7 @@
         </div>
     </div>
     <!-- navigation for funzone -->
-    <div class="main-content">
+    <div class="main-content" style="top: 0px; position:fixed;">
         <!-- Header -->
         <div class="header">
             <i class="fa fa-bars" id="minimize-btn"
@@ -162,7 +162,7 @@
                 </div>
             </div>
         </div>
-        <div class="header2">
+        <div class="header2" style="margin-top: 86px; margin-left: 268px;">
             <img src="<?= IMAGE ?>/funzone-logo.png" style="width: 40px; height: 40px; margin-left: 20px;">
             <p style="color: white; font-size: 17px;">Funzone </p>
             <a href="<?= ROOT ?>/Child/funzonehome" class="hover-effect" style="margin-left: 170px;">Home</a>
@@ -177,7 +177,7 @@
                 <option value="Audio"> Songs </option>
             </select>
         </div>
-        <div class="grid" style="max-height: 100%; overflow-x:hidden;">
+        <div class="grid" style="max-height: 100%; overflow-x:hidden; margin-left: 268px; margin-top: 160px;">
             <div class="video-container">
                 <div class="video-content">
                     <?php if ($data['Media']->MediaType === 'Video'): ?>
