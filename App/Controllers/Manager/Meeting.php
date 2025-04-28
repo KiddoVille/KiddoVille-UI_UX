@@ -23,9 +23,10 @@ class Meeting
         $data = [];
         $slotModel = new \Modal\Meeting;
 
-        $firstday = date('Y-m-d', strtotime('today'));
-        $lastday = date('Y-m-d', strtotime('+10 days'));
-        $slotRecords = $slotModel->findFutureDates($firstday, $lastday, 'Date');
+        // $firstday = date('Y-m-d', strtotime('today'));
+        // $lastday = date('Y-m-d', strtotime('+10 days'));
+        // $slotRecords = $slotModel->findFutureDates($firstday, $lastday, 'Date');
+        $slotRecords = $slotModel->findall();
         $data['allslots'] = $slotRecords;
         return $data;
     }
@@ -42,8 +43,6 @@ class Meeting
     public function updateMeeting()
     {
         $model = new \Modal\Meeting;
-        show($_POST);
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'Date' => $_POST['Date'],
@@ -138,8 +137,14 @@ class Meeting
     }
  
 
-    // public function addmissiondelete($NIC){
-    //     $model = new \modal\
+    // public function deleteAdmissionSlot($NIC){
+    //     $model = new \Modal\Meeting_Request;
+    //     if($model -> delete($NIC, "NIC")){
+    //         echo "Slot Deleted Successfully";
+    //     }else{  
+    //         echo "Failed to delete Slot";
+    //     }
+    //     header("Location: " . ROOT . "/Manager/Meeting");
     // }
 
 
