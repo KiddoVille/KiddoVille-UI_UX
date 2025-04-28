@@ -17,9 +17,9 @@
 
                   $child = $childModel->first(['ChildID' => $payment->ChildID],[]);
                     $payment->First_Name = $child->First_Name ;
-                    // $childPic =  $child->Image;
-                    // $base64Image = base64_encode($childPic);
-                    // $payment["Image"] = 'data:image/jpg;base64,' . $base64Image;
+                    $childPic =  $child->Image;
+                    $base64Image = base64_encode($childPic);
+                    $payment->Image = 'data:image/jpg;base64,' . $base64Image;
                 }
             $data['payments'] = $allPayments;
             //  show($allPayments);
@@ -45,10 +45,12 @@
                foreach($filterpaymenties as $payment){
                 $child = $childModel->first(['ChildID' => $payment->ChildID],[]);
                   $payment->First_Name = $child->First_Name ;
-                  // $childPic =  $child->Image;
-                  // $base64Image = base64_encode($childPic);
-                  // $payment["Image"] = 'data:image/jpg;base64,' . $base64Image;
+                  $childPic =  $child->Image;
+                  $base64Image = base64_encode($childPic);
+                  $payment->Image = 'data:image/jpg;base64,' . $base64Image;
               }
+            //   show($filterpaymenties);
+            //   exit();
               $data['payments'] = $filterpaymenties;
                 // show($_POST['ChildID']);
                 // exit();

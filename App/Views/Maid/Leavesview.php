@@ -138,11 +138,16 @@
                                     <div class="colum date">
                                         <span><?= htmlspecialchars($leave->Status) ?></span>
                                     </div>
-                                    <form class="colum action" method='POST' action="<?=ROOT?>/Maid/Leaves/edit">
-                                        <input type='hidden' value='<?= htmlspecialchars($leave->LeaveID) ?>'>
-                                        <button><i class="fas fa-edit"></i>Edit</button>
+                                    <div class="colum action">
+                                        <form  method='POST' action="<?=ROOT?>/Maid/Leavesupdate">
+                                        <input type='hidden' value='<?= htmlspecialchars($leave->LeaveID) ?>' name = 'leaveid'>
+                                        <button><i class="fas fa-edit" type = "submit"></i>Edit</button>
+                                        </form>
+                                        <form method='POST' action="<?=ROOT?>/Maid/Leaves/delmai">
+                                        <input type='hidden' value='<?= htmlspecialchars($leave->LeaveID) ?>' name = 'leaveid'>
                                         <button><i class="fas fa-trash"></i>Delete</button>
-                                </form>
+                                        </form>
+                                </div>
                                 </div>
                                 <hr>
                             <?php endforeach; ?>
