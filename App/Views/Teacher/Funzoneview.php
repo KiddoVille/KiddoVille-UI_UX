@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students</title>
+    <title>Teacher</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/funzone.css?v=<?= time() ?>">
@@ -155,7 +155,7 @@
                     <div class="selects">
                         <div class="age">
                             <label for="date">Age Group</label>
-                            <select name="AgeGroup" id="age_group">
+                            <select name="AgeGroup" id="age_groups">
                                 <option disabled selected value="">Select</option>
                                 <option value="3-5">3-5</option>
                                 <option value="6-9">6-9</option>
@@ -164,7 +164,7 @@
                         </div>
                         <div class="type">
                             <label for="type">Media Type</label>
-                            <select name="MediaType" id="media_type">
+                            <select name="MediaType" id="media_types">
                             <option disabled selected value="">Select</option>
                                 <option value="Audio">Audio</option>
                                 <option value="Video">Video</option>
@@ -176,13 +176,13 @@
                     </div>
                     <div class="title">
                         <h4>Title</h4>
-                        <input type="text" name="Title" placeholder="Add file title" id="title-input" required/>
+                        <input type="text" name="Title" placeholder="Add file title" id="title-inputs" required/>
                        
                     </div>
 
                     <div class="funzone-footer">
                         <h4>Description</h4>
-                        <input type="text" name="Description" placeholder="Add file description" id="description-input" />
+                        <input type="text" name="Description" placeholder="Add file description" id="description-inputs" />
                         <p>You will be notified once the import is successful</p>
                     </div>
 
@@ -195,15 +195,16 @@
                         </div>
                         <h3>Drag and drop files to upload or </h3>
                         <div class="file-select">
-                             <input type="file" name="file" id="file" >
+                             <input type="file" name="file" id="files" >
                              
                         </div>
                         <p id="current-file-name"></p>
                         <p>Supported Files: JPG, PNG, PDF, DOCX</p>
                     </div>
                     <input type="hidden"  id="media-id">
+                    <input type="hidden" id="url">
                     <div class="funzone-buttons">
-                        <button type = "button"class="cancel"  onclick="closeFunZone()">Cancel</button>
+                        <button type = "button"class="cancel"   onclick="cancelFunZone()">Cancel</button>
                         <button type="button" class="done" onclick="submitEdit(event)">Done</button>
 
 
@@ -302,15 +303,19 @@
 
                 <div class="filter-group">
                     <div class="filters">
-                        <input type="text" name="search" placeholder="Search Name..." id="media_name">
+                       
                         
                         <div class="age-select">
                             <label for="date">Age Group</label>
-                            <select name="age-group">
-                                <option value="3-5">3-5</option>
-                                <option value="6-9">6-9</option>
-                                <option value="10-13">10-13</option>
-                            </select>
+                            <form id="ageForm" action="<?=ROOT?>/Teacher/Funzone/selectbyAge" method="POST">
+                                <select name="age-group" onchange="document.getElementById('ageForm').submit()">
+                                    <option value="">Select Age Group</option>
+                                    <option value="3-5">3-5</option>
+                                    <option value="6-9">6-10 </option>
+                                    <option value="10-13">11-13 </option>
+                                </select>
+                            </form>
+
                         </div>
                         <button class="upload" id="open-funzone" onclick="showFunzone()"><i class="fa-solid fa-plus"></i>Upload a file</button>
                     </div>
@@ -398,7 +403,7 @@
     <script>
 
         const showEditFunzone = (item) => {
-           console.log(item);
+          // console.log(item.file);
 
     try {
         // Parse the leave object if it's a string
@@ -413,20 +418,20 @@
             editContainer.classList.add("show-funzone-edit");
             
             // //Set form field values from the leave object
-            if (document.getElementById('age_group')) {
-                document.getElementById('age_group').value = item.AgeGroup;
+            if (document.querySelector('#age_groups')) {
+                document.querySelector('#age_groups').value = item.AgeGroup;
             }
-            if (document.getElementById('media_type')) {
-                document.getElementById('media_type').value = item.MediaType;
+            if (document.querySelector('#media_types')) {
+                document.querySelector('#media_types').value = item.MediaType;
             }
 
-            const title = editContainer.querySelector('#title-input')
+            const title = editContainer.querySelector('#title-inputs')
             title.value = item.Title;
 
-            const descrpt = editContainer.querySelector('#description-input')
+            const descrpt = editContainer.querySelector('#description-inputs')
             descrpt.value = item.Description;
 
-            const fileInput = editContainer.querySelector('#file');
+            const fileInput = editContainer.querySelector('#files');
             const file = fileInput ? fileInput.files[0] : null;
 
             const currentFile = editContainer.querySelector('#current-file-name')
@@ -440,6 +445,11 @@
             const mediaIdInput = document.getElementById('media-id');
             if (mediaIdInput) {
                 mediaIdInput.value = item.MediaID;  // Set Media ID
+            }
+
+            const url = document.getElementById('url');
+            if (url) {
+                url.value = item.URL;
             }
             
            
@@ -456,13 +466,14 @@
 const submitEdit = (event) => {
     event.preventDefault(); // STOP form from submitting & reloading page
 
-    const mediaId = document.getElementById('media-id').value;
-    const title = document.querySelector('#title-input').value;
-    const description = document.getElementById('description-input').value;
-    const ageGroup = document.getElementById('age_group').value;
-    const mediaType = document.getElementById('media_type').value;
-    const fileInput = document.getElementById('file');
-    const file = fileInput.files[0];
+    const mediaId = document.querySelector('#media-id').value;
+    const title = document.querySelector('#title-inputs').value;
+    const description = document.querySelector('#description-inputs').value;
+    const ageGroup = document.querySelector('#age_groups').value;
+    const mediaType = document.querySelector('#media_types').value;
+    const fileInput = document.querySelector('#files');
+    const url = document.querySelector('#url').value;
+    const file = fileInput;
 
     const formData = new FormData();
     formData.append('mediaId', mediaId);
@@ -470,6 +481,7 @@ const submitEdit = (event) => {
     formData.append('description', description);
     formData.append('ageGroup', ageGroup);
     formData.append('mediaType', mediaType);
+    formData.append('url', url);
     if (file) {
         formData.append('file', file);
     }
@@ -483,7 +495,7 @@ const submitEdit = (event) => {
         if (data.success) {
             console.log("✅ Media updated successfully!",data);
             alert("✅ Media updated successfully!");
-            //window.location.reload();
+            window.location.reload();
         } else {
             console.error("❌ Error updating media:", data.message);
             alert("Error updating media");

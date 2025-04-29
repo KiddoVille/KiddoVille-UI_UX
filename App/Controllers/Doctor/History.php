@@ -13,8 +13,9 @@
             $slot = new \Modal\TimeSlot;
             $pres = new \Modal\Prescription;
 
-            $DoctorID = $this->findID();
-
+            // $DoctorID = $this->findID();
+            $DoctorID =  1;
+            
             $doctorInfo = $doctor->first(['DoctorID' => $DoctorID]);
             $profileImage = $doctorInfo->Image;
             $baseImage = base64_encode($profileImage);

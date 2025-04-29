@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaves</title>
+    <title>Teacher</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/leaves.css?v=<?= time() ?>">
@@ -267,6 +267,10 @@
                         <?php if (isset($message)): ?>
                             <div class="success-message">
                                 <p><?= $message ?></p>
+                            </div>
+                        <?php elseif (isset($success)): ?>
+                            <div class="ok-message">
+                                <p><?= $success ?></p>
                             </div>
                         <?php endif; ?>
                 </div>

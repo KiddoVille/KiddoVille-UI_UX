@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports</title>
+    <title>Teacher</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/reports.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
@@ -214,7 +214,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<?=JS?>/Teacher/report.js"></script>
+    
     <script>
     function escapeHTML(str) {
         return String(str).replace(/[&<>"']/g, function (m) {
@@ -251,7 +251,7 @@
                 dataType: 'json',
 
                 success: function (response) {
-                    console.log(response);
+                    //console.log(response);
                     let data = typeof response === 'string' ? JSON.parse(response) : response;
                     let completes = $('#report-row-completed');
                     let pendings = $('#report-row-pending');
@@ -275,7 +275,8 @@
                                             <p>Reg No: ${escapeHTML(child.ChildID)}</p>
                                         </div>
                                         <div class="card-footer">
-                                            <button style="color:#fff">Enter Marks</button>
+                                            <button type="button" style="color:#fff" class="enter-btn">Enter Marks</button>
+                                            <p class ="submit-msg">Marks Updated</p>
                                         </div>
                                         <div class="mark-section">
                                          <form class="mark-form" method="POST" id="marks-from">
@@ -355,12 +356,31 @@
                                     alert(response.error || "Failed to submit marks.");
             }
                             },
+                        
                             error: function (xhr, status, error) {
                                 console.error("❌ AJAX error:", xhr.responseText);
-                                alert("An unexpected error occurred while submitting marks.");
+                                alert(response.error);
                             }
                         });
                     });
+
+                    $(document).on('click', '.enter-btn', function () {
+                        const btn = $(this);
+                        const markSection = btn.closest('.card-content').find('.mark-section');
+                        
+                        btn.hide(); // Hide the button when clicked
+                        markSection.show().addClass('show'); // Show the mark section
+                    });
+
+                    $document.on('submit', '.marks-submit', function(){
+                        const button = $(this);
+                        const markSection = button.closest('.card-content').find('.mark-section');
+
+                        markSection.hide();
+                        button.closest('.card-content').find('.enter-btn').hide();
+                        button.closest('.card-content').find('.submit-msg').show();
+
+                    })
 
 
                 }, 
@@ -376,6 +396,7 @@
 </script>
 
     <script src="<?=JS?>/Teacher/script.js"></script>
+    
     
 
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>

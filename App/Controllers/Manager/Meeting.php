@@ -13,7 +13,7 @@ class Meeting
         $Helper = new ManagerHelper;
         $Helper->Check_Manager();
         $data = $this->show_slots();
-        // $data = $data + $this->show_admission_slots();
+        $data = $data + $this->show_admission_slots();
 
         $this->view('Manager/Meeting', $data);
     }
@@ -23,29 +23,26 @@ class Meeting
         $data = [];
         $slotModel = new \Modal\Meeting;
 
-        $firstday = date('Y-m-d', strtotime('today'));
-        $lastday = date('Y-m-d', strtotime('+10 days'));
-        $slotRecords = $slotModel->findFutureDates($firstday, $lastday, 'Date');
+        // $firstday = date('Y-m-d', strtotime('today'));
+        // $lastday = date('Y-m-d', strtotime('+10 days'));
+        // $slotRecords = $slotModel->findFutureDates($firstday, $lastday, 'Date');
+        $slotRecords = $slotModel->findall();
         $data['allslots'] = $slotRecords;
         return $data;
     }
 
-    // public function show_admission_slots(){
-    //     $data = [];
-    //     $admissionModel = new \Modal\Meeting_Request;
-    //     $firstday = date('Y-m-d', strtotime('today'));
-    //     $lastday = date('Y-m-d', strtotime('+10 days'));
-    //     $slotRecords = $admissionModel->findFutureDates($firstday, $lastday, 'Date');
-    //     $data['admission_allslots'] = $slotRecords;
-    //     return $data;
+    public function show_admission_slots(){
+        $data = [];
+        $admissionModel = new \Modal\Meeting_Request;
+        $slotRecords = $admissionModel->findall(); 
+        $data['admission_allslots'] = $slotRecords;
+        return $data;
 
-    // }
+    }
 
     public function updateMeeting()
     {
         $model = new \Modal\Meeting;
-        show($_POST);
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
                 'Date' => $_POST['Date'],
@@ -138,7 +135,17 @@ class Meeting
         }
         header("Location: " . ROOT . "/Manager/Meeting");
     }
+ 
 
+    // public function deleteAdmissionSlot($NIC){
+    //     $model = new \Modal\Meeting_Request;
+    //     if($model -> delete($NIC, "NIC")){
+    //         echo "Slot Deleted Successfully";
+    //     }else{  
+    //         echo "Failed to delete Slot";
+    //     }
+    //     header("Location: " . ROOT . "/Manager/Meeting");
+    // }
 
 
     

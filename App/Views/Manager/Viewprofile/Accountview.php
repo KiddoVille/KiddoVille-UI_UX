@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>
-        KIDDO VILLE Account
-    </title>
+<title>Manager</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Schedule.css?v=<?= time() ?>" />
     <link rel="icon" href="<?= CSS ?>/Manager/KIDDOVILLE_LOGO.jpg">
@@ -152,7 +150,7 @@
                                         <p>Role: <?= htmlspecialchars($user->Role); ?></p>
                                     </div>
                                     <div class="card-footer">
-                                        <button id="userview" class="view-btn" onclick="viewUser(<?= $user->UserID ?>)">View</button>
+                                        <!-- <button id="userview" class="view-btn" onclick="viewUser(<?= $user->UserID ?>)">View</button> -->
                                         <button id="blockuser" class="del-btn" onclick="blockUser(<?= $user->UserID ?>)">Block</button>
                                     </div>
                                 </div>
@@ -218,11 +216,10 @@
                     </div>
                 </div>
 
-        
-
             </div>
         </div>
-        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script>
             function fetchProfile(Role, Id) {
                 fetch('<?= ROOT ?>/Manager/Viewprofile/store_users', {
@@ -278,7 +275,6 @@
                         ${isBlocked ? '<p class="blocked-status">BLOCKED</p>' : ''}
                     </div>
                     <div class="card-footer">
-                        <button onclick="viewUser(${user.UserID})">View</button>
                         ${!isBlocked ? 
                           `<button class="del-btn" onclick="blockUser(${user.UserID})">Block</button>` : 
                           `<button class="unblock-btn" onclick="unblockUser(${user.UserID})">Unblock</button>`
@@ -374,11 +370,11 @@
             }
 
             // Function to view user (replace with your implementation)
-            function viewUser(userId) {
-                console.log("Viewing user with ID:", userId);
-                // Implement your view logic here
-                window.location.href = `<?= ROOT ?>/Manager/Viewprofile/view/${userId}`;
-            }
+            // function viewUser(userId) {
+            //     console.log("Viewing user with ID:", userId);
+            //     // Implement your view logic here
+            //     window.location.href = `<?= ROOT ?>/Manager/Viewprofile/view/${userId}`;
+            // }
 
             // Function to block user
             function blockUser(userId) {
@@ -485,7 +481,7 @@
                     const password = passwordInput.value;
                     let haserror = false;
                     if (!passwordRegex.test(password)) {
-                        e.preventDefault();
+                        e.preventDefault(); // Stop form submission
                         passwordError.textContent = "Please fix your password before submitting.";
                         haserror = true;
                     }

@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Payments</title>
+<title>Parent</title>
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -168,7 +168,7 @@
                             <?php if (isset($data['Due'])): ?>
                                 <h2 style="color: red; margin-top: -5px; margin-bottom: -5px;">Overdue Payment</h2>
                                 <p>Due Date: <strong><?= $data['Due']['Date'] ?></strong></p>
-                                <p>Amount: <strong><?= $data['Due']['Amount'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Due']['Amount'] ?> Rs</strong></p>
                                 <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
                                     <input type="hidden" name="total" id="total-input" value="<?= $data['Due']['Amount']*100 ?>" />
                                     <button type="submit" class="pay-now">Pay Now</button>
@@ -185,7 +185,7 @@
                             <?php if (isset($data['Expenses'])): ?>
                                 <h2 style="color: green; margin-top: -5px; margin-bottom: -5px;">Upcoming Payment</h2>
                                 <p>Due Date: <strong><?= $data['Expenses']['Date'] ?></strong></p>
-                                <p>Amount: <strong><?= $data['Expenses']['Amount'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Expenses']['Amount'] ?> Rs</strong></p>
                             <?php else: ?>
                                 <h2 style="color: red;"> No Expenses </h2>
                             <?php endif; ?>
@@ -199,7 +199,7 @@
                                 <img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-top: -15px;">
                                 Last bill amount
                             </h3>
-                            <p style="margin-top: 15px;"><?= isset($data['LastBill']['Amount']) ? $data['LastBill']['Amount'] : '0'; ?></p>
+                            <p style="margin-top: 15px;"><?= isset($data['LastBill']['Amount']) ? $data['LastBill']['Amount'] : '0'; ?> Rs</p>
                         <?php else: ?>
                             <h3 style="margin-top: -12px;">
                                 <img src="<?= IMAGE ?>/mountain.svg" alt="Welcome" style="width: 40px; margin-right: 10px; margin-bottom: -15px;">
@@ -270,7 +270,7 @@
                                             Service: Tuition Fee
                                         </span>
                                         <span class="amount">
-                                            Amount: $500
+                                            Amount: 500Rs
                                         </span>
                                     </li>
                                     <li>
@@ -278,7 +278,7 @@
                                             Service: Meal Plan
                                         </span>
                                         <span class="amount">
-                                            Amount: $200
+                                            Amount: 200Rs
                                         </span>
                                     </li>
                                     <li>
@@ -286,7 +286,7 @@
                                             Service: Sports Activity
                                         </span>
                                         <span class="amount">
-                                            Amount: $150
+                                            Amount: 150Rs
                                         </span>
                                     </li>
                                     <li>
@@ -294,12 +294,12 @@
                                             Service: Art Class
                                         </span>
                                         <span class="amount">
-                                            Amount: $100
+                                            Amount: 100Rs
                                         </span>
                                     </li>
                                 </ul>
                                 <div class="total">
-                                    Total Amount: $950
+                                    Total Amount: 950Rs
                                 </div>
                                 <div style=" display: flex;justify-content: space-between; ">
                                     <button class="btn" id="view-details-btn">
@@ -789,13 +789,13 @@
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <span>Service: ${item.service}</span>
-                    <span class="amount">Amount: $${item.amount}</span>
+                    <span class="amount">Amount: ${item.amount} Rs</span>
                 `;
                 paymentList.appendChild(li);
                 total += parseFloat(item.amount);
             });
 
-            totalAmountElement.textContent = `Total Amount: $${total}`;
+            totalAmountElement.textContent = `Total Amount: ${total} Rs`;
         }
 
         // Initial render

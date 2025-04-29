@@ -26,14 +26,13 @@
             $ParentID = ($Parent->first(["UserID" => $UserID]))->ParentID;
             $result = $guardian->where_norder(['ParentID' => $ParentID]);
         
-            // If a guardian exists, redirect to the appropriate location
             if (!empty($result)) {
                 if (isset($location)) {
                     redirect($location);
                 }
                 redirect('Parent/Home');
             }
-        
+            redirect('Parent/Home');
             // Define required fields
             $requiredFields = ['First_Name', 'Last_Name', 'Relation', 'Phone_Number', 'Language', 'Address', 'NID', 'Email'];
         
@@ -93,14 +92,14 @@
                         $values = $this->setvalues();
                         $Data['values'] = $values;
                         $Data['errors'] = $errors;
-                        $this->view('Onbording/Guardian', $Data);
+                        redirect('Parent/Home');
                     }
                 } else {
                     // If required fields are missing, prepare data for the view
                     $values = $this->setvalues();
                     $Data['values'] = $values;
                     $Data['errors'] = $errors;
-                    $this->view('Onbording/Guardian', $Data);
+                    redirect('Parent/Home');
                 }
             }
         }            

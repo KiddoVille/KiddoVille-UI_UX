@@ -154,7 +154,7 @@
                         if($Res->Is_24_Hour){
                             $CostBreakdown[] = [
                                 'reason' => "Did not showup for full day reservation",
-                                'date' => $Res->Start_Date,
+                                'date' => $Res->Start_Date ?? '2025-04-27',
                                 'amount' => 1000,
                                 'Fine' => 1
                             ];
@@ -162,7 +162,7 @@
                         else{
                             $CostBreakdown[] = [
                                 'reason' => "Did not showup for reservation",
-                                'date' => $Res->Date,
+                                'date' => $Res->Date ?? '2025-04-27',
                                 'amount' => 500,
                                 'Fine' => 1
                             ];
@@ -172,7 +172,7 @@
                         if($Res->Is_24_Hour && $DidAttend->Start_Date == $DidAttend->End_Date){
                             $CostBreakdown[] = [
                                 'reason' => "Partial attendance",
-                                'date' => $Res->Date,
+                                'date' => $Res->Date ?? '2025-04-27',
                                 'amount' => 200,
                                 'Fine' => 1
                             ];
@@ -180,7 +180,7 @@
                         else if($Res->Is_24_Hour == 0 && $DidAttend->Start_Date != $DidAttend->End_Date){
                             $CostBreakdown[] = [
                                 'reason' => "Uninformed full-day stay fine",
-                                'date' => $Res->Date,
+                                'date' => $Res->Date ?? '2025-04-27',
                                 'amount' => 500,
                                 'Fine' => 1
                             ];

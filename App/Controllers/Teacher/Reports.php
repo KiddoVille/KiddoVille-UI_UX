@@ -10,7 +10,8 @@
         public function index(){
             $teacher = new \Modal\Teacher;
             
-            $TeacherID = $this->findID();
+            // $TeacherID = $this->findID();
+            $TeacherID =  1;
             $child = new \Modal\Child;
             $report =  new \Modal\Report;
 
@@ -58,12 +59,16 @@
                     foreach ($reports as $report) {
             
                             $result = $child->where_norder(['ChildID' => $report->StudentID]);
+
                             if (empty($result)) continue;
                  
                             $student = $result[0];
                             $student->ReportID = $report->ReportID;
                             $age = $this->agecalculate($student->DOB);
                             $student->DOB = $age;
+                            $image = $student->Image;
+                            $base64Image = base64_encode($image);
+                            $student->Image = 'data:image/jpg;base64,' . $base64Image;
                             $match = false;
     
                             if($ageGroup == '10-13'){
@@ -122,6 +127,9 @@
         
                         $student = $studentData[0];
                         $student->ReportID = $report->ReportID;
+                        $Stuimage= $student->Image;
+                        $base64image = base64_encode($Stuimage);
+            
                         //$studentArray = $this->convertToArray($student);
         
                         if ($report->Status == 'completed') {
@@ -172,7 +180,11 @@
     
                     $student = $studentData[0];
                     $student->ReportID = $report->ReportID;
-                    // var_dump($student);
+
+                    $profleImage = $student->Image;
+                    $base64Image = base64_encode($profleImage);
+                    $student->Image = 'data:image/jpg;base64,' . $base64Image;
+                    // show($student);
                     // exit();
                     if ($report->Status == 'completed') {
                         $completed[] = $student;
@@ -253,6 +265,7 @@
               
               
             }else{
+
                
             }
         }
@@ -260,6 +273,11 @@
     }
 
     public function SubmitMarks(){
+
+        
+        $month = date('F'); // like 'April'
+        $year = date('Y'); 
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // var_dump($_POST);
@@ -269,7 +287,7 @@
             $mark = new \Modal\Mark;
             $report =  new \Modal\Report;
 
-            $TeacherID = $this->findID(); 
+            $TeacherID = $this->findID();    
             $subjectID = $teacherSub->where_norder(['teacher_id' => $TeacherID]);
             $subjectID = $subjectID[0];
             $reportID = $_POST['report_id'];
@@ -290,30 +308,70 @@
             ];
           
             $insertmarks = $mark->insert($data);
-            // var_dump($insertmarks);
-            // exit();
+            
+           
             if(!$insertmarks) {
-               
+
+                $markedReports = $mark->where_norder(['Report_ID' => $reportID]);
+                
+                // var_dump($markedReports);
+                // exit();
+
+
+                 $subjectsWithMarks = [1 => false, 2 => false, 3 => false];
+
+                foreach ($markedReports as $reports) {
+                    if (isset($subjectsWithMarks[$reports->Subject_ID]) && $reports->Marks !== null) {
+                        $subjectsWithMarks[$reports->Subject_ID] = true;
+                    }
+                }
+              
+
     
-                // Step 2: Update report status only if mark insertion is successful
-                $updated = $report->update_withid($reportID, ['Status' => 'completed', 'Submitted_at' => date('Y-m-d H:i:s')], 'ReportID');
-    
-                if (!$updated) {
-                    header('Content-Type: application/json');
-                    echo json_encode([
-                        'success' => true,
-                        'message' => 'Marks submitted and report status updated!',
-                        'data' => $data
-                    ]);
-                    exit;
-                } else {
+
+                
+
+                 if ($subjectsWithMarks[1] && $subjectsWithMarks[2] && $subjectsWithMarks[3]){
+
+                    // header('Content-Type: application/json');
+                    // echo json_encode([
+                    //     'success' => true,
+                    //     'message' => 'Marks submitted and report status updated!',
+                    //     'data' => $subjectsWithMarks
+                    // ]);
+                    // exit;
+
+                    // Step 2: Update report status only if mark insertion is successful
+                    $updated = $report->update_withid($reportID, ['Status' => 'completed', 'Submitted_at' => date('Y-m-d H:i:s')], 'ReportID');
+
+                    // var_dump($updated);
+                    // exit();
+                    if (!$updated) {
+                        header('Content-Type: application/json');
+                        echo json_encode([
+                            'success' => true,
+                            'message' => 'Marks submitted and done',
+                            'data' => $data
+                        ]);
+                        exit;
+                    } else {
+                        header('Content-Type: application/json');
+                        echo json_encode([
+                            'success' => false,
+                            'error' => 'Marks added, but report status failed to update.'
+                        ]);
+                        exit;
+                    }
+
+                }else{
                     header('Content-Type: application/json');
                     echo json_encode([
                         'success' => false,
-                        'error' => 'Marks added, but report status failed to update.'
+                        'error' => 'Not all subjects have marks for this report.'
                     ]);
                     exit;
                 }
+
             } else {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'error' => 'Failed to insert marks']);
@@ -321,6 +379,7 @@
             }
         }
     }
+    
         function agecalculate($dob) {
             $dobTimestamp = strtotime($dob);
             $currentTimestamp = time();

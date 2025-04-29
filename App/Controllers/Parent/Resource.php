@@ -9,6 +9,8 @@
         use MainController;
         public function index(){
             $session = new \Core\Session;
+            $session->set("USERID", 1);
+            $session = new \Core\Session;
             $session->check_login();
             $session->check_child();
             $ChildID = $session->get("CHILDID");
@@ -33,6 +35,8 @@
 
         private function selectedchild($selectedchild)
         {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = [];
     
             // Retrieve the specific child's profile image and details
@@ -59,6 +63,8 @@
         }
 
         public function like(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
             $MediaID = $requestData['mediaID'];
@@ -91,6 +97,8 @@
         }
 
         public function whishlist(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
             $MediaID = $requestData['mediaID'];
@@ -116,6 +124,8 @@
         }
 
         public function Add_Comment(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $Comment = $_POST['Comment'];
             $MediaID = $_POST['MediaID'];
 
@@ -128,6 +138,8 @@
         }
 
         public function Edit_Comment() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['CommentID'], $_POST['Comment'])) {
                 $CommentID = $_POST['CommentID'];
                 $CommentText = $_POST['Comment'];
@@ -139,6 +151,8 @@
         }        
 
         public function Delete_Comment() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = json_decode(file_get_contents("php://input"), true);
             if (isset($data['CommentID'])) {
                 $CommentModal = new \Modal\Comment;
@@ -150,6 +164,8 @@
         }   
         
         private function related_resource() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if (isset($_GET['MediaID'])) {
                 $MediaID = (int) $_GET['MediaID'];
         
@@ -198,6 +214,8 @@
         }        
 
         private function store_resourse(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if (isset($_GET['MediaID'])) {
                 $MediaID = $_GET['MediaID'];
                 $MediaID = (int)$MediaID;

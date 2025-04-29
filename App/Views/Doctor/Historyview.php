@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaves</title>
+    <title>Doctor</title>
     <link rel="stylesheet" href="<?=CSS?>/Doctor/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/history.css?v=<?= time() ?>">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students</title>
+    <title>Teacher</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/students.css?v=<?= time() ?>">
@@ -51,10 +51,10 @@
                         <i class='bx bx-calendar' ></i>
                         <span class="text">Leaves</span>
                     </a>
-                    <a href="<?=ROOT?>/Teacher/Message" class="sidebar-list-item" id="chat-link" >
+                    <!-- <a href="<?=ROOT?>/Teacher/Message" class="sidebar-list-item" id="chat-link" >
                         <i class='bx bx-message-square-detail'></i>
                         <span class="text">Messages</span>
-                    </a>
+                    </a> -->
                     
                    
                     
@@ -214,13 +214,16 @@
                 <div class="filter-group">
                    
                     <input type="text" name="stu_name" placeholder="Search Name..." id="stu_name">
-                   
+<!--                    
                     <label for="date">Age Group</label>
-                    <select name="age-group">
-                        <option value="3-5">3-5</option>
-                        <option value="6-9">6-9</option>
-                        <option value="10-13">10-13</option>
-                    </select>
+                    <form id="ageForm" action="<?=ROOT?>/Teacher/Students/selectbyAge" method="POST">
+                                <select name="age-group" onchange="document.getElementById('ageForm').submit()">
+                                    <option value="">Select Age Group</option>
+                                    <option value="3-5">3-5</option>
+                                    <option value="6-9">6-10 </option>
+                                    <option value="10-13">11-13 </option>
+                                </select>
+                    </form> -->
                 </div>
 
                 <?php if (!empty(($errors))): ?>
@@ -232,14 +235,16 @@
                        
                         </div>
                         <?php endif; ?>
-
-                <div class="student-table"  id ="student-table" >
-                    <div class="student-table-title" style="max-height:50px">
-                        <h4>Reg NO</h4>
-                        <h4>Full Name</h4>
-                        <h4>Age</h4>
-                        <h4>Skill Score</h4>
-                    </div>
+                
+                   
+                    <div class="student-table"  id ="student-table" >
+                        <div class="student-table-title" style="max-height:50px">
+                            <h4>Reg NO</h4>
+                            <h4>Full Name</h4>
+                            <h4>Age</h4>
+                            <h4>Skill Score</h4>
+                        </div>
+                  
 
                     
                     
@@ -251,6 +256,8 @@
                             <p><?= $message ?></p>
                         </div>
                         <?php endif; ?>
+
+                    
                         
                     </div>
                 </div>

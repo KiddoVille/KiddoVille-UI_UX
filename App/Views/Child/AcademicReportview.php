@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher</title>
+    <title>Parent</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/academic.css?v=<?= time() ?>">
@@ -18,152 +18,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="wrapper">
-        <div class="sidebar">
-            <div class="sidebar">
-                <div class="sidebar-header">
-                    <img src="<?=htmlspecialchars($teacherInfo['Image'])?> " alt="profile-pic">
-                    <div class="sidebar-header-content">
-                        <?php if(isset($teacherInfo)): ?>
-                        <h3><?=htmlspecialchars($teacherInfo['First_Name'])?> <?=htmlspecialchars($teacherInfo['Last_Name'])?></h3>
-                        <?php endif; ?>
-                        <h4>Teacher</h4>
-                    </div>
-                </div>
-                <div class="sidebar-list">
-                    <a href="<?=ROOT?>/Teacher/Dashboard" class="sidebar-list-item" id="dashboard-link"> 
-                        <i class='bx bxs-dashboard'></i>
-                        <span class="text">Dashboard</span>
-                    </a>
-                    <a href="<?=ROOT?>/Teacher/Funzone" class="sidebar-list-item" id="home-link">
-                    <i class="fa-solid fa-puzzle-piece"></i>
-                        <span class="text">Funzone</span>
-                    </a>
-                    <a href="<?=ROOT?>/Teacher/Reports" class="sidebar-list-item" id="report-link">
-                        <i class='bx bxs-report' ></i>
-                        <span class="text"> Report </span>
-                    </a>
-                    <a href="<?=ROOT?>/Teacher/Students" class="sidebar-list-item" id="students-link">
-                        <i class='bx bxs-group' ></i>
-                        <span class="text">Students</span>
-                    </a>
-                    <a href="<?=ROOT?>/Teacher/Leaves" class="sidebar-list-item" id="leaves-link">
-                        <i class='bx bx-calendar' ></i>
-                        <span class="text">Leaves</span>
-                    </a>
-                    <a href="<?=ROOT?>/Teacher/Message" class="sidebar-list-item" id="chat-link" >
-                        <i class='bx bx-message-square-detail'></i>
-                        <span class="text">Messages</span>
-                    </a>
-                  
-        
-                </div>
-            </div>
-        </div>
-
-
-
-        
-        <div class="wrapper-1">
-
-            <div class="navabr">
-                <div class="navbar-left">
-                    <a href="#"><h2>Hey <?=htmlspecialchars($teacherInfo['First_Name'])?> <?=htmlspecialchars($teacherInfo['Last_Name'])?></h2></a>
-                    <h4>Empowering Excellence in Every Lesson!</h3>
-                </div>
-                <div class="navbar-right">
-                <!-- <div class="alter-icon"></div>
-                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
-                   
-                    <i class='bx bxs-bell' ></i>
-                </a> -->
-                <a href="#" class="profile">
-                    <img src="<?=htmlspecialchars($teacherInfo['Image'])?> " onclick="toggleMenu()" id="profileIcon">
-                </a>
-                </div>
-    
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img src="<?=IMAGE?>/profilePic.png" alt="">
-                            <h3>Sara Bretney</h3>
-                        </div>
-                        <hr>
-    
-                        <a href="teacherViewprofile.html" class="sub-menu-link">
-                            <i class='bx bx-edit'></i>
-                            <p>View Profile</p>
-                            <span>></span>
-                        </a>
-                        <a href="#" class="sub-menu-link">
-                            <i class='bx bx-help-circle' ></i>
-                            <p>Help & Support</p>
-                            <span>></span>
-                        </a>
-                        <a href="#" class="sub-menu-link">
-                            <i class='bx bx-log-out'></i>
-                            <p>Logout</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="notify-menu" id="notify">
-                    <div class="notify">
-                        <a href="#" class="notify-info">
-                            <i class='bx bx-message-square-detail'></i>
-                            <div class="msg-info">
-                                <h4>New Notification</h4>
-                                <h5>Leave request approved</h5>
-                                <p >05.33 22 Jul</p>
-                            </div>
-                           
-                        </a>
-                        <hr>
-                        <a href="#" class="notify-info">
-                            <i class='bx bx-message-square-detail'></i>
-                            <div class="msg-info">
-                                <h4>New Notification</h4>
-                                <h5>Parents meeting</h5>
-                                <p >05.33 22 Jul</p>
-                            </div>
-                        </a>
-                        <hr>
-                        <a href="#" class="notify-info">
-                            <i class='bx bx-message-square-detail'></i>
-                            <div class="msg-info">
-                                <h4>New Notification</h4>
-                                <h5>Reports have been updated</h5>
-                                <p>05.33 22 Jul</p>
-                            </div>
-                        </a>
-                        <a href="<?=ROOT?>/Teacher/Notifications" onclick="toggleNotify()" class="all-btn">See all</a>
-                    </div>
-                </div> 
-    
-            </div>
-        <div class="content">
-            <div class="backgorund-overlay"></div>
-            
-            <div class="success-popup" id="success">
-                <div class="success-popup-content">
-                    <div class="checkmark">
-                        <img src="<?=IMAGE?>/tick.png">
-                        <h2>Success!</h2>
-                    </div>
-                    <p>Report has been submitted successfully</p>
-                    <div class="continue">
-                       <a href="<?=ROOT?>/Teacher/Reports"> <h3>Continue</h3></a>
-                    </div>
-                    
-                    
-           
-                </div>
-            </div>
+    <div class="wrapper" style="width: 75%; margin-left: 200px;">
             
             <div class="report-page">
                 <H3>Report Card</H3>
-                
-                   
                 <div class="report-header">
                     <?php if (isset($studentError) && $studentError !== null): ?>
                         <div class="error-message"><?= htmlspecialchars($studentError) ?></div>
@@ -225,11 +83,11 @@
                             
                             <h3>My Attendence </h3>
                            
-                            <!-- <pre><?php print_r($attendData)?></pre>
-                            -->
+                            
+                           
                           
                             <?php 
-                                $presentPercent = ($attendData['precentage']);
+                                $presentPercent = (int)($attendData['precent']);
                                 $conic = "conic-gradient(var(--primary-color) {$presentPercent}%, var(--border-line) 0)";
                             ?>
                             <div 
@@ -372,51 +230,9 @@
                     <button class="reset" id="reset-report" >Reset</button>
                     <button class="submit-report" id="submit-report">Submit</button>
                 </div> -->
-            </div>
-         
-       
-        
         </div>
     </div>
-    </div>
-
-    <script src="<?=JS?>/Teacher/script.js"></script>
-    <script src="<?=JS?>/Teacher/academic.js"></script>
     <script>
-        //  document.addEventListener('DOMContentLoaded', function() {
-        //     // Fetch skills data from PHP backend
-        //     fetch('get_skills_data.php')
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             // Update skill values and progress bars
-        //             document.querySelector('.cognitive').textContent = Number(data.cognitive);
-        //             document.querySelector('.skill-progress.cognitive').style.width = '40' + '%';
-                    
-        //             document.querySelector('.communication').textContent = data.communication;
-        //             document.querySelector('.skill-progress.communication').style.width = data.communication + '%';
-                    
-        //             document.querySelector('.social').textContent = data.social;
-        //             document.querySelector('.skill-progress.social').style.width = data.social + '%';
-                    
-        //             document.querySelector('.creative').textContent = data.creative;
-        //             document.querySelector('.skill-progress.creative').style.width = data.creative + '%';
-        //         })
-        //         .catch(error => {
-        //             console.error('Error fetching skills data:', error);
-        //         });
-        // });
-
-        // document.querySelector('.cognitive').textContent = Number(data.cognitive);
-        //             document.querySelector('.skill-progress.cognitive').style.width = 40 + '%';
-                    
-        //             document.querySelector('.communication').textContent = data.communication;
-        //             document.querySelector('.skill-progress.communication').style.width = data.communication + '%';
-                    
-        //             document.querySelector('.social').textContent = data.social;
-        //             document.querySelector('.skill-progress.social').style.width = data.social + '%';
-                    
-        //             document.querySelector('.creative').textContent = data.creative;
-        //             document.querySelector('.skill-progress.creative').style.width = data.creative + '%';
 
         
         window.addEventListener('load', () => {

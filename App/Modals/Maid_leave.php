@@ -4,12 +4,13 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Teacher_Leave{
+    class Maid_leave{
         use Modal;
 
-        protected $table = 'teacher_leave';
+        protected $table = 'maid_leave';
         protected $allowedColumns = [
-            'TeacherID',
+            'LeaveID',
+            'MaidID',
             'Leave_Type',
             'Start_Date',
             'End_Date',

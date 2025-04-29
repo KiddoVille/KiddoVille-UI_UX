@@ -240,6 +240,8 @@ trait Modal
 
         $query = trim($query, ", ");
         $query .= " where $id_column = :$id_column";
+        // var_dump($query);
+        // exit();
         $data[$id_column] = $id;
         return ($this->query($query, $data));
     }
