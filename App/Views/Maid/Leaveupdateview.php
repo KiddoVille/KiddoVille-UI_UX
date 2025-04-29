@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-<title>Maid</title>
+<title>Receptionist</title>
 </head>
 <body>
     <div class="main">
@@ -80,7 +80,8 @@
                         <div class="make_background">
                             
                             <div class="second-content">
-                                <form class="container_3" method = "POST" action = "<?=ROOT?>/Maid/Leaveform/RequestLeave">
+                            <?php if(!empty($leaveid)): ?>
+                                <form class="container_3" method = "POST" action = "<?=ROOT?>/Maid/Leaveupdate/update">
                                     <div class="form-head">
                                         
                                         <span>Request Leave</span>
@@ -108,14 +109,15 @@
                                     </div>
                                     <div class="form-group-desp">
                                         <label for="description">Description</label>
-                                        <textarea id="description" placeholder="Description about the leave" name= "Description"></textarea>
+                                        <textarea id="description" placeholder="Description about Leave" name= "Description"></textarea>
                                     </div>
                                   
                                     <div class="buttons">
+                                        <input type="hidden" name = "leaveid" value = <?= htmlspecialchars($leaveid) ?>>
                                         <button class="submt_butto" type = "submit">Request</button>
                                     </div>
                                 </form>
-                               
+                            <?php endif; ?>   
                             </div>
                         </div>
                     </div>

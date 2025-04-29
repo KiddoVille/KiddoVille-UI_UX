@@ -9,8 +9,11 @@
         
         public function index(){
             $childModel = new \Modal\Child();
+            $pickup = new \Modal\Pickup();
             $attend = new \Modal\Attendance();
-            
+            $lastSunday = date('Y-m-d', strtotime('last Sunday'));
+            $sun = count($attend->where_norder(['Start_Date'=>$lastSunday],[]));
+        
             if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $childHelper= new ChildHelper();
                 $datas['childrens'] =  $childModel->findall();
@@ -29,13 +32,29 @@
                     }
                 }
 
-                foreach($data['children'] as $child){
+                foreach($data['children'] as $child){   
+                    $pickups = null;
                     $attends = $attend->where_norder(['ChildID' => $child->ChildID, 'Start_Date' => date('Y-m-d')],[]);
-                  
+
+                    $pickups = $pickup->first(['ChildID' => $child->ChildID, 'Date' => date('Y-m-d')]);
+                    
+                    
+                    
+
+                    
+                    if(isset($attends[0])){
                     $child->Start_Time = $attends[0]->Start_Time;
                     $child->End_Time = $attends[0]->End_Time;
-
+                    }
+                    $childPic =  $child->Image;
+                    $base64Image = base64_encode($childPic);
+                    $child->Image = 'data:image/jpg;base64,' . $base64Image;
+                    if(!empty($pickups)){
+                        $child->pickups = (array)$pickups;
+                    }
                 }
+                //show($data);
+                
                 $this->view('Receptionist/attendance',$data);
             }else{
             
@@ -43,12 +62,18 @@
                 $data['children'] =  $childModel->findall();
                 foreach($data['children'] as $child){
                     $attends = $attend->where_norder(['ChildID' => $child->ChildID, 'Start_Date' => date('Y-m-d')],[]);
-                    //  var_dump($attends);
+                   
+
+                    //  show($pickups);
                     //  exit();
                     if(isset($attends[0])){
                     $child->Start_Time = $attends[0]->Start_Time;
                     $child->End_Time = $attends[0]->End_Time;
                     }
+                    $childPic =  $child->Image;
+                    $base64Image = base64_encode($childPic);
+                    $child->Image = 'data:image/jpg;base64,' . $base64Image;
+                    
                     
                    
                     //   var_dump($child);
@@ -102,31 +127,13 @@
                     $AttendanceModel->update_withid($_POST['childID'],$data,'ChildID');
                     // Redirect to success page or display a success message
                     redirect('Receptionist/attendance');
-                } 
+                }
+                 
         }
 
         
     }
-    public function search()
-        {
-            $AttendanceModel = new \Modal\Attendance();
-        
-            if (!empty($_POST['ChildID'])) {
-                $childId = $_POST['ChildID'];
-                $data['children'] = $AttendanceModel->where_norder(['ChildID' => $childId,'Start_Date'=> date('Y-m-d')], []);
-                $childModel = new \Modal\Child();
-                $child = $childModel->where_norder(['ChildID' => $childId], []);
-                if(isset($child[0])){
-                    $data['children'][0]->First_Name = $child[0]->First_Name;
-                }
-                
-                // var_dump($data['children']);
-                
-                
-            }
-            $this->view('Receptionist/attendance', $data);
-            
-        }
+   
 }
     
     ?>

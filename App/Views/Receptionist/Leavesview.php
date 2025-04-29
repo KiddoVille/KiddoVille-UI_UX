@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?=CSS?>/Receptionist/receptionist_leave.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Receptionist/PaymentDashboard.css?v=<?= time() ?>">
+  
     <link rel="stylesheet" href="<?=CSS?>/Receptionist/maincss.css?v=<?= time() ?>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,14 +20,14 @@
         <div class="side_bar">
             <div class="userblock">
                 <div class="photo">
-                    <img alt="User profile picture" height="50" src="<?=ROOT?>/assets/images/profilePic.png" width="50"/>
+                    <img alt="User profile picture" height="50" src="<?=IMAGE?>/female-receptionist-elegant-suit-work-hours.jpg" width="50"/>
                 </div>
                 <div class="username">
                     <h3>
                         Kayla Wood
                        </h3>
                        <p>
-                        Maid
+                        Receptionist
                        </p>
                 </div>
             </div>
@@ -75,245 +76,96 @@
             <div class="header">
                 <div class="header-title">
                     <h2>
-                        Leaves
+                        Hey
                        </h2>
                        <p>
-                        12/08/2025
+                       Growing together, one smile at a time !
                        </p>
                 </div>
-                <div class="field_input">
-                    <i class="fas fa-search">
-                    </i>
-                  <input placeholder="Search" type="text"/>
-                </div>
-                <div class="subscription">
-                    <i class="fas fa-bell"></i>
-                </div>
+                
                 <div class="photo2">
-                    <img alt="User profile picture" height="50" src="<?=ROOT?>/assets/images/profilePic.png" width="50"/>
+                    <img alt="User profile picture" height="50" src="<?=IMAGE?>/female-receptionist-elegant-suit-work-hours.jpg" width="50"/>
                 </div>
             </div>
             <div class="detailed_content">
                         <div class="make_background">
-                          
-                          <div class="payment_table">
+                        <div class="payment_table">
                             <div class="table_header">
-                                <div class="topic"><span>Receptionist Leave Details</span></div>
+                                <div class="topic"><span>Leave Details</span></div>
                                 
-                                <a href=""><div class="paymentbutton">
-                                    <span>Request &nbsp;Leave</span>
+                                <a href="<?=ROOT?>/Receptionist/Leaveform"><div class="paymentbutton">
+                                    <span>Request &nbsp;Leaves</span>
                                 </div></a>
                             </div>
-                            <div class="hr_reset">
                             <hr>
-                            </div>
                             <div class="table_filters">
-                                 <div class="date_entry">
-                                    <input type="date"/>
-                                 </div>
+                             
+                                 <form class="date_entry" method = 'POST' action="<?=ROOT?>/Receptionist/Leaves/datefilter">
+                                    <input type="date" name="Date" onchange="this.form.submit()"/>
+                                </form>
                             </div>
-                            <div class="leave_history_box">
-                                <div class="leave_history_box_header">
-                                    <div class="leave_type_h">
-                                        <h4>Leave Type</h4>
-                                    </div>
-                                    <div class="start_date_h">
-                                        <h4>Start Date</h4>
-                                    </div>
-                                    <div class="end_date_h">
-                                        <h4>End Date</h4>
-                                    </div>
-                                    <div class="duration_h">
-                                        <h4>Duration</h4>
-                                    </div>
-                                    <div class="status_h">
-                                        <h4>Status</h4>
-                                    </div>
+                            <div class="table_topics">
+                                <div class="head reg_id">
+                                   
+                                    <span>Leave Type</span> 
                                 </div>
-                                <div class="leave_history_box_annual">
-                    
-                                    <div class="leave_type">
-                                        <p>Annual Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>25/03/2025</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>25/03/2025</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>1</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
+                                <div class="head name">
+                                    
+                                    <span>Start Date</span>
                                 </div>
-                                <hr>
-                                <div class="leave_history_box_sick">
-                                    <div class="leave_type">
-                                        <p>Sick Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>02/01/2025</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>03/01/2025</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>2</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
+                                <div class="head transaction_id">
+                                    <span>End Date</span>
                                 </div>
-                                <hr>
-                                <div class="leave_history_box_compassionate">
-                                    <div class="leave_type">
-                                        <p>Compassionate</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>20/12/2024</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>22/12/2024</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>3</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_decline"><span>Declined</span></div> 
-                                    </div>
+                                <div class="head amount">
+                                   
+                                    <span>Duration</span>
                                 </div>
-                                <hr>
-                                <div class="leave_history_box_sick2">
-                                    <div class="leave_type">
-                                        <p>Sick Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>10/11/2024</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>11/11/2024</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>2</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
+                                <div class="head date">
+                                   
+                                    <span>Status</span>
                                 </div>
-                                <hr>
-                                <div class="leave_history_box_annual2">
-                                    <div class="leave_type">
-                                        <p>Annual Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>10/11/2024</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>11/11/2024</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>2</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
+                                <div class="head action">
+                                   
+                                    <span>Action</span>
                                 </div>
-                                <hr>
-                                <div class="leave_history_box_annual2">
-                                    <div class="leave_type">
-                                        <p>Annual Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>10/11/2024</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>11/11/2024</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>2</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="leave_history_box_annual2">
-                                    <div class="leave_type">
-                                        <p>Annual Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>10/11/2024</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>11/11/2024</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>2</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="leave_history_box_annual2">
-                                    <div class="leave_type">
-                                        <p>Annual Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>10/11/2024</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>11/11/2024</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>2</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="leave_history_box_annual2">
-                                    <div class="leave_type">
-                                        <p>Annual Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>10/11/2024</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>11/11/2024</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>2</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="leave_history_box_annual2">
-                                    <div class="leave_type">
-                                        <p>Annual Leave</p>
-                                    </div>
-                                    <div class="start_date">
-                                        <p>10/11/2024</p>
-                                    </div>
-                                    <div class="end_date">
-                                        <p>11/11/2024</p>
-                                    </div>
-                                    <div class="duration">
-                                        <p>2</p>
-                                    </div>
-                                    <div class="status">
-                                        <div class="state_approve"><span>Approved</span></div> 
-                                    </div>
-                                </div>
-                                <hr>
-                                
-                                <div class="group"></div>
                             </div>
+                            <div class="table_columns">        
+                            <?php if(!empty($leaves)): ?>
+                                <?php foreach($leaves as $leave): ?>   
+                                <div class="table_column">
+                                    <div class="colum reg_id">
+                                        <span><?= htmlspecialchars($leave->Leave_Type) ?></span> 
+                                    </div>
+                                    <div class="colum name">
+                                         <span>&nbsp; <?= htmlspecialchars($leave->Start_Date) ?></span>
+                                    </div>
+                                    <div class="colum transaction_id">
+                                        <span><?= htmlspecialchars($leave->End_Date) ?></span>
+                                    </div>
+                                    <div class="colum amount">
+                                        <span><?= htmlspecialchars($leave->Duration) ?></span>
+                                    </div>
+                                    <div class="colum date">
+                                        <span><?= htmlspecialchars($leave->Status) ?></span>
+                                    </div>
+                                    <div class="colum action">
+                                        <form  method='POST' action="<?=ROOT?>/Receptionist/Leaveupdate">
+                                        <input type='hidden' value='<?= htmlspecialchars($leave->LeaveID) ?>' name = 'leaveid'>
+                                        <button><i class="fas fa-edit" type = "submit"></i>Edit</button>
+                                        </form>
+                                        <form method='POST' action="<?=ROOT?>/Receptionist/Leaves/delrec">
+                                        <input type='hidden' value='<?= htmlspecialchars($leave->LeaveID) ?>' name = 'LeaveID'>
+                                        <button><i class="fas fa-trash"></i>Delete</button>
+                                        </form>
+                                </div>
+                                </div>
+                                <hr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                                </div>
+                            </div>
+                          
+                          
                     </div>
                 </div>
             </div>
