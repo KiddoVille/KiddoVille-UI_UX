@@ -169,7 +169,7 @@
                 </a>
             </li>
             <ul>
-                <li class="selected">
+                <li class="hover-effect unselected">
                     <a href="<?= ROOT ?>/Manager/Viewprofile" style="font-size: 18px;">
                         <i class="fas fa-user-check"></i>Accounts
                     </a>
@@ -207,7 +207,7 @@
                 </li>
             </ul>
             <ul>
-                <li class="hover-effect unselected">
+                <li class="selected">
                     <a href="<?= ROOT ?>/Manager/Foodtable" style="font-size: 18px;">
                         <i class="fa fa-pizza-slice"></i>Food Plane</a>
                 </li>
