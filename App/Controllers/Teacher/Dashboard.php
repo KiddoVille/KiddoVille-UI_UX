@@ -17,6 +17,7 @@
            $child = new \Modal\Child;
            $attend = new \Modal\Attendance;
            $teacher = new \Modal\Teacher;
+           $marks = new \Modal\Mark;
 
            $result = [];
 
@@ -37,6 +38,70 @@
             ];
             // var_dump($teacherInfo);
             // exit();
+
+
+            //finding marks for the chart
+            $overallMarks = $marks->where_norder(['Teacher_ID' => $TeacherID]);
+            $stuCount = count($overallMarks);
+            $best = [];
+            $good = [];
+            $fair = [];
+            $weak = [];
+
+            foreach($overallMarks as $mark){
+                if($mark->Marks >= 75){
+                    $best[] = $mark->Marks;
+                }elseif($mark->Marks >= 50 && $mark->Marks < 75){
+                    $good[] = $mark->Marks;
+                }elseif($mark->Marks >= 35 && $mark->Marks < 50){
+                    $fair[] = $mark->Marks;
+                }else{
+                    $weak[] = $mark->Marks;
+                }
+
+            }
+
+            if ($stuCount > 0) {
+                $dataArray = [
+                    
+                       round( (count($best) / $stuCount) * 100),
+                       round( (count($good) / $stuCount) * 100),
+                        round((count($fair) / $stuCount) * 100),
+                        round((count($weak) / $stuCount) * 100)
+                    ];
+                    // show($dataArray);
+                    // exit();
+                    
+              
+            } else {
+                $dataArray = [0, 0, 0, 0]; // Or whatever fallback you want
+            }
+
+            //data for line chart
+
+            $jan =[];
+            $feb = [];
+            $mar = [];
+            $apr = [];
+            $may = [];
+            $jun = [];
+            $jul = [];
+            $aug = [];
+            $sep = [];
+            $oct = [];
+            $nov = [];
+            $dec = [];
+
+            // foreach($overallMarks as $mk){
+            //     $submittedDate = $mk->Submitted_at;
+            //     $submittedMonth = date('Y-m', strtotime($submittedDate));
+            //     if ($submittedMonth == '2025-01') {
+            //         $jan[] = $mk->Marks;
+            //         // do your April 2025 logic here
+            //     }
+                
+            // }
+
          
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'request'){
                 
@@ -47,23 +112,26 @@
                 $todayTask = $task->where_norder(['Date' =>date('Y-m-d'),'TeacherID'=>$TeacherID, 'AgeGroup'=>$age]);
        
                 if(!empty($todayTask)){
+
+                    $result = $this->findTaskList($result);
+                    $result = (array)$result;
                    
         
-                    foreach ($todayTask as $task) {
-                        $row = $activity->where_norder(['WorkID'=>$task->WorkID]);
+                    // foreach ($todayTask as $task) {
+                    //     $row = $activity->where_norder(['WorkID'=>$task->WorkID]);
                        
-                        if(!empty($row)){
-                            $row = $row[0]; // Unwrap the first record
-                            $row = (array)$row;
-                            $row['Activity'] = $task->Activity;
-                            $row['Start_Time'] = $task->Start_Time;
-                            $row['End_Time'] = $task->End_Time;
-                            $result[] = $row;  
-                        }else{
-                            $result[] = (array)$task; 
-                        }
+                    //     if(!empty($row)){
+                    //         $row = $row[0]; // Unwrap the first record
+                    //         $row = (array)$row;
+                    //         $row['Activity'] = $task->Activity;
+                    //         $row['Start_Time'] = $task->Start_Time;
+                    //         $row['End_Time'] = $task->End_Time;
+                    //         $result[] = $row;  
+                    //     }else{
+                    //         $result[] = (array)$task; 
+                    //     }
                          
-                    }
+                    // }
                  
                     if(empty($result)){
                         $result = $todayTask;
@@ -74,7 +142,8 @@
                     header('Content-Type: application/json');
                     echo json_encode([
                         'tasks' => $result,
-                        'message' => empty($result) ? 'No tasks found.' : ''
+                        'message' => empty($result) ? 'No tasks found.' : '',
+                        'dataArray' => $dataArray
                     ]);
                     return;
 
@@ -83,7 +152,8 @@
                     header('Content-Type: application/json');
                     echo json_encode([
                         'tasks' => [],
-                        'message' => 'No tasks found for this age group.'
+                        'message' => 'No tasks found for this age group.',
+                        'dataArray' => $dataArray
                     ]);
                     return;
                 }
@@ -114,7 +184,6 @@
        }
        
         // Fetch today's tasks
-            $tasks = $task->where_norder(['Date' =>date('Y-m-d'),'TeacherID'=>$TeacherID]);
            
             // var_dump($tasks);
             // exit();
@@ -126,7 +195,8 @@
                     $this->view('Teacher/Dashboard', 
                     ['tasks' => $taskList,
                     'message' => empty($taskList) ? 'No tasks created.' :'',
-                    'teacherInfo' => $teacherInfo
+                    'teacherInfo' => $teacherInfo,
+                    'dataArray' => $dataArray
 
                 ]);
                 } 
@@ -137,23 +207,15 @@
                 $this->view('Teacher/Dashboard', 
                 ['tasks' => [],
                 'message' => 'No tasks created.',
-                'teacherInfo' => $teacherInfo
+                'teacherInfo' => $teacherInfo,
+                'dataArray' => $dataArray
             ]);
             }
 
         // // Attendance for age groups
         // // counting total children
 
-        // $children = $child->findall();
-
-        //     if(!empty($children)){
-        //         foreach ($children as $child) {
-        //             $child->DOB = $this->agecalculate($child->DOB);
-        //             var_dump($child->DOB);
-        //             exit();
-        //         }
-            
-        //     }
+       
            
            
         }

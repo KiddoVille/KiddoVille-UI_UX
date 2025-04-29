@@ -68,7 +68,7 @@
 
             <div class="navabr">
                 <div class="navbar-left">
-                    <a href="#"><h2>Hey Sara Britney</h2></a>
+                    <a href="#"><h2>Hey <?=htmlspecialchars($teacherInfo['First_Name'])?> <?=htmlspecialchars($teacherInfo['Last_Name'])?></h2></a>
                     <h4>Empowering Excellence in Every Lesson!</h3>
                 </div>
                 <div class="navbar-right">
@@ -78,7 +78,7 @@
                     <i class='bx bxs-bell' ></i>
                 </a> -->
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic.png" onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=htmlspecialchars($teacherInfo['Image'])?> " onclick="toggleMenu()" id="profileIcon">
                 </a>
                 </div>
     
@@ -225,11 +225,11 @@
                             
                             <h3>My Attendence </h3>
                            
-                            
-                           
+                            <!-- <pre><?php print_r($attendData)?></pre>
+                            -->
                           
                             <?php 
-                                $presentPercent = (int)($attendData['precent']);
+                                $presentPercent = ($attendData['precentage']);
                                 $conic = "conic-gradient(var(--primary-color) {$presentPercent}%, var(--border-line) 0)";
                             ?>
                             <div 

@@ -14,6 +14,12 @@ function closeFunZone(){
     popup.classList.remove("show-funzone");
 };
 
+function cancelFunZone(){
+    const popup = document.getElementById("funzone-popup-edit");
+    popup.classList.remove("show-funzone-edit");
+};
+
+
 
 $(document).ready(function (){
     fetchMedia();

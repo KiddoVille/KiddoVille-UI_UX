@@ -259,6 +259,59 @@
                 exit;
             }
         }
+
+        public function selectbyAge(){
+
+            $mediaModel = new \Modal\Media;
+            $teacher = new \Modal\Teacher;
+            $TeacherID =  1;
+
+            $row = $teacher->first(['TeacherID' => $TeacherID]);
+            $firstName = $row->First_Name;
+            $lastName = $row->Last_Name ;
+            $email =  $row->Email;
+            $image= $row->Image;
+            $base64Image = base64_encode($image);
+
+            $result = [
+                    'firstName' => $firstName,  
+                    'lastName' => $lastName,
+                    'email' => $email,
+                    'image' => 'data:image/jpg;base64,' . $base64Image];
+
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // 
+                $selectedAgeGroup = $_POST['age-group'] ?? '';
+            
+                if (!empty($selectedAgeGroup)) {
+                    
+                    // Now you can filter your data based on $selectedAgeGroup
+                   $media = $mediaModel->where_norder(['AgeGroup' => $selectedAgeGroup]);
+
+
+                   foreach ($media as  $mediaObject) {
+                    foreach ($result as $key => $value) {
+                        $mediaObject->$key = $value; // Add new key-value pairs to object
+                    }
+                }
+                //    show($media);
+                //    exit();
+                    if(empty($media)){ 
+                       $this->view('Teacher/Funzone',['message' => 'No Media Found']);
+                    }else{
+                        $this->view('Teacher/Funzone', ['media' => $media,'result' => $result]);
+                    }
+
+                    
+                    
+                    // Example: Fetch data based on age group
+                    // $data = $model->filterByAgeGroup($selectedAgeGroup);
+                } else {
+                    echo "No age group selected!";
+                }
+            }
+        }
         
         
 
