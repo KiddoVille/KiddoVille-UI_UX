@@ -100,7 +100,6 @@ class Students {
     }
 
     public function addSkill(){
-       
         $observe = new \Modal\Observation;
         $score = new \Modal\SkillScore;
 
