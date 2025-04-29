@@ -472,7 +472,11 @@
                             <td>${sanitizeHTML(report.Child_Name)}</td>
                             <td>${formattedDate}</td>
                             <td>${sanitizeHTML(report.Teacher_Name)}</td>
-                            <td><i class="fas fa-eye icon reportbtn"></i></td>
+                            <td>
+                                <a href="<?=ROOT?>/Child/AcademicReport" class="reportbtn">
+                                    <i class="fas fa-eye icon"></i>
+                                </a>
+                            </td>
                             <td><i class="fas fa-download icon"></i></td>
                             <td>
                                 <label class="custom-checkbox">

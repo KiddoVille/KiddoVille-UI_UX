@@ -12,6 +12,8 @@
         public function index(){
 
             $session = new \Core\Session;
+            $session->set("USERID", 1);
+            $session = new \Core\Session;
             $session->check_login();
 
             $data = [];
@@ -36,6 +38,8 @@
         }
 
         public function store_reservations() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
         
@@ -136,8 +140,11 @@
             }
         }
 
-        private function makereservation() {
+        private function makereservation() 
+        {
 
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $ChildHelper = new ChildHelper();
             $children = $ChildHelper->store_child();
 
@@ -231,6 +238,8 @@
         }             
 
         private function set_dates(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $today = new \DateTime();
             // Start from the day after tomorrow
             $today->modify('+2 days');
@@ -249,6 +258,8 @@
         }
 
         private function set_stats() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $ChildHelper = new ChildHelper();
             $children = $ChildHelper->store_child();
         
@@ -296,6 +307,8 @@
         }  
 
         public function setchildsession(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -317,6 +330,8 @@
         }
 
         public function RemoveReservation() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
         
             $response = [];
@@ -359,6 +374,8 @@
         }
 
         public function Logout(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $session = new \core\Session();
             $session->logout();
 

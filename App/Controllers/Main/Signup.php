@@ -59,6 +59,7 @@ class Signup {
                 // If errors, send errors + inputs back
                 $Data['errors'] = $errors;
                 $Data['inputs'] = $inputs;
+                
             } else {
                 // No errors, proceed
                 $meeting = new \Modal\Meeting_Request;
@@ -67,10 +68,11 @@ class Signup {
                 unset($_POST['Contact']);
                 $meeting->insert($_POST);
 
-                $this->view('main/signup', $Data, [
-                    'success' => 'Request submitted successfully.',
-                    'inputs' => $inputs,
-                ]);
+                // $this->view('main/signup', $Data, [
+                //     'success' => 'Request submitted successfully.',
+                //     'inputs' => $inputs,
+                // ]);
+                redirect('main/home');
             }
         }
 

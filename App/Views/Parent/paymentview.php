@@ -161,7 +161,7 @@
                             <?php if (isset($data['Due'])): ?>
                                 <h2 style="color: red; margin-top: -5px; margin-bottom: -5px;">Overdue Payment</h2>
                                 <p>Due Date: <strong><?= $data['Due']['Date'] ?></strong></p>
-                                <p>Amount: <strong><?= $data['Due']['Amount'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Due']['Amount'] ?> Rs</strong></p>
                                 <form id="pay-form" action="http://localhost/KiddoVille-UI_UX/App/core/Payment.php" method="GET">
                                     <input type="hidden" name="total" id="total-input" value="<?= $data['Due']['Amount']*100 ?>" />
                                     <button type="submit" class="pay-now">Pay Now</button>
@@ -178,7 +178,7 @@
                             <?php if (isset($data['Expenses'])): ?>
                                 <h2 style="color: green; margin-top: -5px; margin-bottom: -5px;">Upcoming Payment</h2>
                                 <p>Due Date: <strong><?= $data['Expenses']['Date'] ?></strong></p>
-                                <p>Amount: <strong><?= $data['Expenses']['Amount'] ?></strong></p>
+                                <p>Amount: <strong><?= $data['Expenses']['Amount'] ?> Rs</strong></p>
                             <?php else: ?>
                                 <h2 style="color: green;"> No Expenses </h2>
                             <?php endif; ?>
@@ -192,7 +192,7 @@
                                 <img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-top: -15px;">
                                 Last bill amount
                             </h3>
-                            <p style="margin-top: 15px;"><?= isset($data['LastBill']['Amount']) ? $data['LastBill']['Amount'] : '0'; ?></p>
+                            <p style="margin-top: 15px;"><?= isset($data['LastBill']['Amount']) ? $data['LastBill']['Amount'] : '0'; ?> Rs</p>
                         <?php else: ?>
                             <h3 style="margin-top: 5px;">
                                 <img src="<?= IMAGE ?>/mountain.svg" alt="Attendance" style="width: 40px; margin-right: 10px; margin-top: -15px;">
@@ -559,13 +559,13 @@
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <span>Service: ${item.service}</span>
-                    <span class="amount">Amount: $${item.amount}</span>
+                    <span class="amount">Amount: ${item.amount}rs</span>
                 `;
                 paymentList.appendChild(li);
                 total += parseFloat(item.amount);
             });
 
-            totalAmountElement.textContent = `Total Amount: $${total}`;
+            totalAmountElement.textContent = `Total Amount: ${total}Rs`;
         }
 
         // Initial render
@@ -681,7 +681,7 @@
                             label: function(context) {
                                 const childName = context.dataset.label;
                                 const amount = context.parsed.y;
-                                return `${childName}: $${amount}`;
+                                return `${childName}: ${amount} Rs`;
                             }
                         }
                     }

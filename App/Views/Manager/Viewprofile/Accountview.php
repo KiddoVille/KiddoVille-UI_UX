@@ -219,7 +219,22 @@
                 </div>
 
 
-                //View profile popup
+                <!-- //View profile popup -->
+                 <div class="viewUser">
+                    <div class="viewUser-content" id="viewUserContent">
+                        <span class="close-btn" onclick="togglePopup()">&times;</span>
+                        <h2>View User</h2>
+                        <div class="viewUser-details" id="viewUserDetails">
+                            <!-- User details will be populated here -->
+                             <p>Name : <?php htmlspecialchars()?></p>
+                             <p>Role : <?htmlspecialchars()?></p>
+                             <p>Email : <?htmlspecialchars()?></p>
+                             <p>NIC : <?htmlspecialchars()?></p>
+                            <p>Phone : <?htmlspecialchars()?></p>
+                        </div>
+                    </div>
+
+                 </div>
 
         
 
