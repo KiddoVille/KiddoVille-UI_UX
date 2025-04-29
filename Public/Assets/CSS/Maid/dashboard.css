@@ -358,7 +358,7 @@ transition: all 3s ease ;
     margin-left: 25px;
     font-weight: 600;
 }
-.navigation_button .view_profile{
+.navigation_button .view_profile button{
     color:#536878;
 background-color: #fff;
 font-weight:600;
@@ -366,7 +366,7 @@ font-size: 13.5px;
 margin-right: 5px;
 padding:5px 9px;
 border: none;
-width: 40%;
+width: 90%;
 box-shadow: 0px 0px 3px 1.0px rgba(0,0,0,0.4);
 border-radius: 3px;
 display: flex;

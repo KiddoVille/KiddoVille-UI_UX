@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?=CSS?>/Maid/main.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Receptionist/PaymentDashboard.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Maid/studenprofile.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?=CSS?>/Receptionist/maincss.css?v=<?= time() ?>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,45 +13,62 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <title>Document</title>
+    <title>Receptionist Leaves</title>
 </head>
 <body>
     <div class="main">
-    <div class="side_bar">
+        <div class="side_bar">
             <div class="userblock">
                 <div class="photo">
-                    <img alt="User profile picture" height="50" src="./assets/profilePic.png" width="50"/>
+                    <img alt="User profile picture" height="50" src="<?=IMAGE?>/female-receptionist-elegant-suit-work-hours.jpg" width="50"/>
                 </div>
                 <div class="username">
                     <h3>
                         Kayla Wood
                        </h3>
                        <p>
-                        Maid
+                        Receptionist
                        </p>
                 </div>
             </div>
             <div class="directions">
                 <div class="direction-items">
-                <a href=""><div class="dashboard">
+                  <a href="<?=ROOT?>/Receptionist/Home"><div class="dashboard">
                     
-                    <i class="fas fa-tachometer-alt">
-                    </i>
-                    <span>&nbsp;&nbsp; Dashboard</span>
-                  
-                </div> </a>
+                        <i class="fas fa-tachometer-alt">
+                        </i>
+                        <span>&nbsp;&nbsp; Dashboard</span>
+                      
+                    </div> </a>
                 
-                 <a href="<?=ROOT?>/Maid/Leaves"><div class="leaves">
-                    <i class="fas fa-calendar-check">
-                    </i>
-                   <span>&nbsp;&nbsp; Leaves</span>
-                 </div></a>
-                <hr>
-                <div class="help">
-                    <i class="fas fa-question-circle">
-                    </i>
-                    <span>&nbsp;&nbsp; Help</span>
-                </div>
+                     <a href="<?=ROOT?>/Receptionist/Attendance"><div class="mark_attendance">
+                        <i class="fas fa-check-circle">
+                        </i>
+                       <span>&nbsp;&nbsp; Attendance</span>
+                        
+                     </div></a>
+                     
+                     <a href="<?=ROOT?>/Receptionist/Payment"><div class="payment">
+                        <i class="fas fa-money-bill-wave">
+                        </i>
+                        <span>&nbsp;&nbsp; Payment</span>
+                    </div></a>
+                    <a href="<?=ROOT?>/Receptionist/Visitor"><div class="visitor">
+                        <i class="fas fa-users">
+                        </i>
+                        <span>&nbsp;&nbsp; visitort</span>
+                    </div></a>
+                    <a href="<?=ROOT?>/Receptionist/Leaves"><div class="leaves">
+                        <i class="fas fa-calendar-check">
+                        </i>
+                       <span>&nbsp;&nbsp; Leaves</span>
+                     </div></a>
+                    <hr>
+                    <div class="help">
+                        <i class="fas fa-question-circle">
+                        </i>
+                        <span>&nbsp;&nbsp; Help</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,29 +76,22 @@
             <div class="header">
                 <div class="header-title">
                     <h2>
-                       Child Profile
+                        Hey
                        </h2>
                        <p>
-                        12/08/2025
+                       Little stories, big imaginations !
                        </p>
                 </div>
-                <div class="field_input">
-                    <i class="fas fa-search">
-                    </i>
-                  <input placeholder="Search" type="text"/>
-                </div>
-                <div class="subscription">
-                    <i class="fas fa-bell"></i>
-                </div>
+                
                 <div class="photo2">
-                    <img alt="User profile picture" height="50" src="./assets/profilePic.png" width="50"/>
+                    <img alt="User profile picture" height="50" src="<?=IMAGE?>/female-receptionist-elegant-suit-work-hours.jpg" width="50"/>
                 </div>
             </div>
             <div class="detailed_content">
                         <div class="make_background">
+                        <div class="second-content">
                             
-                            <div class="second-content">
-                                <form class="container_3" method = "POST" action = "<?=ROOT?>/Maid/Leaveform/RequestLeave">
+                                <form class="container_3" method = "POST" action = "<?=ROOT?>/Receptionist/Leaveform/Requestleave">
                                     <div class="form-head">
                                         
                                         <span>Request Leave</span>
@@ -108,20 +119,26 @@
                                     </div>
                                     <div class="form-group-desp">
                                         <label for="description">Description</label>
-                                        <textarea id="description" placeholder="Description about the leave" name= "Description"></textarea>
+                                        <textarea id="description" placeholder="Description about Leave" name= "Description"></textarea>
                                     </div>
                                   
                                     <div class="buttons">
+                                        
                                         <button class="submt_butto" type = "submit">Request</button>
                                     </div>
                                 </form>
                                
                             </div>
-                        </div>
+                          
                     </div>
                 </div>
             </div>
-            
-            
+        </div>
+        
+         
+        </div>
+    </div>
+    <script src='./test.js' defer></script>
+    <script src = './receptionist_attendance.js' defer></script>
 </body>
 </html>

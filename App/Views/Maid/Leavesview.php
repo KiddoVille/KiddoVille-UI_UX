@@ -90,9 +90,9 @@
                             <hr>
                             <div class="table_filters">
                              
-                                 <div class="date_entry">
-                                    <input type="date"/>
-                                 </div>
+                                 <form class="date_entry" method = 'POST' action="<?=ROOT?>/Maid/Leaves/datefilter">
+                                    <input type="date" name="Date" onchange="this.form.submit()"/>
+                                </form>
                             </div>
                             <div class="table_topics">
                                 <div class="head reg_id">
@@ -139,12 +139,12 @@
                                         <span><?= htmlspecialchars($leave->Status) ?></span>
                                     </div>
                                     <div class="colum action">
-                                        <form  method='POST' action="<?=ROOT?>/Maid/Leavesupdate">
+                                        <form  method='POST' action="<?=ROOT?>/Maid/Leaveupdate">
                                         <input type='hidden' value='<?= htmlspecialchars($leave->LeaveID) ?>' name = 'leaveid'>
                                         <button><i class="fas fa-edit" type = "submit"></i>Edit</button>
                                         </form>
                                         <form method='POST' action="<?=ROOT?>/Maid/Leaves/delmai">
-                                        <input type='hidden' value='<?= htmlspecialchars($leave->LeaveID) ?>' name = 'leaveid'>
+                                        <input type='hidden' value='<?= htmlspecialchars($leave->LeaveID) ?>' name = 'LeaveID'>
                                         <button><i class="fas fa-trash"></i>Delete</button>
                                         </form>
                                 </div>

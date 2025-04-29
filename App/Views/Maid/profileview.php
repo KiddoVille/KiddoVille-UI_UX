@@ -17,19 +17,26 @@
 <body>
     <div class="main">
         <div class="side_bar">
+        <?php if (!empty($maids)): ?>
+            <?php foreach ($maids as $maid): ?>
             <div class="userblock">
                 <div class="photo">
-                    <img alt="User profile picture" height="50" src="./assets/profilePic.png" width="50"/>
+                
+                    <img alt="User profile picture" height="50" src="<?= $maid->Image ?>" width="50"/>
+                    
                 </div>
                 <div class="username">
                     <h3>
-                        Kayla Wood
+                    <?= htmlspecialchars($maid->First_Name) ?>&nbsp;<?= htmlspecialchars($maid->Last_Name) ?>
                        </h3>
                        <p>
                         Maid
                        </p>
                 </div>
             </div>
+            <?php endforeach; ?>
+                    <?php endif; ?>
+
             <div class="directions">
                 <div class="direction-items">
                 <a href="<?=ROOT?>/Maid/Home"><div class="dashboard">
@@ -73,7 +80,11 @@
                     <i class="fas fa-bell"></i>
                 </div>
                 <div class="photo2">
-                    <img alt="User profile picture" height="50" src="./assets/profilePic.png" width="50"/>
+                <?php if (!empty($maids)): ?>
+                    <?php foreach ($maids as $maid): ?>
+                    <img alt="User profile picture" height="50" src="<?= $maid->Image ?>" width="50"/>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="detailed_content">

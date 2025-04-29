@@ -42,6 +42,12 @@
             if (empty($data['FirstName'])) {
                 $errors['FirstName'] = 'Name is required';
             }
+            if (empty($data['NID'])) {
+                $errors['FirstName'] = 'NID should provide';
+            }
+            if (empty($data['Phone_Number'])) {
+                $errors['Phone_NUMBER'] = 'Phone Number is required';
+            }
         
             if (empty($data['e_mail'])) {
                 $errors['e_mail'] = 'Email is required';

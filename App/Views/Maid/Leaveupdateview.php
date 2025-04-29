@@ -80,7 +80,8 @@
                         <div class="make_background">
                             
                             <div class="second-content">
-                                <form class="container_3" method = "POST" action = "<?=ROOT?>/Maid/Leaveform/RequestLeave">
+                            <?php if(!empty($leaveid)): ?>
+                                <form class="container_3" method = "POST" action = "<?=ROOT?>/Maid/Leaveupdate/update">
                                     <div class="form-head">
                                         
                                         <span>Request Leave</span>
@@ -108,14 +109,15 @@
                                     </div>
                                     <div class="form-group-desp">
                                         <label for="description">Description</label>
-                                        <textarea id="description" placeholder="Details about behavioutal condition" name= "Description"></textarea>
+                                        <textarea id="description" placeholder="Description about Leave" name= "Description"></textarea>
                                     </div>
                                   
                                     <div class="buttons">
+                                        <input type="hidden" name = "leaveid" value = <?= htmlspecialchars($leaveid) ?>>
                                         <button class="submt_butto" type = "submit">Request</button>
                                     </div>
                                 </form>
-                               
+                            <?php endif; ?>   
                             </div>
                         </div>
                     </div>
