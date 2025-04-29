@@ -165,6 +165,17 @@ class Viewprofile
         }
     }
 
+
+    public function viewuser(){
+        $parentmodel = new \Modal\ParentUser;
+        $teachermodel = new \Modal\Teacher;
+        $maidmodel = new \Modal\Maid;
+        $doctormodel = new \Modal\Doctor;
+        $reciptionistmodel = new \Modal\Receptionist;
+        
+        
+    }
+
     public function getWelcomeEmailTemplate($userData)
 {
     $roleDisplay = ($userData['Role'] == 'User') ? 'Parent' : $userData['Role'];
@@ -543,7 +554,7 @@ class Viewprofile
                 if (!empty($Data)) {
                     $Mailer->send(
                         $Data->Email,
-                        'Email Verification - OTP Code',
+                        'Account Blocked',
                         $body,
                     );
                 }

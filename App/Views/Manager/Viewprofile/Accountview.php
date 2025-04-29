@@ -152,7 +152,7 @@
                                         <p>Role: <?= htmlspecialchars($user->Role); ?></p>
                                     </div>
                                     <div class="card-footer">
-                                        <button id="userview" class="view-btn" onclick="viewUser(<?= $user->UserID ?>)">View</button>
+                                        <!-- <button id="userview" class="view-btn" onclick="viewUser(<?= $user->UserID ?>)">View</button> -->
                                         <button id="blockuser" class="del-btn" onclick="blockUser(<?= $user->UserID ?>)">Block</button>
                                     </div>
                                 </div>
@@ -218,28 +218,10 @@
                     </div>
                 </div>
 
-
-                <!-- //View profile popup -->
-                 <div class="viewUser">
-                    <div class="viewUser-content" id="viewUserContent">
-                        <span class="close-btn" onclick="togglePopup()">&times;</span>
-                        <h2>View User</h2>
-                        <div class="viewUser-details" id="viewUserDetails">
-                            <!-- User details will be populated here -->
-                             <p>Name : <?php htmlspecialchars()?></p>
-                             <p>Role : <?htmlspecialchars()?></p>
-                             <p>Email : <?htmlspecialchars()?></p>
-                             <p>NIC : <?htmlspecialchars()?></p>
-                            <p>Phone : <?htmlspecialchars()?></p>
-                        </div>
-                    </div>
-
-                 </div>
-
-        
-
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script>
             function fetchProfile(Role, Id) {
                 fetch('<?= ROOT ?>/Manager/Viewprofile/store_users', {
@@ -295,7 +277,6 @@
                         ${isBlocked ? '<p class="blocked-status">BLOCKED</p>' : ''}
                     </div>
                     <div class="card-footer">
-                        <button onclick="viewUser(${user.UserID})">View</button>
                         ${!isBlocked ? 
                           `<button class="del-btn" onclick="blockUser(${user.UserID})">Block</button>` : 
                           `<button class="unblock-btn" onclick="unblockUser(${user.UserID})">Unblock</button>`
@@ -391,11 +372,11 @@
             }
 
             // Function to view user (replace with your implementation)
-            function viewUser(userId) {
-                console.log("Viewing user with ID:", userId);
-                // Implement your view logic here
-                window.location.href = `<?= ROOT ?>/Manager/Viewprofile/view/${userId}`;
-            }
+            // function viewUser(userId) {
+            //     console.log("Viewing user with ID:", userId);
+            //     // Implement your view logic here
+            //     window.location.href = `<?= ROOT ?>/Manager/Viewprofile/view/${userId}`;
+            // }
 
             // Function to block user
             function blockUser(userId) {
@@ -463,7 +444,8 @@
                 //
 
                 // Password validation regex
-                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
                 passwordInput.addEventListener('input', function() {
                     const password = passwordInput.value;
 
@@ -481,6 +463,10 @@
                     if (!/[0-9]/.test(password)) {
                         errors.push("• At least one number");
                     }
+                    if (!/[\W_]/.test(password)) {
+                        errors.push("• At least one special character");
+                    }
+
                     if (errors.length > 0) {
                         passwordError.style.display = 'block';
                         passwordError.innerHTML = "Password must include:<br>" + errors.join('<br>');
@@ -497,7 +483,7 @@
                     const password = passwordInput.value;
                     let haserror = false;
                     if (!passwordRegex.test(password)) {
-                        e.preventDefault();
+                        e.preventDefault(); // Stop form submission
                         passwordError.textContent = "Please fix your password before submitting.";
                         haserror = true;
                     }

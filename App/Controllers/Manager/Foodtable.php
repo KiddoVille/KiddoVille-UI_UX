@@ -15,7 +15,9 @@ class Foodtable
         $Helper = new ManagerHelper;
         $Helper->Check_Manager();
         $data['Meal'] = $this->food_items();
+        // show($data);
         $this->view('Manager/Foodtable', $data);
+    
     }
 
     private function getRandomMeals($array, $count = 3) {
@@ -117,7 +119,7 @@ class Foodtable
                 'Time' => $time,
                 'Date' => $realDate
             ];
-            $Modal->insert($foodData);
+            // $Modal->insert($foodData);
         }
     }
     
