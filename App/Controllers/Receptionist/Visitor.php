@@ -36,7 +36,7 @@
                     // Redirect to success page or display a success message
                     redirect('Receptionist/Visitortable');
                 } else {
-                    $this->view('Receptionist/Visitor', ['errors' => 'Invalid INPUT']);
+                    $this->view('Receptionist/Visitorerror');
                    
                 }
         }

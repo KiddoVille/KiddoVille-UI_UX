@@ -18,19 +18,25 @@
 <body>
     <div class="main">
         <div class="side_bar">
+        <?php if (!empty($maids)): ?>
+            <?php foreach ($maids as $maid): ?>
             <div class="userblock">
                 <div class="photo">
-                    <img alt="User profile picture" height="50" src="./assets/profilePic.png" width="50"/>
+                
+                    <img alt="User profile picture" height="50" src="<?= $maid->Image ?>" width="50"/>
+                    
                 </div>
                 <div class="username">
                     <h3>
-                        Kayla Wood
+                    <?= htmlspecialchars($maid->First_Name) ?>&nbsp;<?= htmlspecialchars($maid->Last_Name) ?>
                        </h3>
                        <p>
                         Maid
                        </p>
                 </div>
             </div>
+            <?php endforeach; ?>
+                    <?php endif; ?>
             <div class="directions">
                 <div class="direction-items">
                 <a href=""><div class="dashboard">
@@ -59,22 +65,19 @@
             <div class="header">
                 <div class="header-title">
                     <h2>
-                       Dashboard
+                       Hey
                        </h2>
                        <p>
-                        12/08/2025
+                       "Finding joy in the littlest things !
                        </p>
                 </div>
-                <div class="field_input">
-                    <i class="fas fa-search">
-                    </i>
-                  <input placeholder="Search" type="text"/>
-                </div>
-                <div class="subscription">
-                    <i class="fas fa-bell"></i>
-                </div>
+              
                 <div class="photo2">
-                    <img alt="User profile picture" height="50" src="./assets/profilePic.png" width="50"/>
+                <?php if (!empty($maids)): ?>
+                    <?php foreach ($maids as $maid): ?>
+                    <img alt="User profile picture" height="50" src="<?= $maid->Image ?>" width="50"/>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="detailed_content">
@@ -88,7 +91,7 @@
                                         <span>Child</span>
                                     </div>
                                     <div class="skill">
-                                        <span>Alergies</span>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alergies</span>
                                     </div>
                                     <div class="profile">
                                         <span>Profile</span>
@@ -100,7 +103,7 @@
                                     <div class="member">
                                         <div class="child_row">
                                             <div class="photo_child">
-                                                <img alt="User profile picture" height="35" width="35" src="./assets/profilePic-1.png" width="50"/>
+                                                <img alt="User profile picture" height="35" width="35" src="<?= $child->Image ?>" width="50"/>
                                             </div>
                                             <div class="name">
                                                 <span><?= htmlspecialchars($child->First_Name) ?></span>
@@ -113,7 +116,7 @@
                                        <div class="navigation_button">
                                             <form class="view_profile"method="post" action="<?=ROOT?>/Maid/Home/conditions">
                                                 <input type="hidden" name="child_id" value="<?= htmlspecialchars($child->ChildID) ?>">
-                                                <button type = "submit">Alerts</button>
+                                                <button type = "submit">profile</button>
                                     </form>
                                        </div>
                                        

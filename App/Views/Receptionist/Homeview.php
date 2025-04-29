@@ -19,7 +19,7 @@
         <div class="side_bar">
             <div class="userblock">
                 <div class="photo">
-                    <img alt="User profile picture" height="50" src="<?=ROOT?>/assets/images/profilePic.png" width="50"/>
+                    <img alt="User profile picture" height="50" src="<?=IMAGE?>/female-receptionist-elegant-suit-work-hours.jpg" width="50"/>
                 </div>
                 <div class="username">
                     
@@ -78,22 +78,18 @@
             <div class="header">
                 <div class="header-title">
                     <h2 style="font-size: 24px;">
-                        Dashboard
+                        Hey
                        </h2>
                        <p >
-                        12/08/2025
+                        Start your day happy with little ones !
                        </p>
                 </div>
-                <div class="field_input">
-                    <i class="fas fa-search">
-                    </i>
-                  <input placeholder="Search" type="text"/>
-                </div>
+               
                 <div class="subscription">
                     <i class="fas fa-bell"></i>
                 </div>
                 <div class="photo2">
-                    <img alt="User profile picture" height="50" src="<?=ROOT?>/assets/images/profilePic.png" width="50"/>
+                    <img alt="User profile picture" height="50" src="<?=IMAGE?>/female-receptionist-elegant-suit-work-hours.jpg" width="50"/>
                 </div>
             </div>
             <div class="detailed_content">

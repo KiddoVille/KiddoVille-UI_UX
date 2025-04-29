@@ -7,7 +7,18 @@
     class Profile{
         use MainController;
         public function index(){
-            $this->view('Maid/profile');
+            $maiddata = new \Modal\Maid;
+            $maiddataim = $maiddata->where_norder(['MaidID'=> 1],[]);
+
+            foreach($maiddataim as $mai){
+                $maidpic = $mai->Image;
+                $base64Image = base64_encode($maidpic);
+                $mai->Image = 'data:image/jpg;base64,' . $base64Image;
+
+            }
+            $data['maids'] = $maiddataim;
+
+            $this->view('Maid/profile',$data);
         }
         public function cond(){
             $childModel = new \Modal\Child();

@@ -22,7 +22,7 @@
         <div class="side_bar">
             <div class="userblock">
                 <div class="photo">
-                    <img alt="User profile picture" height="50" src="<?=ROOT?>/assets/images/profilePic.png" width="50"/>
+                    <img alt="User profile picture" height="50" src="<?=IMAGE?>/female-receptionist-elegant-suit-work-hours.jpg" width="50"/>
                 </div>
                 <div class="username">
                     <h3>
@@ -77,22 +77,16 @@
             <div class="header">
                 <div class="header-title">
                     <h2>
-                        Attendance
+                        Hi 
                        </h2>
                        <p>
-                        12/08/2025
+                        Hi little ones how are you today !
                        </p>
                 </div>
-                <div class="field_input">
-                    <i class="fas fa-search">
-                    </i>
-                  <input placeholder="Search" type="text"/>
-                </div>
-                <div class="subscription">
-                    <i class="fas fa-bell"></i>
-                </div>
+                
+                
                 <div class="photo2">
-                    <img alt="User profile picture" height="50" src="<?=ROOT?>/assets/images/profilePic.png" width="50"/>
+                    <img alt="User profile picture" height="50" src="<?=IMAGE?>/female-receptionist-elegant-suit-work-hours.jpg" width="50"/>
                 </div>
             </div>
             <div class="detailed_content">
@@ -103,7 +97,7 @@
                                     <span class="total_topic">Total</span>
                                     <div class="number_and_text">
                                         <span class="number">245</span>
-                                        <span class="text">THIS<br>WEEK</span>
+                                        <span class="text">LAST<br>WEEK</span>
                                     </div>
                                 </div>
                             </div>
@@ -160,27 +154,15 @@
                                 </div>
                                 <hr>
                                 <div class="table_filters">
-                                    <div class="search_line">
-                                        <form class="field_input2" action = "<?=ROOT?>/Receptionist/Attendance/search" method="POST">
-                                            <i class="fas fa-search">
-                                            </i>
-                                          <input placeholder="Search Index......" type="text" name="ChildID"/>
-                                        </form>
-                                     </div>
-                                     <div class="date_entry">
-                                        <input type="date"/>
-                                     </div>
+                                    
                                      <div class="select_age">
                                         <form class="select-agegroup" method="POST" action="<?=ROOT?>/Receptionist/attendance" >
                                             <select class="select" id = "group" name="ageGroup" onchange="this.form.submit()" >
                                                 <option class="option" value='Default'>Age Group</option>
-                                                <option class="option" value='2-3'>AGE 2-3</option>
-                                                <option class="option" value='4-5'>AGE 4-5</option>
-                                                <option class="option" value='6-7'>AGE 6-7</option>
-                                                <option class="option" value='8-9'>AGE 8-9</option>
-                                                <option class="option" value='10-11'>AGE 10-11</option>
-                                                <option class="option" value='12-13'>AGE 12-13</option>
-                                                <option class="option" value='14-15'>AGE 14-15</option>
+                                                <option class="option" value='3-5'>AGE 3-5</option>
+                                                <option class="option" value='6-9'>AGE 6-9</option>
+                                                <option class="option" value='10-13'>AGE 10-13</option>
+                                                
                                             </select>
                                         </form>
                                      </div>
@@ -188,7 +170,7 @@
                             <div class="table_topics">
                                 <div class="head reg_id">
                                     <i class="fas fa-id-card" title="Registration ID"></i>
-                                    <span>Registration No</span> 
+                                    <span>Reg No</span> 
                                 </div>
                                 <div class="head name">
                                     <i class="fas fa-user" title="Child Name"></i>
@@ -202,6 +184,10 @@
                                     <i class="fas fa-clock fa-2x"></i>
                                     <span>Check-Out</span>
                                 </div>
+                                <div class="head check_Out">
+                                    <i class="fas fa-clock fa-2x"></i>
+                                    <span>Pickup</span>
+                                </div>
              
                             </div>
                             <div class="table_columns">
@@ -209,10 +195,10 @@
                             <?php foreach ($children as $child): ?>
                             <div class="table_column">
                                 <div class="colum reg_id">
-                                    <span>#00<?= htmlspecialchars($child->ChildID) ?></span> 
+                                    <span>SR0000<?= htmlspecialchars($child->ChildID) ?></span> 
                                 </div>
                                 <div class="colum name">
-                                    <img alt="card icon" height="30px" src="<?=ROOT?>/assets/images/profilePic-1.png">
+                                    <img alt="card icon" height="30px" src="<?=$child->Image ?>">
                                     <span><?= htmlspecialchars($child->First_Name) ?></span>
                                 </div>
                                 <div class="colum check_in">
@@ -240,6 +226,20 @@
                                                <input type="hidden" name="childID" value="<?= htmlspecialchars($child->ChildID) ?>">
                                                <button type="submit">Mark</button>
                                            </form>
+                                       <?php endif; ?>
+                                   
+                                </div>
+                                <div class="colum pickups" >
+                                <?php if(empty($child->pickups)) :?>
+                                           
+                                           <span>Parent</span>
+                                        <?php else: ?>
+                                           
+                                           <div class="pickup" >
+                                           <img alt="card icon" src="<?= show($child->pickups['Image']) ;?>" height="30px" src="" width = "30px">
+                                               <span type="submit"><?= show($child->pickups['OTP']) ;?></span>
+                                               <span type="submit"><?= show($child->pickups['NID']) ;?></span>
+                                        </div>
                                        <?php endif; ?>
                                    
                                 </div>

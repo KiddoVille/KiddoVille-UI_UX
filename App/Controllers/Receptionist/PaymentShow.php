@@ -8,7 +8,7 @@
         public function index(){
             $paymentModel = new \Modal\Payment;
             $feesModel = new \Modal\Fees;
-               if($_SERVER['REQUEST_METHOD'] == 'POST'){
+               
                 $data  = [
                     'ChildID' => $_POST['child_id'],
                     'Amount' => $_POST['total_payment'],
@@ -25,13 +25,14 @@
                 $payment = $paymentModel->insert($pay);
                 
                     // Redirect to the success page or show a success message
+                if($fees){    
                     redirect('Receptionist/Payment');
 
                 
                 
                }else{
             // Pass a message to the view if no tasks exist
-                $this->view('Receptionist/PaymentShow');
+                $this->view('Receptionist/Paymenterror');
                }
            
         }

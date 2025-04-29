@@ -136,11 +136,27 @@
             }  
             $data['children'] =[];
             foreach ($todayAssignedChildIds as $childID) {
-                $data['children'][] = $childModel->first(['ChildID' => $childID], []);
+               $child = $childModel->first(['ChildID' => $childID], []);
+               $childPic =  $child->Image;
+                    $base64Image = base64_encode($childPic);
+                    $child->Image = 'data:image/jpg;base64,' . $base64Image;
+
+                $data['children'][] =$child;
+
             }
             if(is_array($todayactivities) && !empty($todayactivities)){
                 $data['activities'] = $todayactivities;
             }
+            $maiddataim = $maiddata->where_norder(['MaidID'=> 1],[]);
+
+            foreach($maiddataim as $mai){
+                $maidpic = $mai->Image;
+                $base64Image = base64_encode($childPic);
+                $mai->Image = 'data:image/jpg;base64,' . $base64Image;
+
+            }
+            $data['maids'] = $maiddataim;
+
             $this->view('Maid/home',$data);
         }
         public function conditions(){
