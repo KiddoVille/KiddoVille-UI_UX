@@ -92,15 +92,57 @@
             $nov = [];
             $dec = [];
 
-            // foreach($overallMarks as $mk){
-            //     $submittedDate = $mk->Submitted_at;
-            //     $submittedMonth = date('Y-m', strtotime($submittedDate));
-            //     if ($submittedMonth == '2025-01') {
-            //         $jan[] = $mk->Marks;
-            //         // do your April 2025 logic here
-            //     }
+            foreach($overallMarks as $mk){
+                $submittedDate = $mk->Submitted_at;
+                $submittedMonth = date('Y-m', strtotime($submittedDate));
+                if ($submittedMonth == '2025-01') {
+                    $jan[] = $mk->Marks;
+                    // do your April 2025 logic here
+                }else if($submittedMonth == '2025-02'){
+                    $feb[] = $mk->Marks;
+                }else if($submittedMonth == '2025-03'){
+                    $mar[] = $mk->Marks;
+                }else if($submittedMonth == '2025-04'){
+                    $apr[] = $mk->Marks;
+                }else if($submittedMonth == '2025-05'){
+                    $may[] = $mk->Marks;
+                }else if($submittedMonth == '2025-06'){
+                    $jun[] = $mk->Marks;
+                }else if($submittedMonth == '2025-07'){
+                    $jul[] = $mk->Marks;
+                }else if($submittedMonth == '2025-08'){
+                    $aug[] = $mk->Marks;
+                }else if($submittedMonth == '2025-09'){
+                    $sep[] = $mk->Marks;
+                }else if($submittedMonth == '2025-10'){
+                    $oct[] = $mk->Marks;
+                }else if($submittedMonth == '2025-11'){
+                    $nov[] = $mk->Marks;
+                }else if($submittedMonth == '2025-12'){
+                    $dec[] = $mk->Marks;
+                }
                 
-            // }
+            }
+           
+
+            $lineArray = [
+                count($jan) ? round(array_sum($jan) / count($jan)) : 0,
+                count($feb) ? round(array_sum($feb) / count($feb)) : 0,
+                count($mar) ? round(array_sum($mar) / count($mar)) : 0,
+                count($apr) ? round(array_sum($apr) / count($apr)) : 0,
+                count($may) ? round(array_sum($may) / count($may)) : 0,
+                count($jun) ? round(array_sum($jun) / count($jun)) : 0,
+                count($jul) ? round(array_sum($jul) / count($jul)) : 0,
+                count($aug) ? round(array_sum($aug) / count($aug)) : 0,
+                count($sep) ? round(array_sum($sep) / count($sep)) : 0,
+                count($oct) ? round(array_sum($oct) / count($oct)) : 0,
+                count($nov) ? round(array_sum($nov) / count($nov)) : 0,
+                count($dec) ? round(array_sum($dec) / count($dec)) : 0
+            ];
+            
+
+            // show($lineArray);
+            // exit();
 
          
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'request'){
@@ -143,7 +185,8 @@
                     echo json_encode([
                         'tasks' => $result,
                         'message' => empty($result) ? 'No tasks found.' : '',
-                        'dataArray' => $dataArray
+                        'dataArray' => $dataArray,
+                        'lineArray' => $lineArray
                     ]);
                     return;
 
@@ -153,7 +196,8 @@
                     echo json_encode([
                         'tasks' => [],
                         'message' => 'No tasks found for this age group.',
-                        'dataArray' => $dataArray
+                        'dataArray' => $dataArray,
+                        'lineArray' => $lineArray
                     ]);
                     return;
                 }
@@ -196,7 +240,8 @@
                     ['tasks' => $taskList,
                     'message' => empty($taskList) ? 'No tasks created.' :'',
                     'teacherInfo' => $teacherInfo,
-                    'dataArray' => $dataArray
+                    'dataArray' => $dataArray,
+                    'lineArray' => $lineArray
 
                 ]);
                 } 
@@ -208,7 +253,8 @@
                 ['tasks' => [],
                 'message' => 'No tasks created.',
                 'teacherInfo' => $teacherInfo,
-                'dataArray' => $dataArray
+                'dataArray' => $dataArray,
+                'lineArray' => $lineArray
             ]);
             }
 

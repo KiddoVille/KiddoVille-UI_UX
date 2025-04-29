@@ -60,6 +60,15 @@
         // all leaves of the teacher
         $leaves = $leave->where_norder(['TeacherID' => $TeacherID]);
 
+        foreach($leaves as $date){
+            if(strtotime($date->Start_Date) < strtotime(date('Y-m-d')) && $date->Status == 'Pending'){
+                $date->Status = 'Rejected'; // assignment, not comparison
+            }
+        }
+
+        // show($leaves);
+        // exit();
+
             
 
         if (!empty($leaves)) {
@@ -167,7 +176,7 @@
 
                     // var_dump($arr);
                     //  exit();
-                    $this->view('Teacher/Leaves',['result' => $result]);
+                    $this->view('Teacher/Leaves',['result' => $result,'success'=> "Request Sent Successfully"]);
                 } else {
                     $this->view('Teacher/Leaves', ['message' => 'Failed to add leave. Please try again.','result' => $result]);
                 }
@@ -273,7 +282,7 @@
                     $results = $leave->update_withid($arr['LeaveID'],$arr,'LeaveID');
                  
                     if(isset($results)){
-                        $this->view('Teacher/Leaves',['result' => $result, 'messages' => 'Leave Updated Successfully']);
+                        $this->view('Teacher/Leaves',['result' => $result, 'success' => 'Leave Updated Successfully']);
                     }else{
                         $this->view('Teacher/Leaves',['message' => 'Faild to Update ','result' => $result]);
                     }
