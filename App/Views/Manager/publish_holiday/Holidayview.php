@@ -1,9 +1,7 @@
 <html>
 
 <head>
-    <title>
-        KIDDO VILLE Schedule
-    </title>
+<title>Manager</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="icon" href="<?= CSS ?>/Manager/KIDDOVILLE_LOGO.jpg">
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Home.css?v=<?= time() ?>">

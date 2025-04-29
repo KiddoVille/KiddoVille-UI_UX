@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Chat Application</title>
+<title>Parent</title>
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="<?= CSS ?>/Child/Message.css?v=<?= time() ?>" /> -->
