@@ -243,6 +243,28 @@
                             <input style="margin-top: -10px; margin-bottom: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
                         </div>
                         <div class="social" style="margin-left: 0px; width: 300px;" id="social">
+                            <h3 style="margin-top: 10px !important; margin-bottom: 4px;"> Reminders </h3>
+                            <hr>
+                            <table style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Child</th>
+                                        <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Description</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="table-body-container" style="max-height: 90px; overflow-y: auto; padding: 10px;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tbody>
+                                        <?php foreach ($data['reminders'] as $row): ?>
+                                            <tr>
+                                                <td><?= $row->Name ?></td>
+                                                <td><?= $row->Description ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                        </div>
                             <!-- <div class="social-head">
                                 <h3 style="display: inline;">Social Development</h3>
                             </div>

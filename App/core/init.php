@@ -1,5 +1,6 @@
 <?php 
     defined('ROOTPATH') or exit('Access denied');
+    date_default_timezone_set('Asia/Kolkata');
 
     spl_autoload_register(function($classname) {
         $classnameParts = explode("\\", $classname);

@@ -14,6 +14,8 @@ class Event
     public function index(){
 
         $session = new \Core\Session;
+        $session->set("USERID", 1);
+        $session = new \Core\Session;
         $session->check_login();
 
         $data = [];
@@ -31,6 +33,8 @@ class Event
 
     private function store($children, $pre)
     {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $data = [];
         $imageData = $pre->Image;
         $imageType = $pre->ImageType;  // Get the image MIME type from the database
@@ -71,6 +75,8 @@ class Event
     }
 
     private function store_Stats(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $ChildHelper = new ChildHelper();
         $children = $ChildHelper->store_child();
 
@@ -145,6 +151,8 @@ class Event
     }
 
     public function lol(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
 
         // Parse incoming JSON request
@@ -174,6 +182,8 @@ class Event
     }
 
     public function leaveEvent(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
 
         // Parse incoming JSON request
@@ -189,6 +199,8 @@ class Event
     }
 
     public function store_data() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
     
         // Parse incoming JSON request
@@ -278,7 +290,8 @@ class Event
     
     public function setchildsession()
     {
-
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -299,6 +312,8 @@ class Event
     }
 
     public function Logout(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \core\Session();
         $session->logout();
 

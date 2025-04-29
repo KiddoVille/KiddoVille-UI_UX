@@ -15,7 +15,9 @@ class Foodtable
         $Helper = new ManagerHelper;
         $Helper->Check_Manager();
         $data['Meal'] = $this->food_items();
-        $this->view('Manager/Foodtable', $data);
+
+        show($data);
+        // $this->view('Manager/Foodtable', $data);
     }
 
     private function getRandomMeals($array, $count = 3) {

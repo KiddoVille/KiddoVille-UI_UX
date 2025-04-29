@@ -183,9 +183,10 @@
                     <?php foreach (array_reverse($data['admission_allslots']) as $slot): ?>
                         <div class="event-item">
                             <h3><?= htmlspecialchars($slot->Name) ?></h3>
-                            <p>Date: <?= htmlspecialchars($slot->PhoneNumber) ?></p>
+                            <p>Phone Number: <?= htmlspecialchars($slot->PhoneNumber) ?></p>
+                            <p>Email : <?=htmlspecialchars($slot->Email)?></p>
                             <div class="buttons">
-                                <button class="del-btn" onclick="deleteSlot(<?= $slot->MeetingID ?>)">Delete</button>
+                                <button class="del-btn" onclick="adddeleteSlot(<?= $slot->NIC?>)">Delete</button>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -248,7 +249,7 @@
                         dateMessage.classList.add('info-message');
                     }, 3000);
 
-                    // Load time slots for the corrected date
+                    // Load time slots for the corrected date   
                     loadTimeSlots(this.value);
                     return;
                 }
@@ -424,7 +425,7 @@
             // Show modal
             modal.style.display = "flex";
 
-            // When the user clicks "Yes, Delete"
+            // When the user clicks "Delete"
             confirmBtn.onclick = function() {
                 window.location.href = `<?= ROOT ?>/Manager/Meeting/deleteSlot/${MeetingID}`;
             };
@@ -441,6 +442,33 @@
                 }
             };
         }
+
+
+        // function adddeleteSlot(NIC){
+        //     const modal = document.getElementById("deleteModal");
+        //     const confirmBtn = document.getElementById("confirmDelete");
+        //     const cancelBtn = document.getElementById("cancelDelete");
+
+        //     // Show modal
+        //     modal.style.display = "flex";
+
+        //     // When the user clicks "Delete"
+        //     confirmBtn.onclick = function() {
+        //         window.location.href = `<?= ROOT ?>/Manager/Meeting/deleteAdmissionSlot/${NIC}`;
+        //     };
+
+        //     // When the user clicks "Cancel"
+        //     cancelBtn.onclick = function() {
+        //         modal.style.display = "none";
+        //     };
+
+        //     // Close modal when clicking outside
+        //     window.onclick = function(event) {
+        //         if (event.target == modal) {
+        //             modal.style.display = "none";
+        //         }
+        //     };
+        // }
 
     </script>
 </body>
