@@ -268,6 +268,10 @@
                             <div class="success-message">
                                 <p><?= $message ?></p>
                             </div>
+                        <?php elseif (isset($success)): ?>
+                            <div class="ok-message">
+                                <p><?= $success ?></p>
+                            </div>
                         <?php endif; ?>
                 </div>
                 <div class="leave-table">

@@ -268,7 +268,7 @@
                                 <div class="report-card">
                                     <div class="card-content">
                                         <div class="profile-img">
-                                            <img src="${(child.Image)}" class="face" width="70px">
+                                            <img src="<?=IMAGE?>/rtr.png" class="face" width="70px">
                                         </div>
                                         <div class="card-details">
                                             <h4>${escapeHTML(child.First_Name)} ${escapeHTML(child.Last_Name)}</h4>

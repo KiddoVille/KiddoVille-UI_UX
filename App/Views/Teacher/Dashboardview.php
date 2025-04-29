@@ -398,7 +398,8 @@
                         </div> -->
                     </div>
                     <div class="second-block">
-                        <h3>Subject Profeciency</h3>                                
+                        <h3>Subject Profeciency</h3>   
+                        <!-- <pre><?php print_r($lineArray)?></pre>                              -->
                         <div class="line-chart">
                             <canvas id="canvas-2" width="600px" height="300px"></canvas>
                         </div>
@@ -412,6 +413,7 @@
 
     <script>
         const phpData = <?= json_encode($dataArray) ?>;
+        const phpData2 = <?= json_encode($lineArray) ?>;
     </script>
 
 <script src="graph.js"></script> <!-- Load your graph after phpData is ready -->
