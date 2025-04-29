@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <title>Document</title>
+<title>Receptionist</title>
 </head>
 <body>
     <div class="main">
@@ -106,29 +106,18 @@
                             <hr>
                             <div class="table_filters">
                                 <div class="search_line">
-                                    <div class="field_input2">
+                                    <form class="field_input2"  method = "POST" action="<?=ROOT?>/Receptionist/Payment/search">
                                         <i class="fas fa-search">
                                         </i>
-                                      <input placeholder="Search Index......" type="text"/>
-                                    </div>
+                                      <input placeholder="Search Index......" type="text" name = "ChildID"/>
+                                    </form>
                                  </div>
-                                 <div class="date_entry">
-                                    <input type="date"/>
-                                 </div>
-                                 <div class="select_age">
-                                    <div class="select-agegroup">
-                                        <div class="select">
-                                            <span>AGE GROUP</span>
-                                            <i class="fas fa-angle-down"></i>
-                                        </div>
-                                        <div class="option-list">
-                                            <div class="option">AGE 2-5</div>
-                                            <div class="option">AGE 6-9</div>
-                                            <div class="option">AGE 10-13</div>
-                                        </div>
-                                    </div>
-                                 </div>
+                                 <form class="date_entry"action="<?=ROOT?>/Receptionist/Payment/search" method="POST">
+                                    <input type="date" name="Date" onchange="this.form.submit()"/>
+                                </form>
+                                 
                             </div>
+                            
                             <div class="table_topics">
                                 <div class="head reg_id">
                                     <i class="fas fa-id-card" title="Registration ID"></i>
@@ -156,213 +145,34 @@
                                 </div>
                             </div>
                             <div class="table_columns">
+                            <?php if(!empty($payments)): ?>
+                                <?php foreach($payments as $payment): ?>   
                                 <div class="table_column">
                                     <div class="colum reg_id">
-                                        <span>#001</span> 
+                                        <span>SROOO<?= htmlspecialchars($payment->ChildID) ?></span> 
                                     </div>
                                     <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
+                                        <img alt="card icon" height="30px" src="<?= $payment->Image ?>" width="30px"/>
+                                        <span><?= htmlspecialchars($payment->First_Name) ?></span>
                                     </div>
                                     <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
+                                        <span>DC-TXN-<?= htmlspecialchars($payment->PaymentID) ?></span>
                                     </div>
                                     <div class="colum amount">
-                                        <span>$70</span>
+                                        <span><?= htmlspecialchars($payment->Amount) ?></span>
                                     </div>
                                     <div class="colum date">
-                                        <span>24-11-2024</span>
+                                        <span><?= htmlspecialchars($payment->DateTime) ?></span>
                                     </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
+                                    <form class="colum action" method = "POST" action="<?=ROOT?>/Receptionist/Payment/delpay">
+                                       <input type="hidden" name="payment_id" value="<?= htmlspecialchars($payment->PaymentID) ?>">
                                         <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
+                                </form>
                                 </div>
                                 <hr>
-                                <div class="table_column">
-                                    <div class="colum reg_id">
-                                        <span>#001</span> 
-                                    </div>
-                                    <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
-                                    </div>
-                                    <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
-                                    </div>
-                                    <div class="colum amount">
-                                        <span>$70</span>
-                                    </div>
-                                    <div class="colum date">
-                                        <span>24-11-2024</span>
-                                    </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
-                                        <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="table_column">
-                                    <div class="colum reg_id">
-                                        <span>#001</span> 
-                                    </div>
-                                    <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
-                                    </div>
-                                    <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
-                                    </div>
-                                    <div class="colum amount">
-                                        <span>$70</span>
-                                    </div>
-                                    <div class="colum date">
-                                        <span>24-11-2024</span>
-                                    </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
-                                        <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="table_column">
-                                    <div class="colum reg_id">
-                                        <span>#001</span> 
-                                    </div>
-                                    <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
-                                    </div>
-                                    <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
-                                    </div>
-                                    <div class="colum amount">
-                                        <span>$70</span>
-                                    </div>
-                                    <div class="colum date">
-                                        <span>24-11-2024</span>
-                                    </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
-                                        <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="table_column">
-                                    <div class="colum reg_id">
-                                        <span>#001</span> 
-                                    </div>
-                                    <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
-                                    </div>
-                                    <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
-                                    </div>
-                                    <div class="colum amount">
-                                        <span>$70</span>
-                                    </div>
-                                    <div class="colum date">
-                                        <span>24-11-2024</span>
-                                    </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
-                                        <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="table_column">
-                                    <div class="colum reg_id">
-                                        <span>#001</span> 
-                                    </div>
-                                    <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
-                                    </div>
-                                    <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
-                                    </div>
-                                    <div class="colum amount">
-                                        <span>$70</span>
-                                    </div>
-                                    <div class="colum date">
-                                        <span>24-11-2024</span>
-                                    </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
-                                        <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="table_column">
-                                    <div class="colum reg_id">
-                                        <span>#001</span> 
-                                    </div>
-                                    <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
-                                    </div>
-                                    <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
-                                    </div>
-                                    <div class="colum amount">
-                                        <span>$70</span>
-                                    </div>
-                                    <div class="colum date">
-                                        <span>24-11-2024</span>
-                                    </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
-                                        <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="table_column">
-                                    <div class="colum reg_id">
-                                        <span>#001</span> 
-                                    </div>
-                                    <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
-                                    </div>
-                                    <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
-                                    </div>
-                                    <div class="colum amount">
-                                        <span>$70</span>
-                                    </div>
-                                    <div class="colum date">
-                                        <span>24-11-2024</span>
-                                    </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
-                                        <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="table_column">
-                                    <div class="colum reg_id">
-                                        <span>#001</span> 
-                                    </div>
-                                    <div class="colum name">
-                                        <img alt="card icon" height="30px" src="./assets/profilePic-1.png">
-                                        <span>Thilina Perera</span>
-                                    </div>
-                                    <div class="colum transaction_id">
-                                        <span>DC-TXN-202411</span>
-                                    </div>
-                                    <div class="colum amount">
-                                        <span>$70</span>
-                                    </div>
-                                    <div class="colum date">
-                                        <span>24-11-2024</span>
-                                    </div>
-                                    <div class="colum action">
-                                        <button><i class="fas fa-edit"></i>Edit</button>
-                                        <button><i class="fas fa-trash"></i>Delete</button>
-                                    </div>
-                                </div>
-                                <hr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                    
                             </div>
                     </div>
                 </div>

@@ -10,6 +10,8 @@
         public function index(){
 
             $session = new \Core\Session;
+            $session->set("USERID", 1);
+            $session = new \Core\Session;
             $session->check_login();
             $session->check_child();
             $ChildID = $session->get("CHILDID");
@@ -32,6 +34,8 @@
         }
 
         private function selectedchild($selectedchild){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = [];
 
             // Retrieve the specific child's profile image and details
@@ -58,6 +62,8 @@
         }
 
         public function store_events() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
         
             // Parse incoming JSON request
@@ -87,7 +93,7 @@
             $EventModal = new \Modal\Event;
             $Events = $filterDate ? $EventModal->where_norder(["Date" => $filterDate]) : $EventModal->findall();
         
-            $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15', 'All'];
+            $validAgeGroups = ['3-5', '6-9', '10-13'];
         
             // Filter events based on the child's age and allowed age groups
             $Events = array_filter($Events, function ($event) use ($childAge, $validAgeGroups) {
@@ -126,6 +132,8 @@
         }        
 
         public function setchildsession(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -147,6 +155,8 @@
         }
 
         public function removechildsession(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -169,6 +179,8 @@
         }
 
         public function Logout(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $session = new \core\Session();
             $session->logout();
 

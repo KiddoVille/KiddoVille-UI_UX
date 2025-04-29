@@ -56,7 +56,7 @@
                             <div class="navbar-link-login">Login</div>
                         </a>
                         <a href="<?= ROOT ?>/Main/Signup">
-                            <div class="navbar-link-signup">Sign Up</div>
+                            <div class="navbar-link-signup">Request</div>
                         </a>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
 
                     </div>
 
-                    <div class="guide block">
+                    <!-- <div class="guide block">
                         <h1>Our Teachers</h1>
                     </div>
                     <div class="teacher-list">
@@ -228,7 +228,7 @@
                     </div>
 
 
-                </div>
+                </div> -->
 
                 <div class="location-box">
                     <div class="description block">

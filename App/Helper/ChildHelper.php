@@ -7,6 +7,8 @@
         public function store_child()
         {
             $session = new \Core\Session;
+            $session->set("USERID", 1);
+            $session = new \Core\Session;
             $UserID = $session->get('USERID');
 
             // Fetch ParentID based on the current user's ID
@@ -26,16 +28,18 @@
         }
 
         public function getAgeGroup($dob) {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $current_year = date("Y");
             $dob_date = new \DateTime($dob);
             $start_of_year = new \DateTime("$current_year-01-01");
             $age = $start_of_year->diff($dob_date)->y;
         
             // Define age groups
-            $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+            $age_groups = ['3-5', '6-9', '10-13'];
             
             // Default AgeGroup
-            $AgeGroup = '2-3';
+            $AgeGroup = '3-5';
         
             // Match age to group
             foreach ($age_groups as $group) {

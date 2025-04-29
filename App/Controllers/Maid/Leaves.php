@@ -7,7 +7,11 @@
     class Leaves{
         use MainController;
         public function index(){
-            $this->view('Maid/leaves');
+            $leavesModel = new \Modal\MaidLeave;
+            $data['leaves']  = $leavesModel->findall();
+            
+            $this->view('Maid/leaves', $data);
         }
+      
     }
 ?>

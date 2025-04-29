@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Profile</title>
+<title>Parent</title>
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -282,9 +282,9 @@
             console.log(window.location.pathname);
             window.addEventListener("popstate", function (event) {
                 console.log(window.location.pathname);
-                if (window.location.pathname === '/MVC/Public/Onbording/Guardian') {
+                if (window.location.pathname === '/KiddoVille-UI_UX/Public/Onbording/Guardian') {
                     // Redirect or take another action
-                    window.location.href = "/MVC/Public/Onbording/Guardian";
+                    window.location.href = "/KiddoVille-UI_UX/Public/Onbording/Guardian";
                 }
             });
             

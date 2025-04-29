@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Dashboard</title>
+<title>Parent</title>
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -243,6 +243,28 @@
                             <input style="margin-top: -10px; margin-bottom: 0px; width: 230px" type="range" min="0" max="100" value="50" step="20" id="fixedSlider">
                         </div>
                         <div class="social" style="margin-left: 0px; width: 300px;" id="social">
+                            <h3 style="margin-top: 10px !important; margin-bottom: 4px;"> Reminders </h3>
+                            <hr>
+                            <table style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="color: #233E8D; background-color:transparent; padding-right: 4%;">Child</th>
+                                        <th style="color: #233E8D; background-color:transparent; padding-left: 0%;">Description</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="table-body-container" style="max-height: 90px; overflow-y: auto; padding: 10px;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tbody>
+                                        <?php foreach ($data['reminders'] as $row): ?>
+                                            <tr>
+                                                <td><?= $row->Name ?></td>
+                                                <td><?= $row->Description ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                        </div>
                             <!-- <div class="social-head">
                                 <h3 style="display: inline;">Social Development</h3>
                             </div>
@@ -535,6 +557,31 @@
                             <p id="timeError" style="color: red; display: none;"></p>
                         </div>
                         <div class="pickup-section">
+                            <label for="OTP">Provide OTP <span id="red-star" class="red-star"> *</span></label>
+                            <input name="OTP"
+                                style="width: 330px;"
+                                id="pickupotp"
+                                required
+                                class="time"
+                                type="number"
+                                maxlength="6"
+                                oninput="this.value = this.value.slice(0, 6);"
+                                value="<?= isset($data['stat2']['OTP']) ? $data['stat2']['OTP'] : '' ?>" />
+                            <p id="otpError" style="color: red; display: none;"></p>
+                        </div>
+                        <div class="pickup-section" id="PickupNID" style="display: <?= isset($data['stat2']['NID']) ? 'block' : 'none' ?>;">
+                            <label for="NID">Provide NID <span id="red-star" class="red-star"> *</span></label>
+                            <input name="NID"
+                                style="width: 330px;"
+                                id="Newnid"
+                                class="time"
+                                type="number"
+                                maxlength="12" <?= isset($data['stat2']['NID']) ? 'required' : '' ?>
+                                oninput="this.value = this.value.slice(0, 12);"
+                                value="<?= isset($data['stat2']['NID']) ? $data['stat2']['NID'] : '' ?>" />
+                            <p id="nidError" style="color: red; display: none;"></p>
+                        </div>
+                        <div class="pickup-section">
                             <label>Select person for pickup</label>
                             <div class="person-section" style="display: flex; flex-direction: row; align-items: flex-start">
                                 <div class="person-container" style="display: flex; flex-direction: row;padding: 5px 10px; border-radius: 10px; cursor:pointer; background-Color: #ADD8E6"
@@ -714,8 +761,41 @@
 </body>
 <script>
 
-    const pickupModal = document.getElementById('pickupModal');
+const pickupModal = document.getElementById('pickupModal');
     const pickupForm = document.getElementById('pickupForm');
+    const bannedOtps = ["000000", "111111", "123456", "654321", "999999", "222222", "333333"];
+
+    function validateOTP(input) {
+        input.value = input.value.slice(0, 6); // Always limit to 6 digits
+
+        const otpError = document.getElementById('otpError');
+        if (bannedOtps.includes(input.value)) {
+            otpError.textContent = "This OTP is too common. Please choose a different one.";
+            otpError.style.display = 'block';
+            return false; // Invalid OTP
+        } else {
+            otpError.textContent = "";
+            otpError.style.display = 'none';
+            return true; // Valid OTP
+        }
+    }
+
+    const nidInput = document.getElementById('Newnid');
+    const otpInput = document.getElementById('pickupotp');
+    const nidError = document.getElementById('nidError');
+
+    // NID Validation on input
+    nidInput.addEventListener('input', function() {
+        const value = nidInput.value.trim();
+
+        if (value.length !== 12) {
+            nidError.textContent = "NID must be exactly 12 digits.";
+            nidError.style.display = 'block';
+        } else {
+            nidError.style.display = 'none';
+        }
+    });
+
     const alert = document.getElementById('alert');
     const alertmessage = document.getElementById('alert-message'); // assume this exists
     const timeError = document.getElementById('timeError'); // error span below time input
@@ -723,6 +803,15 @@
 
     pickupForm.addEventListener("submit", function(event){
         event.preventDefault();
+        const otpInput = document.getElementById('pickupotp');
+        const isValidOtp = validateOTP(otpInput);
+
+        if (!isValidOtp) {
+            return;
+        }
+        if(nidInput.style.display === 'block') {
+            return;
+        }
         
         const formData = new FormData(pickupForm);
 
@@ -1020,6 +1109,7 @@ if(Array.isArray(holidays) && holidays.length > 0){
     //     });
     // }
 
+    const PickupNID = document.getElementById('PickupNID');
     let selectedPerson = "Guardian"; // Default selection
     const guardianContainer = document.querySelector(".person-container[onclick=\"selectPerson('Guardian')\"]");
     const newPersonContainer = document.getElementById("newPersonContainer");
@@ -1027,6 +1117,7 @@ if(Array.isArray(holidays) && holidays.length > 0){
     const selectedPersonTypeInput = document.getElementById("selectedPersonType");
     const guardianRadio = document.getElementById("guardianRadio");
     const newPersonRadio = document.getElementById("newPersonRadio");
+    const Newnid = document.getElementById('Newnid');
 
     function selectPerson(personType) {
         if (personType === "Guardian") {
@@ -1040,6 +1131,10 @@ if(Array.isArray(holidays) && holidays.length > 0){
             guardianRadio.checked = true;
             newPersonRadio.checked = false;
             selectedPersonTypeInput.value = "Guardian";
+
+            PickupNID.style.display = 'none';
+            Newnid.required = false;
+
         } else if (personType === "New") {
             selectedPerson = "New";
 
@@ -1054,6 +1149,9 @@ if(Array.isArray(holidays) && holidays.length > 0){
             newPersonRadio.checked = true;
             guardianRadio.checked = false;
             selectedPersonTypeInput.value = "New";
+
+            PickupNID.style.display = 'block';
+            Newnid.required = true;deletePopup1
         }
     }
 

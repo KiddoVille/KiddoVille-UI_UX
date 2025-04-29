@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescription</title>
+    <title>Doctor</title>
     <link rel="stylesheet" href="<?=CSS?>/Doctor/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/pres.css?v=<?= time() ?>">
@@ -22,9 +22,10 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic-2.png" alt="profile-pic">
+                  <?php if(isset($doctor)) :?>
+                    <img src="<?=$doctor['image']?>" alt="profile-pic">
                     <div class="sidebar-header-content">
-                        <h3>Wane Carter</h3>
+                        <h3><?=$doctor['Name']?></h3>
                         <h4>Doctor</h4>
                     </div>
                 </div>
@@ -34,13 +35,13 @@
                         <span class="text">Dashboard</span>
                     </a>
                     
-                    <a href="<?=ROOT?>/Doctor/Prescriptions" class="sidebar-list-item" id="report-link">
+                    <!-- <a href="<?=ROOT?>/Doctor/Prescriptions" class="sidebar-list-item" id="report-link">
                         <i class='bx bxs-report' ></i>
                         <span class="text"> Prescriptions </span>
-                    </a>
+                    </a> -->
                     <a href="<?=ROOT?>/Doctor/History" class="sidebar-list-item" id="students-link">
-                    <i class='bx bxs-group' ></i>    
-                    <span class="text">History</span>
+                    <i class='bx bxs-report' ></i>   
+                    <span class="text">Prescriptions</span>
                     </a>
                 
         
@@ -56,27 +57,24 @@
             <div class="navabr">
                 <div class="navbar-left">
                     <a href="#"><h2>Dashboard</h2></a>
-                    <h4>12/08/2025</h3>
+                    <h4><?=$doctor['date'] ?></h3>
                 </div>
                 <div class="navbar-right">
-                <div class="alter-icon"></div>
-                <a href="#" class="notification" onclick="toggleNotify()" id = "notificationIcon">
-                   
-                    <i class='bx bxs-bell' ></i>
-                </a>
+               
+               
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic-2.png"  onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$doctor['image']?>"  onclick="toggleMenu()" id="profileIcon" height="50px">
                 </a>
                 </div>
     
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
                         <div class="user-info">
-                            <img src="<?=IMAGE?>/profilePic-2.png" alt="">
-                            <h3>Wane Carter</h3>
+                        <img src="<?=$doctor['image']?>">
+                            <h3><?=$doctor['Name']?></h3>
                         </div>
                         <hr>
-    
+                    <?php endif; ?>
                         <a href="teacherViewprofile.html" class="sub-menu-link">
                             <i class='bx bx-edit'></i>
                             <p>View Profile</p>
@@ -130,52 +128,82 @@
             </div>
         <div class="content">
             <div class="backgorund-overlay"></div>
-            <div class="pres-page">
+            <div class="press-page">
                 <div class="form-container">
                     <form class="prescription-form" >
-                       
+                    <?php if(isset($child)): ?>
                       <div class="form-section child-details">
                         <h2>Child's Details</h2>
                         <div class="form-group">
-                          <label for="child-name">Child's Name</label>
-                          <input type="text" id="child-name" name="childName" placeholder="Enter child's name" required>
+                          <label for="child-name">Child Name</label>
+                         
+                            <p><?=$child->First_Name?> <?=$child->Last_Name?></p>
+                        
                         </div>
+                        
                         <div class="form-group">
                           <label for="dob">Date of Birth</label>
-                          <input type="date" id="dob" name="dob" required>
+                         <p><?=$child->DOB?></p>
                         </div>
+                        
                         <div class="form-group">
-                          <label for="class">Class/Group</label>
-                          <input type="text" id="class" name="class" placeholder="Enter class/group name" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="guardian-name">Parent/Guardian Name</label>
-                          <input type="text" id="guardian-name" name="guardianName" placeholder="Enter guardian's name" required>
+                          <label for="guardian-name">Parent Name</label>
+                          <p><?=$child->ParentName?></p>
                         </div>
                         <div class="form-group">
                           <label for="contact">Contact Number</label>
-                          <input type="tel" id="contact" name="contact" placeholder="Enter contact number" required>
+                          <p><?=$child->Contact?></p>
                         </div>
+                        <div class="form-group">
+                          <label for="prev-medics">Previous Medical Conditions</label>
+                          <?php if(empty($child->Medicals)): ?>
+                            <p>None</p>
+                          <?php else: ?>
+                          <?php foreach($child->Medicals as $medical): ?>
+                          <li><?=$medical['name'] ?></li>
+                          <?php endforeach; ?>
+                          <?php endif; ?>
                       </div>
-                
+                      <div class="form-group docs">
+                          <label for="prev-docs">Previous Medical Documents</label>
+                          <?php if(empty($child->Images)): ?>
+                            <p>None</p>
+                          <?php else: ?>
+                          <?php foreach($child->Images as $img): ?>
+                            <!-- <img src="<?=ROOT?>/Doctor/Prescriptions/getImage?id=<?= $img['id'] ?>" width="100px" height="100px">
+                            <br> -->
+                            <!-- Download button -->
+                            <li><a href="<?=ROOT?>/Doctor/Prescriptions/getImage?id=<?= $img['id'] ?>" class="btn btn-sm btn-primary" download>Download</a></li>
+                          <?php endforeach; ?>
+                          <?php endif; ?>
+                      </div>
+                      </div>
+                      </form>
                       
+                      <form action="<?=ROOT?>/Doctor/Prescriptions/addPrescription" method="POST" class="prescription-form" id="prescription-form" > 
+                      <?php if(isset($child)): ?>
+                        <input type="text" name="AppointmentID" value="<?=$child->SlotID?>" hidden >
+                        <?php endif; ?>
                       <div class="form-section prescription-details">
                         <h2>Prescription Details</h2>
                         <div class="form-group">
                           <label for="medication-name">Medication Name</label>
-                          <input type="text" id="medication-name" name="medicationName" placeholder="Enter medication name" required>
+                          <input type="text" id="medication-name" name="Medication_Name" placeholder="Enter medication name" >
+                          <span id="medication-name-error" style="color: red;"></span>
                         </div>
                         <div class="form-group">
                           <label for="dosage">Dosage</label>
-                          <input type="text" id="dosage" name="dosage" placeholder="Enter dosage (e.g., 5 ml)" required>
+                          <input type="text" id="dosage" name="Dosage" placeholder="Enter dosage (e.g., 5 ml)" >
+                          <span id="dosage-name-error" style="color: red;"></span>
                         </div>
                         <div class="form-group">
                           <label for="frequency">Frequency</label>
-                          <input type="text" id="frequency" name="frequency" placeholder="Enter frequency (e.g., Twice a day)" required>
+                          <input type="text" id="frequency" name="Frequency" placeholder="Enter frequency (e.g., Twice a day)" >
+                          <span id="freq-name-error" style="color: red;"></span>
                         </div>
                         <div class="form-group">
                           <label for="route">Route of Administration</label>
-                          <select id="route" name="route" required>
+                          <select id="route" name="Route_of_Administration" >
                             <option value="oral">Oral</option>
                             <option value="topical">Topical</option>
                             <option value="inhalation">Inhalation</option>
@@ -184,11 +212,13 @@
                         </div>
                         <div class="form-group">
                           <label for="start-date">Start Date</label>
-                          <input type="date" id="start-date" name="startDate" required>
+                          <input type="date" id="start-date" name="Issued_At" >
+                          <span id="start-date-error" style="color: red;"></span>
                         </div>
                         <div class="form-group">
                           <label for="end-date">End Date</label>
-                          <input type="date" id="end-date" name="endDate" required>
+                          <input type="date" id="end-date" name="endDate" >
+                          <span id="end-date-error" style="color: red;"></span>
                         </div>
                       </div>
                     
@@ -196,6 +226,10 @@
                         <button type="submit" class="submit-btn">Submit</button>
                         <button type="reset" class="reset-btn">Reset</button>
                       </div>
+
+                      
+
+                      <?php endif; ?> 
                     </form>
                   </div>
                 
@@ -210,8 +244,9 @@
     </div>
     </div>
 
-    <script src="../Scripts/script.js"></script>
-    <script src="timeslot.js"></script>
+   
+    
+     <script src="<?=JS?>/Doctor/pres.js"> </script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     

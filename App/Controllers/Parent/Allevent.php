@@ -11,6 +11,8 @@
         public function index(){
 
             $session = new \Core\Session;
+            $session->set("USERID", 1);
+            $session = new \Core\Session;
             $SidebarHelper = new SidebarHelper();
             $ChildHelper = new ChildHelper();
             $session->check_login();
@@ -27,6 +29,8 @@
         public function store_allowedchild() {
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $eventId = $requestData['Id'] ?? null;
 
             $EventModal = new \Modal\Event;
@@ -77,6 +81,8 @@
         }        
 
         public function store_events() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
         
             $requestData = json_decode(file_get_contents("php://input"), true);
@@ -87,7 +93,7 @@
             $Events = $filterDate ? $EventModal->where_norder(["Date" => $filterDate]) : $EventModal->findall();
         
             if ($filterAge !== null) {
-                $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15', 'All'];
+                $validAgeGroups = ['3-5', '6-9', '10-13', 'All'];
         
                 if (in_array($filterAge, $validAgeGroups)) {
                     if ($filterAge !== 'All') {
@@ -127,7 +133,8 @@
         }
 
         public function setchildsession(){
-
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }

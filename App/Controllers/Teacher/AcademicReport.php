@@ -9,6 +9,7 @@
 
             if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['report_id'])){
 
+                $TeacherID =  1;
                 $student = new \Modal\Child;
                 $report =  new \Modal\Report;
                 $attend =  new \Modal\Attendance;
@@ -17,6 +18,20 @@
                 $skill = new \Modal\Skill;
                 $skillScore = new \Modal\SkillScore;
                 $observ = new \Modal\Observation;
+                $teacher = new \Modal\Teacher;
+
+                $teacherDetails = $teacher->where_norder(['TeacherID' => $TeacherID]);
+                $teacherDetails = $teacherDetails[0];
+                $profilePic = $teacherDetails->Image;
+                $base64Image = base64_encode($profilePic);
+    
+                $teacherInfo =[
+                    'TeacherID' => $teacherDetails->TeacherID,
+                    'First_Name' => $teacherDetails->First_Name,
+                    'Last_Name' => $teacherDetails->Last_Name,
+                    'Image' => 'data:image/jpg;base64,' . $base64Image
+                ];
+
                 
                 $reportID = $_POST['report_id'];
 
@@ -71,7 +86,7 @@
                 // exit();
 
                 $attendData [] = [
-                    'precentage' => count($attendances) / 30 * 100,
+                    'precentage' => round((count($attendances) / 30) * 100,1),
                     'precent' => count($attendances),
                     'absent' => 30 - count($attendances)
                 ];
@@ -81,20 +96,30 @@
 
                 //find marks to the relavent reportID
 
+                $month = date('F');
+                $currentMonth = date('Y-m');
+
                 $marks = $mark->where_norder(['Report_ID' => $reportID]);
 
                 foreach ($marks as $mrk) {
-                    $subjectDetails = $subject->where_norder(['Subject_ID' => $mrk->Subject_ID]);
-                    if (isset($subjectDetails[0])) {
-                        $subjectName = $subjectDetails[0]->Subject_Name;
-                
-                        // Add the subject and marks information to the marksData array
-                        $marksData[] = [
-                            'Subject_ID' => $mrk->Subject_ID,
-                            'Subject_Name' => $subjectName,
-                            "Mark" => $mrk->Marks
-                        ];
-                    }
+
+                    $submittedDate = $mrk->Submitted_at;
+                    $submittedMonth = date('Y-m', strtotime($submittedDate));
+                    if ($submittedMonth == $currentMonth) {
+                        $subjectDetails = $subject->where_norder(['Subject_ID' => $mrk->Subject_ID]);
+                        if (isset($subjectDetails[0])) {
+                            $subjectName = $subjectDetails[0]->Subject_Name;
+                    
+                            // Add the subject and marks information to the marksData array
+                            $marksData[] = [
+                                'Subject_ID' => $mrk->Subject_ID,
+                                'Subject_Name' => $subjectName,
+                                "Mark" => $mrk->Marks
+                            ];
+                        }
+                    } 
+                    
+                    
 
                   
                 }
@@ -188,6 +213,7 @@
                     'attendError' => $attendError,  // Pass error for attendance
                     'studentError' => $studentError,  // Pass error for student
                     'marksError' => $marksError, 
+                    'teacherInfo' => $teacherInfo
                 ]);
             }
 

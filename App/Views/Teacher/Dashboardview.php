@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Teacher</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/dash.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -81,7 +81,7 @@
                         <img src="<?=ROOT?>/assets/images/let.png">
                     </div>
                     
-                    <form action="<?=ROOT?>/Teacher/KiddoSchedule/addTask" method="post">
+                    <form action="<?=ROOT?>/Teacher/KiddoSchedule/addTask" method="post" id="task-form-submit">
                     <input type="hidden" id="today-task-id" name="WorkID">
                     <input type="hidden" id="today-teacher-id" name="TeacherID">
                         <div class="kiddo-body">
@@ -90,7 +90,8 @@
                     <input type="text" name="Title"  required> -->
 
                     <label htmlfor="name">Description</label>
-                    <textarea rows="4" required name="Description"></textarea>
+                    <textarea rows="4"  name="Description" id="task-des"></textarea>
+                    <span  style="color: red;" id="task-error"></span>
                     
                 </div>
                    
@@ -124,8 +125,8 @@
                         <input type="text" name="Title"  id="task-title" required> -->
 
                         <label htmlfor="name">Description</label>
-                        <textarea rows="4" required name="Description" id="task-description"></textarea>
-                        
+                        <textarea rows="4" required name="Description" class="task-description"></textarea>
+                        <span id="task-name-error" style="color: red;" class="task-name-erro"></span>
                     </div>
                     
                         <div class="task-edit-footer">
@@ -260,7 +261,8 @@
                                                 <p>Outstanding</p>
                                             </div>
                                             <div class="percent">
-                                                <p>55%</p>
+                                                <p><?=$dataArray[0]?>%
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="legend">
@@ -269,7 +271,7 @@
                                                 <p>Satisfactory</p>
                                             </div>
                                             <div class="percent">
-                                                <p>20%</p>
+                                                <p><?=$dataArray[1]?>%</p>
                                             </div>
                                         </div>
                                      </div>
@@ -280,7 +282,7 @@
                                                 <p>Developing </p>
                                             </div>
                                             <div class="percent">
-                                                <p>15%</p>
+                                                <p><?=$dataArray[2]?>%</p>
                                             </div>
                                         </div>
                                         <div class="legend">
@@ -289,7 +291,7 @@
                                                 <p>Weak </p>
                                             </div>
                                             <div class="percent">
-                                                <p>10%</p>
+                                                <p><?=$dataArray[2]?>%</p>
                                             </div>
                                         </div>
                                      </div>             
@@ -396,7 +398,8 @@
                         </div> -->
                     </div>
                     <div class="second-block">
-                        <h3>Subject Profeciency</h3>                                
+                        <h3>Subject Profeciency</h3>   
+                        <!-- <pre><?php print_r($lineArray)?></pre>                              -->
                         <div class="line-chart">
                             <canvas id="canvas-2" width="600px" height="300px"></canvas>
                         </div>
@@ -408,9 +411,18 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script>
+        const phpData = <?= json_encode($dataArray) ?>;
+        const phpData2 = <?= json_encode($lineArray) ?>;
+    </script>
+
+<script src="graph.js"></script> <!-- Load your graph after phpData is ready -->
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="<?=JS?>/Teacher/script.js"></script>
     <script src="<?=JS?>/Teacher/graphs.js"></script>
+    <script src="<?=JS?>/Teacher/validation.js"></script>
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>
     
     <script>
@@ -466,10 +478,7 @@ function fetchTaskList(value = null) {
                                     <i class='bx bx-time-five'></i>
                                     <p class="time">${escapeHTML(task.Start_Time)} - ${escapeHTML(task.End_Time)} PM</p>
                                 </div>
-                                <div class="data-2 set">
-                                    <i class='bx bx-group'></i>
-                                    <p class="time">36 students</p>
-                                </div>
+                               
                                 <div class="data-3 set">
                                     <div class="panel" id="accd-delete">
                                         <div class="title">

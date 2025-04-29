@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>
-        KIDDO VILLE Account
-    </title>
+<title>Manager</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="<?= CSS ?>/Manager/Schedule.css?v=<?= time() ?>" />
     <link rel="icon" href="<?= CSS ?>/Manager/KIDDOVILLE_LOGO.jpg">

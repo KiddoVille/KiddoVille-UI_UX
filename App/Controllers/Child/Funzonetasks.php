@@ -10,6 +10,8 @@
         public function index(){
 
             $session = new \Core\Session;
+            $session->set("USERID", 1);
+            $session = new \Core\Session;
             $session->check_login();
             $session->check_child('Parent');
             $ChildID = $session->get('CHILDID');
@@ -31,6 +33,8 @@
         }
 
         public function store_tasks() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
             
@@ -107,6 +111,8 @@
         }                
 
         private function selectedchild($selectedchild){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = [];
 
             $imageData = $selectedchild->Image;
@@ -131,6 +137,8 @@
 
         public function setchildsession()
         {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -153,7 +161,8 @@
 
         public function removechildsession()
         {
-
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -175,6 +184,8 @@
         }
 
         public function Logout(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $session = new \core\Session();
             $session->logout();
 

@@ -4,7 +4,7 @@
 
     defined('ROOTPATH') or exit('Access Denied!');
 
-    class Teacher_leave_balance{
+    class TeacherRem{
         use Modal;
 
         protected $table = 'teacherleavebalance';

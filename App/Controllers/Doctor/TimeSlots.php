@@ -7,9 +7,25 @@
 
         public function index(){
 
+            $doctor = new \Modal\Doctor;
+
+            // $DoctorID = $this->findID();
+            $DoctorID =  1;
+
+            $doctorInfo = $doctor->first(['DoctorID' => $DoctorID]);
+            $profileImage = $doctorInfo->Image;
+            $baseImage = base64_encode($profileImage);
+
+           $doctorDetails = [
+            'id' => $DoctorID,
+            'Name' =>$doctorInfo->First_Name. ' ' . $doctorInfo->Last_Name,
+            'image' => 'data:image/jpeg;base64,' . $baseImage,
+            'date' => date('Y-m-d')   
+        ];
+
             // echo("gee");
             // exit();
-            $this->view('Doctor/TimeSlots');
+            $this->view('Doctor/TimeSlots',['doctor' => $doctorDetails]);
            
         }
 
@@ -71,23 +87,29 @@
                 
                         // Only get the latest slot inserted (assuming last is the new one)
                         $lastSlot = end($row);
-                    //     var_dump($lastSlot);
+                    //     var_dump($lastSlot->SlotID);
                     // exit();
                 
                         if ($lastSlot) {
                             $apps[] = [
                                 'SlotID' => $lastSlot->SlotID,
                                 'ChildID' => null,
+                                'DoctorID' =>$DoctorID,
                                 'Booked_At' => null,
                             ];
+                            
+                        
 
                             if(!empty($apps)){
-                                $appoint->insert($apps);
+                                $appoint->insert(end($apps));
                             }
+                           
                         }
                         
                     }
                 }
+                // show ($apps);
+                //              exit();
                 redirect('Doctor/Dashboard');   
 
                 // var_dump($apps);
@@ -107,6 +129,28 @@
             redirect('Doctor/Dashboard');
         }
     }
+
+    public function deleteSlot() {
+
+        $slot = new \Modal\TimeSlot;
+       
+        header('Content-Type: application/json');
+        $request = json_decode(file_get_contents('php://input'), true);
+        $response = [];
+    
+        if (isset($request['SlotID'])) {
+            $SlotID = $request['SlotID'];
+            $slot->delete($SlotID, 'SlotID');
+            //$slot->insert(['DoctorID'=> 4, 'Slot_Date'=>'2025-04-26', 'Start_Time'=>'10:00', 'End_Time'=>'11:00', 'Status'=>'available']);
+            $response = ['success' => true, 'message' =>$request['SlotID']];
+        } else {
+            $response = ['success' => true, 'message' => 'No SlotID provided.'];
+        }
+    
+        echo json_encode($response);
+        exit();
+    }
+    
 
         public function findID(){
 
