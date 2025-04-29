@@ -11,6 +11,7 @@
             $Helper = new ManagerHelper;
             $Helper->Check_Manager();
             $data = $this->showleaverequest();
+            $data = $data + $this->maidleaverequest();
             $this->view('Manager/Leaverequest', $data);
         }
         
@@ -35,6 +36,21 @@
 
             }
             $data['leaverequest'] = $records;
+            return $data;
+        }
+
+
+        public function maidleaverequest(){
+            $data = [];
+            $model = new \modal\Maid_leave;
+            $records = $model->findall();
+
+            foreach($records as $record){
+                $maidmodel = new \Modal\Maid;
+                $maiddetails = $maidmodel -> first(['MaidID' => $record->MaidID]);
+                $record -> MaidName = $maiddetails->First_Name. ' ' . $maiddetails->Last_Name;
+                $data['maidleaves'] = $records;
+            }
             return $data;
         }
 
@@ -63,12 +79,12 @@
         
             if (isset($request['LeaveID'])) {
                 $TeacherLeaveModal = new \Modal\Teacher_Leave;
-                $TeacherLeaveModal->update(['LeaveID' => $request['LeaveID']], ['Status' => 'Canceled']);
-                $response = ['success' => true, 'message' => 'Child session removed.'];
+                $TeacherLeaveModal->update(['LeaveID' => $request['LeaveID']], ['Status' => 'Rejected']);
+                $response = ['success' => true, 'message' => 'Leave request rejected successfully.'];
             } else {
-                $response = ['success' => false, 'message' => 'No child session to remove.'];
+                $response = ['success' => false, 'message' => 'Failed to reject leave request.'];
             }
-    
+        
             echo json_encode($response);
             exit();
         }
