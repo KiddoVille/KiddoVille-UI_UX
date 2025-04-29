@@ -25,6 +25,9 @@
             'date' => date('Y-m-d')   
         ];
 
+        // show($doctorDetails);
+        // exit();
+
            $row = $slot->where_norder(['DoctorID' => $DoctorID, 'Slot_Date' => date('Y-m-d')]);
             // var_dump($row);
             // exit();
@@ -61,6 +64,8 @@
            
            
         }
+        // show($doctorDetails);
+        // exit();
         $this->view('Doctor/Dashboard',['times' => $data,  'doctor' => $doctorDetails]);
     }
         // var_dump($data);

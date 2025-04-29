@@ -23,7 +23,7 @@
             <div class="sidebar">
                 <div class="sidebar-header">
                     <?php if(isset($doctor)) :?>
-                        <img src="<?=$doctor['image']?>" alt="profile-pic">
+                        <img src="<?=$doctor['image']?>" >
                         <div class="sidebar-header-content">
                             <h3><?=$doctor['Name']?></h3>
                             <h4>Doctor</h4>

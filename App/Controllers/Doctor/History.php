@@ -28,19 +28,19 @@
         ];
 
             $appointments  = $appoint->where_norder(['DoctorID' => $DoctorID]);
-            
+
+            // show($appointments);
+            // exit();
             
 
             if(!empty($appointments)){
                 
                 foreach($appointments as $appointment){
                     $children = $child->where_norder(['ChildID' => $appointment->ChildID]);
+                        // show($children);
+                        // exit();
                     $children = $children[0];
-                  
-
-
                     $prescriptions = $pres->first(['AppointmentID' => $appointment->AppointmentID]);
-                   
                     //$prescriptions = $prescriptions[0];
                     
                     if(!empty($prescriptions)){
