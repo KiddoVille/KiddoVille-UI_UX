@@ -7,12 +7,15 @@
     class MaidLeave{
         use Modal;
 
-        protected $table = 'MaidLeave';
+        protected $table = 'maid_leave';
         protected $allowedColumns = [
             'MaidID',
-            'Date',
-            'Emergency',
-            'LeaveType'
+            'Duration',
+            'Start_Date',
+            'End_Date',
+            'Description',
+            'Leave_Type',
+            'Status',
         ];
 
         public function validate($data){

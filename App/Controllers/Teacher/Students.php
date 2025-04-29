@@ -7,6 +7,28 @@ class Students {
 
     public function index() {
         $student = new \Modal\Child;
+        $teacher = new \Modal\Teacher;
+
+        // $TeacherID = $this->findID();
+        $TeacherID =  1;
+
+        $row = $teacher->first(['TeacherID' => $TeacherID]);
+        // show($row);
+        // exit();
+            $firstName = $row->First_Name;
+            $lastName = $row->Last_Name ;
+            $email =  $row->Email;
+            $image= $row->Image;
+            $base64Image = base64_encode($image);
+
+            $TeacherInfo = [
+                    'firstName' => $firstName,  
+                    'lastName' => $lastName,
+                    'email' => $email,
+                    'image' => 'data:image/jpg;base64,' . $base64Image];
+
+                // show($TeacherInfo);
+                // exit();
 
         // ✨ Handle AJAX POST request (search or fetch all)
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'SearchRecord') {
@@ -41,13 +63,16 @@ class Students {
                 header('Content-Type: application/json');
                 echo json_encode([
                     'students' => array_map(fn($student) => (array)$student, $result),
-                    'message' => empty($result) ? 'No students found.' : ''
+                    'message' => empty($result) ? 'No students found.' : '',
+                    'teacher' => $TeacherInfo
+
                 ]);
             } else {
                 header('Content-Type: application/json');
                 echo json_encode([
                     'students' => [],
-                    'message' => 'No students found.'
+                    'message' => 'No students found.',
+                    'teacher' => $TeacherInfo
                 ]);
             }
             exit();
@@ -62,7 +87,8 @@ class Students {
 
         $this->view('Teacher/Students', [
             'students' => $students,
-            'message' => empty($students) ? 'No students found.' : ''
+            'message' => empty($students) ? 'No students found.' : '',
+            'teacher' => $TeacherInfo
         ]);
     }
 
@@ -74,11 +100,11 @@ class Students {
     }
 
     public function addSkill(){
-       
         $observe = new \Modal\Observation;
         $score = new \Modal\SkillScore;
 
-        $TeacherID = $this->findID(); 
+        // $TeacherID = $this->findID(); 
+        $TeacherID =  1;
         $observeArray = [];
         $today = date('Y-m-d');
 
@@ -172,6 +198,78 @@ class Students {
         return $result;
 
 
+    }
+
+    public function selectbyAge(){
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            $student = new \Modal\Child;
+            $teacher = new \Modal\Teacher;
+    
+            // $TeacherID = $this->findID();
+            $TeacherID =  1;
+    
+            $row = $teacher->first(['TeacherID' => $TeacherID]);
+            // show($row);
+            // exit();
+                $firstName = $row->First_Name;
+                $lastName = $row->Last_Name ;
+                $email =  $row->Email;
+                $image= $row->Image;
+                $base64Image = base64_encode($image);
+    
+                $TeacherInfo = [
+                        'firstName' => $firstName,  
+                        'lastName' => $lastName,
+                        'email' => $email,
+                        'image' => 'data:image/jpg;base64,' . $base64Image];
+    
+
+            $ageGroup = $_POST['age-group'] ?? '';
+
+            if(!EMPTY($ageGroup)){
+
+                $students = $student->findall();
+
+                $group3_5 = [];
+                $group6_9 = [];
+                $group10_13 = [];
+
+                foreach ($students as $stud) {
+                    $stud->DOB = $this->agecalculate($stud->DOB);
+                    if ($student->DOB >= 3 && $student->DOB <= 5) {
+                        $group3_5[] = $student;
+                        $this->view('Teacher/Students', [
+                            'students' => $group3_5,
+                            'message' => empty($group3_5) ? 'No students found.' : '',
+                            'teacher' => $TeacherInfo
+                        ]);
+                    } elseif ($student->DOB >= 6 && $student->DOB <= 9) {
+                        $group6_9[] = $student;
+                        $this->view('Teacher/Students', [
+                            'students' => $group6_9,
+                            'message' => empty($group6_9) ? 'No students found.' : '',
+                            'teacher' => $TeacherInfo
+                        ]);
+                    } elseif ($student->DOB >= 10 && $student->DOB <= 13) {
+                        $group10_13[] = $student;
+                        $this->view('Teacher/Students', [
+                            'students' => $group10_13,
+                            'message' => empty($group10_13) ? 'No students found.' : '',
+                            'teacher' => $TeacherInfo
+                        ]);
+                    }
+                }
+
+                
+
+            }
+            
+        }
+       
+
+      
     }
 
 }

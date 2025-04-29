@@ -10,7 +10,8 @@ class History
     use MainController;
     public function index()
     {
-
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \Core\Session;
         $session->check_login();
         $session->check_child('Parent');
@@ -38,6 +39,8 @@ class History
 
     private function selectedchild($selectedchild)
     {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $data = [];
 
         $imageData = $selectedchild->Image;
@@ -62,6 +65,8 @@ class History
 
     private function store_week()
     {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $currentDate = new \DateTime();
         $weekStart = $currentDate->modify('this week')->format('Y-m-d');
         $weekDays = [];
@@ -182,6 +187,8 @@ class History
 
     public function store_history()
     {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         // Set the response content type to JSON
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
@@ -246,6 +253,8 @@ class History
 
     private function set_states()
     {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         // Get the ChildID from the session
         $session = new \Core\Session;
         $ChildID = $session->get('CHILDID');
@@ -320,7 +329,8 @@ class History
 
     public function setchildsession()
     {
-
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -342,7 +352,8 @@ class History
 
     public function removechildsession()
     {
-
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -364,6 +375,8 @@ class History
     }
 
     public function Logout(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \core\Session();
         $session->logout();
 

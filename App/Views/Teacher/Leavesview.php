@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaves</title>
+    <title>Teacher</title>
     <link rel="stylesheet" href="<?=CSS?>/Teacher/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Teacher/leaves.css?v=<?= time() ?>">
@@ -22,9 +22,11 @@
         
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic.png" alt="profile-pic">
+                <?php if(isset($result)):?>
+                <img src="<?=$result['image']?>">
                     <div class="sidebar-header-content">
-                        <h3>Hey Sara Britney</h3>
+                        <h3><?= $result['firstName'] ?> <?= $result['lastName'] ?></h3>
+                        <?php endif; ?>
                         <h4>Teacher</h4>
                     </div>
                 </div>
@@ -74,7 +76,7 @@
                     <div class="leave-body">
                         <div class="body-left">
                             <label for="Leave_Type">Leave Type<span>*</span></label>
-                            <select name="Leave_Type" required>
+                            <select name="Leave_Type" required id="Leave_Type">
                                 <option value="Annual Leave">Annual Leave</option>
                                 <option value="Sick Leave">Sick Leave</option>
                                 <option value="Compassionate Leave">Compassionate</option>
@@ -84,39 +86,29 @@
                             <label for="End_Date">To</label>
                             <input type="date" name="End_Date" id="End_Date" required>
                             <label for="Description">About</label>
-                            <textarea name="Description" id="Description" placeholder="Inlcude comments for your approver" rows="5" required></textarea>
+                            <textarea name="Description" id="Description" placeholder="Inlcude comments for your approver" rows="5" ></textarea>
                             
                         </div>
                         <div class="body-right">
                             <img src="<?=ROOT?>/assets/images/leave.png">
                             <div class="leave-info">
-                                <h4>Your Request Includes</h4>
+                                <h4>Your Remaining Leaves</h4>
                                 <hr>
                                 <div class="details-grid">
-                                   
+                                    <?php if(isset($rems)):?>
+                                        <?php foreach($rems as $rem):?>
                                         <div class="detail-item">
-                                            <span class="detail-label"></span>
+                                            <span class="detail-label"><?=$rem['LeaveType'] ?></span>
                                             <div class="leave-rem">
-                                                <span class="detail-value">Used: </span>
-                                                <span class="detail-value">Remaining: </span>
+                                                <span class="detail-value">Used: <?=$rem['Used'] ?></span>
+                                                <span class="detail-value">Remaining: <?=$rem['Remain'] ?> </span>
                                             </div>
                                         </div>
+                                        <?php endforeach;?>
+                                        <?php endif; ?>
                                     
                             
-                            <div class="detail-item">
-                                <span class="detail-label">Medical Leaves</span>
-                                <div class="leave-rem">
-                                    <span class="detail-value">Used: </span>
-                                    <span class="detail-value">Remaining: </span>
-                                </div>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Compassionate Leaves</span>
-                                <div class="leave-rem">
-                                    <span class="detail-value">Used: </span>
-                                    <span class="detail-value">Remaining: </span>
-                                </div>
-                            </div>
+                                      
                             
                         </div>
                             </div>
@@ -143,7 +135,7 @@
                             <input type="hidden" id="leave-id" name="LeaveID">
                             <input type="hidden" id="teacher-id" name="TeacherID">
                             <label for="Leave_Type">Leave Type<span>*</span></label>
-                            <select name="Leave_Type" required>
+                            <select name="Leave_Type" required id="Leave_Type">
                                 <option value="Annual Leave">Annual Leave</option>
                                 <option value="Sick Leave">Sick Leave</option>
                                 <option value="Compassionate Leave">Compassionate</option>
@@ -178,7 +170,7 @@
 
             <div class="navabr">
                 <div class="navbar-left">
-                    <a href="#"><h2>Hey Sara Britney</h2></a>
+                    <a href="#"><h2>Hey <?= $result['firstName'] ?> <?= $result['lastName'] ?></h2></a>
                     <h4>Empowering Excellence in Every Lesson!</h4>
                 </div>
                 <div class="navbar-right">
@@ -188,7 +180,7 @@
                     <i class='bx bxs-bell' ></i>
                 </a> -->
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic.png"  onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$result['image']?>"  onclick="toggleMenu()" id="profileIcon">
                 </a>
                 </div>
     
@@ -276,6 +268,10 @@
                             <div class="success-message">
                                 <p><?= $message ?></p>
                             </div>
+                        <?php elseif (isset($success)): ?>
+                            <div class="ok-message">
+                                <p><?= $success ?></p>
+                            </div>
                         <?php endif; ?>
                 </div>
                 <div class="leave-table">
@@ -295,7 +291,20 @@
                                 <p><?=$leave->End_Date?></p>
                                 <p class="num"><?=$leave->Duration?></p>
                                 <div class="approve" ><?=$leave->Status?></div>  
+                                <?php if($leave->Status == "Pending"):?>
+                                    <div class="actions-btn">
                                 <button class="edit-btn"  onclick='openEditLeaves(<?= htmlspecialchars(json_encode($leave)) ?>)'>Edit</button>
+                                <form action="<?=ROOT?>/Teacher/Leaves/deleteLeave" method = "POST">
+                                    <input type="text" name="LeaveID" value="<?=$leave->LeaveID?>" hidden>
+                                <button class="dlt-btn" type="submit">Delete</button>
+                                </div>
+                                </form>
+                                <?php else:?>
+                                    <div class="actions-btn">
+                                <button class="edit-button" disabled>Edit</button>
+                                <button class="dlt-button" disabled>Delete</button>
+                                </div>
+                                <?php endif;?>
                             </div>
                         <?php endforeach;?>
                     <?php endif;?>
@@ -353,6 +362,9 @@ const openEditLeaves = (leave) => {
             if (document.getElementById('teacher-id')) {
                 document.getElementById('teacher-id').value = leave.TeacherID;
             }
+
+            const leaveType = editContainer.querySelector('#Leave_Type')
+            leaveType.value = leave.Leave_Type;
             
             // Get all the Start_Date fields in the edit form
             const startDateInputs = editContainer.querySelectorAll('#Start_Date');

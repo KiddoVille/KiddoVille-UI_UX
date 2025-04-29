@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Guardian Profile</title>
+<title>Parent</title>
 <link rel="icon" href="<?=IMAGE?>/logo_light-remove.png" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -12,7 +12,7 @@
 <body>
     <div class="Profilecard" style="display: flex; flex-direction: column; justify-content: center; align-self: center; margin-top: 140px;">
         <div class="Profile">
-            <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer; color: rgba(35, 83, 167, 1);">My Profile</p>
+            <p style="margin-top: 0px; margin-bottom: 0px; cursor: pointer; color: rgba(35, 83, 167, 1);">Guardian Profile</p>
         </div>
         <div class="ProfileContainer">
             <div class="leftcon">

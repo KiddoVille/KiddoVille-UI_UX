@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dataPie = {
       labels: ['Outstanding ', 'Satisfactory ', 'Needs Improvement', 'Unsatisfactory '], // Optional labels
       datasets: [{
-        data: [55, 20, 15, 10], // Values
+        data: phpData, // Values
         backgroundColor: [
           '#46bd91',
           '#46a7f7',
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dataLine = {
         labels: ['Jan ', 'Feb ', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Noc', 'Dec'], // Optional labels
         datasets: [{
-          data: [65,59,70,81,71,90,96,55,40,65,70], // Values
+          data: phpData2, // Values
           fillColor: "rgba(220,220,220,0.5)",
           borderColor: "rgba(35, 83, 167, 0.5)",
           strokeColor: "rgba(220,220,220,1)",

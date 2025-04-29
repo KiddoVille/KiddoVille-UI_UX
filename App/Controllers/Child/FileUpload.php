@@ -11,6 +11,8 @@ class FileUpload {
     }
 
     public function store() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \core\Session();
         $UserID = $session->get('USERID'); // Get logged-in user ID
 

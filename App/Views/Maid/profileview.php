@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <title>Document</title>
+<title>Maid</title>
 </head>
 <body>
     <div class="main">
@@ -80,55 +80,63 @@
                         <div class="make_background">
                             
                             <div class="second-content">
-                                <div class="container_3">
+                                <form class="container_3" method= "POST" action = "<?=ROOT?>/Maid/Profile/condi">
+                                <?php if (!empty($children)): ?>
+                                    <?php foreach ($children as $child): ?>
                                     <div class="form-head">
                                         
                                         <span>Special Behaviour</span>
                                     </div>
                                     <div class="form-group-date">
-                                        <label for="date">Date</label>
+                                        <label for="date">Registration No</label>
                                         <div class="date_entry">
-                                            <input type="date"/>
+                                            <span><?= htmlspecialchars($child->ChildID) ?></span>
                                          </div>
                                     </div>
                                 
                                     <div class="form-group-option">
-                                        <label for="type">Type of Behaviour</label>
-                                        <select id="type">
-                                          <option>Aggressive Behaviour</option>
-                                        </select>  
+                                        <label for="type">Name</label>                                        
+                                          <span><?= htmlspecialchars($child->First_Name) ?></span>                                         
                                     </div>
                                     <div class="form-group-desp">
-                                        <label for="description">Description</label>
-                                        <textarea id="description" placeholder="Details about behavioutal condition"></textarea>
+                                    <label for="description">Description</label>
+                                        <input type="hidden" name="child_id" value = "<?= htmlspecialchars($child->ChildID) ?>">
+                                        <textarea id="description" placeholder="Details about the behavioural condition" name = "description"></textarea>
                                     </div>
-                                  
                                     <div class="buttons">
-                                        <button class="submt_butto">Submit</button>
+                                        <button class="submt_butto" type="submit">Submit</button>
                                     </div>
-                                </div>
-                                <div class="container_4">
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                </form>
+                                    
+                                <form class="container_4" method= "POST" action = "<?=ROOT?>/Maid/Profile/cond">
+                                <?php if (!empty($children)): ?>
+                                    <?php foreach ($children as $child): ?>
                                     <div class="form-head">
                                         <span>Medical Conditions</span>
                                     </div>
                                     <div class="form-group-date">
-                                        <label for="date">Date</label>
+                                    <label for="date">Registration No</label>
                                         <div class="date_entry">
-                                            <input type="date"/>
+                                            <span><?= htmlspecialchars($child->ChildID) ?></span>
                                          </div>
                                     </div>
                                     <div class="form-group-option">
-                                        <label for="title">Title</label>
-                                        <input type="text" id="title" placeholder="Enter Medical Condition">
+                                        <label for="type">Name</label>                                        
+                                        <span><?= htmlspecialchars($child->First_Name) ?></span>  
                                     </div>
                                     <div class="form-group-desp">
                                         <label for="description">Description</label>
-                                        <textarea id="description" placeholder="Details about the medical condition"></textarea>
+                                        <input type="hidden" name="child_id" value = "<?= htmlspecialchars($child->ChildID) ?>">
+                                        <textarea id="description" placeholder="Details about the medical condition" name = "description"></textarea>
                                     </div>
                                     <div class="buttons">
-                                        <button class="submt_butto">Submit</button>
+                                        <button class="submt_butto" type = submit>Submit</button>
                                     </div>
-                                </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Payment Statement</title>
+<title>Parent</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="<?= CSS ?>/Child/Paymentsheet.css?v=<?= time() ?>">
@@ -34,7 +34,7 @@
                                 <span class="date"><?= date('d/m/Y', strtotime($item['date'])) ?></span>
                                 <span class="description"><?= htmlspecialchars($item['reason']) ?></span>
                                 <span class="amount <?= (isset($item['Fine']) && $item['Fine'] == 1) ? 'red' : '' ?>">
-                                    $<?= number_format(abs($item['amount']), 2) ?>
+                                    <?= number_format(abs($item['amount']), 2) ?>Rs
                                 </span>
                             </li>
                         <?php endforeach; ?>
@@ -48,19 +48,19 @@
                 <ul>
                     <li>
                         <span class="description"> Package</span>
-                        <span class="amount"><?= $data['Expenses']['Package'] ?></span>
+                        <span class="amount"><?= $data['Expenses']['Package'] ?>Rs</span>
                     </li>
                     <li>
                         <span class="description">Reservations</span>
-                        <span class="amount"><?= $data['Expenses']['Reservations'] ?></span>
+                        <span class="amount"><?= $data['Expenses']['Reservations'] ?>Rs</span>
                     </li>
                     <li>
                         <span class="description">Snacks</span>
-                        <span class="amount"><?= $data['Expenses']['Meal'] ?></span>
+                        <span class="amount"><?= $data['Expenses']['Meal'] ?>Rs</span>
                     </li>
                     <li>
                         <span class="description">Events</span>
-                        <span class="amount"><?= $data['Expenses']['Activity'] ?></span>
+                        <span class="amount"><?= $data['Expenses']['Activity'] ?>Rs</span>
                     </li>
                 </ul>
             </div>

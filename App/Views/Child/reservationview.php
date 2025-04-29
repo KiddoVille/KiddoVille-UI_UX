@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Reservation</title>
+<title>Parent</title>
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -209,28 +209,31 @@
                                     <p style="color: black; margin-top: -28px; margin-left: 100px;" class="month"></p>
                                     <div class="dates">
                                         <div class="dates" id="datesforreservation">
-                                            <?php foreach ($data['dates'] as $date): ?>
-                                                <?php
-                                                $selectedDay = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
-                                                ?>
-                                                <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
-                                                    <p class="whichday"><?= $date['dayName'] ?></p>
-                                                    <h1 class="day"><?= $date['day'] ?></h1>
-                                                </div>
-                                            <?php endforeach ?>
+                                            <?php
+                                            $selectedDate = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
+                                            ?>
+                                            <select name="Date" id="dateDropdown" style="width: 280px; margin-right: 0px" class="date-dropdown">
+                                                <option value="" hidden>Select a date</option>
+                                                <?php foreach ($data['dates'] as $date): ?>
+                                                    <option value="<?= $date['day'] ?>" <?= ($selectedDate == $date['day']) ? 'selected' : '' ?>>
+                                                        <?= $date['day']  ?> - <?=  $date['dayName']?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                         <div class="dates" id="datesfor24reservation" style="display: none;">
-                                            <?php foreach ($data['hours'] as $date): ?>
-                                                <?php
-                                                $selectedDay = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
-                                                ?>
-                                                <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
-                                                    <p class="whichday"><?= $date['dayName'] ?></p>
-                                                    <h1 class="day"><?= $date['day'] ?></h1>
-                                                </div>
-                                            <?php endforeach ?>
+                                            <?php
+                                            $selectedDate = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
+                                            ?>
+                                            <select name="Date24" id="date24Dropdown" style="width: 280px; margin-right: 0px;" class="date-dropdown">
+                                                <option value="" hidden>Select a date</option>
+                                                <?php foreach ($data['hours'] as $date): ?>
+                                                    <option value="<?= $date['day'] ?>" <?= ($selectedDate == $date['day']) ? 'selected' : '' ?>>
+                                                        <?= $date['day'] ?> - <?= $date['dayName'] ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
-                                        <input type="hidden" name="Date" id="date-inputforpost" required />
                                     </div>
                                     <p class="error"> <?= isset($_SESSION['APP']['Page']['errors']['Date']) ? $_SESSION['APP']['Page']['errors']['Date'] : '' ?> </p>
                                 </div>
@@ -289,28 +292,34 @@
                                         <div class="dates">
                                             <input type="date" id="modal-Date" style="display: none;">
                                             <div class="dates" id="datesforreservation2">
-                                                <?php foreach ($data['editdates'] as $date): ?>
-                                                    <?php
-                                                    // Extract the day from the full date in $_SESSION['APP']['Edit']['values']['Date']
-                                                    $selectedDay = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
-                                                    ?>
-                                                    <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
-                                                        <p class="whichday"><?= $date['dayName'] ?></p>
-                                                        <h1 class="day"><?= $date['day'] ?></h1>
-                                                    </div>
-                                                <?php endforeach ?>
+                                                <?php
+                                                    $selectedDate = isset($_SESSION['APP']['Edit']['values']['Date']) 
+                                                        ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('Y-m-d') 
+                                                        : null;
+                                                ?>
+                                                <select name="Date" id="dateDropdown2" style="width: 280px; margin-right: 0px;" class="date-dropdown">
+                                                    <option value="" hidden>Select a date</option>
+                                                    <?php foreach ($data['editdates'] as $date): ?>
+                                                        <option value="<?= $date['date'] ?>" <?= ($selectedDate === $date['date']) ? 'selected' : '' ?>>
+                                                            <?= $date['date'] ?> - <?= $date['dayName'] ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                             <div class="dates" id="datesfor24reservation2" style="display: none;">
-                                                <?php foreach ($data['edithours'] as $date): ?>
-                                                    <?php
-                                                    // Extract the day from the full date in $_SESSION['APP']['Edit']['values']['Date']
-                                                    $selectedDay = isset($_SESSION['APP']['Edit']['values']['Date']) ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('j') : null;
-                                                    ?>
-                                                    <div class="date <?= ($selectedDay === $date['day']) ? 'select' : '' ?>">
-                                                        <p class="whichday"><?= $date['dayName'] ?></p>
-                                                        <h1 class="day"><?= $date['day'] ?></h1>
-                                                    </div>
-                                                <?php endforeach ?>
+                                                <?php
+                                                    $selectedDate24 = isset($_SESSION['APP']['Edit']['values']['Date']) 
+                                                        ? (new DateTime($_SESSION['APP']['Edit']['values']['Date']))->format('Y-m-d') 
+                                                        : null;
+                                                ?>
+                                                <select name="Date24" id="date24Dropdown2" style="width: 280px; margin-right: 0px;" class="date-dropdown">
+                                                    <option value="" hidden>Select a date</option>
+                                                    <?php foreach ($data['edithours'] as $date): ?>
+                                                        <option value="<?= $date['date'] ?>" <?= ($selectedDate24 === $date['date']) ? 'selected' : '' ?>>
+                                                            <?= $date['date'] ?> - <?= $date['dayName'] ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <p class="error"> <?= isset($data['editerrors']['Date']) ? $data['editerrors']['Date'] : '' ?> </p>
@@ -674,138 +683,113 @@
         document.getElementById('residforreview').value = Res_Id;
     }
 
-    function editReservation(ResID){
+    function editReservation(ResID) {
         console.log(ResID);
         if (ResID) {
             fetch('<?= ROOT ?>/Child/Reservation/GeteditReservation', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: JSON.stringify({ ResID: ResID })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        openeditModal();
-                        document.getElementById('date-inputforpost2').value = data.data.Date;
-                        document.getElementById('modal-Res_Id').value = data.data.ResID;
-                        document.getElementById('modal-Date').value = data.data.Date;
-                        document.getElementById('modal-Start_Time').value = data.data.Start_Time;
-                        // Prepend the new date to the existing list
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: JSON.stringify({ ResID: ResID })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    openeditModal();
+                    document.getElementById('date-inputforpost2').value = data.data.Date;
+                    document.getElementById('modal-Res_Id').value = data.data.ResID;
+                    document.getElementById('modal-Date').value = data.data.Date;
+                    document.getElementById('modal-Start_Time').value = data.data.Start_Time;
 
-                        if (data.data.End_Time !== null && data.data.End_Time !== undefined) {
-                            document.getElementById('modal-End_Time').value = data.data.End_Time;
-                            const datesContainer = document.getElementById('datesforreservation2');
-                            const existingDatesHTML = datesContainer.innerHTML;
+                    const dateString = data.data.Date; 
+                    const dateObj = new Date(dateString);
+                    const formattedMonthYear = dateObj.toLocaleString('en-US', {
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                    console.log(formattedMonthYear);
+                    document.getElementById('month').innerHTML = formattedMonthYear;
 
-                            // Extract date values
-                            const dateOb = new Date(data.data.Date);
-                            const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' }); // e.g., "Tue"
-                            const dayNumber = dateOb.getDate(); // e.g., 8
-
-                            // Create new HTML for the selected date
-                            const newDateHTML = `
-                                <div class="date select">
-                                    <p class="whichday">${dayName}</p>
-                                    <h1 class="day">${dayNumber}</h1>
-                                </div>
-                            `;
-
-                            datesContainer.innerHTML = newDateHTML + existingDatesHTML;
-
-                            const datesContainer2 = document.getElementById('datesfor24reservation2');
-                            const existingDatesHTML2 = datesContainer2.innerHTML;
-
-                            // Extract date values
-                            const dateOb2 = new Date(data.data.Date);
-                            const dayName2 = dateOb2.toLocaleString('en-US', { weekday: 'short' });
-                            const dayNumber2 = dateOb2.getDate(); // e.g., 8
-
-                            // Create new HTML for the selected date
-                            const newDateHTML2 = `
-                                <div class="date select">
-                                    <p class="whichday">${dayName}</p>
-                                    <h1 class="day">${dayNumber}</h1>
-                                </div>
-                            `;
-
-                            datesContainer2.innerHTML = newDateHTML2 + existingDatesHTML2;
-                        }
-                        else{
-                            document.getElementById('datesforreservation2').style.display= 'none';
-                            document.getElementById('datesfor24reservation2').style.display= 'flex';
-                            document.getElementById('modal-End_Time').removeAttribute('required');
-                            document.getElementById('modal-End_Time').value = data.data.End_Time;
-                            const datesContainer = document.getElementById('datesfor24reservation2');
-                            const existingDatesHTML = datesContainer.innerHTML;
-
-                            // Extract date values
-                            const dateOb = new Date(data.data.Date);
-                            const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' });
-                            const dayNumber = dateOb.getDate(); // e.g., 8
-
-                            // Create new HTML for the selected date
-                            const newDateHTML = `
-                                <div class="date select">
-                                    <p class="whichday">${dayName}</p>
-                                    <h1 class="day">${dayNumber}</h1>
-                                </div>
-                            `;
-
-                            datesContainer.innerHTML = newDateHTML + existingDatesHTML;
-
-                            if(data.data.Allow){
-                                const datesContainer = document.getElementById('datesforreservation2');
-                                const existingDatesHTML = datesContainer.innerHTML;
-
-                                // Extract date values
-                                const dateOb = new Date(data.data.Date);
-                                const dayName = dateOb.toLocaleString('en-US', { weekday: 'short' }); // e.g., "Tue"
-                                const dayNumber = dateOb.getDate(); // e.g., 8
-
-                                // Create new HTML for the selected date
-                                const newDateHTML = `
-                                    <div class="date select">
-                                        <p class="whichday">${dayName}</p>
-                                        <h1 class="day">${dayNumber}</h1>
-                                    </div>
-                                `;
-
-                                datesContainer.innerHTML = newDateHTML + existingDatesHTML;
-                            }
-                        }
-                        const dateString = data.data.Date; // e.g., "2025-04-08"
-                        const dateObj = new Date(dateString);
-
-                        // Format to "April 2025"
-                        const formattedMonthYear = dateObj.toLocaleString('en-US', {
-                            month: 'long',
-                            year: 'numeric'
-                        });
-
-                        console.log(formattedMonthYear);
-                        document.getElementById('month').innerHTML = formattedMonthYear;
-                        if(data.data.Is_24_Hour){
-                            enddiv2.style.display = 'none';
-                            document.getElementById('editfull-day').checked = true;
-                            const isChecked = document.getElementById('editfull-day').checked;
-                            console.log('Checked?', isChecked);
-                        }
-                        if (data.data.Notes !== null) {
-                            document.getElementById('modal-Notes').value = data.data.Notes;
-                        } else {
-                            document.getElementById('modal-Notes').value = ''; // Clear the notes field if empty
-                        }
-                        highlightSelectedDate();
+                    // End time handling
+                    if (data.data.End_Time !== null && data.data.End_Time !== undefined) {
+                        document.getElementById('modal-End_Time').value = data.data.End_Time;
                     } else {
-                        alert(data.message);
+                        document.getElementById('modal-End_Time').value = '';
                     }
-                })
+
+                    // Notes handling
+                    document.getElementById('modal-Notes').value = data.data.Notes || '';
+
+                    // Get the formatted date (Y-m-d)
+                    const formattedDate = data.data.Date;
+                    const dayName = dateObj.toLocaleString('en-US', { weekday: 'short' }); // Tue, Wed etc
+
+                    // References to dropdowns
+                    const dropdown = document.getElementById('dateDropdown2');
+                    const dropdown24 = document.getElementById('date24Dropdown2');
+
+                    if (data.data.Is_24_Hour) {
+                        // 24-hour reservation: show date24Dropdown2
+                        enddiv2.style.display = 'none';
+                        document.getElementById('editfull-day').checked = true;
+                        document.getElementById('datesforreservation2').style.display = 'none';
+                        document.getElementById('datesfor24reservation2').style.display = 'flex';
+                        document.getElementById('modal-End_Time').removeAttribute('required');
+
+                        // Add the date to the 24-hour dropdown if not already there
+                        let existingOption24 = dropdown24.querySelector(`option[value="${formattedDate}"]`);
+                        if (!existingOption24) {
+                            const newOption24 = document.createElement('option');
+                            newOption24.value = formattedDate;
+                            newOption24.textContent = `${formattedDate} - ${dayName}`;
+                            dropdown24.prepend(newOption24);
+                        }
+
+                        // Set selected
+                        dropdown24.value = formattedDate;
+
+                    } else {
+                        // Not a 24-hour reservation: show both dropdowns and update both
+                        enddiv2.style.display = 'block';
+                        document.getElementById('editfull-day').checked = false;
+                        document.getElementById('datesforreservation2').style.display = 'flex';
+                        document.getElementById('datesfor24reservation2').style.display = 'none';
+
+                        // Add the date to both dropdowns if not already there
+                        let existingOption = dropdown.querySelector(`option[value="${formattedDate}"]`);
+                        if (!existingOption) {
+                            const newOption = document.createElement('option');
+                            newOption.value = formattedDate;
+                            newOption.textContent = `${formattedDate} - ${dayName}`;
+                            dropdown.prepend(newOption);
+                        }
+
+                        let existingOption24 = dropdown24.querySelector(`option[value="${formattedDate}"]`);
+                        if (!existingOption24) {
+                            const newOption24 = document.createElement('option');
+                            newOption24.value = formattedDate;
+                            newOption24.textContent = `${formattedDate} - ${dayName}`;
+                            dropdown24.prepend(newOption24);
+                        }
+
+                        // Set selected in the normal reservation dropdown
+                        dropdown.value = formattedDate;
+                    }
+
+                    highlightSelectedDate(); // If you have highlighting logic
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         } else {
             alert('No Reservation ID provided');
         }
     }
+
 
     function openviewModal() {
         document.getElementById('ReservationViewModal').style.display = 'flex';
@@ -1163,14 +1147,15 @@
                 redstar7.classList.add('hidden');
             }
         })
-
+        
+        if(endtime){
         endtime.addEventListener('input', function() {
             if (!endtime.value) {
                 redstar8.classList.remove('hidden');
             } else {
                 redstar8.classList.add('hidden');
             }
-        })
+        })}
 
         const reservationeditbtn = document.querySelectorAll('.reservation-edit');
         const backforreservationedit = document.getElementById('backforreservationedit');

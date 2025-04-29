@@ -2,6 +2,7 @@
 
 namespace Controller;
 use App\Helpers\SidebarHelper;
+use App\Helpers\ChildHelper;
 use DateTime;
 
 defined('ROOTPATH') or exit('Access denied');
@@ -12,6 +13,8 @@ class Home
 
     public function index()
     {
+        // $session = new \Core\Session;
+        // $session->set("USERID", 1);
         $session = new \Core\Session;
         $session->check_login();
         $session->check_child();
@@ -35,12 +38,43 @@ class Home
         $data = $data + $this->store_stats();
         $data['holiday'] = $this->holidays();
         $data['Notification'] = $this->Notifications();
+        $data['reminders'] = $this->store_reminders();
         $session->set("Location" , 'Child/Home');
 
         $this->view('Child/home', $data);
     }
 
+    private function store_reminders() {
+        $reminderModal = new \Modal\Reminder;
+        $childModal = new \Modal\Child;
+        $session = new \Core\Session;
+    
+        $ChildID = $session->get("CHILDID");
+        $today = date('Y-m-d');
+    
+        $data = [];
+        $child = $childModal->first(["ChildID" => $ChildID]);
+    
+        if ($child) {
+            // Fetch reminders for this child
+            $reminders = $reminderModal->where_order(["ChildID" => $ChildID, "Date" => $today], [], "Date");
+            if (!empty($reminders)) {
+                foreach ($reminders as &$reminder) {
+                    $reminder->Name = $child->First_Name; // Add child's name into reminder
+                }
+    
+                // Merge into data
+                if (is_array($reminders)) {
+                    $data = array_merge($data, $reminders);
+                }
+            }
+        }
+        return $data;
+    }    
+
     public function SeenNotification(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
         $NotificationModal = new \Modal\ChildNotification;
 
@@ -55,6 +89,8 @@ class Home
     }
 
     private function Notifications() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $NotificationModal = new \Modal\ChildNotification;
         $session = new \Core\Session;
         $ChildID = $session->get("CHILDID");
@@ -85,6 +121,8 @@ class Home
     }    
 
     private function holidays() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $HolidayModal = new \Modal\Holiday;
         $firstDate = new DateTime();
         $lastDate = (clone $firstDate)->modify('+30 days');
@@ -94,6 +132,8 @@ class Home
     }    
 
     public function GetCalendar(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         // Get raw JSON from POST
         $raw = file_get_contents("php://input");
         $body = json_decode($raw, true);
@@ -168,6 +208,8 @@ class Home
 
     private function store_stats(){
 
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $today = new \DateTime();
         $today = $today->format("Y-m-d");
         $session = new \Core\Session;
@@ -196,12 +238,15 @@ class Home
                 $stats['stat2'] = [
                     'Time' => $row->Time,
                     'Person' => $row->Person,
-                    'Image' => $base64Image
+                    'Image' => $base64Image,
+                    'OTP' => $row->OTP,
+                    "NID" => $row->NID,
                 ];
             } else {
                 $stats['stat2'] = [
                     'Time' => $row->Time,
-                    'Person' => $row->Person
+                    'Person' => $row->Person,
+                    'OTP' => $row->OTP
                 ];
             }
         }
@@ -236,6 +281,8 @@ class Home
     }
 
     public function deletePickup(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
 
@@ -254,6 +301,8 @@ class Home
     }
 
     public function handlePickups(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
     
         $session = new \Core\Session;
@@ -265,7 +314,6 @@ class Home
     
         $_POST['Person'] = $_POST['PersonType'] ?? null;
         $_POST['AllChild'] = 0;
-        $_POST['OTP'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
         $_POST['Date'] = $today;
     
         unset($_POST['PersonType'], $_POST['selectedPerson'], $_POST['inform']);
@@ -315,6 +363,8 @@ class Home
     }    
 
     private function store_attendance() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \core\session;
         $ChildID = $session->get("CHILDID");
     
@@ -357,6 +407,8 @@ class Home
 
     private function selectedchild($selectedchild)
     {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $data = [];
 
         // Retrieve the specific child's profile image and details
@@ -383,6 +435,8 @@ class Home
     }
 
     public function store_schedule(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         header('Content-Type: application/json');
         $requestData = json_decode(file_get_contents("php://input"), true);
 
@@ -399,7 +453,7 @@ class Home
         $ActivityModal = new \Modal\Activity;
 
         $Child = $ChildModal->first(["ChildID" => $ChildID]);
-        $validAgeGroups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+        $validAgeGroups = ['3-5'. '6-9', '10-13'];
 
         // Calculate the child's age at the start of the current year (January 1st)
         $dob = new \DateTime($Child->DOB); // Assuming $Child->DOB is a valid date string
@@ -407,19 +461,8 @@ class Home
         $startOfYear = new \DateTime("{$currentYear}-01-01");
 
         // Calculate the age as of January 1st of the current year
-        $ageAtStartOfYear = $dob->diff($startOfYear)->y;
-
-        // Map the age to the corresponding age group
-        $AgeGroup = null; // Initialize with null in case no match is found
-
-        foreach ($validAgeGroups as $group) {
-            [$minAge, $maxAge] = explode('-', $group);
-
-            if ($ageAtStartOfYear >= $minAge && $ageAtStartOfYear <= $maxAge) {
-                $AgeGroup = $group;
-                break;
-            }
-        }
+        $ChildHelper = new ChildHelper();
+        $AgeGroup = $ChildHelper->getAgeGroup($Child->DOB);
         
         $subjects = $AssignModal->where_order(["Agegroup" => $AgeGroup, "Date" => $date], [] , 'Start_Time');
         foreach ($subjects as $subject) {
@@ -485,12 +528,13 @@ class Home
         } else {
             echo json_encode(['success' => true, 'data' => $subjects]);
         }
-
     }
 
     public function setchildsession()
     {
 
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -512,7 +556,8 @@ class Home
 
     public function removechildsession()
     {
-
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -534,6 +579,8 @@ class Home
     }
 
     public function Logout(){
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \core\Session();
         $session->logout();
 
@@ -542,6 +589,8 @@ class Home
     }
 
     public function minimize() {
+        $session = new \Core\Session;
+        $session->set("USERID", 1);
         $session = new \Core\Session();
         $minimized = $session->get("MINIMIZE");
         $session->set("MINIMIZE", !$minimized);

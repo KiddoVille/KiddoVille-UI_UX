@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Doctor</title>
     <link rel="stylesheet" href="<?=CSS?>/Doctor/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/variables.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?=CSS?>/Doctor/timeslot.css?v=<?= time() ?>">
@@ -22,11 +22,12 @@
         <div class="sidebar">
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <img src="<?=IMAGE?>/profilePic-2.png" alt="profile-pic">
-                    <div class="sidebar-header-content">
-                        <h3>Wane Carter</h3>
-                        <h4>Doctor</h4>
-                    </div>
+                <?php if(isset($doctor)) :?>
+                        <img src="<?=$doctor['image']?>" alt="profile-pic">
+                        <div class="sidebar-header-content">
+                            <h3><?=$doctor['Name']?></h3>
+                            <h4>Doctor</h4>
+                        </div>
                 </div>
                 <div class="sidebar-list">
                 <a href="<?=ROOT?>/Doctor/Dashboard" class="sidebar-list-item" id="dashboard-link"> 
@@ -58,15 +59,15 @@
             <div class="navabr">
                 <div class="navbar-left">
                     <a href="#"><h2>Dashboard</h2></a>
-                    <h4>12/08/2025</h3>
+                    <h4><?=$doctor['date'] ?></h3>
                 </div>
                 <div class="navbar-right">
                
                 <a href="#" class="profile">
-                    <img src="<?=IMAGE?>/profilePic-2.png"  onclick="toggleMenu()" id="profileIcon">
+                    <img src="<?=$doctor['image']?>"  onclick="toggleMenu()" id="profileIcon" height="40px">
                 </a>
                 </div>
-    
+                <?php endif; ?>  
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
                         <div class="user-info">
@@ -160,7 +161,7 @@
                         <div class="display-selected">
                             <p class="selected"></p>
                             <!-- <input type="date" name="Date" id="Date"> -->
-                             <input type=Date name="Date" id="Date"></p>
+                             <input type=Date name="Date" id="Date" hidden></p>
                         </div>
                     </div>
                    
@@ -321,6 +322,12 @@
 
     // Initial display
     displayCalendar();
+
+    const displayBox = document.querySelector(".selected").textContent;
+
+    if(displayBox != ''){
+      displayBox.classList.add("selectBox");
+    }
     </script>
     
     <script src="https://kit.fontawesome.com/73dcf6eb33.js" crossorigin="anonymous"></script>

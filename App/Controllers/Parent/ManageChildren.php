@@ -11,6 +11,8 @@
         public function index(){
 
             $session = new \Core\Session;
+            $session->set("USERID", 1);
+            $session = new \Core\Session;
             $session->check_login();
 
             $data = [];
@@ -24,6 +26,8 @@
         }
 
         public function DeleteChild(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
             $ChildID = $requestData['ChildID'];

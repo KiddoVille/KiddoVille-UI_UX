@@ -12,6 +12,7 @@
             'MaidID',
             'ChildID',
             'Date',
+            'AgeGroup',
         ];
 
         public function validate($data){

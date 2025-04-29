@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <title>Document</title>
+<title>Maid</title>
 </head>
 <body>
     <div class="main">
@@ -88,128 +88,40 @@
                                         <span>Child</span>
                                     </div>
                                     <div class="skill">
-                                        <span>Attendance</span>
+                                        <span>Alergies</span>
                                     </div>
                                     <div class="profile">
                                         <span>Profile</span>
                                     </div>
                                 </div>
                                 <div class="members">
+                                <?php if (!empty($children)): ?>
+                                    <?php foreach ($children as $child): ?>
                                     <div class="member">
                                         <div class="child_row">
                                             <div class="photo_child">
                                                 <img alt="User profile picture" height="35" width="35" src="./assets/profilePic-1.png" width="50"/>
                                             </div>
                                             <div class="name">
-                                                <span>Thilina Perera</span>
+                                                <span><?= htmlspecialchars($child->First_Name) ?></span>
                                             </div>
                                         </div>
                                        <div class="skill_content">
-                                        <div class="skill_line">
-                                            <div class="skill_percentage"></div>   
-                                        </div>
-                                        <span>75%</span>
+                                        
+                                        <span><?= htmlspecialchars($child->Allergies) ?></span>
                                        </div>
                                        <div class="navigation_button">
-                                            <div class="view_profile">
-                                                <span>Profile</span>
-                                            </div>
+                                            <form class="view_profile"method="post" action="<?=ROOT?>/Maid/Home/conditions">
+                                                <input type="hidden" name="child_id" value="<?= htmlspecialchars($child->ChildID) ?>">
+                                                <button type = "submit">Alerts</button>
+                                    </form>
                                        </div>
                                        
                                     </div>
                                     <hr>
-                                    <div class="member">
-                                        <div class="child_row">
-                                            <div class="photo_child">
-                                                <img alt="User profile picture" height="35" width="35" src="./assets/profilePic-1.png" width="50"/>
-                                            </div>
-                                            <div class="name">
-                                                <span>Thilina Perera</span>
-                                            </div>
-                                        </div>
-                                       <div class="skill_content">
-                                        <div class="skill_line">
-                                            <div class="skill_percentage"></div>   
-                                        </div>
-                                        <span>75%</span>
-                                       </div>
-                                       <div class="navigation_button">
-                                            <div class="view_profile">
-                                                <span>Profile</span>
-                                            </div>
-                                       </div>
-                                       
-                                    </div>
-                                    <hr>
-                                    <div class="member">
-                                        <div class="child_row">
-                                            <div class="photo_child">
-                                                <img alt="User profile picture" height="35" width="35" src="./assets/profilePic-1.png" width="50"/>
-                                            </div>
-                                            <div class="name">
-                                                <span>Thilina Perera</span>
-                                            </div>
-                                        </div>
-                                       <div class="skill_content">
-                                        <div class="skill_line">
-                                            <div class="skill_percentage"></div>   
-                                        </div>
-                                        <span>75%</span>
-                                       </div>
-                                       <div class="navigation_button">
-                                            <a href="studenprofile.html"><div class="view_profile">
-                                                <span>Profile</span>
-                                            </div></a>
-                                       </div>
-                                       
-                                    </div>
-                                    <hr>
-                                    <div class="member">
-                                        <div class="child_row">
-                                            <div class="photo_child">
-                                                <img alt="User profile picture" height="35" width="35" src="./assets/profilePic-1.png" width="50"/>
-                                            </div>
-                                            <div class="name">
-                                                <span>Thilina Perera</span>
-                                            </div>
-                                        </div>
-                                       <div class="skill_content">
-                                        <div class="skill_line">
-                                            <div class="skill_percentage"></div>   
-                                        </div>
-                                        <span>75%</span>
-                                       </div>
-                                       <div class="navigation_button">
-                                            <div class="view_profile">
-                                                <span>Profile</span>
-                                            </div>
-                                       </div>
-                                       
-                                    </div>
-                                    <hr>
-                                    <div class="member">
-                                        <div class="child_row">
-                                            <div class="photo_child">
-                                                <img alt="User profile picture" height="35" width="35" src="./assets/profilePic-1.png" width="50"/>
-                                            </div>
-                                            <div class="name">
-                                                <span>Thilina Perera</span>
-                                            </div>
-                                        </div>
-                                       <div class="skill_content">
-                                        <div class="skill_line">
-                                            <div class="skill_percentage"></div>   
-                                        </div>
-                                        <span>75%</span>
-                                       </div>
-                                       <div class="navigation_button">
-                                            <div class="view_profile">
-                                                <span>Profile</span>
-                                            </div>
-                                       </div>
-                                       
-                                    </div>
-                                    <hr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                                    
                                     
                                 </div>
                             </div>
@@ -219,34 +131,7 @@
                                  <h3>
                                   Activity Schedule
                                  </h3>
-                                 <table>
-                                  <tr>
-                                   <th>
-                                    Date
-                                   </th>
-                                   <th>
-                                    Age Group
-                                   </th>
-                                  </tr>
-                                  <tr>
-                                   <td>
-                                   <input type="date"/>
-                                   </td>
-                                   <td>
-                                    <div class="select-agegroup">
-                                        <div class="select">
-                                            <span>Age Group</span>
-                                            <i class="fas fa-angle-down"></i>
-                                        </div>
-                                        <div class="option-list">
-                                            <div class="option">Age 2-5</div>
-                                            <div class="option">Age 6-9</div>
-                                            <div class="option">Age 10-13</div>
-                                        </div>
-                                    </div>
-                                   </td>
-                                  </tr>
-                                 </table>
+                                 
                                  <div class = "activity"><table>
                                     <tr>
                                      <th>
@@ -259,122 +144,36 @@
                                       Status
                                      </th>
                                     </tr>
+                                <?php if (!empty($activities)): ?>
+                                    <?php foreach ($activities as $activity): ?>
                                     <tr>
                                      <td>
-                                      08:00 - 09:00 AM
+                                     <?= htmlspecialchars($activity->Start_Time) ?> - <?= htmlspecialchars($activity->End_Time) ?>
                                      </td>
                                      <td>
-                                      Breakfast
+                                     <?= htmlspecialchars($activity->Activity) ?>
                                      </td>
                                      <td>
-                                      <div class = "holder">
-                                          <input class="tog-but" type="checkbox" id="check_1">
-                                          <label for = "check_1" class="tog"></label>
-                                      </div>
+                                      <?php if(isset($activity->IsCompleted) && $activity->IsCompleted == 1): ?>
+                                        <div class="holder">
+                                            <input class="tog-but" type="checkbox" id="check_<?= htmlspecialchars($activity->WorkID) ?>" checked> 
+                                            <label for="check_<?= htmlspecialchars($activity->WorkID)?>" class="tog"></label>
+                                        </div>   
+                                           
+                                        <?php else: ?>
+                                            <form class="holder" method = "post" action="<?=ROOT?>/Maid/Home/markActivity">
+                                                <input class="tog-but" type="checkbox" id="check_<?= htmlspecialchars($activity->WorkID) ?>" value = "<?= htmlspecialchars($activity->WorkID) ?>" name = "work_id" onchange="this.form.submit()"/>
+                                                <label for ="check_<?= htmlspecialchars($activity->WorkID)?>" class="tog"></label>
+                                            </form>     
+                                       <?php endif; ?> 
+                                   
+                                     
                                      </td>
                                     </tr>
-                                    <tr>
-                                     <td>
-                                      09:00 - 10:00 AM
-                                     </td>
-                                     <td>
-                                      Creative Play
-                                     </td>
-                                     <td>
-                                      <div class = "holder">
-                                          <input class="tog-but" type="checkbox" id="check_2">
-                                          <label for = "check_2" class="tog"></label>
-                                      </div>
-                                     </td>
-                                    </tr>
-                                    <tr>
-                                     <td>
-                                      10:00 - 11:00 AM
-                                     </td>
-                                     <td>
-                                      Creative Play
-                                     </td>
-                                     <td>
-                                      <div class = "holder">
-                                          <input class="tog-but" type="checkbox" id="check_3">
-                                          <label for = "check_3" class="tog"></label>
-                                      </div>
-                                     </td>
-                                    </tr>
-                                    <tr>
-                                     <td>
-                                      11:00 - 12:00 AM
-                                     </td>
-                                     <td>
-                                      Story Time
-                                     </td>
-                                     <td>
-                                      <div class = "holder">
-                                          <input class="tog-but" type="checkbox" id="check_4">
-                                          <label for = "check_4" class="tog"></label>
-                                      </div>
-                                     </td>
-                                    </tr>
-                                    <tr>
-                                     <td>
-                                      12:00 - 01:00 PM
-                                     </td>
-                                     <td>
-                                      Lunch
-                                     </td>
-                                     <td>
-                                      <div class = "holder">
-                                          <input class="tog-but" type="checkbox" id="check_5">
-                                          <label for = "check_5" class="tog"></label>
-                                      </div>
-                                     </td>
-                                    </tr>
-                                    <tr>
-                                     <td>
-                                      01:00 - 02:00 PM
-                                     </td>
-                                     <td>
-                                      Bed Time
-                                     </td>
-                                     <td>
-                                      <div class = "holder">
-                                          <input class="tog-but" type="checkbox" id="check_6">
-                                          <label for = "check_6" class="tog"></label>
-                                      </div>
-                                     </td>
-                                    </tr>
-                                    <tr>
-                                     <td>
-                                      02:00 - 03:00 PM
-                                     </td>
-                                     <td>
-                                      Basic Learning Activities
-                                     </td>
-                                     <td>
-                                      <div class = "holder">
-                                          <input class="tog-but" type="checkbox" id="check_7">
-                                          <label for = "check_7" class="tog"></label>
-                                      </div>
-                                     </td>
-                                    </tr>
-                                    <tr>
-                                     <td>
-                                      03:00 - 04:00 PM
-                                     </td>
-                                     <td>
-                                      Tea Time
-                                     </td>
-                                     <td>
-                                      <div class = "holder">
-                                          <input class="tog-but" type="checkbox" id="check_8">
-                                          <label for = "check_8" class="tog"></label>
-                                      </div>
-                                     </td>
-                                    </tr>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                    </table>
-                                   <div class = "reset">
-                                    <button id = "rset-button">Reset</button>
-                                   </div>
+                                  
                                 </div>
                             </div>
                         </div>
@@ -382,7 +181,7 @@
                 </div>
             </div>
             
-            <script src="./receptionist_attendance.js"></script>
-            <script src = './maid_dashboard_skill.js' ></script>
+            <!-- <script src="./receptionist_attendance.js"></script>
+            <script src = './maid_dashboard_skill.js' ></script> -->
 </body>
 </html>

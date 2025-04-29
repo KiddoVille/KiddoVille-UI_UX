@@ -12,6 +12,7 @@
             'AppointmentID',
             'SlotID',
             'ChildID',
+            'DoctorID',
             'Booked_At'
         ];
 

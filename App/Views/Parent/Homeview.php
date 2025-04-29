@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Dashboard</title>
+<title>Parent</title>
     <link rel="icon" href="<?= IMAGE ?>/logo_light-remove.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -495,7 +495,7 @@
                                 value="<?= isset($data['stat2']['OTP']) ? $data['stat2']['OTP'] : '' ?>" />
                             <p id="otpError" style="color: red; display: none;"></p>
                         </div>
-                        <div class="pickup-section" id="PickupNID" style="display: <?= isset($data['stat2']['NID']) ? 'flex' : 'none' ?>;">
+                        <div class="pickup-section" id="PickupNID" style="display: <?= isset($data['stat2']['NID']) ? 'block' : 'none' ?>;">
                             <label for="NID">Provide NID <span id="red-star" class="red-star"> *</span></label>
                             <input name="NID"
                                 style="width: 330px;"
@@ -505,6 +505,7 @@
                                 maxlength="12" <?= isset($data['stat2']['NID']) ? 'required' : '' ?>
                                 oninput="this.value = this.value.slice(0, 12);"
                                 value="<?= isset($data['stat2']['NID']) ? $data['stat2']['NID'] : '' ?>" />
+                            <p id="nidError" style="color: red; display: none;"></p>
                         </div>
                         <div class="pickup-section">
                             <label>Select person for pickup</label>
@@ -774,12 +775,31 @@
         }
     }
 
+    const nidInput = document.getElementById('Newnid');
+    const otpInput = document.getElementById('pickupotp');
+    const nidError = document.getElementById('nidError');
+
+    // NID Validation on input
+    nidInput.addEventListener('input', function() {
+        const value = nidInput.value.trim();
+
+        if (value.length !== 12) {
+            nidError.textContent = "NID must be exactly 12 digits.";
+            nidError.style.display = 'block';
+        } else {
+            nidError.style.display = 'none';
+        }
+    });
+
     pickupForm.addEventListener("submit", function(event){
         event.preventDefault();
         const otpInput = document.getElementById('pickupotp');
         const isValidOtp = validateOTP(otpInput);
 
         if (!isValidOtp) {
+            return;
+        }
+        if(nidInput.style.display === 'block') {
             return;
         }
         const formData = new FormData(pickupForm);

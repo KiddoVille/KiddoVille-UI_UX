@@ -10,7 +10,8 @@
         use MainController;
         public function index()
         {
-
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $session = new \Core\Session;
             $session->check_login();
             $session->check_child('Parent');
@@ -33,6 +34,8 @@
         }
 
         public function store_media() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
         
@@ -79,7 +82,7 @@
             $age = $start_of_year->diff($dob_date)->y;
         
             // Map Age to AgeGroup
-            $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+            $age_groups = ['3-5','6-9','10-13'];
             $AgeGroup = '2-3'; // Default AgeGroup
         
             foreach ($age_groups as $group) {
@@ -129,6 +132,8 @@
         }
         
         public function store_extra() {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             header('Content-Type: application/json');
             $requestData = json_decode(file_get_contents("php://input"), true);
         
@@ -165,7 +170,7 @@
                     $age = $start_of_year->diff($dob_date)->y;
         
                     // Map Age to AgeGroup
-                    $age_groups = ['2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15'];
+                    $age_groups = ['3-5','6-9','10-13'];
                     $AgeGroup = '2-3'; // Default AgeGroup
         
                     foreach ($age_groups as $group) {
@@ -243,6 +248,8 @@
 
         private function selectedchild($selectedchild)
         {
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $data = [];
 
             $imageData = $selectedchild->Image;
@@ -267,7 +274,8 @@
 
         public function setchildsession()
         {
-
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -289,7 +297,8 @@
 
         public function removechildsession()
         {
-
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -311,6 +320,8 @@
         }
 
         public function Logout(){
+            $session = new \Core\Session;
+            $session->set("USERID", 1);
             $session = new \core\Session();
             $session->logout();
 

@@ -193,14 +193,24 @@
     background-color:var(--secondary-color) ;
 }
 .mark-section{
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     padding: 5px 10px;
     gap: 30px;
     width: 70%;
+    margin-top: -10px;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
+.mark-section.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+.card-content .submit-msg{
+    display: none;}
 .mark-section form{
     width: 100%;
     display: flex;
@@ -257,14 +267,19 @@
     transition: height 0.3s ease; /* Smooth transition if heights change */
 }
 .message{
-    color: #d54242;
-    width: 100%;
-    padding: 10px 30px;
-    border: 1px;
-    background-color: #fbcaca94;
-    margin: 8px 5px;
-    border-radius: 8px;
-    text-align: center;
+    display: block;
+    background-color: #fff5f5;
+    border-left: 4px solid #e53e3e;
+    color: #c53030;
+    padding: 8px 12px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    line-height: 1.4;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;;
 }
 .pending-msg{
     margin-top: -80px;

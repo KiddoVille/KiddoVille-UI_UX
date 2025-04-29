@@ -1,7 +1,7 @@
     <html>
 
     <head>
-        <title>View Packages</title>
+    <title>Manager</title>
         <link rel="icon" href="../Assets/KIDDOVILLE_LOGO.jpg">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../Header/Header.css" />

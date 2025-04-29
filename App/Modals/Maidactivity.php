@@ -10,10 +10,10 @@
         protected $table = 'maidactivity';
         protected $allowedColumns = [
             'WorkID',
-            'MaidID',
             'Date',
             'Start_Time',
             'End_Time',
+            'IsCompleted',
             'Activity'
         ];
 

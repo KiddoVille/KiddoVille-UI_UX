@@ -17,7 +17,7 @@ class Foodtable
         $data['Meal'] = $this->food_items();
         // show($data);
         $this->view('Manager/Foodtable', $data);
-    
+ 
     }
 
     private function getRandomMeals($array, $count = 3) {
