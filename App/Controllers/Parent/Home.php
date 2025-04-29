@@ -11,7 +11,7 @@
         public function index(){
 
             $session = new \Core\Session;
-            $session->set("USERID", 1);
+            // $session->set("USERID", 1);
             $session->check_login();
 
             $data = [];
@@ -572,16 +572,6 @@
                     "Start_Date" => $CurrentDate
                 ]);
 
-                $validAgeGroups = ['3-5', '6-9', '10-13'];
-
-                // Calculate the child's age at the start of the current year (January 1st)
-                $dob = new \DateTime($Children->DOB); // Assuming $Child->DOB is a valid date string
-                $currentYear = (new \DateTime())->format('Y');
-                $startOfYear = new \DateTime("{$currentYear}-01-01");
-        
-                // Calculate the age as of January 1st of the current year
-                $ageAtStartOfYear = $dob->diff($startOfYear)->y;
-        
                 // Map the age to the corresponding age group
                 $ChildHelper = new ChildHelper();
                 $AgeGroup = $ChildHelper->getAgeGroup($Children->DOB);
@@ -591,14 +581,16 @@
                     $ActivityModal = new \Modal\Activity;
 
                     // Get all subjects assigned for the child's age group today
-                    $subjects = $AssignModal->where_order(["Agegroup" => $AgeGroup, "Date" => $CurrentDate]);
+                    $subjects = $AssignModal->where_order(["Agegroup" => $AgeGroup, "Date" => $CurrentDate], [], 'Start_Time');
 
                     // Filter the activities to check if the current time is within Start_Time and End_Time
                     if(!empty($subjects)){
                         $currentActivity = array_filter($subjects, function ($subject) use ($CurrentTime) {
                             return $subject->Start_Time <= $CurrentTime && $subject->End_Time >= $CurrentTime;
                         });
-                        $currentActivity = reset($currentActivity); // Ensures we get the first element safely
+                        if (!empty($currentActivity)) {
+                            $currentActivity = reset($currentActivity);
+                        }
                     }
 
                     // Get the first valid activity
@@ -607,8 +599,7 @@
                     if (!empty($currentActivity)) {
                         // Fetch activity details using WorkID
                         $activityDetails = $ActivityModal->first(["WorkID" => $currentActivity->WorkID]);
-
-                        $child['Activity'] = $currentActivity->Subject ?? "No Subject";
+                        $child['Activity'] = $currentActivity->Activity ?? "No Subject";
                         $child['Description'] = $activityDetails->Description ?? "No Description";
                     } else {
                         $child['Activity'] = "No ongoing activity";
