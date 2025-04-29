@@ -121,7 +121,6 @@ class Home
                 }
             }
         }
-
         $data['emergency'] = $rows;
         return $data;
     }
