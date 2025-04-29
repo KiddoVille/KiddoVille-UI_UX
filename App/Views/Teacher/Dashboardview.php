@@ -261,7 +261,8 @@
                                                 <p>Outstanding</p>
                                             </div>
                                             <div class="percent">
-                                                <p>55%</p>
+                                                <p><?=$dataArray[0]?>%
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="legend">
@@ -270,7 +271,7 @@
                                                 <p>Satisfactory</p>
                                             </div>
                                             <div class="percent">
-                                                <p>20%</p>
+                                                <p><?=$dataArray[1]?>%</p>
                                             </div>
                                         </div>
                                      </div>
@@ -281,7 +282,7 @@
                                                 <p>Developing </p>
                                             </div>
                                             <div class="percent">
-                                                <p>15%</p>
+                                                <p><?=$dataArray[2]?>%</p>
                                             </div>
                                         </div>
                                         <div class="legend">
@@ -290,7 +291,7 @@
                                                 <p>Weak </p>
                                             </div>
                                             <div class="percent">
-                                                <p>10%</p>
+                                                <p><?=$dataArray[2]?>%</p>
                                             </div>
                                         </div>
                                      </div>             
@@ -409,6 +410,13 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script>
+        const phpData = <?= json_encode($dataArray) ?>;
+    </script>
+
+<script src="graph.js"></script> <!-- Load your graph after phpData is ready -->
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="<?=JS?>/Teacher/script.js"></script>
     <script src="<?=JS?>/Teacher/graphs.js"></script>
@@ -468,10 +476,7 @@ function fetchTaskList(value = null) {
                                     <i class='bx bx-time-five'></i>
                                     <p class="time">${escapeHTML(task.Start_Time)} - ${escapeHTML(task.End_Time)} PM</p>
                                 </div>
-                                <div class="data-2 set">
-                                    <i class='bx bx-group'></i>
-                                    <p class="time">36 students</p>
-                                </div>
+                               
                                 <div class="data-3 set">
                                     <div class="panel" id="accd-delete">
                                         <div class="title">

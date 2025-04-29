@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dataPie = {
       labels: ['Outstanding ', 'Satisfactory ', 'Needs Improvement', 'Unsatisfactory '], // Optional labels
       datasets: [{
-        data: [55, 20, 15, 10], // Values
+        data: phpData, // Values
         backgroundColor: [
           '#46bd91',
           '#46a7f7',
