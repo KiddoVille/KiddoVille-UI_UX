@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Publish Leaves</title>
+<title>Manager</title>
     <link rel="stylesheet" href="<?= CSS ?>/Manager/meeting.css">
     <link rel="icon" href="C:\Users\Lenovo\Desktop\Daycare front end\Assets\KIDDOVILLE_LOGO.jpg">
 </head>

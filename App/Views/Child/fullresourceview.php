@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Kiddo Ville</title>
+<title>Parent</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <link rel="stylesheet" href="<?= CSS ?>/Child/full-video.css?v=<?= time() ?>">
